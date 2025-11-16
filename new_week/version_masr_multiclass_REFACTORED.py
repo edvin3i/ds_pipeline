@@ -390,7 +390,7 @@ class PanoramaWithVirtualCamera:
             if nvinfer_src_pad:
                 nvinfer_src_pad.add_probe(
                     Gst.PadProbeType.BUFFER,
-                    self.analysis_probe_handler.analysis_probe,
+                    self.analysis_probe_handler.handle_analysis_probe,
                     None
                 )
                 logger.info("✓ Analysis probe connected")
@@ -454,7 +454,7 @@ class PanoramaWithVirtualCamera:
             if vcam_sink_pad:
                 vcam_sink_pad.add_probe(
                     Gst.PadProbeType.BUFFER,
-                    self.vcam_probe_handler.vcam_update_probe,
+                    self.vcam_probe_handler.handle_vcam_update_probe,
                     None
                 )
                 logger.info("✓ Virtual camera probe connected")
@@ -470,7 +470,7 @@ class PanoramaWithVirtualCamera:
                 if osd_sink_pad:
                     osd_sink_pad.add_probe(
                         Gst.PadProbeType.BUFFER,
-                        self.display_probe_handler.playback_draw_probe,
+                        self.display_probe_handler.handle_playback_draw_probe,
                         None
                     )
                     logger.info("✓ Display probe connected to nvdsosd")
