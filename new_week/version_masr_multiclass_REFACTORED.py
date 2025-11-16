@@ -243,8 +243,7 @@ class PanoramaWithVirtualCamera:
         self.framerate = 30
         self.buffer_manager = BufferManager(
             buffer_duration=buffer_duration,
-            framerate=self.framerate,
-            history=self.history
+            framerate=self.framerate
         )
 
         # Keep references for compatibility (delegated to BufferManager)
@@ -469,16 +468,17 @@ class PanoramaWithVirtualCamera:
         # DELEGATED: appsrc callbacks → BufferManager (pipeline)
         # ============================================================
         self.appsrc.set_property("emit-signals", True)
-        self.appsrc.connect("need-data", self.buffer_manager.on_appsrc_need_data)
+        self.appsrc.connect("need-data", self.buffer_manager._on_appsrc_need_data)
 
         if self.audio_appsrc:
             self.audio_appsrc.set_property("emit-signals", True)
-            self.audio_appsrc.connect("need-data", self.buffer_manager.on_audio_appsrc_need_data)
+            self.audio_appsrc.connect("need-data", self.buffer_manager._on_audio_appsrc_need_data)
 
         # Store references in buffer manager
-        self.buffer_manager.set_playback_elements(
+        self.buffer_manager.set_elements(
             appsrc=self.appsrc,
-            audio_appsrc=self.audio_appsrc
+            audio_appsrc=self.audio_appsrc,
+            playback_pipeline=self.playback_pipeline
         )
 
         logger.info("✓ Playback pipeline created successfully")
@@ -538,7 +538,7 @@ class PanoramaWithVirtualCamera:
         # ============================================================
         # DELEGATED: Buffer loop → BufferManager (pipeline)
         # ============================================================
-        self.buffer_manager.start_buffer_thread(self.playback_pipeline)
+        self.buffer_manager.start_buffer_thread()
 
         try:
             logger.info("Главный цикл запущен. Нажмите Ctrl+C для выхода.")
