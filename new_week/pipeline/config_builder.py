@@ -69,7 +69,7 @@ class ConfigBuilder:
         config = """[property]
 gpu-id=0
 net-scale-factor=0.0039215697906911373
-model-engine-file=yolo11n_mixed_finetune_v7_int8.engine
+model-engine-file=../models/yolo11n_mixed_finetune_v9.engine
 batch-size=6
 network-mode=2
 num-detected-classes=1
