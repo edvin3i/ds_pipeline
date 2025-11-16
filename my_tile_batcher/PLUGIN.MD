@@ -64,3 +64,14 @@ struct TileRegionInfo {
 ```
 
 For complete documentation see: `CLAUDE.MD`
+
+## References
+
+- **DeepStream Custom Plugin Guide**: https://docs.nvidia.com/metropolis/deepstream/7.1/text/DS_sample_custom_gstream.html
+- **GStreamer Plugin Writing Guide**: https://gstreamer.freedesktop.org/documentation/plugin-development/
+- **CUDA Best Practices**: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/
+
+---
+
+**Maintainer**: See main repository
+**Last Updated**: 2025-11-16

@@ -191,7 +191,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
 
 ### 1. MY_STEACH - Panorama Stitching Plugin
 
-**Location**: `/home/user/ds_pipeline/my_steach/`
+**Location**: `~/ds_pipeline/my_steach/`
 
 **Function**: Stitches two 4K camera streams into seamless equirectangular panorama
 
@@ -228,7 +228,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
 
 ### 2. MY_VIRT_CAM - Virtual Camera Plugin
 
-**Location**: `/home/user/ds_pipeline/my_virt_cam/`
+**Location**: `~/ds_pipeline/my_virt_cam/`
 
 **Function**: Extracts perspective view from equirectangular panorama with intelligent tracking
 
@@ -288,7 +288,7 @@ effective_fov = target_fov × yaw_factor
 
 ### 3. MY_TILE_BATCHER - Tile Batching Plugin
 
-**Location**: `/home/user/ds_pipeline/my_tile_batcher/`
+**Location**: `~/ds_pipeline/my_tile_batcher/`
 
 **Function**: Extracts 6× 1024×1024 tiles from panorama for efficient inference batching
 
@@ -344,7 +344,7 @@ effective_fov = target_fov × yaw_factor
 
 ### 4. Calibration Module
 
-**Location**: `/home/user/ds_pipeline/calibration/`
+**Location**: `~/ds_pipeline/calibration/`
 
 **Function**: Stereo camera calibration for precise panorama stitching
 
@@ -392,23 +392,23 @@ The stitcher (test_stiching.py) uses calibration data:
 
 ### 5. MASR Inference Pipeline
 
-**Location**: `/home/user/ds_pipeline/new_week/version_masr_multiclass.py`
+**Location**: `~/ds_pipeline/new_week/version_masr_multiclass.py`
 
 **Function**: Multi-class object detection and intelligent tracking
 
 #### Model Configuration
 
-- **Model**: YOLOv11n/s INT8 quantized
+- **Model**: YOLOv11n/s FP16
 - **Engine**: TensorRT (yolo11n_mixed_finetune_v9.engine)
 - **Batch Size**: 6 (matching tile count)
 - **Input Size**: 1024×1024 per tile
-- **Network Mode**: INT8 (mode=2)
+- **Network Mode**: FP16 (mode=2)
 - **Classes**: 5 multiclass detection
   - Class 0: ball
   - Class 1: player
-  - Class 2: staff
-  - Class 3: side_referee
-  - Class 4: main_referee
+  - Class 2: staff (ignore for now)
+  - Class 3: side_referee (ignore for now)
+  - Class 4: main_referee (ignore for now)
 
 #### Detection Thresholds
 
@@ -642,7 +642,7 @@ python3 version_masr_multiclass.py \
 ## Project Structure
 
 ```
-/home/user/ds_pipeline/
+ds_pipeline/
 ├── calibration/                  # Stereo calibration tools
 │   ├── stereo_essential_matrix.py
 │   ├── test_stiching.py
@@ -705,7 +705,7 @@ This project is a production sports analytics system. For technical questions or
 
 ---
 
-**Last Updated**: 2025-01-XX
+**Last Updated**: 2025-11-16
 **Platform**: NVIDIA Jetson Orin NX 16GB
 **DeepStream**: 7.1
 **CUDA**: 12.6

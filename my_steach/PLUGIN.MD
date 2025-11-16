@@ -4,7 +4,7 @@
 
 `nvdsstitch` is a custom GStreamer plugin for real-time stereo panorama stitching on NVIDIA Jetson platforms. It combines two 4K camera streams into a seamless equirectangular panorama using GPU-accelerated LUT-based warping.
 
-**Location**: `/home/user/ds_pipeline/my_steach/`
+**Location**: `~/ds_pipeline/my_steach/`
 **Plugin Name**: `nvdsstitch`
 **Type**: GstBaseTransform
 **Source**: 3,242 lines (C++/CUDA)
@@ -257,7 +257,7 @@ At 30 FPS: 3.3 GB/s (3.2% of 102 GB/s total)
 | **Color Analysis** | ~2-5 ms (asynchronous, every 30 frames) |
 | **Memory Usage** | ~350 MB (LUTs + buffers) |
 | **GPU Load** | ~15-20% @ 30 FPS |
-| **Power Draw** | Included in system 15W budget |
+| **Power Draw** | Included in system 40W budget |
 
 ## Build Instructions
 
@@ -277,7 +277,7 @@ sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 ### Compilation
 
 ```bash
-cd /home/user/ds_pipeline/my_steach
+cd ~/ds_pipeline/my_steach
 
 # Build
 make clean
@@ -420,11 +420,11 @@ my_steach/
 
 ## References
 
-- **DeepStream Custom Plugin Guide**: https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_dev.html
+- **DeepStream Custom Plugin Guide**: https://docs.nvidia.com/metropolis/deepstream/7.1/text/DS_sample_custom_gstream.html
 - **GStreamer Plugin Writing Guide**: https://gstreamer.freedesktop.org/documentation/plugin-development/
 - **CUDA Best Practices**: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/
 
 ---
 
 **Maintainer**: See main repository
-**Last Updated**: 2025-01-XX
+**Last Updated**: 2025-11-16

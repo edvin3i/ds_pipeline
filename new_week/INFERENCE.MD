@@ -1,6 +1,6 @@
 # MASR Multi-Class Inference Pipeline
 
-**See main documentation**: `/home/user/ds_pipeline/CLAUDE.MD` Section 5
+**See main documentation**: `~/ds_pipeline/CLAUDE.MD` Section 5
 
 ## Quick Reference
 
