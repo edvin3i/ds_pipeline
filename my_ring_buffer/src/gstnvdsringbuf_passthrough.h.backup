@@ -1,0 +1,83 @@
+// gstnvdsringbuf.h - Заголовок плагина "кольцевой буфер" для DeepStream (NVMM)
+// Автор: (ваш проект)
+
+#ifndef __GST_NVDS_RINGBUF_H__
+#define __GST_NVDS_RINGBUF_H__
+
+#include <gst/gst.h>
+#include <gst/base/gstbasetransform.h>
+#include <nvbufsurface.h>
+#include <nvbufsurftransform.h>
+
+#ifdef __aarch64__
+#include <cudaEGL.h>
+#include <cuda_runtime_api.h>
+#endif
+
+G_BEGIN_DECLS
+
+#define GST_TYPE_NVDS_RINGBUF            (gst_nvds_ringbuf_get_type())
+#define GST_NVDS_RINGBUF(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_NVDS_RINGBUF,GstNvdsRingBuf))
+#define GST_NVDS_RINGBUF_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass),GST_TYPE_NVDS_RINGBUF,GstNvdsRingBufClass))
+#define GST_IS_NVDS_RINGBUF(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj),GST_TYPE_NVDS_RINGBUF))
+#define GST_IS_NVDS_RINGBUF_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_NVDS_RINGBUF))
+
+typedef struct _GstNvdsRingBuf      GstNvdsRingBuf;
+typedef struct _GstNvdsRingBufClass GstNvdsRingBufClass;
+
+typedef enum {
+  GST_NVDS_RINGBUF_COLOR_AUTO = 0,
+  GST_NVDS_RINGBUF_COLOR_RGBA = 1,
+  GST_NVDS_RINGBUF_COLOR_NV12 = 2
+} GstNvdsRingBufColor;
+
+typedef struct {
+  NvBufSurface *surf;
+#ifdef __aarch64__
+  EGLImageKHR egl_img;
+  CUgraphicsResource cu_res;
+  gboolean cu_registered;
+#endif
+  gboolean allocated;
+} RingSlot;
+
+struct _GstNvdsRingBuf {
+  GstBaseTransform parent;
+
+  // --- Настройки (GObject properties) ---
+  guint64 ring_bytes;        // общий целевой объём (байты), по умолчанию ~7 GiB
+  guint   min_slots;         // минимально гарантируемое число слотов (0 = авт)
+  gboolean prereg_cuda;      // пред-регистрация EGL->CUDA для каждого слота
+  guint   chunk;             // порциями по chunk слотов (для снижения фрагментации)
+  GstNvdsRingBufColor color; // предпочтительный цветовой формат, AUTO=следовать входу
+
+  // --- Текущие caps ---
+  guint   width;
+  guint   height;
+  guint   pitch; // реальный шаг в байтах (после аллокации)
+  NvBufSurfaceColorFormat nvcolor;
+  NvBufSurfaceLayout layout;
+
+  // --- Пул слотов ---
+  GPtrArray   *slots;      // RingSlot*
+  guint        head;       // индекс куда пишем следующий кадр
+  guint        size;       // текущее число выделенных слотов
+  guint64      bytes_per_slot;
+  guint64      total_bytes;
+
+  // --- Служебное ---
+  GRecMutex    lock;       // защита индексов и массива
+  gboolean     started;
+  gboolean     caps_set;
+};
+
+struct _GstNvdsRingBufClass {
+  GstBaseTransformClass parent_class;
+};
+
+GType gst_nvds_ringbuf_get_type (void);
+
+G_END_DECLS
+
+#endif // __GST_NVDS_RINGBUF_H__
+

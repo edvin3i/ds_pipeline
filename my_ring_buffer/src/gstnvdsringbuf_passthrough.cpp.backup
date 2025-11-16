@@ -1,0 +1,511 @@
+/**
+ * gstnvdsringbuf.cpp - Плагин "кольцевой буфер" NVMM для DeepStream
+ *
+ * Идея: элемент-проходник (in-place) принимает NVMM кадры и копирует их
+ * во внутренний предвыделенный пул NVMM поверхностей, образующий кольцо.
+ * GPU/дальнейшие элементы могут обращаться к этим поверхностям без копий.
+ */
+
+#include "gstnvdsringbuf.h"
+#include <gstnvdsmeta.h>
+#include <nvdsmeta.h>
+#include <string.h>
+#include <cuda_runtime.h>
+
+GST_DEBUG_CATEGORY_STATIC (gst_nvds_ringbuf_debug);
+#define GST_CAT_DEFAULT gst_nvds_ringbuf_debug
+
+/* ---------------------- Параметры и свойства ---------------------- */
+
+#define DEFAULT_RING_BYTES  (7ULL * 1024ULL * 1024ULL * 1024ULL) // ~7 GiB
+#define DEFAULT_MIN_SLOTS   0
+#define DEFAULT_PREREG_CUDA TRUE
+#define DEFAULT_CHUNK       16
+#define DEFAULT_COLOR       GST_NVDS_RINGBUF_COLOR_AUTO
+
+enum
+{
+  PROP_0 = 0,
+  PROP_RING_BYTES,
+  PROP_MIN_SLOTS,
+  PROP_PREREG_CUDA,
+  PROP_CHUNK,
+  PROP_COLOR,
+};
+
+static GstStaticPadTemplate sink_factory = GST_STATIC_PAD_TEMPLATE (
+  "sink", GST_PAD_SINK, GST_PAD_ALWAYS,
+  GST_STATIC_CAPS (
+    "video/x-raw(memory:NVMM), "
+    "format=(string){ RGBA, NV12 }, "
+    "width=(int)[1, 16384], height=(int)[1, 16384]"
+  )
+);
+
+static GstStaticPadTemplate src_factory = GST_STATIC_PAD_TEMPLATE (
+  "src", GST_PAD_SRC, GST_PAD_ALWAYS,
+  GST_STATIC_CAPS (
+    "video/x-raw(memory:NVMM), "
+    "format=(string){ RGBA, NV12 }, "
+    "width=(int)[1, 16384], height=(int)[1, 16384]"
+  )
+);
+
+/* ---------------------- Тип и прототипы ---------------------- */
+
+G_DEFINE_TYPE (GstNvdsRingBuf, gst_nvds_ringbuf, GST_TYPE_BASE_TRANSFORM);
+
+static void gst_nvds_ringbuf_set_property (GObject * object, guint prop_id,
+                                           const GValue * value, GParamSpec * pspec);
+static void gst_nvds_ringbuf_get_property (GObject * object, guint prop_id,
+                                           GValue * value, GParamSpec * pspec);
+
+static gboolean gst_nvds_ringbuf_start (GstBaseTransform * trans);
+static gboolean gst_nvds_ringbuf_stop  (GstBaseTransform * trans);
+static gboolean gst_nvds_ringbuf_set_caps (GstBaseTransform * trans,
+                                           GstCaps * incaps, GstCaps * outcaps);
+static GstFlowReturn gst_nvds_ringbuf_transform_ip (GstBaseTransform * trans,
+                                                    GstBuffer * buf);
+
+/* Внутренние */
+static gboolean ring_alloc_pool   (GstNvdsRingBuf *self);
+static void     ring_free_pool    (GstNvdsRingBuf *self);
+static gboolean ring_push_copy    (GstNvdsRingBuf *self, NvBufSurface *in_surf);
+static gboolean ring_calc_slot_bytes (GstNvdsRingBuf *self);
+
+/* ---------------------- Жизненный цикл ---------------------- */
+
+static void
+gst_nvds_ringbuf_class_init (GstNvdsRingBufClass * klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  GstElementClass *gstelement_class = GST_ELEMENT_CLASS (klass);
+  GstBaseTransformClass *base_class = GST_BASE_TRANSFORM_CLASS (klass);
+
+  gobject_class->set_property = gst_nvds_ringbuf_set_property;
+  gobject_class->get_property = gst_nvds_ringbuf_get_property;
+
+  g_object_class_install_property (gobject_class, PROP_RING_BYTES,
+    g_param_spec_uint64 ("ring-bytes", "Ring bytes",
+      "Целевой общий объём кольца (в байтах)",
+      0, G_MAXUINT64, DEFAULT_RING_BYTES,
+      (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+  g_object_class_install_property (gobject_class, PROP_MIN_SLOTS,
+    g_param_spec_uint ("min-slots", "Minimum slots",
+      "Минимально гарантируемое число слотов (0=авто)",
+      0, 100000, DEFAULT_MIN_SLOTS,
+      (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+  g_object_class_install_property (gobject_class, PROP_PREREG_CUDA,
+    g_param_spec_boolean ("preregister-cuda", "Preregister CUDA/EGL",
+      "Предварительно регистрировать EGLImage в CUDA для каждого слота",
+      DEFAULT_PREREG_CUDA,
+      (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+  g_object_class_install_property (gobject_class, PROP_CHUNK,
+    g_param_spec_uint ("chunk", "Allocation chunk",
+      "Размер порции при аллокации слотов",
+      1, 1024, DEFAULT_CHUNK,
+      (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+  static const GEnumValue color_values[] = {
+    {GST_NVDS_RINGBUF_COLOR_AUTO, "AUTO", "auto"},
+    {GST_NVDS_RINGBUF_COLOR_RGBA, "RGBA", "rgba"},
+    {GST_NVDS_RINGBUF_COLOR_NV12, "NV12", "nv12"},
+    {0, NULL, NULL}
+  };
+
+  g_object_class_install_property (gobject_class, PROP_COLOR,
+    g_param_spec_enum ("preferred-color", "Preferred color",
+      "Предпочтительный формат (AUTO=как вход)",
+      g_enum_register_static ("GstNvdsRingBufColor", color_values),
+      GST_NVDS_RINGBUF_COLOR_AUTO,
+      (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+  gst_element_class_set_static_metadata (gstelement_class,
+    "nvdsringbuf", "Filter/Effect/Video",
+    "NVMM кольцевой буфер для DeepStream", "Your Name <you@example.com>");
+
+  gst_element_class_add_static_pad_template (gstelement_class, &sink_factory);
+  gst_element_class_add_static_pad_template (gstelement_class, &src_factory);
+
+  base_class->start = GST_DEBUG_FUNCPTR (gst_nvds_ringbuf_start);
+  base_class->stop  = GST_DEBUG_FUNCPTR (gst_nvds_ringbuf_stop);
+  base_class->set_caps = GST_DEBUG_FUNCPTR (gst_nvds_ringbuf_set_caps);
+  base_class->transform_ip = GST_DEBUG_FUNCPTR (gst_nvds_ringbuf_transform_ip);
+
+  base_class->transform_ip_on_passthrough = TRUE;
+  base_class->passthrough_on_same_caps = TRUE;
+
+  GST_DEBUG_CATEGORY_INIT (gst_nvds_ringbuf_debug, "nvdsringbuf", 0,
+                           "NVMM ring buffer");
+}
+
+static void
+gst_nvds_ringbuf_init (GstNvdsRingBuf * self)
+{
+  self->ring_bytes = DEFAULT_RING_BYTES;
+  self->min_slots  = DEFAULT_MIN_SLOTS;
+  self->prereg_cuda = DEFAULT_PREREG_CUDA;
+  self->chunk      = DEFAULT_CHUNK;
+  self->color      = DEFAULT_COLOR;
+
+  self->width = self->height = 0;
+  self->pitch = 0;
+  self->nvcolor = NVBUF_COLOR_FORMAT_INVALID;
+  self->layout = NVBUF_LAYOUT_PITCH;
+
+  self->slots = g_ptr_array_new_with_free_func (g_free);
+  self->head = 0;
+  self->size = 0;
+  self->bytes_per_slot = 0;
+  self->total_bytes = 0;
+
+  g_rec_mutex_init (&self->lock);
+
+  gst_base_transform_set_in_place (GST_BASE_TRANSFORM (self), TRUE);
+}
+
+static void
+gst_nvds_ringbuf_set_property (GObject * object, guint prop_id,
+                               const GValue * value, GParamSpec * pspec)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (object);
+  switch (prop_id) {
+    case PROP_RING_BYTES: self->ring_bytes = g_value_get_uint64 (value); break;
+    case PROP_MIN_SLOTS:  self->min_slots  = g_value_get_uint (value); break;
+    case PROP_PREREG_CUDA:self->prereg_cuda= g_value_get_boolean (value); break;
+    case PROP_CHUNK:      self->chunk      = g_value_get_uint (value); break;
+    case PROP_COLOR:      self->color      = (GstNvdsRingBufColor)g_value_get_enum (value); break;
+    default: G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+gst_nvds_ringbuf_get_property (GObject * object, guint prop_id,
+                               GValue * value, GParamSpec * pspec)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (object);
+  switch (prop_id) {
+    case PROP_RING_BYTES: g_value_set_uint64 (value, self->ring_bytes); break;
+    case PROP_MIN_SLOTS:  g_value_set_uint (value, self->min_slots); break;
+    case PROP_PREREG_CUDA:g_value_set_boolean (value, self->prereg_cuda); break;
+    case PROP_CHUNK:      g_value_set_uint (value, self->chunk); break;
+    case PROP_COLOR:      g_value_set_enum (value, self->color); break;
+    default: G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static gboolean
+gst_nvds_ringbuf_start (GstBaseTransform * trans)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (trans);
+
+  // Инициализация CUDA контекста
+  cudaError_t cuda_err = cudaSetDevice(0); // Используем GPU 0
+  if (cuda_err != cudaSuccess) {
+    GST_ERROR_OBJECT (self, "Failed to set CUDA device: %s",
+                      cudaGetErrorString(cuda_err));
+    return FALSE;
+  }
+
+  GST_DEBUG_OBJECT (self, "CUDA device 0 initialized");
+
+  self->started = TRUE;
+  return TRUE;
+}
+
+static gboolean
+gst_nvds_ringbuf_stop (GstBaseTransform * trans)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (trans);
+  g_rec_mutex_lock (&self->lock);
+  ring_free_pool (self);
+  g_rec_mutex_unlock (&self->lock);
+  self->started = FALSE;
+  return TRUE;
+}
+
+static gboolean
+gst_nvds_ringbuf_set_caps (GstBaseTransform * trans,
+                           GstCaps * incaps, GstCaps * outcaps)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (trans);
+  GstStructure *s = gst_caps_get_structure (incaps, 0);
+
+  const gchar *format = gst_structure_get_string (s, "format");
+  gint width = 0, height = 0;
+  if (!gst_structure_get_int (s, "width",  &width) ||
+      !gst_structure_get_int (s, "height", &height)) {
+    GST_ERROR_OBJECT (self, "Failed to get width/height from caps");
+    return FALSE;
+  }
+  self->width = (guint) width;
+  self->height = (guint) height;
+
+  GST_DEBUG_OBJECT (self, "Set caps: %ux%u, format=%s",
+                    self->width, self->height, format ? format : "null");
+
+  if (self->color == GST_NVDS_RINGBUF_COLOR_AUTO) {
+    if (g_strcmp0 (format, "NV12") == 0)
+      self->nvcolor = NVBUF_COLOR_FORMAT_NV12;
+    else
+      self->nvcolor = NVBUF_COLOR_FORMAT_RGBA;
+  } else if (self->color == GST_NVDS_RINGBUF_COLOR_NV12) {
+    self->nvcolor = NVBUF_COLOR_FORMAT_NV12;
+  } else {
+    self->nvcolor = NVBUF_COLOR_FORMAT_RGBA;
+  }
+
+  // Пере-аллокация пула под новые caps
+  g_rec_mutex_lock (&self->lock);
+  ring_free_pool (self);
+  gboolean ok = ring_alloc_pool (self);
+  g_rec_mutex_unlock (&self->lock);
+
+  self->caps_set = ok;
+  return ok;
+}
+
+/* ---------------------- Основная обработка ---------------------- */
+
+static GstFlowReturn
+gst_nvds_ringbuf_transform_ip (GstBaseTransform * trans, GstBuffer * buf)
+{
+  GstNvdsRingBuf *self = GST_NVDS_RINGBUF (trans);
+
+  if (G_UNLIKELY (!self->caps_set || self->size == 0)) {
+    GST_ERROR_OBJECT (self, "ring pool is not ready");
+    return GST_FLOW_ERROR;
+  }
+
+  // Достаём NvBufSurface из входного буфера
+  GstMapInfo inmap;
+  if (!gst_buffer_map (buf, &inmap, GST_MAP_READ)) {
+    GST_ERROR_OBJECT (self, "cannot map GstBuffer");
+    return GST_FLOW_ERROR;
+  }
+  NvBufSurface *in_surf = (NvBufSurface *) inmap.data;
+  gst_buffer_unmap (buf, &inmap);
+
+  if (G_UNLIKELY (!in_surf || in_surf->batchSize < 1)) {
+    GST_ERROR_OBJECT (self, "invalid NvBufSurface on input");
+    return GST_FLOW_ERROR;
+  }
+
+  g_rec_mutex_lock (&self->lock);
+  gboolean ok = ring_push_copy (self, in_surf);
+  g_rec_mutex_unlock (&self->lock);
+
+  if (G_UNLIKELY (!ok)) {
+    GST_ERROR_OBJECT (self, "copy into ring failed");
+    return GST_FLOW_ERROR;
+  }
+
+  // Мы pass-through: исходный буфер идёт дальше без модификации
+  return GST_FLOW_OK;
+}
+
+/* ---------------------- Реализация кольца ---------------------- */
+
+static gboolean
+ring_calc_slot_bytes (GstNvdsRingBuf *self)
+{
+  // Проверяем валидность параметров
+  if (self->width == 0 || self->height == 0) {
+    GST_WARNING_OBJECT (self, "Invalid dimensions: %ux%u", self->width, self->height);
+    return FALSE;
+  }
+
+  // Для точного размера сначала создадим временную поверхность 1x (batch 1),
+  // прочитаем pitch/planeParams, затем уничтожим.
+  NvBufSurfaceCreateParams p = {0};
+  p.gpuId = 0;
+  p.width = self->width;
+  p.height = self->height;
+  p.colorFormat = self->nvcolor;
+  p.layout = self->layout;
+  p.memType = NVBUF_MEM_SURFACE_ARRAY;
+
+  NvBufSurface *tmp = NULL;
+  if (NvBufSurfaceCreate (&tmp, 1, &p) != 0 || !tmp) {
+    GST_ERROR_OBJECT (self, "NvBufSurfaceCreate tmp failed");
+    return FALSE;
+  }
+
+  guint64 bytes = 0;
+  NvBufSurfaceParams *sp = &tmp->surfaceList[0];
+  for (guint i = 0; i < sp->planeParams.num_planes; ++i) {
+    bytes += (guint64)sp->planeParams.pitch[i] * sp->planeParams.height[i];
+  }
+  self->bytes_per_slot = bytes;
+
+  NvBufSurfaceDestroy (tmp);
+  return TRUE;
+}
+
+static gboolean
+ring_alloc_pool (GstNvdsRingBuf *self)
+{
+  // Проверяем, что есть валидные размеры
+  if (self->width == 0 || self->height == 0) {
+    GST_DEBUG_OBJECT (self, "Skipping allocation: dimensions not set yet");
+    return TRUE; // Не ошибка, просто ещё рано
+  }
+
+  if (!ring_calc_slot_bytes (self)) return FALSE;
+
+  guint max_slots_by_bytes = (self->ring_bytes > 0 && self->bytes_per_slot > 0)
+    ? (guint)(self->ring_bytes / self->bytes_per_slot) : 0;
+
+  guint target = MAX (self->min_slots, max_slots_by_bytes);
+  if (target == 0) target = 1;
+
+  GST_INFO_OBJECT (self, "allocating ring: %ux%u, fmt=%d, bytes/slot=%" G_GUINT64_FORMAT
+                         ", target slots=%u (~%" G_GUINT64_FORMAT " MiB)",
+                   self->width, self->height, self->nvcolor, self->bytes_per_slot,
+                   target, (self->bytes_per_slot * target) / (1024*1024));
+
+  self->slots = g_ptr_array_new_with_free_func (g_free);
+  self->head = 0;
+  self->size = 0;
+  self->total_bytes = 0;
+
+  NvBufSurfaceCreateParams p = {0};
+  p.gpuId = 0;
+  p.width = self->width;
+  p.height = self->height;
+  p.colorFormat = self->nvcolor;
+  p.layout = self->layout;
+  p.memType = NVBUF_MEM_SURFACE_ARRAY;
+
+  // Аллокируем партиями по self->chunk слотов
+  for (guint i = 0; i < target; ++i) {
+    RingSlot *slot = (RingSlot*) g_malloc0 (sizeof (RingSlot));
+    if (NvBufSurfaceCreate (&slot->surf, 1, &p) != 0 || !slot->surf) {
+      GST_ERROR_OBJECT (self, "NvBufSurfaceCreate failed at i=%u", i);
+      g_free (slot);
+      break;
+    }
+
+#ifdef __aarch64__
+    slot->egl_img = 0;
+    slot->cu_res = 0;
+    slot->cu_registered = FALSE;
+    if (self->prereg_cuda) {
+      if (NvBufSurfaceMapEglImage (slot->surf, 0) == 0) {
+        slot->egl_img = slot->surf->surfaceList[0].mappedAddr.eglImage;
+        CUresult cuerr = cuGraphicsEGLRegisterImage (&slot->cu_res, slot->egl_img,
+                                                     CU_GRAPHICS_MAP_RESOURCE_FLAGS_NONE);
+        if (cuerr == CUDA_SUCCESS) {
+          slot->cu_registered = TRUE;
+        } else {
+          GST_WARNING_OBJECT (self, "cuGraphicsEGLRegisterImage failed on slot %u (err=%d)", i, (int)cuerr);
+        }
+      } else {
+        GST_WARNING_OBJECT (self, "NvBufSurfaceMapEglImage failed on slot %u", i);
+      }
+    }
+#endif
+
+    slot->allocated = TRUE;
+    g_ptr_array_add (self->slots, slot);
+    self->size++;
+    self->total_bytes += self->bytes_per_slot;
+  }
+
+  if (self->size == 0) {
+    GST_ERROR_OBJECT (self, "no slots allocated");
+    return FALSE;
+  }
+  return TRUE;
+}
+
+static void
+ring_free_pool (GstNvdsRingBuf *self)
+{
+  if (!self->slots) return;
+
+  for (guint i = 0; i < self->slots->len; ++i) {
+    RingSlot *slot = (RingSlot*) g_ptr_array_index (self->slots, i);
+    if (!slot) continue;
+
+#ifdef __aarch64__
+    if (slot->cu_registered) {
+      cuGraphicsUnregisterResource (slot->cu_res);
+      slot->cu_registered = FALSE;
+    }
+#endif
+    if (slot->surf) {
+      NvBufSurfaceDestroy (slot->surf);
+      slot->surf = NULL;
+    }
+    g_free (slot);
+    // Устанавливаем NULL чтобы избежать double free
+    g_ptr_array_index (self->slots, i) = NULL;
+  }
+  g_ptr_array_free (self->slots, FALSE); // FALSE - не освобождать элементы повторно
+  self->slots = NULL;
+  self->size = 0;
+  self->total_bytes = 0;
+  self->head = 0;
+}
+
+static gboolean
+ring_push_copy (GstNvdsRingBuf *self, NvBufSurface *in_surf)
+{
+  if (!self->slots || self->size == 0) return FALSE;
+  RingSlot *dst = (RingSlot*) g_ptr_array_index (self->slots, self->head);
+  if (!dst || !dst->surf) return FALSE;
+
+  // Копия NVMM->NVMM через NvBufSurfTransform (VIC/GPU)
+  NvBufSurfTransformRect src_rect, dst_rect;
+  src_rect.top = 0; src_rect.left = 0;
+  src_rect.width = self->width; src_rect.height = self->height;
+  dst_rect = src_rect;
+
+  NvBufSurfTransformParams params;
+  memset (&params, 0, sizeof (params));
+  params.src_rect = &src_rect;
+  params.dst_rect = &dst_rect;
+  params.transform_flag = NVBUFSURF_TRANSFORM_FILTER;
+  params.transform_filter = NvBufSurfTransformInter_Default;
+
+  // Оборачиваем входную поверхность (batch -> 1)
+  NvBufSurface src_wrap;
+  memcpy (&src_wrap, in_surf, sizeof (NvBufSurface));
+  src_wrap.surfaceList = &in_surf->surfaceList[0];
+  src_wrap.numFilled = 1;
+  src_wrap.batchSize = 1;
+
+  if (NvBufSurfTransform (&src_wrap, dst->surf, &params) != 0) {
+    GST_ERROR_OBJECT (self, "NvBufSurfTransform failed");
+    return FALSE;
+  }
+
+  // Сдвигаем head
+  self->head++;
+  if (self->head >= self->size) self->head = 0;
+  return TRUE;
+}
+
+/* ---------------------- Регистрация плагина ---------------------- */
+
+static gboolean plugin_init (GstPlugin * plugin)
+{
+  return gst_element_register (plugin, "nvdsringbuf", GST_RANK_NONE, GST_TYPE_NVDS_RINGBUF);
+}
+
+GST_PLUGIN_DEFINE (
+    GST_VERSION_MAJOR,
+    GST_VERSION_MINOR,
+    nvdsringbuf,
+    "NVMM Ring Buffer for DeepStream",
+    plugin_init,
+    "1.0",
+    "Proprietary",
+    "DeepStream",
+    "https://developer.nvidia.com/deepstream"
+)
+
