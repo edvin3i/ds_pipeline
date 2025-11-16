@@ -1,0 +1,1331 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Service Maker for C/C++ Developers &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_service_maker_cpp';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service Maker for Python Developers(alpha)" href="DS_service_maker_python.html" />
+    <link rel="prev" title="What is Deepstream Service Maker" href="DS_service_maker_intro.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_service_maker_cpp.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_service_maker_cpp.html#">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Service...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="service-maker-for-c-c-developers">
+<h1>Service Maker for C/C++ Developers<a class="headerlink" href="DS_service_maker_cpp.html#service-maker-for-c-c-developers" title="Link to this heading">#</a></h1>
+<section id="getting-started-with-service-maker-c-apis">
+<h2>Getting Started with Service Maker C++ APIs<a class="headerlink" href="DS_service_maker_cpp.html#getting-started-with-service-maker-c-apis" title="Link to this heading">#</a></h2>
+<p>Before starting on the actual application, we need to create a text file with name ‘CMakeLists.txt’ for building our application later:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.16</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">Sample</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">nvds_service_maker</span><span class="w"> </span><span class="s">REQUIRED</span><span class="w"> </span><span class="s">PATHS</span><span class="w"> </span><span class="s">/opt/nvidia/deepstream/deepstream/service-maker/cmake</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">my-deepstream-app</span><span class="w"> </span><span class="s">my_deepstream_app.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my-deepstream-app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w">  </span><span class="s">nvds_service_maker</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can create a sample deepstream app (my_deepstream_app.cpp) with a pipeline to perform object detection from a incoming video stream:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;pipeline.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="p">;</span>
+<span class="cp">#define CONFIG_FILE_PATH &quot;/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_infer_primary.yml&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Pipeline</span><span class="w"> </span><span class="n">pipeline</span><span class="p">(</span><span class="s">&quot;sample-pipeline&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">pipeline</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvurisrcbin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;uri&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="w">                </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvstreammux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;batch-size&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvinferbin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;infer&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;config-file-path&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">CONFIG_FILE_PATH</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvosdbin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;osd&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nveglglessink&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sink&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="n">link</span><span class="p">({</span><span class="s">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sink_%u&quot;</span><span class="p">}).</span><span class="n">link</span><span class="p">(</span><span class="s">&quot;mux&quot;</span><span class="p">,</span><span class="s">&quot;infer&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;osd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sink&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">pipeline</span><span class="p">.</span><span class="n">start</span><span class="p">().</span><span class="n">wait</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In order to build the application, we should use the CMake to create build environment:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ mkdir build &amp;&amp; cd build &amp;&amp; cmake .. &amp;&amp; make
+</pre></div>
+</div>
+<p>Once the build is complete, we can run the application to start the object detection pipeline:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ./my-deepstream-app file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_720p.mp4
+</pre></div>
+</div>
+<p>Currently, despite the pipeline running, we aren’t obtaining object information from the application. To access this data, we need to create a buffer probe that iterates through the  metadata generated by the nvinfer plugin.</p>
+<p>A sample metadata probe can be implemented as follows:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ObjectCounter</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BufferProbe</span><span class="o">::</span><span class="n">IBatchMetadataObserver</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">ObjectCounter</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">ObjectCounter</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">probeReturn</span><span class="w"> </span><span class="n">handleData</span><span class="p">(</span><span class="n">BufferProbe</span><span class="o">&amp;</span><span class="w"> </span><span class="n">probe</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">BatchMetadata</span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">data</span><span class="p">.</span><span class="n">iterate</span><span class="p">([](</span><span class="k">const</span><span class="w"> </span><span class="n">FrameMetadata</span><span class="o">&amp;</span><span class="w"> </span><span class="n">frame_data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">vehicle_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">frame_data</span><span class="p">.</span><span class="n">iterate</span><span class="p">([</span><span class="o">&amp;</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">ObjectMetadata</span><span class="o">&amp;</span><span class="w"> </span><span class="n">object_data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">class_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">object_data</span><span class="p">.</span><span class="n">classId</span><span class="p">();</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">class_id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">vehicle_count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Object Counter: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span>
+<span class="w">            </span><span class="s">&quot; Pad Idx = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">frame_data</span><span class="p">.</span><span class="n">padIndex</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span>
+<span class="w">            </span><span class="s">&quot; Frame Number = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">frame_data</span><span class="p">.</span><span class="n">frameNum</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span>
+<span class="w">            </span><span class="s">&quot; Vehicle Count = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">vehicle_count</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="p">});</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">probeReturn</span><span class="o">::</span><span class="n">Probe_Ok</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>By attaching the buffer probe into the inference plugin within the existing pipeline before starting it, we’ll get the vehicle count information from each frame of the video stream:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="s">&quot;infer&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferProbe</span><span class="p">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectCounter</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Rebuild the application and run it again, vehicle count will be printed out.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>......
+Object Counter:  Pad Idx = 0 Frame Number = 132 Vehicle Count = 7
+Object Counter:  Pad Idx = 0 Frame Number = 133 Vehicle Count = 8
+Object Counter:  Pad Idx = 0 Frame Number = 134 Vehicle Count = 7
+Object Counter:  Pad Idx = 0 Frame Number = 135 Vehicle Count = 8
+Object Counter:  Pad Idx = 0 Frame Number = 136 Vehicle Count = 9
+Object Counter:  Pad Idx = 0 Frame Number = 137 Vehicle Count = 7
+Object Counter:  Pad Idx = 0 Frame Number = 138 Vehicle Count = 9
+Object Counter:  Pad Idx = 0 Frame Number = 139 Vehicle Count = 9
+Object Counter:  Pad Idx = 0 Frame Number = 140 Vehicle Count = 9
+Object Counter:  Pad Idx = 0 Frame Number = 141 Vehicle Count = 11
+.....
+</pre></div>
+</div>
+</section>
+<section id="application-developer-fundamentals">
+<h2>Application Developer Fundamentals<a class="headerlink" href="DS_service_maker_cpp.html#application-developer-fundamentals" title="Link to this heading">#</a></h2>
+<section id="pipeline">
+<h3>Pipeline<a class="headerlink" href="DS_service_maker_cpp.html#pipeline" title="Link to this heading">#</a></h3>
+<p>A pipeline serves as the foundation of Deepstream-based AI streaming applications. Media streams flow through interconnected functional blocks within a pipeline, processed via buffers widths metadata. A pipeline and the elements within it autonomously manage states and data flow, reducing the need for external intervention by application developers.</p>
+<p>A functional pipeline requires appropriate elements from Deepstream plugins to be added, configured and linked correctly. This can be seamlessly achieved using Pipeline APIs in a fluent manner:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span><span class="w"> </span><span class="n">pipeline</span><span class="p">(</span><span class="s">&quot;sample&quot;</span><span class="p">);</span>
+<span class="c1">// nvstreammux is the factory name in Deepstream to create a streammuxer Element</span>
+<span class="c1">// mux is the name of the Element instance</span>
+<span class="c1">// multiple key value pairs can be appended to configure the added Element</span>
+<span class="n">pipeline</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvstreammux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;batch-size&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>For elements that have single static input and output, links can be established in a very straightforward manner:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="p">.</span><span class="n">link</span><span class="p">(</span><span class="s">&quot;mux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;infer&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;osd&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sink&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>However, if an element supports dynamic or multiple input/output, extra information is required to establish the link:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// link the Element named &quot;src&quot; to the one named &quot;mux&quot;</span>
+<span class="c1">// given the input of a nvstreammux is dynamic, we must specify the input name &quot;sink_%u&quot; (refer to the plugin documentation)</span>
+<span class="n">pipelin</span><span class="p">.</span><span class="n">link</span><span class="p">({</span><span class="s">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sink_%u&quot;</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Pipeline construction can also be achieved through a declarative YAML configuration file, significantly reducing coding efforts in application development. The above pipeline can be defined as follows in YAML configuration.</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">deepstream</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvurisrcbin</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvstreammux</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mux</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">batch-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1280</span>
+<span class="w">      </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">720</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvinferbin</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infer</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">config-file-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_infer_primary.yml</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvosdbin</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">osd</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nveglglessink</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sink</span>
+<span class="w">  </span><span class="nt">edges</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mux</span>
+<span class="w">    </span><span class="nt">mux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infer</span>
+<span class="w">    </span><span class="nt">infer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">osd</span>
+<span class="w">    </span><span class="nt">osd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sink</span>
+</pre></div>
+</div>
+<p>And with the YAML configuration being applied, the application source can be simplified a lot:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;pipeline.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Pipeline</span><span class="w"> </span><span class="n">pipeline</span><span class="p">(</span><span class="s">&quot;my-pipeline&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;config.yaml&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">pipeline</span><span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">].</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;uri&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">        </span><span class="n">pipeline</span><span class="p">.</span><span class="n">start</span><span class="p">().</span><span class="n">wait</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The YAML configuration of a pipeline begins with a “deepstream” keyword, and is composed of two sections:</p>
+<ul class="simple">
+<li><p>Node definition list under “nodes”: each item defines an instance to be added to the pipeline, with “type”, “name” and “properties” specified. The “type” field corresponds to the element name defined in DS plugins, such as “nvstreammux”; “name” is a string to identify the instance within the pipeline and must be unique; “properties” field initialize the supported properties for the instance.</p></li>
+<li><p>Link definition list under “edge”: each item defines one or more connections, where the key specifies the source and the value specifies the target(s). In the case that a source has more than one output, the output name should also be specified, such as “source.vsrc_%u: mux”.</p></li>
+</ul>
+<section id="guideline-for-fine-tuning-a-pipeline-through-configuration-file">
+<h4>Guideline for Fine-tuning a Pipeline through Configuration File<a class="headerlink" href="DS_service_maker_cpp.html#guideline-for-fine-tuning-a-pipeline-through-configuration-file" title="Link to this heading">#</a></h4>
+<p>The YAML configuration file also offers users a straightforward option to finely tune the pipeline, enabling them to optimize performance effortlessly.</p>
+<p>Users can always start with a pipeline design from the blueprint with appropriate nodes and edges,  tailored precisely to suit the specific objectives of their projects. Before proceeding, it’s essential to address the following parameters:</p>
+<ul class="simple">
+<li><p>batch-size: this is a important property that could affects the performance. It specifies the total number of frames for streammux to create a batch, it must equal to the maximum streams expected to be fed into the pipeline. It is an inherent parameter of “streammux”, while in the case of “nvmultiurisrcbin”, “max-batch-size” should be set instead.</p></li>
+<li><p>batched-push-timeout: this is another property for “streammux” or “nvmultiurisrcbin”. It determines how long streammux will wait until all the frames are collected, given the batch-size. Change in batched-push-timeout affects the framerates, especially when the input is live source, e.g RTSP.</p></li>
+<li><p>buffer-pool-size: this property defines the number of buffer pool used by streammux. In scenarios where the processing latency is prolonged to the extent that the buffer pool depletes before a buffer is returned, adjustments to certain properties may be necessary. Nonetheless, it’s imperative to ensure that these adjustments do not surpass a limit of 16.</p></li>
+</ul>
+<p>In the majority of cases, performance degradation stems from hardware bottlenecks, which may arise from the CPU, GPU, or other components. To identify bottlenecks, users can modify the type of potentially problematic nodes to “identity,” effectively disabling them, and then retest the performance iteratively until the actual bottleneck is pinpointed.</p>
+<p>Another factor contributing to performance degradation occurs when the pipeline lacks full parallelization, often resulting from irregular overloading of certain nodes. In such instances, inserting a queue before the problematic node can provide a solution.</p>
+<p>Additionally, unnecessary scaling can lead to wasteful computation. Therefore, it’s beneficial to carefully consider the processing dimensions for each node. Ensuring that the processing dimension aligns with either the input/output dimension or model dimension can effectively minimize scaling.</p>
+</section>
+</section>
+<section id="elements-and-plugins">
+<h3>Elements and Plugins<a class="headerlink" href="DS_service_maker_cpp.html#elements-and-plugins" title="Link to this heading">#</a></h3>
+<p>The Deepstream SDK introduces Element as the fundamental functional block accessible through various plugins. Each type of element offers specific capabilities, including encoding, decoding, pre-processing, post-processing, AI inference, and Object Tracking. When integrated into a pipeline, an element initiates the processing of media buffers flowing through the pipeline, generating metadata or messages as a result.</p>
+<p>Elements are highly configurable, supporting customization through key-value pairs or an external configuration file. This flexibility enables them to adapt to diverse task requirements. The output of an element, comprising data buffers, metadata, and messages, can be seamlessly captured by downstream counterparts for continuous processing. Alternatively, it can be retrieved by the application for external processing through customized objects.</p>
+<p>An element can be instantiated using its predefined type name within the Deepstream SDK:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Element</span><span class="w"> </span><span class="n">streammux</span><span class="p">(</span><span class="s">&quot;nvstreammux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">).</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;batch-size&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A more practical approach supports instantiating and configuring an element through the higher-level Pipeline API:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvstreammux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mux&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;batch-size&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;width&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;height&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To properly direct the flow of media, elements need to be sequentially linked within the Pipeline. In most cases, a straightforward linking operation can be achieved using a simple link method, with the names of each Element instance specified in order. However, in certain scenarios, additional information may be required to facilitate the linking process. This complexity can arise from variations in how Elements handle inputs and outputs.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvurisrcbin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;src&quot;</span><span class="p">).</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;nvvideoconvert&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;converter&quot;</span><span class="p">);</span>
+<span class="c1">// only the video output of the media source should be linked to the video converter</span>
+<span class="c1">// &quot;vsrc_%u&quot; specify the video output of a nvuirsrcbin instance (refer to the plugin documentation)</span>
+<span class="n">pipeline</span><span class="p">.</span><span class="n">link</span><span class="p">({</span><span class="s">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;converter&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;vsrc_%u&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="buffer">
+<h3>Buffer<a class="headerlink" href="DS_service_maker_cpp.html#buffer" title="Link to this heading">#</a></h3>
+<p>The Buffer object serves as a wrapper for the data segments flowing through the pipeline.</p>
+<p>For a read only buffer, you can invoke the read method to access the data in read-only mode, employing a customized callable object for data processing. Similarly, for a read-write buffer, the process is analogous, with the added capability of modifying the data within the buffer.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// example of a video buffer observer interface</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SampleBufferObserver</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BufferProbe</span><span class="o">::</span><span class="n">IBufferObserver</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">probeReturn</span><span class="w"> </span><span class="n">handleBuffer</span><span class="p">(</span><span class="n">BufferProbe</span><span class="o">&amp;</span><span class="w"> </span><span class="n">probe</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Buffer</span><span class="o">&amp;</span><span class="w"> </span><span class="n">buffer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// cast of a general buffer to a video buffer allows to tread the data in proper video format</span>
+<span class="w">        </span><span class="n">VideoBuffer</span><span class="w"> </span><span class="n">video_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">video_buffer</span><span class="p">.</span><span class="n">read</span><span class="p">([</span><span class="n">byte</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">p_byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_byte</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">p_byte</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="n">p</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// take a peek on the data</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="metadata">
+<h3>Metadata<a class="headerlink" href="DS_service_maker_cpp.html#metadata" title="Link to this heading">#</a></h3>
+<p>In addition to the output data from an element, users may have a keen interest in the metadata generated by the element. This becomes particularly relevant in AI inference pipelines, where inference results are commonly conveyed in metadata format.</p>
+<p>The following is a list of currently supported metadata objects:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 83.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metadata class</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MetaData</p></td>
+<td><p>base class of all the metadata</p></td>
+</tr>
+<tr class="row-odd"><td><p>BatchMetaData</p></td>
+<td><p>metadata created through nvstreammux, acting as the root of all the other metadata and supporting iterating FrameMetaData and DisplayMetadata through the batch</p></td>
+</tr>
+<tr class="row-even"><td><p>FrameMetaData</p></td>
+<td><p>metadata associated with a specific video frame, iterable within the BatchMetaData</p></td>
+</tr>
+<tr class="row-odd"><td><p>UserMetaData</p></td>
+<td><p>user defined metadata</p></td>
+</tr>
+<tr class="row-even"><td><p>ObjectMetadata</p></td>
+<td><p>metadata that describes a detected object, iterable with the FrameMetaData.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ClassifierMetadata</p></td>
+<td><p>metadata that contains the classification information of an object, iterable within the ObjectMetadata.</p></td>
+</tr>
+<tr class="row-even"><td><p>DisplayMetadata</p></td>
+<td><p>metadata that describes the display properties, being used by the nvdsosd to draw various shapes and text on a video frame, iterable with the FrameMetaData.</p></td>
+</tr>
+<tr class="row-odd"><td><p>EventMessageUserMetadata</p></td>
+<td><p>a specific user metadata for generating an event message, once appended to the FrameMetaData, it will be consumed by downstream message converter.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>More details about Deepstream Metadata can be found <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_metadata.html">here</a>.</p>
+</section>
+<section id="sourceconfig">
+<span id="ds-service-maker-sourceconfig"></span><h3>SourceConfig<a class="headerlink" href="DS_service_maker_cpp.html#sourceconfig" title="Link to this heading">#</a></h3>
+<p>SourceConfig is a convenience tool to load source configurations from a YAML file, allowing users append extra information to a source and create a list for multiple sources. A sample source config looks as follows</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">source-list</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4&quot;</span>
+<span class="w">  </span><span class="nt">sensor-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniqueSensorId1</span>
+<span class="w">  </span><span class="nt">sensor-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniqueSensorName1</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h265.mp4&quot;</span>
+<span class="w">  </span><span class="nt">sensor-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniqueSensorId2</span>
+<span class="w">  </span><span class="nt">sensor-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniqueSensorName2</span>
+<span class="nt">source-config</span><span class="p">:</span>
+<span class="nt">source-bin</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nvmultiurisrcbin&quot;</span>
+<span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ip-address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7000</span>
+<span class="w">    </span><span class="nt">batched-push-timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">33000</span>
+<span class="w">    </span><span class="nt">live-source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1920</span>
+<span class="w">    </span><span class="nt">height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1080</span>
+<span class="w">    </span><span class="nt">file-loop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">max-batch-size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+</pre></div>
+</div>
+<p>There are 2 sections in the YAML file: source-list and source-config, each defines the inputs and the configurations of the source bin(s):</p>
+<ul class="simple">
+<li><p>source-list: each item defines the uri, sensor-id and sensor-name for a source</p></li>
+<li><p>source-config: defines the type of the source node and corresponding properties. The property specification under “properties” MUST be consistent with the type of the source node.</p></li>
+</ul>
+<p>When the number of the streams fed into the pipeline is big and variable during runtime, separating the source config from the pipeline definition gives more clarity, however, it is always the developers’ decision for the most suitable approach.</p>
+</section>
+<section id="cameraconfig">
+<span id="ds-service-maker-cameraconfig"></span><h3>CameraConfig<a class="headerlink" href="DS_service_maker_cpp.html#cameraconfig" title="Link to this heading">#</a></h3>
+<p>CameraConfig is a convenience tool to load camera configurations from a YAML file, allowing users to create a list of multiple camera sources (V4L2/CSI). A sample camera config looks as follows:</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">camera-list</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">camera-type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CSI&quot;</span>
+<span class="w">  </span><span class="nt">camera-csi-sensor-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">camera-width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1280</span>
+<span class="w">  </span><span class="nt">camera-height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">720</span>
+<span class="w">  </span><span class="nt">camera-fps-n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">  </span><span class="nt">camera-fps-d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">camera-type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;V4L2&quot;</span>
+<span class="w">  </span><span class="nt">camera-v4l2-dev-node</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">camera-width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">640</span>
+<span class="w">  </span><span class="nt">camera-height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">480</span>
+<span class="w">  </span><span class="nt">camera-fps-n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">  </span><span class="nt">camera-fps-d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>There is only one section in the YAML file: camera-list which defines the camera source and its configuration:</p>
+<ul class="simple">
+<li><p>camera-list: each item defines camera-type, camera-width, camera-height, camera-fps-n, camera-fps-d, for CSI camera source: camera-csi-sensor-id and for V4L2 camera source: camera-v4l2-dev-node.</p></li>
+</ul>
+</section>
+<section id="commonfactory-and-custom-objects">
+<h3>CommonFactory and custom Objects<a class="headerlink" href="DS_service_maker_cpp.html#commonfactory-and-custom-objects" title="Link to this heading">#</a></h3>
+<p>Application developers can utilize custom objects to access the processing results of specific Deepstream Elements tailored to their unique needs. These custom objects can be instantiated directly through the ‘new’ keyword if they are defined within the application code. Alternatively, if implemented through a plugin, they can be created through the common factory interface.</p>
+<p>Custom objects can be incorporated into the pipeline using the ‘attach’ method, requiring the name of the element to which they should be attached.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Upon attachment, the designated element will assume control of the lifecycle of the custom object.</p>
+</div>
+</div></blockquote>
+<p>The following is a list of currently supported custom objects:</p>
+<blockquote>
+<div><img alt="Class Hierarchy of Custom Object" class="align-center" src="../_images/DS_service_maker_custom_object.png" />
+</div></blockquote>
+<section id="bufferprobe">
+<h4>BufferProbe<a class="headerlink" href="DS_service_maker_cpp.html#bufferprobe" title="Link to this heading">#</a></h4>
+<p>Application developers can employ a buffer probe to retrieve the output buffer generated within the pipeline. Various interfaces can be implemented based on the specific requirements of the probe, offering flexibility for different purposes.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 14.3%" />
+<col style="width: 28.6%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Interface name</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IBufferObserver</p></td>
+<td><p>handleBuffer</p></td>
+<td><p>access each processed buffer in read only mode</p></td>
+</tr>
+<tr class="row-odd"><td><p>IBufferOperator</p></td>
+<td><p>handleBuffer</p></td>
+<td><p>access each processed buffer in read write mode</p></td>
+</tr>
+<tr class="row-even"><td><p>IBatchMetadataObserver</p></td>
+<td><p>handleMetadata</p></td>
+<td><p>access the batch metadata in read only mode</p></td>
+</tr>
+<tr class="row-odd"><td><p>IBatchMetadataOperator</p></td>
+<td><p>handleMetadata</p></td>
+<td><p>access the batch metadata in read write mode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="signalhandler">
+<h4>SignalHandler<a class="headerlink" href="DS_service_maker_cpp.html#signalhandler" title="Link to this heading">#</a></h4>
+<p>Signaling is a vital mechanism that facilitates interaction between elements  within a running pipeline and the external world, notifying observers of specific events. An element can support a variety of signals, each uniquely registered during instantiation. The comprehensive details regarding signal support for an element can be found in the corresponding plugin manual.</p>
+<p>Application developers have the flexibility to enhance the functionality of their applications by attaching signal handlers to Element instances. Once attached, these handlers respond promptly to the emitted signals, allowing developers to implement custom logic in response to specific events.</p>
+</section>
+<section id="datafeeder">
+<h4>DataFeeder<a class="headerlink" href="DS_service_maker_cpp.html#datafeeder" title="Link to this heading">#</a></h4>
+<p>The DataFeeder signal handler is specifically designed for attachment to an Element instance to capture data request related signals, such as “need-data” and “enough-data” signals from an “appsrc.” By using DataFeeder, application developers gain the ability to seamlessly inject data directly into the target Element during runtime.</p>
+</section>
+<section id="datareceiver">
+<h4>DataReceiver<a class="headerlink" href="DS_service_maker_cpp.html#datareceiver" title="Link to this heading">#</a></h4>
+<p>The DataReceiver signal handler is specifically for attachment to an Element instance to capture data ready related signals, such as “new-sample” signal from an “appsink.” By using DataFeeder, By using DataReceiver, application developers can receive the processed data from the target Element during runtime.</p>
+</section>
+<section id="signalemitter">
+<h4>SignalEmitter<a class="headerlink" href="DS_service_maker_cpp.html#signalemitter" title="Link to this heading">#</a></h4>
+<p>The signal emitter is another pivotal component in the signaling mechanism, responsible for emitting signals rather than handling them. When an element seeks to have certain activities driven by the external environment, it accepts signal emitters. In this mechanism, with a signal emitter attached to an Element instance that is configured to receive such signals,  corresponding activity will be triggered on the Element instance when the emit method is invoked on the signal emitter object.</p>
+</section>
+</section>
+<section id="prepare-and-activate">
+<h3>Prepare and Activate<a class="headerlink" href="DS_service_maker_cpp.html#prepare-and-activate" title="Link to this heading">#</a></h3>
+<p>For specific use cases, we have introduced alternative APIs to manage pipeline execution:</p>
+<section id="pipeline-prepare">
+<h4>Pipeline.prepare()<a class="headerlink" href="DS_service_maker_cpp.html#pipeline-prepare" title="Link to this heading">#</a></h4>
+<p>Unlike pipeline.start(), which transitions the pipeline’s state to playing in a new thread, pipeline.prepare() sets the pipeline’s state to paused within the same thread. This is particularly useful in multi-pipeline scenarios where each pipeline’s state needs to be changed to paused sequentially.</p>
+</section>
+<section id="pipeline-activate">
+<h4>Pipeline.activate()<a class="headerlink" href="DS_service_maker_cpp.html#pipeline-activate" title="Link to this heading">#</a></h4>
+<p>After using pipeline.prepare(), pipeline.activate() transitions the pipeline’s state from paused to playing in a new thread. This effectively starts the pipeline. In multi-pipeline scenarios, this allows all pipelines to begin execution concurrently.</p>
+</section>
+<section id="pipeline-wait">
+<h4>Pipeline.wait()<a class="headerlink" href="DS_service_maker_cpp.html#pipeline-wait" title="Link to this heading">#</a></h4>
+<p>This API is used to join the threads created by pipeline.activate(), ensuring that all threads complete their execution before proceeding.</p>
+<p>The Sample Test 5 Application demonstrates how to utilize these API calls effectively.</p>
+</section>
+</section>
+<section id="state-transitions-in-service-maker-pipelines">
+<h3>State Transitions in Service Maker Pipelines<a class="headerlink" href="DS_service_maker_cpp.html#state-transitions-in-service-maker-pipelines" title="Link to this heading">#</a></h3>
+<p>Managing state transitions in service pipelines is essential for ensuring efficient and orderly operations.
+Service maker facilitates synchronous state transitions, enabling smooth and predictable changes in the pipeline’s status. Here’s a clearer and more structured explanation of these transitions:</p>
+<section id="start">
+<h4>Start<a class="headerlink" href="DS_service_maker_cpp.html#start" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Transition: From idle to running.</p></li>
+<li><p>Process: Utilize the pipeline.start() API to initiate the pipeline, moving it from an idle state to actively running tasks.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h4>Prepare and Activate<a class="headerlink" href="DS_service_maker_cpp.html#id1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Transition: From idle to paused, then to running.</p></li>
+<li><p>Process: By executing pipeline.prepare() followed by pipeline.activate(), the pipeline transitions through a paused state before becoming fully operational. This sequence allows for any necessary setup or configuration prior to execution.</p></li>
+</ul>
+</section>
+<section id="wait">
+<h4>Wait<a class="headerlink" href="DS_service_maker_cpp.html#wait" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Purpose: Suspend the current thread until the pipeline completes its execution.</p></li>
+<li><p>Process: The pipeline.wait() function is required after both the start and prepare/activate sequences to ensure that the current thread pauses until the pipeline has finished processing.</p></li>
+</ul>
+</section>
+<section id="stop">
+<h4>Stop<a class="headerlink" href="DS_service_maker_cpp.html#stop" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Transition: Back to idle.</p></li>
+<li><p>Process: The pipeline.stop() API is used to return the pipeline to its idle state, effectively halting operations and resetting it for future tasks.</p></li>
+</ul>
+<p>These transitions are designed to manage workflow efficiently, allowing for both immediate execution and necessary preparatory phases.</p>
+<img alt="DeepStream Service Maker State Transition" class="align-center" src="../_images/DS_service_maker_state_transition.png" />
+</section>
+</section>
+</section>
+<section id="sample-applications">
+<h2>Sample Applications<a class="headerlink" href="DS_service_maker_cpp.html#sample-applications" title="Link to this heading">#</a></h2>
+<p>Sample applications can be found from the Deepstream installation directory <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/service-maker/sources/apps</span></code>, and with the following commands user can build them:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ cmake /opt/nvidia/deepstream/deepstream/service-maker/sources/apps/deepstream_test1_app &amp;&amp; make
+</pre></div>
+</div>
+</section>
+<section id="migrating-traditional-deepstream-apps-to-service-maker">
+<h2>Migrating Traditional Deepstream Apps to Service Maker<a class="headerlink" href="DS_service_maker_cpp.html#migrating-traditional-deepstream-apps-to-service-maker" title="Link to this heading">#</a></h2>
+<p>For users who have been integrating Deepstream applications into their solutions for an extended period, migrating to the new Service Maker APIs requires minimal effort.</p>
+<p>Traditional Deepstream applications rely on configuration files for pipeline customization and parameter setup. The Service Maker APIs follow a similar approach, offering a configuration specification with slight differences:</p>
+<ol class="arabic">
+<li><p>Global Parameters</p>
+<blockquote>
+<div><p>In the traditional Deepstream applications, all the global parameters need to be defined under a specific section named ‘applications’:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[application]
+enable-perf-measurement=1
+perf-measurement-interval-sec=5
+gie-kitti-output-dir=/tmp
+</pre></div>
+</div>
+</div></blockquote>
+<p>With Service Maker APIs, some of the parameters are expected to be added as command line argument. For example, the test5 app built from the Service Maker can change the performance measurement interval through a command line argument:</p>
+<p class="attribution">—perf-measurement-interval-sec 5</p>
+</div></blockquote>
+<blockquote>
+<div><p>As for others which are not truly ‘global’, they can be set as a propertie of the corrsponding modules. For example, the ‘gie-kitti-output-dir’ is actually a property of the ‘kitti_dump_probe’ plugin built with the Service Maker, thus it can be set under the ‘Properties’ of the ‘kitti_dump_probe’ instance within the pipeline.</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kitti_dump_probe.kitti_dump_probe</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kitti_dump</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kitti-dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;/tmp&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p>Pipeline customization</p>
+<blockquote>
+<div><p>In contrast to the traditional Deepstream application, Service Maker adopts a graph-based YAML definition to represent a pipeline structure, providing users with maximum flexibility for customization. The predefined sections in the traditional configuration, such as ‘primary-gie’, ‘secondary-gie’, ‘tracker’, ‘tiled-display’, and ‘osd’, can all be configured through the properties of each independent element within the Service Maker YAML definition.</p>
+</div></blockquote>
+</li>
+<li><p>Source and Batching</p>
+<blockquote>
+<div><p>In traditional Deepstream applications, source management involves a combination of ‘sourceX’, ‘streammux’, ‘source-list’, and ‘source-attr-all’ in the configuration file. Service Maker simplifies this by separating the source management into a standalone source configuration file. In this file, source information, including ‘list’, ‘sensor-name-list’, and ‘sensor-id-list’, is placed within the ‘source-list’ section. Meanwhile, pipeline customization, such as specifying the source type and properties, is handled in the ‘source-config’ section.</p>
+</div></blockquote>
+</li>
+<li><p>Sink management</p>
+<blockquote>
+<div><p>Compared to the traditional Deepstream application, Service Maker offers support for a wider range of arbitrary sink options. These include existing types such as ‘Fakesink’, ‘Display’, ‘File’, ‘UDP’, and ‘MsgConvBroker’. Each of these sinks must be defined within the graph pipeline specification, which includes all necessary element nodes and the edges between them. This approach provides greater flexibility in configuring sinks for the pipeline.</p>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_service_maker_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What is Deepstream Service Maker</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_service_maker_python.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Service Maker for Python Developers(alpha)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#getting-started-with-service-maker-c-apis">Getting Started with Service Maker C++ APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#application-developer-fundamentals">Application Developer Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#pipeline">Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#guideline-for-fine-tuning-a-pipeline-through-configuration-file">Guideline for Fine-tuning a Pipeline through Configuration File</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#elements-and-plugins">Elements and Plugins</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#buffer">Buffer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#metadata">Metadata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#sourceconfig">SourceConfig</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#cameraconfig">CameraConfig</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#commonfactory-and-custom-objects">CommonFactory and custom Objects</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#bufferprobe">BufferProbe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#signalhandler">SignalHandler</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#datafeeder">DataFeeder</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#datareceiver">DataReceiver</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#signalemitter">SignalEmitter</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#prepare-and-activate">Prepare and Activate</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#pipeline-prepare">Pipeline.prepare()</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#pipeline-activate">Pipeline.activate()</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#pipeline-wait">Pipeline.wait()</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#state-transitions-in-service-maker-pipelines">State Transitions in Service Maker Pipelines</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#start">Start</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#id1">Prepare and Activate</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#wait">Wait</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#stop">Stop</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#sample-applications">Sample Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_service_maker_cpp.html#migrating-traditional-deepstream-apps-to-service-maker">Migrating Traditional Deepstream Apps to Service Maker</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

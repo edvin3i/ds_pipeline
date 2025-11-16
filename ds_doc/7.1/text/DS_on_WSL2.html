@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DeepStream On WSL &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_on_WSL2';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ for Deepstream On WSL" href="DS_WSL2_FAQ.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="DS_FAQ.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_on_WSL2.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_on_WSL2.html#">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">DeepStream On WSL</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deepstream-on-wsl">
+<h1>DeepStream On WSL<a class="headerlink" href="DS_on_WSL2.html#deepstream-on-wsl" title="Link to this heading">#</a></h1>
+<p>Windows Subsystem for Linux (WSL) is a feature of Windows that allows you to run a Linux environment on your Windows machine, without the need for a separate virtual machine or dual booting.
+WSL 2 is the latest version of it. This page describes the steps to run a Deepstream docker container inside WSL2.</p>
+<section id="pre-requisites">
+<h2>Pre-Requisites:<a class="headerlink" href="DS_on_WSL2.html#pre-requisites" title="Link to this heading">#</a></h2>
+<p><strong>1. Windows 11 system with NVIDIA GPU:</strong></p>
+<p>NOTE: Tesla/Datacenter GPUs are not supported for WSL. Only GeForce and Quadro GPUs in WDDM mode are supported. Please check the link for more info:
+<a class="reference external" href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl-2-support-constraints">https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl-2-support-constraints</a></p>
+<p><strong>2. NVIDIA driver (windows version) compatible for your GPU:</strong></p>
+<p>You can download the compatible driver based on your windows OS and GPU type from here:
+<a class="reference external" href="https://www.nvidia.com/Download/index.aspx">https://www.nvidia.com/Download/index.aspx</a></p>
+<p>Currently validated Driver Version and GPU info:
+GameReady Driver version 546.65 with RTX-3080, RTX-3090 and RTX-A6000</p>
+<p>NOTE: This is the only driver you need to install on Windows. Do not install any Linux display driver inside WSL.</p>
+<p><strong>3. WSL (Windows Store Version):</strong></p>
+<p>Download and install the latest stable version of WSL2 from <a class="github reference external" href="https://github.com/microsoft/WSL/releases">microsoft/WSL</a>.</p>
+<p>NOTE: In some build versions of Windows, ‘wsl –install’ command will install the WSL which comes as a part of windows image, which has limited functionality. DO NOT install that.</p>
+</section>
+<section id="install-ubuntu-os-for-wsl">
+<h2>Install Ubuntu OS for WSL :<a class="headerlink" href="DS_on_WSL2.html#install-ubuntu-os-for-wsl" title="Link to this heading">#</a></h2>
+<p><strong>Open terminal and install Ubuntu 22:</strong></p>
+<p>Open windows terminal with admin privilege. (Right click and run as administrator)
+Check what all OS images are available for wsl to install.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">wsl</span><span class="w"> </span><span class="o">--</span><span class="n">list</span><span class="w"> </span><span class="o">--</span><span class="n">online</span>
+</pre></div>
+</div>
+<p>Install Ubuntu version required for Deepstream 7.1.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">wsl</span><span class="w"> </span><span class="o">--</span><span class="n">install</span><span class="w"> </span><span class="n">Ubuntu</span><span class="mf">-22.04</span>
+</pre></div>
+</div>
+<p>The above step may first install dependencies for running WSL, prior to install Ubuntu and can ask for restart of Windows machine. In that case, restart the machine, open windows terminal with admin privilege and check if Ubuntu is installed properly using below command.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">wsl</span><span class="w"> </span><span class="o">--</span><span class="n">list</span>
+</pre></div>
+</div>
+<p>If you can’t find an installed Ubuntu version, again install it using ‘wsl –install Ubuntu-22.04’ command. Set the username and password for Ubuntu when prompted.</p>
+</section>
+<section id="install-docker-engine-and-dependencies-inside-ubuntu">
+<h2>Install Docker Engine And Dependencies Inside Ubuntu:<a class="headerlink" href="DS_on_WSL2.html#install-docker-engine-and-dependencies-inside-ubuntu" title="Link to this heading">#</a></h2>
+<p><strong>Start Ubuntu Inside WSL:</strong></p>
+<p>Open windows terminal with admin privilege (Right click and run as administrator).</p>
+<p>Start Ubuntu using WSL. (This step is required only if you are not already logged into Ubuntu)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">wsl</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">Ubuntu</span><span class="mf">-22.04</span>
+</pre></div>
+</div>
+<p><strong>Verify Driver Installation from within WSL environment:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
+</pre></div>
+</div>
+<p>NOTE: If ‘nvidia-smi’ is not working as expected, then there is some issue with the driver installation in windows and we can’t go further without fixing this.</p>
+<p><strong>Install Docker Engine and Dependencies:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">update</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span><span class="w"> </span><span class="n">ca</span><span class="o">-</span><span class="n">certificates</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="n">gnupg</span><span class="o">-</span><span class="n">agent</span><span class="w"> </span><span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
+<span class="n">$</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">fsSL</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">key</span><span class="w"> </span><span class="n">fingerprint</span><span class="w"> </span><span class="mi">0</span><span class="n">EBFCD88</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span><span class="w"> </span><span class="s">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">update</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="w"> </span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span><span class="w"> </span><span class="n">containerd</span><span class="p">.</span><span class="n">io</span><span class="w"> </span><span class="o">--</span><span class="n">fix</span><span class="o">-</span><span class="n">missing</span>
+</pre></div>
+</div>
+<p><strong>Verify docker installation:</strong></p>
+<p>This should print a “Hello from Docker!”</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">hello</span><span class="o">-</span><span class="n">world</span>
+</pre></div>
+</div>
+<p>NOTE: If you are not able to run the above command because of docker service not running, start the docker service before that.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">dockerd</span><span class="w"> </span><span class="o">&amp;</span>
+</pre></div>
+</div>
+<p><strong>Enabling the Docker Repository and Installing the NVIDIA Container Toolkit:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">distribution</span><span class="o">=</span><span class="n">$</span><span class="p">(.</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">os</span><span class="o">-</span><span class="n">release</span><span class="p">;</span><span class="n">echo</span><span class="w"> </span><span class="n">$ID$VERSION_ID</span><span class="p">)</span>
+<span class="n">$</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">fsSL</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg</span>
+<span class="n">$</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | sed &#39;s#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g&#39; | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">nvidia</span><span class="o">-</span><span class="n">container</span><span class="o">-</span><span class="n">toolkit</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">restart</span><span class="w"> </span><span class="n">docker</span>
+</pre></div>
+</div>
+</section>
+<section id="run-deepstream-container">
+<h2>Run Deepstream Container:<a class="headerlink" href="DS_on_WSL2.html#run-deepstream-container" title="Link to this heading">#</a></h2>
+<p><strong>Pull the required deepstream docker container:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">multiarch</span>
+</pre></div>
+</div>
+<p><strong>Start the docker container:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">x11</span><span class="o">-</span><span class="n">xserver</span><span class="o">-</span><span class="n">utils</span>
+<span class="n">$</span><span class="w"> </span><span class="n">xhost</span><span class="w"> </span><span class="o">+</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">--</span><span class="n">privileged</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">docker</span><span class="w"> </span><span class="o">--</span><span class="n">net</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=</span><span class="n">$DISPLAY</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">CUDA_CACHE_DISABLE</span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="o">--</span><span class="n">device</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">snd</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">/:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">multiarch</span>
+</pre></div>
+</div>
+<p><strong>Verify deepstream functionality:</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">deepstream</span><span class="o">-</span><span class="n">app</span><span class="w"> </span><span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p><em>Expected Output: It should print the deepstream version currently installed on docker.</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/opt/nvidia/deepstream/deepstream/samples/streams
+$<span class="w"> </span>gst-launch-1.0<span class="w"> </span>filesrc<span class="w"> </span><span class="nv">location</span><span class="o">=</span><span class="w"> </span>sample_720p.mp4<span class="w"> </span>!<span class="w"> </span>qtdemux<span class="w"> </span>!<span class="w"> </span>h264parse<span class="w"> </span>!<span class="w"> </span>nvv4l2decoder<span class="w"> </span>!<span class="w"> </span>nveglglessink<span class="w"> </span>-v
+</pre></div>
+</div>
+<p><em>Expected Output: Playback of the sample_720p.mp4 should happen fine. Sample screenshot attached below:</em></p>
+<img alt="Expected output of decode pipeline using ds components" class="align-left" src="../_images/DS_WSL2_decode_pipeline.png" />
+<p>NOTE: The display window size may differ in different systems based on the screen resolution supported. You can drag and adjust the display window to fit your screen.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app
+$<span class="w"> </span>deepstream-app<span class="w"> </span>-c<span class="w"> </span>source30_1080p_dec_infer-resnet_tiled_display_int8.txt
+</pre></div>
+</div>
+<p><em>Expected Output: deepstream-app should run fine. Sample screenshot attached below:</em></p>
+<img alt="Expected output of ds app launch" class="align-left" src="../_images/DS_WSL2_ds_app_launch.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The display window size may differ in different systems based on the screen resolution supported. You can drag and adjust the display window to fit your screen.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_FAQ.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Frequently Asked Questions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_WSL2_FAQ.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">FAQ for Deepstream On WSL</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_on_WSL2.html#pre-requisites">Pre-Requisites:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_on_WSL2.html#install-ubuntu-os-for-wsl">Install Ubuntu OS for WSL :</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_on_WSL2.html#install-docker-engine-and-dependencies-inside-ubuntu">Install Docker Engine And Dependencies Inside Ubuntu:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_on_WSL2.html#run-deepstream-container">Run Deepstream Container:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,932 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Smart Video Record &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Smart_video';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IoT" href="DS_IoT.html" />
+    <link rel="prev" title="DeepStream-3D Multi-Modal V2XFusion Setup" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Smart_video.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Smart_video.html#">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Smart Video Record</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="smart-video-record">
+<h1>Smart Video Record<a class="headerlink" href="DS_Smart_video.html#smart-video-record" title="Link to this heading">#</a></h1>
+<p>Smart video record is used for event (local or cloud) based recording of original data feed. Only the data feed with events of importance is recorded instead of always saving the whole feed. This recording happens in parallel to the inference pipeline running over the feed.
+A video cache is maintained so that recorded video has frames both before and after the event is generated. The size of the video cache can be configured per use case.</p>
+<p>In smart record, encoded frames are cached to save on CPU memory. Based on the event, these cached frames are encapsulated under the chosen container to generate the recorded video. This means, the recording cannot be started until we have an Iframe. The first frame in the cache may not be an Iframe, so, some frames from the cache are dropped to fulfil this condition. This causes the duration of the generated video to be less than the value specified.</p>
+<p>Below diagram shows the smart record architecture:</p>
+<blockquote>
+<div><img alt="Smart Video Record Architecture" class="align-center" src="../_images/DS_smart_video_record.png" />
+</div></blockquote>
+<p>From DeepStream 6.0, Smart Record also supports audio. It uses same caching parameters and implementation as video. To enable audio, a GStreamer element producing encoded audio bitstream must be linked to the <code class="docutils literal notranslate"><span class="pre">asink</span></code> pad of the smart record bin. Both audio and video will be recorded to the same containerized file. Refer to the <code class="docutils literal notranslate"><span class="pre">deepstream-testsr</span></code> sample application for more details on usage.</p>
+<section id="smart-video-record-module-apis">
+<h2>Smart Video Record Module APIs<a class="headerlink" href="DS_Smart_video.html#smart-video-record-module-apis" title="Link to this heading">#</a></h2>
+<p>This module provides the following APIs. See the <code class="docutils literal notranslate"><span class="pre">gst-nvdssr.h</span></code> header file for more details.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NvDsSRStatus</span> <span class="pre">NvDsSRCreate</span> <span class="pre">(NvDsSRContext</span> <span class="pre">**ctx,</span> <span class="pre">NvDsSRInitParams</span> <span class="pre">*params);</span></code></dt><dd><ul>
+<li><p>This function creates the instance of smart record and returns the pointer to an allocated <code class="docutils literal notranslate"><span class="pre">NvDsSRContext</span></code>. The <code class="docutils literal notranslate"><span class="pre">params</span></code> structure must be filled with initialization parameters required to create the instance.</p></li>
+<li><p>A callback function can be setup to get the information of recorded audio/video once recording stops. <code class="docutils literal notranslate"><span class="pre">userData</span></code> received in that callback is the one which is passed during <code class="docutils literal notranslate"><span class="pre">NvDsSRStart()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GstBin</span></code> which is the <code class="docutils literal notranslate"><span class="pre">recordbin</span></code> of <code class="docutils literal notranslate"><span class="pre">NvDsSRContext</span></code> must be added to the pipeline. It expects encoded frames which will be <cite>muxed</cite> and saved to the file. Add this bin after the audio/video parser element in the pipeline.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">NvDsSRDestroy()</span></code> to free resources allocated by this function.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NvDsSRStatus</span> <span class="pre">NvDsSRStart</span> <span class="pre">(NvDsSRContext</span> <span class="pre">*ctx,</span> <span class="pre">NvDsSRSessionId</span> <span class="pre">*sessionId,</span> <span class="pre">guint</span> <span class="pre">startTime,</span> <span class="pre">guint</span> <span class="pre">duration,</span> <span class="pre">gpointer</span> <span class="pre">userData);</span></code></dt><dd><ul>
+<li><p>This function starts writing the cached audio/video data to a file. It returns the session id which later can be used in <code class="docutils literal notranslate"><span class="pre">NvDsSRStop()</span></code> to stop the corresponding recording.</p></li>
+<li><p>Here <code class="docutils literal notranslate"><span class="pre">startTime</span></code> specifies the seconds before the current time and <code class="docutils literal notranslate"><span class="pre">duration</span></code> specifies the seconds after the start of recording.</p></li>
+<li><p>If current time is <code class="docutils literal notranslate"><span class="pre">t1</span></code>, <cite>content from t1 - startTime to t1 + duration</cite> will be saved to file. Therefore, a total of <cite>startTime + duration seconds</cite> of data will be recorded. In case duration is set to zero, recording will be stopped after <code class="docutils literal notranslate"><span class="pre">defaultDuration</span></code> seconds set in <code class="docutils literal notranslate"><span class="pre">NvDsSRCreate()</span></code>.</p></li>
+<li><p>Any data that is needed during callback function can be passed as <code class="docutils literal notranslate"><span class="pre">userData</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NvDsSRStatus</span> <span class="pre">NvDsSRStop</span> <span class="pre">(NvDsSRContext</span> <span class="pre">*ctx,</span> <span class="pre">NvDsSRSessionId</span> <span class="pre">sessionId);</span></code></dt><dd><ul>
+<li><p>This function stops the previously started recording.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">NvDsSRStatus</span> <span class="pre">NvDsSRDestroy</span> <span class="pre">(NvDsSRContext</span> <span class="pre">*ctx);</span></code></dt><dd><ul>
+<li><p>This function releases the resources previously allocated by <code class="docutils literal notranslate"><span class="pre">NvDsSRCreate()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>See the <code class="docutils literal notranslate"><span class="pre">deepstream_source_bin.c</span></code> for more details on using this module.</p>
+</section>
+<section id="smart-video-record-configurations">
+<h2>Smart Video Record Configurations<a class="headerlink" href="DS_Smart_video.html#smart-video-record-configurations" title="Link to this heading">#</a></h2>
+<p>In existing <code class="docutils literal notranslate"><span class="pre">deepstream-test5-app</span></code> only RTSP sources are enabled for smart record. There are two ways in which smart record events can be generated – either through local events or through cloud messages. To enable smart record in <code class="docutils literal notranslate"><span class="pre">deepstream-test5-app</span></code> set the following under <code class="docutils literal notranslate"><span class="pre">[sourceX]</span></code> group:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-record=&lt;1/2&gt;</span></code></p></li>
+</ul>
+<blockquote>
+<div><p>To enable smart record through only cloud messages, set <code class="docutils literal notranslate"><span class="pre">smart-record=1</span></code> and configure <code class="docutils literal notranslate"><span class="pre">[message-consumerX]</span></code> group accordingly.
+The following minimum json message from the server is expected to trigger the <cite>Start/Stop</cite> of smart record.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">command</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">   </span><span class="c1">// &lt;start-recording / stop-recording&gt;</span>
+<span class="w">  </span><span class="nl">start</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">     </span><span class="c1">// &quot;2020-05-18T20:02:00.051Z&quot;</span>
+<span class="w">  </span><span class="nl">end</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">       </span><span class="c1">// &quot;2020-05-18T20:02:02.851Z&quot;,</span>
+<span class="w">  </span><span class="nl">sensor</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">string</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you set <code class="docutils literal notranslate"><span class="pre">smart-record=2</span></code>, this will enable smart record through cloud messages as well as local events with default configurations. That means smart record <cite>Start/Stop</cite> events are generated every 10 seconds through local events.
+Following are the default values of configuration parameters:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cache</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="n">seconds</span><span class="p">,</span>
+<span class="n">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MP4</span><span class="p">,</span>
+<span class="k">default</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">seconds</span><span class="p">,</span>
+<span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">seconds</span><span class="p">,</span>
+<span class="n">file</span><span class="w"> </span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Smart_Record</span><span class="w"> </span><span class="n">etc</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>Following fields can be used under <code class="docutils literal notranslate"><span class="pre">[sourceX]</span></code> groups to configure these parameters.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-cache=&lt;val</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span></code>
+Size of cache in seconds. This parameter will increase the overall memory usages of the application.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-duration=&lt;val</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span></code>
+Duration of recording.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-start-time=&lt;val</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span></code>
+Here, start time of recording is the number of seconds earlier to the current time to start the recording.
+For example, if t0 is the current time and N is the start time in seconds that means recording will start from t0 – N. For it to work, the cache size must be greater than the N.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-default-duration=&lt;val</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span></code>
+In case a Stop event is not generated. This parameter will ensure the recording is stopped after a predefined default duration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Smart-rec-container=&lt;0/1&gt;</span></code>
+MP4 and MKV containers are supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-interval=&lt;val</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span></code>
+This is the time interval in seconds for SR start / stop events generation.
+In the deepstream-test5-app, to demonstrate the use case smart record Start / Stop events are generated every interval second.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-file-prefix=&lt;file</span> <span class="pre">name</span> <span class="pre">prefix&gt;</span></code>
+Prefix of file name for generated stream. By default, “Smart_Record” is the prefix in case this field is not set. For unique names every source must be provided with a unique prefix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smart-rec-dir-path=&lt;path</span> <span class="pre">of</span> <span class="pre">directory</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">the</span> <span class="pre">file&gt;</span></code>
+Path of directory to save the recorded file. By default, the current directory is used.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<p>Recording also can be triggered by JSON messages received from the cloud. The message format is as follows:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="nl">command</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">   </span><span class="c1">// &lt;start-recording / stop-recording&gt;</span>
+<span class="nl">start</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">     </span><span class="c1">// &quot;2020-05-18T20:02:00.051Z&quot;</span>
+<span class="nl">end</span><span class="p">:</span><span class="w"> </span><span class="n">string</span><span class="w">       </span><span class="c1">// &quot;2020-05-18T20:02:02.851Z&quot;,</span>
+<span class="nl">sensor</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">id</span><span class="p">:</span><span class="w"> </span><span class="n">string</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Receiving and processing such messages from the cloud is demonstrated in the <cite>deepstream-test5</cite> sample application. This is currently supported for Kafka. To activate this functionality, populate and enable the following block in the application configuration file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp"># Configure this group to enable cloud message consumer.</span>
+<span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">consumer0</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">proto</span><span class="o">-</span><span class="n">lib</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libnvds_kafka_proto</span><span class="p">.</span><span class="n">so</span>
+<span class="n">conn</span><span class="o">-</span><span class="n">str</span><span class="o">=&lt;</span><span class="n">host</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span>
+<span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">broker</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="w"> </span><span class="n">cfg_kafka</span><span class="p">.</span><span class="n">txt</span><span class="o">&gt;</span>
+<span class="n">subscribe</span><span class="o">-</span><span class="n">topic</span><span class="o">-</span><span class="n">list</span><span class="o">=&lt;</span><span class="n">topic1</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">topic2</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">topicN</span><span class="o">&gt;</span>
+<span class="cp"># Use this option if message has sensor name as id instead of index (0,1,2 etc.).</span>
+<span class="cp">#sensor-list-file=dstest5_msgconv_sample_config.txt</span>
+</pre></div>
+</div>
+<p>While the application is running, use a Kafka broker to publish the above JSON messages on topics in the subscribe-topic-list to start and stop recording.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, there is no support for overlapping smart record.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DeepStream-3D Multi-Modal V2XFusion Setup</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_IoT.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">IoT</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Smart_video.html#smart-video-record-module-apis">Smart Video Record Module APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Smart_video.html#smart-video-record-configurations">Smart Video Record Configurations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

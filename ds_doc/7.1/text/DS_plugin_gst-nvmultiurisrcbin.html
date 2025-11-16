@@ -1,0 +1,1384 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gst-nvmultiurisrcbin &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_plugin_gst-nvmultiurisrcbin';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gst-nvurisrcbin" href="DS_plugin_gst-nvurisrcbin.html" />
+    <link rel="prev" title="Gst-nvvideotestsrc" href="DS_plugin_gst-nvvideotestsrc.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_plugin_gst-nvmultiurisrcbin.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="DS_plugin_Intro.html" class="nav-link">GStreamer Plugin Overview</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Gst-nvmultiurisrcbin</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gst-nvmultiurisrcbin">
+<span id="ds-plugin-gst-nvmultiurisrcbin"></span><h1>Gst-nvmultiurisrcbin<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-nvmultiurisrcbin" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The DeepStream 6.2 onwards support nvmultiurisrcbin with REST API support for dynamic sensor add/remove capability.</p>
+</div>
+</div></blockquote>
+<p>This bin integrates three major DeepStream components viz. <a class="reference internal" href="DS_RestServer.html#nvds-rest-server"><span class="std std-ref">nvds_rest_server</span></a>, nvurisrcbin, and nvstreammux (<a class="reference internal" href="DS_plugin_gst-nvstreammux.html#ds-plugin-gst-nvstreammux"><span class="std std-ref">Gst-nvstreammux</span></a>) into a single GstBin.
+For more details on <cite>nvurisrcbin</cite>, please run <cite>gst-inspect-1.0 nvurisrcbin</cite> on a machine/docker container with DeepStream installed.</p>
+<p>The bin allows users to create simple gstreamer pipelines for AI multimedia analytics.
+Users can add or remove sensors over REST API calls made to a HTTP endpoint.
+A sensor is defined as a streaming entity with a valid unique Sensor ID, and URI.</p>
+<p>The below High Level Overview diagram and table illustrate how nvmultiurisrcbin integrates nvds_rest_server, nvurisrcbin, and nvstreammux.</p>
+<img alt="Gst-nvmultiurisrcbin High Level Overview" class="align-center" src="../_images/DS_plugin_gst-nvmultiurisrcbin_high_level_overview.png" />
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin High Level Overview of integrated components</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component Name</p></th>
+<th class="head"><p>Source path in DeepStreamSDK Package for more info</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><ol class="arabic simple">
+<li><p>REST API Server; nvds_rest_server</p></li>
+</ol>
+</td>
+<td><p><cite>/opt/nvidia/deepstream/deepstream/sources/libs/nvds_rest_server/</cite></p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="2">
+<li><p>Bin Manipulation API Library</p></li>
+</ol>
+</td>
+<td><p><cite>/opt/nvidia/deepstream/deepstream/sources/libs/gstnvdscustomhelper/</cite></p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="3">
+<li><p>nvmultiurisrcbin</p></li>
+</ol>
+</td>
+<td><p><cite>/opt/nvidia/deepstream/deepstream/sources/gst-plugins/gst-nvmultiurisrcbin/</cite></p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="4">
+<li><p>deepstream-test5-app Demonstrating usage of nvmultiurisrcbin with nvmsgconv and nvmsgbroker</p></li>
+</ol>
+</td>
+<td><p><cite>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-test5/</cite></p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="5">
+<li><p>nvurisrcbin</p></li>
+</ol>
+</td>
+<td><p><cite>/opt/nvidia/deepstream/deepstream/sources/gst-plugins/gst-nvurisrcbin/</cite></p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="6">
+<li><p>nvstreammux</p></li>
+</ol>
+</td>
+<td><p>Source not available. For more info please run <cite>gst-inspect-1.0 nvstreammux</cite></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#introduction" title="Link to this heading">#</a></h2>
+<p>This GstBin is a GStreamer source bin. The bin exposes only one source pad that provide batched buffers from an nvstreammux instance.</p>
+<p>Users can add/remove streams to the bin for batching over the REST APIs defined in the Section <a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#ds-plugin-gst-nvmultiurisrcbin-rest-payload"><span class="std std-ref">REST API Payload definitions</span></a>.</p>
+<p>Users can also provide a static list of streams and their sensor IDs to start the pipeline with. This can be done using the Gst properties uri-list and sensor-id-list described below.</p>
+<p>The nvmultiurisrcbin component output batched buffers from an nvstreammux instance.</p>
+</section>
+<section id="features">
+<h2>2. Features<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#features" title="Link to this heading">#</a></h2>
+<p>The following table summarizes the features of the bin.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin features</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Release</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvmultiurisrcbin integrating REST API Server, nvurisrcbin, and nvstreammux</p></td>
+<td><p>Introducing nvmultiurisrcbin</p></td>
+<td><p>DS 6.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>REST API to add and remove sensors runtime</p></td>
+<td><p>Dynamically add/remove sensors</p></td>
+<td><p>DS 6.2</p></td>
+</tr>
+<tr class="row-even"><td><p>Stream specific</p></td>
+<td><p>Stream addition and removal</p></td>
+<td><p>DS 6.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvdspreprocess</p></td>
+<td><p>Update ROI for preprocess</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>nvv4l2decoder</p></td>
+<td><p>“drop-frame-interval” and “skip-frame” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvdsinfer</p></td>
+<td><p>“interval” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>nvdsinferserver</p></td>
+<td><p>“interval” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvv4l2encoder</p></td>
+<td><p>“force-idr”, “force-intra”,  “iframeinterval” and “bitrate” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>nvstreammux</p></td>
+<td><p>“batched-push-timeout” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvvideoconvert</p></td>
+<td><p>“src-crop”, “dest-crop”, “flip-method” and “interpolation-method” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>nvdsosd</p></td>
+<td><p>“process-mode” property update</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Application specific</p></td>
+<td><p>Application quit</p></td>
+<td><p>DS 6.4</p></td>
+</tr>
+<tr class="row-even"><td><p>GET requests</p></td>
+<td><p>Get the stream-info</p></td>
+<td><p>DS 7.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="how-to-use-nvmultiurisrcbin-in-a-pipeline">
+<h2>3. How to use nvmultiurisrcbin in a pipeline<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#how-to-use-nvmultiurisrcbin-in-a-pipeline" title="Link to this heading">#</a></h2>
+<p>Below pipeline is a sample gstreamer pipeline which is configured to accept upto 10 input sources and the pipline starts up with two sources:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">nvmultiurisrcbin</span><span class="w"> </span>\
+<span class="n">port</span><span class="o">=</span><span class="mi">9000</span><span class="w"> </span><span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="o">=</span><span class="n">localhost</span><span class="w"> </span>\
+<span class="n">batched</span><span class="o">-</span><span class="n">push</span><span class="o">-</span><span class="n">timeout</span><span class="o">=</span><span class="mi">33333</span><span class="w"> </span><span class="n">max</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="w"> </span>\
+<span class="n">drop</span><span class="o">-</span><span class="n">pipeline</span><span class="o">-</span><span class="n">eos</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">live</span><span class="o">-</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span>\
+<span class="n">uri</span><span class="o">-</span><span class="n">list</span><span class="o">=</span><span class="n">file</span><span class="o">:</span><span class="c1">///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4,file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4 width=1920 height=1080 \</span>
+<span class="c1">! nvmultistreamtiler ! nveglglessink</span>
+</pre></div>
+</div>
+<p>Below diagram illustrates a similar pipeline (with different plugins like nvinfer, nvmsgconv, and nvmsgbroker downstream).</p>
+<img alt="Gst-nvmultiurisrcbin sample video pipeline" class="align-center" src="../_images/DS_plugin_gst-nvmultiurisrcbin_sample_video_pipeline.png" />
+<section id="rest-api-payload-definitions-and-sample-curl-commands-for-reference">
+<span id="ds-plugin-gst-nvmultiurisrcbin-rest-payload"></span><h3>REST API payload definitions and sample curl commands for reference<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#rest-api-payload-definitions-and-sample-curl-commands-for-reference" title="Link to this heading">#</a></h3>
+<p>Note:</p>
+<p>Currently only few fields from the JSON schema described below are used/mandatory.
+The remaining fields are optional and ignored.</p>
+<p>List of mandatory (and used) fields are:</p>
+<ul class="simple">
+<li><p>value/camera_id</p></li>
+<li><p>value/camera_url</p></li>
+<li><p>value/change</p></li>
+</ul>
+<section id="add-a-new-stream-to-a-deepstream-pipeline">
+<h4>ADD a new stream to a DeepStream pipeline<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#add-a-new-stream-to-a-deepstream-pipeline" title="Link to this heading">#</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DS-7.1 supports REST API version <code class="docutils literal notranslate"><span class="pre">/api/v1</span></code>. Refer below schema details.</p>
+</div>
+<p>Payload definition and the sample curl command:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1.curl -XPOST &#39;http://localhost:9000/api/v1/stream/add&#39; -d &#39;{
+  &quot;key&quot;: &quot;sensor&quot;,
+  &quot;value&quot;: {
+     &quot;camera_id&quot;: &quot;uniqueSensorID1&quot;,
+     &quot;camera_name&quot;: &quot;front_door&quot;,
+     &quot;camera_url&quot;: &quot;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4&quot;,
+     &quot;change&quot;: &quot;camera_add&quot;,
+     &quot;metadata&quot;: {
+         &quot;resolution&quot;: &quot;1920 x1080&quot;,
+         &quot;codec&quot;: &quot;h264&quot;,
+         &quot;framerate&quot;: 30
+     }
+ },
+ &quot;headers&quot;: {
+     &quot;source&quot;: &quot;vst&quot;,
+     &quot;created_at&quot;: &quot;2021-06-01T14:34:13.417Z&quot;
+ }
+}&#39;
+
+2.curl -XPOST &#39;http://localhost:9000/api/v1/stream/add&#39; -d &#39;{
+ &quot;key&quot;: &quot;sensor&quot;,
+ &quot;event&quot;: {
+     &quot;camera_id&quot;: &quot;uniqueSensorID1&quot;,
+     &quot;camera_name&quot;: &quot;front_door&quot;,
+     &quot;camera_url&quot;: &quot;rtsp://xyz.mp4&quot;,
+     &quot;change&quot;: &quot;camera_streaming&quot;,
+     &quot;metadata&quot;: {
+         &quot;resolution&quot;: &quot;1920 x1080&quot;,
+         &quot;codec&quot;: &quot;h264&quot;,
+         &quot;framerate&quot;: 30
+     }
+ },
+ &quot;headers&quot;: {
+     &quot;source&quot;: &quot;vst&quot;,
+     &quot;created_at&quot;: &quot;2021-06-01T14:34:13.417Z&quot;
+ }
+}&#39;
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="remove-a-new-stream-to-a-deepstream-pipeline">
+<h4>REMOVE a new stream to a DeepStream pipeline<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#remove-a-new-stream-to-a-deepstream-pipeline" title="Link to this heading">#</a></h4>
+<p>Payload definition and the sample curl command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>curl -XPOST &#39;http://localhost:9000/api/v1/stream/remove&#39; -d &#39;{
+    &quot;key&quot;: &quot;sensor&quot;,
+    &quot;value&quot;: {
+        &quot;camera_id&quot;: &quot;uniqueSensorID1&quot;,
+        &quot;camera_name&quot;: &quot;front_door&quot;,
+        &quot;camera_url&quot;: &quot;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4&quot;,
+        &quot;change&quot;: &quot;camera_remove&quot;,
+        &quot;metadata&quot;: {
+            &quot;resolution&quot;: &quot;1920 x1080&quot;,
+            &quot;codec&quot;: &quot;h264&quot;,
+            &quot;framerate&quot;: 30
+        }
+    },
+    &quot;headers&quot;: {
+        &quot;source&quot;: &quot;vst&quot;,
+        &quot;created_at&quot;: &quot;2021-06-01T14:34:13.417Z&quot;
+    }
+}&#39;
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="gst-properties">
+<h2>4. Gst Properties<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties" title="Link to this heading">#</a></h2>
+<section id="gst-properties-directly-configuring-nvmultiurisrcbin">
+<h3>Gst Properties directly configuring nvmultiurisrcbin<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-directly-configuring-nvmultiurisrcbin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin gstreamer properties directly configuring the bin</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Range</p></th>
+<th class="head"><p>Example Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>uri-list</p></td>
+<td><p>comma separated URI list of sources; URI of the file or rtsp source</p></td>
+<td><p>string</p></td>
+<td><p>uri-list=file:///opt/file.mp4,file:///opt/file.mp4</p></td>
+</tr>
+<tr class="row-odd"><td><p>sensor-id-list</p></td>
+<td><p>comma separated list of unique source sensor IDs; this vector is one to one mapped with the uri-list</p></td>
+<td><p>string</p></td>
+<td><p>sensor-id-list=uniqueSensorID1,uniqueSensorID2</p></td>
+</tr>
+<tr class="row-even"><td><p>sensor-name-list</p></td>
+<td><p>OPTIONAL comma separated list of source sensor names; this vector is one to one mapped with the uri-list</p></td>
+<td><p>string</p></td>
+<td><p>sensor-name-list=SensorName1,SensorName2</p></td>
+</tr>
+<tr class="row-odd"><td><p>mode</p></td>
+<td><p>Video-only or Audio-only modes available</p></td>
+<td><p>0: for video-only
+1: for audio-only</p></td>
+<td><p>mode=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>ip-address</p></td>
+<td><p>Set REST API HTTP IP Address</p></td>
+<td><p>string</p></td>
+<td><p>ip-address=localhost (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>port</p></td>
+<td><p>Set REST API HTTP Port number; Note: User may pass 0 to disable REST API Server</p></td>
+<td><p>string</p></td>
+<td><p>port=9000 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>max-batch-size</p></td>
+<td><p>Set the maximum batch size to be used for nvstreammux; Maximum number of sources to be supported with this instance of nvmultiurisrcbin</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>max-batch-size=30 (default)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="gst-properties-to-configure-each-instance-of-nvurisrcbin-created-inside-this-bin">
+<h3>Gst Properties to configure each instance of nvurisrcbin created inside this bin<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-each-instance-of-nvurisrcbin-created-inside-this-bin" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin nvurisrcbin specific properties</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Range</p></th>
+<th class="head"><p>Example Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num-extra-surfaces</p></td>
+<td><p>Set extra decoder surfaces; Number of surfaces in addition to minimum decode surfaces given by the decoder</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>num-extra-surfaces=1 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>gpu-id</p></td>
+<td><p>Set GPU Device ID used by nvurisrcbin components like decoder (nvv4l2decoder) and nvvideoconvert</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>gpu-id=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>cudadec-memtype</p></td>
+<td><p>Memory type for cuda decoder buffers,
+Memory type for CUDA decoder buffers. Represented internally by enum CudaDecMemType.
+0 (memtype_device): Device
+1 (memtype_pinned): Host Pinned
+2 (memtype_unified): Unified</p></td>
+<td><p>Integer,
+0, 1, or 2</p></td>
+<td><p>cudadec-memtype=0 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>drop-frame-interval</p></td>
+<td><p>Interval to drop the frames, e.g. a value of 5 means the decoder outputs every fifth frame, and others are dropped.</p></td>
+<td><p>Integer,
+1 to 30</p></td>
+<td><p>Default: 0, dGPU / Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>dec-skip-frames</p></td>
+<td><p>Type of frames to skip during decoding. Represented internally by enum SkipFrame. 0 (decode_all): decode all frames
+1 (decode_non_ref): skips non-ref frames (Applicable only on Jetson platform)
+2 (decode_key): decode key frames</p></td>
+<td><p>Integer,
+0, 1, or 2</p></td>
+<td><p>skip-frames=0 Default: 0 ,dGPU / Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>select-rtp-protocol</p></td>
+<td><p>Transport Protocol to use for RTP</p></td>
+<td><p>Enum RtpProtocol Default: 0, rtp-multi
+(0): rtp-multi - UDP + UDP Multicast + TCP
+(4): rtp-tcp - TCP Only</p></td>
+<td><p>select-rtp-protocol=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>file-loop</p></td>
+<td><p>Loop file sources after EOS. Src type must be source-type-uri and uri starting with ‘<a class="reference external" href="file:/">file:/</a>’</p></td>
+<td><p>boolean</p></td>
+<td><p>file-loop=false (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>rtsp-reconnect-interval</p></td>
+<td><p>Timeout in seconds to wait since last data was received from an RTSP source before forcing a reconnection. 0=disable timeout</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>rtsp-reconnect-interval=10</p></td>
+</tr>
+<tr class="row-even"><td><p>rtsp-reconnect-attempts</p></td>
+<td><p>Maximum number of times a reconnection is attempted. Setting it to -1 means reconnection will be attempted infinitely. Valid when type of source is 4 and rtsp-reconnect-interval-sec is a non-zero positive value.</p></td>
+<td><p>Integer, &gt;=-1</p></td>
+<td><p>rtsp-reconnect-attempts=4</p></td>
+</tr>
+<tr class="row-odd"><td><p>latency</p></td>
+<td><p>Jitterbuffer size in milliseconds; applicable only for RTSP streams.</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>latency=100 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>udp-buffer-size</p></td>
+<td><p>UDP Buffer Size in bytes; applicable only for RTSP streams.</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>udp-buffer-size=524288 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-record</p></td>
+<td><p>Enable Smart Record and choose the type of events to respond to. Sources must be of type source-type-rtsp</p></td>
+<td><p>(0):smart-rec-disable - Disable Smart Record
+(1):smart-rec-cloud  - Trigger Smart Record through cloud messages only
+(2):smart-rec-multi  - Trigger Smart Record through cloud and local events</p></td>
+<td><p>smart-record=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-dir-path</p></td>
+<td><p>Path of directory to save the recorded file.</p></td>
+<td><p>string</p></td>
+<td><p>Absolute or relative path</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-file-prefix</p></td>
+<td><p>By default, Smart_Record is the prefix. For unique file names every source must be provided with a unique prefix</p></td>
+<td><p>string</p></td>
+<td><p>Absolute or relative path</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-video-cache</p></td>
+<td><p>Size of video cache in seconds. DEPRECATED: Use ‘smart-rec-cache’ instead</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>smart-rec-video-cache=0 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-cache</p></td>
+<td><p>Size of cache in seconds, applies to both audio and video cache</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>smart-rec-cache=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-container</p></td>
+<td><p>Container format of recorded video. MP4 and MKV containers are supported. Sources must be of type source-type-rtsp</p></td>
+<td><p>(0): smart-rec-mp4 - MP4 container
+(1): smart-rec-mkv - MKV container</p></td>
+<td><p>smart-rec-container=0 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-mode</p></td>
+<td><p>Smart record mode</p></td>
+<td><p>(0):smart-rec-mode-av - Record audio and video if available
+(1):smart-rec-mode-video - Record video only if available
+(2):smart-rec-mode-audio - Record audio only if available</p></td>
+<td><p>smart-rec-mode=0 (default)</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-default-duration</p></td>
+<td><p>In case a Stop event is not generated. This parameter will ensure the recording is stopped after a predefined default duration.</p></td>
+<td><p>Integer,
+1 to 4,294,967,295</p></td>
+<td><p>smart-rec-default-duration=20 (default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>disable-passthrough</p></td>
+<td><p>To disable the passhthrough mode of nvvideoconvert used inside the nvurisrcbin</p></td>
+<td><p>boolean</p></td>
+<td><p>disable-passhtorugh=false(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>drop-pipeline-eos</p></td>
+<td><p>Boolean property so that EOS is not propagated downstream when all source pads are at EOS.</p></td>
+<td><p>boolean</p></td>
+<td><p>drop-pipeline-eos=false(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>async-handling</p></td>
+<td><p>Boolean property so that will handle Asynchronous state changes</p></td>
+<td><p>boolean</p></td>
+<td><p>async-handling=true(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>disable-audio</p></td>
+<td><p>Disable audio path mode at init time</p></td>
+<td><p>boolean</p></td>
+<td><p>disable-audio=true(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ipc-buffer-timestamp-copy</p></td>
+<td><p>Copy buffer timestamp for nvunixfdsrc plugin</p></td>
+<td><p>boolean</p></td>
+<td><p>ipc-buffer-timestamp-copy=false(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>ipc-connection-attempts</p></td>
+<td><p>Max number of attempts for connection (-1 = unlimited)</p></td>
+<td><p>Integer. Range: -1 - 2147483647 Default: -1</p></td>
+<td><p>ipc-connection-attempts=-1(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>ipc-connection-interval</p></td>
+<td><p>connection interval between connection attempts in micro seconds</p></td>
+<td><p>Unsigned Integer64. Range: 0 - 18446744073709551615</p></td>
+<td><p>ipc-connection-interval=1000000(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>ipc-socket-path</p></td>
+<td><p>The path to the control socket used to control the shared memory transport. This may be modified during the NULL-&gt;READY transition</p></td>
+<td><p>String</p></td>
+<td><p>ipc-socket-path=null(default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>low-latency-mode</p></td>
+<td><p>Set low latency mode for bitstreams having I and IPPP frames on decoder</p></td>
+<td><p>boolean</p></td>
+<td><p>low-latency-mode=false(default)</p></td>
+</tr>
+<tr class="row-even"><td><p>message-forward</p></td>
+<td><p>Forwards all children messages</p></td>
+<td><p>boolean</p></td>
+<td><p>message-forward=false(default)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="gst-properties-to-configure-the-instance-of-nvstreammux-created-inside-this-bin">
+<h3>Gst Properties to configure the instance of nvstreammux created inside this bin<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-the-instance-of-nvstreammux-created-inside-this-bin" title="Link to this heading">#</a></h3>
+<p>All properties except “batch-size” can be configured using the same property names as defined for <a class="reference internal" href="DS_plugin_gst-nvstreammux.html#ds-plugin-gst-nvstreammux-properties"><span class="std std-ref">nvstreammux here</span></a>.</p>
+</section>
+</section>
+<section id="important-notes">
+<h2>5. Important Notes<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#important-notes" title="Link to this heading">#</a></h2>
+<section id="nvmultiurisrcbin-config-recommendations-and-notes-on-expected-behavior">
+<h3>nvmultiurisrcbin config recommendations and notes on expected behavior<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#nvmultiurisrcbin-config-recommendations-and-notes-on-expected-behavior" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin recommendations</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 3.2%" />
+<col style="width: 96.8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SL</p></th>
+<th class="head"><p>Expected Behavior and Recommendation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>nvstreammux, live-source property.
+live-source=1
+live-source need to be turned ON to allow batching of available buffers when number of sources is &lt; max-batch-size configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>REST API stream/add or stream/remove payload value of the change key must contain substring add or remove respectively.
+Expected Behavior: If ‘add’ is in the change field value, the sensorId and uri will be used to create a new stream.
+If ‘remove’ is in the change field value, the sensorId and uri will be used to find and remove the matching running stream.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Boolean property to inform muxer to skip sending EOS downstream is recommended to be set to 1.
+When using nvmultiurisrcbin drop-pipeline-eos=1 is preferred default to allow pipeline to stay alive for new sensor add requests after the last added sensor EOS.
+drop-pipeline-eos=1</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>nvstreammux, max-batch-size property.
+The value set signgifies the maximum number of streams that can be added at a given instance.
+Once the streams are removed or EOS is reached, the pad id would be reused</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="limitations">
+<h2>6. Limitations<a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#limitations" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-text">Gst-nvmultiurisrcbin known issues</span><a class="headerlink" href="DS_plugin_gst-nvmultiurisrcbin.html#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 3.2%" />
+<col style="width: 96.8%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>SL</p></th>
+<th class="head"><p>Limitations</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Usage of new nvstreammux for video and audio usecases are not supported at this time and might not work.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_plugin_gst-nvvideotestsrc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Gst-nvvideotestsrc</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_plugin_gst-nvurisrcbin.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gst-nvurisrcbin</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#introduction">1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#features">2. Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#how-to-use-nvmultiurisrcbin-in-a-pipeline">3. How to use nvmultiurisrcbin in a pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#rest-api-payload-definitions-and-sample-curl-commands-for-reference">REST API payload definitions and sample curl commands for reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#add-a-new-stream-to-a-deepstream-pipeline">ADD a new stream to a DeepStream pipeline</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#remove-a-new-stream-to-a-deepstream-pipeline">REMOVE a new stream to a DeepStream pipeline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties">4. Gst Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-directly-configuring-nvmultiurisrcbin">Gst Properties directly configuring nvmultiurisrcbin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-each-instance-of-nvurisrcbin-created-inside-this-bin">Gst Properties to configure each instance of nvurisrcbin created inside this bin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-the-instance-of-nvstreammux-created-inside-this-bin">Gst Properties to configure the instance of nvstreammux created inside this bin</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#important-notes">5. Important Notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#nvmultiurisrcbin-config-recommendations-and-notes-on-expected-behavior">nvmultiurisrcbin config recommendations and notes on expected behavior</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmultiurisrcbin.html#limitations">6. Limitations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

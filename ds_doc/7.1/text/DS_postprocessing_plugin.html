@@ -1,0 +1,1147 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gst-nvdspostprocess in DeepStream &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_postprocessing_plugin';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DeepStream Can Orientation App" href="DS_Can_Orientation.html" />
+    <link rel="prev" title="Networked Media Open Specifications (NMOS) in DeepStream" href="DS_library_nvdsnmos.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_postprocessing_plugin.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_postprocessing_plugin.html#">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Gst-nvdspost...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gst-nvdspostprocess-in-deepstream">
+<h1>Gst-nvdspostprocess in DeepStream<a class="headerlink" href="DS_postprocessing_plugin.html#gst-nvdspostprocess-in-deepstream" title="Link to this heading">#</a></h1>
+<p>The Gst-nvdspostprocess plugin is released in DeepStream 6.1. The plugin supports parsing of various inferencing models
+in DeepStream SDK. The plugin can perform parsing on the tensors of the output layers provided by the Gst-nvinfer and Gst-nvinferserver.
+The aim of this document is to provide guidance on how to use the Gst-nvdspostprocess plugin for various inference models.</p>
+<p>This document provides details about: The document is divided into four parts.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="DS_postprocessing_plugin.html#detector-models">Detector models</a> such as Yolo V3 and Faster RCNN.</p></li>
+<li><p>Using classification model as <a class="reference internal" href="DS_postprocessing_plugin.html#primary-classification-model">Primary Classification model</a> with Gst-nvinferserver</p></li>
+<li><p><a class="reference internal" href="DS_postprocessing_plugin.html#mask-rcnn-model">Mask RCNN Model</a>.</p></li>
+<li><p>Also provides a table for using various custom functions that can be used for parsing of output layers.</p></li>
+</ul>
+<section id="detector-models">
+<h2>Detector models<a class="headerlink" href="DS_postprocessing_plugin.html#detector-models" title="Link to this heading">#</a></h2>
+<p>To use Yolo V3 detector, follow the prerequisite steps mentioned in  <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/objectDetector_Yolo/README</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Check if the setup is configured correctly by running below test pipelines in following folder <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/objectDetector_Yolo/</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#For dGPU</span>
+<span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w">  </span>\
+<span class="n">m</span><span class="p">.</span><span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w">  </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">config_infer_primary_yoloV3</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nveglglessink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="cp">#For Jetson</span>
+<span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w">  </span>\
+<span class="n">m</span><span class="p">.</span><span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w">  </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">config_infer_primary_yoloV3</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nv3dsink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>To update the above pipeline to use the post processing plugin for parsing, the <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/objectDetector_Yolo/config_infer_primary_yoloV3.txt</span></code> file must be modified by:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>changing the <code class="docutils literal notranslate"><span class="pre">network-type=0</span></code> to <code class="docutils literal notranslate"><span class="pre">network-type=100</span></code>. By doing this, output post processing is disabled in nvinfer plugin.</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">output-tensor-meta=1</span></code>, nvinfer plugin then attaches the tensor meta to the input buffer.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Store the  modified file as <code class="docutils literal notranslate"><span class="pre">config_infer_primary_yoloV3_modified.txt</span></code>. The post processing plugin config file in YAML format has to be created as below.</p></li>
+</ol>
+<blockquote>
+<div><blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>property:
+ gpu-id: 0 #Set the GPU id
+ process-mode: 1 # Set the mode as primary inference
+ num-detected-classes: 80 # Change according the models output
+ gie-unique-id: 1  # This should match the one set in inference config
+ ## 1=DBSCAN, 2=NMS, 3= DBSCAN+NMS Hybrid, 4 = None(No clustering)
+ cluster-mode: 2  # Set  appropriate clustering algorithm
+ network-type: 0  # Set the network type as detector
+ labelfile-path: labels.txt # Set the path of labels wrt to this config file
+ parse-bbox-func-name: NvDsPostProcessParseCustomYoloV3 # Set custom parsing function
+
+class-attrs-all: # Set as done in the original infer configuration
+ nms-iou-threshold: 0.5
+ pre-cluster-threshold: 0.7
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Save the above config as <code class="docutils literal notranslate"><span class="pre">config_detector.yml</span></code>. The following pipeline can be executed as given below.</p></li>
+</ol>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#For dGPU</span>
+<span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w">  </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">config_infer_primary_yoloV3_modified</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvdspostprocess</span><span class="w"> </span><span class="n">postprocesslib</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">config_detector</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span>\
+<span class="n">postprocesslib</span><span class="o">-</span><span class="n">name</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpostprocess_impl</span><span class="p">.</span><span class="n">so</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nveglglessink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="cp">#For Jetson</span>
+<span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w">  </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">config_infer_primary_yoloV3_modified</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvdspostprocess</span><span class="w"> </span><span class="n">postprocesslib</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">config_detector</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span>\
+<span class="n">postprocesslib</span><span class="o">-</span><span class="n">name</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpostprocess_impl</span><span class="p">.</span><span class="n">so</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nv3dsink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">NvDsPostProcessParseCustomYoloV3</span></code> function is defined in <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/gst-plugins/gst-nvdspostprocess/postprocesslib_impl/post_processor_custom_impl.cpp</span></code></p>
+</div>
+</div></blockquote>
+<p>Process similar to the above can be followed to demonstrate the usage of Faster RCNN network (<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/objectDetector_FasterRCNN/README</span></code>),  with nvdspostprocess plugin with below <code class="docutils literal notranslate"><span class="pre">config_detector.yml</span></code></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>property:
+  gpu-id: 0 #Set the GPU id
+  process-mode: 1 # Set the mode as primary inference
+  num-detected-classes: 21 # Change according the models output
+  gie-unique-id: 1  # This should match the one set in inference config
+  ## 1=DBSCAN, 2=NMS, 3= DBSCAN+NMS Hybrid, 4 = None(No clustering)
+  cluster-mode: 2  # Set  appropriate clustering algorithm
+  network-type: 0  # Set the network type as detector
+  labelfile-path: labels.txt # Set the path of labels wrt to this config file
+  parse-bbox-func-name: NvDsPostProcessParseCustomFasterRCNN # Set custom parsing function FRCNN
+
+class-attrs-all: # Set as done in the original infer configuration
+  topk: 20
+  nms-iou-threshold: 0.4
+  pre-cluster-threshold: 0.5
+
+class-attrs-0:
+  pre-cluster-threshold: 1.1
+</pre></div>
+</div>
+<p>The pipeline for running the Faster RCNN network with modified nvinfer config and post process plugin is given below.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#For dGPU
+gst-launch-1.0 filesrc location=/opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4 ! decodebin !  \
+m.sink_0 nvstreammux name=m batch-size=1 width=1920  height=1080 ! nvinfer config-file-path=config_infer_primary_fasterRCNN_modified.txt ! \
+nvdspostprocess postprocesslib-config-file=config_detector.yml postprocesslib-name=/opt/nvidia/deepstream/deepstream/lib/libpostprocess_impl.so ! \
+nvvideoconvert ! nvdsosd ! nveglglessink sync=0
+
+#For Jetson
+gst-launch-1.0 filesrc location=/opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4 ! decodebin !  \
+m.sink_0 nvstreammux name=m batch-size=1 width=1920  height=1080 ! nvinfer config-file-path=config_infer_primary_fasterRCNN_modified.txt ! \
+nvdspostprocess postprocesslib-config-file=config_detector.yml postprocesslib-name=/opt/nvidia/deepstream/deepstream/lib/libpostprocess_impl.so ! \
+nvvideoconvert ! nvdsosd ! nv3dsink sync=0
+</pre></div>
+</div>
+</section>
+<section id="primary-classification-model">
+<h2>Primary Classification model<a class="headerlink" href="DS_postprocessing_plugin.html#primary-classification-model" title="Link to this heading">#</a></h2>
+<p>The primary classification model is demonstrated using the DeepStream Triton <a class="reference internal" href="DS_docker_containers.html"><span class="doc">Docker Containers</span></a> on dGPU.
+Once the docker is running the model repo and classification video should be created.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The script <code class="docutils literal notranslate"><span class="pre">prepare_classification_test_video.sh</span></code> mentioned below requires <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> to be installed. Some of the low level codec libraries need to be re-installed along with ffmpeg.</p></li>
+<li><p>Use the following command to install/re-install  ffmpeg: <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">--reinstall</span> <span class="pre">libflac8</span> <span class="pre">libmp3lame0</span> <span class="pre">libxvidcore4</span> <span class="pre">ffmpeg</span></code></p></li>
+</ul>
+</div>
+<ol class="arabic simple">
+<li><p>Execute following commands to download the model repo and create a sample classification video.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd /opt/nvidia/deepstream/deepstream/samples
+./prepare_ds_triton_model_repo.sh
+apt-get install --reinstall libflac8 libmp3lame0 libxvidcore4 ffmpeg
+./prepare_classification_test_video.sh
+cd /opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app-triton
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Check by running following sample classification pipeline</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 filesrc location=/opt/nvidia/deepstream/deepstream/samples/streams/classification_test_video.mp4  ! decodebin ! \
+m.sink_0 nvstreammux name=m batch-size=1 width=1920  height=1080 ! \
+nvinferserver config-file-path=config_infer_primary_classifier_densenet_onnx.txt  \
+! nvvideoconvert ! nvdsosd ! nveglglessink sync=1
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use nveglglessink inside docker ensure <code class="docutils literal notranslate"><span class="pre">xhost</span> <span class="pre">+</span></code> done from the host, and set appropriate <code class="docutils literal notranslate"><span class="pre">DISPLAY</span></code> environment variable inside the docker.</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>Now, update the <code class="docutils literal notranslate"><span class="pre">config_infer_primary_classifier_densenet_onnx.txt</span></code> to disable post processing and attaching tensor output meta in nvinferserver. This can be done by updating configuration file with following parameters <code class="docutils literal notranslate"><span class="pre">infer_config</span> <span class="pre">{</span> <span class="pre">postprocess</span> <span class="pre">{</span> <span class="pre">other</span> <span class="pre">{}</span> <span class="pre">}</span> <span class="pre">}</span></code> and <code class="docutils literal notranslate"><span class="pre">output_control</span> <span class="pre">{</span> <span class="pre">output_tensor_meta</span> <span class="pre">:</span> <span class="pre">true</span> <span class="pre">}</span></code></p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>infer_config {
+ unique_id: 5
+ gpu_ids: [0]
+ max_batch_size: 1
+ backend {
+   triton {
+     model_name: &quot;densenet_onnx&quot;
+     version: -1
+     model_repo {
+       root: &quot;../../triton_model_repo&quot;
+       strict_model_config: true
+       tf_gpu_memory_fraction: 0.0
+       tf_disable_soft_placement: 0
+     }
+   }
+ }
+ preprocess {
+   network_format: IMAGE_FORMAT_RGB
+   tensor_order: TENSOR_ORDER_LINEAR
+   maintain_aspect_ratio: 0
+   frame_scaling_hw: FRAME_SCALING_HW_DEFAULT
+   frame_scaling_filter: 1
+   normalize {
+   scale_factor: 0.0078125
+   channel_offsets: [128, 128, 128]
+   }
+ }
+ #Disable post processing in nvinferserver
+ postprocess {
+   other {
+   }
+ }
+ extra {
+   copy_input_to_host_buffers: false
+   output_buffer_pool_size: 2
+ }
+}
+input_control {
+ process_mode: PROCESS_MODE_FULL_FRAME
+ interval: 0
+}
+#Enable attaching output tensor meta in nvinferserver
+output_control {
+ output_tensor_meta: true
+}
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Save the above config as <code class="docutils literal notranslate"><span class="pre">config_infer_primary_classifier_densenet_onnx_modified.txt</span></code>. Create a <code class="docutils literal notranslate"><span class="pre">config_classifier.yml</span></code> as given below.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>property:
+ gpu-id: 0
+ network-type: 1 # Type of network i.e. classifier
+ process-mode: 1 # Operate in primary mode i.e. operate on full frame
+ classifier-threshold: 0.2 #Set classifier threshold
+ gie-unique-id: 5 # Set the unique_id matching one in the inference
+ classifier-type: ObjectClassifier # type of classifier
+ labelfile-path: /opt/nvidia/deepstream/deepstream/samples/triton_model_repo/densenet_onnx/densenet_labels.txt #Path of the labels fine
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>The following pipeline with nvdspostprocess plugin can now be executed to view the classification results</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">classification_test_video</span><span class="p">.</span><span class="n">mp4</span><span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">m</span><span class="p">.</span><span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w">  </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w">   </span><span class="n">nvinferserver</span><span class="w"> </span>\
+<span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="n">config_infer_primary_classifier_densenet_onnx_modified</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvdspostprocess</span><span class="w"> </span><span class="n">postprocesslib</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="w"> </span><span class="n">config_classifier</span><span class="p">.</span><span class="n">yml</span><span class="w"> </span><span class="n">postprocesslib</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="w"> </span>\
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpostprocess_impl</span><span class="p">.</span><span class="n">so</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nveglglessink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="mask-rcnn-model">
+<h2>Mask RCNN Model<a class="headerlink" href="DS_postprocessing_plugin.html#mask-rcnn-model" title="Link to this heading">#</a></h2>
+<p>To use the instance segmentation model follow the README in package <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/samples/configs/tao_pretrained_models/README.md</span></code> to obtain TAO toolkit config files and PeopleSegNet model.</p>
+<ol class="arabic simple">
+<li><p>Once setup is done, execute following pipeline to validate the model.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">tao_pretrained_models</span>
+<span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">m</span><span class="p">.</span><span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w"> </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="w"> </span><span class="n">config_infer_primary_peopleSegNet</span><span class="p">.</span><span class="n">txt</span><span class="w">  </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="n">display</span><span class="o">-</span><span class="n">mask</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">process</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nveglglessink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For correct operation ensure the Tensor-RT OSS plugin is compiled and replaced as mentioned in the TAO README.</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>As mentioned in earlier sections update the nvinfer configuration file to disable post processing and enable attaching tensor output meta. This is done by changing the <code class="docutils literal notranslate"><span class="pre">network-type=100</span></code> and <code class="docutils literal notranslate"><span class="pre">output-tensor-meta=1</span></code>.</p></li>
+<li><p>Store the file by the name <code class="docutils literal notranslate"><span class="pre">config_infer_primary_peopleSegNet_modified.txt</span></code>. The <code class="docutils literal notranslate"><span class="pre">config_mrcnn.yml</span></code> can be created as given below.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>property:
+ gpu-id: 0
+ process-mode: 1 # Process on full frame
+ num-detected-classes: 2 #Total Detected classes
+ gie-unique-id: 1  #Match with gie-unique-id of inference config
+ ## 1=DBSCAN, 2=NMS, 3= DBSCAN+NMS Hybrid, 4 = None(No clustering)
+ cluster-mode: 4 # Disable clustering
+ network-type: 3 # Network is instance segmentation
+ labelfile-path: peopleSegNet_labels.txt
+ parse-bbox-instance-mask-func-name: NvDsInferParseCustomMrcnnTLTV2
+
+class-attrs-all:
+ pre-cluster-threshold: 0.8
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Following pipeline can be used for testing the nvdspostprocess plugin with MRCNN network, using the above configuration files.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">gst</span><span class="o">-</span><span class="n">launch</span><span class="mf">-1.0</span><span class="w"> </span><span class="n">filesrc</span><span class="w"> </span><span class="n">location</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">streams</span><span class="o">/</span><span class="n">sample_1080p_h264</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">decodebin</span><span class="w"> </span><span class="o">!</span><span class="w">   </span>\
+<span class="n">m</span><span class="p">.</span><span class="n">sink_0</span><span class="w"> </span><span class="n">nvstreammux</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="w"> </span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="mi">1920</span><span class="w"> </span><span class="n">height</span><span class="o">=</span><span class="mi">1080</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvinfer</span><span class="w"> </span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">path</span><span class="o">=</span><span class="w"> </span><span class="n">config_infer_primary_peopleSegNet</span><span class="p">.</span><span class="n">txt</span><span class="w"> </span><span class="o">!</span><span class="w"> </span>\
+<span class="n">nvdspostprocess</span><span class="w"> </span><span class="n">postprocesslib</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libpostprocess_impl</span><span class="p">.</span><span class="n">so</span><span class="w"> </span>\
+<span class="n">postprocesslib</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="w"> </span><span class="n">config_mrcnn</span><span class="p">.</span><span class="n">yml</span><span class="w">  </span><span class="o">!</span><span class="w">   </span><span class="n">nvvideoconvert</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nvdsosd</span><span class="w"> </span><span class="n">display</span><span class="o">-</span><span class="n">mask</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">process</span><span class="o">-</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="n">nveglglessink</span><span class="w"> </span><span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="custom-parsing-functions">
+<h2>Custom Parsing functions<a class="headerlink" href="DS_postprocessing_plugin.html#custom-parsing-functions" title="Link to this heading">#</a></h2>
+<p>This section mentions the parsing functions present in postprocess library for available network architectures.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Custom Parsing functions supported</span><a class="headerlink" href="DS_postprocessing_plugin.html#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Custom Parsing Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NvDsPostProcessParseCustomResnet</p></td>
+<td><p>Parsing Resnet 10 model packaged in DeepStream</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomTfSSD</p></td>
+<td><p>Tensorflow/Onnx SSD detector</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsPostProcessParseCustomNMSTLT</p></td>
+<td><p>Parsing TAO Toolkit Open Architecture Models SSD, FRCNN, DSSD, RetinaNet</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomBatchedNMSTLT</p></td>
+<td><p>Parsing of TAO Toolkit  Open Architecture Models Yolo V3, Yolo V4</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsPostProcessParseCustomMrcnnTLTV2</p></td>
+<td><p>Parsing of TAO Toolkit  Open Architecture Model MaskRCNN</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomFasterRCNN</p></td>
+<td><p>Parsing of Faster R-CNN Network</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsPostProcessClassiferParseCustomSoftmax</p></td>
+<td><p>Parsing Resnet 18 vehicle type classifier model packaged in DeepStream</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomSSD</p></td>
+<td><p>Parsing of  SSD Network</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsPostProcessParseCustomYoloV3</p></td>
+<td><p>Parsing of Yolo V3 Network</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomYoloV3Tiny</p></td>
+<td><p>Parsing of Yolo V3 Tiny Network</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsPostProcessParseCustomYoloV2</p></td>
+<td><p>Parsing of Yolo V2 Network</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsPostProcessParseCustomYoloV2Tiny</p></td>
+<td><p>Parsing of Yolo V2 Tiny Network</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_library_nvdsnmos.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Networked Media Open Specifications (NMOS) in DeepStream</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_Can_Orientation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DeepStream Can Orientation App</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_postprocessing_plugin.html#detector-models">Detector models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_postprocessing_plugin.html#primary-classification-model">Primary Classification model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_postprocessing_plugin.html#mask-rcnn-model">Mask RCNN Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_postprocessing_plugin.html#custom-parsing-functions">Custom Parsing functions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

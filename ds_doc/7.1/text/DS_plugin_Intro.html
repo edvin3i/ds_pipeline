@@ -1,0 +1,1275 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GStreamer Plugin Overview &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_plugin_Intro';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="MetaData in the DeepStream SDK" href="DS_plugin_metadata.html" />
+    <link rel="prev" title="Application Migration to DeepStream 7.1 from DeepStream 7.0" href="DS_Application_migration.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_plugin_Intro.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="DS_plugin_Intro.html#">GStreamer Plugin Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">GStreamer...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gstreamer-plugin-overview">
+<h1>GStreamer Plugin Overview<a class="headerlink" href="DS_plugin_Intro.html#gstreamer-plugin-overview" title="Link to this heading">#</a></h1>
+<p>DeepStream SDK is based on the GStreamer framework. This section describes the DeepStream GStreamer plugins and the DeepStream input, outputs, and control parameters.
+DeepStream SDK is supported on systems that contain an NVIDIA<sup>®</sup> Jetson™ module or an NVIDIA dGPU adapter <a class="footnote-reference brackets" href="DS_plugin_Intro.html#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+The manual is intended for engineers who want to develop DeepStream applications or additional plugins using the DeepStream SDK. It also contains information about metadata used in the SDK. Developers can add custom metadata as well.
+The manual describes the methods defined in the SDK for implementing custom inferencing layers using the <cite>IPlugin</cite> interface of NVIDIA<sup>®</sup> TensorRT™.
+You can refer the sample examples shipped with the SDK as you use this manual to familiarize yourself with DeepStream application and plugin development.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html#nvdsbatchmeta-basic-metadata-structure">NvDsBatchMeta: Basic Metadata Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html#user-custom-metadata-addition-inside-nvdsbatchmeta">User/Custom Metadata Addition inside NvDsBatchMeta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html#adding-custom-meta-in-gst-plugins-upstream-from-gst-nvstreammux">Adding Custom Meta in Gst Plugins Upstream from Gst-nvstreammux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_metadata.html#adding-metadata-to-the-plugin-before-gst-nvstreammux">Adding metadata to the plugin before Gst-nvstreammux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_metadata.html#new-metadata-fields">New metadata fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#custom-library-interfaces">Custom library Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#gst-nvdspreprocess-file-configuration-specifications">Gst-nvdspreprocess File Configuration Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html#sample-pipelines">Sample pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#gst-nvinfer-file-configuration-specifications">Gst-nvinfer File Configuration Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#clustering-algorithms-supported-by-nvinfer">Clustering algorithms supported by nvinfer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#cluster-mode-0-grouprectangles">cluster-mode = 0 | GroupRectangles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#cluster-mode-1-dbscan">cluster-mode = 1 | DBSCAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#cluster-mode-2-nms">cluster-mode = 2 | NMS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#cluster-mode-3-hybrid">cluster-mode = 3 | Hybrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#cluster-mode-4-no-clustering">cluster-mode=4 | No clustering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#tensor-metadata">Tensor Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#to-read-or-parse-inference-raw-tensor-data-of-output-layers">To read or parse inference raw tensor data of output layers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html#segmentation-metadata">Segmentation Metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#gst-nvinferserver-configuration-file-specifications">Gst-nvinferserver Configuration File Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#low-level-libnvds-infer-server-so-configuration-file-specifications">Low Level <code class="docutils literal notranslate"><span class="pre">libnvds_infer_server.so</span></code> Configuration File Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#deepstream-triton-samples">DeepStream Triton samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#deepstream-triton-grpc-support">DeepStream Triton gRPC support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#triton-ensemble-models">Triton Ensemble Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#custom-process-interface-iinfercustomprocessor-for-extra-input-lstm-loop-output-tensor-postprocess">Custom Process interface <cite>IInferCustomProcessor</cite> for Extra Input, LSTM Loop, Output Tensor Postprocess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#tensor-metadata-output-for-downstream-plugins">Tensor Metadata Output for Downstream Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#to-read-or-parse-inference-raw-tensor-data-of-output-layers">To read or parse inference raw tensor data of output layers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html#segmentation-metadata">Segmentation Metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#sub-batching-alpha">Sub-batching (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvdstracker-api-for-low-level-tracker-library">NvDsTracker API for Low-Level Tracker Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvmultiobjecttracker-a-reference-low-level-tracker-library"><em>NvMultiObjectTracker</em> : A Reference Low-Level Tracker Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#unified-tracker-architecture-for-composable-multi-object-tracker">Unified Tracker Architecture for Composable Multi-Object Tracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#workflow-and-core-modules-in-the-nvmultiobjecttracker-library">Workflow and Core Modules in The <em>NvMultiObjectTracker</em> Library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#data-association">Data Association</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#target-management-and-error-handling">Target Management and Error Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#state-estimation">State Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#object-re-identification">Object Re-Identification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#target-re-association">Target Re-Association</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#bounding-box-unclipping">Bounding-box Unclipping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#single-view-3d-tracking-alpha">Single-View 3D Tracking (Alpha)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#configuration-parameters">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#low-level-tracker-comparisons-and-tradeoffs">Low-Level Tracker Comparisons and Tradeoffs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#iou-tracker">IOU Tracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvsort-tracker">NvSORT Tracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvdeepsort-tracker">NvDeepSORT Tracker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#id5">Data Association</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#id6">Configuration Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#implementation-details-and-reference">Implementation Details and Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvdcf-tracker">NvDCF Tracker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#visual-tracking">Visual Tracking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#id11">Data Association</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#id12">Configuration Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#miscellaneous-data-output">Miscellaneous Data Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#terminated-track-list">Terminated Track List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#shadow-tracking-target-data">Shadow Tracking Target Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#past-frame-target-data">Past-frame Target Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#setup-and-usage-of-re-id-model">Setup and Usage of Re-ID Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#setup-sample-re-id-models">Setup Sample Re-ID Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#customize-re-id-model">Customize Re-ID Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#re-id-feature-output">Re-ID Feature Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#setup-and-usage-of-sub-batching-alpha">Setup and Usage of Sub-batching (Alpha)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#use-case-1">Use-case 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#use-case-2">Use-case 2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#setup-and-visualization-of-tracker-sample-pipelines">Setup and Visualization of Tracker Sample Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#people-tracking">People Tracking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#vehicle-tracking">Vehicle Tracking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#tracker-accuracy-tuning">Tracker Accuracy Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html#how-to-implement-a-custom-low-level-tracker-library">How to Implement a Custom Low-Level Tracker Library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html#known-issues-with-solutions-and-faq">Known Issues with Solutions and FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html#gst-inspect-is-not-updated-properly-when-switching-between-legacy-and-new-streammux">1. gst-inspect is not updated properly when switching between legacy and new streammux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties">Mux Config Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-tuning-solutions-for-specific-use-cases">NvStreamMux Tuning Solutions for specific use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#aim">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#important-tuning-parameters">Important Tuning parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-use-cases">Video and Audio muxing Use cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#metadata-propagation-through-nvstreammux-and-nvstreamdemux">Metadata propagation through nvstreammux and nvstreamdemux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#cascaded-muxing">Cascaded Muxing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#known-issues-with-solutions-and-faq">Known Issues with Solutions and FAQ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#observing-video-and-or-audio-stutter-low-framerate">Observing video and/or audio stutter (low framerate)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#sink-plugin-shall-not-move-asynchronously-to-paused">Sink plugin shall not move asynchronously to PAUSED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#heterogeneous-batching">Heterogeneous batching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#adaptive-batching">Adaptive Batching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#optimizing-nvstreammux-config-for-low-latency-vs-compute">Optimizing nvstreammux config for low-latency vs Compute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#latency-measurement-api-usage-guide-for-audio">Latency Measurement API Usage guide for audio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#gst-inspect-is-not-updated-properly-when-switching-between-legacy-and-new-streammux">gst-inspect is not updated properly when switching between legacy and new streammux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html#inputs-and-outputs">Inputs and Outputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html#use-case-1">Use case 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html#use-case-2">Use case 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html#use-case-3">Use case 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#gst-nvdsmetainsert">Gst-nvdsmetainsert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#customlib-impl-interfaces">customlib_impl Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#use-cases-sample-pipelines">Use Cases &amp; Sample Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#gst-nvdsmetaextract">Gst-nvdsmetaextract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#id1">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#id2">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#id3">customlib_impl Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#id4">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html#id5">Use Cases &amp; Sample Pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html#customlib-impl-interfaces">customlib_impl Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html#sample-pipelines">Sample pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html#customlib-impl-interfaces">customlib_impl Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html#sample-pipelines">Sample pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html#configuration-file-parameters">Configuration File Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#decoder">Decoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#encoder">Encoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#id1">Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#id2">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html#id3">Gst Properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html#gst-properties">Gst Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#nvmsgconv-low-level-library-api-s">NvMsgConv low level library API’s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#schema-customization">Schema Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html#payload-with-custom-objects">Payload with Custom Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-protocol-adapter-interface">nvds_msgapi: Protocol Adapter Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connect-create-a-connection">nvds_msgapi_connect(): Create a Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-send-and-nvds-msgapi-send-async-send-an-event">nvds_msgapi_send() and nvds_msgapi_send_async(): Send an event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-subscribe-consume-data-by-subscribing-to-topics">nvds_msgapi_subscribe(): Consume data by subscribing to topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-do-work-incremental-execution-of-adapter-logic">nvds_msgapi_do_work(): Incremental Execution of Adapter Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-disconnect-terminate-a-connection">nvds_msgapi_disconnect(): Terminate a Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-getversion-get-version-number">nvds_msgapi_getversion(): Get Version Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-get-protocol-name-get-name-of-the-protocol">nvds_msgapi_get_protocol_name(): Get name of the protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connection-signature-get-connection-signature">nvds_msgapi_connection_signature(): Get Connection signature</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-kafka-proto-kafka-protocol-adapter">nvds_kafka_proto: Kafka Protocol Adapter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#installing-dependencies">Installing Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#using-the-adapter">Using the Adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#configuring-protocol-settings">Configuring Protocol Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#programmatic-integration">Programmatic Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#security-for-kafka">Security for Kafka</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#azure-mqtt-protocol-adapter-libraries">Azure MQTT Protocol Adapter Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id1">Installing Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#setting-up-azure-iot">Setting Up Azure IoT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#configuring-adapter-settings">Configuring Adapter Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id2">Using the Adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#monitor-adapter-execution">Monitor Adapter Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#message-topics-and-routes">Message Topics and Routes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#amqp-protocol-adapter">AMQP Protocol Adapter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id3">Installing Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#amqp-broker">AMQP broker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#configure-adapter-settings">Configure Adapter Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id4">Using the Adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#user-authentication">User authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id5">Programmatic Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id6">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#redis-protocol-adapter">REDIS Protocol Adapter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id7">Installing Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#redis-server">REDIS server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id8">Configure Adapter Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id9">User Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id10">Using the Adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id11">Programmatic Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id12">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#mqtt-protocol-adapter">MQTT Protocol Adapter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id13">Installing Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#eclipse-mosquitto">Eclipse Mosquitto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id14">Configure Adapter Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id15">Using the Adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id16">Programmatic Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#id17">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-message-broker-interface">nv_msgbroker: Message Broker interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-connect-create-a-connection">nv_msgbroker_connect(): Create a Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-send-async-send-an-event-asynchronously">nv_msgbroker_send_async(): Send an event asynchronously</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-subscribe-consume-data-by-subscribing-to-topics">nv_msgbroker_subscribe(): Consume data by subscribing to topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-disconnect-terminate-a-connection">nv_msgbroker_disconnect(): Terminate a Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-version-get-version-number">nv_msgbroker_version(): Get Version Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#autoreconnect-feature">Autoreconnect feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#work-interval-configuration">Work-interval configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-logger-logging-framework">nvds_logger: Logging Framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html#configuration-file-parameters">Configuration File Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html#example-pipelines">Example pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html#example-pipelines">Example pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html#gst-nvdspostprocess-file-configuration-specifications">Gst-nvdspostprocess File Configuration Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html#sample-pipelines">Sample pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#custom-library-interfaces">Custom library Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#gst-nvds3dfilter-properties-specifications">Gst-nvds3dfilter properties Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#supported-ds3d-filter-custom-libs">Supported DS3D filter custom libs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#custom-ds3d-datafilter-library-libnvds-3d-alignment-datafilter-so">Custom <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> library: <code class="docutils literal notranslate"><span class="pre">libnvds_3d_alignment_datafilter.so</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#id2">Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#id3">Configuration file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#configuration-options">Configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html#custom-ds3d-datafilter-library-libnvds-3d-depth2point-datafilter-so">Custom <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> library: <code class="docutils literal notranslate"><span class="pre">libnvds_3d_depth2point_datafilter.so</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#gst-nvds3dbridge-properties-specifications">Gst-nvds3dbridge properties Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#custom-library-interfaces">Custom library Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#supported-ds3d-data-bridges">Supported DS3D Data bridges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#custom-low-level-library-libnvds-3d-video-databridge-so">Custom low level library: <code class="docutils literal notranslate"><span class="pre">libnvds_3d_video_databridge.so</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html#video-bridge-configuration-options">Video bridge configuration options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#gst-nvds3dmixer-properties-specifications">Gst-nvds3dmixer properties Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#custom-library-interfaces">Custom library Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#supported-ds3d-data-mixers">Supported DS3D Data mixers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#custom-low-level-library-libnvds-3d-multisensor-mixer-so">Custom low level library: <code class="docutils literal notranslate"><span class="pre">libnvds_3d_multisensor_mixer.so</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html#video-mixer-configuration-options">Video mixer configuration options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#how-to-test">How to test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#use-cases">Use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#single-stream-multi-dgpus-setup">Single Stream + Multi-dGPUs Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html#multiple-streams-multi-dgpu-setup">Multiple Streams + Multi-dGPU Setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html#gst-properties">Gst Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html#how-to-test">How to test</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#introduction">1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#features">2. Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#how-to-use-nvmultiurisrcbin-in-a-pipeline">3. How to use nvmultiurisrcbin in a pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#rest-api-payload-definitions-and-sample-curl-commands-for-reference">REST API payload definitions and sample curl commands for reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties">4. Gst Properties</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-directly-configuring-nvmultiurisrcbin">Gst Properties directly configuring nvmultiurisrcbin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-each-instance-of-nvurisrcbin-created-inside-this-bin">Gst Properties to configure each instance of nvurisrcbin created inside this bin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#gst-properties-to-configure-the-instance-of-nvstreammux-created-inside-this-bin">Gst Properties to configure the instance of nvstreammux created inside this bin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#important-notes">5. Important Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#nvmultiurisrcbin-config-recommendations-and-notes-on-expected-behavior">nvmultiurisrcbin config recommendations and notes on expected behavior</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html#limitations">6. Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html#introduction">1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html#how-to-use-nvurisrcbin-in-a-pipeline">2. How to use nvurisrcbin in a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html#gst-properties">3. Gst Properties</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html#gst-properties-to-configure-nvurisrcbin">3.1 Gst Properties to configure nvurisrcbin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="DS_plugin_Intro.html#id1">1</a><span class="fn-bracket">]</span></span>
+<p>This manual uses the term dGPU (“discrete GPU”) to refer to NVIDIA GPU expansion card products such as NVIDIA® Tesla® T4, NVIDIA® Ampere and NVIDIA® GeForce® RTX 2080. This version of DeepStream SDK runs on specific dGPU products on x86_64 platforms supported by NVIDIA driver 535+  and NVIDIA® TensorRT™ 10.3.0.26 and later versions.</p>
+</aside>
+</aside>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Application_migration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Application Migration to DeepStream 7.1 from DeepStream 7.0</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_plugin_metadata.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MetaData in the DeepStream SDK</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

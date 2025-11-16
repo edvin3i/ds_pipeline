@@ -1,0 +1,2781 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GXF Core Python APIs &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GXF_Core_Python_APIs';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Extensions" href="../../../text/Extensionmanual_toc.html" />
+    <link rel="prev" title="GXF Core C APIs" href="GXF_Core_C_APIs.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GXF_Core_Python_APIs.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="GXF_Core_Python_APIs.html#">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">GXF Core Python APIs</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gxf-core-python-apis">
+<h1>GXF Core Python APIs<a class="headerlink" href="GXF_Core_Python_APIs.html#gxf-core-python-apis" title="Link to this heading">#</a></h1>
+<section id="context">
+<span id="gxfcorepython-lowerlevelapis"></span><h2>Context<a class="headerlink" href="GXF_Core_Python_APIs.html#context" title="Link to this heading">#</a></h2>
+<section id="context-create">
+<h3>context_create<a class="headerlink" href="GXF_Core_Python_APIs.html#context-create" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="context_create">
+<span class="sig-name descname"><span class="pre">context_create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#context_create" title="Link to this definition">#</a></dt>
+<dd><p>Create a GXF context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The unique identifier of the created context.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If creating the context fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="context-destroy">
+<h3>context_destroy<a class="headerlink" href="GXF_Core_Python_APIs.html#context-destroy" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="context_destroy">
+<span class="sig-name descname"><span class="pre">context_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#context_destroy" title="Link to this definition">#</a></dt>
+<dd><p>Destroy a GXF context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The unique identifier of the context to destroy.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If destroying the context fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="extensions">
+<h2>Extensions<a class="headerlink" href="GXF_Core_Python_APIs.html#extensions" title="Link to this heading">#</a></h2>
+<p>Maximum number of extensions in a context can be <code class="docutils literal notranslate"><span class="pre">1024</span></code>.</p>
+<section id="load-extensions">
+<h3>load_extensions<a class="headerlink" href="GXF_Core_Python_APIs.html#load-extensions" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="load_extensions">
+<span class="sig-name descname"><span class="pre">load_extensions</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">extension_filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">manifest_filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">base_directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#load_extensions" title="Link to this definition">#</a></dt>
+<dd><p>Load GXF extension libraries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A valid GXF context.</p></li>
+<li><p><strong>extension_filenames</strong> (<em>list</em>) – A list of valid filename.</p></li>
+<li><p><strong>manifest_filenames</strong> (<em>list</em>) – A list of valid filename.</p></li>
+<li><p><strong>base_directory</strong> (<em>str</em>) – Valid directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If loading the extensions fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-extension-list">
+<h3>get_extension_list<a class="headerlink" href="GXF_Core_Python_APIs.html#get-extension-list" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_extension_list">
+<span class="sig-name descname"><span class="pre">get_extension_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_extension_list" title="Link to this definition">#</a></dt>
+<dd><p>Get a list of loaded extensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context from which to retrieve the extension list.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of UUIDs representing the loaded extensions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the extension list fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-extension-info">
+<h3>get_extension_info<a class="headerlink" href="GXF_Core_Python_APIs.html#get-extension-info" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_extension_info">
+<span class="sig-name descname"><span class="pre">get_extension_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_extension_info" title="Link to this definition">#</a></dt>
+<dd><p>Get information about a loaded extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the extension is loaded.</p></li>
+<li><p><strong>uuid</strong> (<em>str</em>) – The UUID of the extension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing information about the extension.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the extension information fails.</p>
+</dd>
+</dl>
+<p>The returned dictionary has the following keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (str): The name of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display_name</span></code> (str): The display name of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">category</span></code> (str): The category of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">brief</span></code> (str): A brief description of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> (str): A detailed description of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code> (str): The version of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">author</span></code> (str): The author of the extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">license</span></code> (str): The license of the extension.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="graph">
+<h2>Graph<a class="headerlink" href="GXF_Core_Python_APIs.html#graph" title="Link to this heading">#</a></h2>
+<section id="graph-load-file">
+<h3>graph_load_file<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-load-file" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_load_file">
+<span class="sig-name descname"><span class="pre">graph_load_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_load_file" title="Link to this definition">#</a></dt>
+<dd><p>Load a graph from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A valid GXF context.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – A valid YAML filename.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If loading the graph file fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="set-root-filepath">
+<h3>set_root_filepath<a class="headerlink" href="GXF_Core_Python_APIs.html#set-root-filepath" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="set_root_filepath">
+<span class="sig-name descname"><span class="pre">set_root_filepath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#set_root_filepath" title="Link to this definition">#</a></dt>
+<dd><p>Set the root file path for the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context for which to set the root file path.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The root path.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the root file path fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="subgraph-load-file">
+<h3>_subgraph_load_file<a class="headerlink" href="GXF_Core_Python_APIs.html#subgraph-load-file" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="subgraph_load_file">
+<span class="sig-name descname"><span class="pre">_subgraph_load_file</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">entity_prefix</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">parent_eid</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">prerequisites</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#subgraph_load_file" title="Link to this definition">#</a></dt>
+<dd><p>Loads a list of entities from a YAML file. This API is used when shared context is created using</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A valid GXF context.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The path to the file containing the subgraph.</p></li>
+<li><p><strong>entity_prefix</strong> (<em>str</em>) – The prefix for entities in the subgraph.</p></li>
+<li><p><strong>parent_eid</strong> (<em>int</em>) – The unique identifier of the parent entity.</p></li>
+<li><p><strong>prerequisites</strong> (<em>str</em>) – GXF subgraph prerequisites YAML node in str.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If loading the subgraph file fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-activate">
+<h3>graph_activate<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-activate" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_activate">
+<span class="sig-name descname"><span class="pre">graph_activate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_activate" title="Link to this definition">#</a></dt>
+<dd><p>Activate the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to activate.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If activating the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-run">
+<h3>graph_run<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-run" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_run">
+<span class="sig-name descname"><span class="pre">graph_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_run" title="Link to this definition">#</a></dt>
+<dd><p>Run the graph. It blocks the caller thread until graph completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to run.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If running the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-run-async">
+<h3>graph_run_async<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-run-async" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_run_async">
+<span class="sig-name descname"><span class="pre">graph_run_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_run_async" title="Link to this definition">#</a></dt>
+<dd><p>Run the graph asynchronously, i.e. without blocking the caller thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to run asynchronously.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If running the graph asynchronously fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-interrupt">
+<h3>graph_interrupt<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-interrupt" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_interrupt">
+<span class="sig-name descname"><span class="pre">graph_interrupt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_interrupt" title="Link to this definition">#</a></dt>
+<dd><p>Interrupt the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to interrupt.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If interrupting the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-wait">
+<h3>graph_wait<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-wait" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_wait">
+<span class="sig-name descname"><span class="pre">graph_wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_wait" title="Link to this definition">#</a></dt>
+<dd><p>Wait for the graph to complete, i.e. blocks caller thread until graph completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to wait for.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If waiting for the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-save">
+<h3>graph_save<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-save" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_save">
+<span class="sig-name descname"><span class="pre">graph_save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_save" title="Link to this definition">#</a></dt>
+<dd><p>Save the graph to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context containing the graph to save.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The path to the file where the graph will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If saving the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="graph-deactivate">
+<h3>graph_deactivate<a class="headerlink" href="GXF_Core_Python_APIs.html#graph-deactivate" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="graph_deactivate">
+<span class="sig-name descname"><span class="pre">graph_deactivate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#graph_deactivate" title="Link to this definition">#</a></dt>
+<dd><p>Deactivate the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – The context containing the graph to deactivate.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If deactivating the graph fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gxf-set-severity">
+<h3>gxf_set_severity<a class="headerlink" href="GXF_Core_Python_APIs.html#gxf-set-severity" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="gxf_set_severity">
+<span class="sig-name descname"><span class="pre">gxf_set_severity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_set_severity" title="Link to this definition">#</a></dt>
+<dd><p>Set severity levels for GXF_LOG_* logging macros</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context for which to set the logging severity.</p></li>
+<li><p><strong>severity</strong> (<em>int</em>) – The severity level to set.
+- 0: GXF_SEVERITY_NONE,
+- 1: GXF_SEVERITY_ERROR,
+- 2: GXF_SEVERITY_WARNING,
+- 3: GXF_SEVERITY_INFO,
+- 4: GXF_SEVERITY_DEBUG,
+- 5: GXF_SEVERITY_VERBOSE</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the logging severity fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="entities">
+<h2>Entities<a class="headerlink" href="GXF_Core_Python_APIs.html#entities" title="Link to this heading">#</a></h2>
+<section id="gxf-entity-create-info">
+<h3>gxf_entity_create_info<a class="headerlink" href="GXF_Core_Python_APIs.html#gxf-entity-create-info" title="Link to this heading">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gxf_entity_create_info">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gxf_entity_create_info</span></span><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_entity_create_info" title="Link to this definition">#</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="gxf_entity_create_info.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_entity_create_info.entity_name" title="Link to this definition">#</a></dt>
+<dd><p>The name of the entity.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gxf_entity_create_info.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_entity_create_info.flags" title="Link to this definition">#</a></dt>
+<dd><p>1 for system entity, 0 for non system entity</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="entity-create">
+<h3>entity_create<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-create" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_create">
+<span class="sig-name descname"><span class="pre">entity_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_create" title="Link to this definition">#</a></dt>
+<dd><p>Create an entity with info</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>info</strong> (<a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_entity_create_info" title="gxf_entity_create_info"><em>gxf_entity_create_info</em></a>) – The entity creation information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A unique entity identifier.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-activate">
+<h3>entity_activate<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-activate" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_activate">
+<span class="sig-name descname"><span class="pre">entity_activate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_activate" title="Link to this definition">#</a></dt>
+<dd><p>Activate an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-deactivate">
+<h3>entity_deactivate<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-deactivate" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_deactivate">
+<span class="sig-name descname"><span class="pre">entity_deactivate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_deactivate" title="Link to this definition">#</a></dt>
+<dd><p>Deactivate an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-destroy">
+<h3>entity_destroy<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-destroy" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_destroy">
+<span class="sig-name descname"><span class="pre">entity_destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_destroy" title="Link to this definition">#</a></dt>
+<dd><p>Destroy an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-find">
+<h3>entity_find<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-find" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_find">
+<span class="sig-name descname"><span class="pre">entity_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_find" title="Link to this definition">#</a></dt>
+<dd><p>Finds an entity by its name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>entity_name</strong> (<em>str</em>) – A C string with the name of the entity. Ownership is not transferred.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A unique entity identifier.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-find-all">
+<h3>entity_find_all<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-find-all" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_find_all">
+<span class="sig-name descname"><span class="pre">entity_find_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_find_all" title="Link to this definition">#</a></dt>
+<dd><p>Get all the entities of the given context</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of unique identifiers for the entities in the context.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-ref-count-inc">
+<h3>entity_ref_count_inc<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-ref-count-inc" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_ref_count_inc">
+<span class="sig-name descname"><span class="pre">entity_ref_count_inc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_ref_count_inc" title="Link to this definition">#</a></dt>
+<dd><p>Increase reference count of an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-ref-count-dec">
+<h3>entity_ref_count_dec<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-ref-count-dec" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_ref_count_dec">
+<span class="sig-name descname"><span class="pre">entity_ref_count_dec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_ref_count_dec" title="Link to this definition">#</a></dt>
+<dd><p>Decrease reference count of an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-get-state">
+<h3>entity_get_state<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-get-state" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_get_state">
+<span class="sig-name descname"><span class="pre">entity_get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_get_state" title="Link to this definition">#</a></dt>
+<dd><p>Get state of an entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The state of the entity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+<p>The returned state has following values:</p>
+<ul class="simple">
+<li><p>0: GXF_BEHAVIOR_INIT,</p></li>
+<li><p>1: GXF_BEHAVIOR_SUCCESS,</p></li>
+<li><p>2: GXF_BEHAVIOR_RUNNING,</p></li>
+<li><p>3: GXF_BEHAVIOR_FAILURE,</p></li>
+<li><p>4: GXF_BEHAVIOR_UNKNOWN</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="entity-event-notify">
+<h3>entity_event_notify<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-event-notify" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_event_notify">
+<span class="sig-name descname"><span class="pre">entity_event_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_event_notify" title="Link to this definition">#</a></dt>
+<dd><p>Notify entity on an event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-notify-event-type">
+<h3>entity_notify_event_type<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-notify-event-type" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_notify_event_type">
+<span class="sig-name descname"><span class="pre">entity_notify_event_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_notify_event_type" title="Link to this definition">#</a></dt>
+<dd><p>Notify entity on an event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-get-status">
+<h3>entity_get_status<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-get-status" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_get_status">
+<span class="sig-name descname"><span class="pre">entity_get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_get_status" title="Link to this definition">#</a></dt>
+<dd><p>Gets the status of the entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The status of the entity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+<p>The returned status has following values:</p>
+<ul class="simple">
+<li><p>0: GXF_ENTITY_STATUS_NOT_STARTED,</p></li>
+<li><p>1: GXF_ENTITY_STATUS_START_PENDING,</p></li>
+<li><p>2: GXF_ENTITY_STATUS_STARTED,</p></li>
+<li><p>3: GXF_ENTITY_STATUS_TICK_PENDING,</p></li>
+<li><p>4: GXF_ENTITY_STATUS_TICKING,</p></li>
+<li><p>5: GXF_ENTITY_STATUS_IDLE,</p></li>
+<li><p>6: GXF_ENTITY_STATUS_STOP_PENDING,</p></li>
+<li><p>7: GXF_ENTITY_MAX</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+<section id="entitygroup">
+<h2>EntityGroup<a class="headerlink" href="GXF_Core_Python_APIs.html#entitygroup" title="Link to this heading">#</a></h2>
+<section id="entity-group-create">
+<h3>entity_group_create<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-group-create" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_group_create">
+<span class="sig-name descname"><span class="pre">entity_group_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_group_create" title="Link to this definition">#</a></dt>
+<dd><p>Create an entity group with name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – entity group name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A unique entity group identifier.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="entity-group-add">
+<h3>entity_group_add<a class="headerlink" href="GXF_Core_Python_APIs.html#entity-group-add" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="entity_group_add">
+<span class="sig-name descname"><span class="pre">entity_group_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#entity_group_add" title="Link to this definition">#</a></dt>
+<dd><p>Add an entity to an entity group</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>gid</strong> (<em>int</em>) – The UID of a valid entity group.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The UID of a valid entity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The entity group ID used to add this entity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="GXF_Core_Python_APIs.html#components" title="Link to this heading">#</a></h2>
+<p>Maximum number of components in an entity or an extension can be upto <code class="docutils literal notranslate"><span class="pre">1024</span></code>.</p>
+<section id="gxf-tid-t">
+<h3>gxf_tid_t<a class="headerlink" href="GXF_Core_Python_APIs.html#gxf-tid-t" title="Link to this heading">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gxf_tid_t">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gxf_tid_t</span></span><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_tid_t" title="Link to this definition">#</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="gxf_tid_t.hash1">
+<span class="sig-name descname"><span class="pre">hash1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_tid_t.hash1" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gxf_tid_t.hash2">
+<span class="sig-name descname"><span class="pre">hash2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_tid_t.hash2" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="gxf-uid-t">
+<h3>gxf_uid_t<a class="headerlink" href="GXF_Core_Python_APIs.html#gxf-uid-t" title="Link to this heading">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="gxf_uid_t">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gxf_uid_t</span></span><a class="headerlink" href="GXF_Core_Python_APIs.html#gxf_uid_t" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-component-list">
+<h3>get_component_list<a class="headerlink" href="GXF_Core_Python_APIs.html#get-component-list" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_component_list">
+<span class="sig-name descname"><span class="pre">get_component_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_component_list" title="Link to this definition">#</a></dt>
+<dd><p>Get list of components of an extension</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>uuid</strong> (<em>str</em>) – GXF extension UUID. The length has to be 36, in format 8-4-4-4-12. Eg, 85f64c84-8236-4035-9b9a-3843a6a2026f</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of comonent type UUID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-component-info">
+<h3>get_component_info<a class="headerlink" href="GXF_Core_Python_APIs.html#get-component-info" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_component_info">
+<span class="sig-name descname"><span class="pre">get_component_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_component_info" title="Link to this definition">#</a></dt>
+<dd><p>intro</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>uuid</strong> (<em>str</em>) – GXF component type UUID. The length has to be 36, in format 8-4-4-4-12. Eg, 85f64c84-8236-4035-9b9a-3843a6a2026f</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing information about the component.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+<p>The returned dictionary has the following keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">typename</span></code> (str): The fully qualified C++ type name of the component name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display_name</span></code> (str): The display name of the component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">brief</span></code> (str): A brief description of the component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> (str): A detailed description of the component.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">base_typename</span></code> (str): The fully qualified C++ type name of the base class, or an empty string if it is not inherited.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_abstract</span></code> (bool): Whether the component is abstract or not.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="get-param-list">
+<h3>get_param_list<a class="headerlink" href="GXF_Core_Python_APIs.html#get-param-list" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_param_list">
+<span class="sig-name descname"><span class="pre">get_param_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_param_list" title="Link to this definition">#</a></dt>
+<dd><p>Get parameter list of a component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – A unique interger representing GXF context.</p></li>
+<li><p><strong>uuid</strong> (<em>str</em>) – GXF component type UUID. The length has to be 36, in format 8-4-4-4-12. Eg, 85f64c84-8236-4035-9b9a-3843a6a2026f.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of parameter key of this component.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-param-info">
+<h3>get_param_info<a class="headerlink" href="GXF_Core_Python_APIs.html#get-param-info" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_param_info">
+<span class="sig-name descname"><span class="pre">get_param_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#get_param_info" title="Link to this definition">#</a></dt>
+<dd><p>Get information about a parameter of a component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the component exists.</p></li>
+<li><p><strong>uuid</strong> (<em>str</em>) – GXF component type UUID. The length has to be 36, in format 8-4-4-4-12. Eg, 85f64c84-8236-4035-9b9a-3843a6a2026f.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing information about the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If not successful.</p>
+</dd>
+</dl>
+<p>The returned dictionary has the following keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code> (str): The key of the parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">headline</span></code> (str): The headline or short description of the parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> (str): A detailed description of the parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gxf_parameter_type</span></code> (str): The type of the parameter, as a string representation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rank</span></code> (int): The rank or number of dimensions of the parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code> (list): A list representing the shape of the parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flags</span></code> (str): The flags associated with the parameter, as a string representation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handle_type</span></code> (str): The fully qualified C++ type name of the handle component, or “N/A” if not applicable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code> (varies): The default value of the parameter, or “N/A” if not applicable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_value</span></code> (varies): The maximum value of the parameter, if applicable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_value</span></code> (varies): The minimum value of the parameter, if applicable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step_value</span></code> (varies): The step value of the parameter, if applicable.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="component-add">
+<h3>component_add<a class="headerlink" href="GXF_Core_Python_APIs.html#component-add" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="component_add">
+<span class="sig-name descname"><span class="pre">component_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#component_add" title="Link to this definition">#</a></dt>
+<dd><p>Add a component of the specified type to an entity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which to create the component.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity to contain the component.</p></li>
+<li><p><strong>tid</strong> (<a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_tid_t" title="gxf_tid_t"><em>gxf_tid_t</em></a>) – The type identifier of the component type to create.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the component.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The unique identifier of the added component.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If adding the component fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="component-find">
+<h3>component_find<a class="headerlink" href="GXF_Core_Python_APIs.html#component-find" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="component_find">
+<span class="sig-name descname"><span class="pre">component_find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#component_find" title="Link to this definition">#</a></dt>
+<dd><p>Find components of a specific type in an entity.</p>
+<p>Searches components in an entity which satisfy certain criteria: component type, component
+name, and component min index. All three criteria are optional; in case no criteria is given
+the first component is returned. The main use case for “component min index” is a repeated
+search which continues at the index which was returned by a previous search.</p>
+<p>In case no entity with the given criteria was found GXF_ENTITY_NOT_FOUND is thrown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and components exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>tid</strong> (<a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_tid_t" title="gxf_tid_t"><em>gxf_tid_t</em></a>) – The type identifier of the components to find. If not provided, all components will be searched.</p></li>
+<li><p><strong>component_name</strong> (<em>str</em>) – The name of the component to find. If not provided, all components of the specified type will be returned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of unique identifiers for the found components.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If finding the components fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="component-type-id">
+<h3>component_type_id<a class="headerlink" href="GXF_Core_Python_APIs.html#component-type-id" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="component_type_id">
+<span class="sig-name descname"><span class="pre">component_type_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">component_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#component_type_id" title="Link to this definition">#</a></dt>
+<dd><p>Get the type identifier for a component type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the component type exists.</p></li>
+<li><p><strong>component_name</strong> (<em>str</em>) – The fully qualified C++ type name of the component.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The type identifier for the specified component type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_tid_t" title="gxf_tid_t">gxf_tid_t</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the type identifier fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="component-type-name">
+<h3>component_type_name<a class="headerlink" href="GXF_Core_Python_APIs.html#component-type-name" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="component_type_name">
+<span class="sig-name descname"><span class="pre">component_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#component_type_name" title="Link to this definition">#</a></dt>
+<dd><p>Get the fully qualified C++ type name from its type identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the component type exists.</p></li>
+<li><p><strong>tid</strong> (<a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_tid_t" title="gxf_tid_t"><em>gxf_tid_t</em></a>) – The type identifier of the component type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fully qualified C++ type name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the type name fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="component-add-to-interface">
+<h3>component_add_to_interface<a class="headerlink" href="GXF_Core_Python_APIs.html#component-add-to-interface" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="component_add_to_interface">
+<span class="sig-name descname"><span class="pre">component_add_to_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#component_add_to_interface" title="Link to this definition">#</a></dt>
+<dd><p>Adds the component to the alias map</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and component exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>cid</strong> (<em>int</em>) – The unique identifier of the component to add to the interface.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the component in the interface.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If adding the component to the interface fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="primitive-parameters">
+<h2>Primitive Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#primitive-parameters" title="Link to this heading">#</a></h2>
+<section id="bit-floating-point-double">
+<h3>64-bit floating point (double)<a class="headerlink" href="GXF_Core_Python_APIs.html#bit-floating-point-double" title="Link to this heading">#</a></h3>
+<section id="set">
+<h4>set<a class="headerlink" href="GXF_Core_Python_APIs.html#set" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_float64">
+<span class="sig-name descname"><span class="pre">parameter_set_float64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_float64" title="Link to this definition">#</a></dt>
+<dd><p>Set a float64 (double) parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>double</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get">
+<h4>get<a class="headerlink" href="GXF_Core_Python_APIs.html#get" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_float64">
+<span class="sig-name descname"><span class="pre">parameter_get_float64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_float64" title="Link to this definition">#</a></dt>
+<dd><p>Get a float64 (double) parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>double</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="bit-floating-point">
+<h3>32-bit floating point<a class="headerlink" href="GXF_Core_Python_APIs.html#bit-floating-point" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4>set<a class="headerlink" href="GXF_Core_Python_APIs.html#id1" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_float32">
+<span class="sig-name descname"><span class="pre">parameter_set_float32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_float32" title="Link to this definition">#</a></dt>
+<dd><p>Set a float32 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>float</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id2">
+<h4>get<a class="headerlink" href="GXF_Core_Python_APIs.html#id2" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_float32">
+<span class="sig-name descname"><span class="pre">parameter_get_float32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_float32" title="Link to this definition">#</a></dt>
+<dd><p>Get a float32 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="bit-signed-integer">
+<h3>64-bit signed integer<a class="headerlink" href="GXF_Core_Python_APIs.html#bit-signed-integer" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h4>set<a class="headerlink" href="GXF_Core_Python_APIs.html#id3" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_int64">
+<span class="sig-name descname"><span class="pre">parameter_set_int64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_int64" title="Link to this definition">#</a></dt>
+<dd><p>Set an int64 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id4">
+<h4>get<a class="headerlink" href="GXF_Core_Python_APIs.html#id4" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_int64">
+<span class="sig-name descname"><span class="pre">parameter_get_int64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_int64" title="Link to this definition">#</a></dt>
+<dd><p>Get an int64 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="bit-unsigned-integer">
+<h3>64-bit unsigned integer<a class="headerlink" href="GXF_Core_Python_APIs.html#bit-unsigned-integer" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h4>set<a class="headerlink" href="GXF_Core_Python_APIs.html#id5" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_uint64">
+<span class="sig-name descname"><span class="pre">parameter_set_uint64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_uint64" title="Link to this definition">#</a></dt>
+<dd><p>Set a uint64 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id6">
+<h4>get<a class="headerlink" href="GXF_Core_Python_APIs.html#id6" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_uint64">
+<span class="sig-name descname"><span class="pre">parameter_get_uint64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_uint64" title="Link to this definition">#</a></dt>
+<dd><p>Get a uint64 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="id7">
+<h3>32-bit signed integer<a class="headerlink" href="GXF_Core_Python_APIs.html#id7" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h4>set<a class="headerlink" href="GXF_Core_Python_APIs.html#id8" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_int32">
+<span class="sig-name descname"><span class="pre">parameter_set_int32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_int32" title="Link to this definition">#</a></dt>
+<dd><p>Set an int32 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id9">
+<h4>get<a class="headerlink" href="GXF_Core_Python_APIs.html#id9" title="Link to this heading">#</a></h4>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_int32">
+<span class="sig-name descname"><span class="pre">parameter_get_int32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_int32" title="Link to this definition">#</a></dt>
+<dd><p>Get an int32 parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="parameter-set-str">
+<h3>parameter_set_str<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-set-str" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_str">
+<span class="sig-name descname"><span class="pre">parameter_set_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_str" title="Link to this definition">#</a></dt>
+<dd><p>Set a string parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-get-str">
+<h3>parameter_get_str<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-get-str" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_str">
+<span class="sig-name descname"><span class="pre">parameter_get_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_str" title="Link to this definition">#</a></dt>
+<dd><p>Get a string parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-set-handle">
+<h3>parameter_set_handle<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-set-handle" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_handle">
+<span class="sig-name descname"><span class="pre">parameter_set_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_handle" title="Link to this definition">#</a></dt>
+<dd><p>Set a handle parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<a class="reference internal" href="GXF_Core_Python_APIs.html#gxf_uid_t" title="gxf_uid_t"><em>gxf_uid_t</em></a>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-get-handle">
+<h3>parameter_get_handle<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-get-handle" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_handle">
+<span class="sig-name descname"><span class="pre">parameter_get_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_handle" title="Link to this definition">#</a></dt>
+<dd><p>Get a handle parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-set-bool">
+<h3>parameter_set_bool<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-set-bool" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_bool">
+<span class="sig-name descname"><span class="pre">parameter_set_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_bool" title="Link to this definition">#</a></dt>
+<dd><p>Set a boolean parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>bool</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-get-bool">
+<h3>parameter_get_bool<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-get-bool" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_get_bool">
+<span class="sig-name descname"><span class="pre">parameter_get_bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_get_bool" title="Link to this definition">#</a></dt>
+<dd><p>Get a boolean parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the parameter.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If getting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-set-path">
+<h3>parameter_set_path<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-set-path" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_path">
+<span class="sig-name descname"><span class="pre">parameter_set_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_path" title="Link to this definition">#</a></dt>
+<dd><p>Set a string parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – The value to set for the parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="parameter-set-from-yaml-node">
+<h3>parameter_set_from_yaml_node<a class="headerlink" href="GXF_Core_Python_APIs.html#parameter-set-from-yaml-node" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="parameter_set_from_yaml_node">
+<span class="sig-name descname"><span class="pre">parameter_set_from_yaml_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Core_Python_APIs.html#parameter_set_from_yaml_node" title="Link to this definition">#</a></dt>
+<dd><p>Set parameters using a YAML string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>int</em>) – The context in which the entity and parameter exist.</p></li>
+<li><p><strong>eid</strong> (<em>int</em>) – The unique identifier of the entity.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The key of the parameter to set.</p></li>
+<li><p><strong>input</strong> (<em>str</em>) – The YAML string containing the parameter values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="vector-parameters">
+<h2>Vector Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#vector-parameters" title="Link to this heading">#</a></h2>
+<p>To set/get the vector parameters of a component, users can use the following python-APIs for various
+data types:</p>
+<section id="set-1-d-vetor-parameters">
+<h3>Set 1-D Vetor Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#set-1-d-vetor-parameters" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parameter_set_1d_&lt;data_type&gt;_vector(context,</span> <span class="pre">eid,</span> <span class="pre">key,</span> <span class="pre">value,</span> <span class="pre">length)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – A valid GXF context.</p></li>
+<li><p><strong>eid</strong> – A valid component identifier.</p></li>
+<li><p><strong>key</strong> – The name of the parameter</p></li>
+<li><p><strong>value</strong> – The value to set of the parameter.
+should be a list of the data to be set. The size of the stored array should match the <code class="docutils literal notranslate"><span class="pre">length</span></code> argument passed</p></li>
+<li><p><strong>length</strong> – The length of the vector parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>See the table below for all the supported data types and their corresponding function signatures.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id10">
+<caption><span class="caption-text">Supported Data Types to Set 1D Vector Parameters</span><a class="headerlink" href="GXF_Core_Python_APIs.html#id10" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function Name</p></th>
+<th class="head"><p>data_type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_1d_float64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_1d_int64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int64_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_1d_uint64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_1d_int32_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int32_t</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="set-2-d-vetor-parameters">
+<h3>Set 2-D Vetor Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#set-2-d-vetor-parameters" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parameter_set_2d_&lt;data_type&gt;_vector(context,</span> <span class="pre">eid,</span> <span class="pre">key,</span> <span class="pre">value,</span> <span class="pre">height,</span> <span class="pre">width)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – A valid GXF context.</p></li>
+<li><p><strong>eid</strong> – A valid component identifier.</p></li>
+<li><p><strong>key</strong> – The name of the parameter</p></li>
+<li><p><strong>value</strong> – The value to set of the parameter.
+Should point to a list of list of the data to be set. The length of the first dimension of the list
+should match the <code class="docutils literal notranslate"><span class="pre">height</span></code> argument passed and similarly the length of the second dimension of the
+list should match the <code class="docutils literal notranslate"><span class="pre">width</span></code> passed.</p></li>
+<li><p><strong>height</strong> – The height of the 2-D vector parameter</p></li>
+<li><p><strong>width</strong> – The width of the 2-D vector parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If setting the parameter fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>See the table below for all the supported data types and their corresponding function signatures.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id11">
+<caption><span class="caption-text">Supported Data Types to Set 2D Vector Parameters</span><a class="headerlink" href="GXF_Core_Python_APIs.html#id11" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function Name</p></th>
+<th class="head"><p>data_type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_2d_float64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_2d_int64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int64_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_2d_uint64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_set_2d_int32_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int32_t</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="get-1-d-vetor-parameters">
+<h3>Get 1-D Vetor Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#get-1-d-vetor-parameters" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parameter_get_1d_&lt;data_type&gt;_vector(context,</span> <span class="pre">eid,</span> <span class="pre">key,</span> <span class="pre">length)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – A valid GXF context.</p></li>
+<li><p><strong>eid</strong> – A valid component identifier.</p></li>
+<li><p><strong>key</strong> – The name of the parameter</p></li>
+<li><p><strong>length</strong> – The length of the stored 1-D vector parameter.
+Should match the length of the parameter. If it is less than the parameter length then error is thrown.
+If it is greater than the length a larger list with the values set is retured.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list containing the values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>See the table below for all the supported data types and their corresponding function signatures.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id12">
+<caption><span class="caption-text">Supported Data Types to Get the Value of 1D Vector Parameters</span><a class="headerlink" href="GXF_Core_Python_APIs.html#id12" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function Name</p></th>
+<th class="head"><p>data_type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_1d_float64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_1d_int64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int64_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_1d_uint64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_1d_int32_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int32_t</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="get-2-d-vetor-parameters">
+<h3>Get 2-D Vetor Parameters<a class="headerlink" href="GXF_Core_Python_APIs.html#get-2-d-vetor-parameters" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">parameter_get_2d_'data_type'_vector(context,</span> <span class="pre">eid,</span> <span class="pre">key,</span> <span class="pre">height,</span> <span class="pre">width)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – A valid GXF context.</p></li>
+<li><p><strong>eid</strong> – A valid component identifier.</p></li>
+<li><p><strong>key</strong> – The name of the parameter</p></li>
+<li><p><strong>height</strong> – The height of the stored 2-D vector parameter.</p></li>
+<li><p><strong>width</strong> – The width of the stored 2-D vector parameter.
+The <code class="docutils literal notranslate"><span class="pre">height</span></code> or <code class="docutils literal notranslate"><span class="pre">width</span></code> should match the height and width of the stored vector. If they are smaller than the
+stored values then error is thrown. If greater than the stored values then larger lists will be returned with values set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of list containing the values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>See the table below for all the supported data types and their corresponding function signatures.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id13">
+<caption><span class="caption-text">Supported Data Types to Get the Value of 2D Vector Parameters</span><a class="headerlink" href="GXF_Core_Python_APIs.html#id13" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 66.7%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function Name</p></th>
+<th class="head"><p>data_type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_2d_float64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_2d_int64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int64_t</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_2d_uint64_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">parameter_get_2d_int32_vector(...)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int32_t</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GXF_Core_C_APIs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GXF Core C APIs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../../text/Extensionmanual_toc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Extensions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#context">Context</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#context-create">context_create</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#context_create"><code class="docutils literal notranslate"><span class="pre">context_create()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#context-destroy">context_destroy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#context_destroy"><code class="docutils literal notranslate"><span class="pre">context_destroy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#extensions">Extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#load-extensions">load_extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#load_extensions"><code class="docutils literal notranslate"><span class="pre">load_extensions()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-extension-list">get_extension_list</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_extension_list"><code class="docutils literal notranslate"><span class="pre">get_extension_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-extension-info">get_extension_info</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_extension_info"><code class="docutils literal notranslate"><span class="pre">get_extension_info()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph">Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-load-file">graph_load_file</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_load_file"><code class="docutils literal notranslate"><span class="pre">graph_load_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#set-root-filepath">set_root_filepath</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#set_root_filepath"><code class="docutils literal notranslate"><span class="pre">set_root_filepath()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#subgraph-load-file">_subgraph_load_file</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#subgraph_load_file"><code class="docutils literal notranslate"><span class="pre">_subgraph_load_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-activate">graph_activate</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_activate"><code class="docutils literal notranslate"><span class="pre">graph_activate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-run">graph_run</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_run"><code class="docutils literal notranslate"><span class="pre">graph_run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-run-async">graph_run_async</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_run_async"><code class="docutils literal notranslate"><span class="pre">graph_run_async()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-interrupt">graph_interrupt</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_interrupt"><code class="docutils literal notranslate"><span class="pre">graph_interrupt()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-wait">graph_wait</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_wait"><code class="docutils literal notranslate"><span class="pre">graph_wait()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-save">graph_save</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_save"><code class="docutils literal notranslate"><span class="pre">graph_save()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph-deactivate">graph_deactivate</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#graph_deactivate"><code class="docutils literal notranslate"><span class="pre">graph_deactivate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf-set-severity">gxf_set_severity</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_set_severity"><code class="docutils literal notranslate"><span class="pre">gxf_set_severity()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entities">Entities</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf-entity-create-info">gxf_entity_create_info</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_entity_create_info"><code class="docutils literal notranslate"><span class="pre">gxf_entity_create_info</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_entity_create_info.entity_name"><code class="docutils literal notranslate"><span class="pre">entity_name</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_entity_create_info.flags"><code class="docutils literal notranslate"><span class="pre">flags</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-create">entity_create</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_create"><code class="docutils literal notranslate"><span class="pre">entity_create()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-activate">entity_activate</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_activate"><code class="docutils literal notranslate"><span class="pre">entity_activate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-deactivate">entity_deactivate</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_deactivate"><code class="docutils literal notranslate"><span class="pre">entity_deactivate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-destroy">entity_destroy</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_destroy"><code class="docutils literal notranslate"><span class="pre">entity_destroy()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-find">entity_find</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_find"><code class="docutils literal notranslate"><span class="pre">entity_find()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-find-all">entity_find_all</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_find_all"><code class="docutils literal notranslate"><span class="pre">entity_find_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-ref-count-inc">entity_ref_count_inc</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_ref_count_inc"><code class="docutils literal notranslate"><span class="pre">entity_ref_count_inc()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-ref-count-dec">entity_ref_count_dec</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_ref_count_dec"><code class="docutils literal notranslate"><span class="pre">entity_ref_count_dec()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-get-state">entity_get_state</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_get_state"><code class="docutils literal notranslate"><span class="pre">entity_get_state()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-event-notify">entity_event_notify</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_event_notify"><code class="docutils literal notranslate"><span class="pre">entity_event_notify()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-notify-event-type">entity_notify_event_type</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_notify_event_type"><code class="docutils literal notranslate"><span class="pre">entity_notify_event_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-get-status">entity_get_status</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_get_status"><code class="docutils literal notranslate"><span class="pre">entity_get_status()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entitygroup">EntityGroup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-group-create">entity_group_create</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_group_create"><code class="docutils literal notranslate"><span class="pre">entity_group_create()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity-group-add">entity_group_add</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#entity_group_add"><code class="docutils literal notranslate"><span class="pre">entity_group_add()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#components">Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf-tid-t">gxf_tid_t</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_tid_t"><code class="docutils literal notranslate"><span class="pre">gxf_tid_t</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_tid_t.hash1"><code class="docutils literal notranslate"><span class="pre">hash1</span></code></a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_tid_t.hash2"><code class="docutils literal notranslate"><span class="pre">hash2</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf-uid-t">gxf_uid_t</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#gxf_uid_t"><code class="docutils literal notranslate"><span class="pre">gxf_uid_t</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-component-list">get_component_list</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_component_list"><code class="docutils literal notranslate"><span class="pre">get_component_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-component-info">get_component_info</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_component_info"><code class="docutils literal notranslate"><span class="pre">get_component_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-param-list">get_param_list</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_param_list"><code class="docutils literal notranslate"><span class="pre">get_param_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-param-info">get_param_info</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get_param_info"><code class="docutils literal notranslate"><span class="pre">get_param_info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component-add">component_add</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component_add"><code class="docutils literal notranslate"><span class="pre">component_add()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component-find">component_find</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component_find"><code class="docutils literal notranslate"><span class="pre">component_find()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component-type-id">component_type_id</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component_type_id"><code class="docutils literal notranslate"><span class="pre">component_type_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component-type-name">component_type_name</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component_type_name"><code class="docutils literal notranslate"><span class="pre">component_type_name()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component-add-to-interface">component_add_to_interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#component_add_to_interface"><code class="docutils literal notranslate"><span class="pre">component_add_to_interface()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#primitive-parameters">Primitive Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#bit-floating-point-double">64-bit floating point (double)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#set">set</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_float64"><code class="docutils literal notranslate"><span class="pre">parameter_set_float64()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get">get</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_float64"><code class="docutils literal notranslate"><span class="pre">parameter_get_float64()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#bit-floating-point">32-bit floating point</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id1">set</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_float32"><code class="docutils literal notranslate"><span class="pre">parameter_set_float32()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id2">get</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_float32"><code class="docutils literal notranslate"><span class="pre">parameter_get_float32()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#bit-signed-integer">64-bit signed integer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id3">set</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_int64"><code class="docutils literal notranslate"><span class="pre">parameter_set_int64()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id4">get</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_int64"><code class="docutils literal notranslate"><span class="pre">parameter_get_int64()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#bit-unsigned-integer">64-bit unsigned integer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id5">set</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_uint64"><code class="docutils literal notranslate"><span class="pre">parameter_set_uint64()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id6">get</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_uint64"><code class="docutils literal notranslate"><span class="pre">parameter_get_uint64()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id7">32-bit signed integer</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id8">set</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_int32"><code class="docutils literal notranslate"><span class="pre">parameter_set_int32()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#id9">get</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_int32"><code class="docutils literal notranslate"><span class="pre">parameter_get_int32()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-set-str">parameter_set_str</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_str"><code class="docutils literal notranslate"><span class="pre">parameter_set_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-get-str">parameter_get_str</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_str"><code class="docutils literal notranslate"><span class="pre">parameter_get_str()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-set-handle">parameter_set_handle</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_handle"><code class="docutils literal notranslate"><span class="pre">parameter_set_handle()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-get-handle">parameter_get_handle</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_handle"><code class="docutils literal notranslate"><span class="pre">parameter_get_handle()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-set-bool">parameter_set_bool</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_bool"><code class="docutils literal notranslate"><span class="pre">parameter_set_bool()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-get-bool">parameter_get_bool</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_get_bool"><code class="docutils literal notranslate"><span class="pre">parameter_get_bool()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-set-path">parameter_set_path</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_path"><code class="docutils literal notranslate"><span class="pre">parameter_set_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter-set-from-yaml-node">parameter_set_from_yaml_node</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#parameter_set_from_yaml_node"><code class="docutils literal notranslate"><span class="pre">parameter_set_from_yaml_node()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#vector-parameters">Vector Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#set-1-d-vetor-parameters">Set 1-D Vetor Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#set-2-d-vetor-parameters">Set 2-D Vetor Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-1-d-vetor-parameters">Get 1-D Vetor Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Core_Python_APIs.html#get-2-d-vetor-parameters">Get 2-D Vetor Parameters</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

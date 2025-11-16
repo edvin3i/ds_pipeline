@@ -1,0 +1,1279 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Registry Command Line Interface &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GraphComposer_Registry_CLI';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Composer" href="GraphComposer_Composer.html" />
+    <link rel="prev" title="Registry" href="GraphComposer_Registry.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GraphComposer_Registry_CLI.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="GraphComposer_Registry_CLI.html#">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Registry...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="registry-command-line-interface">
+<h1>Registry Command Line Interface<a class="headerlink" href="GraphComposer_Registry_CLI.html#registry-command-line-interface" title="Link to this heading">#</a></h1>
+<p>The Registry command line interface (CLI) can be invoked by <code class="docutils literal notranslate"><span class="pre">registry</span></code> command with the following options:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>registry –help
+registry --version
+registry command [args]
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Where</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> brings up the help options and exit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v/--version</span></code> prints the version and exits.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The sections below provide details about the command options that can be used with the <code class="docutils literal notranslate"><span class="pre">registry</span></code>.</p>
+<section id="cache">
+<h2>cache<a class="headerlink" href="GraphComposer_Registry_CLI.html#cache" title="Link to this heading">#</a></h2>
+<p>This command is used to interact with the cache content.</p>
+<p><strong>Command syntax</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">cache</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s/--set</span> <span class="pre">&lt;new_cache_path&gt;</span></code> - Set an absolute path where the cache must be located.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-c/--clean</span></code> - Clean the cache.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--refresh</span></code> - Refresh the cache.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v/--view</span></code> - View the cache location.</p></li>
+</ul>
+</section>
+<section id="repo">
+<h2>repo<a class="headerlink" href="GraphComposer_Registry_CLI.html#repo" title="Link to this heading">#</a></h2>
+<p>This command is used to interact with the repositories.</p>
+<p><strong>Command syntax</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<section id="repo-clean">
+<h3>repo clean<a class="headerlink" href="GraphComposer_Registry_CLI.html#repo-clean" title="Link to this heading">#</a></h3>
+<p>This command is used to clean the default repository.</p>
+<p><strong>Command syntax</strong></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">clean</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+<section id="repo-list">
+<h3>repo list<a class="headerlink" href="GraphComposer_Registry_CLI.html#repo-list" title="Link to this heading">#</a></h3>
+<p>This command is used to list repositories.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d/--details</span></code> - Provide details about repositories.</p></li>
+</ul>
+</section>
+<section id="repo-info">
+<h3>repo info<a class="headerlink" href="GraphComposer_Registry_CLI.html#repo-info" title="Link to this heading">#</a></h3>
+<p>This command is used to provide information about a repository.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Provide details a repository.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+<section id="repo-sync">
+<h3>repo sync<a class="headerlink" href="GraphComposer_Registry_CLI.html#repo-sync" title="Link to this heading">#</a></h3>
+<p>This command is used to synchronize a repository. Also synchronizes each extension of the provided repository to the cache.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Set the name of repository to be used.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+</section>
+<section id="extn">
+<h2>extn<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn" title="Link to this heading">#</a></h2>
+<p>An extension references headers, shared libraries, binary files and data
+files. It is referenced by <cite>uuid</cite> (Universally unique identifier), a name
+and a version. It can depend on other extensions for which their name,
+<cite>uuid</cite> and version must be specified. Also, an extension contains a list of
+components. An extension can be implemented for several targets with
+differences in architecture, operating system, distribution and CUDA
+version. Each one of these combinations is called a variant.</p>
+<p>Each extension has an interface, this interface is composed of an
+<cite>extension.yaml</cite> file along with optional header files. These files
+are common for all variants of that extension.</p>
+<p>Each extension contains a list of components. A component contains a <cite>typename</cite>,
+a <cite>type_id</cite>, a base <cite>typename</cite>, a description and a <cite>boolean</cite> telling if the
+component is abstract.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<section id="extn-add">
+<h3>extn add<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-add" title="Link to this heading">#</a></h3>
+<p>This command is used to add an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-m/--manifest-name</span> <span class="pre">&lt;manifest_name&gt;</span></code> - Set a manifest path.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<p>Here is an example of <code class="docutils literal notranslate"><span class="pre">&lt;manifest_name&gt;</span></code> argument:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span>
+<span class="nt">extension_library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libgxf_cuda.so</span>
+<span class="nt">uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">d63a98fa-7882-11eb-a917-b38f664f399c</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.5.0</span>
+<span class="nt">license_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/cuda/LICENSE</span>
+<span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">www.nvidia.com</span>
+<span class="nt">git_repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">labels</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf</span>
+<span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">platform</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64</span>
+<span class="w">  </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linux</span>
+<span class="w">  </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu_22.04</span>
+<span class="nt">compute</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cuda</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12.6</span>
+<span class="w">  </span><span class="nt">tensorrt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">  </span><span class="nt">cudnn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">  </span><span class="nt">deepstream</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">  </span><span class="nt">triton</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="w">  </span><span class="nt">vpi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">extension</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">std</span>
+<span class="w">  </span><span class="nt">uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8ec2d5d6-b5df-48bf-8dee-0252606fdd7e</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.5.0</span>
+<span class="w">  </span><span class="nt">manifest</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">std/register_std_ext_manifest.yaml</span>
+<span class="nt">headers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_common.hpp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_event.hpp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_stream.hpp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_stream_id.hpp</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_stream_pool.hpp</span>
+<span class="nt">binaries</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+<span class="nt">python_alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span>
+<span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf</span>
+<span class="nt">python_bindings</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/cuda/cuda_pybind.so</span>
+<span class="nt">python_sources</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">__init__.py</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Components.py</span>
+<span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</pre></div>
+</div>
+</section>
+<section id="extn-sync">
+<h3>extn sync<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-sync" title="Link to this heading">#</a></h3>
+<p>This command is used to synchronize an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--repo-name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Set a repository name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e/--extension-name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Set an extension name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s/--select-version</span> <span class="pre">&lt;extension_version&gt;</span></code> - Select a version.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+<section id="extn-import">
+<h3>extn import<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-import" title="Link to this heading">#</a></h3>
+<p>This command is used to import extension packages from NGC. A specific version of an extension contains an interface and multiple variants.</p>
+<p><strong>Interface Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-d/--output-directory</span> <span class="pre">&lt;directory&gt;</span></code> - Select an output directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s/--select-version</span> <span class="pre">&lt;extension_version&gt;</span></code> - Select an extension version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--extn-name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Variant Command syntax</strong>: ::</dt><dd><p>registry extn import variant [args]</p>
+</dd>
+</dl>
+<p>Required arguments:
+* <code class="docutils literal notranslate"><span class="pre">-d/--output-directory</span> <span class="pre">&lt;directory&gt;</span></code> - Select an output directory.
+* <code class="docutils literal notranslate"><span class="pre">-s/--select-version</span> <span class="pre">&lt;extension_version&gt;</span></code> - Select an extension version.
+* <code class="docutils literal notranslate"><span class="pre">-n/--extn-name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.
+* <code class="docutils literal notranslate"><span class="pre">-a/--arch</span> <span class="pre">&lt;architecture&gt;</span></code> - Set an architecture.
+* <code class="docutils literal notranslate"><span class="pre">-f/--distro</span> <span class="pre">&lt;distribution&gt;</span></code> - Set a distribution.
+* <code class="docutils literal notranslate"><span class="pre">-o/--os</span> <span class="pre">&lt;os&gt;</span></code> - Select an operating system.</p>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--cuda</span> <span class="pre">&lt;cuda&gt;</span></code> - Select a CUDA version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--cudnn</span> <span class="pre">&lt;cudnn&gt;</span></code> - Select a CUDNN version</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--tensorrt</span> <span class="pre">&lt;tensorrt&gt;</span></code> - Select a TensorRT version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--deepstream</span> <span class="pre">&lt;deepstream&gt;</span></code> - Select a DeepStream version</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--triton</span> <span class="pre">&lt;triton&gt;</span></code> - Select a Triton version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--vpi</span> <span class="pre">&lt;vpi&gt;</span></code> - Select a VPI version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<p>Supported values for the required arguments:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Arguments</p></th>
+<th class="head"><p>Supported</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Architecture</p></td>
+<td><p>aarch64, x86_64, sbsa</p></td>
+<td><p>x86_64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Distribution</p></td>
+<td><p>ubuntu_22.04</p></td>
+<td><p>ubuntu_22.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Operating System</p></td>
+<td><p>linux</p></td>
+<td><p>linux</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="extn-list">
+<h3>extn list<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-list" title="Link to this heading">#</a></h3>
+<p>This command is used to list extensions. Once extensions are present in cache,
+it is possible to list them and obtain details about them. Also, it is possible
+to filter extensions to display only the ones matching some characteristics.
+The filtering is optional.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--repo-name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Select a repository name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-a/--author</span> <span class="pre">&lt;extension_author&gt;</span></code> - Select an author.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-l/--labels</span> <span class="pre">&lt;label1&gt;</span> <span class="pre">[</span> <span class="pre">&lt;label2&gt;...]</span></code> - Select one or multiple labels.</p></li>
+</ul>
+</section>
+<section id="extn-info">
+<h3>extn info<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-info" title="Link to this heading">#</a></h3>
+<p>This command is used to provide information about an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--extn-name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+<section id="extn-versions">
+<h3>extn versions<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-versions" title="Link to this heading">#</a></h3>
+<p>This command is used to display versions of an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">versions</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--repo-name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Select a repository name.</p></li>
+</ul>
+</section>
+<section id="extn-variants">
+<h3>extn variants<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-variants" title="Link to this heading">#</a></h3>
+<p>This command is used to display variants of an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">variants</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v/--version</span> <span class="pre">&lt;version&gt;</span></code> - Select an extension version.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+<section id="extn-dependencies">
+<h3>extn dependencies<a class="headerlink" href="GraphComposer_Registry_CLI.html#extn-dependencies" title="Link to this heading">#</a></h3>
+<p>This command is used to display all dependencies of an extension.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-n/--name</span> <span class="pre">&lt;extension_name&gt;</span></code> - Select an extension name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s/--select-version</span> <span class="pre">&lt;extension_version&gt;</span></code> - Select an extension version.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+</section>
+<section id="comp">
+<h2>comp<a class="headerlink" href="GraphComposer_Registry_CLI.html#comp" title="Link to this heading">#</a></h2>
+<p>This command is used to interact with components. Each component contains a
+list of parameters. A parameter contains a key, a headline, a description,
+a <code class="docutils literal notranslate"><span class="pre">gxf_parameter_type</span></code>, a default value, a handle type and flags.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">comp</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<section id="comp-list">
+<h3>comp list<a class="headerlink" href="GraphComposer_Registry_CLI.html#comp-list" title="Link to this heading">#</a></h3>
+<p>This command is used to list components. Filters are available as it is the case for components.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">comp</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-b/--base-type</span> <span class="pre">&lt;base_type&gt;</span></code> - Select a base type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--repo-name</span> <span class="pre">&lt;repository_name&gt;</span></code> - Select a repository name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t/--typename</span> <span class="pre">&lt;typename&gt;</span></code> - Select a typename.</p></li>
+</ul>
+</section>
+<section id="comp-info">
+<h3>comp info<a class="headerlink" href="GraphComposer_Registry_CLI.html#comp-info" title="Link to this heading">#</a></h3>
+<p>This command is used to provide information about a component.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">comp</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-t/--type</span> <span class="pre">&lt;component_type&gt;</span></code> - Select a component type.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+</section>
+</section>
+<section id="graph">
+<h2>graph<a class="headerlink" href="GraphComposer_Registry_CLI.html#graph" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>This command is used to interact with the graph.</p>
+</div></blockquote>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+</ul>
+<section id="graph-install">
+<h3>graph install<a class="headerlink" href="GraphComposer_Registry_CLI.html#graph-install" title="Link to this heading">#</a></h3>
+<p>This command is used to install graph and generate a manifest with the list of
+extensions needed to execute the graph and in the order in which they must be
+loaded. Also generates an archive of the extensions and their files
+corresponding to the variant arguments specified using the target file.
+For every extension used in the graph, the registry will choose the closest matching variant
+from its cache and create the archive. The variant chosen by the registry will be specified in the
+output manifest file. Generated archive can also be unpacked locally into a
+directory specified by <code class="docutils literal notranslate"><span class="pre">--archive-dir-path</span></code>.</p>
+<p><strong>Command syntax</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Required arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-g/--graph-file</span> <span class="pre">&lt;graph_file&gt;</span></code> - Set the graph file to be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d/--target-file-path</span> <span class="pre">&lt;target_file_path&gt;</span></code> - Set the target file path</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-m/--manifest-file-path</span>&#160; <span class="pre">&lt;manifest_file_path&gt;</span></code> - Set the manifest file path.</p></li>
+</ul>
+<p>Optional arguments:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h/--help</span></code> - Print help and exit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-u/--output-directory</span> <span class="pre">&lt;output_directory&gt;</span></code> - Set the output directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-r/--archive-dir-path</span>&#160; <span class="pre">&lt;archive_directory_path&gt;</span></code> - Set the archive directory path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i/--in-export-dir-path</span> <span class="pre">&lt;in_export_dirpath&gt;</span></code> - Set the export directory path.</p></li>
+</ul>
+<p><strong>Sample Target File</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">platform</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">arch</span><span class="p">:</span><span class="w"> </span><span class="n">x86_64</span>
+<span class="w">  </span><span class="nl">os</span><span class="p">:</span><span class="w"> </span><span class="n">linux</span>
+<span class="w">  </span><span class="nl">distribution</span><span class="p">:</span><span class="w"> </span><span class="n">ubuntu_22</span><span class="mf">.04</span>
+<span class="nl">compute</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">cuda</span><span class="p">:</span><span class="w"> </span><span class="mf">12.6</span>
+<span class="w">  </span><span class="nl">cudnn</span><span class="p">:</span><span class="w"> </span><span class="mf">9.3.0</span>
+<span class="w">  </span><span class="nl">tensorrt</span><span class="p">:</span><span class="w"> </span><span class="mf">10.3.0</span>
+<span class="w">  </span><span class="nl">deepstream</span><span class="p">:</span><span class="w"> </span><span class="mf">7.1</span>
+<span class="w">  </span><span class="nl">triton</span><span class="p">:</span><span class="w"> </span><span class="mf">2.49.0</span>
+<span class="w">  </span><span class="nl">vpi</span><span class="p">:</span><span class="w"> </span><span class="mf">2.3.1</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GraphComposer_Registry.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Registry</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GraphComposer_Composer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Composer</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#cache">cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#repo">repo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#repo-clean">repo clean</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#repo-list">repo list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#repo-info">repo info</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#repo-sync">repo sync</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn">extn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-add">extn add</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-sync">extn sync</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-import">extn import</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-list">extn list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-info">extn info</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-versions">extn versions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-variants">extn variants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#extn-dependencies">extn dependencies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#comp">comp</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#comp-list">comp list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#comp-info">comp info</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#graph">graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Registry_CLI.html#graph-install">graph install</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1651 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Installation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quickstart Guide" href="DS_Quickstart.html" />
+    <link rel="prev" title="Migration Guide" href="DS_Migration_guide.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Installation.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Installation.html#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="DS_Installation.html#installation" title="Link to this heading">#</a></h1>
+<p>NVIDIA<sup>®</sup> DeepStream Software Development Kit (SDK) is an accelerated AI framework to build intelligent video analytics (IVA) pipelines. DeepStream runs on NVIDIA<sup>®</sup> T4, NVIDIA® Hopper, NVIDIA<sup>®</sup> Ampere, NVIDIA<sup>®</sup> ADA and platforms such as NVIDIA<sup>®</sup> Jetson AGX Orin™, NVIDIA<sup>®</sup> Jetson Orin™ NX, NVIDIA<sup>®</sup> Jetson Orin™ Nano. For dGPU platforms Enterprise GPUs are highly recommended for deployments that are expected to run 24x7. Gaming GPUs are not designed to perform in such type of environments.</p>
+<section id="jetson-setup">
+<h2>Jetson Setup<a class="headerlink" href="DS_Installation.html#jetson-setup" title="Link to this heading">#</a></h2>
+<p>This section explains how to prepare a Jetson device before installing the DeepStream SDK.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steps to install DeepStream SDK locally, assume that <code class="docutils literal notranslate"><span class="pre">~/.local/bin/</span></code> has been added to the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code></p>
+</div>
+<section id="install-jetson-sdk-components">
+<h3>Install Jetson SDK components<a class="headerlink" href="DS_Installation.html#install-jetson-sdk-components" title="Link to this heading">#</a></h3>
+<p>Download NVIDIA SDK Manager from <a class="reference external" href="https://developer.nvidia.com/embedded/jetpack">https://developer.nvidia.com/embedded/jetpack</a>. You will use this to install JetPack 6.1 GA (corresponding to L4T 36.4 release)</p>
+<ul class="simple">
+<li><p>NVIDIA SDK Manager is a graphical application which flashes and installs the JetPack packages.</p></li>
+<li><p>The flashing procedure takes approximately 10-30 minutes, depending on the host system.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using Jetson Orin nano developer kit, you can download the SD card image from <a class="reference external" href="https://developer.nvidia.com/embedded/jetpack">https://developer.nvidia.com/embedded/jetpack</a>. This comes packaged with CUDA, TensorRT and cuDNN.</p>
+</div>
+</section>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="DS_Installation.html#prerequisites" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes while running gstreamer pipeline or sample apps,
+user can encounter error : <code class="docutils literal notranslate"><span class="pre">GLib</span> <span class="pre">(gthread-posix.c):</span> <span class="pre">Unexpected</span> <span class="pre">error</span> <span class="pre">from</span> <span class="pre">C</span> <span class="pre">library</span> <span class="pre">during</span> <span class="pre">'pthread_setspecific':</span> <span class="pre">Invalid</span> <span class="pre">argument.</span>&#160; <span class="pre">Aborting.</span></code>
+The issue is caused because of a bug in glib 2.0-2.72 version which comes with ubuntu22.04 by default.
+The issue is addressed in glib2.76 and its installation is required to fix the issue (<a class="github reference external" href="https://github.com/GNOME/glib/tree/2.76.6">GNOME/glib</a>).</p>
+</div>
+<section id="migrate-glib-to-newer-version">
+<h4>Migrate glib to newer version<a class="headerlink" href="DS_Installation.html#migrate-glib-to-newer-version" title="Link to this heading">#</a></h4>
+<p>In order to migrate to newer glib version (e.g. 2.76.6) follow below steps:</p>
+<ol class="arabic">
+<li><p>Prerequisites: Install below packages:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">meson</span>
+<span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">ninja</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On baremetal, use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">meson</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">ninja</span></code> for root permissions</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>Compilation and installation steps:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/GNOME/glib.git</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">glib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="o">&lt;</span><span class="n">glib</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">branch</span><span class="o">&gt;</span>
+<span class="cp"># e.g. 2.76.6</span>
+<span class="n">$</span><span class="w"> </span><span class="n">meson</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span>
+<span class="n">$</span><span class="w"> </span><span class="n">ninja</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="n">build</span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">build</span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">ninja</span><span class="w"> </span><span class="n">install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On baremetal, use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ninja</span> <span class="pre">install</span></code> to install with root permissions</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check and confirm the newly installed glib version:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pkg</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="n">modversion</span><span class="w"> </span><span class="n">glib</span><span class="mf">-2.0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="install-dependencies">
+<h3>Install Dependencies<a class="headerlink" href="DS_Installation.html#install-dependencies" title="Link to this heading">#</a></h3>
+<section id="install-prerequisite-packages">
+<h4>Install prerequisite packages<a class="headerlink" href="DS_Installation.html#install-prerequisite-packages" title="Link to this heading">#</a></h4>
+<p>Enter the following commands to install the prerequisite packages:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span>\
+<span class="n">libssl3</span><span class="w"> </span>\
+<span class="n">libssl</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgstreamer1</span><span class="mf">.0</span><span class="mi">-0</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">tools</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">good</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">bad</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ugly</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">libav</span><span class="w"> </span>\
+<span class="n">libgstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">base1</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgstrtspserver</span><span class="mf">-1.0</span><span class="mi">-0</span><span class="w"> </span>\
+<span class="n">libjansson4</span><span class="w"> </span>\
+<span class="n">libyaml</span><span class="o">-</span><span class="n">cpp</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes with RTSP streams the application gets stuck on reaching EOS. This is because of an issue in rtpjitterbuffer component.
+To fix this issue, a script “update_rtpmanager.sh” at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/</span></code> has been provided with
+required details to update gstrtpmanager library. The script should be executed once above mentioned packages are
+installed as prerequisite.</p>
+</div>
+</section>
+<section id="install-librdkafka-to-enable-kafka-protocol-adaptor-for-message-broker">
+<h4>Install librdkafka (to enable Kafka protocol adaptor for message broker)<a class="headerlink" href="DS_Installation.html#install-librdkafka-to-enable-kafka-protocol-adaptor-for-message-broker" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Clone the <cite>librdkafka</cite> repository from GitHub:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/confluentinc/librdkafka.git</span>
+</pre></div>
+</div>
+</li>
+<li><p>Configure and build the library:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">librdkafka</span>
+<span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="n">tags</span><span class="o">/</span><span class="n">v2</span><span class="mf">.2.0</span>
+<span class="n">$</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">configure</span><span class="w"> </span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">ssl</span>
+<span class="n">$</span><span class="w"> </span><span class="n">make</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">install</span>
+</pre></div>
+</div>
+</li>
+<li><p>Copy the generated libraries to the <cite>deepstream</cite> directory:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">librdkafka</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="install-latest-nvidia-bsp-packages">
+<h4>Install latest NVIDIA BSP packages<a class="headerlink" href="DS_Installation.html#install-latest-nvidia-bsp-packages" title="Link to this heading">#</a></h4>
+<p>Installation of JetPack 6.1 GA will ensure that  latest NVIDIA BSP packages are installed.</p>
+</section>
+</section>
+<section id="install-the-deepstream-sdk">
+<h3>Install the DeepStream SDK<a class="headerlink" href="DS_Installation.html#install-the-deepstream-sdk" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Method 1</strong>: Using SDK Manager</p>
+<p>Select <code class="docutils literal notranslate"><span class="pre">DeepStreamSDK</span></code> from the <code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">SDKs</span></code> section along with JP 6.1 GA software components for installation.</p>
+</li>
+<li><p><strong>Method 2</strong>: Using the DeepStream tar package: <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream">https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream</a></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Download the DeepStream 7.1 Jetson tar package <code class="docutils literal notranslate"><span class="pre">deepstream_sdk_v7.1.0_jetson.tbz2</span></code> to the Jetson device.</p></li>
+<li><p>Enter the following commands to extract and install the DeepStream SDK:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w">  </span><span class="n">sudo</span><span class="w"> </span><span class="n">tar</span><span class="w"> </span><span class="o">-</span><span class="n">xvf</span><span class="w"> </span><span class="n">deepstream_sdk_v7</span><span class="mf">.1.0</span><span class="n">_jetson</span><span class="p">.</span><span class="n">tbz2</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="mf">-7.1</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">install</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p><strong>Method 3</strong>: Using the DeepStream Debian package: <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream">https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream</a></p>
+<p>Download the DeepStream 7.1 Jetson Debian package <code class="docutils literal notranslate"><span class="pre">deepstream-7.1_7.1.0-1_arm64.deb</span></code>  to the Jetson device. Enter the following command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">deepstream</span><span class="mf">-7.1</span><span class="n">_7</span><span class="mf">.1.0</span><span class="mi">-1</span><span class="n">_arm64</span><span class="p">.</span><span class="n">deb</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Method 4</strong>: Use Docker containers</p>
+<p>DeepStream docker containers are available on NGC. See the <a class="reference internal" href="DS_docker_containers.html"><span class="doc">Docker Containers</span></a> section to learn about developing and deploying DeepStream using docker containers.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Verification: Once DeepStream SDK installation is successful, refer to <a class="reference internal" href="DS_Quickstart.html#ds-quickstart-ds-app-jetson"><span class="std std-ref">Expected output (deepstream-app)</span></a> for the expected output.</p>
+</div>
+</section>
+</section>
+<section id="dgpu-setup-for-ubuntu">
+<h2>dGPU Setup for Ubuntu<a class="headerlink" href="DS_Installation.html#dgpu-setup-for-ubuntu" title="Link to this heading">#</a></h2>
+<p>This section explains how to prepare an <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">x86_64</span></code> system with NVIDIA dGPU devices before installing the DeepStream SDK.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steps to install DeepStream SDK locally, assume that <code class="docutils literal notranslate"><span class="pre">~/.local/bin/</span></code> has been added to the <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document uses the term dGPU (“discrete GPU”) to refer to NVIDIA GPU expansion card products such as NVIDIA Tesla<sup>®</sup> T4, NVIDIA® Hopper, NVIDIA<sup>®</sup> Ampere, NVIDIA<sup>®</sup> ADA, NVIDIA GeForce<sup>®</sup> RTX 2080, NVIDIA GeForce<sup>®</sup> RTX 3080, NVIDIA GeForce<sup>®</sup> RTX 4080 and GeForce<sup>®</sup>/NVIDIA RTX/QUADRO.
+This version of DeepStream SDK runs on GPUs supported by NVIDIA driver 535.183.06 for Data Center GPUs and 560.35.03 for RTX GPUs and NVIDIA TensorRT™ 10.3.0.26 and later versions.</p>
+</div>
+<section id="id1">
+<h3>Prerequisites<a class="headerlink" href="DS_Installation.html#id1" title="Link to this heading">#</a></h3>
+<p>You must install the following components:</p>
+<ul class="simple">
+<li><p>Ubuntu 22.04</p></li>
+<li><p>GStreamer 1.20.3</p></li>
+<li><p>NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)</p></li>
+<li><p>CUDA 12.6</p></li>
+<li><p>TensorRT 10.3.0.26</p></li>
+</ul>
+<section id="remove-all-previous-deepstream-installations">
+<h4>Remove all previous DeepStream installations<a class="headerlink" href="DS_Installation.html#remove-all-previous-deepstream-installations" title="Link to this heading">#</a></h4>
+<p>Enter the following commands to remove all previous DeepStream 3.0 or prior installations:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">deepstream</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">gstreamer</span><span class="mf">-1.0</span><span class="o">/</span><span class="n">libgstnv</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">deepstream</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">gstreamer</span><span class="mf">-1.0</span><span class="o">/</span><span class="n">libnvdsgst</span><span class="o">*</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">gstreamer</span><span class="mf">-1.0</span><span class="o">/</span><span class="n">deepstream</span><span class="o">*</span>
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">*</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libv41</span><span class="o">/</span><span class="n">plugins</span><span class="o">/</span><span class="n">libcuvidv4l2_plugin</span><span class="p">.</span><span class="n">so</span>
+</pre></div>
+</div>
+<p>To remove DeepStream 4.0 or later installations:</p>
+<ol class="arabic simple">
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">uninstall.sh</span></code> file in <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/</span></code></p></li>
+<li><p>Run the following script as <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./uninstall.sh</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes while running gstreamer pipeline or sample apps,
+user can encounter error : <code class="docutils literal notranslate"><span class="pre">GLib</span> <span class="pre">(gthread-posix.c):</span> <span class="pre">Unexpected</span> <span class="pre">error</span> <span class="pre">from</span> <span class="pre">C</span> <span class="pre">library</span> <span class="pre">during</span> <span class="pre">'pthread_setspecific':</span> <span class="pre">Invalid</span> <span class="pre">argument.</span>&#160; <span class="pre">Aborting.</span></code>
+The issue is caused because of a bug in glib 2.0-2.72 version which comes with ubuntu22.04 by default.
+The issue is addressed in glib2.76 and its installation is required to fix the issue (<a class="github reference external" href="https://github.com/GNOME/glib/tree/2.76.6">GNOME/glib</a>).</p>
+</div>
+</section>
+<section id="id2">
+<h4>Migrate glib to newer version<a class="headerlink" href="DS_Installation.html#id2" title="Link to this heading">#</a></h4>
+<p>In order to migrate to newer glib version (e.g. 2.76.6) follow below steps:</p>
+<ol class="arabic">
+<li><p>Prerequisites: Install below packages:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">meson</span>
+<span class="n">pip3</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">ninja</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On baremetal x86, use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">meson</span></code> and <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">ninja</span></code> for root permissions</p>
+</div>
+<ol class="arabic" start="2">
+<li><p>Compilation and installation steps:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/GNOME/glib.git</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">glib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="o">&lt;</span><span class="n">glib</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">branch</span><span class="o">&gt;</span>
+<span class="cp"># e.g. 2.76.6</span>
+<span class="n">$</span><span class="w"> </span><span class="n">meson</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span>
+<span class="n">$</span><span class="w"> </span><span class="n">ninja</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="n">build</span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">build</span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">ninja</span><span class="w"> </span><span class="n">install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On baremetal x86, use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">ninja</span> <span class="pre">install</span></code> to install with root permissions</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check and confirm the newly installed glib version:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">pkg</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="n">modversion</span><span class="w"> </span><span class="n">glib</span><span class="mf">-2.0</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="id3">
+<h3>Install Dependencies<a class="headerlink" href="DS_Installation.html#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h4>Install prerequisite packages<a class="headerlink" href="DS_Installation.html#id4" title="Link to this heading">#</a></h4>
+<p>Enter the following commands to install the necessary packages before installing the DeepStream SDK:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">install</span><span class="w"> </span>\
+<span class="n">libssl3</span><span class="w"> </span>\
+<span class="n">libssl</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgles2</span><span class="o">-</span><span class="n">mesa</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgstreamer1</span><span class="mf">.0</span><span class="mi">-0</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">tools</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">good</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">bad</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ugly</span><span class="w"> </span>\
+<span class="n">gstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">libav</span><span class="w"> </span>\
+<span class="n">libgstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">base1</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgstrtspserver</span><span class="mf">-1.0</span><span class="mi">-0</span><span class="w"> </span>\
+<span class="n">libjansson4</span><span class="w"> </span>\
+<span class="n">libyaml</span><span class="o">-</span><span class="n">cpp</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libjsoncpp</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">protobuf</span><span class="o">-</span><span class="n">compiler</span><span class="w"> </span>\
+<span class="n">gcc</span><span class="w"> </span>\
+<span class="n">make</span><span class="w"> </span>\
+<span class="n">git</span><span class="w"> </span>\
+<span class="n">python3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes with RTSP streams the application gets stuck on reaching EOS. This is because of an issue in rtpjitterbuffer component.
+To fix this issue,a script “update_rtpmanager.sh” at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/</span></code> has been provided with
+required details to update gstrtpmanager library. The script should be executed once above mentioned packages are
+installed as prerequisite.</p>
+</div>
+</section>
+<section id="install-cuda-toolkit-12-6">
+<h4>Install CUDA Toolkit 12.6<a class="headerlink" href="DS_Installation.html#install-cuda-toolkit-12-6" title="Link to this heading">#</a></h4>
+<p>Run the following commands (reference, <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">key</span><span class="w"> </span><span class="n">adv</span><span class="w"> </span><span class="o">--</span><span class="n">fetch</span><span class="o">-</span><span class="n">keys</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span><span class="w"> </span><span class="s">&quot;deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /&quot;</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">update</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cuda</span><span class="o">-</span><span class="n">toolkit</span><span class="mi">-12-6</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you observe following errors while CUDA installation, refer to <a class="reference external" href="https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/">https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/</a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W: GPG error: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64 InRelease: The following signatures couldn&#39;t be verified because the public key is not available: NO_PUBKEY A4B469963BF863CC
+E: The repository &#39;https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64 InRelease&#39; is no longer signed.
+</pre></div>
+</div>
+</div>
+</section>
+<section id="install-nvidia-driver-535-183-06-for-data-center-gpus-and-560-35-03-for-rtx-gpus">
+<h4>Install NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)<a class="headerlink" href="DS_Installation.html#install-nvidia-driver-535-183-06-for-data-center-gpus-and-560-35-03-for-rtx-gpus" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Download and install using NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs) from NVIDIA Unix drivers page at: <a class="reference external" href="https://www.nvidia.cn/Download/driverResults.aspx/222416/en-us/">https://www.nvidia.cn/Download/driverResults.aspx/222416/en-us/</a></p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">For</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">Center</span><span class="w"> </span><span class="n">GPUs</span><span class="o">:</span>
+<span class="n">$</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">755</span><span class="w"> </span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="mf">-535.183.06</span><span class="p">.</span><span class="n">run</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="mf">-535.183.06</span><span class="p">.</span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">check</span>
+<span class="n">For</span><span class="w"> </span><span class="n">RTX</span><span class="w"> </span><span class="n">GPUs</span><span class="o">:</span>
+<span class="n">$</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">755</span><span class="w"> </span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="mf">-560.35.03</span><span class="p">.</span><span class="n">run</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="mf">-560.35.03</span><span class="p">.</span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">check</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure gdm, lightdm or Xorg service is stopped while installing nvidia driver</p>
+<p>Use command : <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">gdm</span> <span class="pre">stop</span></code> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">lightdm</span> <span class="pre">stop</span></code> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkill</span> <span class="pre">-9</span> <span class="pre">Xorg</span></code></p>
+</div>
+</section>
+<section id="install-tensorrt-10-3-0-26">
+<h4>Install TensorRT 10.3.0.26<a class="headerlink" href="DS_Installation.html#install-tensorrt-10-3-0-26" title="Link to this heading">#</a></h4>
+<blockquote>
+<div><p>Run the following command to install TensorRT 10.3.0.26:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">version</span><span class="o">=</span><span class="s">&quot;10.3.0.26-1+cuda12.5&quot;</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">dispatch</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">dispatch10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">headers</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span>
+<span class="n">libnvinfer</span><span class="o">-</span><span class="n">headers</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">lean</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">lean10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">plugin10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span>
+<span class="n">libnvinfer</span><span class="o">-</span><span class="n">vc</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">-</span><span class="n">vc</span><span class="o">-</span><span class="n">plugin10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvinfer10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvonnxparsers</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">libnvonnxparsers10</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span><span class="w"> </span><span class="n">tensorrt</span><span class="o">-</span><span class="n">dev</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">version</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>It is assumed, “deb <a class="reference external" href="https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/">https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/</a>” has been added, as mentioned in CUDA Toolkit 12.6 installation step.</p></li>
+<li><p>libnvparsers are deprecated since TRT 9.0.</p></li>
+</ul>
+</div>
+</div></blockquote>
+</section>
+<section id="id5">
+<h4>Install librdkafka (to enable Kafka protocol adaptor for message broker)<a class="headerlink" href="DS_Installation.html#id5" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Clone the <cite>librdkafka</cite> repository from GitHub:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/confluentinc/librdkafka.git</span>
+</pre></div>
+</div>
+</li>
+<li><p>Configure and build the library:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">librdkafka</span>
+<span class="n">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="n">tags</span><span class="o">/</span><span class="n">v2</span><span class="mf">.2.0</span>
+<span class="n">$</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">configure</span><span class="w"> </span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">ssl</span>
+<span class="n">$</span><span class="w"> </span><span class="n">make</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">install</span>
+</pre></div>
+</div>
+</li>
+<li><p>Copy the generated libraries to the deepstream directory:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">librdkafka</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="ds-installation-install-deepstream-sdk">
+<span id="id6"></span><h3>Install the DeepStream SDK<a class="headerlink" href="DS_Installation.html#ds-installation-install-deepstream-sdk" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Method 1</strong>: Using the DeepStream Debian package</p>
+<p>Download the DeepStream 7.1 dGPU Debian package <code class="docutils literal notranslate"><span class="pre">deepstream-7.1_7.1.0-1_amd64.deb</span></code> : <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream">https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream</a></p>
+<p>Enter the command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">deepstream</span><span class="mf">-7.1</span><span class="n">_7</span><span class="mf">.1.0</span><span class="mi">-1</span><span class="n">_amd64</span><span class="p">.</span><span class="n">deb</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Method 2</strong>: Download the DeepStream tar package: <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream">https://catalog.ngc.nvidia.com/orgs/nvidia/resources/deepstream</a></p>
+<p>Navigate to the location of the downloaded DeepStream package to extract and install the DeepStream SDK:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">tar</span><span class="w"> </span><span class="o">-</span><span class="n">xvf</span><span class="w"> </span><span class="n">deepstream_sdk_v7</span><span class="mf">.1.0</span><span class="n">_x86_64</span><span class="p">.</span><span class="n">tbz2</span><span class="w"> </span><span class="o">-</span><span class="n">C</span><span class="w"> </span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="mf">-7.1</span><span class="o">/</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">install</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Method 3</strong>: Use Docker containers</p>
+<p>DeepStream docker containers are available on NGC. See the <a class="reference internal" href="DS_docker_containers.html"><span class="doc">Docker Containers</span></a> section to learn about developing and deploying DeepStream using docker containers.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Verification: Once DeepStream SDK installation is successful, refer to <a class="reference internal" href="DS_Quickstart.html#ds-quickstart-ds-app-x86"><span class="std std-ref">Expected output (deepstream-app)</span></a> for the expected output.</p>
+</div>
+</section>
+</section>
+<section id="igx-dgpu-on-arm-setup-for-ubuntu-alpha">
+<h2>IGX/dGPU on ARM Setup for Ubuntu (Alpha)<a class="headerlink" href="DS_Installation.html#igx-dgpu-on-arm-setup-for-ubuntu-alpha" title="Link to this heading">#</a></h2>
+<p>This section explains how to prepare a <a class="reference external" href="https://www.nvidia.com/en-us/edge-computing/products/igx/">NVIDIA IGX</a> system with NVIDIA dGPU devices before installing the DeepStream SDK.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document uses the term dGPU (“discrete GPU”) to refer to NVIDIA GPU expansion card products such as NVIDIA RTX A6000 and NVIDIA RTX 6000 Ada.
+This version of DeepStream SDK has been validated with NVIDIA driver 535.183.01 and NVIDIA TensorRT™ 10.3.0.26.</p>
+</div>
+<p>You must install the following components:</p>
+<ul class="simple">
+<li><p>Please refer IGX-Software Install Guide for installing Base-OS: <a class="reference external" href="https://docs.nvidia.com/igx-orin/user-guide/latest/base-os.html">IGX-Software Guide</a></p></li>
+<li><p>Docker</p></li>
+<li><p>Nvidia Container Toolkit</p></li>
+</ul>
+<section id="run-arm-sbsa-docker-on-igx-dgpu">
+<h3>Run ARM SBSA docker on IGX/dGPU<a class="headerlink" href="DS_Installation.html#run-arm-sbsa-docker-on-igx-dgpu" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Pull the DeepStream Triton Inference Server docker</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">sbsa</span>
+</pre></div>
+</div>
+</li>
+<li><p>Start the docker</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">runtime</span><span class="o">=</span><span class="n">nvidia</span><span class="w"> </span><span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">NVIDIA_DRIVER_CAPABILITIES</span><span class="o">=</span><span class="n">compute</span><span class="p">,</span><span class="n">utility</span><span class="p">,</span><span class="n">video</span><span class="p">,</span><span class="n">graphics</span><span class="w"> </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="o">--</span><span class="n">privileged</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=:</span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="o">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">sbsa</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="known-limitation-with-video-subsystem-and-workaround">
+<h3>Known Limitation with Video Subsystem and Workaround<a class="headerlink" href="DS_Installation.html#known-limitation-with-video-subsystem-and-workaround" title="Link to this heading">#</a></h3>
+<p>DeepStream 7.1 supports Cuda-12.6 in the compute stack and also in the docker container by default. Data Center GPUs are currently only supported by driver 535.183.06, which comes with Cuda-12.2 driver by default.</p>
+<p>Even though CUDA supports forward compatibility with newer runtime versions like Cuda-12.6, other components such as Cuda-GL Interop do not support forward compatibility which are required for display sink to work.
+Hence, for other components such as Cuda-GL Interop to work, Cuda-12.2 toolkit also must be installed alongside Cuda-12.6 runtime inside the docker container.</p>
+<p>For users who need to use/enable display output, following steps can be utilized inside the docker to implement this workaround:</p>
+<ol class="arabic simple">
+<li><p>Start the docker as shown in the step above.</p></li>
+<li><p>Install cuda-toolkit-12-2. Please follow <a class="reference external" href="https://developer.nvidia.com/cuda-12-2-2-download-archive?target_os=Linux&amp;target_arch=arm64-sbsa&amp;Compilation=Native&amp;Distribution=Ubuntu&amp;target_version=22.04&amp;target_type=deb_local">these instructions</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLEASE</span> <span class="pre">NOTE</span></code>: From the Cuda-12 installation instructions mentioned in link above, please replace : <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda</span></code> with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda-toolkit-12-2</span></code></p></li>
+<li><p>Change default CUDA version to point to Cuda-12.2 inside the docker using update alternatives: <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--set</span> <span class="pre">cuda</span> <span class="pre">/usr/local/cuda-12.2</span></code></p></li>
+<li><p>To check which version of CUDA is currently in use inside the docker, run : <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--display</span> <span class="pre">cuda</span></code></p></li>
+</ol>
+</section>
+</section>
+<section id="dgpu-on-arm-setup-for-ubuntu-alpha">
+<h2>dGPU on ARM Setup for Ubuntu (Alpha)<a class="headerlink" href="DS_Installation.html#dgpu-on-arm-setup-for-ubuntu-alpha" title="Link to this heading">#</a></h2>
+<p>This section explains how to prepare an <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">aarch64</span></code> system with NVIDIA dGPU devices before installing the DeepStream SDK.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This document uses the term dGPU (“discrete GPU”) to refer to NVIDIA GPU expansion card products such as NVIDIA Tesla T4, NVIDIA Hopper, NVIDIA Ampere, NVIDIA® ADA, NVIDIA GeForce GTX 1080, NVIDIA GeForce RTX 2080, NVIDIA GeForce RTX 3080, NVIDIA GeForce RTX 4080 and GeForce/NVIDIA RTX/QUADRO.
+This version of DeepStream SDK runs on GPUs supported by NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs) and NVIDIA TensorRT™ 10.3.0.26.</p>
+</div>
+<p>You must install the following components:</p>
+<ul class="simple">
+<li><p>NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)</p></li>
+<li><p>Docker</p></li>
+<li><p>Nvidia Container Toolkit</p></li>
+<li><p>Please note: GH200 has been validated with Nvidia Driver 550 using Base-OS</p></li>
+</ul>
+<section id="id7">
+<h3>Install NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)<a class="headerlink" href="DS_Installation.html#id7" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Download and install using NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs) from NVIDIA Unix drivers page at: <a class="reference external" href="https://www.nvidia.com/en-us/drivers/unix/linux-aarch64-archive/">https://www.nvidia.com/en-us/drivers/unix/linux-aarch64-archive/</a></p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">For</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">Center</span><span class="w"> </span><span class="n">GPUs</span><span class="o">:</span>
+<span class="n">$</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">755</span><span class="w"> </span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">aarch64</span><span class="mf">-535.183.06</span><span class="p">.</span><span class="n">run</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">aarch64</span><span class="mf">-535.183.06</span><span class="p">.</span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">check</span>
+<span class="n">For</span><span class="w"> </span><span class="n">RTX</span><span class="w"> </span><span class="n">GPUs</span><span class="o">:</span>
+<span class="n">$</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">755</span><span class="w"> </span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">aarch64</span><span class="mf">-560.35.03</span><span class="p">.</span><span class="n">run</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">aarch64</span><span class="mf">-560.35.03</span><span class="p">.</span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">check</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure gdm, lightdm or Xorg service is stopped while installing Nvidia driver</p>
+<p>Use command : <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">gdm</span> <span class="pre">stop</span></code> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">lightdm</span> <span class="pre">stop</span></code> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pkill</span> <span class="pre">-9</span> <span class="pre">Xorg</span></code></p>
+</div>
+</section>
+<section id="run-dgpu-on-arm-docker-sbsa">
+<h3>Run dGPU on ARM Docker (SBSA)<a class="headerlink" href="DS_Installation.html#run-dgpu-on-arm-docker-sbsa" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Pull the DeepStream Triton Inference Server docker</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">sbsa</span>
+</pre></div>
+</div>
+</li>
+<li><p>Start the docker</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">runtime</span><span class="o">=</span><span class="n">nvidia</span><span class="w"> </span><span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">NVIDIA_DRIVER_CAPABILITIES</span><span class="o">=</span><span class="n">compute</span><span class="p">,</span><span class="n">utility</span><span class="p">,</span><span class="n">video</span><span class="p">,</span><span class="n">graphics</span><span class="w"> </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="o">--</span><span class="n">privileged</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=:</span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="o">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">arm</span><span class="o">-</span><span class="n">sbsa</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="ds-installation-sbsa-known-limitation">
+<span id="id8"></span><h3>Known Limitation with Video Subsystem and Workaround<a class="headerlink" href="DS_Installation.html#ds-installation-sbsa-known-limitation" title="Link to this heading">#</a></h3>
+<p>DeepStream 7.1 supports Cuda-12.6 in the compute stack and also in the docker container by default. Data Center GPUs are currently only supported by driver 535.183.06, which comes with Cuda-12.2 driver by default.</p>
+<p>Even though CUDA supports forward compatibility with newer runtime versions like Cuda-12.6, other components such as Cuda-GL Interop do not support forward compatibility which are required for display sink to work.
+Hence, for other components such as Cuda-GL Interop to work, Cuda-12.2 toolkit also must be installed along with the default Cuda-12.6 runtime inside the docker container.</p>
+<p>For users who need to use/enable display output, following steps can be utilized inside the docker to implement this workaround:</p>
+<ol class="arabic simple">
+<li><p>Start the docker as shown in the step above.</p></li>
+<li><p>Install cuda-toolkit-12-2. Please follow <a class="reference external" href="https://developer.nvidia.com/cuda-12-2-2-download-archive?target_os=Linux&amp;target_arch=arm64-sbsa&amp;Compilation=Native&amp;Distribution=Ubuntu&amp;target_version=22.04&amp;target_type=deb_local">these instructions</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLEASE</span> <span class="pre">NOTE</span></code>: From the Cuda-12 installation instructions mentioned in link above, please replace : <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda</span></code> with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda-toolkit-12-2</span></code></p></li>
+<li><p>Change default CUDA version to point to Cuda-12.2 inside the docker using update alternatives: <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--set</span> <span class="pre">cuda</span> <span class="pre">/usr/local/cuda-12.2</span></code></p></li>
+<li><p>To check which version of CUDA is currently in use inside the docker, run : <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--display</span> <span class="pre">cuda</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">Similar limitation is also present for dGPU driver 550, which comes with Cuda-12.4 by default and Cuda-12.6 based docker containers which need to use/enable display.</div>
+<div class="line">For users who need to use/enable display on systems using dGPU driver 550, please enable cuda-toolkit-12-4 in addition to Cuda-12.6 inside the container by following similar steps as above.</div>
+<div class="line">Replace step no. 2 with cuda-toolkit-12-4 installation instructions <a class="reference external" href="https://developer.nvidia.com/cuda-12-4-1-download-archive?target_os=Linux&amp;target_arch=arm64-sbsa&amp;Compilation=Native&amp;Distribution=Ubuntu&amp;target_version=22.04&amp;target_type=deb_local">found here</a></div>
+</div>
+</div>
+</section>
+</section>
+<section id="dgpu-setup-for-redhat-enterprise-linux-rhel">
+<h2>dGPU Setup for RedHat Enterprise Linux (RHEL)<a class="headerlink" href="DS_Installation.html#dgpu-setup-for-redhat-enterprise-linux-rhel" title="Link to this heading">#</a></h2>
+<p>DeepStream for RHEL is not supported in this release.</p>
+</section>
+<section id="platform-and-os-compatibility">
+<h2>Platform and OS Compatibility<a class="headerlink" href="DS_Installation.html#platform-and-os-compatibility" title="Link to this heading">#</a></h2>
+<p>The following table provides information about platform and operating system compatibility in the current and earlier versions of DeepStream.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id10">
+<caption><span class="caption-text">Jetson model Platform and OS Compatibility</span><a class="headerlink" href="DS_Installation.html#id10" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>DS release</p></th>
+<th class="head"><p>DS 6.1</p></th>
+<th class="head"><p>DS 6.1.1</p></th>
+<th class="head"><p>DS 6.2</p></th>
+<th class="head"><p>DS 6.3</p></th>
+<th class="head"><p>DS 6.4</p></th>
+<th class="head"><p>DS 7.0</p></th>
+<th class="head"><p>DS 7.1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Jetson platforms</p></td>
+<td><p>AGX Xavier, Jetson NX, Jetson Orin</p></td>
+<td><p>AGX Xavier, Jetson NX, Jetson Orin</p></td>
+<td><p>Xavier AGX , Xavier NX,  AGX Orin, Orin NX</p></td>
+<td><p>Xavier AGX , Xavier NX,  AGX Orin, Orin NX, Orin nano</p></td>
+<td><p>AGX Orin, Orin NX, Orin nano</p></td>
+<td><p>AGX Orin, Orin NX, Orin nano</p></td>
+<td><p>AGX Orin, Orin NX, Orin nano</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS</p></td>
+<td><p>L4T Ubuntu 20.04</p></td>
+<td><p>L4T Ubuntu 20.04</p></td>
+<td><p>L4T Ubuntu 20.04</p></td>
+<td><p>L4T Ubuntu 20.04</p></td>
+<td><p>L4T Ubuntu 22.04</p></td>
+<td><p>L4T Ubuntu 22.04</p></td>
+<td><p>L4T Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-even"><td><p>JetPack release</p></td>
+<td><p>5.0.1 DP</p></td>
+<td><p>5.0.2 GA Revision 1</p></td>
+<td><p>5.1 GA</p></td>
+<td><p>5.1.2 GA</p></td>
+<td><p>6.0 DP</p></td>
+<td><p>6.0 GA</p></td>
+<td><p>6.1 GA</p></td>
+</tr>
+<tr class="row-odd"><td><p>L4T release</p></td>
+<td><p>34.1.1</p></td>
+<td><p>35.1</p></td>
+<td><p>35.2.1</p></td>
+<td><p>35.4</p></td>
+<td><p>36.2</p></td>
+<td><p>36.3</p></td>
+<td><p>36.4</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA release</p></td>
+<td><p>CUDA 11.4</p></td>
+<td><p>CUDA 11.4</p></td>
+<td><p>CUDA 11.4</p></td>
+<td><p>CUDA 11.4</p></td>
+<td><p>CUDA 12.2</p></td>
+<td><p>CUDA 12.2</p></td>
+<td><p>CUDA 12.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>cuDNN release</p></td>
+<td><p>cuDNN 8.3.2.49</p></td>
+<td><p>cuDNN 8.4.1.50+</p></td>
+<td><p>cuDNN 8.6.0.166+</p></td>
+<td><p>cuDNN 8.6.0.166+</p></td>
+<td><p>cuDNN 8.9.4.25+</p></td>
+<td><p>cuDNN 8.9.4.25+</p></td>
+<td><p>cuDNN 9.3.0</p></td>
+</tr>
+<tr class="row-even"><td><p>TensorRT release</p></td>
+<td><p>TRT 8.4.0.11</p></td>
+<td><p>TRT 8.4.1.5</p></td>
+<td><p>TRT 8.5.2.2</p></td>
+<td><p>TRT 8.5.2.2</p></td>
+<td><p>TRT 8.6.2.3</p></td>
+<td><p>TRT 8.6.2.3</p></td>
+<td><p>TRT 10.3.0.31</p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenCV release</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.5.4</p></td>
+<td><p>OpenCV 4.8.0</p></td>
+<td><p>OpenCV 4.8.0</p></td>
+<td><p>OpenCV 4.8.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Vision­Works</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+</tr>
+<tr class="row-odd"><td><p>GStreamer</p></td>
+<td><p>GStreamer 1.16.2</p></td>
+<td><p>GStreamer 1.16.2</p></td>
+<td><p>GStreamer 1.16.3</p></td>
+<td><p>GStreamer 1.16.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+</tr>
+<tr class="row-even"><td><p>Docker image</p></td>
+<td><p>deepstream-l4t:6.1</p></td>
+<td><p>deepstream-l4t:6.1.1</p></td>
+<td><p>deepstream-l4t:6.2</p></td>
+<td><p>deepstream-l4t:6.3</p></td>
+<td><p>deepstream:6.4</p></td>
+<td><p>deepstream:7.0</p></td>
+<td><p>deepstream:7.1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id11">
+<caption><span class="caption-text">dGPU model Platform and OS Compatibility</span><a class="headerlink" href="DS_Installation.html#id11" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+<col style="width: 12.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>DS release</p></th>
+<th class="head"><p>DS 6.1</p></th>
+<th class="head"><p>DS 6.1.1</p></th>
+<th class="head"><p>DS 6.2</p></th>
+<th class="head"><p>DS 6.3</p></th>
+<th class="head"><p>DS 6.4</p></th>
+<th class="head"><p>DS 7.0</p></th>
+<th class="head"><p>DS 7.1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GPU platforms</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0)</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0)</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0), Hopper, ADA</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0), Hopper, ADA</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0), Hopper, ADA</p></td>
+<td><p>T4, V100, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0), Hopper, ADA</p></td>
+<td><p>T4, A2, A10, A30, A100, RTX Ampere (Ax000/RTX30x0), Hopper, ADA</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS</p></td>
+<td><p>Ubuntu 20.04</p></td>
+<td><p>Ubuntu 20.04</p></td>
+<td><p>Ubuntu 20.04</p></td>
+<td><p>Ubuntu 20.04</p></td>
+<td><p>Ubuntu 22.04</p></td>
+<td><p>Ubuntu 22.04</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-even"><td><p>GCC</p></td>
+<td><p>GCC 9.4.0</p></td>
+<td><p>GCC 9.4.0</p></td>
+<td><p>GCC 9.4.0</p></td>
+<td><p>GCC 9.4.0</p></td>
+<td><p>GCC 11.4.0</p></td>
+<td><p>GCC 11.4.0</p></td>
+<td><p>GCC 11.4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>CUDA release</p></td>
+<td><p>CUDA 11.6.1</p></td>
+<td><p>CUDA 11.7.1</p></td>
+<td><p>CUDA 11.8</p></td>
+<td><p>CUDA 12.1</p></td>
+<td><p>CUDA 12.2</p></td>
+<td><p>CUDA 12.2</p></td>
+<td><p>CUDA 12.6</p></td>
+</tr>
+<tr class="row-even"><td><p>cuDNN release</p></td>
+<td><p>cuDNN 8.4.0.27</p></td>
+<td><p>cuDNN 8.4.1.50+</p></td>
+<td><p>cuDNN 8.7.0.84-1+</p></td>
+<td><p>cuDNN 8.8.1.3-1+</p></td>
+<td><p>cuDNN 8.9.4.25-1+</p></td>
+<td><p>cuDNN 8.9.6.50-1+</p></td>
+<td><p>cuDNN 9.3.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>TRT release</p></td>
+<td><p>TRT 8.2.5.1</p></td>
+<td><p>TRT 8.4.1.5</p></td>
+<td><p>TRT 8.5.2.2</p></td>
+<td><p>TRT 8.5.3.1</p></td>
+<td><p>TRT 8.6.1.6</p></td>
+<td><p>TRT 8.6.1.6</p></td>
+<td><p>TRT 10.3.0.26</p></td>
+</tr>
+<tr class="row-even"><td><p>Display Driver</p></td>
+<td><p>R510.47.03</p></td>
+<td><p>R515.65.01</p></td>
+<td><p>R525.85.12</p></td>
+<td><p>R525.125.06</p></td>
+<td><p>R535.104.12</p></td>
+<td><p>R535.161.08</p></td>
+<td><p>R535.183.06(Data Center GPUs), R560.35.03(RTX GPUs)</p></td>
+</tr>
+<tr class="row-odd"><td><p>VideoSDK release</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+<td><p>SDK 9.1</p></td>
+</tr>
+<tr class="row-even"><td><p>OFSDK release</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+<td><p>2.0.23</p></td>
+</tr>
+<tr class="row-odd"><td><p>GStreamer release</p></td>
+<td><p>GStreamer 1.16.2</p></td>
+<td><p>GStreamer 1.16.2</p></td>
+<td><p>GStreamer 1.16.3</p></td>
+<td><p>GStreamer 1.16.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+<td><p>GStreamer 1.20.3</p></td>
+</tr>
+<tr class="row-even"><td><p>OpenCV release</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.2.0</p></td>
+<td><p>OpenCV 4.5.4</p></td>
+<td><p>OpenCV 4.5.4</p></td>
+<td><p>OpenCV 4.5.4</p></td>
+</tr>
+<tr class="row-odd"><td><p>Docker image</p></td>
+<td><p>deepstream:6.1</p></td>
+<td><p>deepstream:6.1.1</p></td>
+<td><p>deepstream:6.2</p></td>
+<td><p>deepstream:6.3</p></td>
+<td><p>deepstream:6.4</p></td>
+<td><p>deepstream:7.0</p></td>
+<td><p>deepstream:7.1</p></td>
+</tr>
+<tr class="row-even"><td><p>NVAIE release</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+<td><p>NVAIE-3.x</p></td>
+<td><p>NVAIE-3.x</p></td>
+<td><p>NVAIE-4.x</p></td>
+<td><p>NA</p></td>
+<td><p>NA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, OpenCV has been deprecated. However, OpenCV can be enabled in plugins such as nvinfer (nvdsinfer) and dsexample (gst-dsexample) by setting <cite>WITH_OPENCV=1</cite> in the Makefile of these components. Please refer component README for more instructions.</p>
+<p>NA: “Not Applicable”</p>
+</div>
+<p>DeepStream 7.1 comes with Alpha support on ARM SBSA platform. This support is currently enabled by SBSA triton docker. SBSA category currently supports IGX/dGPU, GH100 and GH200.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Migration_guide.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Migration Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_Quickstart.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quickstart Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#jetson-setup">Jetson Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-jetson-sdk-components">Install Jetson SDK components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#migrate-glib-to-newer-version">Migrate glib to newer version</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-dependencies">Install Dependencies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-prerequisite-packages">Install prerequisite packages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-librdkafka-to-enable-kafka-protocol-adaptor-for-message-broker">Install librdkafka (to enable Kafka protocol adaptor for message broker)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-latest-nvidia-bsp-packages">Install latest NVIDIA BSP packages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-the-deepstream-sdk">Install the DeepStream SDK</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#dgpu-setup-for-ubuntu">dGPU Setup for Ubuntu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id1">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#remove-all-previous-deepstream-installations">Remove all previous DeepStream installations</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id2">Migrate glib to newer version</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id3">Install Dependencies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id4">Install prerequisite packages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-cuda-toolkit-12-6">Install CUDA Toolkit 12.6</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-nvidia-driver-535-183-06-for-data-center-gpus-and-560-35-03-for-rtx-gpus">Install NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#install-tensorrt-10-3-0-26">Install TensorRT 10.3.0.26</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id5">Install librdkafka (to enable Kafka protocol adaptor for message broker)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#ds-installation-install-deepstream-sdk">Install the DeepStream SDK</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#igx-dgpu-on-arm-setup-for-ubuntu-alpha">IGX/dGPU on ARM Setup for Ubuntu (Alpha)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#run-arm-sbsa-docker-on-igx-dgpu">Run ARM SBSA docker on IGX/dGPU</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#known-limitation-with-video-subsystem-and-workaround">Known Limitation with Video Subsystem and Workaround</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#dgpu-on-arm-setup-for-ubuntu-alpha">dGPU on ARM Setup for Ubuntu (Alpha)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#id7">Install NVIDIA driver 535.183.06 (for Data Center GPUs) and 560.35.03 (for RTX GPUs)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#run-dgpu-on-arm-docker-sbsa">Run dGPU on ARM Docker (SBSA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#ds-installation-sbsa-known-limitation">Known Limitation with Video Subsystem and Workaround</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#dgpu-setup-for-redhat-enterprise-linux-rhel">dGPU Setup for RedHat Enterprise Linux (RHEL)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Installation.html#platform-and-os-compatibility">Platform and OS Compatibility</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

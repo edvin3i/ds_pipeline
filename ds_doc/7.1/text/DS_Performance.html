@@ -1,0 +1,3094 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Performance &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Performance';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accuracy Tuning Tools" href="DS_Accuracy.html" />
+    <link rel="prev" title="DeepStream-3D Custom Apps and Libs Tutorials" href="DS_3D_Custom_Manual.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Performance.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Performance.html#">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Performance</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="performance">
+<h1>Performance<a class="headerlink" href="DS_Performance.html#performance" title="Link to this heading">#</a></h1>
+<p>DeepStream application is benchmarked across various NVIDIA TAO Toolkit and open source models. The measured performance represents end-to-end performance of the entire video analytic application considering video capture and decode, pre-processing, batching, inference, and post-processing to generate metadata. The output rendering is turned off to achieve peak inference performance. For information on disabling the output rendering, see <a class="reference internal" href="DS_ref_app_deepstream.html"><span class="doc">DeepStream Reference Application - deepstream-app</span></a> chapter.</p>
+<section id="tao-pre-trained-models">
+<h2>TAO Pre-trained models<a class="headerlink" href="DS_Performance.html#tao-pre-trained-models" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://developer.nvidia.com/tao-toolkit">TAO toolkit</a> has a set of pretrained models listed in the table below. If the models below satisfy your requirement, you should start with one of them. These could be used for various applications in smart city or smart places. If your application is beyond the scope of these models, you may re-train one of the popular model architecture using TAO toolkit. The table below shows the end-to-end performance on highly accurate pre-trained models from TAO toolkit. All models are available on NGC. These models are natively integrated with DeepStream and the instructions to run these models are in <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/samples/configs/tao_pretrained_models/</span></code>. The following numbers are obtained with <code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code>.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id32">
+<caption><span class="caption-text">Performance jetson- pretrained models</span><a class="headerlink" href="DS_Performance.html#id32" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 44.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"><p>Jetson</p>
+<p>AGX</p>
+<p>Orin</p>
+</th>
+<th class="head"></th>
+<th class="head"><p>Jetson</p>
+<p>Orin</p>
+<p>NX</p>
+</th>
+<th class="head"></th>
+<th class="head"><p>Jetson</p>
+<p>Orin</p>
+<p>Nano</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Model Arch</p></td>
+<td><p>Inference resolution</p></td>
+<td><p>Precision</p></td>
+<td><p>Tracker</p></td>
+<td><p>GPU</p>
+<p>(FPS)</p>
+</td>
+<td><p>DLA1
+/DLA2
+(FPS)</p></td>
+<td><p>GPU</p>
+<p>(FPS)</p>
+</td>
+<td><p>DLA1/
+DLA2
+(FPS)</p></td>
+<td><p>GPU</p>
+<p>(FPS)</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>No Tracker</p></td>
+<td><p>976</p></td>
+<td><p>330</p></td>
+<td><p>336</p></td>
+<td><p>166</p></td>
+<td><p>250</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>626</p></td>
+<td><p>312</p></td>
+<td><p>286</p></td>
+<td><p>153</p></td>
+<td><p>217</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>No Tracker</p></td>
+<td><p>48</p></td>
+<td><p>NA</p></td>
+<td><p>17</p></td>
+<td><p>NA</p></td>
+<td><p>13</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>43</p></td>
+<td><p>NA</p></td>
+<td><p>17</p></td>
+<td><p>NA</p></td>
+<td><p>13</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv8</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>No Tracker</p></td>
+<td><p>750</p></td>
+<td><p>NA</p></td>
+<td><p>236</p></td>
+<td><p>NA</p></td>
+<td><p>182</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv8</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>579</p></td>
+<td><p>NA</p></td>
+<td><p>211</p></td>
+<td><p>NA</p></td>
+<td><p>155</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv9</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>No Tracker</p></td>
+<td><p>474</p></td>
+<td><p>NA</p></td>
+<td><p>164</p></td>
+<td><p>NA</p></td>
+<td><p>122</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv9</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>396</p></td>
+<td><p>NA</p></td>
+<td><p>140</p></td>
+<td><p>NA</p></td>
+<td><p>104</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>All the models in the table above can run solely on DLA. This saves valuable GPU resources to run more complex models.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Running inference simultaneously on multiple models is not supported on the DLA. You can only run one model at a time on the DLA.</p></li>
+<li><p>NA : Not available for Jetson</p></li>
+<li><p>NA* : For these models DLA falls back to GPU</p></li>
+</ul>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id33">
+<caption><span class="caption-text">Performance dgpu- pretrained models</span><a class="headerlink" href="DS_Performance.html#id33" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 44.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"><p>A100</p>
+<p>PCIe</p>
+</th>
+<th class="head"><p>A30</p></th>
+<th class="head"><p>A2</p></th>
+<th class="head"><p>A10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Model Arch</p></td>
+<td><p>Inference resolution</p></td>
+<td><p>Precision</p></td>
+<td><p>Inference
+Engine</p></td>
+<td><p>Tracker</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>4955</p></td>
+<td><p>3127</p></td>
+<td><p>551</p></td>
+<td><p>2056</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>4272</p></td>
+<td><p>2672</p></td>
+<td><p>515</p></td>
+<td><p>1901</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>347</p></td>
+<td><p>167</p></td>
+<td><p>18</p></td>
+<td><p>148</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1
+)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>308</p></td>
+<td><p>165</p></td>
+<td><p>18</p></td>
+<td><p>180</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv8s</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>2593</p></td>
+<td><p>1879</p></td>
+<td><p>486</p></td>
+<td><p>1465</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv8s</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>2455</p></td>
+<td><p>1803</p></td>
+<td><p>418</p></td>
+<td><p>1334</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv9t</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>2396</p></td>
+<td><p>1638</p></td>
+<td><p>339</p></td>
+<td><p>1262</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv9t</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>2215</p></td>
+<td><p>1476</p></td>
+<td><p>326</p></td>
+<td><p>1121</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id34">
+<caption><span class="caption-text">Performance dgpu- pretrained models</span><a class="headerlink" href="DS_Performance.html#id34" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+<col style="width: 7.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"></th>
+<th class="head"><p>H100</p></th>
+<th class="head"><p>L40</p></th>
+<th class="head"><p>L4</p></th>
+<th class="head"><p>Quadro
+(A6000)</p></th>
+<th class="head"><p>A4000</p></th>
+<th class="head"><p>L4000</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Model Arch</p></td>
+<td><p>Inference resolution</p></td>
+<td><p>Precision</p></td>
+<td><p>Inference
+Engine</p></td>
+<td><p>Tracker</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+<td><p>GPU
+(FPS)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>6831</p></td>
+<td><p>4571</p></td>
+<td><p>1580</p></td>
+<td><p>2834</p></td>
+<td><p>1308</p></td>
+<td><p>1361</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://ngc.nvidia.com/catalog/models/nvidia:tao:peoplenet">PeopleNet- ResNet34 (v2.3.4)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>5842</p></td>
+<td><p>3818</p></td>
+<td><p>1370</p></td>
+<td><p>1459</p></td>
+<td><p>1268</p></td>
+<td><p>1183</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>495</p></td>
+<td><p>362</p></td>
+<td><p>119</p></td>
+<td><p>227</p></td>
+<td><p>106</p></td>
+<td><p>102</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/peoplenet_transformer/files?version=deployable_v1.1">PeopleNet- ViT (deployable_v1.1)</a></p></td>
+<td><p>960x544</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>461</p></td>
+<td><p>349</p></td>
+<td><p>116</p></td>
+<td><p>209</p></td>
+<td><p>107</p></td>
+<td><p>73</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv8s</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>2993</p></td>
+<td><p>2213</p></td>
+<td><p>1123</p></td>
+<td><p>1845</p></td>
+<td><p>1175</p></td>
+<td><p>957</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv8s</p></td>
+<td><p>640x640</p></td>
+<td><p>INT8</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>2826</p></td>
+<td><p>2248</p></td>
+<td><p>984</p></td>
+<td><p>607</p></td>
+<td><p>1027</p></td>
+<td><p>844</p></td>
+</tr>
+<tr class="row-odd"><td><p>YOLOv9t</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>TRT</p></td>
+<td><p>No Tracker</p></td>
+<td><p>2688</p></td>
+<td><p>2260</p></td>
+<td><p>1019</p></td>
+<td><p>1660</p></td>
+<td><p>939</p></td>
+<td><p>865</p></td>
+</tr>
+<tr class="row-even"><td><p>YOLOv9t</p></td>
+<td><p>640x640</p></td>
+<td><p>FP16</p></td>
+<td><p>TRT</p></td>
+<td><p>NvDCF Tracker</p></td>
+<td><p>2541</p></td>
+<td><p>1931</p></td>
+<td><p>893</p></td>
+<td><p>1587</p></td>
+<td><p>852</p></td>
+<td><p>764</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>NA : Not available</p></li>
+<li><p>TBU : To Be Updated</p></li>
+</ul>
+</div>
+</section>
+<section id="deepstream-reference-model-and-tracker">
+<h2>DeepStream reference model and tracker<a class="headerlink" href="DS_Performance.html#deepstream-reference-model-and-tracker" title="Link to this heading">#</a></h2>
+<p>DeepStream SDK ships with a reference <cite>DetectNet_v2-ResNet10</cite> model and three <cite>ResNet18</cite> classifier models. The detailed instructions to run these models with DeepStream are provided in the next section. DeepStream provides four reference trackers: <cite>IOU</cite>, <cite>NvSORT</cite>, <cite>NvDeepSORT</cite> and <cite>NvDCF</cite>. For more information about trackers, See the <a class="reference internal" href="DS_plugin_gst-nvtracker.html"><span class="doc">Gst-nvtracker</span></a> section.</p>
+</section>
+<section id="configuration-file-settings-for-performance-measurement">
+<h2>Configuration File Settings for Performance Measurement<a class="headerlink" href="DS_Performance.html#configuration-file-settings-for-performance-measurement" title="Link to this heading">#</a></h2>
+<p>To achieve peak performance, make sure the devices are properly cooled. For Turing and Ampere GPUs, make sure you use a server that meets the thermal and airflow requirements.
+Along with the hardware setup, a few other options in the config file need to be set to achieve the published performance. Make the required changes to one of the config files from DeepStream SDK to replicate the peak performance.</p>
+<p><strong>Turn off output rendering, OSD, and tiler</strong></p>
+<blockquote>
+<div><p>OSD (on-screen display) is used to display bounding box, masks, and labels on the screen. If output rendering is disabled, creating bounding boxes is not required unless the output needs to be streamed over RTSP or saved to disk. Tiler is used to display the output in <cite>NxM</cite> tiled grid. It is not needed if rendering is disabled. Output rendering, OSD and tiler use some percentage of compute resources, so it can reduce the inference performance.</p>
+<p>To disable OSD, tiled display and output sink, make the following changes in the DeepStream config file.</p>
+<blockquote>
+<div><ul>
+<li><p>To disable OSD, change enable to 0</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">osd</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>To disable tiling, change enable to 0</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tiled</span><span class="o">-</span><span class="n">display</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>To turn-off output rendering, change the sink to fakesink.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">sink0</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="cp">#Type - 1=FakeSink 2=EglSink 3=File</span>
+<span class="n">type</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sync</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Use the max_perf setting for tracker</strong></p>
+<blockquote>
+<div><p>DeepStream SDK 6.2 introduces a new reference low-level tracker library, <em>NvMultiObjectTracker</em>, along with a set of configuration files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config_tracker_IOU.yml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_tracker_NvDCF_max_perf.yml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_tracker_NvDCF_perf.yml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_tracker_NvDCF_accuracy.yml</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>To achieve the peak performance shown in the table above when using the NvDCF tracker, make sure the max_perf configuration is used with video frame resolution matched to that of the inference module. If the inference module uses 480x272 resolution, for example, it would be recommended to use a reduced resolution (e.g., 480x288) for the tracker module like the following:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tracker</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">tracker</span><span class="o">-</span><span class="n">width</span><span class="o">=</span><span class="mi">480</span>
+<span class="n">tracker</span><span class="o">-</span><span class="n">height</span><span class="o">=</span><span class="mi">288</span>
+<span class="n">ll</span><span class="o">-</span><span class="n">lib</span><span class="o">-</span><span class="n">file</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libnvds_nvmultiobjecttracker</span><span class="p">.</span><span class="n">so</span>
+<span class="cp">#ll-config-file=/opt/nvidia/deepstream/deepstream/samples/configs/deepstream-app/config_tracker_IOU.yml</span>
+<span class="n">ll</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">samples</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">deepstream</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">config_tracker_NvDCF_max_perf</span><span class="p">.</span><span class="n">yml</span>
+<span class="n">gpu</span><span class="o">-</span><span class="n">id</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">enable</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">process</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">display</span><span class="o">-</span><span class="n">tracking</span><span class="o">-</span><span class="n">id</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>When the IOU tracker is used, the video frame resolution doesn’t matter, and the default <code class="docutils literal notranslate"><span class="pre">config_tracker_IOU.yml</span></code> can be used.</p>
+<p>To use DLA on Jetson AGX Orin and Orin NX for performance measurement, refer to the <a class="reference internal" href="DS_Quickstart.html#dla-inference"><span class="std std-ref">Using DLA for inference</span></a> section in the Quickstart Guide.</p>
+<p><strong>CudaDeviceScheduleBlockingSync flag is set by default on dGPU</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>On dGPU only, cudaDeviceScheduleBlockingSync flag is set by default on the GPU where the Deepstream pipeline runs. In general, for pipelines with multiple streams, this helps in reducing the CPU utilization without affecting the performance much.</p></li>
+<li><p>Setting cudaDeviceScheduleBlockingSync flag when sub batches are enabled in the tracker, results in significant reduction in CPU utilization with similar or negligible dip in performance.</p></li>
+<li><p>When the environment variable NVDS_DISABLE_CUDADEV_BLOCKINGSYNC is set to 1, cudaDeviceScheduleBlockingSync flag is not set by default.</p></li>
+<li><p>There is a remote possibility that setting cudaDeviceScheduleBlockingSync flag might affect the pipeline performance negatively when the pipeline already runs with GPU utilization close to 100%. Hence, when the user encounters a situation where a Deepstream pipeline is GPU bound and the GPU utilization does not reach close to 100%, then the user may experiment with setting NVDS_DISABLE_CUDADEV_BLOCKINGSYNC to 1 and check if it helps in improving the performance of the pipeline.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="deepstream-reference-model">
+<h2>DeepStream reference model<a class="headerlink" href="DS_Performance.html#deepstream-reference-model" title="Link to this heading">#</a></h2>
+<section id="data-center-gpu-ga100">
+<h3>Data center GPU - GA100<a class="headerlink" href="DS_Performance.html#data-center-gpu-ga100" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - GA100.</p>
+<section id="system-configuration">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#system-configuration" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id35">
+<caption><span class="caption-text">GA100 System configuration</span><a class="headerlink" href="DS_Performance.html#id35" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7742 &#64; 2.25GHz 3.4GHz Turbo (Rome) HT Off</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>A100-PCIE-40GB(GA100) 1*40537 MiB 1*108 SM</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU clock frequency</p></td>
+<td><p>1410 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="application-configuration">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#application-configuration" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id36">
+<caption><span class="caption-text">GA100 application configuration</span><a class="headerlink" href="DS_Performance.html#id36" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=180</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=93</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>180</p></td>
+<td><p>11%</p></td>
+<td><p>74.17%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>93</p></td>
+<td><p>2.57%</p></td>
+<td><p>41.63%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-t4">
+<h3>Data center GPU - T4<a class="headerlink" href="DS_Performance.html#data-center-gpu-t4" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - T4.</p>
+<section id="id11">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id11" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id37">
+<caption><span class="caption-text">T4 System configuration</span><a class="headerlink" href="DS_Performance.html#id37" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>Dual Intel® Xeon® CPU E5-2650 v4 &#64; 2.20GHz (48 threads total)</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>Tesla T4*</p></td>
+</tr>
+<tr class="row-even"><td><p>System Memory</p></td>
+<td><p>360448Mb (22x16384) DDR42666, 2400MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-odd"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-even"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU clock frequency</p></td>
+<td><p>1513 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id12">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id12" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id38">
+<caption><span class="caption-text">T4 application configuration</span><a class="headerlink" href="DS_Performance.html#id38" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=45</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=31</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>45</p></td>
+<td><p>51.81%</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>31</p></td>
+<td><p>2.72%</p></td>
+<td><p>61.23%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-a30">
+<h3>Data center GPU - A30<a class="headerlink" href="DS_Performance.html#data-center-gpu-a30" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - A30.</p>
+<section id="id13">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id13" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id39">
+<caption><span class="caption-text">A30 System configuration</span><a class="headerlink" href="DS_Performance.html#id39" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>A30</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU clock frequency</p></td>
+<td><p>1440 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id14">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id14" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id40">
+<caption><span class="caption-text">A30 application configuration</span><a class="headerlink" href="DS_Performance.html#id40" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=150</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=98</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>150</p></td>
+<td><p>41.87%</p></td>
+<td><p>96.9%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>98</p></td>
+<td><p>5.62%</p></td>
+<td><p>61.33%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-a2">
+<h3>Data center GPU - A2<a class="headerlink" href="DS_Performance.html#data-center-gpu-a2" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - A2.</p>
+<section id="id15">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id15" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id41">
+<caption><span class="caption-text">A2 System configuration</span><a class="headerlink" href="DS_Performance.html#id41" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>A2</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU clock frequency</p></td>
+<td><p>1770 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id16">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id16" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id42">
+<caption><span class="caption-text">A2 application configuration</span><a class="headerlink" href="DS_Performance.html#id42" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=31</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=31</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>31</p></td>
+<td><p>21.91%</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>31</p></td>
+<td><p>21.99%</p></td>
+<td><p>100%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-a10">
+<h3>Data center GPU - A10<a class="headerlink" href="DS_Performance.html#data-center-gpu-a10" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - A10.</p>
+<section id="id17">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id17" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id43">
+<caption><span class="caption-text">A10 System configuration</span><a class="headerlink" href="DS_Performance.html#id43" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>A10</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU clock frequency</p></td>
+<td><p>1695 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id18">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id18" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id44">
+<caption><span class="caption-text">A10 application configuration</span><a class="headerlink" href="DS_Performance.html#id44" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=79</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=43</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>79</p></td>
+<td><p>3.26%</p></td>
+<td><p>65.59%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>43</p></td>
+<td><p>1.4%</p></td>
+<td><p>31.18%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-h100">
+<h3>Data center GPU - H100<a class="headerlink" href="DS_Performance.html#data-center-gpu-h100" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - H100.</p>
+<section id="id19">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id19" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id45">
+<caption><span class="caption-text">H100 System configuration</span><a class="headerlink" href="DS_Performance.html#id45" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>H100</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id20">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id20" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id46">
+<caption><span class="caption-text">H100 application configuration</span><a class="headerlink" href="DS_Performance.html#id46" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=229</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=148</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>229</p></td>
+<td><p>2.76%</p></td>
+<td><p>90.1%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>148</p></td>
+<td><p>2.6%</p></td>
+<td><p>42.32%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-l40">
+<h3>Data center GPU - L40<a class="headerlink" href="DS_Performance.html#data-center-gpu-l40" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - L40.</p>
+<section id="id21">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id21" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id47">
+<caption><span class="caption-text">L40 System configuration</span><a class="headerlink" href="DS_Performance.html#id47" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>L40</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id22">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id22" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id48">
+<caption><span class="caption-text">L40 application configuration</span><a class="headerlink" href="DS_Performance.html#id48" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=166</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=75</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>166</p></td>
+<td><p>12.65%</p></td>
+<td><p>71.63%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>75</p></td>
+<td><p>1.89%</p></td>
+<td><p>34.57%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-l4">
+<h3>Data center GPU - L4<a class="headerlink" href="DS_Performance.html#data-center-gpu-l4" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - L4.</p>
+<section id="id23">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id23" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id49">
+<caption><span class="caption-text">L4 System configuration</span><a class="headerlink" href="DS_Performance.html#id49" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>L4</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id24">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id24" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id50">
+<caption><span class="caption-text">L4 application configuration</span><a class="headerlink" href="DS_Performance.html#id50" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=81</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=68</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>81</p></td>
+<td><p>46.1%</p></td>
+<td><p>100%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>68</p></td>
+<td><p>8.06%</p></td>
+<td><p>75.74%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-quadro-a6000">
+<h3>Data center GPU - Quadro (A6000)<a class="headerlink" href="DS_Performance.html#data-center-gpu-quadro-a6000" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - Quadro (A6000).</p>
+<section id="id25">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id25" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id51">
+<caption><span class="caption-text">Quadro (A6000) System configuration</span><a class="headerlink" href="DS_Performance.html#id51" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>Quadro (A6000)</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id26">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id26" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id52">
+<caption><span class="caption-text">Quadro (A6000) application configuration</span><a class="headerlink" href="DS_Performance.html#id52" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=101</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=49</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>101</p></td>
+<td><p>7.05%</p></td>
+<td><p>60.17%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>49</p></td>
+<td><p>2.68%</p></td>
+<td><p>28.57%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-a4000">
+<h3>Data center GPU - A4000<a class="headerlink" href="DS_Performance.html#data-center-gpu-a4000" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - A4000.</p>
+<section id="id27">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id27" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id53">
+<caption><span class="caption-text">A4000 System configuration</span><a class="headerlink" href="DS_Performance.html#id53" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>L4</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id28">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id28" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id54">
+<caption><span class="caption-text">A4000 application configuration</span><a class="headerlink" href="DS_Performance.html#id54" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=49</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=24</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>49</p></td>
+<td><p>0.97%</p></td>
+<td><p>49.87%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>24</p></td>
+<td><p>0.48%</p></td>
+<td><p>24.56%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-center-gpu-l4000">
+<h3>Data center GPU - L4000<a class="headerlink" href="DS_Performance.html#data-center-gpu-l4000" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Data center GPU - L4000.</p>
+<section id="id29">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id29" title="Link to this heading">#</a></h4>
+<p>The system configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id55">
+<caption><span class="caption-text">L4000 System configuration</span><a class="headerlink" href="DS_Performance.html#id55" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>System Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>AMD EPYC 7763 &#64;2430 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>L4</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu</p></td>
+<td><p>Ubuntu 22.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU Driver</p></td>
+<td><p>535.161.08</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA</p></td>
+<td><p>12.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>TensorRT</p></td>
+<td><p>8.6.1.6</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="id30">
+<h4>Application Configuration<a class="headerlink" href="DS_Performance.html#id30" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IoU</cite> tracker.</p></li>
+</ul>
+<p>The application configuration for the DeepStream SDK is listed below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id56">
+<caption><span class="caption-text">L4000 application configuration</span><a class="headerlink" href="DS_Performance.html#id56" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps stream</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=76</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=45</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><blockquote>
+<div><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval=0</p></li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled. Processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2 × Secondary GIEs</p></td>
+<td><dl class="simple">
+<dt>All batches size 32. Asynchronous mode enabled.</dt><dd><ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tiled Display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rendering</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p><strong>Achieved Performance</strong>
+The table below shows the achieved performance of the DeepStream SDK under the specified system and application configuration:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>76</p></td>
+<td><p>20%</p></td>
+<td><p>99.25%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>45</p></td>
+<td><p>0.96%</p></td>
+<td><p>53.02%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="jetson">
+<h3>Jetson<a class="headerlink" href="DS_Performance.html#jetson" title="Link to this heading">#</a></h3>
+<p>This section describes configuration and settings for the DeepStream SDK on NVIDIA Jetson™ platforms. JetPack 6.0 GA is used for software installation.</p>
+<section id="id31">
+<h4>System Configuration<a class="headerlink" href="DS_Performance.html#id31" title="Link to this heading">#</a></h4>
+<p>For the performance test:</p>
+<ol class="arabic simple">
+<li><p>Max power mode is enabled: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">nvpmodel</span> <span class="pre">-m</span> <span class="pre">0</span></code>.</p></li>
+<li><p>The GPU clocks are stepped to maximum: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">jetson_clocks</span></code></p></li>
+</ol>
+<p>For information about supported power modes, see the “Supported Modes and Power Efficiency” section in the power management topics of <cite>NVIDIA Tegra Linux Driver Package Development Guide</cite>, e.g., “Power Management for Jetson AGX Orin Devices.”</p>
+</section>
+<section id="jetson-agx-orin">
+<h4>Jetson AGX Orin<a class="headerlink" href="DS_Performance.html#jetson-agx-orin" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IOU</cite> tracker.</p></li>
+</ul>
+<p>The following tables describe performance results for the NVIDIA Jetson Orin™.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id57">
+<caption><span class="caption-text">Jetson AGX Orin Pipeline Configuration (<code class="docutils literal notranslate"><span class="pre">deepstream-app</span></code>)</span><a class="headerlink" href="DS_Performance.html#id57" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps streams</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=37  </div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=15</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval = 0</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled; processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2× secondary GIEs</p></td>
+<td><p>All batches are size 32. Asynchronous mode enabled.</p>
+<ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>OSD/tiled display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Renderer</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Achieved Performance</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>37</p></td>
+<td><p>21.25%</p></td>
+<td><p>82.30%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>15</p></td>
+<td><p>9.49%</p></td>
+<td><p>36.42%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="jetson-orin-nx">
+<h4>Jetson Orin NX<a class="headerlink" href="DS_Performance.html#jetson-orin-nx" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IOU</cite> tracker.</p></li>
+</ul>
+<p>The following tables describe performance results for the NVIDIA Jetson Orin NX™.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id58">
+<caption><span class="caption-text">Jetson Orin NX Pipeline Configuration (<code class="docutils literal notranslate"><span class="pre">deepstream-app</span></code>)</span><a class="headerlink" href="DS_Performance.html#id58" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps streams</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=16</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=13</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval = 0</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled; processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2× secondary GIEs</p></td>
+<td><p>All batches are size 32. Asynchronous mode enabled.</p>
+<ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>OSD/tiled display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Renderer</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Achieved Performance</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>16</p></td>
+<td><p>19.26%</p></td>
+<td><p>99%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>13</p></td>
+<td><p>15.22%</p></td>
+<td><p>78.52%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="jetson-orin-nano">
+<h4>Jetson Orin Nano<a class="headerlink" href="DS_Performance.html#jetson-orin-nano" title="Link to this heading">#</a></h4>
+<p><strong>Config file</strong>: <code class="docutils literal notranslate"><span class="pre">source4_1080p_dec_infer-resnet_tracker_sgie_tiled_display_int8.txt</span></code></p>
+<p>Change the following items in the config file:</p>
+<ul class="simple">
+<li><p>Change batch size under <code class="docutils literal notranslate"><span class="pre">streammux</span></code> and <code class="docutils literal notranslate"><span class="pre">primary-gie</span></code> to match the number of streams.</p></li>
+<li><p>Disable tiled display and rendering using instructions above.</p></li>
+<li><p>Enable <cite>IOU</cite> tracker.</p></li>
+</ul>
+<p>The following tables describe performance results for the NVIDIA Jetson Orin Nano™.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id59">
+<caption><span class="caption-text">Jetson Orin Nano Pipeline Configuration (<code class="docutils literal notranslate"><span class="pre">deepstream-app</span></code>)</span><a class="headerlink" href="DS_Performance.html#id59" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Application Configuration</p></th>
+<th class="head"><p>Specification</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N×1080p 30 fps streams</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h265.mp4</span></code> (provided with the SDK) N=13</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sample_1080p_h264.mp4</span></code> (provided with the SDK) N=8</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Primary GIE</p></td>
+<td><ul class="simple">
+<li><p>resnet18_trafficcamnet_pruned.onnx</p></li>
+<li><p>Batch Size = N</p></li>
+<li><p>Interval = 0</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Tracker</p></td>
+<td><p>Enabled; processing at 960x544 resolution, IOU tracker enabled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2× secondary GIEs</p></td>
+<td><p>All batches are size 32. Asynchronous mode enabled.</p>
+<ul class="simple">
+<li><p>Secondary_VehicleTypes (224×224—Resnet18)</p></li>
+<li><p>Secondary_VehicleMake (224×224—Resnet18)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>OSD/tiled display</p></td>
+<td><p>Disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p>Renderer</p></td>
+<td><p>Disabled</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Achieved Performance</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream type</p></th>
+<th class="head"><p>No. of Stream &#64; 30 FPS</p></th>
+<th class="head"><p>CPU Utilization</p></th>
+<th class="head"><p>GPU Utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H.265</p></td>
+<td><p>13</p></td>
+<td><p>20.65%</p></td>
+<td><p>99%</p></td>
+</tr>
+<tr class="row-odd"><td><p>H.264</p></td>
+<td><p>8</p></td>
+<td><p>12.49%</p></td>
+<td><p>60.15%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_3D_Custom_Manual.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DeepStream-3D Custom Apps and Libs Tutorials</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_Accuracy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Accuracy Tuning Tools</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#tao-pre-trained-models">TAO Pre-trained models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#deepstream-reference-model-and-tracker">DeepStream reference model and tracker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#configuration-file-settings-for-performance-measurement">Configuration File Settings for Performance Measurement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#deepstream-reference-model">DeepStream reference model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-ga100">Data center GPU - GA100</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#system-configuration">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#application-configuration">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-t4">Data center GPU - T4</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id11">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id12">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-a30">Data center GPU - A30</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id13">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id14">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-a2">Data center GPU - A2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id15">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id16">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-a10">Data center GPU - A10</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id17">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id18">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-h100">Data center GPU - H100</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id19">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id20">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-l40">Data center GPU - L40</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id21">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id22">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-l4">Data center GPU - L4</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id23">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id24">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-quadro-a6000">Data center GPU - Quadro (A6000)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id25">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id26">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-a4000">Data center GPU - A4000</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id27">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id28">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#data-center-gpu-l4000">Data center GPU - L4000</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id29">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id30">Application Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#jetson">Jetson</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#id31">System Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#jetson-agx-orin">Jetson AGX Orin</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#jetson-orin-nx">Jetson Orin NX</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Performance.html#jetson-orin-nano">Jetson Orin Nano</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,2242 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GXF Internals &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GXF_Internals';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Graph Execution Engine" href="GraphComposer_Graph_Runtime.html" />
+    <link rel="prev" title="DeepStream Components" href="../../../text/DS_Zero_Coding_DS_Components.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GXF_Internals.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="GXF_Internals.html#">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">GXF Internals</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gxf-internals">
+<h1>GXF Internals<a class="headerlink" href="GXF_Internals.html#gxf-internals" title="Link to this heading">#</a></h1>
+<p>This section covers upon the guide that helps in understanding the basic building blocks of GXF
+One of the key components in the application development is the <a class="reference internal" href="GraphComposer_intro.html#codelet"><span class="std std-ref">Codelets</span></a> and it is important
+to understand its lifecycle.</p>
+<section id="lifecycle-of-a-codelet">
+<h2>LifeCycle of a Codelet<a class="headerlink" href="GXF_Internals.html#lifecycle-of-a-codelet" title="Link to this heading">#</a></h2>
+<p>The life cycle of a codelet is governed by the below five stages</p>
+<ul class="simple">
+<li><p>Initialize: Used for light-weight initialization. Called directly when the codelet is created for
+the first time. Called exactly once over the lifetime of a codelet.</p></li>
+<li><p>Deinitialize: Used for light-weight deinitialization. Called directly before the codelet is
+destroyed. Called exactly once over the lifetime of a codelet.</p></li>
+<li><p>Start: Used for heavy-weight initialization to allocate resources which are necessary for
+execution. Can be called multiple times over the lifetime of the codelet according to order
+defined by the lifecycle.</p></li>
+<li><p>Stop: Used for heavy-weight deinitialization to deallocate all resources which were allocated by
+the start function. Can be called multiple times over the lifetime of the codelet according to
+order defined by the lifecycle.</p></li>
+<li><p>Tick: Called when the codelet is triggered. Triggering can happen when data arrives or based on a
+time trigger. Normally called many times over the lifetime of a codelet.</p></li>
+</ul>
+<p>Codelet component is used to define a custom codelet that will accomplish the desired work.
+Below example describes on how to implement a custom codelet. For now please ignore
+:ref: <cite>registerInterface</cite> which will covered in the later sections.</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Test</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Codelet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">tick</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Do Something ...</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">registerInterface</span><span class="p">(</span><span class="n">Registrar</span><span class="o">*</span><span class="w"> </span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Expected</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span><span class="n">some_parameter_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Some Parameter&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">Receiver</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">some_parameter_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Below example shows on how to create a simple custom codelet that prints “Hello World”</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">HelloWorld</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Codelet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">tick</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;Hello World from GXF&quot;</span><span class="p">);</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">registerInterface</span><span class="p">(</span><span class="n">Registrar</span><span class="o">*</span><span class="w"> </span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Expected</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span><span class="n">some_parameter_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Some Parameter&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">Receiver</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">some_parameter_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Below example explores on how to use the initialize/deinitialize  and start/stop stages</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">File</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Codelet</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">access_file_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">access_file_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">file_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;Some File Name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Read or Write Mode&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">file_</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="n">GXF_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">Unexpected</span><span class="p">{</span><span class="n">GXF_FAILURE</span><span class="p">};</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">tick</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Do some file operation</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fclose</span><span class="p">(</span><span class="n">file_</span><span class="p">);</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">GXF_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Unexpected</span><span class="p">{</span><span class="n">GXF_FAILURE</span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="n">file_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">deinitialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">access_file_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">registerInterface</span><span class="p">(</span><span class="n">Registrar</span><span class="o">*</span><span class="w"> </span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Expected</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span><span class="n">some_parameter_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Some Parameter&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Not used here</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">Receiver</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">some_parameter_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">access_file_</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">FILE</span><span class="o">*</span><span class="w"> </span><span class="n">file_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="the-gxf-scheduler">
+<span id="id1"></span><h2>The GXF Scheduler<a class="headerlink" href="GXF_Internals.html#the-gxf-scheduler" title="Link to this heading">#</a></h2>
+<p>The execution of entities in a graph is governed by the scheduler and
+the scheduling terms associated with every entity. A scheduler is a
+component responsible for orchestrating the execution of all the
+entities defined in a graph. A scheduler typically keeps track of the
+graph entities and their current execution states and passes them on to
+a nvidia::gxf::EntityExecutor component when ready for execution. The
+following diagram depicts the flow for an entity execution.</p>
+<img alt="Entity execution sequence" class="align-center" src="../../../_images/scheduler_sequence.png" />
+<p><strong>Figure: Entity execution sequence</strong></p>
+<p>As shown in the sequence diagram, the schedulers begin executing the
+graph entities via the nvidia::gxf::System::runAsync_abi() interface
+and continue this process until it meets the certain ending criteria. A
+single entity can have multiple codelets. These codelets are executed in
+the same order in which they were defined in the entity. A failure in
+execution of any single codelet stops the execution of all the entities.
+Entities are naturally unscheduled from execution when any one of their
+scheduling term reaches NEVER state.</p>
+<p>Scheduling terms are components used to define the execution readiness
+of an entity. An entity can have multiple scheduling terms associated
+with it and each scheduling term represents the state of an entity using
+SchedulingCondition.</p>
+<p>The table below shows various states of nvidia::gxf::SchedulingConditionType described
+using nvidia::gxf::SchedulingCondition.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>SchedulingConditionType</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NEVER</p></td>
+<td><p>Entity will never execute again</p></td>
+</tr>
+<tr class="row-odd"><td><p>READY</p></td>
+<td><p>Entity is ready for execution</p></td>
+</tr>
+<tr class="row-even"><td><p>WAIT</p></td>
+<td><p>Entity may execute in the future</p></td>
+</tr>
+<tr class="row-odd"><td><p>WAIT_TIME</p></td>
+<td><p>Entity will be ready for execution after specified duration</p></td>
+</tr>
+<tr class="row-even"><td><p>WAIT_EVENT</p></td>
+<td><p>Entity is waiting on an asynchronous event with unknown time interval</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Schedulers define deadlock as a condition when there are no entities which
+are in READY, WAIT_TIME or WAIT_EVENT state which guarantee execution
+at a future point in time. This implies all the entities are
+in WAIT state for which the scheduler does not know if they ever will
+reach the READY state in the future. The scheduler can be configured to
+stop when it reaches such a state using
+the stop_on_deadlock parameter, else the entities are polled to check
+if any of them have reached READY state. max_duration config parameter
+can be used to stop execution of all entities regardless of their state
+after a specified amount of time has elapsed.</p>
+<img alt="Entity State transition diagram" class="align-center" src="../../../_images/entity_state_diagram.svg" />
+<p><strong>Figure: Entity State transition for all schedulers</strong></p>
+<p>There are four types of schedulers currently supported by GXF</p>
+<ol class="arabic simple">
+<li><p>Greedy Scheduler</p></li>
+<li><p>Multithread Scheduler</p></li>
+<li><p>Epoch Scheduler</p></li>
+<li><p>Event Based Scheduler</p></li>
+</ol>
+<section id="greedy-scheduler">
+<span id="id2"></span><h3>Greedy Scheduler<a class="headerlink" href="GXF_Internals.html#greedy-scheduler" title="Link to this heading">#</a></h3>
+<p>This is a basic single threaded scheduler which tests scheduling term
+greedily. It is great for simple use cases and predictable execution but
+may incur a large overhead of scheduling term execution, making it
+unsuitable for large applications. The scheduler requires a clock to
+keep track of time. Based on the choice of clock the scheduler will
+execute differently. If a Realtime clock is used the scheduler will
+execute in real-time. This means pausing execution - sleeping the
+thread, until periodic scheduling terms are due again. If a ManualClock
+is used scheduling will happen “time-compressed”. This means flow of
+time is altered to execute codelets in immediate succession.</p>
+<p>The GreedyScheduler maintains a running count of entities which are
+in READY, WAIT_TIME and WAIT_EVENT states. The following activity
+diagram depicts the gist of the decision making for scheduling an entity
+by the greedy scheduler -</p>
+<img alt="Greedy scheduler activity diagram" class="align-center" src="../../../_images/greedy_scheduler.png" />
+<p><strong>Figure: Greedy Scheduler Activity Diagram</strong></p>
+<section id="greedy-scheduler-configuration">
+<h4>Greedy Scheduler Configuration<a class="headerlink" href="GXF_Internals.html#greedy-scheduler-configuration" title="Link to this heading">#</a></h4>
+<p>The greedy scheduler takes in the following parameters from the
+configuration file</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>clock</p></td>
+<td><p>The clock used by the scheduler to define the flow of time. Typical choices are RealtimeClock or ManualClock</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_duration_ms</p></td>
+<td><p>The maximum duration for which the scheduler will execute (in ms). If not specified, the scheduler will run until all work is done. If periodic terms are present this means the application will run indefinitely</p></td>
+</tr>
+<tr class="row-even"><td><p>stop_on_deadlock</p></td>
+<td><p>If stop_on_deadlock is disabled, the GreedyScheduler constantly polls for the status of all the waiting entities to check if any of them are ready for execution.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example usage -
+The following code snippet configures a Greedy scheduler with a ManualClock option specified.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::GreedyScheduler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_duration_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">    </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc/clock</span>
+<span class="w">    </span><span class="nt">stop_on_deadlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::ManualClock</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="multithread-scheduler">
+<h3>Multithread Scheduler<a class="headerlink" href="GXF_Internals.html#multithread-scheduler" title="Link to this heading">#</a></h3>
+<p>The MultiThread scheduler is more suitable for large applications with
+complex execution patterns. The scheduler consists of a dispatcher
+thread which checks the status of an entity and dispatches it to a
+thread pool of worker threads responsible for executing them. Worker
+threads enqueue the entity back on to the dispatch queue upon completion
+of execution. The number of worker threads can be configured
+using worker_thread_number parameter. The MultiThread scheduler also
+manages a dedicated queue and thread to handle asynchronous events. The
+following activity diagram demonstrates the gist of the multithread
+scheduler implementation.</p>
+<img alt="Multithread scheduler activity diagram" class="align-center" src="../../../_images/multithread_scheduler.png" />
+<p><strong>Figure: MultiThread Scheduler Activity Diagram</strong></p>
+<p>As depicted in the diagram, when an entity reaches WAIT_EVENT state,
+it’s moved to a queue where they wait to receive event done
+notification. The asynchronous event handler thread is responsible for
+moving entities to the dispatcher upon receiving event done
+notification. The dispatcher thread also maintains a running count of
+the number of entities in READY, WAIT_EVENT and WAIT_TIME states and
+uses these statistics to check if the scheduler has reached a
+deadlock. The scheduler also needs a clock component to keep track of
+time and it is configured using the clock parameter.</p>
+<p>MultiThread scheduler is more resource efficient compared to the Greedy
+Scheduler and does not incur any additional overhead for constantly
+polling the states of scheduling terms.
+The check_recession_period_ms parameter can be used to configure the
+time interval the scheduler must wait to poll the state of entities
+which are in WAIT state.</p>
+<section id="multithread-scheduler-configuration">
+<h4>Multithread Scheduler Configuration<a class="headerlink" href="GXF_Internals.html#multithread-scheduler-configuration" title="Link to this heading">#</a></h4>
+<p>The multithread scheduler takes in the following parameters from the
+configuration file</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>clock</p></td>
+<td><p>The clock used by the scheduler to define the flow of time. Typical choices are RealtimeClock or ManualClock.</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_duration_ms</p></td>
+<td><p>The maximum duration for which the scheduler will execute (in ms). If not specified, the scheduler will run until all work is done. If periodic terms are present this means the application will run indefinitely.</p></td>
+</tr>
+<tr class="row-even"><td><p>check_recess_period_ms</p></td>
+<td><p>Duration to sleep before checking the condition of an entity again [ms]. This is the maximum duration for which the scheduler would wait when an entity is not yet ready to run.</p></td>
+</tr>
+<tr class="row-odd"><td><p>stop_on_deadlock</p></td>
+<td><p>If enabled the scheduler will stop when all entities are in a waiting state, but no periodic entity exists to break the dead end. Should be disabled when scheduling conditions can be changed by external actors, for example by clearing queues manually.</p></td>
+</tr>
+<tr class="row-even"><td><p>worker_thread_number</p></td>
+<td><p>Number of threads.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example usage -
+The following code snippet configures a Multithread scheduler with the number of worked threads and max duration specified -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MultiThreadScheduler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_duration_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
+<span class="w">    </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc/clock</span>
+<span class="w">    </span><span class="nt">worker_thread_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">check_recession_period_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">stop_on_deadlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::RealtimeClock</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="event-based-scheduler">
+<h3>Event Based Scheduler<a class="headerlink" href="GXF_Internals.html#event-based-scheduler" title="Link to this heading">#</a></h3>
+<p>The Event Based scheduler is more suitable for large applications with
+complex execution patterns. This scheduler maintains three different
+queues holding entities in READY or WAIT_TIME, WAIT_EVENT and WAIT
+states. An event is defined as a change in the scheduling term of any
+entity which can be triggered either by expiration of a time duration,
+execution of an entity, API called by a user thread, message
+transmission across the edges, etc. Events are generated at the end of
+an entity execution, or after change in state of scheduling conditions.
+In addition, the event-based scheduler launches several worker threads
+, async event handler thread and a dispatcher thread. Worker threads
+pop entities from the READY or WAIT_TIME queue and acquire them for
+execution. After the execution is complete, the worker thread
+generates an event. The dispatcher thread responds to events by moving
+entities from one queue to another by evaluating their scheduling
+condition. The async event handler thread responds to external events.
+The dispatcher thread and async event handler thread sleep between
+events thus saving CPU cycles. The number of worker threads can be
+configured using worker_thread_number parameter.</p>
+<section id="messaging-and-events">
+<h4>Messaging and Events<a class="headerlink" href="GXF_Internals.html#messaging-and-events" title="Link to this heading">#</a></h4>
+<p>Components communicate with each other to accomplish the defined
+pipeline. Messages are the form of communication by components with
+each other. Entities have transmitter and receiver queues in order to
+transmit and receive messages. The transmitter of an upstream entity
+is connected to the receiver of a downstream entity. GXF allows M × N
+connections between transmitters and receivers where M is the number
+of transmitters and N is the number of receivers. After a component
+consumes a message from its receiver queue, an event is generated to
+notify the upstream entity so that it can evaluate its scheduling
+terms and allow a change in its scheduling condition. Similarly, when
+a component publishes a message to a downstream entity , it generates
+an event to notifies the entity. The dispatcher thread is responsible
+for processing the event and evaluating the scheduling terms. This
+operation is called dispatching an entity.</p>
+<img alt="Messaging events activity diagram" class="align-center" src="../../../_images/messaging_events.svg" />
+<p><strong>Figure: Messaging Events Activity Diagram</strong></p>
+<p>The dispatcher thread also maintains a running count of the number of
+entities in READY, WAIT_EVENT and WAIT_TIME states and uses these
+statistics to check if the scheduler has reached a deadlock. The
+scheduler also needs a clock component to keep track of time and it is
+configured using the clock parameter.</p>
+</section>
+<section id="event-based-scheduler-configuration">
+<h4>Event Based Scheduler Configuration<a class="headerlink" href="GXF_Internals.html#event-based-scheduler-configuration" title="Link to this heading">#</a></h4>
+<p>The Event Based scheduler takes in the following parameters from the
+configuration file</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>clock</p></td>
+<td><p>The clock used by the scheduler to define the flow of time. Typical choices are RealtimeClock or ManualClock.</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_duration_ms</p></td>
+<td><p>The maximum duration for which the scheduler will execute (in ms). If not specified, the scheduler will run until all work is done. If periodic terms are present this means the application will run indefinitely.</p></td>
+</tr>
+<tr class="row-even"><td><p>stop_on_deadlock</p></td>
+<td><p>If enabled the scheduler will stop when all entities are in a waiting state, but no periodic entity exists to break the dead end. Should be disabled when scheduling conditions can be changed by external actors, for example by clearing queues manually.</p></td>
+</tr>
+<tr class="row-odd"><td><p>worker_thread_number</p></td>
+<td><p>Number of threads.</p></td>
+</tr>
+<tr class="row-even"><td><p>thread_pool_allocation_auto</p></td>
+<td><p>If enabled, only one thread pool will be created. If disabled, user should enumerate pools and priorities.</p></td>
+</tr>
+<tr class="row-odd"><td><p>stop_on_deadlock_timeout</p></td>
+<td><p>Scheduler will wait this amount of time when stop_on_dead_lock indicates should stop. It will reset if a job comes in during the wait. Negative value means not stop on deadlock.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example usage -
+The following code snippet configures a Event Based scheduler with the number of worked threads and max duration specified -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::EventBasedScheduler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_duration_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
+<span class="w">    </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc/clock</span>
+<span class="w">    </span><span class="nt">stop_on_deadlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">worker_thread_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">thread_pool_allocation_auto</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">stop_on_deadlock_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::RealtimeClock</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="epoch-scheduler">
+<h3>Epoch Scheduler<a class="headerlink" href="GXF_Internals.html#epoch-scheduler" title="Link to this heading">#</a></h3>
+<p>The Epoch scheduler is used for running loads in externally managed threads. Each run is called an
+Epoch. The scheduler goes over all entities that are known to be active and executes them one by one.
+If the epoch budget is provided (in ms), it would keep running all codelets until the budget is
+consumed or no codelet is ready. It might run over budget since it guarantees to cover all codelets
+in epoch. In case the budget is not provided, it would go over all the codelets once and execute
+them only once.</p>
+<p>The epoch scheduler takes in the following parameters from the
+configuration file -</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>clock</p></td>
+<td><p>The clock used by the scheduler to define the flow of time. Typical choice is a RealtimeClock.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example usage -
+The following code snippet configures an Epoch scheduler -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduler</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::RealtimeClock</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">epoch</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::EpochScheduler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock</span>
+</pre></div>
+</div>
+<p>Note that the epoch scheduler is intended to run from an external thread. The <code class="docutils literal notranslate"><span class="pre">runEpoch(float</span> <span class="pre">budget_ms);</span></code> can be used to set the budget_ms and run the scheduler from the external thread. If the specified budget is not positive, all the nodes are executed once.</p>
+</section>
+</section>
+<section id="schedulingterms">
+<h2>SchedulingTerms<a class="headerlink" href="GXF_Internals.html#schedulingterms" title="Link to this heading">#</a></h2>
+<p>A SchedulingTerm defines a specific condition that is used by an entity
+to let the scheduler know when it’s ready for execution. There are
+various scheduling terms currently supported by GXF. If multiple scheduling
+terms are present in an entity they all have to be true for an entity to
+execute.</p>
+<section id="periodicschedulingterm">
+<span id="gxfinternals-periodicschedulingterm"></span><h3>PeriodicSchedulingTerm<a class="headerlink" href="GXF_Internals.html#periodicschedulingterm" title="Link to this heading">#</a></h3>
+<p>An entity associated with nvidia::gxf::PeriodicSchedulingTerm is ready
+for execution after periodic time intervals specified using
+its recess_period parameter. The PeriodicSchedulingTerm can either be
+in READY or WAIT_TIME state.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling_term</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::PeriodicSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">recess_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000000</span>
+</pre></div>
+</div>
+</section>
+<section id="countschedulingterm">
+<span id="gxfinternals-countschedulingterm"></span><h3>CountSchedulingTerm<a class="headerlink" href="GXF_Internals.html#countschedulingterm" title="Link to this heading">#</a></h3>
+<p>An entity associated with nvidia::gxf::CountSchedulingTerm is executed
+for a specific number of times specified using its count parameter.
+The CountSchedulingTerm can either be in READY or NEVER state. The
+scheduling term reaches the NEVER state when the entity has been
+executed count number of times.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scheduling_term</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::CountSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+</pre></div>
+</div>
+</section>
+<section id="messageavailableschedulingterm">
+<span id="gxfinternals-messageavailableschedulingterm"></span><h3>MessageAvailableSchedulingTerm<a class="headerlink" href="GXF_Internals.html#messageavailableschedulingterm" title="Link to this heading">#</a></h3>
+<p>An entity associated with <code class="docutils literal notranslate"><span class="pre">nvidia::gxf::MessageAvailableSchedulingTerm</span></code> is executed when the associated receiver queue has at least a certain number of elements.
+The receiver is specified using the <code class="docutils literal notranslate"><span class="pre">receiver</span></code> parameter of the scheduling term. The minimum number of messages that permits the execution of the entity is specified by <code class="docutils literal notranslate"><span class="pre">min_size</span></code>. An optional parameter for this scheduling term is <code class="docutils literal notranslate"><span class="pre">front_stage_max_size</span></code>, the maximum front stage message count. If this parameter is set, the scheduling term will only allow execution if the number of messages in the queue does not exceed this count. It can be used for codelets which do not consume all messages from the queue.</p>
+<p>In the example shown below, the minimum size of the queue is configured to be 4. So, the entity will not be executed till there are at least 4 messages in the queue.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MessageAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tensors</span>
+<span class="w">    </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+</pre></div>
+</div>
+</section>
+<section id="multimessageavailableschedulingterm">
+<h3>MultiMessageAvailableSchedulingTerm<a class="headerlink" href="GXF_Internals.html#multimessageavailableschedulingterm" title="Link to this heading">#</a></h3>
+<p>An entity associated with <code class="docutils literal notranslate"><span class="pre">nvidia::gxf::MultiMessageAvailableSchedulingTerm</span></code> is executed when a list of provided input receivers combined have at least a given number of messages. The <code class="docutils literal notranslate"><span class="pre">receivers</span></code> parameter is used to specify a list of the input channels/receivers. The minimum number of messages needed to permit the entity execution is set by <code class="docutils literal notranslate"><span class="pre">min_size</span></code> parameter.</p>
+<p>Consider the example shown below. The associated entity will be executed when the number of messages combined for all the three receivers is at least the min_size, i.e. 5.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input_1</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::test::MockReceiver</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input_2</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::test::MockReceiver</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">input_3</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::test::MockReceiver</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MultiMessageAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">input_1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">input_2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">input_3</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+</section>
+<section id="booleanschedulingterm">
+<h3>BooleanSchedulingTerm<a class="headerlink" href="GXF_Internals.html#booleanschedulingterm" title="Link to this heading">#</a></h3>
+<p>An entity associated with <code class="docutils literal notranslate"><span class="pre">nvidia::gxf::BooleanSchedulingTerm</span></code> is executed when its internal state is set to tick. The parameter <code class="docutils literal notranslate"><span class="pre">enable_tick</span></code> is used to control the entity execution. The scheduling term also has two APIs <code class="docutils literal notranslate"><span class="pre">enable_tick()</span></code> and <code class="docutils literal notranslate"><span class="pre">disable_tick()</span></code> to toggle its internal state. The entity execution can be controlled by calling these APIs. If <code class="docutils literal notranslate"><span class="pre">enable_tick</span></code> is set to false, the entity is not executed (Scheduling condition is set to <code class="docutils literal notranslate"><span class="pre">NEVER</span></code>). If <code class="docutils literal notranslate"><span class="pre">enable_tick</span></code> is set to true, the entity will be executed (Scheduling condition is set to <code class="docutils literal notranslate"><span class="pre">READY</span></code>). Entities can toggle the state of the scheduling term by maintaining a handle to it.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BooleanSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">enable_tick</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="asynchronousschedulingterm">
+<h3>AsynchronousSchedulingTerm<a class="headerlink" href="GXF_Internals.html#asynchronousschedulingterm" title="Link to this heading">#</a></h3>
+<p>AsynchronousSchedulingTerm is primarily associated with entities which
+are working with asynchronous events happening outside of their regular
+execution performed by the scheduler. Since these events are
+non-periodic in nature, AsynchronousSchedulingTerm prevents the
+scheduler from polling the entity for its status regularly and reduces
+CPU utilization. AsynchronousSchedulingTerm can either be
+in READY, WAIT, WAIT_EVENT or NEVER states based on asynchronous event
+it’s waiting on.</p>
+<p>The state of an asynchronous event is described
+using nvidia::gxf::AsynchronousEventState and is updated using
+the setEventState API.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>AsynchronousEventState</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>READY</p></td>
+<td><p>Init state, first tick is pending</p></td>
+</tr>
+<tr class="row-odd"><td><p>WAIT</p></td>
+<td><p>Request to async service yet to be sent, nothing to do but wait</p></td>
+</tr>
+<tr class="row-even"><td><p>EVENT_WAITING</p></td>
+<td><p>Request sent to an async service, pending event done notification</p></td>
+</tr>
+<tr class="row-odd"><td><p>EVENT_DONE</p></td>
+<td><p>Event done notification received, entity ready to be ticked</p></td>
+</tr>
+<tr class="row-even"><td><p>EVENT_NEVER</p></td>
+<td><p>Entity does not want to be ticked again, end of execution</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Entities associated with this scheduling term most likely have an
+asynchronous thread which can update the state of the scheduling term
+outside of it’s regular execution cycle performed by the gxf scheduler.
+When the scheduling term is in WAIT state, the scheduler regularly polls
+for the state of the entity. When the scheduling term is
+in EVENT_WAITING state, schedulers will not check the status of the
+entity again until they receive an event notification which can be
+triggered using the GxfEntityEventNotify api. Setting the state of the
+scheduling term to EVENT_DONE automatically sends this notification to
+the scheduler. Entities can use the EVENT_NEVER state to indicate the
+end of its execution cycle.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">async_scheduling_term</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::AsynchronousSchedulingTerm</span>
+</pre></div>
+</div>
+</section>
+<section id="downstreamreceptiveschedulingterm">
+<span id="gxfinternals-downstreamreceptiveschedulingterm"></span><h3>DownstreamReceptiveSchedulingTerm<a class="headerlink" href="GXF_Internals.html#downstreamreceptiveschedulingterm" title="Link to this heading">#</a></h3>
+<p>This scheduling term specifies that an entity shall be executed if the receiver for a given transmitter can accept new messages.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">downstream_st</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::DownstreamReceptiveSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">transmitter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span>
+<span class="w">   </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</section>
+<section id="targettimeschedulingterm">
+<h3>TargetTimeSchedulingTerm<a class="headerlink" href="GXF_Internals.html#targettimeschedulingterm" title="Link to this heading">#</a></h3>
+<p>This scheduling term permits execution at a user-specified timestamp. The timestamp is specified on the clock provided.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target_st</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::TargetTimeSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clock/manual_clock</span>
+</pre></div>
+</div>
+</section>
+<section id="expiringmessageavailableschedulingterm">
+<h3>ExpiringMessageAvailableSchedulingTerm<a class="headerlink" href="GXF_Internals.html#expiringmessageavailableschedulingterm" title="Link to this heading">#</a></h3>
+<p>This scheduling waits for a specified number of messages in the receiver. The entity is executed when the first message received in the queue is expiring or when there are enough messages in the queue. The <code class="docutils literal notranslate"><span class="pre">receiver</span></code> parameter is used to set the receiver to watch on. The parameters <code class="docutils literal notranslate"><span class="pre">max_batch_size</span></code> and <code class="docutils literal notranslate"><span class="pre">max_delay_ns</span></code> dictate the maximum number of messages to be batched together and the maximum delay from first message to wait before executing the entity respectively.</p>
+<p>In the example shown below, the associated entity will be executed when the number of messages in the queue is greater than <code class="docutils literal notranslate"><span class="pre">max_batch_size</span></code>, i.e 5, or when the delay from the first message to current time is greater than <code class="docutils literal notranslate"><span class="pre">max_delay_ns</span></code>, i.e 10000000.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target_st</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::ExpiringMessageAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">signal</span>
+<span class="w">   </span><span class="nt">max_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">   </span><span class="nt">max_delay_ns</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000000</span>
+<span class="w">   </span><span class="nt">clock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">misc/clock</span>
+</pre></div>
+</div>
+</section>
+<section id="messageavailablefrequencythrottler">
+<h3>MessageAvailableFrequencyThrottler<a class="headerlink" href="GXF_Internals.html#messageavailablefrequencythrottler" title="Link to this heading">#</a></h3>
+<p>A scheduling term which lets an entity maintain a specific execution (min) frequency. The scheduling term will also monitor messages incoming via
+multiple receivers and switch to READY state if any messages are available.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MessageAvailableFrequencyThrottler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">receiver_0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">receiver_1</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">execution_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Hz</span>
+<span class="w">    </span><span class="nt">min_sum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">sampling_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SumOfAll</span>
+</pre></div>
+</div>
+</section>
+<section id="memoryavailableschedulingterm">
+<h3>MemoryAvailableSchedulingTerm<a class="headerlink" href="GXF_Internals.html#memoryavailableschedulingterm" title="Link to this heading">#</a></h3>
+<p>A scheduling term which waits until a given number of blocks are available in a pool. This can be used to force a codelet to wait
+until a minimum number of its in-flight buffers have returned from downstream consumers.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MemoryAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allocator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allocator</span>
+<span class="w">    </span><span class="nt">min_bytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
+<span class="w">    </span><span class="nt">min_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+</pre></div>
+</div>
+</section>
+<section id="btschedulingterm">
+<h3>BTSchedulingTerm<a class="headerlink" href="GXF_Internals.html#btschedulingterm" title="Link to this heading">#</a></h3>
+<p>A BT (Behavior Tree) scheduling term is used to schedule a behavior tree entity itself and its child entities (if any) in a Behavior tree.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root_controller</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::EntityCountFailureRepeatController</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_repeat_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root_st</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BTSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">is_root</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root_codelet</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::SequenceBehavior</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">children</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">child1/child1_st</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">s_term</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root_st</span>
+<span class="w">    </span><span class="nt">controller</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root_controller</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="combining-schedulingterms">
+<h2>Combining SchedulingTerms<a class="headerlink" href="GXF_Internals.html#combining-schedulingterms" title="Link to this heading">#</a></h2>
+<p>An entity can be associated with multiple scheduling terms which define
+it’s execution behavior. Scheduling terms are AND combined to describe
+the current state of an entity. For an entity to be executed by the
+scheduler, all the scheduling terms must be in READY state and
+conversely, the entity is unscheduled from execution whenever any one of
+the scheduling term reaches NEVER state. The priority of various states
+during AND combine follows the
+order NEVER, WAIT_EVENT, WAIT, WAIT_TIME, and READY.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integers</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::DoubleBufferTransmitter</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fibonacci</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::DoubleBufferTransmitter</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::CountSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::DownstreamReceptiveSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">transmitter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integers</span>
+<span class="w">    </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<section id="cuda-based-scheduling-terms">
+<h3>Cuda based scheduling terms<a class="headerlink" href="GXF_Internals.html#cuda-based-scheduling-terms" title="Link to this heading">#</a></h3>
+<p>Producer codelets based on cuda based processing can queue in the jobs to the cuda stream without
+waiting for the jobs to be complete. The consumers can wait for the availability of the data with
+the help of below two described scheduling terms.</p>
+<section id="cuda-stream-schedulingterm">
+<h4>Cuda Stream SchedulingTerm<a class="headerlink" href="GXF_Internals.html#cuda-stream-schedulingterm" title="Link to this heading">#</a></h4>
+<p>CudaStreamSchedulingTerm specifies the availability of data at the receiver on completion of
+the work on the provided cuda stream with the help of callback function to host.</p>
+<p>This scheduling term will register a call back function which will be called once the work on the
+specified cuda stream completes indicating that the data is available for consumption.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::CudaStreamSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rx0</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MessageAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rx1</span>
+<span class="w">    </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</section>
+<section id="cuda-event-schedulingterm">
+<h4>Cuda Event SchedulingTerm<a class="headerlink" href="GXF_Internals.html#cuda-event-schedulingterm" title="Link to this heading">#</a></h4>
+<p>CudaEventSchedulingTerm specifies the availability of data at the receiver on completion of the
+work on the provided cuda stream with the help of cuda event.
+This scheduling term will keep polling on the event provided to check for data availability for
+consumption.</p>
+<p>Example usage -</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::CudaEventSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rx0</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::MessageAvailableSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">receiver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rx1</span>
+<span class="w">    </span><span class="nt">min_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="connection-topologies">
+<h2>Connection Topologies<a class="headerlink" href="GXF_Internals.html#connection-topologies" title="Link to this heading">#</a></h2>
+<p>GXF supports creating multiple connection topologies between graph entities.</p>
+<p><strong>1 : 1 Connection</strong></p>
+<p>The simplest connection between a single transmitter and a single receiver. The underlying codelets have either a <code class="docutils literal notranslate"><span class="pre">Handle&lt;Transmitter&gt;</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Handle&lt;Receiver&gt;</span></code> as the registered parameter.</p>
+<img alt="1 : 1 Connection" class="align-center" src="../../../_images/GXF_1_to_1_Connection.svg" />
+<p><strong>1 : m Connection</strong></p>
+<p>A single transmitter can be connected to a single receiver and vice-versa. The underlying codelets have either a <code class="docutils literal notranslate"><span class="pre">Handle&lt;Transmitter&gt;</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Handle&lt;Receiver&gt;</span></code> as the registered parameter.</p>
+<img alt="1 : m Connection" class="align-center" src="../../../_images/GXF_1_to_m_Connection.svg" />
+<p><strong>Multiple 1 : 1 Connections</strong></p>
+<p>A 1 : m connection can alternatively be realized by creating multiple 1 : 1 connections. In this scenario, the underlying codelet in
+the receiver entity must have either a <code class="docutils literal notranslate"><span class="pre">std::vector&lt;Handle&lt;Receiver&gt;&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">std::Array&lt;Handle&lt;Receiver&gt;,</span> <span class="pre">N&gt;</span></code> parameter.
+The same is applicable to m : 1 connections as well. Each 1 : 1 connection will have its own scheduling terms to monitor the
+incoming and outgoing message queues.</p>
+<img alt="Multiple 1 : 1 Connection" class="align-center" src="../../../_images/GXF_multiple_1_to_1_Connection.svg" />
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="GXF_Internals.html#messages" title="Link to this heading">#</a></h2>
+<p>In the GXF graph, many a times <a class="reference internal" href="GraphComposer_intro.html#codelet"><span class="std std-ref">Codelets</span></a> may have to communicate with each other to accomplish
+the defined pipeline. Messages are the form of communication by codelets with each other.
+When publishing, a message will always have an associated <code class="code docutils literal notranslate"><span class="pre">Timestamp</span></code> component with the name <cite>“timestamp”</cite>.
+If the user doesn’t add it, it will automatically be added when the entity is published.</p>
+<p>A <code class="code docutils literal notranslate"><span class="pre">Timestamp</span></code> component contains two different time values (See the <code class="docutils literal notranslate"><span class="pre">gxf/std/timestamp.hpp</span></code> header file for more information.):</p>
+<p>1. <code class="code docutils literal notranslate"><span class="pre">acqtime</span></code> - This is the time when the message entity is acquired, for instance, this would generally
+be the driver time of the camera when it captures an image. You must provide this timestamp if you are publishing a message in a codelet.</p>
+<p>1. <code class="code docutils literal notranslate"><span class="pre">pubtime</span></code> - This is the time when the message entity is published by a node in the graph. This
+will automatically get updated using the clock of the scheduler.</p>
+<p><a class="reference internal" href="GXF_Internals.html#transmitter"><span class="std std-ref">Transmitter</span></a> is used for transmitting the message and <a class="reference internal" href="GXF_Internals.html#receiver"><span class="std std-ref">Receiver</span></a> is used for receiving
+the message. Messages are transmitted or received at tick() of codelet.</p>
+<section id="transmitter">
+<span id="id3"></span><h3>Transmitter<a class="headerlink" href="GXF_Internals.html#transmitter" title="Link to this heading">#</a></h3>
+<p>All the messages from the transmitter are sent as an entity. The transmitter after encapsulating the
+message will give a <code class="docutils literal notranslate"><span class="pre">publish()</span></code> call which will send the message to target recipient.</p>
+<p>In a codelet, when publishing message entities using a <code class="code docutils literal notranslate"><span class="pre">Transmitter</span> <span class="pre">(tx)</span></code>, there are two ways to add
+the required <code class="code docutils literal notranslate"><span class="pre">Timestamp</span></code>:</p>
+<p>1. <code class="code docutils literal notranslate"><span class="pre">tx.publish(Entity</span> <span class="pre">message)</span></code>: You can manually add a component of type <code class="code docutils literal notranslate"><span class="pre">Timestamp</span></code> with the name
+“timestamp” and set the <code class="docutils literal notranslate"><span class="pre">acqtime</span></code>. The <code class="docutils literal notranslate"><span class="pre">pubtime</span></code> in this case should be set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. The message is
+published using the <code class="code docutils literal notranslate"><span class="pre">publish(Entity</span> <span class="pre">message)</span></code>. <strong>This will be deprecated in
+the next release.</strong></p>
+<p>2. <code class="code docutils literal notranslate"><span class="pre">tx.publish(Entity</span> <span class="pre">message,</span> <span class="pre">int64_t</span> <span class="pre">acqtime)</span></code>: You can simply call
+<code class="code docutils literal notranslate"><span class="pre">publish(Entity</span> <span class="pre">message,</span> <span class="pre">int64_t</span> <span class="pre">acqtime)</span></code> with the <code class="docutils literal notranslate"><span class="pre">acqtime</span></code>. Timestamp will be added automatically.</p>
+</section>
+<section id="receiver">
+<span id="id4"></span><h3>Receiver<a class="headerlink" href="GXF_Internals.html#receiver" title="Link to this heading">#</a></h3>
+<p>All the messages from the transmitter are received as an entity. The receiver on getting a tick()
+call will give a <code class="docutils literal notranslate"><span class="pre">receive()</span></code> call that helps in receiving the message.</p>
+<p>Below is an example of transmitter and receiver</p>
+</section>
+<section id="transmitter-example">
+<h3>Transmitter Example<a class="headerlink" href="GXF_Internals.html#transmitter-example" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">PingTx::tick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">Expected</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Entity</span><span class="o">::</span><span class="n">New</span><span class="p">(</span><span class="n">context</span><span class="p">());</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">GXF_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;Failure creating message entity.&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">error</span><span class="p">();</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">int_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">add</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Integer&quot;</span><span class="p">);</span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">int_value</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="w">   </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9999</span><span class="p">;</span>
+
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signal_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
+<span class="w">   </span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;Message Sent: int_value = %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">);</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="receiver-example">
+<h3>Receiver Example<a class="headerlink" href="GXF_Internals.html#receiver-example" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">PingRx::tick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signal_</span><span class="o">-&gt;</span><span class="n">receive</span><span class="p">();</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">message</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">is_null</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_CONTRACT_MESSAGE_NOT_AVAILABLE</span><span class="p">;</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="w">   </span><span class="k">auto</span><span class="w"> </span><span class="n">rx_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="o">-&gt;</span><span class="n">findAll</span><span class="o">&lt;</span><span class="kt">int32_t</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">   </span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;Message Received: rx_value = %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">rx_value</span><span class="o">-&gt;</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">value</span><span class="p">()));</span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="memory-management">
+<h2>Memory Management<a class="headerlink" href="GXF_Internals.html#memory-management" title="Link to this heading">#</a></h2>
+<p>GXF provides a way for allocation and de-allocation of memory that would be required by the
+codelets. There are various types of memory allocation that are provided as mentioned below.</p>
+<ul class="simple">
+<li><p>System Memory
+Allocates specified bytes of system memory which typically would make use of underlying OS calls
+for allocation of requested memory.</p></li>
+<li><p>Host Memory
+Allocates specified bytes of host memory that is page-locked and accessible to the device.
+Allocating excessive amounts of memory with cudaMallocHost() may degrade system performance,
+since it reduces the amount of memory available to the system for paging. This memory is best used
+sparingly to allocate staging areas for data exchange between host and device.</p></li>
+<li><p>Device Memory
+Allocates specified bytes of device memory.</p></li>
+</ul>
+<p>GXF provides a component called <code class="code docutils literal notranslate"><span class="pre">nvidia::gxf::BlockMemoryPool</span></code> which is used to allocate memory
+in multiple/single blocks of same size which can be specified as parameters.</p>
+<p>Below example specifies on how to allocate host memory</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BlockMemoryPool</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># host memory</span>
+<span class="w">    </span><span class="nt">block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+<p>Below example specifies on how to allocate device memory</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_device_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BlockMemoryPool</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"> </span><span class="c1"># device memory</span>
+<span class="w">    </span><span class="nt">block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+<p>Below example specifies on how to allocate system memory</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BlockMemoryPool</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"> </span><span class="c1"># system memory</span>
+<span class="w">    </span><span class="nt">block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+<p>Below example specifies on how to use allocator with codelets</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BlockMemoryPool</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"> </span><span class="c1"># host memory</span>
+<span class="w">    </span><span class="nt">block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_device_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::BlockMemoryPool</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storage_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"> </span><span class="c1"># device memory</span>
+<span class="w">    </span><span class="nt">block_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+<span class="w">    </span><span class="nt">num_blocks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generator</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::test::cuda::StreamTensorGenerator</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cuda_tensor_pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda_device_memory_pool</span>
+<span class="w">    </span><span class="nt">host_tensor_pool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host_memory_pool</span>
+</pre></div>
+</div>
+</section>
+<section id="cuda-stream-order-allocator">
+<h2>Cuda Stream Order Allocator<a class="headerlink" href="GXF_Internals.html#cuda-stream-order-allocator" title="Link to this heading">#</a></h2>
+<p>GXF provides a way for allocation and de-allocation of memory using native Cuda API in stream ordered approach that
+would be required by the codelets. There is only device memory allocation type which is supported as mentioned below.</p>
+<ul class="simple">
+<li><p>Device Memory :
+Allocates device memory in stream ordered approach. This stream-ordered allocation ensures that the memory operations
+are properly synchronized with other GPU operations in the same stream. This allocation method utilizes CUDA’s asynchronous
+memory management functions, specifically cudaMallocAsync and cudaFreeAsync, to allocate and deallocate memory respectively.</p></li>
+</ul>
+<p>GXF provides a component called <code class="code docutils literal notranslate"><span class="pre">nvidia::gxf::StreamOrderedAllocator</span></code> which is used to allocate/deallocate device
+memory in stream ordered approach. This component enables efficient and stream-ordered memory allocation for GPU operations
+within the GXF ecosystem.</p>
+<p>Below example specifies on how to allocate device memory. The memory allocation type supported here is Device Memory.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device_memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::StreamOrderedAllocator</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">device_memory_initial_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;32KB&quot;</span><span class="w"> </span><span class="c1"># 32 KB initial pool size</span>
+<span class="w">    </span><span class="nt">device_max_memory_pool_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64MB&quot;</span><span class="w"> </span><span class="c1"># 64 MB max pool size</span>
+</pre></div>
+</div>
+</section>
+<section id="rmm-rapids-memory-manager">
+<h2>RMM: RAPIDS Memory Manager<a class="headerlink" href="GXF_Internals.html#rmm-rapids-memory-manager" title="Link to this heading">#</a></h2>
+<p>GXF provides a way for allocation and de-allocation of memory that would be required by the
+codelets using RMM. There are various types of memory allocation that are provided as mentioned below.</p>
+<ul class="simple">
+<li><p>Host Memory :
+Allocates specified bytes of pinned host memory that is page-locked and accessible to the device.
+It takes advantage of RMM’s pool allocation strategy for better performance</p></li>
+<li><p>Device Memory :
+Allocates specified bytes of device memory in stream ordered approach. This stream-ordered
+allocation ensures that the memory operations are properly synchronized with other GPU
+operations in the same stream.</p></li>
+</ul>
+<p>GXF provides a component called <code class="code docutils literal notranslate"><span class="pre">nvidia::gxf::RMMAllocator</span></code> which is used to allocate/deallocate memory
+using Rapids Memory Manager (RMM). This component enables efficient and stream-ordered memory
+allocation for GPU operations within the GXF ecosystem.</p>
+<p>Below example specifies on how to allocate host/device memory. The memory allocation strategy is
+determined by the parameter value passed to the allocation function. Depending on this value, the function
+decides whether to allocate memory on the host or on the device.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">memory_pool</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::RMMAllocator</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">device_memory_initial_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;32B&quot;</span><span class="w"> </span><span class="c1"># 32 bytes initial pool size</span>
+<span class="w">    </span><span class="nt">host_memory_initial_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;32KB&quot;</span><span class="w"> </span><span class="c1"># 32 KB initial pool size</span>
+<span class="w">    </span><span class="nt">device_max_memory_pool_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64MB&quot;</span><span class="w"> </span><span class="c1"># 64 MB max pool size</span>
+<span class="w">    </span><span class="nt">host_memory_max_size</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;64GB&quot;</span><span class="w"> </span><span class="c1"># 64 GB max pool size</span>
+</pre></div>
+</div>
+</section>
+<section id="distributed-execution">
+<h2>Distributed Execution<a class="headerlink" href="GXF_Internals.html#distributed-execution" title="Link to this heading">#</a></h2>
+<p>Segment is a group of graph entities created in a single GXF runtime context. A segment
+will have its own scheduler. Graph entities in a segment are connected with each other via
+double buffer transmitter and receiver components. A segment is connected to other
+segments via ucx transmitters and receivers. The connected pair of segments can run in two remote processes,
+or within the same process.</p>
+<p>The execution of segment is governed by the graph worker and the graph driver.
+The graph worker is a <code class="docutils literal notranslate"><span class="pre">nvidia::gxf::System</span></code> component responsible for orchestrating the execution
+of each segment configured to this worker. The graph worker provides and manages
+threads for each segment to run, and communicates with the graph driver to determine
+the life cycle of each segment.</p>
+<p>The graph worker and driver are GXF System components, that blocks main thread during its life cycle and
+spawns its own threads for execution. It’s very similar to GXF schedulers in a way that,
+each scheduler orchestrates one GXF runtime from inside; whereas graph worker orchestrate one or multiple
+GXF runtimes from outside. The graph driver orchestrates one or more graph workers to go through the
+execution sequence.</p>
+<p>Both graph worker and graph driver consists of an IPC server and an IPC client.
+The IPC server’s services are implemented within graph worker and graph driver respectively.
+These IPC services are exposed via the IPC server,
+that a corresponding IPC client on remote process can call.
+graph worker’s IPC client sends remote request to graph driver’s services;
+graph driver’s IPC client sends remote request to graph worker’s services.</p>
+<section id="graphworker">
+<h3>GraphWorker<a class="headerlink" href="GXF_Internals.html#graphworker" title="Link to this heading">#</a></h3>
+<p>Graph worker implements a series of IPC services to handle different steps in running a graph segment.
+Calling on these IPC services via the IPC server like Http or Grpc triggers these steps.
+Each IPC service ultimately translates a non-blocking IPC call to enqueuing an event.</p>
+<p>The threading of graph worker is based on an event-based queue thread, and a table of segment runners.</p>
+<img alt="Graph worker execution sequence" class="align-center" src="../../../_images/GraphWorker.svg" />
+<p><strong>Figure: Graph worker execution sequence</strong></p>
+<p>As shown in the sequence diagram, the caller main thread starts graph worker in 4 steps.</p>
+<ol class="arabic simple">
+<li><p>register the series of IPC services and start the server;</p></li>
+<li><p>start the event-based queue thread;</p></li>
+<li><p>enqueue event to instantiate the table of segment runners;</p></li>
+<li><p>enqueue event to request communication with graph driver. Then the caller main thread gets blocked waiting for completion of graph worker.</p></li>
+</ol>
+<p>Graph worker’s first communication to graph driver is to register all segments along with their address
+info, eg IP and port. When graph driver discovers all segments,
+it possesses global knowledge of all segments and their addresses.
+It is graph driver to resolve the UCX connections between all segment pairs, and
+for each pair spread UCX receiver addresses to UCX transmitter via the graph worker.</p>
+<p>Example graph worker entity:</p>
+<img alt="Entity containing GraphWorker and its dependency" class="align-center" src="../../../_images/GraphWorkerEntity.png" />
+<p><strong>Figure: Entity containing GraphWorker and its dependency</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker_entity</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graph_worker</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::GraphWorker</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this_worker_server</span>
+<span class="w">    </span><span class="nt">client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client_to_remote_driver</span>
+<span class="w">    </span><span class="nt">graph-specs</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">ucx_upstream</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/ucx/tests/test_ping_ucx_tx.yaml</span>
+<span class="w">        </span><span class="nt">manifest-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/test/distributed/test_graph_worker_manifest.yaml</span>
+<span class="w">        </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">      </span><span class="nt">ucx_downstream</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/ucx/tests/test_ping_ucx_rx.yaml</span>
+<span class="w">        </span><span class="nt">manifest-path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gxf/test/distributed/test_graph_worker_manifest.yaml</span>
+<span class="w">        </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">this_worker_server</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::HttpServer</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50001</span>
+<span class="w">    </span><span class="nt">remote_access</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;True&#39;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client_to_remote_driver</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::HttpIPCClient</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">server_ip_address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000</span>
+</pre></div>
+</div>
+</section>
+<section id="graphdriver">
+<h3>GraphDriver<a class="headerlink" href="GXF_Internals.html#graphdriver" title="Link to this heading">#</a></h3>
+<p>Graph driver implements a series of IPC services to handle different steps in
+discovering all segments in their graph workers; and resolving segments UCX connection addresses.
+Calling on these IPC services via the IPC server like Http or Grpc triggers these steps.
+Each IPC service ultimately translates a non-blocking IPC call to enqueuing an event.</p>
+<p>The threading of graph driver is based on an event-based queue thread.</p>
+<img alt="Graph driver execution sequence" class="align-center" src="../../../_images/GraphDriver.svg" />
+<p><strong>Figure: Graph driver execution sequence</strong></p>
+<p>As shown in the sequence diagram, the caller main thread starts graph driver in 3 steps.</p>
+<ol class="arabic simple">
+<li><p>read the global segment connection map configuration file;</p></li>
+<li><p>register the series of IPC services and start the server;</p></li>
+<li><p>start the event-based queue thread. Then the caller main thread gets blocked waiting for completion of graph driver.</p></li>
+</ol>
+<p>After startup, graph driver listens to requests from all graph workers.
+Upon each graph worker startup, it sends request to the graph driver to report its segments and address info.
+Graph driver is expected to starts before all graph workers. However if graph worker starts before graph driver,
+it keeps re-trying the request for a configurable times.</p>
+<p>Example graph driver entity:</p>
+<img alt="Entity containing GraphDriver and its dependency" class="align-center" src="../../../_images/GraphDriverEntity.png" />
+<p><strong>Figure: Entity containing GraphDriver and its dependency</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">driver</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">driver_server</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::HttpServer</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">driver_client</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::HttpIPCClient</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">graph_driver</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::GraphDriver</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">driver_server</span>
+<span class="w">    </span><span class="nt">client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">driver_client</span>
+<span class="w">    </span><span class="nt">connections</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ucx_upstream.tx.signal</span>
+<span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ucx_downstream.rx.signal</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="GXF_Internals.html#logging" title="Link to this heading">#</a></h2>
+<p>GXF logging macros are automatically included when implementing a codelet.
+The usage is similar to printf(), but they will also print file name and line numbers.
+See example usage in the sample extension section.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415GXF_LOG_VERBOSEz">
+<span id="_CPPv315GXF_LOG_VERBOSEz"></span><span id="_CPPv215GXF_LOG_VERBOSEz"></span><span id="GXF_LOG_VERBOSE__z"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_VERBOSE</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="p"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv415GXF_LOG_VERBOSEz" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_LOG_VERBOSE</span><span class="p">(</span><span class="s">&quot;This is a test message, codelet eid %ld, cid %ld, name %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eid</span><span class="p">(),</span><span class="w"> </span><span class="n">cid</span><span class="p">(),</span><span class="w"> </span><span class="n">name</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413GXF_LOG_DEBUGz">
+<span id="_CPPv313GXF_LOG_DEBUGz"></span><span id="_CPPv213GXF_LOG_DEBUGz"></span><span id="GXF_LOG_DEBUG__z"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_DEBUG</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="p"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv413GXF_LOG_DEBUGz" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_LOG_DEBUG</span><span class="p">(</span><span class="s">&quot;This is a test message, codelet eid %ld, cid %ld, name %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eid</span><span class="p">(),</span><span class="w"> </span><span class="n">cid</span><span class="p">(),</span><span class="w"> </span><span class="n">name</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412GXF_LOG_INFOz">
+<span id="_CPPv312GXF_LOG_INFOz"></span><span id="_CPPv212GXF_LOG_INFOz"></span><span id="GXF_LOG_INFO__z"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_INFO</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="p"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv412GXF_LOG_INFOz" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;This is a test message, codelet eid %ld, cid %ld, name %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eid</span><span class="p">(),</span><span class="w"> </span><span class="n">cid</span><span class="p">(),</span><span class="w"> </span><span class="n">name</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415GXF_LOG_WARNINGz">
+<span id="_CPPv315GXF_LOG_WARNINGz"></span><span id="_CPPv215GXF_LOG_WARNINGz"></span><span id="GXF_LOG_WARNING__z"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_WARNING</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="p"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv415GXF_LOG_WARNINGz" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_LOG_WARNING</span><span class="p">(</span><span class="s">&quot;This is a test message, codelet eid %ld, cid %ld, name %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eid</span><span class="p">(),</span><span class="w"> </span><span class="n">cid</span><span class="p">(),</span><span class="w"> </span><span class="n">name</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413GXF_LOG_ERRORz">
+<span id="_CPPv313GXF_LOG_ERRORz"></span><span id="_CPPv213GXF_LOG_ERRORz"></span><span id="GXF_LOG_ERROR__z"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_ERROR</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="p"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv413GXF_LOG_ERRORz" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_LOG_ERROR</span><span class="p">(</span><span class="s">&quot;This is a test message, codelet eid %ld, cid %ld, name %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">eid</span><span class="p">(),</span><span class="w"> </span><span class="n">cid</span><span class="p">(),</span><span class="w"> </span><span class="n">name</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p><strong>Logging Levels</strong></p>
+<p>GXF Logging supports the following log levels</p>
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_PANIC">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_PANIC</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_PANIC" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>0</cite>.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_ERROR">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_ERROR</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_ERROR" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>1</cite>.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_WARNING">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_WARNING</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_WARNING" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>2</cite>.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_INFO">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_INFO</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_INFO" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>3</cite>.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_DEBUG">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_DEBUG</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_DEBUG" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>4</cite>.</p>
+</dd></dl>
+
+<dl class="c macro">
+<dt class="sig sig-object c" id="c.GXF_LOG_LEVEL_VERBOSE">
+<span class="sig-name descname"><span class="n"><span class="pre">GXF_LOG_LEVEL_VERBOSE</span></span></span><a class="headerlink" href="GXF_Internals.html#c.GXF_LOG_LEVEL_VERBOSE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Defined as <cite>5</cite>.</p>
+</dd></dl>
+
+<p>Define <code class="docutils literal notranslate"><span class="pre">GXF_LOG_ACTIVE_LEVEL</span></code> before including <cite>common/logger.hpp</cite> to control the logging level at compile time.
+This allows you to skip logging at certain levels.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GXF_LOG_ACTIVE_LEVEL 2</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;common/logger.hpp&quot;</span>
+</pre></div>
+</div>
+<p>With this setting, logging will occur only at the WARNING(2), ERROR(1), and PANIC(0) levels.</p>
+<p>You can define GXF_LOG_ACTIVE_LEVEL in your build system. For instance, in CMake, use:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">my_target</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">GXF_LOG_ACTIVE_LEVEL=2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This sets the active logging level to WARNING(2) for the target <cite>my_target</cite>.</p>
+<p>Alternatively, define GXF_LOG_ACTIVE_LEVEL at compile time by passing <cite>-DGXF_LOG_ACTIVE_LEVEL=2</cite> directly to the compiler.</p>
+<p>In the Bazel build system, set this in your build configuration as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cc_binary(
+  name = &quot;my_binary&quot;,
+  srcs = [&quot;my_binary.cc&quot;],
+  copts = [&quot;-DGXF_LOG_ACTIVE_LEVEL=2&quot;],
+)
+</pre></div>
+</div>
+<p>This sets the active logging level to WARNING(2) for the target <cite>my_binary</cite>.</p>
+<p>Or, when using a Bazel build command: <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">build</span> <span class="pre">--copt=-DGXF_LOG_ACTIVE_LEVEL=3</span> <span class="pre">//path:to_your_target</span></code></p>
+<p>This sets the active logging level to INFO(3) for the target <cite>//path:to_your_target</cite>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GXF_LOG_ACTIVE_LEVEL</span></code> Can also be used enable logging severity specific to each source file.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">File</span><span class="w"> </span><span class="n">A</span>
+<span class="cp">#define GXF_LOG_ACTIVE_LEVEL 2</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;common/logger.hpp&quot;</span>
+
+<span class="n">Codelet</span><span class="w"> </span><span class="n">B</span>
+<span class="cp">#define GXF_LOG_ACTIVE_LEVEL 5</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;common/logger.hpp&quot;</span>
+</pre></div>
+</div>
+<p>File A will have warning and above logs, and File B will have verbose and above logs.</p>
+</section>
+<section id="component-factory">
+<h2>Component Factory<a class="headerlink" href="GXF_Internals.html#component-factory" title="Link to this heading">#</a></h2>
+<p>An extension contains its own component factory, in which all components are explicitly registered.
+GXF provides helper macros to easily implement the component factory needed for any extension.
+Normally extension factory implementation is organized as a standalone cpp file at the extension directory.
+It starts with GXF_EXT_FACTORY_BEGIN() and ends with GXF_EXT_FACTORY_END().</p>
+<p>A component can be registered using the macro GXF_EXT_FACTORY_ADD(). For each
+component the base class need to be specified. Components base classes must be registered before
+they can be used as a base class in a component registration. If a component does not have a base
+class the macro GXF_EXT_FACTORY_ADD_0() is used instead.</p>
+<p>Components can have at most one base class. Multiple base classes are not supported.</p>
+<p>A unique 128-bit identifier must be provided for the factory and each component. The identifier must be
+unique across all existing extensions.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_BEGIN</span><span class="p">()</span>
+<span class="n">GXF_EXT_FACTORY_SET_INFO</span><span class="p">(</span><span class="mh">0xd8629d822909316d</span><span class="p">,</span><span class="w"> </span><span class="mh">0xa9ee7410c8c1a7b6</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">                       </span><span class="s">&quot;A Dummy Example&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NVIDIA&quot;</span><span class="p">);</span>
+<span class="c1">// ...</span>
+<span class="n">GXF_EXT_FACTORY_ADD</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="o">::</span><span class="n">test</span><span class="o">::</span><span class="n">HelloWorld</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dummy example source codelet.&quot;</span><span class="p">);</span>
+<span class="c1">// ...</span>
+<span class="n">GXF_EXT_FACTORY_END</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The following macros are provided to help simplify the process of creating a component factory. The terms Component Factory, Extension
+and Extension are used interchangeably in these macros.</p>
+<p>Note that the extension factory can also be created manually without using these macros.</p>
+<p><strong>Create a Component Factory</strong></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421GXF_EXT_FACTORY_BEGINv">
+<span id="_CPPv321GXF_EXT_FACTORY_BEGINv"></span><span id="_CPPv221GXF_EXT_FACTORY_BEGINv"></span><span id="GXF_EXT_FACTORY_BEGIN"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_BEGIN</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv421GXF_EXT_FACTORY_BEGINv" title="Link to this definition">#</a><br /></dt>
+<dd><p>Start defining CreateComponentFactory() function, that starts with creating a <code class="docutils literal notranslate"><span class="pre">nvidia::gxf::DefaultExtension</span></code> object.
+H1 and H2 are first and second half hash values of the 128-bit identifier.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424GXF_EXT_FACTORY_SET_INFO2H12H24NAME4DESC6AUTHOR7VERSION7LICENSE">
+<span id="_CPPv324GXF_EXT_FACTORY_SET_INFO2H12H24NAME4DESC6AUTHOR7VERSION7LICENSE"></span><span id="_CPPv224GXF_EXT_FACTORY_SET_INFO2H12H24NAME4DESC6AUTHOR7VERSION7LICENSE"></span><span id="GXF_EXT_FACTORY_SET_INFO__H1.H2.NAME.DESC.AUTHOR.VERSION.LICENSE"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_SET_INFO</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NAME</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DESC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTHOR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VERSION</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LICENSE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv424GXF_EXT_FACTORY_SET_INFO2H12H24NAME4DESC6AUTHOR7VERSION7LICENSE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Set info for this extension factory.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_SET_INFO</span><span class="p">(</span><span class="mh">0xd8629d822909316d</span><span class="p">,</span><span class="w"> </span><span class="mh">0xa9ee7410c8c1a7b6</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">                     </span><span class="s">&quot;A Dummy Example&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NVIDIA&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432GXF_EXT_FACTORY_SET_DISPLAY_INFO12DISPLAY_NAME8CATEGORY5BRIEF">
+<span id="_CPPv332GXF_EXT_FACTORY_SET_DISPLAY_INFO12DISPLAY_NAME8CATEGORY5BRIEF"></span><span id="_CPPv232GXF_EXT_FACTORY_SET_DISPLAY_INFO12DISPLAY_NAME8CATEGORY5BRIEF"></span><span id="GXF_EXT_FACTORY_SET_DISPLAY_INFO__DISPLAY_NAME.CATEGORY.BRIEF"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_SET_DISPLAY_INFO</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DISPLAY_NAME</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CATEGORY</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BRIEF</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv432GXF_EXT_FACTORY_SET_DISPLAY_INFO12DISPLAY_NAME8CATEGORY5BRIEF" title="Link to this definition">#</a><br /></dt>
+<dd><p>Set additional display info this component factory.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_SET_DISPLAY_INFO</span><span class="p">(</span><span class="s">&quot;Dummy Extension&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dummy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;GXF Dummy Extension&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419GXF_EXT_FACTORY_ENDv">
+<span id="_CPPv319GXF_EXT_FACTORY_ENDv"></span><span id="_CPPv219GXF_EXT_FACTORY_ENDv"></span><span id="GXF_EXT_FACTORY_END"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_END</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv419GXF_EXT_FACTORY_ENDv" title="Link to this definition">#</a><br /></dt>
+<dd><p>Close the CreateComponentFactory() function and then call CreateComponentFactory() to return the factory object.</p>
+</dd></dl>
+
+<p><strong>Register Components</strong></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419GXF_EXT_FACTORY_ADD2H12H24TYPE4BASE4DESC">
+<span id="_CPPv319GXF_EXT_FACTORY_ADD2H12H24TYPE4BASE4DESC"></span><span id="_CPPv219GXF_EXT_FACTORY_ADD2H12H24TYPE4BASE4DESC"></span><span id="GXF_EXT_FACTORY_ADD__H1.H2.TYPE.BASE.DESC"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BASE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DESC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv419GXF_EXT_FACTORY_ADD2H12H24TYPE4BASE4DESC" title="Link to this definition">#</a><br /></dt>
+<dd><p>Register a new component to this component factory.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">DummyCodelet</span><span class="p">,</span>
+<span class="w">                </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Description&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427GXF_EXT_FACTORY_ADD_VERBOSE2H12H24TYPE4BASE12DISPLAY_NAME5BRIEF4DESC">
+<span id="_CPPv327GXF_EXT_FACTORY_ADD_VERBOSE2H12H24TYPE4BASE12DISPLAY_NAME5BRIEF4DESC"></span><span id="_CPPv227GXF_EXT_FACTORY_ADD_VERBOSE2H12H24TYPE4BASE12DISPLAY_NAME5BRIEF4DESC"></span><span id="GXF_EXT_FACTORY_ADD_VERBOSE__H1.H2.TYPE.BASE.DISPLAY_NAME.BRIEF.DESC"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD_VERBOSE</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">BASE</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">DISPLAY_NAME</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">BRIEF</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">DESC</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv427GXF_EXT_FACTORY_ADD_VERBOSE2H12H24TYPE4BASE12DISPLAY_NAME5BRIEF4DESC" title="Link to this definition">#</a><br /></dt>
+<dd><p>Register a new component to this component factory with verbose metadata.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD_VERBOSE</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">DummyCodelet</span><span class="p">,</span>
+<span class="w">                </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Display Name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Brief&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Description&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424GXF_EXT_FACTORY_ADD_LITE2H12H24TYPE4BASE">
+<span id="_CPPv324GXF_EXT_FACTORY_ADD_LITE2H12H24TYPE4BASE"></span><span id="_CPPv224GXF_EXT_FACTORY_ADD_LITE2H12H24TYPE4BASE"></span><span id="GXF_EXT_FACTORY_ADD_LITE__H1.H2.TYPE.BASE"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD_LITE</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BASE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv424GXF_EXT_FACTORY_ADD_LITE2H12H24TYPE4BASE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Register a new component to this component factory with minimal metadata.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD_LITE</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">DummyCodelet</span><span class="p">,</span>
+<span class="w">                </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p><strong>Register Components without a base type</strong></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421GXF_EXT_FACTORY_ADD_02H12H24TYPE4DESC">
+<span id="_CPPv321GXF_EXT_FACTORY_ADD_02H12H24TYPE4DESC"></span><span id="_CPPv221GXF_EXT_FACTORY_ADD_02H12H24TYPE4DESC"></span><span id="GXF_EXT_FACTORY_ADD_0__H1.H2.TYPE.DESC"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD_0</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DESC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv421GXF_EXT_FACTORY_ADD_02H12H24TYPE4DESC" title="Link to this definition">#</a><br /></dt>
+<dd><p>Register a new component to this component factory with minimal metadata.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD_0</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="o">::</span><span class="n">test</span><span class="o">::</span><span class="n">Helper</span><span class="p">,</span>
+<span class="w">                  </span><span class="s">&quot;Description&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429GXF_EXT_FACTORY_ADD_0_VERBOSE2H12H24TYPE12DISPLAY_NAME5BRIEF4DESC">
+<span id="_CPPv329GXF_EXT_FACTORY_ADD_0_VERBOSE2H12H24TYPE12DISPLAY_NAME5BRIEF4DESC"></span><span id="_CPPv229GXF_EXT_FACTORY_ADD_0_VERBOSE2H12H24TYPE12DISPLAY_NAME5BRIEF4DESC"></span><span id="GXF_EXT_FACTORY_ADD_0_VERBOSE__H1.H2.TYPE.DISPLAY_NAME.BRIEF.DESC"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD_0_VERBOSE</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DISPLAY_NAME</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BRIEF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DESC</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv429GXF_EXT_FACTORY_ADD_0_VERBOSE2H12H24TYPE12DISPLAY_NAME5BRIEF4DESC" title="Link to this definition">#</a><br /></dt>
+<dd><p>Register a new component to this component factory with verbose metadata.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD_0_VERBOSE</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="o">::</span><span class="n">test</span><span class="o">::</span><span class="n">Helper</span><span class="p">,</span>
+<span class="w">                  </span><span class="s">&quot;Description&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Brief&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Description&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426GXF_EXT_FACTORY_ADD_0_LITE2H12H24TYPE">
+<span id="_CPPv326GXF_EXT_FACTORY_ADD_0_LITE2H12H24TYPE"></span><span id="_CPPv226GXF_EXT_FACTORY_ADD_0_LITE2H12H24TYPE"></span><span id="GXF_EXT_FACTORY_ADD_0_LITE__H1.H2.TYPE"></span><span class="sig-name descname"><span class="n"><span class="pre">GXF_EXT_FACTORY_ADD_0_LITE</span></span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TYPE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="GXF_Internals.html#_CPPv426GXF_EXT_FACTORY_ADD_0_LITE2H12H24TYPE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GXF_EXT_FACTORY_ADD_0_LITE</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="o">::</span><span class="n">test</span><span class="o">::</span><span class="n">Helper</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../../text/DS_Zero_Coding_DS_Components.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DeepStream Components</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GraphComposer_Graph_Runtime.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Graph Execution Engine</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#lifecycle-of-a-codelet">LifeCycle of a Codelet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#the-gxf-scheduler">The GXF Scheduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#greedy-scheduler">Greedy Scheduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#greedy-scheduler-configuration">Greedy Scheduler Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#multithread-scheduler">Multithread Scheduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#multithread-scheduler-configuration">Multithread Scheduler Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#event-based-scheduler">Event Based Scheduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#messaging-and-events">Messaging and Events</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#event-based-scheduler-configuration">Event Based Scheduler Configuration</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#epoch-scheduler">Epoch Scheduler</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#schedulingterms">SchedulingTerms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#periodicschedulingterm">PeriodicSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#countschedulingterm">CountSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#messageavailableschedulingterm">MessageAvailableSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#multimessageavailableschedulingterm">MultiMessageAvailableSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#booleanschedulingterm">BooleanSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#asynchronousschedulingterm">AsynchronousSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#downstreamreceptiveschedulingterm">DownstreamReceptiveSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#targettimeschedulingterm">TargetTimeSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#expiringmessageavailableschedulingterm">ExpiringMessageAvailableSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#messageavailablefrequencythrottler">MessageAvailableFrequencyThrottler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#memoryavailableschedulingterm">MemoryAvailableSchedulingTerm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#btschedulingterm">BTSchedulingTerm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#combining-schedulingterms">Combining SchedulingTerms</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#cuda-based-scheduling-terms">Cuda based scheduling terms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#cuda-stream-schedulingterm">Cuda Stream SchedulingTerm</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#cuda-event-schedulingterm">Cuda Event SchedulingTerm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#connection-topologies">Connection Topologies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#messages">Messages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#transmitter">Transmitter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#receiver">Receiver</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#transmitter-example">Transmitter Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#receiver-example">Receiver Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#memory-management">Memory Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#cuda-stream-order-allocator">Cuda Stream Order Allocator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#rmm-rapids-memory-manager">RMM: RAPIDS Memory Manager</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#distributed-execution">Distributed Execution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#graphworker">GraphWorker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#graphdriver">GraphDriver</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#logging">Logging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv415GXF_LOG_VERBOSEz"><code class="docutils literal notranslate"><span class="pre">GXF_LOG_VERBOSE()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv413GXF_LOG_DEBUGz"><code class="docutils literal notranslate"><span class="pre">GXF_LOG_DEBUG()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv412GXF_LOG_INFOz"><code class="docutils literal notranslate"><span class="pre">GXF_LOG_INFO()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv415GXF_LOG_WARNINGz"><code class="docutils literal notranslate"><span class="pre">GXF_LOG_WARNING()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv413GXF_LOG_ERRORz"><code class="docutils literal notranslate"><span class="pre">GXF_LOG_ERROR()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#component-factory">Component Factory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv421GXF_EXT_FACTORY_BEGINv"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_BEGIN()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv424GXF_EXT_FACTORY_SET_INFO2H12H24NAME4DESC6AUTHOR7VERSION7LICENSE"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_SET_INFO()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv432GXF_EXT_FACTORY_SET_DISPLAY_INFO12DISPLAY_NAME8CATEGORY5BRIEF"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_SET_DISPLAY_INFO()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv419GXF_EXT_FACTORY_ENDv"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_END()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv419GXF_EXT_FACTORY_ADD2H12H24TYPE4BASE4DESC"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv427GXF_EXT_FACTORY_ADD_VERBOSE2H12H24TYPE4BASE12DISPLAY_NAME5BRIEF4DESC"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD_VERBOSE()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv424GXF_EXT_FACTORY_ADD_LITE2H12H24TYPE4BASE"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD_LITE()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv421GXF_EXT_FACTORY_ADD_02H12H24TYPE4DESC"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD_0()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv429GXF_EXT_FACTORY_ADD_0_VERBOSE2H12H24TYPE12DISPLAY_NAME5BRIEF4DESC"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD_0_VERBOSE()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GXF_Internals.html#_CPPv426GXF_EXT_FACTORY_ADD_0_LITE2H12H24TYPE"><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD_0_LITE()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,2103 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gst-nvmsgbroker &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_plugin_gst-nvmsgbroker';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gst-nvdsanalytics" href="DS_plugin_gst-nvdsanalytics.html" />
+    <link rel="prev" title="Gst-nvmsgconv" href="DS_plugin_gst-nvmsgconv.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_plugin_gst-nvmsgbroker.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="DS_plugin_gst-nvmsgbroker.html#">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="DS_plugin_Intro.html" class="nav-link">GStreamer Plugin Overview</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Gst-nvmsgbroker</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gst-nvmsgbroker">
+<span id="ds-plugin-nvmsgbroker"></span><h1>Gst-nvmsgbroker<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#gst-nvmsgbroker" title="Link to this heading">#</a></h1>
+<p>This plugin sends payload messages to the server using a specified communication protocol. It accepts any buffer that has <code class="docutils literal notranslate"><span class="pre">NvDsPayload</span></code> metadata attached and uses the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_*</span></code> interface to send the messages to the server. You must implement the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_*</span></code> interface for the protocol to be used and specify the implementing library in the proto-lib property.</p>
+<img alt="Gst-nvmsgbroker" class="align-center" src="../_images/DS_plugin_gst-nvmsgbroker.png" />
+<section id="inputs-and-outputs">
+<h2>Inputs and Outputs<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#inputs-and-outputs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Inputs</p>
+<ul>
+<li><p>Gst Buffer with NvDsPayload</p></li>
+</ul>
+</li>
+<li><p>Control parameters</p>
+<ul>
+<li><p>Config</p></li>
+<li><p>conn-str</p></li>
+<li><p>proto-lib</p></li>
+<li><p>comp-id</p></li>
+<li><p>topic</p></li>
+<li><p>new-api</p></li>
+</ul>
+</li>
+<li><p>Output</p>
+<ul>
+<li><p>None, as this is a sink component</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#features" title="Link to this heading">#</a></h2>
+<p>The following table summarizes the features of the Gst-nvmsgbroker plugin.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id18">
+<caption><span class="caption-text">Gst-nvmsgbroker plugin features</span><a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id18" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Release</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Payload in JSON format</p></td>
+<td><p>Accepts message payload in JSON format</p></td>
+<td><p>DS 3.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Kafka protocol support</p></td>
+<td><p>Kafka protocol adapter implementation</p></td>
+<td><p>DS 3.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Azure IOT support</p></td>
+<td><p>Integration with Azure IOT framework</p></td>
+<td><p>DS 4.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>AMQP support</p></td>
+<td><p>AMQP 0-9-1 protocol adapter implementation</p></td>
+<td><p>DS 4.0</p></td>
+</tr>
+<tr class="row-even"><td><p>REDIS support</p></td>
+<td><p>Redis protocol adapter using Redis Streams</p></td>
+<td><p>DS 5.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>MQTT support</p></td>
+<td><p>MQTT protocol adapter using Eclipse mosquitto</p></td>
+<td><p>DS 6.3</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom protocol support</p></td>
+<td><p>Provision to support custom protocol through a custom implementation of the adapter interface</p></td>
+<td><p>DS 3.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Configurable parameters</p></td>
+<td><p>Protocol specific options through configuration file</p></td>
+<td><p>DS 3.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="gst-properties">
+<h2>Gst Properties<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#gst-properties" title="Link to this heading">#</a></h2>
+<p>The following table describes the Gst properties of the Gst-nvmsgbroker plugin.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id19">
+<caption><span class="caption-text">Gst-nvmsgbroker plugin gst properties</span><a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id19" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Range</p></th>
+<th class="head"><p>Example Notes</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>config</p></td>
+<td><p>Absolute pathname of configuration file required by nvds_msgapi_* interface</p></td>
+<td><p>String</p></td>
+<td><p>config=&lt;msgapi_­config.txt&gt;</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>conn-str</p></td>
+<td><p>Connection string as end point for communication with server</p></td>
+<td><p>String
+Format must be &lt;name&gt;;&lt;port&gt;;&lt;specifier&gt;</p></td>
+<td><p>conn-str= foo.bar.com;80
+;user-id</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>proto-lib</p></td>
+<td><p>Absolute pathname of library that contains the protocol adapter as an implementation of nvds_msgapi_*</p></td>
+<td><p>String</p></td>
+<td><p>proto-lib=&lt;libnvds_kafka_proto.so&gt;</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>comp-id</p></td>
+<td><p>ID of component from which metadata should be processed</p></td>
+<td><p>Integer,
+0 to 4,294,967,295</p></td>
+<td><p>comp-id=3
+Default: plugin processes metadata from any component</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>topic</p></td>
+<td><p>Message topic name</p></td>
+<td><p>String</p></td>
+<td><p>topic=dsapp1</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>new-api</p></td>
+<td><p>To use protocol adapter library apis directly or use new msgbroker library wrapper apis</p></td>
+<td><p>Integer</p>
+<p>0 : Use adapter api’s directly</p>
+<p>1 : msgbroker lib wrapper api’s (Refer to <a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#message-broker-wrapper-api"><span class="std std-ref">nv_msgbroker: Message Broker interface</span></a>)</p>
+</td>
+<td><p>new-api = 0</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sleep-time</p></td>
+<td><p>Sleep time between consecutive do_work calls in milliseconds</p></td>
+<td><p>Integer &gt;= 0. 
+For Azure, use value &gt;= 10 depending on IoT Hub service tier message rate limit.
+Warning: Failure is likely with unreasonably high sleep times, e.g. 10000000 ms</p></td>
+<td><p>sleep-time=10</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="nvds-msgapi-protocol-adapter-interface">
+<span id="nvds-messaging-interface"></span><h2>nvds_msgapi: Protocol Adapter Interface<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-protocol-adapter-interface" title="Link to this heading">#</a></h2>
+<p>You can use the DeepStream messaging interface, <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code>, to implement a custom protocol message handler and integrate it with DeepStream applications. Such a message handler, known as a protocol adapter, enables you to integrate DeepStream applications with backend data sources, such as data stored in the cloud.
+New with DeepStream 7.1, the source code for all protocol adaptors provided with DeepStream is available at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/libs/*_protocol_adaptor</span></code>.</p>
+<img alt="Gst-nvmsgbroker-nvds_msgapi" class="align-center" src="../_images/DS_plugin_gst-nvmsgbroker_nvds_msgapi.png" />
+<p>The Gst-nvmsgbroker plugin calls the functions in your protocol adapter as shown in the figure above. These functions support:</p>
+<ul class="simple">
+<li><p>Creating a connection</p></li>
+<li><p>Sending messages by synchronous or asynchronous means</p></li>
+<li><p>Terminating the connection</p></li>
+<li><p>Coordinating the client’s and protocol adapter’s use of CPU resources and threads</p></li>
+<li><p>Getting the protocol adapter’s version number</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface is defined in the header file <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/includes/nvds_msgapi.h</span></code>. This header file defines a set of function pointers which provide an interface analogous to an interface in C++.
+The following sections describe the methods defined by the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface.</p>
+<section id="nvds-msgapi-connect-create-a-connection">
+<h3>nvds_msgapi_connect(): Create a Connection<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connect-create-a-connection" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvDsMsgApiHandle</span><span class="w"> </span><span class="nf">nvds_msgapi_connect</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">connection_str</span><span class="p">,</span>
+<span class="n">nvds_msgapi_connect_cb_t</span><span class="w"> </span><span class="n">connect_cb</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">config_path</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>The function accepts a connection string and configures a connection. The adapter implementation can choose whether the function makes a connection to accommodate connectionless protocols such as HTTP.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">connection_str</span></code>: A pointer to a string that specifies connection parameters in the general format <code class="docutils literal notranslate"><span class="pre">&lt;url&gt;;&lt;port&gt;;&lt;specifier&gt;</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;url&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;port&gt;</span></code> specify the network address of the remote entity.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;specifier&gt;</span></code> specifies information specific to a protocol. Its content depends on the protocol’s implementation. It may be, for example, a client identifier for making the connection.</p></li>
+</ul>
+<p>Note that this connection string format is not binding, and an adapter may omit some fields (e.g.: specifier) from its format, provided the omission is described in its documentation.
+A special case of such connection string adaptation is where the adapter expects all connection parameters to be specified as fields in the configuration file (see config path below), in which case the connection string is passed as NULL.</p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connect_cb</span></code>: A callback function for events associated with the connection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_path</span></code>: The pathname of a configuration file that defines protocol parameters used by the adapter.</p></li>
+</ul>
+<p><strong>Return Value</strong></p>
+<p>A handle for use in subsequent interface calls if successful, or NULL otherwise.</p>
+</section>
+<section id="nvds-msgapi-send-and-nvds-msgapi-send-async-send-an-event">
+<h3>nvds_msgapi_send() and nvds_msgapi_send_async(): Send an event<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-send-and-nvds-msgapi-send-async-send-an-event" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="nf">nvds_msgapi_send</span><span class="p">(</span><span class="n">NvDsMsgApiHandle</span><span class="w"> </span><span class="o">*</span><span class="n">h_ptr</span><span class="p">,</span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">payload</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nbuf</span>
+<span class="p">);</span>
+<span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="nf">nvds_msgapi_send_async</span><span class="p">(</span><span class="n">NvDsMsgApiHandle</span><span class="w"> </span><span class="n">h_ptr</span><span class="p">,</span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">topic</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">payload</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nbuf</span><span class="p">,</span>
+<span class="n">nvds_msgapi_send_cb_t</span><span class="w"> </span><span class="n">send_callback</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span>
+<span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Both functions send data to the endpoint of a connection. They accept a message topic and a message payload.
+The <code class="docutils literal notranslate"><span class="pre">nvds_send()</span></code> function is synchronous. The <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code> function is asynchronous; it accepts a callback function that is called when the “send” operation is completed.
+Both functions allow the API client to control execution of the adapter logic by calling <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. See the description of the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> function.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>: A handle for the connection, obtained by a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic</span></code>: A pointer to a string that specifies a topic for the message; may be NULL if topic is not meaningful for the semantics of the protocol adapter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">payload</span></code>: A pointer to a byte array that contains the payload for the message.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nbuf</span></code>: Number of bytes to be sent.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">send_callback</span></code>: A pointer to a callback function that the asynchronous function calls when the “send” operation is complete. The signature of the callback function is of type <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_cb_t</span></code>, defined as:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">nvds_msgapi_send_cb_t</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ptr</span><span class="p">,</span>
+<span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="n">completion_flag</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p>where the callback’s parameters are:</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ptr</span></code>: The user pointer (user_ptr) from the call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send()</span></code> or`` nvds_msgapi_send_async()`` that initiated the “send” operation. Enables the callback function to identify the initiating call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">completion_flag</span></code>: A code that indicates the completion status of the asynchronous send operation.</p></li>
+</ul>
+</section>
+<section id="nvds-msgapi-subscribe-consume-data-by-subscribing-to-topics">
+<h3>nvds_msgapi_subscribe(): Consume data by subscribing to topics<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-subscribe-consume-data-by-subscribing-to-topics" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="nf">nvds_msgapi_subscribe</span><span class="w"> </span><span class="p">(</span><span class="n">NvDsMsgApiHandle</span><span class="w"> </span><span class="n">h_ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">topics</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_topics</span><span class="p">,</span><span class="w"> </span><span class="n">nvds_msgapi_subscribe_request_cb_t</span><span class="w">  </span><span class="n">cb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ctx</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This API is used to subscribe to topic(s) and consume messages from the external entity.
+The API is asynchronous and must be called with an already created valid Kafka connection handle as parameter. The caller must also provide a pointer to the callback function to receive the consumed messages from the connection endpoint and an optional <code class="docutils literal notranslate"><span class="pre">user_ctx</span></code> pointer for specifying user context</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>: A handle for the connection, obtained by a call to nvds_msgapi_connect()</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topics</span></code>: A 2d pointer which points to a char array of topic names</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_topics</span></code>: num of topics to subscribe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cb</span></code>: A pointer to a callback function to get notified of the consumed messages on subscribed topic(s)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ctx</span></code>: user ptr to be passed to callback for context</p></li>
+</ul>
+<p>The pointer to a callback function which is specified as a param in subscribe API is of type <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_subscribe_request_cb_t</span></code> defined as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    typedef void (*nvds_msgapi_subscribe_request_cb_t)(NvDsMsgApiErrorType flag, void *msg, int msg_len, char *topic, void *user_ptr);
+
+where the callback’s parameters are:
+
+* ``flag``: To specify the error status of message consumed
+* ``msg``: Consumed message / payload
+* ``msg_len``: Length of message in bytes
+* ``topic``: Topic name where the message was received
+* ``user_ptr``: pointer passed during subscribe() for context
+</pre></div>
+</div>
+</section>
+<section id="nvds-msgapi-do-work-incremental-execution-of-adapter-logic">
+<h3>nvds_msgapi_do_work(): Incremental Execution of Adapter Logic<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-do-work-incremental-execution-of-adapter-logic" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">nvds_msgapi_do_work();</span></code></p>
+<p>The protocol adapter must periodically surrender control to the client during processing of <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send()</span></code> and <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code> calls. The client must periodically call <code class="docutils literal notranslate"><span class="pre">nvsd_msgapi_do_work()</span></code> to let the protocol adapter resume execution. This ensures that the protocol adapter receives enough CPU resources. The client can use this convention to control the protocol adapter’s use of multi-threading and thread scheduling. The protocol adapter can use it to support heartbeat functionality, if the underlying protocol requires that.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> convention is needed when the protocol adapter executes in the client thread. Alternatively, the protocol adapter may execute time-consuming operations in its own thread. In this case the protocol adapter need not surrender control to the client, the client need not call <code class="docutils literal notranslate"><span class="pre">nvsd_msgapi_do_work()</span></code>, and the implementation of <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> may be a no-op.
+The protocol adapter’s documentation must specify whether the client must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>, and if so, how often.</p>
+</section>
+<section id="nvds-msgapi-disconnect-terminate-a-connection">
+<h3>nvds_msgapi_disconnect(): Terminate a Connection<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-disconnect-terminate-a-connection" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="nf">nvds_msgapi_disconnect</span><span class="p">(</span><span class="n">NvDsMsgApiHandle</span><span class="w"> </span><span class="n">h_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The function terminates the connection, if the underlying protocol requires it, and frees resources associated with <code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>: A handle for the connection, obtained by a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code>.</p></li>
+</ul>
+</section>
+<section id="nvds-msgapi-getversion-get-version-number">
+<h3>nvds_msgapi_getversion(): Get Version Number<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-getversion-get-version-number" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*nvds_msgapi_getversion();</span></code></p>
+<p>This function returns a string that identifies the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> version supported by this protocol adapter implementation. The string must use the format <code class="docutils literal notranslate"><span class="pre">&lt;major&gt;.&lt;minor&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;major&gt;</span></code> is a major version number and &lt;minor&gt; is a minor version number. A change in the major version number indicates an API change that may cause incompatibility. When the major version number changes, the minor version number is reset to 1.</p>
+</section>
+<section id="nvds-msgapi-get-protocol-name-get-name-of-the-protocol">
+<h3>nvds_msgapi_get_protocol_name(): Get name of the protocol<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-get-protocol-name-get-name-of-the-protocol" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*nvds_msgapi_get_protocol_name(void);</span></code></p>
+<p>This function returns a string that identifies the underlying protocol used in the adapter library. for example, <code class="docutils literal notranslate"><span class="pre">&quot;KAFKA”</span></code>, <code class="docutils literal notranslate"><span class="pre">“AMQP”</span></code>, <code class="docutils literal notranslate"><span class="pre">“AZURE_DEVICE_CLIENT”</span></code> , <code class="docutils literal notranslate"><span class="pre">“AZURE_MODULE_CLIENT”</span></code></p>
+</section>
+<section id="nvds-msgapi-connection-signature-get-connection-signature">
+<h3>nvds_msgapi_connection_signature(): Get Connection signature<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connection-signature-get-connection-signature" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvDsMsgApiErrorType</span><span class="w"> </span><span class="nf">nvds_msgapi_connection_signature</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">broker_str</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cfg</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">output_str</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">max_len</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This function returns a string that uniquely identifies the signature of the connection parameters passed to the adapter library for making a connection. On success, a connection signature string(generated by SHA256) is returned. Upon error or invalid connection parameters, empty string “” is returned.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">broker_str</span></code>:  Broker connection string used to create connection</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cfg</span></code>:  Path to config file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_str</span></code>:  Output Connection signature</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_len</span></code> : max length of output_str</p></li>
+</ul>
+</section>
+</section>
+<section id="nvds-kafka-proto-kafka-protocol-adapter">
+<h2>nvds_kafka_proto: Kafka Protocol Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-kafka-proto-kafka-protocol-adapter" title="Link to this heading">#</a></h2>
+<p>DeepStream includes a protocol adapter that supports Apache Kafka. The adapter provides out-of-the-box capability for DeepStream applications to publish messages to Kafka brokers.</p>
+<section id="installing-dependencies">
+<h3>Installing Dependencies<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#installing-dependencies" title="Link to this heading">#</a></h3>
+<p>The Kafka adapter uses <code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> for the underlying protocol implementation. This library must be installed prior to use.
+To install <code class="docutils literal notranslate"><span class="pre">librdkakfa</span></code>, enter these commands:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/confluentinc/librdkafka.git</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">librdkafka</span>
+<span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="n">tags</span><span class="o">/</span><span class="n">v2</span><span class="mf">.2.0</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span><span class="w"> </span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">ssl</span>
+<span class="n">make</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">install</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">librdkafka</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+<p>Install additional dependencies:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libjansson4</span><span class="w"> </span><span class="n">libjansson</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-adapter">
+<h3>Using the Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#using-the-adapter" title="Link to this heading">#</a></h3>
+<p>You can use the Kafka adapter in an application by setting the Gst-nvmsgbroker plugin’s proto-lib property to the pathname of the adapter’s shared library, <code class="docutils literal notranslate"><span class="pre">libnvds_kafka_proto.so</span></code>. The plugin’s conn-str property must be set to a string with format:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">kafka</span><span class="w"> </span><span class="n">broker</span><span class="w"> </span><span class="n">address</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This instantiates the Gst-nvmsgbroker plugin and makes it use the Kafka protocol adapter to publish messages that the application sends to the broker at the specified broker address and topic.</p>
+</section>
+<section id="configuring-protocol-settings">
+<h3>Configuring Protocol Settings<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#configuring-protocol-settings" title="Link to this heading">#</a></h3>
+<p>You can define configuration setting for the Kafka protocol adapter as described by the documentation at <a class="github reference external" href="https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md">edenhill/librdkafka</a>. You can set these options in the Gst-nvmsgbroker configuration file. Like the rest of DeepStream, the configuration file uses the <cite>gkey</cite> format. The Kafka settings must be in a group named <code class="docutils literal notranslate"><span class="pre">[message-broker]</span></code> and must be specified as part of a key named <code class="docutils literal notranslate"><span class="pre">proto-cfg</span></code>. The settings can be a series of key-value pairs separated by semicolons. For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">proto</span><span class="o">-</span><span class="n">cfg</span><span class="o">=</span><span class="s">&quot;message.timeout.ms=2000;retries=5&quot;</span>
+<span class="n">consumer</span><span class="o">-</span><span class="n">group</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">groupid</span>
+<span class="n">partition</span><span class="o">-</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">keyid</span>
+</pre></div>
+</div>
+<p>The Kafka adapter lets you specify the name of the field in messages that is to be used to define the partition key. For each message, the specified message field is extracted and send to the topic partitioner along with the message. The partitioner uses it to identify the partition in the Kafka cluster that handles the message. The partition key information must be specified in the Gst-nvmsgbroker configuration file’s [message-broker] group, using an entry named partition-key.
+Fields embedded in a hierarchy of JSON objects in the message are specified using dotted notation. For example, for the sample JSON message shown below, the id field in the sensor object is identified as <code class="docutils literal notranslate"><span class="pre">sensor.id</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w"> </span><span class="s">&quot;sensor&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="s">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;cam1&quot;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Additionally, the Kafka adapter lets you specify the consumer group id. The consumer group is a string that uniquely identifies the group of consumer processes to which this Kafka consumer belongs. The key name consumer-group-id can be specified in the Gst-nvmsgbroker configuration file’s <code class="docutils literal notranslate"><span class="pre">[message-broker]</span></code> group. If this field is unspecified, the default consumer group name “test-consumer-group” will be used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the DeepStream reference application and the 360 D application, both distributed with the DeepStream SDK, you can add the <code class="docutils literal notranslate"><span class="pre">proto-cfg</span></code> setting to the <code class="docutils literal notranslate"><span class="pre">[message-broker]</span></code> group of the top-level configuration file passed to the application.</p>
+</div>
+</section>
+<section id="programmatic-integration">
+<h3>Programmatic Integration<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#programmatic-integration" title="Link to this heading">#</a></h3>
+<p>You can integrate the Kafka adapter into custom user code by using the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface to call its functions. Note the following points regarding the functions defined by the interface:</p>
+<ul class="simple">
+<li><p>The connection string passed to the <code class="docutils literal notranslate"><span class="pre">nvdm_msgapi_connect()</span></code> has the format <code class="docutils literal notranslate"><span class="pre">&lt;kafka</span> <span class="pre">broker</span> <span class="pre">address&gt;;&lt;port&gt;</span></code>.</p></li>
+<li><p>For both “send” functions, the topic name must be passed as param to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send()</span></code>. or <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async(</span></code>)</p></li>
+<li><p>For the subscribe API, a 2D pointer to a char array of topic-names must be passed as param. Also, a pointer to a user callback function must be provided. When there’s a new message from the remote entity, the Kafka consumer will forward the message to the application by calling the user callback function.</p></li>
+<li><p>The application must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> at least once a second, and preferably more often. The frequency of calls to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> determines the rate at which messages waiting to be sent are processed.</p></li>
+<li><p>It is safe for multiple application threads to share connection handles. The library <code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> is thread-safe, so Kafka protocol adapter does not need to implement separate locking mechanisms for functions calling directly to this library.</p></li>
+<li><p>The Kafka protocol adapter expects the client to manage usage and retirement of the connection handle. The client must ensure that once a handle is disconnected, it is not used for either a “send” call or a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. While the library attempts to ensure graceful failure if the application calls these functions with retired handles, it does not do so in a thread-safe manner.</p></li>
+</ul>
+</section>
+<section id="security-for-kafka">
+<h3>Security for Kafka<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#security-for-kafka" title="Link to this heading">#</a></h3>
+<p>To learn more about security for Kafka, see the <a class="reference internal" href="DS_IoT.html#secure-edge-cloud-label"><span class="std std-ref">Secure Edge-to-Cloud Messaging</span></a> section in the <em>NVIDIA DeepStream SDK Developer Guide 6.0 Release</em>.
+Monitor Adapter Execution
+The Kafka adapter generates log messages based on the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework to help you monitor execution. The adapter generates separate logs for the INFO, DEBUG, and ERROR severity levels, as described in <a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html#nvds-logger-logging-framework">nvds_logger: Logging Framework</a>. You can limit the log messages generated by setting the level at which log messages are filtered as part of the logging setup script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the severity level is set to DEBUG, the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework logs the entire contents of each message sent by the Kafka protocol adapter.</p>
+</div>
+</section>
+</section>
+<section id="azure-mqtt-protocol-adapter-libraries">
+<h2>Azure MQTT Protocol Adapter Libraries<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#azure-mqtt-protocol-adapter-libraries" title="Link to this heading">#</a></h2>
+<p>DeepStream includes protocol adapters that supports direct messaging from device to cloud (using the Azure device client adapter) and through Azure IoT Edge runtime (using the Azure module client adapter). The adapters provide out-of-the-box capability for DeepStream applications to publish messages to Azure IoT Hub using the MQTT protocol.
+The Azure IoT protocol adapters are encapsulated by their respective shared libraries found within the DeepStream package at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib</span></code>. The Azure device client adapter library is named <code class="docutils literal notranslate"><span class="pre">libnvds_azure_proto.so</span></code>.
+The Azure module client adapter library is named <code class="docutils literal notranslate"><span class="pre">libnvds_azure_edge_proto.so</span></code>.</p>
+<section id="id1">
+<h3>Installing Dependencies<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id1" title="Link to this heading">#</a></h3>
+<p>Azure adapters use <code class="docutils literal notranslate"><span class="pre">libiothub_client.so</span></code> from the Azure IoT C SDK (v1.11.0) for the underlying protocol implementation. After you install the DeepStream package you can find the precompiled library at:
+<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib/libiothub_client.so</span></code>. You can also compile <code class="docutils literal notranslate"><span class="pre">libiothub_client.so</span></code> manually by entering these commands:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Azure/azure-iot-sdk-c.git
+cd azure-iot-sdk-c
+git checkout tags/1.11.0
+git submodule update --init
+mkdir cmake
+cd cmake
+cmake -Dbuild_as_dynamic:BOOL=ON -Duse_edge_modules:BOOL=ON ..
+cmake --build .  # append &#39;-- -j &lt;n&gt;&#39; to run &lt;n&gt; jobs in parallel
+</pre></div>
+</div>
+</div></blockquote>
+<p>To install some other required dependencies, enter one of these commands.</p>
+<ul>
+<li><p>For an x86 computer using Ubuntu 22.04:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">libcurl3</span><span class="w"> </span><span class="n">libssl</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">uuid</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>For other platforms or OS:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">libcurl4</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libssl</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">uuid</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="setting-up-azure-iot">
+<h3>Setting Up Azure IoT<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#setting-up-azure-iot" title="Link to this heading">#</a></h3>
+<p>Azure IoT adapter needs a functioning Azure IoT Hub instance to which is can publish messages. To set up an Azure IoT Hub instance if required, see the instructions at: <a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-hub/tutorial-connectivity">https://docs.microsoft.com/en-us/azure/iot-hub/tutorial-connectivity</a>.
+After you create the Azure IoT instance, create a device entry corresponding to the device that is running DeepStream.</p>
+<p>To set up Azure IoT Edge runtime on the edge device, see the instructions at <a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux">https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge-linux</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note the message rate limitations for your IoT Hub service tier: <a class="reference external" href="https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling#standard-tier-operations">https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling#standard-tier-operations</a>. Please set the sleep-time property for the nvmsgbroker plugin accordingly to prevent throttling.</p>
+</div>
+</section>
+<section id="configuring-adapter-settings">
+<h3>Configuring Adapter Settings<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#configuring-adapter-settings" title="Link to this heading">#</a></h3>
+<p>Place Azure IoT specific information in a custom configuration file named, e.g., <code class="docutils literal notranslate"><span class="pre">cfg_azure.txt</span></code>. The entries in the configuration file vary slightly between the Azure device client and the module client.</p>
+<ul>
+<li><p>For an Azure device client:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">connection_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HostName</span><span class="o">=&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">hub</span><span class="o">&gt;</span><span class="p">.</span><span class="n">azure</span><span class="o">-</span><span class="n">devices</span><span class="p">.</span><span class="n">net</span><span class="p">;</span><span class="n">DeviceId</span><span class="o">=&lt;</span><span class="n">device_id</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">custom_msg_properties</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">&lt;</span><span class="n">key1</span><span class="o">&gt;=&lt;</span><span class="n">value1</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">key2</span><span class="o">&gt;=&lt;</span><span class="n">value2</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">key3</span><span class="o">&gt;=&lt;</span><span class="n">value3</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>For an Azure module client:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="cp">#custom_msg_properties =  &lt;key1&gt;=&lt;value1&gt;; &lt;key2&gt;=&lt;value2&gt;; &lt;key3&gt;=&lt;value3&gt;;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Here is useful information about some of the configuration file properties:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">connection_str</span></code>: You can obtain the Azure connection string from the Azure IoT Hub web interface. A connection string uniquely identifies each device associated with the IoT Hub instance. It is under the “Primary Connection String” entry in the “Device detail” section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_msg_properties</span></code>: Use this property to embed custom key/value pairs in the MQTT messages sent from the device to Azure IoT. You can embed multiple key values separated by semicolons, as in this example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">custom_msg_properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ex2</span><span class="o">:</span><span class="w"> </span><span class="n">key1</span><span class="o">=</span><span class="n">value1</span><span class="p">;</span><span class="n">key2</span><span class="o">=</span><span class="n">value2</span><span class="p">;</span><span class="n">key3</span><span class="o">=</span><span class="n">value3</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">connection_str</span></code> and <code class="docutils literal notranslate"><span class="pre">custom_msg_properties</span></code> strings are each limited to 512 characters.</p>
+</div>
+</section>
+<section id="id2">
+<h3>Using the Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id2" title="Link to this heading">#</a></h3>
+<p>To use the Azure device client adapter in an application, set the Gst-nvmsgbroker plugin’s proto-lib property to the pathname of the adapter’s shared library - <code class="docutils literal notranslate"><span class="pre">libnvds_azure_proto.so</span></code> for the device client case, or <code class="docutils literal notranslate"><span class="pre">libnvds_azure_edge_proto.so</span></code> for the module client case.
+The next step in using the adapter is to specify the connection details. The procedure for specifying connection details is different for the Azure device client and module client cases, as described in the following sections.</p>
+<section id="connection-details-for-the-device-client-adapter">
+<h4>Connection Details for the Device Client Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#connection-details-for-the-device-client-adapter" title="Link to this heading">#</a></h4>
+<p>Set the plugin’s <cite>conn-str</cite> property to the full Azure connection string in the format:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">HostName</span><span class="o">=&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">hub</span><span class="o">&gt;</span><span class="p">.</span><span class="n">azure</span><span class="o">-</span><span class="n">devices</span><span class="p">.</span><span class="n">net</span><span class="p">;</span><span class="n">DeviceId</span><span class="o">=&lt;</span><span class="n">device_id</span><span class="o">&gt;</span><span class="p">;</span><span class="n">SharedAccessKey</span><span class="o">=&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the connection string details in the Azure configuration file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">connection_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HostName</span><span class="o">=&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">hub</span><span class="o">&gt;</span><span class="p">.</span><span class="n">azure</span><span class="o">-</span><span class="n">devices</span><span class="p">.</span><span class="n">net</span><span class="p">;</span><span class="n">DeviceId</span><span class="o">=&lt;</span><span class="n">device_id</span><span class="o">&gt;</span><span class="p">;</span><span class="n">SharedAccessKey</span><span class="o">=&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="connection-details-for-the-module-client-adapter">
+<h4>Connection Details for the Module Client Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#connection-details-for-the-module-client-adapter" title="Link to this heading">#</a></h4>
+<p>Leave the connection string empty, since the Azure IoT Edge library automatically fetches the connection string from the file <code class="docutils literal notranslate"><span class="pre">/etc/iotedge/config.yaml</span></code>.
+Once the connection details have been configured, you can integrate the Azure device client and module client adapters into custom user code by using the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface to call its functions. Note the following points about the functions defined by the interface:</p>
+<ul class="simple">
+<li><p>The connection string passed to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code> may be NULL for both the Azure device client and the module client. For the device client the Azure configuration file has an option to specify a connection string. For the module client the connection string is always specified in <code class="docutils literal notranslate"><span class="pre">/etc/iotedge/config.yaml</span></code>.</p></li>
+<li><p>Both “send” functions use the topic name specified in the Gst-nvmsgbroker plugin’s property “topic.” It may be null.</p></li>
+<li><p>The application must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> after each call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code>. The frequency of calls to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> determines the rate at which messages waiting to be sent are processed.</p></li>
+<li><p>It is safe for multiple application threads to share connection handles. The library <code class="docutils literal notranslate"><span class="pre">libiothubclient</span></code> is thread-safe, so Azure protocol adapters need not implement separate locking mechanisms for functions calling this library directly.</p></li>
+<li><p>The Azure protocol adapters expects the client to manage usage and retirement of the connection handle. The client must ensure that once a handle is disconnected, it is not used for either a “send” call or a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. While the library attempts to ensure graceful failure if the application calls these functions with retired handles, it does not do so in a thread-safe manner.</p></li>
+</ul>
+</section>
+</section>
+<section id="monitor-adapter-execution">
+<h3>Monitor Adapter Execution<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#monitor-adapter-execution" title="Link to this heading">#</a></h3>
+<p>The Azure device client and module client use different logging mechanisms.</p>
+<section id="azure-device-client-library-log-messages">
+<h4>Azure device client library log messages<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#azure-device-client-library-log-messages" title="Link to this heading">#</a></h4>
+<p>The Azure device client adapter uses the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework to generate log messages which can help you monitor execution. The adapter generates separate logs for the INFO, DEBUG, and ERROR severity levels, as described in <cite>nvds_logger: Logging Framework</cite>. You can limit the generated log messages by setting the level at which log messages are filtered in the logging setup script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the severity level is set to DEBUG, the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework logs the entire contents of each message sent by the Azure device client protocol adapter.</p>
+</div>
+</section>
+<section id="azure-module-client-library-log-messages">
+<h4>Azure Module Client Library Log Messages<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#azure-module-client-library-log-messages" title="Link to this heading">#</a></h4>
+<p>The log messages from the Azure module client adapter library are emitted to stdout, and the log output is captured in the <code class="docutils literal notranslate"><span class="pre">docker/iotedge</span></code> module logs.</p>
+</section>
+</section>
+<section id="message-topics-and-routes">
+<h3>Message Topics and Routes<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#message-topics-and-routes" title="Link to this heading">#</a></h3>
+<p>You can specify a message topic in a GStreamer property topic. However, the Azure device client and module client use the topic property in different ways.
+The Azure device client does not support topics. Thus, the value of the topic property is ignored, and you cannot use it to filter messages on Azure IoT Hub.
+The Azure module client uses the topic property to determine the route of messages, i.e. how messages are passed within a system. For more information about message routes, see:
+<a class="reference external" href="https://docs.microsoft.com/en-us/azure/iot-edge/module-composition#declare-routes">https://docs.microsoft.com/en-us/azure/iot-edge/module-composition#declare-routes</a>)</p>
+</section>
+</section>
+<section id="amqp-protocol-adapter">
+<h2>AMQP Protocol Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#amqp-protocol-adapter" title="Link to this heading">#</a></h2>
+<p>DeepStream includes an AMQP protocol adapter that DeepStream applications can use out of the box to publish messages using AMQP 0-9-1 message protocol.
+The AMQP protocol adapter shared library is in the deepstream package at:
+<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib/libnvds_amqp_proto.so</span></code></p>
+<section id="id3">
+<h3>Installing Dependencies<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id3" title="Link to this heading">#</a></h3>
+<p>AMQP protocol adapter for DeepStream uses the <code class="docutils literal notranslate"><span class="pre">librabbitmq.so</span></code> library.</p>
+<p>Install rabbitmq-c library:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">librabbitmq</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Install glib 2.0:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</section>
+<section id="amqp-broker">
+<h3>AMQP broker<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#amqp-broker" title="Link to this heading">#</a></h3>
+<p>The AMQP protocol communicates with an AMQP 0-9-1 compliant message broker. If you do not have a functioning broker already, you can deploy one by installing the <code class="docutils literal notranslate"><span class="pre">rabbitmq-server</span></code> package, available at:
+<a class="reference external" href="https://www.rabbitmq.com/install-debian.html">https://www.rabbitmq.com/install-debian.html</a>
+You can install this package on your local system or on the remote machine where you want the broker to be installed.
+To install the package, enter the command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">rabbitmq</span><span class="o">-</span><span class="n">server</span>
+</pre></div>
+</div>
+<p>To determine whether the <cite>rabbitmq</cite> service is running, enter the command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">rabbitmq</span><span class="o">-</span><span class="n">server</span><span class="w"> </span><span class="n">status</span>
+</pre></div>
+</div>
+<p>If <cite>rabbitmq</cite> is not running, enter this command to start it:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">rabbitmq</span><span class="o">-</span><span class="n">server</span><span class="w"> </span><span class="n">start</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-adapter-settings">
+<h3>Configure Adapter Settings<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#configure-adapter-settings" title="Link to this heading">#</a></h3>
+<p>You can place AMQP protocol adapter specific information in a custom configuration named, for example, <code class="docutils literal notranslate"><span class="pre">cfg_amqp.txt</span></code>. Here is an example of configuration file entries for an AMQP broker installed on the local machine:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">hostname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localhost</span>
+<span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guest</span>
+<span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guest</span>
+<span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5672</span>
+<span class="n">exchange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">amq</span><span class="p">.</span><span class="n">topic</span>
+<span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">topicname</span>
+<span class="n">amqp</span><span class="o">-</span><span class="n">framesize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">131072</span>
+<span class="cp">#amqp-heartbeat = 0</span>
+<span class="cp">#share-connection = 1</span>
+</pre></div>
+</div>
+<p>The properties in the configuration file are:</p>
+<ul>
+<li><p>hostname: Hostname of the host on which the AMQP broker is installed</p></li>
+<li><p>username: Username used to log in to the broker – TO BE DEPRECATED, USE ENV VARIABLE</p></li>
+<li><p>password: Password used to log in to the broker – TO BE DEPRECATED, USE ENV VARIABLE</p></li>
+<li><p>port: Port used to communicate with the AMQP broker</p></li>
+<li><p>exchange: Name of the exchange on which to publish messages</p></li>
+<li><p>topic: Message topic</p></li>
+<li><p>amqp-framesize: Maximum size of an AMQP frame on the wire to request of the broker for this connection. 4096 is the minimum size, 2^31-1 is the maximum, a good default is 131072 (128KB).</p></li>
+<li><p>amqp-heartbeat: Uncomment the field amqp-heartbeat in cfg_amqp.txt and set its value to an integer &gt; 0 to enable the heartbeat protocol.</p>
+<blockquote>
+<div><p>This integer is the number of seconds between heartbeat frames requested of the broker. After 2 missed frames, rabbitmq will consider the connection unreachable. A value of 0 disables the heartbeat protocol.</p>
+</div></blockquote>
+</li>
+<li><p>share-connection: Uncomment the field share-connection in cfg_amqp.txt and set its value to 1 if you need to generate a connection signature.</p>
+<blockquote>
+<div><p>This signature is a unique string which is generated by parsing all the amqp connection related params used for making a connection. Uncommenting this field signifies that the connection created can be shared with other components within the same process.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h3>Using the Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id4" title="Link to this heading">#</a></h3>
+<p>To use the AMQP protocol client adapter in a DeepStream application, set the Gst-nvmsgbroker plugin’s proto-lib property to the pathname of the adapter’s shared library, <code class="docutils literal notranslate"><span class="pre">libnvds_amqp_proto.so</span></code>.:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">proto</span><span class="o">-</span><span class="n">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">libnvds_amqp_proto</span><span class="p">.</span><span class="n">so</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can specify the AMQP connection details in the AMQP adapter specific configuration file (e.g., <code class="docutils literal notranslate"><span class="pre">cfg_amqp.txt</span></code>) as described above. This is the recommended method. The path to the AMQP configuration file is specified by the Gst property config:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">cfg_amqp</span><span class="p">.</span><span class="n">txt</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the AMQP protocol’s hostname, port number, and username in the Gst plugin’s <code class="docutils literal notranslate"><span class="pre">conn-str</span></code> property, and specify the password in the configuration file. In the Gst properties:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">-</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hostname</span><span class="p">;</span><span class="mi">5672</span><span class="p">;</span><span class="n">username</span>
+<span class="n">config</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">pathname</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">AMQP</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>In the AMPQ configuration file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can set the Gst-nvmsgbroker plugin’s topic property to specify the message topic.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">&lt;</span><span class="n">topicname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify a topic in the AMQP configuration file (cfg_amqp.txt). In the Gst properties, set:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">cfg_amqp</span><span class="p">.</span><span class="n">txt</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>In the AMQP configuration file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">Topic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">topicname</span>
+</pre></div>
+</div>
+<p>NOTE: Option to pass in username and password through config file and connection string is to be deprecated. Follow the below
+steps to set user credentials in environmental variables instead. Only acceptable connection string format after deprecation will be “url;port”.</p>
+</section>
+<section id="user-authentication">
+<h3>User authentication<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#user-authentication" title="Link to this heading">#</a></h3>
+<p>To set username and password, export the following environmental variables:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="n">USER_AMQP</span><span class="o">=</span><span class="n">username</span>
+<span class="k">export</span><span class="w"> </span><span class="n">PASSWORD_AMQP</span><span class="o">=</span><span class="n">password</span>
+</pre></div>
+</div>
+<p>If username and password are also set in the config, the adaptor will set according to the environmental variables and not the config.</p>
+</section>
+<section id="id5">
+<h3>Programmatic Integration<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id5" title="Link to this heading">#</a></h3>
+<p>Once you have configured the connection, you can integrate the AMQP protocol adapter into your application by using the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface to call its functions. Note the following points about the functions defined by the interface:</p>
+<ul class="simple">
+<li><p>The connection string passed to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code> has the format`` Hostname;&lt;port&gt;;username``.</p></li>
+<li><p>For both “send” functions, the topic name is specified either by the Gst-nvmsgbroker plugin’s topic property or by the topic parameter in the AMQP configuration file.</p></li>
+<li><p>The application must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> after each call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code>. The frequency of calls to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> determines the rate at which messages waiting to be sent are processed.</p></li>
+</ul>
+<p>The AMQP protocol adapter expects the client to manage usage and retirement of the connection handle. The client must ensure that once a handle is disconnected, it is not used for either a “send” call or a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. While the library attempts to ensure graceful failure, if the application calls these functions with retired handles, it does not do so in a thread-safe manner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As stated at <a class="github reference external" href="https://github.com/alanxz/rabbitmq-c#threading">alanxz/rabbitmq-c</a>, you cannot share a socket, an <code class="docutils literal notranslate"><span class="pre">amqp_connection_state_t</span></code>, or a channel between threads using the <code class="docutils literal notranslate"><span class="pre">librabbitmq</span></code> library. This library is designed for use by event-driven, single-threaded applications, and does not yet meet the requirements of threaded applications.
+To deal with this limitation, your application must open an AMQP connection (and an associated socket) per thread. If it needs to access a single AMQP connection or any of its channels from more than one thread, you must implement an appropriate locking mechanism.
+It is generally simpler to have a connection dedicated to each thread.</p>
+</div>
+</section>
+<section id="id6">
+<h3>Monitor Adapter Execution<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id6" title="Link to this heading">#</a></h3>
+<p>The AMQP protocol adapter uses the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework to generate log messages which can help you monitor execution. The adapter generates separate logs for the INFO, DEBUG, and ERROR severity levels, as described in <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code>: Logging Framework. You can limit the log messages being generated by setting the level at which log messages are filtered in the logging setup script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the severity level is set to DEBUG, <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> logs the entire contents of each message sent by the AMQP protocol adapter.</p>
+</div>
+</section>
+</section>
+<section id="redis-protocol-adapter">
+<h2>REDIS Protocol Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#redis-protocol-adapter" title="Link to this heading">#</a></h2>
+<p>DeepStream includes a REDIS protocol adapter that DeepStream applications can use out of the box to publish messages using REDIS streams <a class="reference external" href="https://redis.io/topics/streams-intro">https://redis.io/topics/streams-intro</a>
+The REDIS protocol adapter shared library is in the deepstream package at: <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib/libnvds_redis_proto.so</span></code></p>
+<section id="id7">
+<h3>Installing Dependencies<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id7" title="Link to this heading">#</a></h3>
+<p>REDIS protocol adapter for DeepStream uses the <code class="docutils literal notranslate"><span class="pre">libhiredis.so</span></code> library, built from <code class="docutils literal notranslate"><span class="pre">Hiredis</span> <span class="pre">v1.0.2</span></code>.</p>
+<p>Build dependencies with installation instructions:</p>
+<ul>
+<li><p>libhiredis:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/redis/hiredis.git</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">hiredis</span>
+<span class="n">git</span><span class="w"> </span><span class="n">checkout</span><span class="w"> </span><span class="n">tags</span><span class="o">/</span><span class="n">v1</span><span class="mf">.2.0</span>
+<span class="n">make</span><span class="w"> </span><span class="n">USE_SSL</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="n">libhiredis</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ln</span><span class="w"> </span><span class="o">-</span><span class="n">sf</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libhiredis</span><span class="p">.</span><span class="n">so</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libhiredis</span><span class="p">.</span><span class="n">so</span><span class="mf">.1.1.0</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+<p>Note that for using TLS/SSL security, make sure to build libhiredis with
+SSL support enabled by using the USE_SSL option as specified in the
+README here: <a class="github reference external" href="https://github.com/redis/hiredis">redis/hiredis</a></p>
+</li>
+<li><p>glib 2.0:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="redis-server">
+<h3>REDIS server<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#redis-server" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Install &amp; setup redis-server on your machine.
+Follow instructions here and download the redis version(6.0.8) : <a class="reference external" href="https://redis.io/download">https://redis.io/download</a></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span><span class="w"> </span><span class="n">http</span><span class="o">:</span><span class="c1">//download.redis.io/releases/redis-6.0.8.tar.gz</span>
+<span class="n">tar</span><span class="w"> </span><span class="n">xzf</span><span class="w"> </span><span class="n">redis</span><span class="mf">-6.0.8</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">redis</span><span class="mf">-6.0.8</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the server</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">redis</span><span class="o">-</span><span class="n">server</span><span class="w"> </span><span class="o">&amp;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3>Configure Adapter Settings<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id8" title="Link to this heading">#</a></h3>
+<p>You can place REDIS protocol adapter specific information in a custom configuration file, for example, <code class="docutils literal notranslate"><span class="pre">cfg_redis.txt</span></code>.
+Here is an example of configuration file entries for a redis server installed on the local machine:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">hostname</span><span class="o">=</span><span class="n">localhost</span>
+<span class="n">port</span><span class="o">=</span><span class="mi">6379</span>
+<span class="n">password</span><span class="o">=</span><span class="n">password</span>
+<span class="n">payloadkey</span><span class="o">=</span><span class="n">metadata</span>
+<span class="n">consumergroup</span><span class="o">=</span><span class="n">mygroup</span>
+<span class="n">consumername</span><span class="o">=</span><span class="n">myname</span>
+<span class="n">streamsize</span><span class="o">=</span><span class="mi">10000</span>
+</pre></div>
+</div>
+<p>The properties in the configuration file are:</p>
+<ul class="simple">
+<li><p>hostname: Hostname of the host on which the REDIS server is installed</p></li>
+<li><p>port: Port used to communicate with the REDIS server</p></li>
+<li><p>password: password for connection to the server. Use if requirepass is enabled in the
+redis server config file: <a class="reference external" href="https://redis.io/docs/latest/operate/oss_and_stack/management/security/">https://redis.io/docs/latest/operate/oss_and_stack/management/security/</a>
+(CONFIG TO BE DEPRECATED: password should be set in an environmental variable instead)</p></li>
+<li><p>payloadkey: Specify the redis stream key for the payload (More info on streams key: <a class="reference external" href="https://redis.io/topics/streams-intro">https://redis.io/topics/streams-intro</a>)</p></li>
+<li><p>consumergroup: Specify redis streams consumer groupname (More info on redis streams consumer groups : <a class="reference external" href="https://redis.io/commands/xgroup">https://redis.io/commands/xgroup</a>)</p></li>
+<li><p>consumername: Specify redis streams consumer name</p></li>
+<li><p>streamsize: Specify the max stream size for the redis stream where data is being published</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>User Authentication<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id9" title="Link to this heading">#</a></h3>
+<p>Enable requirepass in the redis server config file to set password in the broker
+(see <a class="reference external" href="https://redis.io/docs/latest/operate/oss_and_stack/management/security/">https://redis.io/docs/latest/operate/oss_and_stack/management/security/</a>).</p>
+<p>Set the password in the adaptor by setting the following environmental variable:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="n">PASSWORD_REDIS</span><span class="o">=</span><span class="n">password</span>
+</pre></div>
+</div>
+<p>If the password is also set in the config, the adaptor will set according to the environmental variable and not the config.</p>
+</section>
+<section id="id10">
+<h3>Using the Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id10" title="Link to this heading">#</a></h3>
+<p>To use the REDIS protocol client adapter in a DeepStream application, set the Gst-nvmsgbroker plugin’s proto-lib property to the pathname of the adapter’s shared library, <code class="docutils literal notranslate"><span class="pre">libnvds_redis_proto.so</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">proto</span><span class="o">-</span><span class="n">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">libnvds_redis_proto</span><span class="p">.</span><span class="n">so</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can specify the REDIS connection details in the REDIS adapter specific configuration file (e.g., <code class="docutils literal notranslate"><span class="pre">cfg_redis.txt</span></code>) as described above. This is the recommended method. The path to the REDIS configuration file is specified by the Gst property config:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">cfg_redis</span><span class="p">.</span><span class="n">txt</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the REDIS protocol’s hostname, port number in the Gst plugin’s <code class="docutils literal notranslate"><span class="pre">conn-str</span></code> property, and specify the password in the configuration file. In the Gst properties:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">-</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hostname</span><span class="p">;</span><span class="mi">6379</span>
+<span class="n">config</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">pathname</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">REDIS</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can set the Gst-nvmsgbroker plugin’s topic property to specify the message topic.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">&lt;</span><span class="n">redis</span><span class="w"> </span><span class="n">streamname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>Programmatic Integration<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id11" title="Link to this heading">#</a></h3>
+<p>Once you have configured the connection, you can integrate the REDIS protocol adapter into your application by using the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface to call its functions. Note the following points about the functions defined by the interface:</p>
+<ul class="simple">
+<li><p>The connection string passed to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code> has the format`` Hostname;&lt;port&gt;``.</p></li>
+<li><p>For both “send” functions, the topic name is specified either by the Gst-nvmsgbroker plugin’s topic property.</p></li>
+<li><p>The application must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> after each call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code>. The frequency of calls to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> determines the rate at which messages waiting to be sent are processed.</p></li>
+</ul>
+<p>The REDIS protocol adapter expects the client to manage usage and retirement of the connection handle. The client must ensure that once a handle is disconnected, it is not used for either a “send” call or a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. While the library attempts to ensure graceful failure, if the application calls these functions with retired handles, it does not do so in a thread-safe manner.</p>
+</section>
+<section id="id12">
+<h3>Monitor Adapter Execution<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id12" title="Link to this heading">#</a></h3>
+<p>The REDIS protocol adapter uses the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework to generate log messages which can help you monitor execution. The adapter generates separate logs for the INFO, DEBUG, and ERROR severity levels, as described in <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code>: Logging Framework. You can limit the log messages being generated by setting the level at which log messages are filtered in the logging setup script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the severity level is set to DEBUG, <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> logs the entire contents of each message sent by the REDIS protocol adapter.</p>
+</div>
+</section>
+</section>
+<section id="mqtt-protocol-adapter">
+<h2>MQTT Protocol Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#mqtt-protocol-adapter" title="Link to this heading">#</a></h2>
+<p>DeepStream 6.4 includes the release of an MQTT protocol adapter that DeepStream applications can use out of the box to publish messages using the MQTT V5.0 protocol.
+The MQTT protocol adapter shared library is in the deepstream package at:
+<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib/libnvds_mqtt_proto.so</span></code></p>
+<section id="id13">
+<h3>Installing Dependencies<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id13" title="Link to this heading">#</a></h3>
+<p>MQTT protocol adapter for DeepStream uses the <code class="docutils literal notranslate"><span class="pre">libmosquitto.so</span></code> library, built from <code class="docutils literal notranslate"><span class="pre">mosquitto</span> <span class="pre">2.0.15</span></code>.</p>
+<ul>
+<li><p>glib 2.0:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="w"> </span><span class="n">libglib2</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>ssl:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libssl</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>cjson:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libcjson</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</li>
+<li><p>mosquitto 2.0.15:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//mosquitto.org/files/source/mosquitto-2.0.15.tar.gz</span>
+<span class="n">tar</span><span class="w"> </span><span class="o">-</span><span class="n">xvf</span><span class="w"> </span><span class="n">mosquitto</span><span class="mf">-2.0.15</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">mosquitto</span><span class="mf">-2.0.15</span>
+<span class="n">make</span>
+<span class="n">make</span><span class="w"> </span><span class="n">install</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libmosquitto</span><span class="o">*</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">ldconfig</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="eclipse-mosquitto">
+<h3>Eclipse Mosquitto<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#eclipse-mosquitto" title="Link to this heading">#</a></h3>
+<p>Eclipse mosquitto is a lightweight and open source message broker implementing the MQTT protocol. Read more about it here: <a class="reference external" href="https://mosquitto.org/">https://mosquitto.org/</a>. The broker, the mosquitto_pub and mosquitto_sub command line clients, and the C library
+on which the protocol adapter depends, are all installed via the instructions in the last section.</p>
+<p>Run the mosquitto broker:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">adduser</span><span class="w"> </span><span class="o">--</span><span class="n">system</span><span class="w"> </span><span class="n">mosquitto</span>
+<span class="n">mosquitto</span>
+</pre></div>
+</div>
+<p>To run with specific mosquitto broker config file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">mosquitto</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path_to_config_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">mosquitto</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">mosquitto</span><span class="o">/</span><span class="n">mosquitto</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>Enable authentication:</p>
+<ol class="arabic">
+<li><p>Create a simple text file and enter the username and password pairs, one for each line such as below:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">user1</span><span class="p">:</span><span class="n">password1</span>
+<span class="nl">user2</span><span class="p">:</span><span class="n">password2</span>
+</pre></div>
+</div>
+</li>
+<li><p>Encrypt the password file using the following command: ::
+mosquitto_passwd -U &lt;path_to_password_file&gt;</p></li>
+<li><p>Change the following configurations at /etc/mosquitto/mosquitto.conf (or write a new config file):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">allow_anonymous</span><span class="w"> </span><span class="nb">false</span>
+<span class="n">password_file</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path_to_password_file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the mosquitto broker using the updated config file</p></li>
+</ol>
+<p>To set user and password in the protocol adaptor:</p>
+<p>Export the following environmental variables:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="n">USER_MQTT</span><span class="o">=</span><span class="n">username</span>
+<span class="k">export</span><span class="w"> </span><span class="n">PASSWORD_MQTT</span><span class="o">=</span><span class="n">password</span>
+</pre></div>
+</div>
+<p>If username and password are also set in the config, the adaptor will set according to the environmental variables and not the config.</p>
+<p>Enable TLS encryption:</p>
+<p>mosquitto provides TLS support for encrypted network connections and authentication. The broker can be configured
+to accept CA certificates, the broker server certificate, and broker server key, and to require certification from
+clients attempting to connect. The CA certificates, client server certificate, and client server key can be passed to
+the mqtt protocol adapter through the adapter config file.</p>
+<ol class="arabic">
+<li><p>Change the following configurations at /etc/mosquitto/mosquitto.conf (or write a new config file):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp"># At least one of cafile or capath must be defined</span>
+<span class="cp"># cafile is a file ending in &quot;.crt&quot; containing PEM encoded CA certificates</span>
+<span class="n">cafile</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="n">crt</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+<span class="cp"># capath is a directory contaning PEM encoded CA certificate files ending in &quot;.pem&quot;.</span>
+<span class="cp"># For capath to work correctly, the certificates files must have &quot;.pem&quot; as the file ending</span>
+<span class="cp"># and you must run &quot;openssl rehash &lt;path to capath&gt;&quot; each time you add/remove a certificate.</span>
+<span class="n">capath</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="n">containing</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="n">certificates</span><span class="o">&gt;</span>
+
+<span class="cp"># Path to the PEM encoded server certificate for the broker.</span>
+<span class="n">certfile</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">broker</span><span class="w"> </span><span class="n">crt</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+
+<span class="cp"># Path to the PEM encoded keyfile for the broker.</span>
+<span class="n">keyfile</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">broker</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+
+<span class="cp"># By setting require_certificate to true,</span>
+<span class="cp"># the client must provide a valid certificate in order for the network</span>
+<span class="cp"># connection to proceed. This allows access to the broker to be controlled</span>
+<span class="cp"># outside of the mechanisms provided by MQTT.</span>
+<span class="n">require_certificate</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the broker using the updated config file</p></li>
+<li><p>Test the broker configuration using mosquitto_pub:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">mosquitto_pub</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="mi">1883</span><span class="w"> </span><span class="o">--</span><span class="n">cafile</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="n">crt</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="n">cert</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">crt</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="n">key</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="o">/</span><span class="n">world</span>
+<span class="k">or</span>
+<span class="n">$</span><span class="w"> </span><span class="n">mosquitto_pub</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="mi">1883</span><span class="w"> </span><span class="o">--</span><span class="n">capath</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="n">containing</span><span class="w"> </span><span class="n">CA</span><span class="w"> </span><span class="n">certificates</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="n">cert</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">crt</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="n">key</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="o">/</span><span class="n">world</span>
+</pre></div>
+</div>
+</li>
+<li><p>Update the mqtt protocol adapter config with the cafile/capath. If require_certificate is set to true in the broker config, the client certfile, and client keyfile must also be provided.</p></li>
+</ol>
+</section>
+<section id="id14">
+<h3>Configure Adapter Settings<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id14" title="Link to this heading">#</a></h3>
+<p>You can place MQTT protocol adapter specific information in a custom configuration file named, for example, <code class="docutils literal notranslate"><span class="pre">cfg_mqtt.txt</span></code>. Here is an example of configuration file entries for an MQTT broker installed on the local machine:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span>
+<span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">password</span>
+<span class="n">client</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uniqueID</span>
+<span class="cp">#enable-tls = 1</span>
+<span class="cp">#tls-cafile =</span>
+<span class="cp">#tls-capath =</span>
+<span class="cp">#tls-certfile =</span>
+<span class="cp">#tls-keyfile =</span>
+<span class="cp">#share-connection = 1</span>
+<span class="cp">#loop-timeout = 2000</span>
+<span class="cp">#keep-alive = 60</span>
+</pre></div>
+</div>
+<p>The properties in the configuration file are:</p>
+<ul>
+<li><p>username - the username to be set to authenticate with the mosquitto broker, if enabled – TO BE DEPRECATED, USE ENV VARIABLE</p></li>
+<li><p>password - the password to be set to authenticate with the mosquitto broker, if enabled – TO BE DEPRECATED, USE ENV VARIABLE</p></li>
+<li><p>client-id - string to use as client ID. If empty, a random client ID will be generated. Each client ID must be unique to connect to the same broker</p></li>
+<li><dl class="simple">
+<dt>enable-tls - 0 for no, 1 for yes</dt><dd><p>Enable TLS encryption. If enabled, at least one of tls-cafile and tls-capath must be set.</p>
+</dd>
+</dl>
+</li>
+<li><p>tls-cafile - path to a file containing the PEM encoded trusted CA certificate files. Either cafile or capath must be provided.</p></li>
+<li><dl class="simple">
+<dt>tls-capath - path to a directory containing the PEM encoded trusted CA certificate files. Either cafile or capath must be provided.</dt><dd><p>For capath to work correctly, the certificates files must have “.pem” as the file ending and you must run
+“openssl rehash &lt;path to capath&gt;” each time you add/remove a certificate.</p>
+</dd>
+</dl>
+</li>
+<li><p>tls-certfile - path to a file containing the PEM encoded certificate file for this client. If not provided, no client certificate will be used.</p></li>
+<li><p>tls-keyfile - path to a file containing the PEM encoded private key for this client. If not provided. no client certificate will be used.</p></li>
+<li><p>share-connection - 0 for no, 1 for yes</p>
+<blockquote>
+<div><p>Uncomment the field share-connection in cfg_mqtt.txt and set its value to 1
+if you need to generate a connection signature. This signature is a unique string
+which is generated by parsing all the mqtt connection related params
+used for making a connection
+Uncommenting this field signifies that the connection created can be shared
+with other components within the same process.</p>
+</div></blockquote>
+</li>
+<li><p>loop-timeout - timeout in ms to pass to the <code class="docutils literal notranslate"><span class="pre">mosquitto_loop()</span></code> call, which is called by <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. Default is 2000 ms.</p>
+<blockquote>
+<div><p>This refers to the maximum number of milliseconds to wait for network activity
+before the call times out. Set to 0 for instant return.</p>
+</div></blockquote>
+</li>
+<li><p>keep-alive - number of seconds after which the broker should send a PING message to the client if no other messages have been exchanged in that time.</p></li>
+</ul>
+</section>
+<section id="id15">
+<h3>Using the Adapter<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id15" title="Link to this heading">#</a></h3>
+<p>To use the MQTT protocol client adapter in a DeepStream application, set the Gst-nvmsgbroker plugin’s proto-lib property to the pathname of the adapter’s shared library, <code class="docutils literal notranslate"><span class="pre">libnvds_mqtt_proto.so</span></code>.:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">proto</span><span class="o">-</span><span class="n">lib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">libnvds_mqtt_proto</span><span class="p">.</span><span class="n">so</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can specify the MQTT protocol’s hostname and port number in the Gst plugin’s <code class="docutils literal notranslate"><span class="pre">conn-str</span></code> property, and specify the username and password in the configuration file. In the Gst properties:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">conn</span><span class="o">-</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">localhost</span><span class="p">;</span><span class="mi">1883</span>
+<span class="n">config</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">pathname</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">MQTT</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>In the MQTT configuration file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span>
+<span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">password</span>
+</pre></div>
+</div>
+<p>You can set the Gst-nvmsgbroker plugin’s topic property to specify the message topic.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">topic</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="o">&lt;</span><span class="n">topicname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id16">
+<h3>Programmatic Integration<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id16" title="Link to this heading">#</a></h3>
+<p>Once you have configured the connection, you can integrate the MQTT protocol adapter into your application by using the <code class="docutils literal notranslate"><span class="pre">nvds_msgapi</span></code> interface to call its functions. Note the following points about the functions defined by the interface:</p>
+<ul class="simple">
+<li><p>The connection string passed to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_connect()</span></code> has the format <code class="docutils literal notranslate"><span class="pre">Hostname;&lt;port&gt;</span></code>.</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code>, the topic name is specified by the Gst-nvmsgbroker plugin’s topic property.</p></li>
+<li><p>The application must call <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> after each call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code>. The frequency of calls to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code> determines the rate at which messages waiting to be sent are processed.</p></li>
+</ul>
+<p>The MQTT protocol adapter expects the client to manage usage and retirement of the connection handle. The client must ensure that once a handle is disconnected, it is not used for either a “send” call or a call to <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_do_work()</span></code>. While the library attempts to ensure graceful failure, if the application calls these functions with retired handles, it does not do so in a thread-safe manner.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The synchronous send function <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send()</span></code> is not supported by the MQTT protocol adapter. Only <code class="docutils literal notranslate"><span class="pre">nvds_msgapi_send_async()</span></code> can be called to send messages.</p>
+</div>
+</section>
+<section id="id17">
+<h3>Monitor Adapter Execution<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#id17" title="Link to this heading">#</a></h3>
+<p>The MQTT protocol adapter uses the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> framework to generate log messages which can help you monitor execution. The adapter generates separate logs for the INFO, DEBUG, and ERROR severity levels, as described in <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code>: Logging Framework. You can limit the log messages being generated by setting the level at which log messages are filtered in the logging setup script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the severity level is set to DEBUG, <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> logs the entire contents of each message sent by the MQTT protocol adapter.</p>
+</div>
+</section>
+</section>
+<section id="nv-msgbroker-message-broker-interface">
+<span id="message-broker-wrapper-api"></span><h2>nv_msgbroker: Message Broker interface<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-message-broker-interface" title="Link to this heading">#</a></h2>
+<p>Deepstream 5.0 features a new messagebroker library which can be used to make connections with multiple external brokers. This library acts as a wrapper around the message adapter libraries described in the above section and provides its own API’s
+Gst-msgbroker plugin has an option to directly call in to the adapter library API’s for connecting with external entity or use the nvmsgbroker library interface to have the ability to connect with multiple external entities at a time.
+Additionally, autoreconnect feature is introduced within nvmsgbroker library as of Deepstream 6.0 wherein a periodic reconnection attempt is made to re-establish connection with the external entity. Source code for this library is now available at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/libs/nvmsgbroker</span></code> as of DeepStream 7.1.</p>
+<p>As of Deepstream-6.2, a new configuration <code class="docutils literal notranslate"><span class="pre">work-interval</span></code> is available, which allows the user to set the wait time between execution of adapter logic.</p>
+<img alt="Gst-nvmsgbroker-nv_msgbroker" class="align-center" src="../_images/DS_plugin_gst-nvmsgbroker_nv_msgbroker.png" />
+<p>The Gst-nvmsgbroker plugin can call the Api’s in the nvmsgbroker library as shown in the diagram above. The Api’s support:</p>
+<ul class="simple">
+<li><p>Creating a connection</p></li>
+<li><p>Sending messages by asynchronous means</p></li>
+<li><p>Terminating the connection</p></li>
+<li><p>Fetching the nvmsgbroker library version number</p></li>
+</ul>
+<p>The nvmsgbroker interface is defined in the header file <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/includes/nvmsgbroker.h</span></code>. This header file defines a set of function pointers which provide an interface analogous to an interface in C++.
+The following sections describe the methods defined by the nvmsgbroker interface.</p>
+<section id="nv-msgbroker-connect-create-a-connection">
+<h3>nv_msgbroker_connect(): Create a Connection<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-connect-create-a-connection" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvMsgBrokerClientHandle</span><span class="w">   </span><span class="nf">nv_msgbroker_connect</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">broker_conn_str</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">broker_proto_lib</span><span class="p">,</span><span class="w"> </span><span class="n">nv_msgbroker_connect_cb_t</span><span class="w"> </span><span class="n">connect_cb</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">cfg</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The function accepts a connection string and configures a connection. The broker adapter proto lib implementation can choose whether the function makes a connection to accommodate connectionless protocols such as HTTP.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">broker_conn_str</span></code>:   A connection string with format specific for protocol adapter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">broker_proto_lib</span></code>:  Full Path to Message protocol adapter library</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connect_cb</span></code> :  A pointer to a callback function for events associated with the connection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cfg</span></code>:  Pathname of a configuration file passed to be passed to the protocol adapter</p>
+<p><em>Connect callback</em></p>
+<blockquote>
+<div><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">void</span> <span class="pre">(*nv_msgbroker_connect_cb_t)(NvMsgBrokerClientHandle</span> <span class="pre">h_ptr,</span> <span class="pre">NvMsgBrokerErrorType</span> <span class="pre">status</span> <span class="pre">);</span></code></p>
+</div></blockquote>
+<p>Where the callback’s parameters are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code> : The connection handle to identify the initiating call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: A code that indicates the status of the connection.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Return Value</strong></p>
+<p>A connection handle for use in subsequent interface calls if successful, or NULL otherwise.</p>
+</section>
+<section id="nv-msgbroker-send-async-send-an-event-asynchronously">
+<h3>nv_msgbroker_send_async(): Send an event asynchronously<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-send-async-send-an-event-asynchronously" title="Link to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">NvMsgBrokerErrorType</span><span class="w">  </span><span class="nf">nv_msgbroker_send_async</span><span class="w"> </span><span class="p">(</span><span class="n">NvMsgBrokerClientHandle</span><span class="w"> </span><span class="n">h_ptr</span><span class="p">,</span><span class="w"> </span><span class="n">NvMsgBrokerClientMsg</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">nv_msgbroker_send_cb_t</span><span class="w"> </span><span class="n">cb</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">user_ctx</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The API sends data to the endpoint of a connection. It accepts a message topic and a message payload.
+Send is asynchronous; it accepts a callback function that is called when the “send” operation is completed.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>:   connection handle to Message Broker library</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code>:   Message packet which has details of message payload, payload length , topic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cb</span></code>:   callback to be invoked to notify status of send</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ctx</span></code>:  pointer to pass to callback for context</p>
+<blockquote>
+<div><p><em>Message Packet structure</em></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">topic</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">payload</span><span class="p">;</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">payload_len</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">NvMsgBrokerClientMsg</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><em>Send callback</em></p>
+<blockquote>
+<div><blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">void</span> <span class="pre">(*nv_msgbroker_send_cb_t)(void</span> <span class="pre">*user_ptr,</span>&#160; <span class="pre">NvMsgBrokerErrorType</span> <span class="pre">flag);</span></code></p>
+</div></blockquote>
+<p>Where the callback’s parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ptr</span></code>: The user pointer (user_ptr) from the call to <code class="docutils literal notranslate"><span class="pre">nv_msgbroker_send_async()</span></code> that initiated the “send” operation. Enables the callback function to identify the initiating call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flag</span></code>: A code that indicates the completion status of the send operation.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="nv-msgbroker-subscribe-consume-data-by-subscribing-to-topics">
+<h3>nv_msgbroker_subscribe(): Consume data by subscribing to topics<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-subscribe-consume-data-by-subscribing-to-topics" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">NvMsgBrokerErrorType</span> <span class="pre">nv_msgbroker_subscribe(NvMsgBrokerClientHandle</span> <span class="pre">h_ptr,</span> <span class="pre">char</span> <span class="pre">**</span> <span class="pre">topics,</span> <span class="pre">int</span> <span class="pre">num_topics,</span>&#160; <span class="pre">nv_msgbroker_subscribe_cb_t</span> <span class="pre">cb,</span> <span class="pre">void</span> <span class="pre">*user_ctx);</span></code></p>
+</div></blockquote>
+<p>This API is used to subscribe to topic(s) and consume messages from the external entity.
+The API is asynchronous and must be called with an already created valid  connection handle as parameter. The caller must also provide a pointer to the callback function to receive the consumed messages from the connection endpoint and an optional <code class="docutils literal notranslate"><span class="pre">user_ctx</span></code> pointer for specifying user context</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>: A handle for the connection, obtained by a call to <code class="docutils literal notranslate"><span class="pre">nv_msgbroker_connect()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topics</span></code>: A 2d pointer which points to a char array of topic names</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_topics</span></code>: num of topics to subscribe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cb</span></code>: A pointer to a callback function to get notified of the consumed messages on subscribed topic(s)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ctx</span></code>: user ptr to be passed to callback for context</p>
+<p>The pointer to a callback function which is specified as a param in subscribe API is of type nv_msgbroker_subscribe_cb_t defined as:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">typedef</span> <span class="pre">void</span> <span class="pre">(*nv_msgbroker_subscribe_cb_t)(NvMsgBrokerErrorType</span> <span class="pre">flag,</span> <span class="pre">void</span> <span class="pre">*msg,</span> <span class="pre">int</span> <span class="pre">msglen,</span> <span class="pre">char</span> <span class="pre">*topic,</span> <span class="pre">void</span> <span class="pre">*user_ptr);</span></code></p>
+</div></blockquote>
+<p>Where the callback’s parameters are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flag</span></code>: To specify the error status of message consumed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">msg</span></code>: Consumed message / payload</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">msg_len</span></code>: Length of message in bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic</span></code>: Topic name where the message was received</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_ptr</span></code>: pointer passed during subscribe() for context</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="nv-msgbroker-disconnect-terminate-a-connection">
+<h3>nv_msgbroker_disconnect(): Terminate a Connection<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-disconnect-terminate-a-connection" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">NvMsgBrokerErrorType</span> <span class="pre">nv_msgbroker_disconnect(NvMsgBrokerClientHandle</span> <span class="pre">h_ptr);</span></code></p>
+</div></blockquote>
+<p>The function terminates the connection, if the underlying protocol requires it, and frees resources associated with <code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>.</p>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">h_ptr</span></code>: A handle for the connection, obtained by a call to <code class="docutils literal notranslate"><span class="pre">nv_msgbroker_connect()</span></code></p></li>
+</ul>
+</section>
+<section id="nv-msgbroker-version-get-version-number">
+<h3>nv_msgbroker_version(): Get Version Number<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-version-get-version-number" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">char</span> <span class="pre">*nv_msgbroker_version();</span></code></p>
+</div></blockquote>
+<p>This function returns a string that identifies the <code class="docutils literal notranslate"><span class="pre">nv_msgbroker</span></code> version supported by this protocol adapter implementation. The string must use the format <code class="docutils literal notranslate"><span class="pre">&lt;major&gt;.&lt;minor&gt;</span></code>, where &lt;major&gt; is a major version number and &lt;minor&gt; is a minor version number. A change in the major version number indicates an API change that may cause incompatibility. When the major version number changes, the minor version number is reset to 1.</p>
+</section>
+<section id="autoreconnect-feature">
+<h3>Autoreconnect feature<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#autoreconnect-feature" title="Link to this heading">#</a></h3>
+<p>nvmsgbroker library features autoreconnect capability wherein after network connection with the endpoint is down, a periodic reconnect attempt is made with the external entity. configurations applicable for nvmsgbroker library to avail this feature are listed in cfg_nvmsgbroker.txt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(0):disable
+(1):enable
+auto-reconnect=1
+
+#connection retry interval in seconds
+retry-interval=&lt;value&gt;
+
+#connection max retry limit in seconds
+max-retry-limit=&lt;value&gt;
+
+#interval at which to perform work, in microseconds
+work-interval=10000
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The autoreconnect feature is not currently supported for use with the MQTT protocol adapter.</p>
+</div>
+</section>
+<section id="work-interval-configuration">
+<h3>Work-interval configuration<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#work-interval-configuration" title="Link to this heading">#</a></h3>
+<p>The user can now set the interval in microseconds at which protocol adapter work is performed by changing the <code class="docutils literal notranslate"><span class="pre">work-interval</span></code> configuration in cfg_nvmsgbroker.txt. The default is 10000 microseconds, aka 10 ms.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="cp">#interval at which to perform work, in microseconds</span>
+<span class="n">work</span><span class="o">-</span><span class="n">interval</span><span class="o">=</span><span class="mi">10000</span>
+</pre></div>
+</div>
+</section>
+<section id="nvds-logger-logging-framework">
+<h3>nvds_logger: Logging Framework<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#nvds-logger-logging-framework" title="Link to this heading">#</a></h3>
+<p>DeepStream provides a logging framework named <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code>. The Kafka protocol adapter uses this framework to generate a run time log. <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> is based on syslog, and offers many related features, including:</p>
+<ul class="simple">
+<li><p>Choice of priorities (log levels)</p></li>
+<li><p>Log filtering and redirection</p></li>
+<li><p>Shared logging across different DeepStream instances running concurrently</p></li>
+<li><p>Log retirement and management using <code class="docutils literal notranslate"><span class="pre">logrotate</span></code></p></li>
+<li><p>Cross-platform support</p></li>
+</ul>
+<section id="enabling-logging">
+<h4>Enabling Logging<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#enabling-logging" title="Link to this heading">#</a></h4>
+<p>To enable logging, run the <code class="docutils literal notranslate"><span class="pre">setup_nvds_logger.sh</span></code> script. Note that this script must be run with sudo. You may have to modify the permissions associated with this script to make it executable.
+The script accepts an optional parameter specifying the pathname of log file to be written. By default, the pathname is <code class="docutils literal notranslate"><span class="pre">/tmp/nvds/ds.log</span></code>.
+Once logging is enabled, you can access the generated log messages by reading the log file.
+By default, you must have sudo permissions to read the log file. Standard techniques for syslog-based logging configuration can eliminate this requirement.</p>
+</section>
+<section id="filtering-logs">
+<h4>Filtering Logs<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#filtering-logs" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> allows logs to be associate with a severity level similar to that which syslog offers. You can filter log messages based on severity level by modifying the setup script. By default, the script enables logging for messages at the INFO level (level 6) and above. You can modify this as outlined in the comments in the script:
+# Modify log severity level as required and rerun this script</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#              0       Emergency: system is unusable</span>
+<span class="cp">#              1       Alert: action must be taken immediately</span>
+<span class="cp">#              2       Critical: critical conditions</span>
+<span class="cp">#              3       Error: error conditions</span>
+<span class="cp">#              4       Warning: warning conditions</span>
+<span class="cp">#              5       Notice: normal but significant condition</span>
+<span class="cp">#              6       Informational: informational messages</span>
+<span class="cp">#              7       Debug: debug-level messages</span>
+<span class="cp"># refer https:</span><span class="c1">//tools.ietf.org/html/rfc5424.html for more information</span>
+
+<span class="n">echo</span><span class="w"> </span><span class="s">&quot;if (\$msg contains &#39;DSLOG&#39;) and (\$syslogseverity &lt;= 6) then $nvdslogfilepath&quot;</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">11</span><span class="o">-</span><span class="n">nvds</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+</section>
+<section id="retiring-and-managing-logs">
+<h4>Retiring and Managing Logs<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#retiring-and-managing-logs" title="Link to this heading">#</a></h4>
+<p>It is recommended that you limit the size of log files by retiring them periodically. <code class="docutils literal notranslate"><span class="pre">logrotate</span></code> is a popular utility for this purpose. You can use it in cron jobs so that the log files are automatically archived periodically and are discarded after a desired interval.</p>
+</section>
+<section id="generating-logs">
+<h4>Generating Logs<a class="headerlink" href="DS_plugin_gst-nvmsgbroker.html#generating-logs" title="Link to this heading">#</a></h4>
+<p>You can implement modules that use the logger by including <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/includes/nvds_logger.h</span></code> in the source code and linking to the libnvds_logger.so library.
+Generating logs programmatically involves three steps:</p>
+<ol class="arabic simple">
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">nvds_log_open()</span></code> before you write any log messages.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">nvds_log()</span></code> to write log messages.</p></li>
+<li><p>Call <code class="docutils literal notranslate"><span class="pre">nvds_log_close()</span></code> upon completion to flush and close the logs.</p></li>
+</ol>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">nvds_logger</span></code> is a process-based logging mechanism, so the recommended procedure is to call <code class="docutils literal notranslate"><span class="pre">nvds_log_open()</span></code> from the main application routine rather than the individual plugins. Similarly, call <code class="docutils literal notranslate"><span class="pre">nvds_log_close()</span></code> from the main application when it shuts down the application before exit.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_plugin_gst-nvmsgconv.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Gst-nvmsgconv</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_plugin_gst-nvdsanalytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gst-nvdsanalytics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#gst-properties">Gst Properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-protocol-adapter-interface">nvds_msgapi: Protocol Adapter Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connect-create-a-connection">nvds_msgapi_connect(): Create a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-send-and-nvds-msgapi-send-async-send-an-event">nvds_msgapi_send() and nvds_msgapi_send_async(): Send an event</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-subscribe-consume-data-by-subscribing-to-topics">nvds_msgapi_subscribe(): Consume data by subscribing to topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-do-work-incremental-execution-of-adapter-logic">nvds_msgapi_do_work(): Incremental Execution of Adapter Logic</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-disconnect-terminate-a-connection">nvds_msgapi_disconnect(): Terminate a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-getversion-get-version-number">nvds_msgapi_getversion(): Get Version Number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-get-protocol-name-get-name-of-the-protocol">nvds_msgapi_get_protocol_name(): Get name of the protocol</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-msgapi-connection-signature-get-connection-signature">nvds_msgapi_connection_signature(): Get Connection signature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-kafka-proto-kafka-protocol-adapter">nvds_kafka_proto: Kafka Protocol Adapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#installing-dependencies">Installing Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#using-the-adapter">Using the Adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#configuring-protocol-settings">Configuring Protocol Settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#programmatic-integration">Programmatic Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#security-for-kafka">Security for Kafka</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#azure-mqtt-protocol-adapter-libraries">Azure MQTT Protocol Adapter Libraries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id1">Installing Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#setting-up-azure-iot">Setting Up Azure IoT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#configuring-adapter-settings">Configuring Adapter Settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id2">Using the Adapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#connection-details-for-the-device-client-adapter">Connection Details for the Device Client Adapter</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#connection-details-for-the-module-client-adapter">Connection Details for the Module Client Adapter</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#monitor-adapter-execution">Monitor Adapter Execution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#azure-device-client-library-log-messages">Azure device client library log messages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#azure-module-client-library-log-messages">Azure Module Client Library Log Messages</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#message-topics-and-routes">Message Topics and Routes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#amqp-protocol-adapter">AMQP Protocol Adapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id3">Installing Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#amqp-broker">AMQP broker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#configure-adapter-settings">Configure Adapter Settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id4">Using the Adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#user-authentication">User authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id5">Programmatic Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id6">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#redis-protocol-adapter">REDIS Protocol Adapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id7">Installing Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#redis-server">REDIS server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id8">Configure Adapter Settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id9">User Authentication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id10">Using the Adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id11">Programmatic Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id12">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#mqtt-protocol-adapter">MQTT Protocol Adapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id13">Installing Dependencies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#eclipse-mosquitto">Eclipse Mosquitto</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id14">Configure Adapter Settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id15">Using the Adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id16">Programmatic Integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#id17">Monitor Adapter Execution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-message-broker-interface">nv_msgbroker: Message Broker interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-connect-create-a-connection">nv_msgbroker_connect(): Create a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-send-async-send-an-event-asynchronously">nv_msgbroker_send_async(): Send an event asynchronously</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-subscribe-consume-data-by-subscribing-to-topics">nv_msgbroker_subscribe(): Consume data by subscribing to topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-disconnect-terminate-a-connection">nv_msgbroker_disconnect(): Terminate a Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nv-msgbroker-version-get-version-number">nv_msgbroker_version(): Get Version Number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#autoreconnect-feature">Autoreconnect feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#work-interval-configuration">Work-interval configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#nvds-logger-logging-framework">nvds_logger: Logging Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#enabling-logging">Enabling Logging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#filtering-logs">Filtering Logs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#retiring-and-managing-logs">Retiring and Managing Logs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvmsgbroker.html#generating-logs">Generating Logs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

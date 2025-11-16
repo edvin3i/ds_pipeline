@@ -1,0 +1,1009 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IoT &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_IoT';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="On the Fly Model Update" href="DS_on_the_fly_model.html" />
+    <link rel="prev" title="Smart Video Record" href="DS_Smart_video.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_IoT.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_IoT.html#">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">IoT</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="iot">
+<h1>IoT<a class="headerlink" href="DS_IoT.html#iot" title="Link to this heading">#</a></h1>
+<section id="secure-edge-to-cloud-messaging">
+<span id="secure-edge-cloud-label"></span><h2>Secure Edge-to-Cloud Messaging<a class="headerlink" href="DS_IoT.html#secure-edge-to-cloud-messaging" title="Link to this heading">#</a></h2>
+<p>Starting with DeepStream 5.0, the Kafka adaptor supports secure communication. Security includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Authentication</strong>: Kafka brokers can restrict clients (producers and consumers) connecting to a cluster based on credentials. DeepStream applications, starting with the 5.0 release, can authenticate themselves to brokers using TLS mutual authentication &amp; SASL/Plain mechanisms to send (and receive) messages to such clusters. This is particularly important for clusters executing outside of company networks, and thereby having data travel over public networks during communication.</p></li>
+<li><p><strong>Encryption</strong>: Encryption ensures that confidentiality is maintained from third parties for messages sent by DeepStream applications to Kafka brokers.</p></li>
+<li><p><strong>Tampering</strong>: The added security support prevents messages between application and broker from being tampered in flight.</p></li>
+<li><p><strong>Authorization</strong>: Limit the operations allowed for a client connecting to the broker. Identity of the client (the DeepStream application in this case) is established during the authentication step.</p></li>
+</ul>
+</div></blockquote>
+<section id="way-tls-authentication">
+<h3>2-way TLS Authentication<a class="headerlink" href="DS_IoT.html#way-tls-authentication" title="Link to this heading">#</a></h3>
+<p>DeepStream (5.0 onwards) supports Kafka security based on the 2-way TLS (Transport Layer Security) Authentication mechanism. TLS is a successor to SSL, but the two terms are still used interchangeably in literature. TLS/SSL is used commonly for secure communication while connecting to servers (e.g. HTTPS) is used for secure communication on the web. 2-way communication ensures that both clients and servers can authenticate each other, while also supporting other aspects of security like encryption, enabling tamper proof communication, and supporting client authorization.</p>
+<section id="overview-of-steps">
+<h4>Overview of Steps<a class="headerlink" href="DS_IoT.html#overview-of-steps" title="Link to this heading">#</a></h4>
+<p>This section provides high level guidance and considerations while enabling 2-way TLS security for Kafka.
+For detailed setup instructions regarding setting up SSL security, please refer to the <cite>Secure_Setup.md</cite> document in the DeepStream 5.0+ SDK in <code class="docutils literal notranslate"><span class="pre">sources/libs/kafka_protocol_adaptor/</span></code> folder.
+Follow the steps below to enable 2-way TLS authentication for DeepStream apps with Kafka:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Setup Kafka broker with TLS authentication enabled</p></li>
+<li><p>Create and deploy certificates for broker and DeepStream application</p></li>
+<li><p>Copy CA certificates to the broker and client Truststores</p></li>
+<li><p>Configure TLS options in Kafka config file (see proto-cfg param above)</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="tls-version">
+<h4>TLS Version<a class="headerlink" href="DS_IoT.html#tls-version" title="Link to this heading">#</a></h4>
+<p>As part of the initial TLS handshake, clients like DeepStream applications and servers agree on the TLS protocol to use. The recommendation is to use <code class="docutils literal notranslate"><span class="pre">TLSv1.2</span></code> or later in production. You can verify which version of TLS your broker supports by connecting to the broker using the OpenSSL utility. The OpenSSL utility can be deployed by installing the openssl package, available for Ubuntu and other Linux distributions. Run the following command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">openssl</span><span class="w"> </span><span class="n">s_client</span><span class="w"> </span><span class="o">-</span><span class="n">connect</span><span class="w"> </span><span class="o">&lt;</span><span class="n">broker</span><span class="w"> </span><span class="n">address</span><span class="o">&gt;:&lt;</span><span class="n">broker</span><span class="w"> </span><span class="n">port</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="n">tls1_2</span>
+</pre></div>
+</div>
+<p>This operation connects to the broker using the <code class="docutils literal notranslate"><span class="pre">openssl_s</span></code> client while using <code class="docutils literal notranslate"><span class="pre">TLSv1.2</span></code>. In case of error, review logs for issues during handshake indicating that <code class="docutils literal notranslate"><span class="pre">TLSv1.2</span></code> is not supported.</p>
+</section>
+<section id="key-generation">
+<h4>Key generation<a class="headerlink" href="DS_IoT.html#key-generation" title="Link to this heading">#</a></h4>
+<p>The security setup document describes use of the keytool utility to generate a key pair. The user has an option of specifying the algorithm used to generate the key pair. RSA is a popular algorithm, offering 2048-bit key option for increased security. Others include DSA and ECDSA with varying speeds in signing and verifying as described here: <a class="reference external" href="https://wiki.mozilla.org/Security/Server_Side_TLS">https://wiki.mozilla.org/Security/Server_Side_TLS</a>.</p>
+</section>
+<section id="certificate-signing">
+<h4>Certificate Signing<a class="headerlink" href="DS_IoT.html#certificate-signing" title="Link to this heading">#</a></h4>
+<p>While the security setup document provides instructions to create a token certificate authority (CA) to sign the client certificate, in production, the user would create certificates signed by third party CAs. These are created using a certificate signing request (CSR). See <a class="reference external" href="https://en.wikipedia.org/wiki/Certificate_signing_request">https://en.wikipedia.org/wiki/Certificate_signing_request</a> for more information.
+Client requesting a certificate creates a key pair, but only includes the public key with other information, notably the “common name”, which is the fully qualified domain name (FQDN) of the machine for which the certificate is being requested. This information is signed by the user using the private key, which must be confidential.</p>
+</section>
+<section id="choice-of-cipher">
+<h4>Choice of Cipher<a class="headerlink" href="DS_IoT.html#choice-of-cipher" title="Link to this heading">#</a></h4>
+<p>As part of TLS configuration option while deploying the DeepStream application, the user can specify the cipher suite to be used. The cipher suite defines a collection of underlying algorithms used through the lifetime of the TLS connection. These algorithms address:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Key exchange (during initial handshake)</p></li>
+<li><p>Digital signature (during initial handshake)</p></li>
+<li><p>Bulk encryption (confidentiality during data communication)</p></li>
+<li><p>Message authentication (tamper prevention during data communication). Numerous ciphers exist that are supported by OpenSSL (and in turn librdkafka and the Kafka adaptor in DeepStream).</p></li>
+</ul>
+</div></blockquote>
+<p>Recommendations for above algorithms as described below:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ECDHE as the key exchange algorithm; it is based on Elliptic Key crypto cryptography while using ephemeral keys, thereby offering forward secrecy.</p></li>
+<li><p>ECDSA or RSA for digital signature</p></li>
+<li><p>AES for bulk encryption. AES offers both 128- and 256-bit key sizes. Tradeoff is between computational overhead and additional protection.</p></li>
+<li><p>It is also suggested to use bulk encryption algorithms that support authenticated encryption, which uses a tag in addition to the ciphertext. Use of tags enables detection of improperly constructed ciphertexts, which could for instance be specially chosen for attack. AES_GCM and AES_CBC are examples of block cipher that support authentication encryption.</p></li>
+</ul>
+</div></blockquote>
+<p>In summary, examples of <code class="docutils literal notranslate"><span class="pre">TLSv1.2</span></code> ciphers that conform to these recommendations include:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</span>
+<span class="n">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</span>
+<span class="n">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</span>
+<span class="n">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</span>
+<span class="n">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</span>
+<span class="n">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</span>
+<span class="n">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384</span>
+<span class="n">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-tls-options-in-kafka-config-file-for-deepstream">
+<h4>Configure TLS options in Kafka config file for DeepStream<a class="headerlink" href="DS_IoT.html#configure-tls-options-in-kafka-config-file-for-deepstream" title="Link to this heading">#</a></h4>
+<p>Configuration options provided by the Kafka message adaptor to the <code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> library needs to be modified for SSL. The DeepStream documentation in the Kafka adaptor section describes various mechanisms to provide these config options, but this section addresses these steps based on using a dedicated config file.
+A list of parameters must be defined within the config file using the <code class="docutils literal notranslate"><span class="pre">proto-cfg</span></code> entry within the message-broker section as shown in the example below.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">broker</span><span class="p">]</span>
+<span class="n">proto</span><span class="o">-</span><span class="n">cfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;security.protocol=ssl;ssl.ca.location=&lt;path to your ca&gt;/ca-client-cert;ssl.certificate.location=&lt;path to your certificate &gt;/client1_cert.pem;ssl.key.location=&lt;path to your private key&gt;/client1_private_key.pem;ssl.key.password=test1234;ssl.key. password=abcdefgh;</span>
+<span class="n">ssl</span><span class="p">.</span><span class="n">cipher</span><span class="p">.</span><span class="n">suites</span><span class="o">=</span><span class="n">ECDHE</span><span class="o">-</span><span class="n">RSA</span><span class="o">-</span><span class="n">AES256</span><span class="o">-</span><span class="n">GCM</span><span class="o">-</span><span class="n">SHA384</span><span class="p">;</span><span class="w"> </span><span class="n">debug</span><span class="o">=</span><span class="n">broker</span><span class="p">,</span><span class="n">security</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+<p>The various options specified in the config file are described below:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">security.protocol.ssl</span></code>: use SSL as the authentication protocol</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl.ca.location</span></code>: path where your client CA certificate is stored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl.certificate.location</span></code>: path where your client certificate is stored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl.key.location</span></code>: path where your protected private key is stored</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl.cipher.suites=ECDHE-RSA-AES256-GCM-SHA384</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl.key.password</span></code>: password for your private key provided while extracting it from the p12 file</p></li>
+</ul>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">ssl.cipher.suites</span></code> option allows the user to pick the cipher to be used for connecting to the broker. Given that the underlying <code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> library uses OpenSSL, the list of supported ciphers can be identified from the OpenSSL documentation: <a class="reference external" href="https://www.openssl.org/docs/man1.0.2/man1/ciphers.html">https://www.openssl.org/docs/man1.0.2/man1/ciphers.html</a>
+<code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> supports several other security related options that can be enabled as part of the Kafka adapter config file. Refer to the <code class="docutils literal notranslate"><span class="pre">librdkafka</span></code> configuration page for a complete list of options:
+<a class="github reference external" href="https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md">edenhill/librdkafka</a></p>
+</section>
+</section>
+<section id="sasl-plain">
+<h3>SASL/Plain<a class="headerlink" href="DS_IoT.html#sasl-plain" title="Link to this heading">#</a></h3>
+<p>DeepStream (5.0 onwards) enables SASL/Plain based authentication mechanism for Kafka. SASL/Plain enables a username/password form of authentication. It is typically used with TLS  to enable end to end encryption, thereby ensuring that both the username password credentials, and subsequent data transfer is confidential, which is especially important when the communication between DeepStream applications and the Kafka broker occurs over public networks.</p>
+<section id="id1">
+<h4>Overview of Steps<a class="headerlink" href="DS_IoT.html#id1" title="Link to this heading">#</a></h4>
+<p>This section provides high level guidance and considerations while enabling SASL/Plain authentication for Kafka.
+For detailed setup instructions regarding setting up SSL security, please refer to the <code class="docutils literal notranslate"><span class="pre">Secure_Setup.md</span></code> document in the DeepStream 5.0+ SDK in <code class="docutils literal notranslate"><span class="pre">sources/libs/kafka_protocol_adaptor/</span></code> folder.
+Follow the steps below to enable SASL/Plain authentication for DeepStream apps with Kafka:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Configure Kafka broker to use SASL/Plain authentication to use SASL authentication along with SSL for encryption</p></li>
+<li><p>Configure desired username and password with the Kafka broker</p></li>
+<li><p>Create and deploy certificates for broker</p></li>
+<li><p>Copy CA certificates to the broker and client TrustStores</p></li>
+<li><p>Configure DeepStream application with username and password within the Kafka config file (see <code class="docutils literal notranslate"><span class="pre">proto-cfg</span></code> parameter above)</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="tls-configuration">
+<h4>TLS Configuration<a class="headerlink" href="DS_IoT.html#tls-configuration" title="Link to this heading">#</a></h4>
+<p>Note that unlike with 2-way TLS authentication, client certificates are not required for SASL/Plain. Instead, only certificates of the broker are required, and used by the DeepStream application to ensure authenticity of the broker. To that end, the various aspects of TLS described in the 2-way TLS section including TLS version to use, generation of keys and choice of cipher are applicable.</p>
+</section>
+<section id="credential-storage">
+<h4>Credential Storage<a class="headerlink" href="DS_IoT.html#credential-storage" title="Link to this heading">#</a></h4>
+<p>Standard guidelines for creating and sharing passwords applies to SASL/Plain credentials. Options to keep Kafka SASL/Plain credentials confidential include using filesystem-based access control. The Kafka configuration file which stores the credentials can be kept encrypted on disk and decrypted on the fly and stored in clear text for a limited period.</p>
+</section>
+<section id="choosing-between-2-way-tls-and-sasl-plain">
+<h4>Choosing Between 2-way TLS and SASL/Plain<a class="headerlink" href="DS_IoT.html#choosing-between-2-way-tls-and-sasl-plain" title="Link to this heading">#</a></h4>
+<p>SASL/Plain offers the familiar username and password authentication metaphor to be used with Kafka. It can also be easier to setup as client-side certificates do not have to be created.
+But 2-way TLS offers several advantages, including enabling CA based list of allowed clients, which means new clients from a same organization using the shared CA can be automatically authenticated without reconfiguring the broker. Unlike passwords, private key used with 2-way TLS authentication can leverage key storage hardware such as HSM and TPM that perform cryptographic operations using the keys without revealing the keys themselves. Certificates can have a limited expiry time, and so credentials by design must be renewed periodically thereby protecting against duplication or theft.</p>
+</section>
+</section>
+<section id="impact-on-performance">
+<h3>Impact on performance<a class="headerlink" href="DS_IoT.html#impact-on-performance" title="Link to this heading">#</a></h3>
+<p>Enabling TLS-based security will incur a computational overhead on the processor in your system. Several aspects influence the overhead, including message size, frame rate and choice of cipher suite. While the key exchange algorithms in the cipher suite incur a one-time overhead during the initial connection establishment, the bulk encryption and message authentication algorithms are run during data transfer, and hence need to be considered for performance. For instance, AES offers two variants, based on 128- and 256-bit keys. While the latter is more secure, it incurs a larger performance overhead. Ensure that your processor supports AES instructions; most modern Xeon processors do, as do Jetson’s processors. See <a class="reference external" href="https://developer.nvidia.com/embedded/develop/hardware">https://developer.nvidia.com/embedded/develop/hardware</a> for more information on Jetson processors.</p>
+</section>
+</section>
+<section id="bidirectional-messaging">
+<span id="bi-directional-label"></span><h2>Bidirectional Messaging<a class="headerlink" href="DS_IoT.html#bidirectional-messaging" title="Link to this heading">#</a></h2>
+<p>DeepStream (5.0 onwards) now supports bi-directional communication to send and receive cloud-to-device messages along with publishing device-to-cloud messages. This is particularly important for various use cases, such as triggering the application to record an important event, changing operating parameters and app configurations, over-the-air (OTA) updates, or requesting system logs and other vital information.
+DeepStream (5.0 onwards) supports several other IoT features that can be used in conjunction with bi-directional messaging. DeepStream now offers an API to do a smart record based on an anomaly or could-to-device message. In addition, DeepStream also supports OTA updates of AI models while the application is running. The figure below shows the bi-directional messaging architecture:</p>
+<blockquote>
+<div><img alt="Bi-Directional Messaging Architecture" class="align-center" src="../_images/DS_Bidirectional_messaging.png" />
+</div></blockquote>
+<p>Message subscribers can be enabled in test5 application by adding the following group in the configuration file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">message</span><span class="o">-</span><span class="n">consumerX</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">proto</span><span class="o">-</span><span class="n">lib</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libnvds_kafka_proto</span><span class="p">.</span><span class="n">so</span>
+<span class="n">conn</span><span class="o">-</span><span class="n">str</span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">connection</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">host</span><span class="p">;</span><span class="n">port</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="p">..</span><span class="o">/</span><span class="n">cfg_kafka</span><span class="p">.</span><span class="n">txt</span>
+<span class="n">subscribe</span><span class="o">-</span><span class="n">topic</span><span class="o">-</span><span class="n">list</span><span class="o">=&lt;</span><span class="n">topic1</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">topic2</span><span class="o">&gt;</span><span class="p">;</span><span class="o">&lt;</span><span class="n">topicN</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Here X should be replaced with integer value e.g., 0,1,2 etc.</p>
+<section id="edge-to-cloud">
+<h3>Edge-to-Cloud<a class="headerlink" href="DS_IoT.html#edge-to-cloud" title="Link to this heading">#</a></h3>
+<p>Device-to-cloud messaging currently happens through the <code class="docutils literal notranslate"><span class="pre">Gst-nvmsgbroker</span></code> (MSGBROKER) plugin. The <code class="docutils literal notranslate"><span class="pre">Gstnvmsgbroker</span></code> plugin by default calls the lower-level adapter library with the appropriate protocol API’s. You can choose between Kafka, AMQP, Azure IoT, Redis or you can even create a custom adapter. DeepStream 5.0 introduces a new low-level <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library to present a unified interface for bi-directional messaging across the various protocols. The <code class="docutils literal notranslate"><span class="pre">Gst-nvmsgbroker</span></code> plugin has the option of interfacing with this new library instead of directly calling the protocol adaptor libraries, as controlled via a configuration option.
+For detailed information on Gst-nvmsgbroker plugin, please refer to the DeepStream Plugins Development Guide.</p>
+</section>
+<section id="cloud-to-edge">
+<h3>Cloud-to-Edge<a class="headerlink" href="DS_IoT.html#cloud-to-edge" title="Link to this heading">#</a></h3>
+<p>DeepStream applications can subscribe to Apache Kafka topics or Redis streams to receive the messages from the cloud. DeepStream 5.0 introduces a new low-level <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library. The Cloud-to-device messaging currently happens through this library. The <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library calls into the lower-level adapter library with the appropriate protocol API’s. You can choose between Kafka, Redis, or you can even create a custom adapter.
+Implementation of the receiving and processing of cloud messages can be found in the following files:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$DEEPSTREAM_DIR</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">apps</span><span class="o">-</span><span class="n">common</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">deepstream_c2d_msg</span><span class="p">.</span><span class="n">c</span>
+<span class="n">$DEEPSTREAM_DIR</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">apps</span><span class="o">-</span><span class="n">common</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">deepstream_c2d_msg_util</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+</div>
+</section>
+<section id="nvmsgbroker-library">
+<h3>NvMsgbroker Library<a class="headerlink" href="DS_IoT.html#nvmsgbroker-library" title="Link to this heading">#</a></h3>
+<p>DeepStream (5.0 onwards) features a new <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library which can be used to make connections with multiple external brokers. This library acts as a wrapper around the message adapter libraries and provides APIs for making and closing connections as well as publishing/subscribing to messages.
+The <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library provides thread safety, enabling any number of components in the DeepStream application to use the same connection handle to publish/subscribe messages.
+<code class="docutils literal notranslate"><span class="pre">Gst-msgbroker</span></code> plugin has an option to directly call in to the adapter library API’s for connecting with external entity or use the <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library interface to have the ability to connect with multiple external entities at a time.</p>
+</section>
+</section>
+<section id="autoreconnect-feature">
+<h2>Autoreconnect feature<a class="headerlink" href="DS_IoT.html#autoreconnect-feature" title="Link to this heading">#</a></h2>
+<p>DeepStream (6.0 onwards) features autoreconnect capability wherein if network connection with the endpoint is down, a periodic reconnect attempt is made with the external entity while the application is still running. This feature is made available within low-level <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library. Configurations applicable for autoreconnect feature introduced within low-level <code class="docutils literal notranslate"><span class="pre">nvmsgbroker</span></code> library are listed in cfg_nvmsgbroker.txt</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$DEEPSTREAM_DIR</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">nvmsgbroker</span><span class="o">/</span><span class="n">cfg_nvmsgbroker</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Smart_video.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Smart Video Record</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_on_the_fly_model.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">On the Fly Model Update</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#secure-edge-to-cloud-messaging">Secure Edge-to-Cloud Messaging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#way-tls-authentication">2-way TLS Authentication</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#overview-of-steps">Overview of Steps</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#tls-version">TLS Version</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#key-generation">Key generation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#certificate-signing">Certificate Signing</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#choice-of-cipher">Choice of Cipher</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#configure-tls-options-in-kafka-config-file-for-deepstream">Configure TLS options in Kafka config file for DeepStream</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#sasl-plain">SASL/Plain</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#id1">Overview of Steps</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#tls-configuration">TLS Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#credential-storage">Credential Storage</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#choosing-between-2-way-tls-and-sasl-plain">Choosing Between 2-way TLS and SASL/Plain</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#impact-on-performance">Impact on performance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#bidirectional-messaging">Bidirectional Messaging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#edge-to-cloud">Edge-to-Cloud</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#cloud-to-edge">Cloud-to-Edge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#nvmsgbroker-library">NvMsgbroker Library</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_IoT.html#autoreconnect-feature">Autoreconnect feature</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

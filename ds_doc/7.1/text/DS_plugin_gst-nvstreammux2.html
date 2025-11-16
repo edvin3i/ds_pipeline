@@ -1,0 +1,1838 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gst-nvstreammux New &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_plugin_gst-nvstreammux2';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gst-nvstreamdemux" href="DS_plugin_gst-nvstreamdemux.html" />
+    <link rel="prev" title="Gst-nvstreammux" href="DS_plugin_gst-nvstreammux.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_plugin_gst-nvstreammux2.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="DS_plugin_gst-nvstreammux2.html#">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="DS_plugin_Intro.html" class="nav-link">GStreamer Plugin Overview</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Gst-nvstreammux New</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="gst-nvstreammux-new">
+<span id="ds-plugin-gst-nvstreammux2"></span><h1>Gst-nvstreammux New<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#gst-nvstreammux-new" title="Link to this heading">#</a></h1>
+<p>The Gst-nvstreammux plugin forms a batch of frames from multiple input sources. When connecting a source to nvstreammux (the muxer), a new pad must be requested from the muxer using <code class="docutils literal notranslate"><span class="pre">gst_element_get_request_pad()</span></code> and the pad template <code class="docutils literal notranslate"><span class="pre">sink_%u</span></code>. For more information, see <code class="docutils literal notranslate"><span class="pre">link_element_to_streammux_sink_pad()</span></code> in the DeepStream app source code. The muxer forms a batched buffer of batch-size frames. (batch-size is specified using the gst object property.) The muxer forwards the frames from that source as a part of the muxer’s output batched buffer. The frames are returned to the source when muxer gets back its output buffer.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The muxer pushes the batch downstream when the batch is filled or the batch formation timeout calculated from the overall and stream specific “fps” control configuration keys in provided streammux config file is reached. The timeout starts running when the first buffer for a new batch is collected. The default overall max and min fps for batch generation are 120 and 5 respectively.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The muxer’s default batching  uses a round-robin algorithm to collect frames from the sources. It tries to collect an average of ( batch-size/num-source ) frames per batch from each source (if all sources are live and their frame rates are all the same). The number varies for each source, though, depending on the sources’ frame rates.
+The muxer attaches an <code class="docutils literal notranslate"><span class="pre">NvDsBatchMeta</span></code> metadata structure to the output batched buffer. This meta contains information about the frames copied into the batch (e.g. source ID of the frame, original resolutions of the input frames, original buffer PTS of the input frames). The source connected to the <code class="docutils literal notranslate"><span class="pre">Sink_N</span></code> pad will have <code class="docutils literal notranslate"><span class="pre">pad_index</span></code> <code class="docutils literal notranslate"><span class="pre">N</span></code> in <code class="docutils literal notranslate"><span class="pre">NvDsBatchMeta</span></code>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The muxer supports addition and deletion of sources at run time. When the muxer receives a buffer from a new source, it sends a <code class="docutils literal notranslate"><span class="pre">GST_NVEVENT_PAD_ADDED</span></code> event. When a muxer sink pad is removed, the muxer sends a <code class="docutils literal notranslate"><span class="pre">GST_NVEVENT_PAD_DELETED</span></code> event. Both events contain the source ID of the source being added or removed (see <code class="docutils literal notranslate"><span class="pre">sources/includes/gst-nvevent.h</span></code>). Downstream elements can reconfigure when they receive these events. Additionally, the muxer also sends a <code class="docutils literal notranslate"><span class="pre">GST_NVEVENT_STREAM_EOS</span></code> to indicate EOS from the source.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>The muxer supports calculation of NTP timestamps for source frames. It supports two modes. In the system timestamp mode, the muxer attaches the current system time as NTP timestamp. In the RTCP timestamp mode, the muxer uses RTCP Sender Report to calculate NTP timestamp of the frame when the frame was generated at source. The NTP timestamp is set in <code class="docutils literal notranslate"><span class="pre">ntp_timestamp</span></code> field of <code class="docutils literal notranslate"><span class="pre">NvDsFrameMeta</span></code>. The mode can be toggled by setting the <code class="docutils literal notranslate"><span class="pre">attach-sys-ts</span></code> property. For more details, refer to <a class="reference internal" href="DS_NTP_Timestamp.html#ds-ntp-timestamp"><span class="std std-ref">NTP Timestamp in DeepStream</span></a>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="Gst-nvstreammux" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The current nvsteammux shall be employed by default. Users will be able to use the new nvstreammux by setting the environment variable <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">USE_NEW_NVSTREAMMUX=yes</span></code>. New nvstreammux is no longer a beta feature.
+In upcoming DeepStream releases, usage of this environment variable and current nvstreammux will be deprecated to load new nvstreammux by default.</p>
+</div>
+<section id="inputs-and-outputs">
+<h2>Inputs and Outputs<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#inputs-and-outputs" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Inputs</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NV12/RGBA buffers from an arbitrary number of sources</p></li>
+<li><p>mono S16LE/F32LE audio buffers from an arbitrary number of sources</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Control Parameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>batch-size</p></li>
+<li><p>config-file-path [config-keys detailed below]</p></li>
+<li><p>num-surfaces-per-frame</p></li>
+<li><p>attach-sys-ts</p></li>
+<li><p>frame-duration</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Output</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NV12/RGBA batched video buffer <code class="docutils literal notranslate"><span class="pre">NvBufSurface</span></code> or batch audio buffer <code class="docutils literal notranslate"><span class="pre">NvBufAudio</span></code></p></li>
+<li><p>GstNvBatchMeta (meta containing information about individual frames in the batched buffer)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#features" title="Link to this heading">#</a></h2>
+<p>The following table summarizes the features of the plugin.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Gst-nvstreammux plugin features</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 40.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Release</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New streammux with numerous config-keys supported in a separate mux config-file.</p></td>
+<td><p>Introducing new streammux</p></td>
+<td><p>DS 5.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Buffer TimeStamp Synchronization support</p></td>
+<td><p>Please check sync-inputs and max-latency property documentation</p></td>
+<td><p>DS 6.0</p></td>
+</tr>
+<tr class="row-even"><td><p>GstMeta and NvDsMeta copy support</p></td>
+<td><p>Supported in both nvstreammux and nvstreamdemux</p></td>
+<td><p>DS 6.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Batching batched buffers from another nvstreammux instance</p></td>
+<td><p>Cascaded nvstreammux usage in a pipeline</p></td>
+<td><p>DS 6.1</p></td>
+</tr>
+<tr class="row-even"><td><p>Runtime config-file change</p></td>
+<td><p>Please check config-file-path property documentation</p></td>
+<td><p>DS 6.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Latency Measurement support for video and audio buffers</p></td>
+<td><p>Supported in both nvstreammux and nvstreamdemux</p></td>
+<td><p>DS 6.1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>New nvstreammux do not scale batched buffers to a single resolution. A batch can have buffers from different streams of different resolutions. So with new mux, a single resolution for the batched buffer is invalid and the muxer’s source-pad-caps is not valid either.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="gst-properties">
+<span id="ds-plugin-gst-nvstreammux2-properties"></span><h2>Gst Properties<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#gst-properties" title="Link to this heading">#</a></h2>
+<p>The following table describes the Gst-nvstreammux plugin’s Gst properties.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Gst-nvstreammux gst-properties</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Range</p></th>
+<th class="head"><p>Example
+Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>batch-size</p></td>
+<td><p>Maximum number of frames in a batch.</p></td>
+<td><p>Integer,
+0 to 4,294,967,295</p></td>
+<td><p>batch-size=30</p></td>
+</tr>
+<tr class="row-odd"><td><p>batched-push-timeout</p></td>
+<td><p>Timeout in microseconds to wait after the first buffer is available to push the batch even if a complete batch is not formed.</p></td>
+<td><p>Signed integer,
+-1 to 2,147,483,647</p></td>
+<td><p>batched-push-timeout= 40000
+40 msec</p></td>
+</tr>
+<tr class="row-even"><td><p>num-surfaces-per-frame</p></td>
+<td><p>Maximum number of surfaces per frame. Note: This needs to be set &gt; 1 for dewarper usecases; for more info, please check documentation for nvdewarper plugin</p></td>
+<td><p>Integer,
+0 to 4,294,967,295</p></td>
+<td><p>num-surfaces-per-frame=1 (Default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>config-file-path</p></td>
+<td><p>Absolute or relative (to DS config-file location) path of configuration file for the Gst-nvstreammux element</p></td>
+<td><p>String</p></td>
+<td><p>config-file-path=config_mux_source30.txt</p></td>
+</tr>
+<tr class="row-even"><td><p>sync-inputs</p></td>
+<td><p>Synchronize Inputs. Boolean property to force timestamp sychronization of
+input frames.</p></td>
+<td><p>Boolean, 0 or 1</p></td>
+<td><p>sync-inputs=0 (Default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-latency</p></td>
+<td><p>The maximum upstream latency in nanoseconds. When sync-inputs=1,
+buffers coming in after max-latency shall be dropped.</p></td>
+<td><p>Integer, 0 to 
+4,294,967,295</p></td>
+<td><p>max-latency=0 (Default)</p></td>
+</tr>
+<tr class="row-even"><td><p>frame-duration</p></td>
+<td><p>Duration of input frames in milliseconds for use in NTP timestamp correction based on frame rate.
+If set to 0, frame duration is inferred automatically from PTS values seen at RTP jitter buffer.
+When there is change in frame duration between the RTP jitter buffer and the nvstreammux,
+this property can be used to indicate the correct frame rate to the nvstreammux,
+for e.g. when there is an audiobuffersplit GstElement before nvstreammux in the pipeline.
+If set to -1 (GST_CLOCK_TIME_NONE), disables frame rate based NTP timestamp correction. (default)</p></td>
+<td><p>Unsigned Integer64, 0 to 18446744073709551615</p></td>
+<td><p>frame-duration=10</p></td>
+</tr>
+<tr class="row-odd"><td><p>drop-pipeline-eos</p></td>
+<td><p>Boolean property to control EOS propagation downstream from nvstreammux when all the sink pads are at EOS. (Experimental)</p></td>
+<td><p>Boolean</p></td>
+<td><p>drop-pipeline-eos=0(default) for dGPU/Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>Differences between default and new streammux with respect to the GStreamer plugin properties are discussed in the table below:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Gst-nvstreammux differences from default nvstreammux</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Default nvstreammux Properties</p></th>
+<th class="head"><p>New nvstreammux Properties</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>batch-size</p></td>
+<td><p>batch-size</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-surfaces-per-frame</p></td>
+<td><p>num-surfaces-per-frame</p></td>
+</tr>
+<tr class="row-even"><td><p>batched-push-timeout</p></td>
+<td><p>batched-push-timeout</p></td>
+</tr>
+<tr class="row-odd"><td><p>width</p></td>
+<td><p>N/A;
+Scaling and color conversion support Deprecated.</p></td>
+</tr>
+<tr class="row-even"><td><p>height</p></td>
+<td><p>N/A;
+Scaling and color conversion support Deprecated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable-padding</p></td>
+<td><p>N/A;
+Scaling and color conversion support Deprecated.</p></td>
+</tr>
+<tr class="row-even"><td><p>gpu-id</p></td>
+<td><p>N/A;
+Accelerated Scaling and color conversion support Deprecated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>live-source</p></td>
+<td><p>Deprecated</p></td>
+</tr>
+<tr class="row-even"><td><p>nvbuf-memory-type</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p>buffer-pool-size</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p>attach-sys-ts</p></td>
+<td><p>attach-sys-ts</p></td>
+</tr>
+<tr class="row-odd"><td><p>N/A</p></td>
+<td><p>config-file-path</p></td>
+</tr>
+<tr class="row-even"><td><p>sync-inputs</p></td>
+<td><p>sync-inputs</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-latency</p></td>
+<td><p>max-latency</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="mux-config-properties">
+<span id="ds-plugin-gst-nvstreammux2-config-file-properties"></span><h2>Mux Config Properties<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties" title="Link to this heading">#</a></h2>
+<p>Details on Streammux config-file groups and keys are summarized the following table.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Gst-nvstreammux config-file properties</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 45.0%" />
+<col style="width: 35.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Group</p></th>
+<th class="head"><p>config-key</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>[property]</p></td>
+<td><p>algorithm-type</p></td>
+<td><p>Defines the batching algorithm; uint</p>
+<p>1 : Round-robbin if all sources have same priority key setting. Otherwise higher priority streams will be batched until no more buffers from them.</p>
+<p>Default: 1</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>batch-size</p></td>
+<td><p>The desired batch size; uint.
+This value will override plugin property and DS config file key “batch-size” for nvstreammux</p>
+<p>If batch-size not specified in the config-file, plugin property batch-size shall override the default.</p>
+<p>Default: 1 (or == number of sources if adaptive-batching=1)</p>
+</td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>overall-max-fps-n</p></td>
+<td><p>Numerator of the desired overall muxer output max frame rate fps_n/fps_d; uint</p>
+<p>Default:120/1
+Note: This value needs to be configured to a value &gt;= overall-min-fps even when max-fps-control=0.</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>overall-max-fps-d</p></td>
+<td><p>Denominator of the desired overall muxer output max frame rate fps_n/fps_d; uint</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>overall-min-fps-n</p></td>
+<td><p>Numerator of the desired overall muxer output min frame rate fps_n/fps_d; uint</p>
+<p>Default: 5/1</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>overall-min-fps-d</p></td>
+<td><p>Denominator of the desired overall muxer output max frame rate fps_n/fps_d; uint</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>max-same-source-frames</p></td>
+<td><p>Max number of any stream’s frames allowed to be muxed per output batch buffer; uint</p>
+<p>The minimum of this value and key (max-num-frames-per-batch) will be used.</p>
+<p>Default: 1</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>adaptive-batching</p></td>
+<td><p>Enable (1) or disable (0) adaptive batching; uint</p>
+<p>Default: 1
+If enabled, batch-size is == number of sources X num-surfaces-per-frame.</p>
+</td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>max-fps-control</p></td>
+<td><p>Enable (1) or disable (0) controlling the maximum frame-rate at which nvstreammux
+pushes out batch buffers based on the overall-max-fps-n/d configuration. Default: 0</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>[source-config-N]</p></td>
+<td><p>max-fps-n</p></td>
+<td><p>Numerator of this source’s max frame rate fps_n/fps_d. Deprecated (shall remove support from next release). Please use overall-max-fps instead; uint</p>
+<p>Default: 60/1</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>max-fps-d</p></td>
+<td><p>Denominator of this source’s max frame rate fps_n/fps_d. Deprecated (shall remove support from next release). Please use overall-max-fps instead. ; uint</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>min-fps-n</p></td>
+<td><p>Numerator of this source’s min frame rate fps_n/fps_d. Deprecated (shall remove support from next release). Please use overall-min-fps instead; uint</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>min-fps-d</p></td>
+<td><p>Denominator of this source’s min frame rate fps_n/fps_d. Deprecated (shall remove support from next release). Please use overall-min-fps instead; uint</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>priority</p></td>
+<td><p>The priority of this stream. Deprecated (shall remove support from next release). Please use algorithm-type instead; uint</p>
+<p>Default: 0 (highest priority)
+A higher value is a lower priority.</p>
+</td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>max-num-frames-per-batch</p></td>
+<td><p>Max number of this stream’s frames allowed to be muxed per output batch buffer; uint</p>
+<p>The minimum of this value and key (max-same-source-frames) will be used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="nvstreammux-tuning-solutions-for-specific-use-cases">
+<h2>NvStreamMux Tuning Solutions for specific use cases<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-tuning-solutions-for-specific-use-cases" title="Link to this heading">#</a></h2>
+<section id="aim">
+<h3>Aim<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#aim" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>nvstreammux provide many knobs to tune the way batching algorithm works. This is essential to support a wide range of applications/use-cases the muxer supports. More documentation is available at <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties">Mux Config Properties</a> .</p></li>
+<li><p>Tuning nvstreammux for specific use cases that we work with customers are good learning exercises.</p></li>
+<li><p>Details discussed here include observations, the configs, pipeline changes, etc that worked well for specific use-cases.</p></li>
+<li><p>Users/Contributors - Please feel free to create a <a class="reference external" href="https://forums.developer.nvidia.com/c/accelerated-computing/intelligent-video-analytics/deepstream-sdk/15">New forum Topic with the contribution here</a>.</p></li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="important-tuning-parameters">
+<h3>Important Tuning parameters<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#important-tuning-parameters" title="Link to this heading">#</a></h3>
+<p>To ensure smooth streaming experience, configure/tune the below parameters properly.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Gst-nvstreammux Tuning parameters</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tuning Use-Case or Mux Config Property used</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvstreammux/sync-inputs</p></td>
+<td><p>sync-inputs=1 ensure nvstreammux to queue early buffers. This could be useful in the audio muxer which could be faster than video muxer when reading from files as audio frames are lighter than video frames.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvstreammux/config-file-path</p></td>
+<td><p>min-overall-fps and max-overall-fps need to be properly set.</p>
+<ol class="loweralpha simple">
+<li><p>The min-overall-fps shall be set to the highest framerate of all sources.</p></li>
+</ol>
+<p>b) max-overall-fps shall be &gt;= min-overall-fps
+Check <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties">Mux Config Properties</a> for more information.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>nvstreammux/max-latency</p></td>
+<td><p>Please set/tune the latency parameter to a value &gt; than 1/fps of the slowest stream. Applicable only when sync-inputs=1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inputs with different frame rates</p></td>
+<td><p>Highest frame-rate to be considered for overall-min-fps value. e.g. for 2 inputs with 15fps and 30fps each, overall-min-fps=30</p></td>
+</tr>
+<tr class="row-even"><td><p>Input with varying frame rate</p></td>
+<td><p>Individual stream’s frame-rate may vary based on network condition. Highest possible to be considered for overall-min-fps value.e.g. For single stream with varying frame-rate of 15fps to 30fps, overall-min-fps=30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inputs with different bitrates</p></td>
+<td><p>Nvstreammux will not need specific handling for individual stream bitrates.</p></td>
+</tr>
+<tr class="row-even"><td><p>Inputs with different resolutions</p></td>
+<td><p>Please read the section <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#heterogeneous-batching">Heterogeneous batching</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Dynamic addition/removal of input stream</p></td>
+<td><p>This is supported by adaptive-batching. With adaptive-batching=1, the Gst application needs to create/destroy sinkpads dynamically for addition/removal respectively.</p></td>
+</tr>
+<tr class="row-even"><td><p>flvmux/qtmux/latency</p></td>
+<td><p>The latency parameter (Gst-Property on these plugins when used) shall be set/tuned to a value &gt; nvstreammux/max-latency.
+The recommended value is 2 X nvstreammux/max-latency
+User could set “latency=18446744073709551614” (max) to avoid tuning for this parameter.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="video-and-audio-muxing-use-cases">
+<h3>Video and Audio muxing Use cases<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-use-cases" title="Link to this heading">#</a></h3>
+<p>When nvstreammux is fed streams with different frame-rates, tuning is necessary to ensure standard muxer behavior. A sample pipeline diagram below illustrates the use of common components like nvstreammux, nvstreamdemux, flv or qtmux, etc., in a video and audio muxing use case for reference.</p>
+<blockquote>
+<div><img alt="Gst-nvstreammux AV pipeline" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2_sample_av_pipeline.png" />
+</div></blockquote>
+<p>When the same pipeline includes two nvstreammux modules to mux video and audio from different sources of different video framerate, depending on the type of sources, behavior could differ. Some of the scenarios and recommended tuning guidance are discussed below.</p>
+<section id="video-and-audio-muxing-file-sources-of-different-fps">
+<h4>Video and Audio muxing - file sources of different fps<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-file-sources-of-different-fps" title="Link to this heading">#</a></h4>
+<p>In a single pipeline, we could have file sources with different video framerate, but same audio framerate (typical for most camera footages with reduced video framerate to save bandwidth while keeping the less heavy audio sampling rate intact).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>In this scenario, video buffers might get mux’d slower than audio buffers. When this happens <a class="reference external" href="https://gstreamer.freedesktop.org/documentation/base/gstaggregator.html">GstAggregator</a> based flvmux or qtmux could block the pipeline when the difference between video and audio buffer-timestamps are higher than the set “latency” parameter.</p></li>
+<li><p>When dealing with file sources/ live sources of different framerates, we need nvstreammux tuned for min-overall-fps. Without this, the muxing always happens at the slowest stream’s framerate adding latency to the video buffers.</p></li>
+<li><p>When dealing with file sources of different frame rates and RTMP sources of different framerates, we recommend users to turn on sync-inputs=1 on nvstreammux and tune proper max-latency to ensure video and audio buffers from a single source are regulated and are flowing together in the pipeline after streammux. This is essential for the proper working of GstAggregator based muxers like flvmux, qtmux. etc.</p></li>
+<li><p>To ensure smooth streaming experience, configure/tune the parameters discussed in Section <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#important-tuning-parameters">Important Tuning parameters</a> properly.</p></li>
+</ol>
+</div>
+</section>
+<section id="video-and-audio-muxing-rtmp-rtsp-sources">
+<h4>Video and Audio muxing - RTMP/RTSP sources<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-rtmp-rtsp-sources" title="Link to this heading">#</a></h4>
+<p>When using live sources:</p>
+<ol class="arabic simple">
+<li><p>make sure that <code class="docutils literal notranslate"><span class="pre">nvstreammux/sync-inputs</span></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+<li><p>When using RTMP sources, in-built upstream latency query does not work. So you’ll need to provide/tune a non-zero nvstreammux/max-latency setting.</p></li>
+<li><p>Tune for nvstreammux/max-latency and other parameters as discussed in Section <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#important-tuning-parameters">Important Tuning parameters</a>.</p></li>
+</ol>
+</section>
+</section>
+<section id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#troubleshooting" title="Link to this heading">#</a></h3>
+<section id="gstaggregator-plugin-filesink-does-not-write-data-into-the-file">
+<h4>GstAggregator plugin -&gt; filesink does not write data into the file<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#gstaggregator-plugin-filesink-does-not-write-data-into-the-file" title="Link to this heading">#</a></h4>
+<p>To troubleshoot this issue, try increasing the GstAggregator based flvumx/qtmux “latency” setting.
+Try <code class="docutils literal notranslate"><span class="pre">latency=18446744073709551614</span></code> - the max value to see if it works and then you could tune for an optimal latency according to the type of media source in use.</p>
+<p>Also, set environment variable <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">GST_DEBUG=3</span></code> for WARNING logs. Also see, <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-warning-lot-of-buffers-are-being-dropped">nvstreammux WARNING “Lot of buffers are being dropped”</a>.</p>
+</section>
+<section id="nvstreammux-warning-lot-of-buffers-are-being-dropped">
+<h4>nvstreammux WARNING “Lot of buffers are being dropped”<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-warning-lot-of-buffers-are-being-dropped" title="Link to this heading">#</a></h4>
+<p>To troubleshoot this issue, try increasing the <cite>max-latency</cite> setting to allow late buffers.
+Also ensure to set min-overall-fps and max-overall-fps with the nvstreammux config file.</p>
+</section>
+</section>
+<section id="metadata-propagation-through-nvstreammux-and-nvstreamdemux">
+<h3>Metadata propagation through nvstreammux and nvstreamdemux<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#metadata-propagation-through-nvstreammux-and-nvstreamdemux" title="Link to this heading">#</a></h3>
+<p>For NvDsMeta propagation through nvstreammux and sample code, please refer to the deepstream reference application supplied at: <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-gst-metadata-test/</span></code></p>
+<p>Illustration of GstMeta at Input and Output of nvstreammux:</p>
+<img alt="Input and Output at nvstreammux plugin (Illustration)" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2_meta_prop_to_mux.png" />
+<p>Illustration of how GstMeta and NvDsMeta are copied as NvDsUserMeta on the batched buffer’s NvDsBatchMeta after nvstreammux.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The same illustration holds good for the NvDsBatchMeta available on the demuxed GstBuffer after nvstreamdemux. Only difference is that the GstMeta won’t be available as NvDsUserMeta anymore - and will be directly copied on to the demuxed GstBuffer.</p>
+</div>
+<img alt="Input and Output at nvstreammux plugin (Illustration)" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2_meta_prop_in_nvdsbatchmeta.png" />
+<p>Illustration of GstMeta at Input and Output of nvstreammux:</p>
+<img alt="Input and Output at nvstreamdemux plugin (Illustration)" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2_meta_prop_from_demux.png" />
+<section id="adding-gstmeta-to-buffers-before-nvstreammux">
+<h4>Adding GstMeta to buffers before nvstreammux<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#adding-gstmeta-to-buffers-before-nvstreammux" title="Link to this heading">#</a></h4>
+<p>Users may add probes on nvstreammux sink pads and attach GstMeta to the GstBuffers flowing into nvstreammux.
+GstMeta attached on the GstBuffer pushed into nvstreammux sink pads will be copied and available:</p>
+<ol class="arabic simple">
+<li><p>After nvstreamdemux as GstMeta on the demuxed output GstBuffer.</p></li>
+<li><p>After nvstreammux as NvDsUserMeta on the batched GstBuffer’s NvDsBatchMeta-&gt;NvDsFrameMeta-&gt;user_meta_list.</p></li>
+</ol>
+</section>
+<section id="accessing-gstmeta-post-nvstreammux">
+<h4>Accessing GstMeta post nvstreammux.<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#accessing-gstmeta-post-nvstreammux" title="Link to this heading">#</a></h4>
+<p>The GstMeta on input GstBuffers at nvstreammux will be copied into output batch buffer’s NvDsBatchMeta.</p>
+<p>Reference code to dereference the NvDsBatchMeta on nvstreammux source pad with an attached GStreamer probe function or downstream plugin is available below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#include &quot;gstnvdsmeta.h&quot;
+static GstPadProbeReturn
+mux_src_side_probe_video (GstPad * pad, GstPadProbeInfo * info,
+    gpointer u_data)
+ {
+    GstBuffer *buf = (GstBuffer *) info-&gt;data;
+    NvDsBatchMeta *batch_meta = gst_buffer_get_nvds_batch_meta (buf);
+    if (batch_meta == nullptr) {
+      /** Every buffer out of nvstreammux will have batch_meta */
+      return GST_PAD_PROBE_OK;
+    }
+    /** Now make sure NvDsBatchMeta-&gt;NvDsFrameMeta-&gt;user_meta_list
+     * has the user meta with meta_type == NVDS_BUFFER_GST_AS_FRAME_USER_META */
+    for(GList* nodeFrame = batch_meta-&gt;frame_meta_list; nodeFrame; nodeFrame = g_list_next(nodeFrame)) {
+      NvDsFrameMeta* frame_meta = static_cast&lt;NvDsFrameMeta*&gt;(nodeFrame-&gt;data);
+      //Uncomment below line when using nvstreammux to batch audio buffers
+      //NvDsAudioFrameMeta* frame_meta = static_cast&lt;NvDsAudioFrameMeta*&gt;(nodeFrame-&gt;data);
+      NvDsMetaList* l_user_meta;
+      for (l_user_meta = frame_meta-&gt;frame_user_meta_list; l_user_meta != NULL;
+        l_user_meta = l_user_meta-&gt;next) {
+        NvDsUserMeta* user_meta = (NvDsUserMeta *) (l_user_meta-&gt;data);
+        if(user_meta-&gt;base_meta.meta_type == NVDS_BUFFER_GST_AS_FRAME_USER_META)
+        {
+          /** dereference the empty GstBuffer with GstMeta copied */
+          GstBuffer* meta_buffer = (GstBuffer*)user_meta-&gt;user_meta_data;
+          gpointer state = NULL;
+          GstMeta *gst_meta = NULL;
+          while ((gst_meta = gst_buffer_iterate_meta (meta_buffer, &amp;state)))
+          {
+             /**
+              * Note to users: Here, your GstMeta will be accessible as gst_meta.
+              */
+          }
+        }
+      }
+     }
+    return GST_PAD_PROBE_OK;
+  }
+</pre></div>
+</div>
+</section>
+<section id="adding-gstmeta-post-nvstreammux">
+<h4>Adding GstMeta post nvstreammux<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#adding-gstmeta-post-nvstreammux" title="Link to this heading">#</a></h4>
+<p>The user could add GstMeta to each source’s batched frame into the NvDsFrameMeta-&gt;user_meta_list corresponding
+to the source’s frame.</p>
+<p>Copy all GstMeta into a newly created empty GstBuffer and leverage the API’s available at
+<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/includes/gstnvdsmeta.h</span></code> (<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/lib/libnvdsgst_meta.so</span></code>) :</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>For video: <code class="docutils literal notranslate"><span class="pre">nvds_copy_gst_meta_to_frame_meta()</span></code></p></li>
+<li><p>For audio: <code class="docutils literal notranslate"><span class="pre">nvds_copy_gst_meta_to_audio_frame_meta()</span></code></p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="to-access-nvdsmeta-after-nvstreamdemux-src-pad">
+<h4>To access NvDsMeta after nvstreamdemux.src_pad<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#to-access-nvdsmeta-after-nvstreamdemux-src-pad" title="Link to this heading">#</a></h4>
+<p>Reference code to access NvDsMeta after nvstreamdemux.src_pad with an attached GStreamer probe function or downstream plugin is available below:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static GstPadProbeReturn
+demux_src_side_probe_audio (GstPad * pad, GstPadProbeInfo * info,
+ gpointer u_data)
+{
+ GstBuffer *buf = (GstBuffer *) info-&gt;data;
+ GstMeta* gst_meta = nullptr;
+ bool got_NVDS_BUFFER_GST_AS_FRAME_USER_META = false;
+ bool got_NVDS_DECODER_GST_META_EXAMPLE = false;
+
+ NvDsBatchMeta *batch_meta = gst_buffer_get_nvds_batch_meta (buf);
+ fail_unless(batch_meta != nullptr);
+
+ /** Now make sure every NvDsBatchMeta-&gt;NvDsFrameMeta-&gt;user_meta_list
+  * has the GST_META user meta */
+ for(GList* nodeFrame = batch_meta-&gt;frame_meta_list; nodeFrame; nodeFrame = g_list_next(nodeFrame)) {
+   NvDsAudioFrameMeta* frame_meta = static_cast&lt;NvDsAudioFrameMeta*&gt;(nodeFrame-&gt;data);
+   NvDsMetaList* l_user_meta;
+   for (l_user_meta = frame_meta-&gt;frame_user_meta_list; l_user_meta != NULL;
+     l_user_meta = l_user_meta-&gt;next) {
+     NvDsUserMeta* user_meta = (NvDsUserMeta *) (l_user_meta-&gt;data);
+
+     if(user_meta-&gt;base_meta.meta_type == NVDS_BUFFER_GST_AS_FRAME_USER_META)
+     {
+       got_NVDS_BUFFER_GST_AS_FRAME_USER_META = true;
+       g_print(&quot;got NVDS_BUFFER_GST_AS_FRAME_USER_META\n&quot;);
+     }
+     }
+    }
+
+ /** We expect gstMeta in both user_meta and directly
+  * as GST_META on the buffer */
+ gpointer state = NULL;
+ /** make sure Gst Meta is copied on demux output buffer */
+ while ((gst_meta = gst_buffer_iterate_meta (buf, &amp;state)))
+ {
+     /*Note to users: Here, your GstMeta will be accessible as gst_meta*/
+ }
+
+  return GST_PAD_PROBE_OK;
+}
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="cascaded-muxing">
+<h3>Cascaded Muxing<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#cascaded-muxing" title="Link to this heading">#</a></h3>
+<p>New streammux supports batching of batched buffers or cascaded muxers and appropriate debatching by demuxers for audio/video.</p>
+<p>Sample Pipelines:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>mux1(batch-size 2) + mux2(batch-size2) &gt; mux3 (batch-size4)
+mux1(batch-size 2) &gt; mux1 (batch-size2) &gt; demuxer
+</pre></div>
+</div>
+<p>Following table summarizes important notes for expected nvstreammux configuration for cascaded usecase:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-text">Gst-nvstreammux cascaded expected configuration</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+<col style="width: 35.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>S.No</p></th>
+<th class="head"><p>Configuration Property</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>nvstreammux pad index.</p>
+<p>mux.sink_%d</p>
+</td>
+<td><p>Note: The user is responsible for maintaining unique pad_indexes across a single pipeline.
+pad_indexes are assigned by application when requesting sink pads on nvstreammux instances that does raw stream batching.</p>
+<p>This unique pad_index (which translates into NvDsFrameMeta-&gt;stream_id) is to avoid duplicate pad_indexes and source_ids.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Adaptive-batching</p></td>
+<td><p>Note: Adaptive batching (ON by default) need to be turned off for an nvstreammux instance downstream from another instance.
+This can be done with the nvstreammux config-file-path setting when using multiple nvstreammux instances in series (batching batched buffers).</p>
+<p>This is because downstream nvstreammux instances does not know how many streams are attached to each of the upstream muxers and we ask user to configure batch-size of the downstream muxer(s) accordingly</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>[property]
+algorithm-type=1
+batch-size=4
+overall-max-fps-n=90
+overall-max-fps-d=1
+overall-min-fps-n=5
+overall-min-fps-d=1
+max-same-source-frames=1
+Adaptive-batching=0</p></td>
+<td><p>Sample configuration for the nvstreammux instance that is expected to batch already batched buffers</p>
+<p>Sample pipeline here (with cascaded nvstreammux instances: m1,m2,m3) is:
+2 sources -&gt;m1
+2 sources -&gt;m2
+m1 -&gt; m3
+m2 -&gt; m3
+m3 -&gt; demux</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>Special nvmessage/EOS Handling Requirement in the application.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only the last nvstreammux instance in the pipeline will send GST_EVENT_EOS. GST_EVENT_EOS from upstream nvstreammux instances will be handled in the downstream nvstreammux instance and will not be forwarded.</p>
+</div>
+</div></blockquote>
+<p>However, if the application utilize nvmessage EOS from nvstreammux, the application will have to make sure it received this message from all nvstreammux instances before tearing down the pipeline. The nvmessage discussed here is the GST_MESSAGE_ELEMENT event application receive on the bus callback ( API used to parse this message is: <code class="docutils literal notranslate"><span class="pre">gst_nvmessage_is_stream_eos()</span> <span class="pre">and</span> <span class="pre">gst_nvmessage_parse_stream_eos()</span></code>).</p>
+</section>
+</section>
+<section id="known-issues-with-solutions-and-faq">
+<h2>Known Issues with Solutions and FAQ<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#known-issues-with-solutions-and-faq" title="Link to this heading">#</a></h2>
+<section id="observing-video-and-or-audio-stutter-low-framerate">
+<h3>Observing video and/or audio stutter (low framerate)<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#observing-video-and-or-audio-stutter-low-framerate" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<p>You’ll need to configure <code class="docutils literal notranslate"><span class="pre">max-latency</span></code> parameter on nvstreammux when stutters are observed or when pipeline latency is known to be “non-real-time”.</p>
+</section>
+<section id="sink-plugin-shall-not-move-asynchronously-to-paused">
+<h3>Sink plugin shall not move asynchronously to PAUSED<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#sink-plugin-shall-not-move-asynchronously-to-paused" title="Link to this heading">#</a></h3>
+<p><strong>Solution:</strong></p>
+<p>When using new nvstreammux in a GStreamer pipeline, it is recommended that the sink elements shall be configured to set the plugin property <cite>async</cite> to <cite>false</cite>.</p>
+<p>Based on how Application is designed async=1 can cause a hang. Below is the way in which users may use async=1</p>
+<p>Sample pipeline diagram (for n sources):</p>
+<p><code class="docutils literal notranslate"><span class="pre">BIN_BEFORE_MUX</span> <span class="pre">X</span> <span class="pre">n</span> <span class="pre">-&gt;</span> <span class="pre">nvstreammux</span> <span class="pre">-&gt;</span> <span class="pre">nvstreamdemux</span> <span class="pre">-&gt;</span> <span class="pre">BIN_AFTER_DEMUX</span> <span class="pre">X</span> <span class="pre">n</span></code></p>
+<ul class="simple">
+<li><p>BIN_BEFORE_MUX is [audiosource]</p></li>
+<li><p>BIN_AFTER_MUX is [fakesink]</p></li>
+</ul>
+<p>However this was needed because of the way app is designed. Sample pipeline/app Design recommended:</p>
+<ol class="arabic">
+<li><p>Add stream and remove stream operations shall be mutually exclusive.</p></li>
+<li><p>Add stream algorithm/steps:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>create bin_before_muxer and bin_after_demuxer</p></li>
+<li><p>add it to pipeline</p></li>
+<li><p>move it to PLAYING.</p></li>
+<li><p>WAIT for the state change to happen</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Remove stream algorithm/steps:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>move bins before mux and after demux to STATE_NULL.</p></li>
+<li><p>WAIT for state change to happen</p></li>
+<li><p>remove bin_before_muxer and bin_after_demuxer from pipeline.</p></li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>sink plugin async=1 cause the step (1).(d) to block if app is not supplying buffers needed by sink element to PREROLL.
+To fix this, async=0 on sink plugin is required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users may set async=1 with the app design being able to supply buffers between <cite>(1).(c)</cite> and <cite>(1).(d)</cite>.</p>
+</div>
+</section>
+<section id="heterogeneous-batching">
+<h3>Heterogeneous batching<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#heterogeneous-batching" title="Link to this heading">#</a></h3>
+<p>New nvstreammux does not transform/scale batched buffers to a single color-format/resolution unlike the default nvstreammux.
+A batch can have buffers from different streams of different resolutions and formats.
+So with new mux, a single resolution for this heterogeneous batched buffer is invalid.</p>
+<p>When we have plugins that could transform the input buffers (example: change resolution or color format of video buffers in the batch) between nvstreammux and nvstreamdemux, we need to add support for heterogenous query handling in this transform plugin for proper stream-wise resolution flow in CAPS. Below is sample implementation for reference:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static gboolean
+gst_&lt;transform_plugin&gt;_query (GstBaseTransform *trans, GstPadDirection direction, GstQuery *query) {
+
+GstTransform *filter;
+filter = GST_TRANSFORM (trans);
+
+if (gst_nvquery_is_update_caps(query)) {
+ guint stream_index;
+ const GValue *frame_rate = NULL;
+ GstStructure *str;
+
+ gst_nvquery_parse_update_caps(query, &amp;stream_index, frame_rate);
+ str = gst_structure_new (&quot;update-caps&quot;, &quot;stream-id&quot;, G_TYPE_UINT, stream_index, &quot;width-val&quot;, G_TYPE_INT,
+ filter-&gt;out_video_info.width, &quot;height-val&quot;, G_TYPE_INT, filter-&gt;out_video_info.height, NULL);
+ if (frame_rate) {
+  gst_structure_set_value (str, &quot;frame-rate&quot;, frame_rate);
+ }
+ return gst_nvquery_update_caps_peer_query(trans-&gt;srcpad, str);
+ }
+
+ return GST_BASE_TRANSFORM_CLASS (parent_class)-&gt;query (trans, direction, query);
+
+ }
+</pre></div>
+</div>
+<p><strong>Work Around:</strong></p>
+<p>Without query implementation, it is necessary to add nvvideoconvert + capsfiler before each nvstreammux sink pad (enforcing same resolution and format of all sources connecting to new nvstreammux).
+This ensure that the heterogeneous nvstreammux batch output have buffers of same caps (resolution and format).</p>
+<p>Example; video use-case:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 \
+uridecodebin ! nvvideoconvert ! &quot;video/x-raw(memory:NVMM), width=1920, height=1080, format=NV12&quot; ! m.sink_0 \
+uridecodebin ! nvvideoconvert ! &quot;video/x-raw(memory:NVMM), width=1920, height=1080, format=NV12&quot; ! m.sink_1 \
+nvstreammux name=m batch-size=2 ! fakesink async=0
+</pre></div>
+</div>
+<p>Where the fixed caps: “1920 X 1080; NV12” ensure every buffer in the batch is transformed to this same caps.</p>
+<p>Example; audio use-case:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>gst-launch-1.0 \
+uridecodebin ! audioconvert ! audioresample ! &quot;audio/x-raw, format=S16LE, layout=interleaved, channels=1, rate=48000&quot; ! m.sink_0 \
+uridecodebin ! audioconvert ! audioresample ! &quot;audio/x-raw, format=S16LE, layout=interleaved, channels=1, rate=48000&quot; ! m.sink_1 \
+nvstreammux name=m batch-size=2 ! fakesink async=0
+</pre></div>
+</div>
+<p>Where the fixed caps: “48kHz; mono S16LE interleaved” ensure every buffer in the batch is transformed to this same caps.</p>
+</section>
+<section id="adaptive-batching">
+<h3>Adaptive Batching<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#adaptive-batching" title="Link to this heading">#</a></h3>
+<p>Does nvstreammux support dynamic batching?
+This is in the context of use-cases where we don’t know the exact number of inputs initially. Once the pipeline starts, inputs may get connected / disconnected.</p>
+<p><strong>Solution:</strong></p>
+<p>Yes, nvstreammux support dynamic batch-size when adaptive-batching=1,[property] group in the mux config-file. When adaptive-batching is enabled, batch-size is equal to the number of source pads on the muxer. By default this is enabled.</p>
+<p>Refer to <a class="reference internal" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties">Mux Config Properties</a>  for more information.</p>
+</section>
+<section id="optimizing-nvstreammux-config-for-low-latency-vs-compute">
+<h3>Optimizing nvstreammux config for low-latency vs Compute<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#optimizing-nvstreammux-config-for-low-latency-vs-compute" title="Link to this heading">#</a></h3>
+<p>You may want to design for use-cases where compute resource (GPU) utilization is more important than throughput.</p>
+<p>On the other hand, there could be use cases where minimum pipeline latency is of utmost importance.</p>
+<p>The following guidance is intended to help in tuning nvstreammux configuration parameters (passed with <cite>config-file-path</cite> property on nvstreammux) for optimal resource (compute) utilization and low-pipeline-latency.</p>
+<p>Recommended Config params are shared in the table below.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-text">Gst-nvstreammux Config file parameters for low-latency vs compute configs</span><a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Optimized config for low-latency (example)</p></th>
+<th class="head"><p>Optimized config for compute utilization</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pipeline example:
+32 X udpsrc ! rtpopus depay ! opusdec ! audiobuffersplit output-buffer-duration=1/50 ! queue ! mux.sink_%d
+nvstreammux name=mux ! queue ! nvdsaudiotemplate ! fakesink</p>
+<p>[property]</p>
+<p>algorithm-type=1</p>
+<p>batch-size= <strong>32</strong></p>
+<p>max-fps-control=0</p>
+<p>overall-max-fps-n=50</p>
+<p>overall-max-fps-d=1</p>
+<p>overall-min-fps-n=50</p>
+<p>overall-min-fps-d=1</p>
+<p>max-same-source-frames= <strong>2</strong></p>
+</td>
+<td><blockquote>
+<div><p>“Pipeline example:</p>
+</div></blockquote>
+<p>32 X udpsrc ! rtpopus depay ! opusdec ! audiobuffersplit output-buffer-duration=1/50 ! queue ! mux.sink_%d
+nvstreammux name=mux ! queue ! nvdsaudiotemplate ! Fakesink</p>
+<p>[property]</p>
+<p>algorithm-type=1</p>
+<p>batch-size= <strong>32</strong></p>
+<p>max-fps-control=0</p>
+<p>overall-max-fps-n=50</p>
+<p>overall-max-fps-d=1</p>
+<p>overall-min-fps-n= <strong>40</strong></p>
+<p>overall-min-fps-d=1</p>
+<p>max-same-source-frames= <strong>1</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Partial batches possible in this configuration.</p>
+<p>Partial batch is when the batched buffer have less number of buffers than the configured batch-size. (batchBuffer-&gt;numFilled &lt; batchBuffer-&gt;batchSize)</p>
+</td>
+<td><blockquote>
+<div><p>Configured to create fully formed batch buffers.</p>
+</div></blockquote>
+<p>Full batch is when the batched buffer have configured batch-size number of buffers batched. (batchBuffer-&gt;numFilled ==  batchBuffer-&gt;batchSize)</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>CPU load may be higher (as we operate nvstreammux batching algorithm at a higher overall framerate).</p></td>
+<td><blockquote>
+<div><p>“CPU load optimized for the rate at which input streams into nvstreammux plugin.”</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Note 1: Here, exact overall-max/min-fps configuration matching input framerate from audiobuffersplit ensure minimum latency inside nvstreammux plugin to create batches.</p>
+<p>Note 2: For this reason, if input throughput falls occasionally (possible), Output batch buffer from nvstreammux will still be created at the configured min-fps. However the batch will be partial (batchBuffer-&gt;numFilled could be less than batchBuffer-&gt;batchSize).</p>
+</td>
+<td><blockquote>
+<div><p>Note 1: Here, user could use overall-min-fps less than the input framerate from audiobuffersplit. This way, even if input sources (especially when streamed over network) fall short in framerate, nvstreammux still gets more time to create full-batch (batchBuffer-&gt;numFilled == batchBuffer-&gt;batchSize).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>Note 3: Users are encouraged to use max-same-source-frames &gt; 1 when input is from the network to control jitter and allow nvstreammux to batch multiple frames from one source when others may fall short during jitter.</p>
+<p>Note 4: User may have to confirm the behavior of plugins that consume batches with max-same-source-frames &gt; 1.</p>
+<p>Example: Certain plugins could introduce additional latency. In such cases, user may configure max-same-source-frames=1.</p>
+</td>
+<td><p>Note 2: max-same-source-frames=1 is a good config.max-same-source-frames &gt; 1 can still be used to lower the impact of jitter with network sources.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>A sample pipeline diagram below illustrates the use of common OSS components in an audio pipeline use case for reference, like:</p>
+<ul class="simple">
+<li><p>udpsrc</p></li>
+<li><p>audiodecoder</p></li>
+<li><p>audiobuffersplit</p></li>
+<li><p>udpsink</p></li>
+<li><p>And NVIDIA components like nvstreammux, nvdsaudiotemplate.</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="Gst-nvstreammux AV pipeline" class="align-center" src="../_images/DS_plugin_gst-nvstreammux2_sample_audio_pipeline.png" />
+</section>
+<section id="latency-measurement-api-usage-guide-for-audio">
+<h3>Latency Measurement API Usage guide for audio<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#latency-measurement-api-usage-guide-for-audio" title="Link to this heading">#</a></h3>
+<p>For latency measurement of video buffers, please refer to the usage of <code class="docutils literal notranslate"><span class="pre">latency_measurement_buf_prob()</span></code> probe function in the deepstream reference application implementation at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-app/deepstream_app.c</span></code>.</p>
+<p>Assume an audio pipeline viz:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>32 X udpsrc ! rtpopusdepay ! opusdecode ! audiobuffersplit output-buffer-duration=1/50 ! queue ! mux.sink_%d nvstreammux name=mux ! queue ! nvdsaudiotemplate ! fakesink
+</pre></div>
+</div>
+<p>You may want to measure latency of each buffer from the moment its decoded until the time it reaches final sink plugin in the pipeline. In this example, the latency from <cite>opusdecode</cite> source pad (output) to fakesink sink pad (input).</p>
+<p>To do this,</p>
+<ol class="arabic">
+<li><p>Add a GStreamer buffer probe programmatically on opusdecode source pad following <a class="reference external" href="https://gstreamer.freedesktop.org/documentation/additional/design/probes.html?gi-language=c#overview">documentation here</a> .</p></li>
+<li><p>Inside the probe, call DeepStream API <code class="docutils literal notranslate"><span class="pre">nvds_add_reference_timestamp_meta()</span></code> at <cite>/opt/nvidia/deepstream/deepstream/sources/includes/nvds_latency_meta.h</cite></p>
+<blockquote>
+<div><p>Pseudocode reference:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static GstPadProbeReturn
+
+probe_on_audiodecoder_src_pad (GstPad * pad, GstPadProbeInfo * info, gpointer u_data)
+{
+
+  GstBuffer *buf = (GstBuffer *) info-&gt;data;
+
+ /* frame_id/frame_num is passed 0 and ignored here.
+
+  * Its assigned and available in NvDsFrameMeta by nvstreammux;
+
+  * Thus not required in this pipeline where nvstreammux is used.
+
+  */
+
+ nvds_add_reference_timestamp_meta(buf, &quot;audiodecoder&quot;, 0);
+
+
+ return GST_PAD_PROBE_OK;
+
+}
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p>Next, add a probe on the sink pad of fakesink following documentation <a class="reference external" href="https://gstreamer.freedesktop.org/documentation/additional/design/probes.html?gi-language=c#overview">here</a> .</p></li>
+</ol>
+<blockquote>
+<div><blockquote>
+<div><p>Inside this probe, use <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">nvds_measure_buffer_latency()</span></code>.</p>
+<p>Pseudocode reference:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>static GstPadProbeReturn
+
+probe_on_fakesink_sink_pad (GstPad * pad, GstPadProbeInfo * info, gpointer u_data)
+
+{
+
+ GstBuffer *buf = (GstBuffer *) info-&gt;data;
+
+ GstMapInfo map_info = {0};
+
+ gboolean ok = gst_buffer_map(buf, &amp;map_info, GST_MAP_READ);
+
+ fail_unless(ok == TRUE);
+
+
+ NvBufAudio* bufAudio = (NvBufAudio*)map_info.data;
+
+ NvDsBatchMeta *batch_meta = gst_buffer_get_nvds_batch_meta (buf);
+
+ fail_unless(batch_meta != nullptr);
+
+
+ gst_buffer_unmap(buf, &amp;map_info);
+
+
+ if(nvds_enable_latency_measurement)
+
+  {
+
+   NvDsFrameLatencyInfo* latency_info = (NvDsFrameLatencyInfo*)g_malloc0(sizeof(NvDsFrameLatencyInfo) * batch_meta-&gt;max_frames_in_batch);
+
+    int num_sources_in_batch = nvds_measure_buffer_latency(buf, latency_info);
+
+     for(int i = 0; i &lt; num_sources_in_batch; i++)
+      {
+
+      /** Following are the details to profile */
+      g_print(&quot;Source id = %d Frame_num = %d Frame latency = %lf (ms) \n&quot;,
+       latency_info[i].source_id,
+       latency_info[i].frame_num,
+       latency_info[i].latency);
+
+       }
+   }
+
+  return GST_PAD_PROBE_OK;
+
+ }
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Latency Measurement relies on <code class="docutils literal notranslate"><span class="pre">NvDsUserMeta</span></code> that is added to <code class="docutils literal notranslate"><span class="pre">NvDsBatchMeta</span></code> for every batched buffer post <code class="docutils literal notranslate"><span class="pre">nvstreammux</span></code>. This metadata and hence latency measurement support is available after an <code class="docutils literal notranslate"><span class="pre">nvstreammux</span></code> instance until <code class="docutils literal notranslate"><span class="pre">nvstreamdemux</span></code> instance in the GStreamer pipeline.</p>
+</div>
+</div></blockquote>
+</section>
+<section id="gst-inspect-is-not-updated-properly-when-switching-between-legacy-and-new-streammux">
+<h3>gst-inspect is not updated properly when switching between legacy and new streammux<a class="headerlink" href="DS_plugin_gst-nvstreammux2.html#gst-inspect-is-not-updated-properly-when-switching-between-legacy-and-new-streammux" title="Link to this heading">#</a></h3>
+<p>Delete gstreamer cache present by default in home directory (rm ~/.cache/gstreamer-1.0/registry.x86_64.bin) and rerun gst-inspect on the streammux plugin.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_plugin_gst-nvstreammux.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Gst-nvstreammux</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_plugin_gst-nvstreamdemux.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gst-nvstreamdemux</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#inputs-and-outputs">Inputs and Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#gst-properties">Gst Properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#mux-config-properties">Mux Config Properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-tuning-solutions-for-specific-use-cases">NvStreamMux Tuning Solutions for specific use cases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#aim">Aim</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#important-tuning-parameters">Important Tuning parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-use-cases">Video and Audio muxing Use cases</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-file-sources-of-different-fps">Video and Audio muxing - file sources of different fps</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#video-and-audio-muxing-rtmp-rtsp-sources">Video and Audio muxing - RTMP/RTSP sources</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#troubleshooting">Troubleshooting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#gstaggregator-plugin-filesink-does-not-write-data-into-the-file">GstAggregator plugin -&gt; filesink does not write data into the file</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#nvstreammux-warning-lot-of-buffers-are-being-dropped">nvstreammux WARNING “Lot of buffers are being dropped”</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#metadata-propagation-through-nvstreammux-and-nvstreamdemux">Metadata propagation through nvstreammux and nvstreamdemux</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#adding-gstmeta-to-buffers-before-nvstreammux">Adding GstMeta to buffers before nvstreammux</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#accessing-gstmeta-post-nvstreammux">Accessing GstMeta post nvstreammux.</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#adding-gstmeta-post-nvstreammux">Adding GstMeta post nvstreammux</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#to-access-nvdsmeta-after-nvstreamdemux-src-pad">To access NvDsMeta after nvstreamdemux.src_pad</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#cascaded-muxing">Cascaded Muxing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#known-issues-with-solutions-and-faq">Known Issues with Solutions and FAQ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#observing-video-and-or-audio-stutter-low-framerate">Observing video and/or audio stutter (low framerate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#sink-plugin-shall-not-move-asynchronously-to-paused">Sink plugin shall not move asynchronously to PAUSED</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#heterogeneous-batching">Heterogeneous batching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#adaptive-batching">Adaptive Batching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#optimizing-nvstreammux-config-for-low-latency-vs-compute">Optimizing nvstreammux config for low-latency vs Compute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#latency-measurement-api-usage-guide-for-audio">Latency Measurement API Usage guide for audio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_plugin_gst-nvstreammux2.html#gst-inspect-is-not-updated-properly-when-switching-between-legacy-and-new-streammux">gst-inspect is not updated properly when switching between legacy and new streammux</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

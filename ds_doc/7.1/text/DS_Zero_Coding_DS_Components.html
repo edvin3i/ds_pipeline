@@ -1,0 +1,1269 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DeepStream Components &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Zero_Coding_DS_Components';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GXF Internals" href="../graphtools-docs/docs/text/GXF_Internals.html" />
+    <link rel="prev" title="Developing Extensions for DeepStream" href="DS_Zero_Coding_Developing_Extension.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Zero_Coding_DS_Components.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Zero_Coding_DS_Components.html#">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">DeepStream...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deepstream-components">
+<h1>DeepStream Components<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#deepstream-components" title="Link to this heading">#</a></h1>
+<p>DeepStream/Gstreamer pipeline is implemented using the Graph Specification by wrapping GStreamer element in Graph Component and adding supportive Components to enable communication with GStreamer pipeline from Graph components. This section explains components types used in DeepStream graphs.</p>
+<section id="interfaces">
+<h2>Interfaces<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#interfaces" title="Link to this heading">#</a></h2>
+<p>DeepStream extensions provide interfaces (abstract base types) for some commonly used types of components and functionality. These interfaces provide a way for other components to interact with a variety of components implementing or inheriting from the interface without depending on the actual type/implementation. For e.g. <code class="docutils literal notranslate"><span class="pre">NvDsInfer</span></code> component has a parameter <cite>infer-model-config</cite> with handle type <code class="docutils literal notranslate"><span class="pre">INvDsInferModelConfigComponent</span></code>. The <code class="docutils literal notranslate"><span class="pre">INvDsInferModelConfigComponent</span></code> base type is for components representing a NN model (the model files, associated configuration, post-processing algorithm). Thus, <code class="docutils literal notranslate"><span class="pre">NvDsInfer</span></code> component can load any type of model without actual depending on the concrete type of the model component by calling APIs of <code class="docutils literal notranslate"><span class="pre">INvDsInferModelConfigComponent</span></code>.</p>
+<p>The interfaces also act as base types which can be used by tools like registry and composer to filter and group together components inheriting from the interface. Thus in the above example, registry command <code class="docutils literal notranslate"><span class="pre">registry</span> <span class="pre">comp</span> <span class="pre">list</span> <span class="pre">-b</span> <span class="pre">nvidia::deepstream::INvDsInferModelConfigComponent</span></code> can be used to find all the components that can be connected to the parameter “infer-model-config” of <code class="docutils literal notranslate"><span class="pre">NvDsInfer</span></code>. Composer also uses this base type to provide quick access context-menu to on a handle type parameter create a component inheriting from the base type and attaching the newly created component to the parameter. However interfaces themselves are abstract and won’t be listed in the component list from the Composer for users to create the instances through drag&amp;drop.</p>
+<img alt="NvdsInfer Component" class="align-center" src="../_images/DS_Zero_coding_interface.png" />
+<p>The rest of the section provides a high-level overview of the interfaces provided by the DeepStream extensions. These interfaces are part of the <code class="docutils literal notranslate"><span class="pre">NvDsInterfaceExt</span></code> extension. The detailed API and parameter description is part of the document Graph Composer Extensions Manual.</p>
+<section id="element-invdselement">
+<h3>Element - INvDsElement<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#element-invdselement" title="Link to this heading">#</a></h3>
+<p>This interface is used by components representing a GStreamer element in the graph. An element is the basic building block of a GStreamer based pipeline. It represents a unit of processing. These elements can perform very specific tasks like video decoding or encoding or they might perform a set of related tasks together e.g. Object detection - pre-processing, inference and post-processing to get bounding box co-ordinates of detected objects.</p>
+<p>This interface is primarily used by the <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> component to manage the lifecycle of the elements and construct a GStreamer pipeline from the elements represented by the components. It should only be used as a base class and derived from to create a component representing a GStreamer element. Ideally, no other component should ever use this interface for interacting with the elements. Other mechanisms are provided which are described later.
+This interface provides following main virtual methods.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gxf_result_t</span> <span class="pre">create_element()</span></code></p></td>
+<td><p>Concrete types must use this to create the GStreamer element and return the <cite>error/success</cite> status</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gxf_result_t</span> <span class="pre">bin_add(GstElement</span> <span class="pre">*pipeline)</span></code></p></td>
+<td><p>Concrete types must use this to add the created element to the provided GStreamer pipeline and return the error/success status</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GstElement</span> <span class="pre">*get_element_ptr()</span></code></p></td>
+<td><p>Concrete types must return the raw pointer to the GStreamer element</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Most components implementing this interface are thin wrappers created over corresponding GStreamer element. In such cases, there would be a 1-to-1 mapping between the Component parameter and the GStreamer element property. Special cases like <code class="docutils literal notranslate"><span class="pre">NvDsMultiSrcInput</span></code> exist which are not wrappers over a single element but elaborate implementations using GStreamer API to combine multiple elements together.</p>
+</section>
+<section id="i-os-invdsio-invdsinput-invdsoutput">
+<h3>I/Os - INvDsIO/INvDsInput/INvDsOutput<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#i-os-invdsio-invdsinput-invdsoutput" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsIO</span></code> interface is used to represent to represent an input/output of an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component. It is used to represent a GStreamer Pad which is the input / output port of a GStreamer element through which it receives/transmits data. The direction input or output is from the perspective of the component and not the application.
+An element receives data from an input and transmits data on an output. The base type for an input component is <code class="docutils literal notranslate"><span class="pre">INvDsInput</span></code> and that for an output is <code class="docutils literal notranslate"><span class="pre">INvDsOutput</span></code>. Both of these inherit from <code class="docutils literal notranslate"><span class="pre">INvDsIO</span></code>. Depending on the I/O (data) availability type, multiple concrete types are derived from <code class="docutils literal notranslate"><span class="pre">INvDsInput</span></code> and <code class="docutils literal notranslate"><span class="pre">INvDsOutput</span></code>, which are described in detail later. The complete hierarchy looks like</p>
+<img alt="INvDsIO_INvDsInput_INvDsOutput" class="align-center" src="../_images/DS_INvDsIO_INvDsInput_INvDsOutput.png" />
+<p>Any concrete pad type can interact with via <code class="docutils literal notranslate"><span class="pre">INvDsIO</span></code> interface or <code class="docutils literal notranslate"><span class="pre">INvDsInput/INvDsOutput</span></code> interface or the concrete pad classes themselves.
+<code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based components have parameters with the handle type of the concrete pad types (depending on the direction – input/output and availability – static/on-request/dynamic/multi). In the graph, for such a component to send/receive data, an I/O component of the corresponding type must be attached to the parameter. For e.g., the <code class="docutils literal notranslate"><span class="pre">NvDsStreamMux</span></code> component has a “on-request” input and a “static” output. Thus, for it to receive data a <code class="docutils literal notranslate"><span class="pre">NvDsOnRequestInput</span></code> component must be attached to its <code class="docutils literal notranslate"><span class="pre">video-in-%u</span></code> parameter and for it to send data a <code class="docutils literal notranslate"><span class="pre">NvDsStaticOutput</span></code> component must be attached to its “video-out” parameter.</p>
+<p>An I/O is identified by its template name in the element. GStreamer APIs can be used to find more details about the underlying pad details using this template name.
+These interfaces expose the following main virtual methods:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Interfaces</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">set_template_name(const</span> <span class="pre">char</span> <span class="pre">*templ)</span></code></p></td>
+<td><p>Called by INvDsElement based element to set the template name of the i/o.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INvDsElement</span> <span class="pre">*get_element()</span></code></p></td>
+<td><p>Get the owning INvDsElement based element of the i/o.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*get_template_name()</span></code></p></td>
+<td><p>Get the template name for the i/o.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GstPadSPtr</span> <span class="pre">get_pad(const</span> <span class="pre">char</span> <span class="pre">*requested_name)</span></code></p></td>
+<td><p>Get the underlying GstPad pointer as a shared_ptr. Detailed behavior of this API for each type of I/O has been documented in the “Pads” subsection of “Basic Components” section</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">std::vector&lt;GstPadSPtr&gt;</span> <span class="pre">get_all_pads()</span></code></p></td>
+<td><p>Get a list of all the underlying GstPad objects as vector of shared_ptrs. In case of multi/on-request/dynamic type of I/Os, element might have multiple underlying pads associated with the I/O. This API can be used to get the raw pointers to all such pads.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Custom extensions will almost never need to implement a I/O based component from these interfaces. All the concrete types that would be required are already provided as a part of the <code class="docutils literal notranslate"><span class="pre">NvDsBaseExt</span></code> extension. Custom components wanting to interact with pads directly can use APIs from this interface. However, if only access to the data being received/transmitted is required “Probe” based mechanism is recommended.</p>
+</section>
+<section id="connections-invdsconnection">
+<h3>Connections - INvDsConnection<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#connections-invdsconnection" title="Link to this heading">#</a></h3>
+<p>The INvDsConnection interface is used by components representing a link between an output component and an input component i.e., a link between two <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based components. Concrete implementations do the actual work of connecting the components.</p>
+<p>The main virtual methods provided by this interface are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Methods</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gxf_result_t</span> <span class="pre">connect()</span></code></p></td>
+<td><p>Concrete implementations must link the source and target I/Os and return the status</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">disconnect()</span></code></p></td>
+<td><p>Concrete implementations must unlink the source and target I/Os</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">is_io_compatible(INvDsIO</span> <span class="pre">*io,</span> <span class="pre">GstPadSPtr</span> <span class="pre">gstpad)</span></code></p></td>
+<td><p>Method to check if an I/O is compatible with the I/O on the other side of the connection.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">on_pad_added(INvDsIO</span> <span class="pre">*io,</span> <span class="pre">GstPadSPtr</span> <span class="pre">gstpad)</span></code></p></td>
+<td><p>Notification from dynamic I/Os that a new underlying GstPad object has been added.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">on_pad_removed(INvDsIO</span> <span class="pre">*io,</span> <span class="pre">GstPadSPtr</span> <span class="pre">gstpad)</span></code></p></td>
+<td><p>Notification from dynamic I/Os that an existing underlying GstPad object has been removed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">on_no_more_pads(INvDsIO</span> <span class="pre">*io)</span></code></p></td>
+<td><p>Notification from dynamic I/Os that no more new underlying GstPad objects would be added.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The interface APIs are primarily used by the <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> component during pipeline construction to link elements. Ideally, custom components and extensions will never need to implement a component based on this interface or use the APIs provided by this interface.</p>
+<p>The “output” component of the upstream element component must be attached to the “source” parameter of the <code class="docutils literal notranslate"><span class="pre">INvDsConnection</span></code> based component and the “input” component of the downstream element component must be attached to the “target” parameter.</p>
+</section>
+<section id="deepstream-domain-component-invdscomponent">
+<h3>DeepStream Domain Component - INvDsComponent<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#deepstream-domain-component-invdscomponent" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsComponent</span></code> interface should be used by custom components working with DeepStream components in the graph. The main feature of this interface is that it adds <code class="docutils literal notranslate"><span class="pre">start()</span></code> and <code class="docutils literal notranslate"><span class="pre">stop()</span></code> virtual methods on top of the Component interface.</p>
+<p>The component gets a notification with <code class="docutils literal notranslate"><span class="pre">start()</span></code> method that all other components in the graph have been initialized, underlying pipeline constructed and ready to start. In this method it is safe to call APIs of other components through their handles. This is not guaranteed to be safe in <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> method provided by Component because the other component may not be initialized by then.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stop()</span></code> method is called when the underlying pipeline has been stopped and before components are de-initialized.</p>
+</section>
+<section id="probe-invdsprobe">
+<h3>Probe - INvDsProbe<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#probe-invdsprobe" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsProbe</span></code> interface is used by components representing a probe. A probe is used for monitoring dataflow and in-place buffer modifications by adding callbacks on the I/O components of and <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component.</p>
+<p>Depending on the flags used, these callbacks are called for every buffer/query/event that flows through the I/O. <code class="docutils literal notranslate"><span class="pre">INvDsProbe</span></code> based components are used to only install a probe. The components that want to implement these callbacks need to implemented the <code class="docutils literal notranslate"><span class="pre">INvDsInPlaceDataHandler</span></code> interface described later.</p>
+<p>Ideally, custom components and extensions will never need to implement this interface or use APIs of this interface, it is required by the <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> for setting up the probes.</p>
+</section>
+<section id="probe-callback-implementation-invdsinplacedatahandler">
+<h3>Probe Callback Implementation - INvDsInPlaceDataHandler<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#probe-callback-implementation-invdsinplacedatahandler" title="Link to this heading">#</a></h3>
+<p>Custom components wanting to monitor data flow or to do in place data modifications at a particular I/O of a component must inherit from this interface. The methods of this interface are called by the <code class="docutils literal notranslate"><span class="pre">INvDsProbe</span></code> based component when a buffer/event/query arrives at the I/O.</p>
+<p>The interface provides the following virtual methods. Concrete implementations can implement any of the methods as required.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Methods</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">handle_buffer(GstPad</span> <span class="pre">*pad,</span> <span class="pre">nvidia::gxf::Entity</span> <span class="pre">buffer_data)</span></code></p></td>
+<td><p>Notification to the component to handle buffer data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">handle_event(GstPad</span> <span class="pre">*pad,</span> <span class="pre">GstEvent</span> <span class="pre">*event)</span></code></p></td>
+<td><p>Notification to the component to handle the passed event</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">handle_query(GstPad</span> <span class="pre">*pad,</span> <span class="pre">GstQuery</span> <span class="pre">*query)</span></code></p></td>
+<td><p>Notification to the component to handle passed query</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Returning true from these methods tells the probe component to let them pass through. Returning false implies that the objects should be dropped at that point.
+The <cite>buffer_data</cite> argument of the <cite>handle_buffer</cite> method is an Entity that contains the following data:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Value Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_GST_BUFFER</span></code></p></td>
+<td><p>GstBufferHandle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_NVBUFSURFACE</span></code></p></td>
+<td><p>NvBufSurfaceHandle</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_NVBUFAUDIO</span></code></p></td>
+<td><p>NvBufAudioHandle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_GST_VIDEO_BATCH_META</span></code></p></td>
+<td><p>NvDsBatchMetaHandle</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_GST_AUDIO_BATCH_META</span></code></p></td>
+<td><p>NvDsBatchMetaHandle</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The value types are explained in the Data components section.</p>
+<p>Depending upon the type of data flowing through the I/O, not all values might be present in the <cite>buffer_data</cite> entity. For e.g for a I/O handling video frames, <cite>buffer_data</cite> can contain <code class="docutils literal notranslate"><span class="pre">NvBufSurfaceHandle</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsBatchMetaHandle</span></code> for video but not <code class="docutils literal notranslate"><span class="pre">NvBufAudioHandle</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsBatchMetaHandle</span></code> for audio.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">handle_buffer</span></code> implementations must check for existence of the values before directly using the values.</p>
+<p><code class="docutils literal notranslate"><span class="pre">INvDsInPlaceDataHandler</span></code> based components must register a handle parameter of type <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code> and in the <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> method must call <code class="docutils literal notranslate"><span class="pre">set_handler()</span></code> and <code class="docutils literal notranslate"><span class="pre">set_flags()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code> to receive callbacks.</p>
+<p>For more information on GStreamer queries and events and the APIs, refer to the following links:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gstreamer.freedesktop.org/documentation/additional/design/query.html">https://gstreamer.freedesktop.org/documentation/additional/design/query.html</a></p></li>
+<li><p><a class="reference external" href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstquery.html">https://gstreamer.freedesktop.org/documentation/gstreamer/gstquery.html</a></p></li>
+<li><p><a class="reference external" href="https://gstreamer.freedesktop.org/documentation/additional/design/events.html">https://gstreamer.freedesktop.org/documentation/additional/design/events.html</a></p></li>
+<li><p><a class="reference external" href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstevent.html">https://gstreamer.freedesktop.org/documentation/gstreamer/gstevent.html</a></p></li>
+</ul>
+</section>
+<section id="action-invdsaction">
+<h3>Action - INvDsAction<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#action-invdsaction" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> interface is used to represent a <cite>GstElement</cite> action. An action is a trigger that signals an <cite>INvDsElement</cite> based component to perform some action corresponding to that trigger.</p>
+<p>Every concrete <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component that supports actions will have a corresponding concrete type derived from <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code>. This concrete type will expose a method to trigger the action.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> based components act only as helper components for providing a prototype for the trigger and connecting a component that triggers an action to a component that reacts to the trigger.</p>
+<p>The custom component that triggers the action must be implemented separately. It must register a handle parameter of the type of concrete <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> based component. The component that reacts to the trigger would also do the same. The concrete INvDsAction based component must be attached to the parameters of the other two components. When required, the custom component can trigger the action by calling the action trigger method on the handle of the <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> based component, for example, <code class="docutils literal notranslate"><span class="pre">NvDsRecordAction</span></code> component. This action is used to toggle recording on/off recording of a camera source. Thus this component has methods <code class="docutils literal notranslate"><span class="pre">start_record()</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_record()</span></code> and <code class="docutils literal notranslate"><span class="pre">take_snapshot()</span></code>. This action is supported by <code class="docutils literal notranslate"><span class="pre">NvDsMultiSrcInputWithRecord</span></code> component, thus it has a handle parameter “record-action” of type <code class="docutils literal notranslate"><span class="pre">NvDsRecordAction</span></code>.
+To trigger the action, a custom component must have a Parameter of type <code class="docutils literal notranslate"><span class="pre">Handle&lt;NvDsRecordAction&gt;</span></code>. The component <code class="docutils literal notranslate"><span class="pre">NvDsRecordAction</span></code> must be added to the graph and attached to the parameters of both, the <code class="docutils literal notranslate"><span class="pre">NvDsMultiSrcInputWithRecord</span></code> component and the custom component. The custom component can then call <code class="docutils literal notranslate"><span class="pre">start_record()</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_record()</span></code> and <code class="docutils literal notranslate"><span class="pre">take_snapshot()</span></code> methods as required.</p>
+</section>
+<section id="signal-invdssignal">
+<h3>Signal  - INvDsSignal<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#signal-invdssignal" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code> interface is used to represent a GstElement signal. A signal is a callback from an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component on the occurrence of some event.
+Every concrete component that supports signals will have a corresponding concrete type derived from <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code>. This concrete type will expose the prototype of the callback function and a method to set the callback function.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code> based components act only as helper components for providing a prototype for the callback and connecting a component that emits the signal to a component that implements the callback handling the signal.</p>
+<p>The custom component that handles the signal must be implemented separately. It must register a handle parameter of the type of concrete <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code> based component. It must implement the Handler interface exposed by the signal component and call set_handler() method on the handle of the signal component. The component that emits the signal would similarly register a handle parameter of type of the concrete signal component. The concrete <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code> based component must be attached to the parameters of the other two components. When the <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based element emits the corresponding signal, the methods of the Handler interface will get called via the signal component for example, <code class="docutils literal notranslate"><span class="pre">NvDsModelUpdateSignal</span></code> component. This signal is used to notify the status of on the fly model update. Thus the Handler interface for this signal has the method <code class="docutils literal notranslate"><span class="pre">on_model_updated(int</span> <span class="pre">errorCode,</span> <span class="pre">char</span> <span class="pre">*configFilePath)</span></code>. This signal is emitted by NvDsInfer component, thus it has a handle parameter <code class="docutils literal notranslate"><span class="pre">model-updated-signal</span></code> of type <code class="docutils literal notranslate"><span class="pre">NvDsModelUpdateSignal</span></code>.</p>
+<p>To receive the signal callback, a custom component must implement <code class="docutils literal notranslate"><span class="pre">NvDsModelUpdateSignal::Handler</span></code> interface. It must register a parameter of type <code class="docutils literal notranslate"><span class="pre">Handle&lt;NvDsModelUpdateSignal&gt;</span></code> and call <code class="docutils literal notranslate"><span class="pre">set_handler()</span></code> on the handle. The component <code class="docutils literal notranslate"><span class="pre">NvDsModelUpdateSignal</span></code> must be added to the graph and attached to the parameters of both <code class="docutils literal notranslate"><span class="pre">NvDsInfer</span></code> and the custom component.</p>
+</section>
+<section id="element-property-controller-invdspropertycontroller">
+<h3>Element Property Controller – INvDsPropertyController<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#element-property-controller-invdspropertycontroller" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code> interface is used by components acting as runtime property(parameter) controllers for <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based components.
+Every concrete <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component that supports runtime property control will have a corresponding concrete type derived from <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code>. This concrete type will expose methods to get/set the properties(parameters) of the element component. A method for each property that can be controlled will be exposed.
+The <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code> based components act only as helper components for providing prototypes for the get/set methods and connecting a component that can control the property to the element component that the property belongs to.</p>
+<p>The custom component that controls the properties must be implemented separately. It must register a handle parameter of the type of concrete <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code> based component. The component the properties belong to would also do the same. The concrete <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code> based component must be attached to the parameters of the other two components. When required, the custom component can call the get/set methods of the properties on the handle of the <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> based component for exmaple, <code class="docutils literal notranslate"><span class="pre">NvDsOSDPropertyController</span></code> component. This component can be used to get/set properties of <code class="docutils literal notranslate"><span class="pre">NvDsOSD</span></code> component, thus it has a handle parameter <code class="docutils literal notranslate"><span class="pre">property-controller</span></code> of type <code class="docutils literal notranslate"><span class="pre">NvDsOSDPropertyController</span></code>.</p>
+<p>To controls properties of the <code class="docutils literal notranslate"><span class="pre">NvDsOSD</span></code> component, a custom component must have a Parameter of type <code class="docutils literal notranslate"><span class="pre">Handle&lt;NvDsOSDPropertyController&gt;</span></code>. The component <code class="docutils literal notranslate"><span class="pre">NvDsOSDPropertyController</span></code> must be added to the graph and attached to the paramers of both, the <code class="docutils literal notranslate"><span class="pre">NvDsOSD</span></code> component and the custom component. The custom component can then call set/get methods exposed by <code class="docutils literal notranslate"><span class="pre">NvDsOSDPropertyController</span></code>.</p>
+</section>
+<section id="configurations-invdsconfigcomponent-template-and-specializations">
+<h3>Configurations  – INvDsConfigComponent template and specializations<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#configurations-invdsconfigcomponent-template-and-specializations" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsConfigComponent</span></code> interface is used as a base class for components acting as configuration providers (collection of settings, associated files, binaries etc.) for other components. The aim of this interface and the components that would derive from it is to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Simplify specification of group of parameters and their values that are fixed for a use case.</p></li>
+<li><p>Package together all related assets (e.g. model files, custom implementation libraries)</p></li>
+<li><p>Remove the need of knowing beforehand the paths to files during deployment and thus hardcoding these paths to related asset files in the <code class="docutils literal notranslate"><span class="pre">yaml</span></code> files. Since the files are packaged with the extension library, the component can internally determine the correct absolute path to the files.</p></li>
+</ul>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">INvDsConfigComponent</span></code> interface is a templated type. It provides a standard virtual method <code class="docutils literal notranslate"><span class="pre">fill_config(Config</span> <span class="pre">*config)</span></code> for any type of configuration, Config being the template type. It also provides a helper function <code class="docutils literal notranslate"><span class="pre">get_absolute_path(std::string</span> <span class="pre">path)</span></code> which can convert a path relative to the extension’s binary to an absolute path at runtime.</p>
+<p>Components wanting to use this template interface for reading configurations must declare a structure with supported configuration parameters and specialize the template by using the struct as a template argument. These components must have a parameter with handle type of the specialized template. The configuration can then be read by calling the <code class="docutils literal notranslate"><span class="pre">fill_config()</span></code> method of the handle.</p>
+<p>Components wanting to act as configuration providers must inherit from the specialized template and implement the <code class="docutils literal notranslate"><span class="pre">fill_config()</span></code> method. The configuration provider component is responsible for populating the config structure appropriately. These components can use the <code class="docutils literal notranslate"><span class="pre">get_absolute_path()</span></code> method to convert paths relative to extension binary to absolute paths.</p>
+<p>The DeepStream extensions currently have the following configuration provider interfaces:</p>
+</section>
+<section id="invdsinfermodelconfigcomponent">
+<h3>INvDsInferModelConfigComponent<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#invdsinfermodelconfigcomponent" title="Link to this heading">#</a></h3>
+<p>This interface acts as a configuration provider for the <code class="docutils literal notranslate"><span class="pre">NvDsInferVideo</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsInferAudio</span></code> components. Components implementing this interface must populate the following parameters of the configuration structure in the <code class="docutils literal notranslate"><span class="pre">fill_config()</span></code> method.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">config_file_path</span></code></p></td>
+<td><p>Absolute path to the nvinfer configuration file for the model</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">model_engine_path</span></code></p></td>
+<td><p>Absolute path to the pre-generated TensorRT engine file for the model (OPTIONAL)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NvDsInferVideo</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsInferAudio</span></code> components expose a handle parameter <code class="docutils literal notranslate"><span class="pre">infer-model-config</span></code> of type <code class="docutils literal notranslate"><span class="pre">INvDsInferModelConfigComponent</span></code> to which components implementing this interface can be attached.</p>
+<p>Components implementing this interface are model configuration providers. Thus they will package the DeepStreamSDK Gst-nvinfer/ Gst-nvinferaudio configuration file along with the model files. The specification of the Gst-nvinfer configuration file can be found at <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinfer.html#gst-nvinfer-file-configuration-specifications">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinfer.html#gst-nvinfer-file-configuration-specifications</a>.</p>
+</section>
+<section id="invdsvideotemplatepluginconfigcomponent-invdsaudiotemplatepluginconfigcomponent">
+<h3>INvDsVideoTemplatePluginConfigComponent / INvDsAudioTemplatePluginConfigComponent<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#invdsvideotemplatepluginconfigcomponent-invdsaudiotemplatepluginconfigcomponent" title="Link to this heading">#</a></h3>
+<p>These interfaces act as configuration providers for the <code class="docutils literal notranslate"><span class="pre">NvDsVideoTemplate</span></code> and the <code class="docutils literal notranslate"><span class="pre">NvDsAudioTemplate</span></code> components respectively.
+Components implementing these interfaces must populate the following parameters of the configuration structure in the <code class="docutils literal notranslate"><span class="pre">fill_config()</span></code> method.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">customlib_name</span></code></p></td>
+<td><p>Absolute path to the custom library that the audio/video template component should load</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std::unordered_map&lt;std::string,</span> <span class="pre">std::string&gt;</span> <span class="pre">customlib_props</span></code></p></td>
+<td><p>name-value pairs of properties to be passed to the custom library.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NvDsVideoTemplate</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsAudioTemplate</span></code> components expose handle parameters <code class="docutils literal notranslate"><span class="pre">video-template-config</span></code> and <code class="docutils literal notranslate"><span class="pre">audio-template-config</span></code> respectively to which components implementing the interfaces <code class="docutils literal notranslate"><span class="pre">INvDsVideoTemplatePluginConfigComponent</span></code> or <code class="docutils literal notranslate"><span class="pre">INvDsAudioTemplatePluginConfigComponent</span></code> can be attached.
+Components implementing these interfaces will package the custom library that must be provided to the template components.
+<code class="docutils literal notranslate"><span class="pre">NvDsVideoTemplate</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsAudioTemplate</span></code> components are wrappers for the DeepStreamSDK <code class="docutils literal notranslate"><span class="pre">Gst-nvdsvideotemplate</span></code> and <code class="docutils literal notranslate"><span class="pre">Gst-nvdsaudiotemplate</span></code> plugins respectively. For information on these plugins, refer to <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsvideotemplate.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsvideotemplate.html</a> and <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsaudiotemplate.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvdsaudiotemplate.html</a>.</p>
+</section>
+</section>
+<section id="data-components">
+<h2>Data Components<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#data-components" title="Link to this heading">#</a></h2>
+<p>DeepStream extensions provide some Data components which can be passed around as part of entities. This removes the need of having fixed structures / function prototypes to pass data, thus removing the problem of API breakage with changing versions. Entity provides a key-value mechanism for adding and retrieving data components. The key is of string type. Both the component producing these entities and consuming the entities must know the mapping between a key and the type of the associated value.
+Components consuming such entities must also check the existence of the key value pair by having a Boolean check on the return value of the <code class="docutils literal notranslate"><span class="pre">get()</span></code> method of the entity.
+The rest of the section provides details on the data components provided by DeepStream extensions. These data components are part of the <code class="docutils literal notranslate"><span class="pre">NvDsInterfaceExt</span></code> extension and are defined in the <code class="docutils literal notranslate"><span class="pre">interfaces.hpp</span></code> header file of the extension.</p>
+<section id="gstbufferhandle">
+<h3>GstBufferHandle<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#gstbufferhandle" title="Link to this heading">#</a></h3>
+<p>Wraps the pointer to <code class="docutils literal notranslate"><span class="pre">GstBuffer</span></code> which is the GStreamer data structure for buffers - <a class="reference external" href="https://gstreamer.freedesktop.org/documentation/gstreamer/gstbuffer.html">https://gstreamer.freedesktop.org/documentation/gstreamer/gstbuffer.html</a> . The key usually associated with this data component is defined by BUF_DATA_KEY_GST_BUFFER.</p>
+</section>
+<section id="nvbufsurfacehandle">
+<h3>NvBufSurfaceHandle<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvbufsurfacehandle" title="Link to this heading">#</a></h3>
+<p>Wraps the pointer to <code class="docutils literal notranslate"><span class="pre">NvBufSurface</span></code> which is the DeepStream data structure for batched video frames -  <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/sdk-api/structNvBufSurface.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/sdk-api/structNvBufSurface.html</a> . The key usually associated with this data component is defined by <code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_NVBUFSURFACE</span></code>.</p>
+</section>
+<section id="nvbufaudiohandle">
+<h3>NvBufAudioHandle<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvbufaudiohandle" title="Link to this heading">#</a></h3>
+<p>Wraps the pointer to <code class="docutils literal notranslate"><span class="pre">NvBufAudio</span></code> which is the DeepStream data structure for batched audio data – LINK TBD. The key usually associated with this data component is defined by <code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_NVBUFAUDIO</span></code>.</p>
+</section>
+<section id="nvdsbatchmetahandle">
+<h3>NvDsBatchMetaHandle<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsbatchmetahandle" title="Link to this heading">#</a></h3>
+<p>Wraps the pointer to <code class="docutils literal notranslate"><span class="pre">NvDsBatchMeta</span></code> which is the DeepStream data structure for metadata associated with batched video frames or batched audio data – <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/sdk-api/struct__NvDsBatchMeta.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/sdk-api/struct__NvDsBatchMeta.html</a> . The key usually associated with this data component is defined by <code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_VIDEO_BATCH_META</span></code> or <code class="docutils literal notranslate"><span class="pre">BUF_DATA_KEY_AUDIO_BATCH_META</span></code> depending on whether the <code class="docutils literal notranslate"><span class="pre">NvDsBatchMeta</span></code> structure contains information for video or audio.</p>
+</section>
+</section>
+<section id="basic-components">
+<h2>Basic Components<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#basic-components" title="Link to this heading">#</a></h2>
+<p>This section explains the basic concrete components that are required to create any type of DeepStream based graph. All these basic components are part of the <code class="docutils literal notranslate"><span class="pre">NvDsBaseExt</span></code> extension.</p>
+<section id="i-os">
+<h3>I/Os<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#i-os" title="Link to this heading">#</a></h3>
+<p>As explained in the previous section of the <code class="docutils literal notranslate"><span class="pre">INvDsIO</span></code> interface, I/Os are the input/output ports of an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component.
+An I/O is defined by a template which consists of:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>the direction (input or output)</p></li>
+<li><p>it’s availability</p></li>
+<li><p>the format of the data that flows through it.</p></li>
+</ul>
+</div></blockquote>
+<p>An I/O is identified by the template’s name. An element component will have one or more I/Os depending on it’s functionality and input/output requirements.
+The following types of I/O availabilities are defined along with the behavior of the <code class="docutils literal notranslate"><span class="pre">GstPadSPtr</span> <span class="pre">get_pad(char</span> <span class="pre">*requested_name)</span></code> method of <code class="docutils literal notranslate"><span class="pre">INvDsIO</span></code> interface for each of the type.</p>
+<blockquote>
+<div><ul>
+<li><p>Static – The I/O is always available on the element:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_pad()</span></code> always returns the underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> object (single). <code class="docutils literal notranslate"><span class="pre">requested_name</span></code> argument is ignored</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>OnRequest – The underlying I/O objects must be requested from the element by the application:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>e.g. <code class="docutils literal notranslate"><span class="pre">NvDsStreamMux</span></code> component which aggregates frames from multiple upstream components. Underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> objects for pushing data to the component must be requested from it, one for each upstream component.</p></li>
+<li><p>e.g. <code class="docutils literal notranslate"><span class="pre">NvDsTee</span></code> component which broadcasts input data to multiple outputs. Underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> objects for pushing data to multiple downstream components must be requested from it, one for each downstream component.</p></li>
+<li><p>If a non-NULL <code class="docutils literal notranslate"><span class="pre">requested_name</span></code> is provided to <code class="docutils literal notranslate"><span class="pre">get_pad()</span></code>, the method will try to create an underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> with the supplied name if it does not already exist and return it. If a pad with the provided requested_name cannot be created, NULL will be returned. If <code class="docutils literal notranslate"><span class="pre">requested_name</span></code> is not supplied, it creates a underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> with an internally generated name from the I/O’s template name and return it.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Dynamic – The underlying I/O object is made available by the element at runtime when some conditions are satisfied:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>e.g. <code class="docutils literal notranslate"><span class="pre">NvDsSingleSrcInput</span></code> component which reads from an input like FILE or RTSP and can decide whether it can output audio or video or both only after parsing the file headers/initial communication with the RTSP server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_pad()</span></code> tries to get an existing underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> object having name requested_name, returns NULL if no such pad is found. requested_name is mandatory.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Multi – A special I/O availability created for components which output data from multiple sources. This availability exposes itself as a single I/O but internally groups together multiple outputs, one for each of the sources. Due to the group representation, it makes the graph and components that would use the I/O independent of the number of sources. This makes it easy to have a variable number of sources, and to dynamically add/remove sources at runtime without any changes to the graph.</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>e.g. <code class="docutils literal notranslate"><span class="pre">NvDsMultiSrcInput</span></code> component which outputs data from multiple sources.</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_pad()</span></code> tries to get an existing underlying <code class="docutils literal notranslate"><span class="pre">GstPad</span></code> object having name <code class="docutils literal notranslate"><span class="pre">requested_name</span></code>, returns NULL if no such pad is found. <code class="docutils literal notranslate"><span class="pre">requested_name</span></code> is mandatory.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Based on these concepts, the following concrete I/O types are provided:</p>
+<ul class="simple">
+<li><p>NvDsStaticOutput</p></li>
+<li><p>NvDsOnRequestOutput</p></li>
+<li><p>NvDsDynamicOutput</p></li>
+<li><p>NvDsMultiOutput</p></li>
+<li><p>NvDsStaticInput</p></li>
+<li><p>NvDsOnRequestInput</p></li>
+</ul>
+<p>An element component exposes a handle parameter of a concrete I/O type for each of the I/O template it supports. For any kind of interaction with an I/O, like connecting two elements, in-place manipulation of data flowing through the I/O, a concrete type of I/P component must be attached to the parameter.
+Depending on the function of the element component, a variety of I/O templates and thus handle parameters will be present on the component.</p>
+</section>
+</section>
+<section id="connections">
+<h2>Connections<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#connections" title="Link to this heading">#</a></h2>
+<p>The connection components are responsible for connecting two elements. Connecting two elements means linking an output of one of the elements (called upstream element) to an input of the other element (called downstream element) which enables flow of data between the two elements through the linked I/Os.
+Two types of connection components are provided:</p>
+<section id="nvdsconnection">
+<h3>NvDsConnection<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsconnection" title="Link to this heading">#</a></h3>
+<p>This connection component can be used to link any type of output component to any type of input component with the exception of <code class="docutils literal notranslate"><span class="pre">NvDsMultiOutput</span></code>. It provides two handle parameters “source” and “target”. To connect, an output I/O component attached to an upstream element must be attached to the “source” parameter of an <code class="docutils literal notranslate"><span class="pre">NvDsConnection</span></code> component and an input I/O component attached to a downstream element must be attached to the “target” parameter of the <code class="docutils literal notranslate"><span class="pre">NvDsConnection</span></code> component.</p>
+</section>
+<section id="nvdsmultisrcconnection">
+<h3>NvDsMultiSrcConnection<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsmultisrcconnection" title="Link to this heading">#</a></h3>
+<p>As with <code class="docutils literal notranslate"><span class="pre">NvDsMultiOutput</span></code>, this connection type has been specially created for handling the use case of variable number of sources and dynamic addition/removal of sources at runtime. It can only be used to link a <code class="docutils literal notranslate"><span class="pre">NvDsMultiOutput</span></code> component to a <code class="docutils literal notranslate"><span class="pre">NvDsOnRequestInput</span></code> component, i.e. link an element which outputs data from multiple sources to aggregation type of elements. It has two parameters, “source” to attach the <code class="docutils literal notranslate"><span class="pre">NvDsMultiOutput</span></code> component to and “target” to attach the <code class="docutils literal notranslate"><span class="pre">NvDsOnRequestInput</span></code> component.</p>
+</section>
+</section>
+<section id="probes">
+<h2>Probes<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#probes" title="Link to this heading">#</a></h2>
+<p>As mentioned earlier probes are used for in-place manipulation and monitoring of data flowing through the I/Os of an element component. Two components are provided to achieve this.</p>
+<section id="nvdsprobe">
+<h3>NvDsProbe<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsprobe" title="Link to this heading">#</a></h3>
+<p>This component is responsible for intercepting data (buffers/events/queries) flowing through an I/O and calling the callback functions of the target handler component whenever data arrives at the I/O. It has two handle type properties. “io” to which an I/O component must be attached which needs to be probed and “probe-handler” to which a <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code> component must be attached.</p>
+</section>
+<section id="nvdsprobeconnector">
+<h3>NvDsProbeConnector<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsprobeconnector" title="Link to this heading">#</a></h3>
+<p>This component is used to link a <code class="docutils literal notranslate"><span class="pre">NvDsProbe</span></code> component to a target component derived from <code class="docutils literal notranslate"><span class="pre">INvDsInPlaceDataHandler</span></code> which makes it capable of handling callbacks from the probe.
+This component provides the following public methods, defined in <code class="docutils literal notranslate"><span class="pre">nvds_probe_connector.hpp</span></code> header file as part of <code class="docutils literal notranslate"><span class="pre">NvDsBaseExt</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">set_handler(INvDsInPlaceDataHandler</span> <span class="pre">*handler)</span></code></p></td>
+<td><p>Set the component that will be handling the probe callbacks. Must be called by INvDsInPlaceDataHandler based components.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INvDsInPlaceDataHandler</span> <span class="pre">*get_handler()</span></code></p></td>
+<td><p>Get the component that will be handling the probe callbacks.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">set_flags(NvDsProbeFlags</span> <span class="pre">flags)</span></code></p></td>
+<td><p>Set the types of information to receive probe callbacks for. Must be called by INvDsInPlaceDataHandler based components.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NvDsProbeFlags</span> <span class="pre">get_flags()</span></code></p></td>
+<td><p>Get the types of information to receive probe callbacks for.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">set_io(INvDsIO</span> <span class="pre">*io)</span></code></p></td>
+<td><p>Set the IO this component is connected to. This method is called by NvDsProbe.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">INvDsIO</span> <span class="pre">*get_io()</span></code></p></td>
+<td><p>Get the IO this component is connected to.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The flags must be a bitwise OR combination of the following:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NvDsProbeFlags::NONE</span></code></p></td>
+<td><p>The target does not wish to handle any data</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NvDsProbeFlags::BUFFER</span></code></p></td>
+<td><p>The target component wants to handle buffers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NvDsProbeFlags::EVENT</span></code></p></td>
+<td><p>The target component wants to handle events</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NvDsProbeFlags::QUERY</span></code></p></td>
+<td><p>The target component wants to handle queries</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The target component must register a handle parameter of type <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code>. The target component in it’s <code class="docutils literal notranslate"><span class="pre">initialize()</span></code>  method must call <code class="docutils literal notranslate"><span class="pre">set_handler()</span></code> and <code class="docutils literal notranslate"><span class="pre">set_flags()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code> to receive callbacks.</p>
+</section>
+<section id="nvdsscheduler">
+<h3>NvDsScheduler<a class="headerlink" href="DS_Zero_Coding_DS_Components.html#nvdsscheduler" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> component is responsible for setting up the underlying pipeline and managing its state, connecting and scheduling components in the graph and managing their lifecycle. It is also responsible for setting up the probe handlers.</p>
+<p>There must be a <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> in a graph. Without the presence of a <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> in the graph, the DeepStream based components would never get scheduled. Additionally, there must be only one <code class="docutils literal notranslate"><span class="pre">NvDsScheduler</span></code> in a graph. In case multiple <code class="docutils literal notranslate"><span class="pre">NvDsSchedulers</span></code> are added to a graph, only one gets actually executed others become redundant and get skipped.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Zero_Coding_Developing_Extension.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Developing Extensions for DeepStream</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../graphtools-docs/docs/text/GXF_Internals.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GXF Internals</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#interfaces">Interfaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#element-invdselement">Element - INvDsElement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#i-os-invdsio-invdsinput-invdsoutput">I/Os - INvDsIO/INvDsInput/INvDsOutput</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#connections-invdsconnection">Connections - INvDsConnection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#deepstream-domain-component-invdscomponent">DeepStream Domain Component - INvDsComponent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#probe-invdsprobe">Probe - INvDsProbe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#probe-callback-implementation-invdsinplacedatahandler">Probe Callback Implementation - INvDsInPlaceDataHandler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#action-invdsaction">Action - INvDsAction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#signal-invdssignal">Signal  - INvDsSignal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#element-property-controller-invdspropertycontroller">Element Property Controller – INvDsPropertyController</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#configurations-invdsconfigcomponent-template-and-specializations">Configurations  – INvDsConfigComponent template and specializations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#invdsinfermodelconfigcomponent">INvDsInferModelConfigComponent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#invdsvideotemplatepluginconfigcomponent-invdsaudiotemplatepluginconfigcomponent">INvDsVideoTemplatePluginConfigComponent / INvDsAudioTemplatePluginConfigComponent</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#data-components">Data Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#gstbufferhandle">GstBufferHandle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvbufsurfacehandle">NvBufSurfaceHandle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvbufaudiohandle">NvBufAudioHandle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsbatchmetahandle">NvDsBatchMetaHandle</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#basic-components">Basic Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#i-os">I/Os</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#connections">Connections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsconnection">NvDsConnection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsmultisrcconnection">NvDsMultiSrcConnection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#probes">Probes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsprobe">NvDsProbe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsprobeconnector">NvDsProbeConnector</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_DS_Components.html#nvdsscheduler">NvDsScheduler</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

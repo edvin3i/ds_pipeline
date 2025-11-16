@@ -1,0 +1,1850 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Composer &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GraphComposer_Composer';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Container Builder" href="GraphComposer_Container_Builder.html" />
+    <link rel="prev" title="Registry Command Line Interface" href="GraphComposer_Registry_CLI.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GraphComposer_Composer.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="GraphComposer_Composer.html#">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Composer</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="composer">
+<h1>Composer<a class="headerlink" href="GraphComposer_Composer.html#composer" title="Link to this heading">#</a></h1>
+<p>The Composer is an GUI application designed to create AI Application pipeline through an easy-to-use graphic interface, reducing the complexity of application development significantly and thus reducing time to market.</p>
+<p>The Composer is based on the Omniverse SDK which provides a highly responsive hardware-accelerated GUI.</p>
+<section id="user-interface">
+<h2>User Interface<a class="headerlink" href="GraphComposer_Composer.html#user-interface" title="Link to this heading">#</a></h2>
+<img alt="Composer overview" class="align-center" src="../../../_images/GXF-UI-Overview.svg" />
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ref#</p></th>
+<th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>File Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#file-menu"><span class="std std-ref">File Menu</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Edit Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#edit-menu"><span class="std std-ref">Edit Menu</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Graph Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#graph-menu"><span class="std std-ref">Graph Menu</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Registry Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#registry-menu"><span class="std std-ref">Registry Menu</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Tools Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#tools-menu"><span class="std std-ref">Tools Menu</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Window Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#window-menu"><span class="std std-ref">Window Menu</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Help Menu</p></td>
+<td><p>Opens the <a class="reference internal" href="GraphComposer_Composer.html#help-menu"><span class="std std-ref">Help Menu</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Toolbar/Shelf</p></td>
+<td><p>Tool buttons for the most frequently used features</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>Graph Canvas</p></td>
+<td><p>A canvas window to create and manipulate a graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Property Window</p></td>
+<td><p>Shows the details on any selected object</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Extension Grouping</p></td>
+<td><p>Extensions/Components can be grouped by different ways</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>Extension Search Bar</p></td>
+<td><p>A search bar for searching the extensions/components</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>Component</p></td>
+<td><p>Object which can be drag and drop on the graph canvas</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>Node</p></td>
+<td><p>A node on the graph canvas</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>Console</p></td>
+<td><p>Display the console output</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="menu-bar">
+<h3>Menu Bar<a class="headerlink" href="GraphComposer_Composer.html#menu-bar" title="Link to this heading">#</a></h3>
+<p>The menu bar on the top of the main window contains the main menus of the Composer, providing entries to execute common commands.</p>
+<section id="file-menu">
+<span id="id1"></span><h4>File Menu<a class="headerlink" href="GraphComposer_Composer.html#file-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+<th class="head"><p>Hot key</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New Graph</p></td>
+<td><p>Create an empty graph on the graph canvas</p></td>
+<td><p>Ctrl + N</p></td>
+</tr>
+<tr class="row-odd"><td><p>Open Graph</p></td>
+<td><p>Open an existing graph file in the graph canvas</p></td>
+<td><p>Ctrl + O</p></td>
+</tr>
+<tr class="row-even"><td><p>Save Graph</p></td>
+<td><p>Save the current graph to a yaml file</p></td>
+<td><p>Ctrl + S</p></td>
+</tr>
+<tr class="row-odd"><td><p>Save Graph As</p></td>
+<td><p>Save the current graph with a different name and path</p></td>
+<td><p>Shift + Ctrl + S</p></td>
+</tr>
+<tr class="row-even"><td><p>Rename Graph</p></td>
+<td><p>Rename the current graph</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Close Graph</p></td>
+<td><p>Close the current graph</p></td>
+<td><p>Ctrl + W</p></td>
+</tr>
+<tr class="row-even"><td><p>Export Parameters</p></td>
+<td><p>Export the flagged parameters in the current graph to a file</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Load Parameters</p></td>
+<td><p>Load the value of parameters from a parameter file</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Exit</p></td>
+<td><p>Quit the application</p></td>
+<td><p>Ctrl + Q</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="edit-menu">
+<span id="id2"></span><h4>Edit Menu<a class="headerlink" href="GraphComposer_Composer.html#edit-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+<th class="head"><p>Hot key</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Delete</p></td>
+<td><p>Remove the selected instance</p></td>
+<td><p>Del</p></td>
+</tr>
+<tr class="row-odd"><td><p>Copy</p></td>
+<td><p>Copy the selected instance to the clipboard</p></td>
+<td><p>Ctrl + C</p></td>
+</tr>
+<tr class="row-even"><td><p>Paste</p></td>
+<td><p>Paste the instance from the clipboard to the graph</p></td>
+<td><p>Ctrl + V</p></td>
+</tr>
+<tr class="row-odd"><td><p>Undo</p></td>
+<td><p>Undo a command</p></td>
+<td><p>Ctrl + Z</p></td>
+</tr>
+<tr class="row-even"><td><p>Redo</p></td>
+<td><p>Redo a command</p></td>
+<td><p>Ctrl + Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Preferences</p></td>
+<td><p>Set application preferences</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="registry-menu">
+<span id="id3"></span><h4>Registry Menu<a class="headerlink" href="GraphComposer_Composer.html#registry-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sync Repo</p></td>
+<td><p>Sync Repository</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clear Cache</p></td>
+<td><p>Clear Registry Cache</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="graph-menu">
+<span id="id4"></span><h4>Graph Menu<a class="headerlink" href="GraphComposer_Composer.html#graph-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Run Graph</p></td>
+<td><p>Run current graph on local or remote machine</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stop Graph</p></td>
+<td><p>Stops the execution of the currently running graph</p></td>
+</tr>
+<tr class="row-even"><td><p>Focus Selection</p></td>
+<td><p>Automatically zoom and pan the canvas to focus on the current selection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Focus All</p></td>
+<td><p>Automatically zoom and pan the canvas to fit the entire graph</p></td>
+</tr>
+<tr class="row-even"><td><p>Layout All</p></td>
+<td><p>Automatically layout all the nodes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximize All</p></td>
+<td><p>Expand all the nodes in the graph with all the details</p></td>
+</tr>
+<tr class="row-even"><td><p>Minimize All</p></td>
+<td><p>Minimize all the nodes in the graph by showing connected ports only</p></td>
+</tr>
+<tr class="row-odd"><td><p>Close All</p></td>
+<td><p>Close all the nodes in the graph by hiding all the ports</p></td>
+</tr>
+<tr class="row-even"><td><p>Debug View</p></td>
+<td><p>Toggle the Debug View</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tools-menu">
+<span id="id5"></span><h4>Tools Menu<a class="headerlink" href="GraphComposer_Composer.html#tools-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Generate Extension</p></td>
+<td><p>Open <a class="reference internal" href="GraphComposer_Composer.html#generate-gstreamer-extension"><span class="std std-ref">Generate Extension</span></a> for Gstreamer Elements window</p></td>
+</tr>
+<tr class="row-odd"><td><p>Container Builder</p></td>
+<td><p>Launch the Container Builder</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="window-menu">
+<span id="id6"></span><h4>Window Menu<a class="headerlink" href="GraphComposer_Composer.html#window-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Property</p></td>
+<td><p>Toggle the Property Window</p></td>
+</tr>
+<tr class="row-odd"><td><p>Console</p></td>
+<td><p>Toggle the Console Window</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="help-menu">
+<span id="id7"></span><h4>Help Menu<a class="headerlink" href="GraphComposer_Composer.html#help-menu" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Graph Composer Docs</p></td>
+<td><p>Open the Graph Composer Documentation from a browser</p></td>
+</tr>
+<tr class="row-odd"><td><p>Deepstream Docs</p></td>
+<td><p>Open the Deepstream Documentation from a browser</p></td>
+</tr>
+<tr class="row-even"><td><p>Getting Started</p></td>
+<td><p>Open the Graph Composer Getting Started Guide from a browser</p></td>
+</tr>
+<tr class="row-odd"><td><p>About</p></td>
+<td><p>Display versions of the tools</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="context-menu">
+<h3>Context Menu<a class="headerlink" href="GraphComposer_Composer.html#context-menu" title="Link to this heading">#</a></h3>
+<p>Context menu is invoked while a user right-clicks on the canvas with a mouse, which provides the entries to commands bound to the current graph.</p>
+<img alt="Context Menu" class="align-center" src="../../../_images/Composer_context_menu.png" />
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Menu Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Rename the Graph</p></td>
+<td><p>Rename the current graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>Export Parameters</p></td>
+<td><p>Export the flagged parameters in the current graph to a file</p></td>
+</tr>
+<tr class="row-even"><td><p>Load Parameters</p></td>
+<td><p>Load the value of parameters from a parameter file</p></td>
+</tr>
+<tr class="row-odd"><td><p>Delete Selection</p></td>
+<td><p>Delete the currently selected node</p></td>
+</tr>
+<tr class="row-even"><td><p>Open All</p></td>
+<td><p>Expand all the nodes in the graph with all the details</p></td>
+</tr>
+<tr class="row-odd"><td><p>Minimize All</p></td>
+<td><p>Minimize all the nodes in the graph by showing connected ports only</p></td>
+</tr>
+<tr class="row-even"><td><p>Close All</p></td>
+<td><p>Close all the nodes in the graph by hiding all the ports</p></td>
+</tr>
+<tr class="row-odd"><td><p>Layout All</p></td>
+<td><p>Automatically layout all the nodes</p></td>
+</tr>
+<tr class="row-even"><td><p>Focus on All</p></td>
+<td><p>Automatically zoom and pan the canvas to fit the entire graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>Focus on Selection</p></td>
+<td><p>Automatically zoom and pan the canvas to focus on the current selection</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="toolbar">
+<h3>Toolbar<a class="headerlink" href="GraphComposer_Composer.html#toolbar" title="Link to this heading">#</a></h3>
+<img alt="Toolbar" class="align-center" src="../../../_images/toolbar.png" />
+<p>Toolbar on the top of the main window provides shortcuts of available functions of the current graph</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Toolbar Items</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New Graph</p></td>
+<td><p>Open an empty Graph Editor Window</p></td>
+</tr>
+<tr class="row-odd"><td><p>Open Graph</p></td>
+<td><p>Open an existing graph file in an new Graph Editor Window</p></td>
+</tr>
+<tr class="row-even"><td><p>Save Graph</p></td>
+<td><p>Save the current graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>Close Graph</p></td>
+<td><p>Close the current graph</p></td>
+</tr>
+<tr class="row-even"><td><p>Run Graph</p></td>
+<td><p>Run current graph on local or remote machine</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stop Graph</p></td>
+<td><p>Stops the execution of the currently running graph</p></td>
+</tr>
+<tr class="row-even"><td><p>Container Builder</p></td>
+<td><p>Build container for x86 or aarch64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Export Parameters</p></td>
+<td><p>Export the flagged parameters in the current graph to a file</p></td>
+</tr>
+<tr class="row-even"><td><p>Load Parameters</p></td>
+<td><p>Load the value of parameters from a parameter file</p></td>
+</tr>
+<tr class="row-odd"><td><p>Delete</p></td>
+<td><p>Delete the current selection</p></td>
+</tr>
+<tr class="row-even"><td><p>Copy</p></td>
+<td><p>Copy the current selection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Paste</p></td>
+<td><p>Paste the current selection</p></td>
+</tr>
+<tr class="row-even"><td><p>Expand Nodes</p></td>
+<td><p>Expand all the nodes in the graph with all the details</p></td>
+</tr>
+<tr class="row-odd"><td><p>Minimize Nodes</p></td>
+<td><p>Minimize all the nodes in the graph by showing connected ports only</p></td>
+</tr>
+<tr class="row-even"><td><p>Close Nodes</p></td>
+<td><p>Close all the nodes in the graph by hiding all the ports</p></td>
+</tr>
+<tr class="row-odd"><td><p>Focus Selection</p></td>
+<td><p>Automatically zoom and pan the canvas to focus on the current selection</p></td>
+</tr>
+<tr class="row-even"><td><p>Focus All</p></td>
+<td><p>Automatically zoom and pan the canvas to fit the entire graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>Layout All</p></td>
+<td><p>Automatically layout all the nodes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="component-list">
+<h3>Component List<a class="headerlink" href="GraphComposer_Composer.html#component-list" title="Link to this heading">#</a></h3>
+<p>The component list window shows the information of all the available components in various extensions, which are fetched from the remote registry and could be used to build different graphs by the user.
+It can be grouped in two ways:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>By default, the list is showed in a two-level hierarchical view grouped by extensions.</p></li>
+<li><p>By Workflows, the list is showed in a two-level hierarchical view grouped by extension categories.</p></li>
+</ol>
+</div></blockquote>
+<a class="reference internal image-reference" href="../../../_images/Composer_component_list.png"><img alt="Component List grouped by extension." src="../../../_images/Composer_component_list.png" style="width: 20%;" />
+</a>
+<p>You can choose a component from the Component List by a left click on the mouse to display the detailed information of that component in the Property window. The details include the component type, description, details of the extension which includes the component, and the details of the properties supported by the component.
+The Component List supports direct <cite>Drag and Drop</cite>, allowing users to create an instance of a specific component in a graph by simply dragging it from the list and dropping to the canvas or a destination node in the graph. If you drops it to the canvas, a default node will be created automatically to accommodate the instance and its input and output port will be initialized as much as possible.</p>
+</section>
+</section>
+<section id="create-new-application">
+<h2>Create New Application<a class="headerlink" href="GraphComposer_Composer.html#create-new-application" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Navigate to the <cite>File</cite> menu from the main window menu bar and choose <cite>New Graph</cite>, or click the <cite>Create Graph`</cite> icon from the landing page.</p></li>
+<li><p>An empty graph is created and displayed in the graph canvas.</p></li>
+</ol>
+</section>
+<section id="open-and-save-application-graphs">
+<h2>Open and Save Application Graphs<a class="headerlink" href="GraphComposer_Composer.html#open-and-save-application-graphs" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure the component list is not empty before opening any graph, trying opening a graph file with an empty component list will generate a corrupted graph.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To access component information, the Composer must connect to the gxf server either locally or remotely. Users can set the server address through the Edit/Preferences menu. By default, the server is set to run locally with an IP address of 127.0.0.1. If the server is not running, the component list will be empty and a connection error will be displayed in the log.</p>
+</div>
+<ol class="arabic simple">
+<li><p>To save the current graph, use the ‘File’ menu and choose <cite>Save the Graph</cite> (<cite>Ctrl + S</cite>) or <cite>Save the Graph as</cite> (<cite>Shift + Ctrl +S</cite>), if the graph has never been saved before or you want to save it to a different file.</p></li>
+<li><p>A file browser dialog pops up prompting you to pick a path in the file system.</p></li>
+</ol>
+<img alt="Save a Graph to a specific location of the file system" class="align-center" src="../../../_images/Composer_save_graph.png" />
+</section>
+<section id="compose-an-application-graph">
+<h2>Compose an Application Graph<a class="headerlink" href="GraphComposer_Composer.html#compose-an-application-graph" title="Link to this heading">#</a></h2>
+<section id="finding-the-right-component">
+<h3>Finding the right component<a class="headerlink" href="GraphComposer_Composer.html#finding-the-right-component" title="Link to this heading">#</a></h3>
+<p>Components are grouped by extensions. Information of a specific component and the extension can be found in the details window if you click on the corresponding item showed in the Component List, including its type, the purpose, and supported properties.
+With the search bar on the top of the Component List window, you can also filter out the candidate components.</p>
+<a class="reference internal image-reference" href="../../../_images/Composer_filter_search_bar.png"><img alt="Filtering with the search bar." src="../../../_images/Composer_filter_search_bar.png" style="width: 20%;" />
+</a>
+<p>By choosing the versions from the Version list, the extension with a specific version will be loaded.</p>
+<img alt="Information of a Component" class="align-center" src="../../../_images/Composer_component_information.png" />
+<p>From Composer perspective, a Component falls into one of the 3 groups below based on the role it plays in the graph:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Primary Component</p></td>
+<td><p>Compute Components which are executed by scheduler.</p></td>
+<td><p>Decoder</p></td>
+</tr>
+<tr class="row-odd"><td><p>Secondary Component</p></td>
+<td><p>Helper components being used by primary ones for data exchange, config, scheduling rules.</p></td>
+<td><p>SinkPad</p></td>
+</tr>
+<tr class="row-even"><td><p>Connection</p></td>
+<td><p>Responsible to connect input and output components</p></td>
+<td><p>Connection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Subgraph Component</p></td>
+<td><p>Used to load a subgraph</p></td>
+<td><p>Subgraph</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Before creating an Application graph, users should always firstly figure out what kind of primary components are needed. Only after all the primary components have been properly picked, they could consider initializing them and then setting up the connections.</p>
+<p>The component inside an entity node contains:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The Component name: can be changed with a double click</p></li>
+<li><p>Handles under the component: displayed under the component if the component could use the other components. Not all the components have handles and the number of handles, their type and names are all predefined by the type of the component itself.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="creating-a-component-instance">
+<h3>Creating a Component Instance<a class="headerlink" href="GraphComposer_Composer.html#creating-a-component-instance" title="Link to this heading">#</a></h3>
+<p>Steps to create component instances:</p>
+<p><strong>Using Drag and Drop</strong></p>
+<ol class="arabic simple">
+<li><p>To add a new component instance to a graph, find the type of the component from Component List and drag&amp;drop it to the graph canvas.</p></li>
+<li><p>If the component is dropped to the vacant area an entity node will be created automatically to hold the component</p></li>
+<li><p>If the component is dropped to an existing entity node it is going to be added to that entity.</p></li>
+</ol>
+<p><strong>Initialize a Handle by Creating a New Component Using Context Menu</strong></p>
+<p>Through the context menu of a handle, users can choose to <code class="docutils literal notranslate"><span class="pre">Create</span></code> a new component instance and use it to initialize a handle. Since the compatible components have already been filtered for the specific handle, the list becomes much shorter and it is always recommended to create secondary components including Input and Output through this way.</p>
+<img alt="Create a component instance through context menu" class="align-center" src="../../../_images/Composer_create_component.png" />
+</section>
+<section id="understanding-the-component-handles">
+<h3>Understanding the Component Handles<a class="headerlink" href="GraphComposer_Composer.html#understanding-the-component-handles" title="Link to this heading">#</a></h3>
+<p>A component can have handles through which it interact with other components. A handle is essentially a special property supported by the component,  and it must be initialized with a component instance of the required type to become functional.
+There are some special handles called Input and Output who manage the data exchange of a component, and to enable data exchange of a component a user needs to initialize them with appropriate Input and Output components.</p>
+<img alt="Component Handle" class="align-center" src="../../../_images/Composer_handle.png" />
+</section>
+<section id="linking-and-unlinking-components">
+<h3>Linking and Unlinking components<a class="headerlink" href="GraphComposer_Composer.html#linking-and-unlinking-components" title="Link to this heading">#</a></h3>
+<p>There are two options for a user to initialize a Handle: one is through its context menu, having been mentioned above; the other one is using <cite>Link</cite>. The <cite>Link</cite> operation can be done by dragging and dropping a curve from the handle to its required component, meaning the required component must be created at first.</p>
+<p>As a reverse operation, Users can use <cite>Disconnect</cite> from the context menu of the target component to break up from its owner, or use <cite>Release</cite> option from the context menu of a handle to de-initialize it and release the target component.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>One handle can only be initialized with (or linked to) one component instance at the same time</p>
+</div>
+<p>Steps to link or unlink the components:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>To link two components, left-click with your cursor on an output port (the full circle) in one component and drag a curve to the input port (the half circle) of another component.</p></li>
+<li><p>Links can only be set up among compatible components, which means the type of the link source must be the same type or the base type of a link target.</p></li>
+<li><p>To see the port type, hover the mouse cursor on the port.</p></li>
+<li><p>To remove the link, right click on the input port (the half circle), then choose <cite>Disconnect</cite> from the context menu.</p></li>
+</ol>
+<img alt="Link the Components" class="align-center" src="../../../_images/Link_components.png" />
+</div></blockquote>
+</section>
+<section id="entity-node">
+<h3>Entity Node<a class="headerlink" href="GraphComposer_Composer.html#entity-node" title="Link to this heading">#</a></h3>
+<p>An entity node is the container of a group of components who work together to get certain tasks done. Usually there is one primary and several secondary components required by the primary one, including the input, output, and others.
+An existing node can be deleted from File Menu, the Context Menu of the node or the corresponding hot key.</p>
+<p>Nodes can be categories based on the roles and types of the components contained inside, different category of nodes will be showed in different style:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 16.7%" />
+<col style="width: 33.3%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Node Category</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>compute</p></td>
+<td><p>General Computing Components</p></td>
+<td><p>Object Analytics</p></td>
+</tr>
+<tr class="row-odd"><td><p>cloud</p></td>
+<td><p>Cloud Components</p></td>
+<td><p>Cloud Message Receiver</p></td>
+</tr>
+<tr class="row-even"><td><p>input</p></td>
+<td><p>Input Components</p></td>
+<td><p>Alsa Audio Input</p></td>
+</tr>
+<tr class="row-odd"><td><p>neural networks</p></td>
+<td><p>Inference Components with Neural Networks</p></td>
+<td><p>Video Inference</p></td>
+</tr>
+<tr class="row-even"><td><p>output</p></td>
+<td><p>Output Components</p></td>
+<td><p>Alsa Audio Output</p></td>
+</tr>
+<tr class="row-odd"><td><p>muxer</p></td>
+<td><p>Muxing/Demuxing Components</p></td>
+<td><p>Stream Muxer</p></td>
+</tr>
+<tr class="row-even"><td><p>utility</p></td>
+<td><p>Utilities</p></td>
+<td><p>RealTimeClock</p></td>
+</tr>
+<tr class="row-odd"><td><p>image processing</p></td>
+<td><p>Image Processing Components</p></td>
+<td><p>Video Dewarper</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<img alt="Node Categories" class="align-center" src="../../../_images/Composer_node_categories.png" />
+</section>
+<section id="setting-up-a-connection-from-an-input-to-an-output">
+<h3>Setting up a Connection from an Input to an Output<a class="headerlink" href="GraphComposer_Composer.html#setting-up-a-connection-from-an-input-to-an-output" title="Link to this heading">#</a></h3>
+<p>A connection represents the data flow from an input component to an output one, and it can be created when a user drags a curve from an output and drop it to a compatible input. It is important to understand that the input and the output of a connection must be compatible, that is to say, the type of data from the output to the input must be exchangeable.
+Connections can only be set up between two different nodes. Multiple connections are allowed on a single input or output.
+To remove connections on an Input or Output, users can use the “Disconnect” from the context menu by right clicking on the connection.</p>
+<img alt="remove the connection from a video decoder to a video renderer using context menu" class="align-center" src="../../../_images/Composer_connection_disconnect.png" />
+</section>
+<section id="changing-the-component-properties">
+<h3>Changing the Component Properties<a class="headerlink" href="GraphComposer_Composer.html#changing-the-component-properties" title="Link to this heading">#</a></h3>
+<p>To select a component, left or right-click on a component or its handles in the graph editor. This displays the component information including its properties in the detail window accordingly, where you can make changes on any writable property.
+It displays the property name [1], the text field [2] to edit the property, the check box [3] to export a file property to a resource file and another check box [4] to export the property to a different yaml file.</p>
+<img alt="Change component properties from the Details Window" class="align-center" src="../../../_images/Composer_change_component_properties.png" />
+</section>
+<section id="editor-features">
+<h3>Editor Features<a class="headerlink" href="GraphComposer_Composer.html#editor-features" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Zoom and Pan the Canvas</strong></p>
+<p>The scroll wheel of the mouse enables zoom in and zoom out, and using ‘ALT’ and left click of the mouse allows users to pan the canvas.</p>
+</li>
+<li><p><strong>Copy and Paste</strong></p></li>
+</ol>
+<blockquote>
+<div><p>Before doing a <cite>Copy</cite>, first select a instance from a graph editor, then trigger the operation through <cite>Edit</cite> menu or corresponding hot key.
+<cite>Copy</cite> operation creates a copy of the node instance.
+When the copy of a node is created, all the components inside the node will be duplicated accordingly, preserving their relationship.
+There is a global clipboard in the Composer where a copied node is kept temporarily. When a <cite>Paste</cite> command is triggered, the instance in the clipboard will be added back to the graph.</p>
+<blockquote>
+<div><p><cite>Undo</cite> and <cite>Redo</cite> are supported for following commands:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>New Node</p></li>
+<li><p>New Component</p></li>
+<li><p>Link a Handle</p></li>
+<li><p>Unlink a Handle</p></li>
+<li><p>Set up a Connection</p></li>
+<li><p>Disconnect an Input/Output</p></li>
+<li><p>Delete a Node</p></li>
+<li><p>Delete a Component</p></li>
+<li><p>Rename a Node</p></li>
+<li><p>Rename a Component</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p><strong>Debug View</strong></p>
+<p>The composer provides an option for users to turn on the debug view on the graph, which represents the graph in the exact same topology its implementation architecture.
+In the debug view all the abstractions used for visualization simplification have been restored to their raw structures:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Connections be expanded to a standalone node with a connection component inside, whose handles be linked to an input component and an output component.</p></li>
+<li><p>Connections cannot be set up from an Output to an Input directly, even after both of them have been linked to some Input and Output components</p></li>
+</ul>
+</div></blockquote>
+<p>Debug view is useful in inspecting your graph if you notice anything abnormal.</p>
+</li>
+</ol>
+</section>
+<section id="subgraph">
+<h3>Subgraph<a class="headerlink" href="GraphComposer_Composer.html#subgraph" title="Link to this heading">#</a></h3>
+<p>Introduction of the Subgraph concept increases the modularity and reusability of Component based programming significantly. Subgraph is nothing different from a regular graph except that it has exported interfaces which allow it to be re-used in other graphs, and a subgraph itself can also use other subgraphs.</p>
+<p>When a subgraph is used in other graphs, it will be abstracted as a “Subgraph” type component inside a subgraph node, only the exported interfaces are showed in the same node with all the other details being concealed. Components in the parent graph can interact with the subgraph through those interfaces.</p>
+<ol class="arabic">
+<li><p><strong>Creating a Subgraph</strong></p>
+<p>Creating a subgraph is similar to creating a regular graph. Once the user has created a regular graph, they can export interfaces so that the graph can be used as a subgraph in other graphs. Additionally, the user can add placeholders to the subgraph, which can be materialized by the parent graph.</p>
+<p>To export interfaces, users need to right click on the component that is going to be exported as an interface and choose “Export … as an interface”, before the interface is created users are given a chance to name the interface. Users can also create an interface node through Drag&amp;Drop first, then link it to the component that is going to be exported.</p>
+<p>To use placeholders, users can drag and drop a Placeholder node to the graph canvas, which holds a prerequisite component and can be used in the graph as a general component.</p>
+<p>To make the interfaces and placeholders to be effective users must save the graph file.</p>
+</li>
+</ol>
+<img alt="Change component properties from the Details Window" class="align-center" src="../../../_images/Composer_create_subgraph.png" />
+<ol class="arabic" start="2">
+<li><p><strong>Using a Subgraph</strong></p>
+<p>In order to use a subgraph in the current graph, the user needs to Drag and Drop a “Subgraph” node from “Miscellaneous” group in the catalog to the canvas, then update the “location” property to load the subgraph from the filesystem.</p>
+<p>The location must be a valid file path which could be either absolute or relative to the subgraph search path.</p>
+<blockquote>
+<div><img alt="load a subgraph" class="align-center" src="../../../_images/Composer_use_subgraph.png" />
+</div></blockquote>
+<p>In order to make the relative path work correctly with subgraphs user must go to Edit/Preferences menu and set the subgraph search path properly.</p>
+<blockquote>
+<div><img alt="search path of a subgraph" class="align-center" src="../../../_images/Composer_subgraph_search_path.png" />
+</div></blockquote>
+</li>
+</ol>
+<blockquote>
+<div><p>Users can set multiple file paths as the location for a subgraph by separating them with commas. This is useful when appending multiple graph files to a single subgraph.</p>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p><strong>Viewing a Subgraph</strong></p>
+<p>A double-click on the subgraph component will trigger a switch of the current graph view to the subgraph view, where the internal details of the subgraph is displayed.
+A navigation bar will show up on the top of the graph window once a subgraph view is activated so that the user can switch the view between subgraphs and their parent graph.</p>
+</li>
+</ol>
+</section>
+<section id="backdrop">
+<h3>Backdrop<a class="headerlink" href="GraphComposer_Composer.html#backdrop" title="Link to this heading">#</a></h3>
+<p>Backdrop is a tool used to group the nodes in the current graph, which can be created through Drag&amp;Drop from “Miscellaneous” group in the catalog. After a Backdrop rectangle is created, it can be moved and resized to include a number of nodes, so to group them together. Once a Backdrop is created, the nodes inside will be moved altogether while the Backdrop itself is moved.</p>
+<p>User can rename a Backdrop by double-clicking on its name or change its color through the color picker.</p>
+<img alt="Use the Backdrop to group nodes" class="align-center" src="../../../_images/Composer_use_backdrop.png" />
+</section>
+</section>
+<section id="extend-a-graph">
+<h2>Extend a Graph<a class="headerlink" href="GraphComposer_Composer.html#extend-a-graph" title="Link to this heading">#</a></h2>
+<p>Users can extend an open graph by appending a new graph file to it, which is supported in the context menu triggered by a right-click on the graph canvas.</p>
+<p>While a graph is being extended, new components and nodes in the second graph will be added to the current graph and existing ones will be overridden with new definitions.</p>
+</section>
+<section id="run-graph">
+<h2>Run Graph<a class="headerlink" href="GraphComposer_Composer.html#run-graph" title="Link to this heading">#</a></h2>
+<a class="reference internal image-reference" href="../../../_images/Composer_local_run.png"><img alt="Run Graph" class="align-center" src="../../../_images/Composer_local_run.png" style="width: 50%;" />
+</a>
+<p>A Graph can be run through Composer using the Play button on the toolbar. Output of the running graph can be seen on the console window. A running graph can be stopped using the Stop button on the toolbar.</p>
+<section id="options">
+<h3>Options<a class="headerlink" href="GraphComposer_Composer.html#options" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Options</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Range</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Platform Config File</p></td>
+<td><p>Select a platform config file. For x86_64, Default value
+is /opt/nvidia/graph-composer/config/target_x86_64.yaml.
+For ARM 64, Default value is /opt/nvidia/graph-composer/
+config/target_aarch64.yaml</p></td>
+<td><p>Required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Comparison of Different Work Flows</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Work Flow</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Host Requirement</p></th>
+<th class="head"><p>Target Requirement</p></th>
+<th class="head"><p>Remote Requirement</p></th>
+<th class="head"><p>DS Installation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Local Execution</p></td>
+<td><p>both the Composer and graphs run on the host machine</p></td>
+<td><p>Ubuntu 22.04 with Nvidia GPU</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>DS 7.1 required on the host</p></td>
+</tr>
+<tr class="row-odd"><td><p>Remote Execution</p></td>
+<td><p>the Composer runs on the host machine and graphs on the target machine</p></td>
+<td><p>Ubuntu 22.04 with Nvidia GPU</p></td>
+<td><p>Ubuntu 22.04 on Jetson Xavier/Orin</p></td>
+<td><p>N/A</p></td>
+<td><p>DS 7.1 require on the target</p></td>
+</tr>
+<tr class="row-even"><td><p>Remote Access</p></td>
+<td><p>the Composer runs on the host machine and user access the UI from a remote machine</p></td>
+<td><p>Ubuntu 22.04 with Nvidia GPU</p></td>
+<td><p>Ubuntu 22.04 on Jetson Xavier/Orin</p></td>
+<td><p>Linux/Windows with Browser Support</p></td>
+<td><p>DS 7.1 required on host or target</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="build-container-image">
+<h2>Build Container Image<a class="headerlink" href="GraphComposer_Composer.html#build-container-image" title="Link to this heading">#</a></h2>
+<img alt="Container Builder" class="align-center" src="../../../_images/composer_container_builder_window.png" />
+<p>A container image can be build through the Composer using the Docker button on the toolbar.</p>
+<section id="id8">
+<h3>Options<a class="headerlink" href="GraphComposer_Composer.html#id8" title="Link to this heading">#</a></h3>
+<p><strong>Runtime Options</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Options</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Range</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Configuration File</p></td>
+<td><p>Select a Container Builder configuration file</p></td>
+<td><p>Required</p></td>
+</tr>
+<tr class="row-odd"><td><p>Target Config Keys(s)</p></td>
+<td><p>Select a target config key: <code class="docutils literal notranslate"><span class="pre">x86</span></code> or <code class="docutils literal notranslate"><span class="pre">aarch64</span></code></p></td>
+<td><p>Required</p></td>
+</tr>
+<tr class="row-even"><td><p>Additional files</p></td>
+<td><p>Path to additional files/directories, separated by comma</p></td>
+<td><p>Optional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Working Directory</p></td>
+<td><p>Path to the working directory;
+on server machine or if running gRPC server locally.</p></td>
+<td><p>Optional</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Buttons</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Options</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Create</p></td>
+<td><p>Create a new Container Builder Config File using a template</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edit</p></td>
+<td><p>Edit an existing Container Builder Config File</p></td>
+</tr>
+<tr class="row-even"><td><p>Build</p></td>
+<td><p>Build the Container</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="generate-gstreamer-extension">
+<span id="id9"></span><h2>Generate Gstreamer Extension<a class="headerlink" href="GraphComposer_Composer.html#generate-gstreamer-extension" title="Link to this heading">#</a></h2>
+<img alt="Generate Gstreamer Extension" class="align-center" src="../../../_images/composer_generate_extension.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the Deepstream SDK package is not installed, Generate Extension button will be disabled.</p>
+</div>
+<section id="id10">
+<h3>Options<a class="headerlink" href="GraphComposer_Composer.html#id10" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Options</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Range</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GStreamer Elements List</p></td>
+<td><p>Comma Separated Elements List</p></td>
+<td><p>Required</p></td>
+</tr>
+<tr class="row-odd"><td><p>Target Output Directory</p></td>
+<td><p>Directory where the extension will be generated</p></td>
+<td><p>Required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Buttons</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Install Dependencies</p></td>
+<td><p>Install extension development dependencies</p></td>
+</tr>
+<tr class="row-odd"><td><p>Generate</p></td>
+<td><p>Generates the extension</p></td>
+</tr>
+<tr class="row-even"><td><p>Build</p></td>
+<td><p>Builds the extension using Bazel</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="remote-access">
+<h2>Remote Access<a class="headerlink" href="GraphComposer_Composer.html#remote-access" title="Link to this heading">#</a></h2>
+<p>Composer supports remote access through only one streaming option.
+1) Omniverse Streaming Client
+2) WebRTC</p>
+<section id="comparison-of-available-options">
+<h3>Comparison of available options<a class="headerlink" href="GraphComposer_Composer.html#comparison-of-available-options" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Technology</p></th>
+<th class="head"><p>Devices</p></th>
+<th class="head"><p>Benefits</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Omniverse Streaming Client</p></td>
+<td><p>Windows and Linux</p></td>
+<td><p>Native desktop application.</p>
+<p>Supports streaming up to 4K at 60 frames per second.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>WebRTC</p></td>
+<td><p>Web browsers (all devices)</p></td>
+<td><p>Simple to distribute.</p>
+<p>Strong support across devices and platforms.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="omniverse-streaming-client">
+<h2>Omniverse Streaming Client<a class="headerlink" href="GraphComposer_Composer.html#omniverse-streaming-client" title="Link to this heading">#</a></h2>
+<p>Omniverse Streaming Client is a lightweight application allowing Users to connect to Omniverse applications deployed on the network or over the Internet.</p>
+<p>The application makes it possible to access a broad range of Omniverse applications, even from devices that would otherwise not meet the minimum requirements.
+Some of these workflows include:</p>
+<ol class="arabic simple">
+<li><p>Accessing Omniverse applications from low-powered devices or ultrabooks.</p></li>
+<li><p>Facilitating the sharing resources over the network or the Internet, allowing Users to connect to Omniverse applications provisioned by IT resources.</p></li>
+</ol>
+<section id="installation-and-usage">
+<h3>Installation and Usage<a class="headerlink" href="GraphComposer_Composer.html#installation-and-usage" title="Link to this heading">#</a></h3>
+<p>To install the Omniverse Streaming Client on user machines:</p>
+<ol class="arabic simple">
+<li><p>From the Omniverse Launcher, select Exchange from the top-level menu bar.</p></li>
+<li><p>From there, click Omniverse Streaming Client from the left-hand Apps sidebar.</p></li>
+<li><p>In the detail page of Omniverse Streaming Client, click the Install button.</p></li>
+</ol>
+<p>Once the download completes, and Omniverse Streaming Client is installed, click the Launch button to start the client.</p>
+<img alt="Omniverse Streaming Client Launcher" class="align-center" src="../../../_images/app_streaming-client_launcher.png" />
+<p>When prompted, enter the IP address or URL of the remote machine which is broadcasting to interact with the remote session:</p>
+<img alt="Omniverse Streaming Client Launcher" class="align-center" src="../../../_images/app_streaming-client_interface.png" />
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="GraphComposer_Composer.html#configuration" title="Link to this heading">#</a></h3>
+</section>
+<section id="server">
+<h3>Server<a class="headerlink" href="GraphComposer_Composer.html#server" title="Link to this heading">#</a></h3>
+<p>To launch Composer with Omniverse Streaming Client, run the following command:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">--enable-streaming</span> <span class="pre">ov-streaming</span></code></p>
+</div></blockquote>
+<p>Should the host be located on the infrastructure of a third-party Cloud provider, it may additionally be required that the following ports be opened, and that firewall rules allow traffic inbound and outbound traffic:</p>
+<blockquote>
+<div><p>TCP: <code class="docutils literal notranslate"><span class="pre">47995</span></code> to <code class="docutils literal notranslate"><span class="pre">48012</span></code></p>
+<p>TCP: <code class="docutils literal notranslate"><span class="pre">49000</span></code> to <code class="docutils literal notranslate"><span class="pre">49007</span></code></p>
+<p>TCP: <code class="docutils literal notranslate"><span class="pre">49100</span></code></p>
+<p>UDP: <code class="docutils literal notranslate"><span class="pre">47995</span></code> to <code class="docutils literal notranslate"><span class="pre">48012</span></code></p>
+<p>UDP: <code class="docutils literal notranslate"><span class="pre">49000</span></code> to <code class="docutils literal notranslate"><span class="pre">49007</span></code></p>
+</div></blockquote>
+</section>
+<section id="client">
+<h3>Client<a class="headerlink" href="GraphComposer_Composer.html#client" title="Link to this heading">#</a></h3>
+<p>On Linux, the following packages may be required on machines where the client is installed: <code class="docutils literal notranslate"><span class="pre">libavcodec</span></code>, <code class="docutils literal notranslate"><span class="pre">libavformat</span></code>, <code class="docutils literal notranslate"><span class="pre">libavutil</span></code>. These packages can be installed using the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libavcodec57</span> <span class="pre">libavformat57</span> <span class="pre">libavutil55</span></code></p>
+<p>Windows environments do not require any additional dependencies or configuration, other than ensuring firewall rules do not restrict access to the ports listed above.</p>
+</section>
+</section>
+<section id="webrtc-streaming">
+<h2>WebRTC streaming<a class="headerlink" href="GraphComposer_Composer.html#webrtc-streaming" title="Link to this heading">#</a></h2>
+<p>By leveraging the new WebRTC live-streaming, it is now possible to stream Graph Composer to web browsers.</p>
+<img alt="WebRTC Streaming" class="align-center" src="../../../_images/composer_webrtc.gif" />
+<p>Using the WebRTC live-stream is a straightforward process:</p>
+<ol class="arabic simple">
+<li><p>In a command prompt or terminal, run the command:
+<code class="docutils literal notranslate"><span class="pre">composer</span> <span class="pre">--enable-streaming</span> <span class="pre">webrtc</span></code></p></li>
+<li><p>Find the IP address of the machine hosting the Graph Composer application on your local network</p></li>
+<li><p>Navigate to the stream page in your favorite web browser: <code class="docutils literal notranslate"><span class="pre">http://&lt;server</span> <span class="pre">IP</span> <span class="pre">address&gt;:8011/streaming/webrtc-client</span></code></p></li>
+<li><p>Click the “play” button to start streaming your application</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sometimes the above URL is not accessible because the port 8011 might have been occupied, in the case we need to replace 8011 with the right HTTP port number displayed in the console.</p>
+<p>For example, in the following log, the server started on port 8010 instead of 8011</p>
+<p><code class="docutils literal notranslate"><span class="pre">[omni.services.transport.server.http.server]</span> <span class="pre">http</span> <span class="pre">server</span> <span class="pre">was</span> <span class="pre">meant</span> <span class="pre">to</span> <span class="pre">start</span> <span class="pre">on</span> <span class="pre">8011</span> <span class="pre">but</span> <span class="pre">port</span> <span class="pre">is</span> <span class="pre">taken,</span> <span class="pre">starting</span> <span class="pre">on</span> <span class="pre">port</span> <span class="pre">8010</span> <span class="pre">instead.</span></code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently there is no feature for security, we assume it is deployed in secure environment</p>
+</div>
+<section id="current-limitations">
+<h3>Current Limitations:<a class="headerlink" href="GraphComposer_Composer.html#current-limitations" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>For a best user experience, it is recommended that only a single User at a time be provided with mouse or keyboard control while others remain in spectator mode.</p></li>
+<li><p>WebRTC Streaming is supported only on RTX GPUs.</p></li>
+<li><p>Copy/paste support is not yet available.</p></li>
+<li><p>The stability of WebRTC streaming is not good enough and Omniverse streaming client is always preferred.</p></li>
+</ol>
+</section>
+</section>
+<section id="restrictions">
+<h2>Restrictions<a class="headerlink" href="GraphComposer_Composer.html#restrictions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Currently the Composer is well supported only on NVIDIA GPU setup.</p></li>
+</ol>
+</section>
+<section id="trouble-shooting">
+<h2>Trouble Shooting<a class="headerlink" href="GraphComposer_Composer.html#trouble-shooting" title="Link to this heading">#</a></h2>
+<p>Instructions for resolving issues when running the Graph Composer.</p>
+<p><strong>Component Type not found</strong></p>
+<p>In some cases users will see such messages as “Component type invalid” while opening a graph, which means some component types are not available in the current component list thus the loaded graph become incomplete. There are 2 major reasons for the issue:
+1. The component list is empty or standalone
+2. The graph is not compatible with the latest component list
+It is recommended for users to close the graph without saving it and perform “repo sync” through the registry menu and try again with the updated list. If the issue still occurs, users should review the graph to figure out which component is missing and replace it with the proper one from the latest component list.</p>
+<p><strong>Failure During the Repo Sync</strong></p>
+<p>Sometimes the “repo sync” process takes too long or gets stuck in the middle due to network issues and users can’t close the “repo sync” progress bar, in this case it is recommended to close the Graph Composer app and restart it again.</p>
+<p><strong>GStreamer Extension not found after building</strong></p>
+<p>After generating a GStreamer extension, Composer does not show the generated Component name and brief. Currently, Composer shows it as <cite>&lt;DISPLAY_NAME&gt;</cite>. This is a known issue.
+However, using the Component is not a problem.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GraphComposer_Registry_CLI.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Registry Command Line Interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GraphComposer_Container_Builder.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Container Builder</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#user-interface">User Interface</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#menu-bar">Menu Bar</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#file-menu">File Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#edit-menu">Edit Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#registry-menu">Registry Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#graph-menu">Graph Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#tools-menu">Tools Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#window-menu">Window Menu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#help-menu">Help Menu</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#context-menu">Context Menu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#toolbar">Toolbar</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#component-list">Component List</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#create-new-application">Create New Application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#open-and-save-application-graphs">Open and Save Application Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#compose-an-application-graph">Compose an Application Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#finding-the-right-component">Finding the right component</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#creating-a-component-instance">Creating a Component Instance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#understanding-the-component-handles">Understanding the Component Handles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#linking-and-unlinking-components">Linking and Unlinking components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#entity-node">Entity Node</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#setting-up-a-connection-from-an-input-to-an-output">Setting up a Connection from an Input to an Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#changing-the-component-properties">Changing the Component Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#editor-features">Editor Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#subgraph">Subgraph</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#backdrop">Backdrop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#extend-a-graph">Extend a Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#run-graph">Run Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#options">Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#build-container-image">Build Container Image</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#id8">Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#generate-gstreamer-extension">Generate Gstreamer Extension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#id10">Options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#remote-access">Remote Access</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#comparison-of-available-options">Comparison of available options</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#omniverse-streaming-client">Omniverse Streaming Client</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#installation-and-usage">Installation and Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#configuration">Configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#server">Server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#client">Client</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#webrtc-streaming">WebRTC streaming</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#current-limitations">Current Limitations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#restrictions">Restrictions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Composer.html#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

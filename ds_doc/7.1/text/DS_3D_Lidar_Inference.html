@@ -1,0 +1,1325 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DeepStream 3D Lidar Inference App &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_3D_Lidar_Inference';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Networked Media Open Specifications (NMOS) in DeepStream" href="DS_library_nvdsnmos.html" />
+    <link rel="prev" title="DeepStream 3D Depth Camera App" href="DS_3D_Depth_Camera.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_3D_Lidar_Inference.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_3D_Lidar_Inference.html#">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">DeepStream...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deepstream-3d-lidar-inference-app">
+<h1>DeepStream 3D Lidar Inference App<a class="headerlink" href="DS_3D_Lidar_Inference.html#deepstream-3d-lidar-inference-app" title="Link to this heading">#</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">deepstream-lidar-inference-app</span></code> sample application is provided at <cite>app/sample_apps/deepstream-lidar-inference-app/</cite> for your reference. The <code class="docutils literal notranslate"><span class="pre">deepstream_lidar_inference_app</span></code> provides an end-to-end inference sample for lidar pointcloud data.
+The sample application reads the point cloud data from dataset files and send the data to Triton Inferencing filter with <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/pointpillarnet">PointPillarNet model</a>, the inferencing result is the group of 3D bounding boxes of the objects. The sample application loads different pipelines based on different application config files.
+There are 2 pipelines configured in the sample app.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Lidar Triton inference for 3D objects detection and file dump.</p></li>
+<li><p>Lidar Triton inference and 3D objects detection and GLES 3D rendering.</p></li>
+</ol>
+</div></blockquote>
+<p>Inside these sample configurations, the inference model is a 3D TAO model based on PointPillar. For more details about PointPillar, see <a class="reference external" href="https://arxiv.org/abs/1812.05784">https://arxiv.org/abs/1812.05784</a>.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TensorRT 8.5 has a bug for FP16 mode when converting this specific TAO model to TensorRT engine file. DeepStream fallback to FP32 mode for this release.</p>
+</div>
+</div></blockquote>
+<p>This is a snapshot for <code class="docutils literal notranslate"><span class="pre">deepstream-lidar-inference-app</span></code> running with lidar data inference objects detection and GLES 3D rendering with 3D bounding box display on screen.</p>
+<blockquote>
+<div><img alt="DeepStream Lidar inference for 3D point cloud processing and rendering snapshot" class="align-center" src="../_images/DS_3D_lidar_inference_app_snapshot.png" />
+</div></blockquote>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="DS_3D_Lidar_Inference.html#prerequisites" title="Link to this heading">#</a></h2>
+<p>You must have the following development packages installed:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GStreamer-1.0</p></li>
+<li><p>GStreamer-1.0 Base Plugins</p></li>
+<li><p>X11 client-side library</p></li>
+<li><p>libyaml-cpp-dev</p></li>
+</ul>
+</div></blockquote>
+<p>To install these packages, execute the following command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libgstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">base1</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libgstreamer1</span><span class="mf">.0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span>\
+<span class="n">libgstrtspserver</span><span class="mf">-1.0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libx11</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="n">libyaml</span><span class="o">-</span><span class="n">cpp</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</section>
+<section id="lidar-point-cloud-to-3d-point-cloud-processing-and-rendering">
+<h2>Lidar Point Cloud to 3D Point Cloud Processing and Rendering<a class="headerlink" href="DS_3D_Lidar_Inference.html#lidar-point-cloud-to-3d-point-cloud-processing-and-rendering" title="Link to this heading">#</a></h2>
+<p>The application can be configured as different pipelines according to the application configuration file.</p>
+<ol class="arabic simple">
+<li><p>Lidar data inference and 3D bounding box dump pipeline:</p></li>
+</ol>
+<blockquote>
+<div><p>This pipeline is from lidar point cloud, 3D point cloud inferencing, to the 3D objects data dump.</p>
+<blockquote>
+<div><img alt="DeepStream Lidar inference for 3D point cloud processing overview" class="align-center" src="../_images/DS_3D_lidar_inference_pointcloud_process.png" />
+</div></blockquote>
+<p>This pipeline is setup by the <code class="docutils literal notranslate"><span class="pre">config_lidar_triton_infer.yaml</span></code>. It has 3 components: <code class="docutils literal notranslate"><span class="pre">ds3d::dataloader</span></code> for lidar pointcloud data file reading, <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> for point-cloud Triton inferencing, and <code class="docutils literal notranslate"><span class="pre">ds3d::datarender</span></code> for <cite>3D Bounding Box</cite> file dump.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::dataloader</span></code>  loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_lidarfileread.so</span></code> and creates a <cite>dataloader</cite> through the <code class="docutils literal notranslate"><span class="pre">createLidarFileLoader</span></code> function. This specific loader is configured by lidar dataset file list <cite>data_config_file</cite>. <cite>Gst-appsrc</cite> connects the <cite>dataloader</cite> into the deepstream pipeline.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarsource</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">dataloader</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_lidarfileread</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarFileLoader</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_tritoninferfilter.so</span></code> and creates a lidar point cloud Triton inferencing filter through the <code class="docutils literal notranslate"><span class="pre">createLidarInferenceFilter</span></code> function. For this specific configuration, The Lidar Triton filter inferences the point cloud data with TAO model <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/pointpillarnet">PointPillarNet model</a> and return the 3D bounding boxes around each object.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarfilter</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">datafilter</span>
+<span class="nl">in_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_tritoninferfilter</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarInferenceFilter</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> is loaded by the <code class="docutils literal notranslate"><span class="pre">nvds3dfilter</span></code> <cite>Gst-plugin</cite> which accepts <code class="docutils literal notranslate"><span class="pre">in_caps</span></code> as <cite>sink_caps</cite> and <code class="docutils literal notranslate"><span class="pre">out_caps</span></code> as <cite>src_caps</cite>. It creates a custom <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> instance and processess data as <code class="docutils literal notranslate"><span class="pre">ds3d/datamap</span></code>.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::datarender</span></code> loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_lidarfilewrite.so</span></code> to dump the detected 3D bounding boxes to a file.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarrender</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">datarender</span>
+<span class="nl">in_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_lidarfilewrite</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarFileDataRender</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Lidar data inference and Lidar data rendering with 3D bounding box display pipeline:</p></li>
+</ol>
+<blockquote>
+<div><p>This pipeline is from lidar point cloud data file, 3D point cloud inferencing, to the 3D point cloud rendering with colors.</p>
+<blockquote>
+<div><img alt="DeepStream Lidar inference for 3D point cloud processing and rendering overview" class="align-center" src="../_images/DS_3D_lidar_inference_pointcloud_render.png" />
+</div></blockquote>
+<p>This pipeline is setup by the <code class="docutils literal notranslate"><span class="pre">config_lidar_source_triton_render.yaml</span></code>. It has 3 components: <code class="docutils literal notranslate"><span class="pre">ds3d::dataloader</span></code> for lidar pointcloud data file reading, <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> for point-cloud Triton inferencing, and <code class="docutils literal notranslate"><span class="pre">ds3d::datarender</span></code> for Lidar 3D data <cite>LidarXYZI</cite> and <cite>3D Bounding Box</cite> rendering.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::dataloader</span></code>  loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_lidarfileread.so</span></code> and creates a <cite>dataloader</cite> through the <code class="docutils literal notranslate"><span class="pre">createLidarFileLoader</span></code> function. This specific loader is configured by lidar dataset file list <cite>data_config_file</cite>. <cite>Gst-appsrc</cite> connects the <cite>dataloader</cite> into the deepstream pipeline.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarsource</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">dataloader</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_lidarfileread</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarFileLoader</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_tritoninferfilter.so</span></code> and creates a lidar point cloud Triton inferencing filter through the <code class="docutils literal notranslate"><span class="pre">createLidarInferenceFilter</span></code> function. For this specific configuration, The Lidar Triton filter inferences the point cloud data with TAO model <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/pointpillarnet">PointPillarNet model</a> and return the 3D bounding boxes around each object.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarfilter</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">datafilter</span>
+<span class="nl">in_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_tritoninferfilter</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarInferenceFilter</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> is loaded by the <code class="docutils literal notranslate"><span class="pre">nvds3dfilter</span></code> <cite>Gst-plugin</cite> which accepts <code class="docutils literal notranslate"><span class="pre">in_caps</span></code> as <cite>sink_caps</cite> and <code class="docutils literal notranslate"><span class="pre">out_caps</span></code> as <cite>src_caps</cite>. It creates a custom <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> instance and processess data as <code class="docutils literal notranslate"><span class="pre">ds3d/datamap</span></code>.</p>
+</div></blockquote>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ds3d::datarender</span></code> loads custom lib <code class="docutils literal notranslate"><span class="pre">libnvds_3d_gl_datarender.so</span></code> and creates GLES Lidar point cloud rendering context to display XYZI or XYZ lidar data and 3D bounding boxes with <code class="docutils literal notranslate"><span class="pre">custom_create_function:</span> <span class="pre">createLidarDataRender</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarrender</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">datarender</span>
+<span class="nl">in_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_3d_gl_datarender</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarDataRender</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="DS_3D_Lidar_Inference.html#getting-started" title="Link to this heading">#</a></h2>
+<section id="run-lidar-point-cloud-data-file-reader-point-cloud-inferencing-filter-and-point-cloud-3d-rendering-and-data-dump-examples">
+<h3>Run Lidar Point Cloud Data File reader, Point Cloud Inferencing filter, and Point Cloud 3D rendering and data dump Examples<a class="headerlink" href="DS_3D_Lidar_Inference.html#run-lidar-point-cloud-data-file-reader-point-cloud-inferencing-filter-and-point-cloud-3d-rendering-and-data-dump-examples" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Prepare <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/teams/tao/models/pointpillarnet">PointPillarNet model</a> and Triton environment, this app will use Triton to do inference, for more details of Triton Inferencing Server, refer to <a class="reference external" href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinferserver.html">https://docs.nvidia.com/metropolis/deepstream/dev-guide/text/DS_plugin_gst-nvinferserver.html</a>.</p>
+<p>Follow instructions in deepstream-lidar-inference-app/README to prepare testing resources and Triton CAPI and gRPC environments.</p>
+</li>
+<li><p>Run the lidar point cloud data inference pipeline in 2 modes.</p></li>
+</ol>
+<blockquote>
+<div><ol class="loweralpha">
+<li><p>Run lidar data reader, point cloud 3D objects detection inference and 3D data GLES rendering pipeline:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">deepstream</span><span class="o">-</span><span class="n">lidar</span><span class="o">-</span><span class="n">inference</span><span class="o">-</span><span class="n">app</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">configs</span><span class="o">/</span><span class="n">config_lidar_source_triton_render</span><span class="p">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run lidar data reader, point cloud 3D objects inference and 3D objects file dump pipeline:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">deepstream</span><span class="o">-</span><span class="n">lidar</span><span class="o">-</span><span class="n">inference</span><span class="o">-</span><span class="n">app</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">configs</span><span class="o">/</span><span class="n">config_lidar_triton_infer</span><span class="p">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p>This part sets up a lidar point cloud loader <cite>dataloader</cite>. It then streams <cite>ds3d/datamap</cite> to the downstream <cite>datafilter</cite> component <cite>lidarfilter</cite>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarsource</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">dataloader</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_lidarfileread</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarFileLoader</span>
+</pre></div>
+</div>
+</li>
+<li><p>It streams <cite>ds3d/datamap</cite> to the <code class="docutils literal notranslate"><span class="pre">nvds3dfilter</span></code> <cite>Gst-plugin</cite>  which loads <code class="docutils literal notranslate"><span class="pre">lidarfilter</span></code> to do Triton inferencing on point cloud. For more details on <code class="docutils literal notranslate"><span class="pre">nvds3dfilter</span></code> <cite>Gst-plugin</cite>, See <a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html"><span class="doc">Gst-nvds3dfilter</span></a>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">lidarfilter</span>
+<span class="nl">type</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">::</span><span class="n">datafilter</span>
+<span class="nl">in_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">out_caps</span><span class="p">:</span><span class="w"> </span><span class="n">ds3d</span><span class="o">/</span><span class="n">datamap</span>
+<span class="nl">custom_lib_path</span><span class="p">:</span><span class="w"> </span><span class="n">libnvds_tritoninferfilter</span><span class="p">.</span><span class="n">so</span>
+<span class="nl">custom_create_function</span><span class="p">:</span><span class="w"> </span><span class="n">createLidarInferenceFilter</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<ul>
+<li><p>Field of <cite>model_inputs</cite> is the description of the model input layers. Includes layer name, layer data type and layer dimensions.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>model_inputs:
+- name: points      # name of the 1st layer
+  datatype: FP32    # data type of the 1st layer
+  shape: [1, 204800, 4] # data dimension of the 1st layer
+- name: num_points  # name of the 2nd layer
+  datatype: INT32   # data type of the 2nd layer
+  shape: [1]        # data dimension of the 2nd layer
+</pre></div>
+</div>
+</li>
+<li><p>Field of <cite>model_outputs</cite> is the description of the model output layers. Includes layer name, layer data type and layer dimensions.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>model_outputs:
+- name: output_boxes # name of the 1st layer
+  datatype: FP32     # data type of the 1st layer
+  shape: [1, 393216, 9] # data dimension of the 1st layer
+- name: num_boxes    # name of the 2nd layer
+  datatype: INT32    # data type of the 2nd layer
+  shape: [1]         # data dimension of the 2nd layer
+</pre></div>
+</div>
+</li>
+<li><p>Field of <cite>labels</cite> is the label list of the point cloud inferencing model.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>labels:          # YAML list for object labels
+- Vehicle
+- Pedestrian
+- Cyclist
+</pre></div>
+</div>
+</li>
+</ul>
+<ol class="arabic" start="5">
+<li><p>Finally the data stream as <cite>ds3d/datamap</cite> is delivered to the render component.</p>
+<ol class="loweralpha simple">
+<li><p>3D detection file dump component <code class="docutils literal notranslate"><span class="pre">lidarfiledump</span></code>.</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name: lidarfiledump
+type: ds3d::datarender
+in_caps: ds3d/datamap
+custom_lib_path: libnvds_lidarfilewrite.so
+custom_create_function: createLidarFileDataRender
+</pre></div>
+</div>
+<ol class="loweralpha simple" start="2">
+<li><p>GLES lidar data rendering component <code class="docutils literal notranslate"><span class="pre">lidardatarender</span></code>.</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>name: lidardatarender
+type: ds3d::datarender
+in_caps: ds3d/datamap
+custom_lib_path: libnvds_3d_gl_datarender.so
+custom_create_function: createLidarDataRender
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Check the <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-lidar-inference-app/README</span></code> file for more details.</p>
+</section>
+<section id="deepstream-lidar-inference-app-configuration-specifications">
+<h3>DeepStream Lidar Inference App Configuration Specifications<a class="headerlink" href="DS_3D_Lidar_Inference.html#deepstream-lidar-inference-app-configuration-specifications" title="Link to this heading">#</a></h3>
+<section id="deepstream-lidar-inference-app-ds3d-userapp-group-settings">
+<h4>deepstream-lidar-inference-app <code class="docutils literal notranslate"><span class="pre">[ds3d::userapp]</span></code> group settings<a class="headerlink" href="DS_3D_Lidar_Inference.html#deepstream-lidar-inference-app-ds3d-userapp-group-settings" title="Link to this heading">#</a></h4>
+<p>The table below demonstrates the group settings for <cite>config_lidar_triton_infer.yaml</cite> and <cite>config_lidar_source_triton_render.yaml</cite> as the examples.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">point cloud inferencing app user debug supported settings</span><a class="headerlink" href="DS_3D_Lidar_Inference.html#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 13.0%" />
+<col style="width: 17.4%" />
+<col style="width: 34.8%" />
+<col style="width: 17.4%" />
+<col style="width: 17.4%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Group</p></th>
+<th class="head"><p>Property</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Range</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LidarFileLoader</p></td>
+<td><p>data_config_file</p></td>
+<td><p>lidar data list file path</p></td>
+<td><p>string</p></td>
+<td><p>data_config_file: lidar_data_list.yaml</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarFileLoader</p></td>
+<td><p>points_num</p></td>
+<td><p>number of the points in pointcloud file</p></td>
+<td><p>fixed value</p></td>
+<td><p>points_num: 204800</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarFileLoader</p></td>
+<td><p>lidar_datatype</p></td>
+<td><p>data type of the dataset</p></td>
+<td><p>String:FP32 FP16 INT8 INT32</p></td>
+<td><p>lidar_datatype: FP32</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarFileLoader</p></td>
+<td><p>mem_type</p></td>
+<td><p>memory type of process <a class="reference external" href="data:just">data:just</a> support cpu now</p></td>
+<td><p>String:gpu cpu</p></td>
+<td><p>mem_type: cpu</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarFileLoader</p></td>
+<td><p>mem_pool_size</p></td>
+<td><p>Size of the data read pool</p></td>
+<td><p>Integer: &gt;0</p></td>
+<td><p>mem_pool_size: 4</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarFileLoader</p></td>
+<td><p>output_datamap_key</p></td>
+<td><p>datamap key in lidarsource</p></td>
+<td><p>string</p></td>
+<td><p>output_datamap_key: DS3D::LidarXYZI</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarFileLoader</p></td>
+<td><p>file_loop</p></td>
+<td><p>flag for file reading loop</p></td>
+<td><p>boolean</p></td>
+<td><p>file_loop: False</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>in_streams</p></td>
+<td><p>which data type will be processed</p></td>
+<td><p>fixed value</p></td>
+<td><p>in_streams: [lidar]</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>mem_pool_size</p></td>
+<td><p>Size of the input tensor pool</p></td>
+<td><p>Integer</p></td>
+<td><p>mem_pool_size: 8</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>model_inputs</p></td>
+<td><p>model ‘s input layers</p></td>
+<td><p>Array</p></td>
+<td><p>refer to config_lidar_triton_infer.yaml</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>model_outputs</p></td>
+<td><p>model ‘s output layers</p></td>
+<td><p>Array</p></td>
+<td><p>refer to config_lidar_triton_infer.yaml</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>input_tensor_mem_type</p></td>
+<td><p>input tensor memory type after preprocess</p></td>
+<td><p>String:GpuCuda CpuCuda</p></td>
+<td><p>input_tensor_mem_type: GpuCuda</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>custom_preprocess_lib_path</p></td>
+<td><p>preprocessing library path</p></td>
+<td><p>String</p></td>
+<td><p>custom_preprocess_lib_path: /opt/nvidia/deepstream/deepstream/lib/libnvds_lidar_custom_preprocess_impl.so</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>custom_preprocess_func_name</p></td>
+<td><p>customized preprocessing function name</p></td>
+<td><p>String</p></td>
+<td><p>custom_preprocess_func_name: CreateInferServerCustomPreprocess</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>labels</p></td>
+<td><p>label list for the detection model</p></td>
+<td><p>Array</p></td>
+<td><p>refer to config_lidar_triton_infer.yaml</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>postprocess_nms_iou_thresh</p></td>
+<td><p>NMS IOU threshold</p></td>
+<td><p>Float</p></td>
+<td><p>postprocess_nms_iou_thresh: 0.01</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>postprocess_pre_nms_top_n</p></td>
+<td><p>number of TOPs of NMS</p></td>
+<td><p>Integer</p></td>
+<td><p>postprocess_nms_top_n: 4096</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>config_file</p></td>
+<td><p>nvinferserver configuration file</p></td>
+<td><p>String</p></td>
+<td><p>config_file: triton_mode_CAPI.txt</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarInferenceFilter</p></td>
+<td><p>gpu_id</p></td>
+<td><p>GPU id for the tensor memory(for native Triton Server Inferencing)</p></td>
+<td><p>Integer</p></td>
+<td><p>gpu_id: 0</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarInferenceFilter</p></td>
+<td><p>filter_input_datamap_key</p></td>
+<td><p>input datamap key from lidarsource</p></td>
+<td><p>String</p></td>
+<td><p>filter_input_datamap_key: DS3D::LidarXYZI</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarFileDataRender</p></td>
+<td><p>frames_save_path</p></td>
+<td><p>the path of the dump file</p></td>
+<td><p>String</p></td>
+<td><p>frames_save_path: ../data/</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarFileDataRender</p></td>
+<td><p>input_datamap_key</p></td>
+<td><p>input key from the custom_postprocess for inferencing objects</p></td>
+<td><p>String</p></td>
+<td><p>input_datamap_key: DS3D::Lidar3DBboxRawData</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>title</p></td>
+<td><p>the title of the render</p></td>
+<td><p>String</p></td>
+<td><p>title: ds3d-lidar-render</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>streams</p></td>
+<td><p>the stream key(s) for the input to be rendered</p></td>
+<td><p>List</p></td>
+<td><p>streams: [lidardata]</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>width</p></td>
+<td><p>render area width</p></td>
+<td><p>Integer</p></td>
+<td><p>width: 1280</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>height</p></td>
+<td><p>render area height</p></td>
+<td><p>Integer</p></td>
+<td><p>height: 720</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>block</p></td>
+<td><p>the flag of enabling block function</p></td>
+<td><p>Boolean</p></td>
+<td><p>block: True</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>view_position</p></td>
+<td><p>the view position for lookat vector</p></td>
+<td><p>List</p></td>
+<td><p>view_position: [0, 0, 80]</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>view_target</p></td>
+<td><p>the view target for lookat vector</p></td>
+<td><p>List</p></td>
+<td><p>view_target: [0, 0, 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>view_up</p></td>
+<td><p>the up vector of the visualizer</p></td>
+<td><p>List</p></td>
+<td><p>view_up: [1, 0, 0]</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>near</p></td>
+<td><p>the near z-plane of the visualizer constance</p></td>
+<td><p>Float</p></td>
+<td><p>near: 0.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>far</p></td>
+<td><p>the far z-plane of the visualizer constance</p></td>
+<td><p>Float</p></td>
+<td><p>far: 100</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>fov</p></td>
+<td><p>degree for field of view</p></td>
+<td><p>Integer</p></td>
+<td><p>fov: 45</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>lidar_color</p></td>
+<td><p>the RGB color description of the lidar data</p></td>
+<td><p>List,lidar_color: [0, 255, 0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>lidar_data_key</p></td>
+<td><p>the lidar data key name in datamap</p></td>
+<td><p>String</p></td>
+<td><p>lidar_data_key: DS3D::LidarXYZI</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>element_size</p></td>
+<td><p>the lidar data element size (4, XYZI or 3, XYZ)</p></td>
+<td><p>Integer</p></td>
+<td><p>element_size: 4</p></td>
+</tr>
+<tr class="row-even"><td><p>LidarDataRender</p></td>
+<td><p>lidar_bbox_key</p></td>
+<td><p>the 3D bbox data key name in datamap</p></td>
+<td><p>String</p></td>
+<td><p>DS3D::Lidar3DBboxRawData</p></td>
+</tr>
+<tr class="row-odd"><td><p>LidarDataRender</p></td>
+<td><p>enable_label</p></td>
+<td><p>Indicate flag to enable labels rendering</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable_label: True</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ds3d-custom-components-configuration-specifications">
+<h4>DS3D Custom Components Configuration Specifications<a class="headerlink" href="DS_3D_Lidar_Inference.html#ds3d-custom-components-configuration-specifications" title="Link to this heading">#</a></h4>
+<p>See more details in the <cite>DS_3D supported custom components specifications</cite> section in the <a class="reference internal" href="DS_3D_Custom_Manual.html"><span class="doc">DeepStream-3D Custom Apps and Libs Tutorials</span></a>.</p>
+<section id="build-application-from-source">
+<h5>Build application From Source<a class="headerlink" href="DS_3D_Lidar_Inference.html#build-application-from-source" title="Link to this heading">#</a></h5>
+<ol class="arabic">
+<li><p>Go to the folder <cite>sources/apps/sample_apps/deepstream-lidar-inference-app</cite>.</p></li>
+<li><p>Run the following commands:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sudo make
+$ sudo make install
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Check the source code for more details on how to load <cite>dataloader/datarender</cite> through <code class="docutils literal notranslate"><span class="pre">Gst-appsrc</span></code> and <code class="docutils literal notranslate"><span class="pre">Gst-appsink</span></code>. <cite>datafilter</cite> is loaded by the <code class="docutils literal notranslate"><span class="pre">nvds3dfilter</span></code> <cite>Gst-plugin</cite>.</p>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_3D_Depth_Camera.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DeepStream 3D Depth Camera App</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_library_nvdsnmos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Networked Media Open Specifications (NMOS) in DeepStream</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#lidar-point-cloud-to-3d-point-cloud-processing-and-rendering">Lidar Point Cloud to 3D Point Cloud Processing and Rendering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#getting-started">Getting Started</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#run-lidar-point-cloud-data-file-reader-point-cloud-inferencing-filter-and-point-cloud-3d-rendering-and-data-dump-examples">Run Lidar Point Cloud Data File reader, Point Cloud Inferencing filter, and Point Cloud 3D rendering and data dump Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#deepstream-lidar-inference-app-configuration-specifications">DeepStream Lidar Inference App Configuration Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#deepstream-lidar-inference-app-ds3d-userapp-group-settings">deepstream-lidar-inference-app <code class="docutils literal notranslate"><span class="pre">[ds3d::userapp]</span></code> group settings</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#ds3d-custom-components-configuration-specifications">DS3D Custom Components Configuration Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_Lidar_Inference.html#build-application-from-source">Build application From Source</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

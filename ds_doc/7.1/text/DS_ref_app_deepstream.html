@@ -1,0 +1,2850 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DeepStream Reference Application - deepstream-app &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_ref_app_deepstream';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DeepStream Reference Application - deepstream-test5 app" href="DS_ref_app_test5.html" />
+    <link rel="prev" title="Python Sample Apps and Bindings Source Details" href="DS_Python_Sample_Apps.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_ref_app_deepstream.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_ref_app_deepstream.html#">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">DeepStream...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deepstream-reference-application-deepstream-app">
+<h1>DeepStream Reference Application - deepstream-app<a class="headerlink" href="DS_ref_app_deepstream.html#deepstream-reference-application-deepstream-app" title="Link to this heading">#</a></h1>
+<section id="application-architecture">
+<h2>Application Architecture<a class="headerlink" href="DS_ref_app_deepstream.html#application-architecture" title="Link to this heading">#</a></h2>
+<p>The image below shows the architecture of the NVIDIA<sup>®</sup> DeepStream reference application.</p>
+<blockquote>
+<div><img alt="DeepStream Reference Application Architecture" class="align-center" src="../_images/DS_reference_ds_app.png" />
+</div></blockquote>
+<p>The DeepStream reference application is a GStreamer based solution and consists of set of GStreamer plugins encapsulating low-level APIs to form a complete graph. The reference application has capability to accept input from various sources like camera, RTSP input, encoded file input, and additionally supports multi stream/source capability. The list of GStreamer plugins implemented by NVIDIA and provided as a part of DeepStream SDK include:</p>
+<ul class="simple">
+<li><p>The Stream Muxer plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvstreammux</span></code>) to form a batch of buffers from multiple input sources.</p></li>
+<li><p>The Preprocess plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvdspreprocess</span></code>) for preprocessing on the pre-defined ROIs for primary inferencing.</p></li>
+<li><p>The NVIDIA TensorRT™ based plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvinfer</span></code>) for primary and secondary (attribute classification of primary objects) detection and classification respectively.</p></li>
+<li><p>The Multi-Object Tracker plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvtracker</span></code>) for object tracking with unique ID.</p></li>
+<li><p>The Multi Stream Tiler plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvmultistreamtiler</span></code>) for forming 2D array of frames.</p></li>
+<li><p>The Onscreen Display (OSD) plugin (<code class="docutils literal notranslate"><span class="pre">Gst-nvdsosd</span></code>) to draw shaded boxes, rectangles and text on the composited frame using the generated metadata.</p></li>
+<li><p>The Message Converter (<code class="docutils literal notranslate"><span class="pre">Gst-nvmsgconv</span></code>) and Message Broker (<code class="docutils literal notranslate"><span class="pre">Gst-nvmsgbroker</span></code>) plugins in combination to send analytics data to a server in the Cloud.</p></li>
+</ul>
+</section>
+<section id="reference-application-configuration">
+<h2>Reference Application Configuration<a class="headerlink" href="DS_ref_app_deepstream.html#reference-application-configuration" title="Link to this heading">#</a></h2>
+<p>The NVIDIA DeepStream SDK reference application uses one of the sample configuration files from the <code class="docutils literal notranslate"><span class="pre">samples/configs/deepstream-app</span></code> directory in the DeepStream package to:</p>
+<ul class="simple">
+<li><p>Enable or disable components</p></li>
+<li><p>Change the properties or behavior of components</p></li>
+<li><p>Customize other application configuration settings that are unrelated to the pipeline and its components</p></li>
+</ul>
+<p>The configuration file uses a key file format, based on the freedesktop specifications at:
+<a class="reference external" href="https://specifications.freedesktop.org/desktop-entry-spec/latest">https://specifications.freedesktop.org/desktop-entry-spec/latest</a></p>
+<section id="expected-output-for-the-deepstream-reference-application-deepstream-app">
+<h3>Expected Output for the DeepStream Reference Application (deepstream-app)<a class="headerlink" href="DS_ref_app_deepstream.html#expected-output-for-the-deepstream-reference-application-deepstream-app" title="Link to this heading">#</a></h3>
+<p>The image below shows the expected output with preprocess plugin disabled:</p>
+<blockquote>
+<div><img alt="DeepStream Reference Application Architecture" class="align-center" src="../_images/DS_reference_ds_app_expected_output_without_preprocess.png" />
+</div></blockquote>
+<p>The image below shows the expected output with preprocess plugin enabled (Green bboxes are pre-defined ROIs):</p>
+<blockquote>
+<div><img alt="DeepStream Reference Application Architecture with preprocess" class="align-center" src="../_images/DS_reference_ds_app_expected_output_with_preprocess.png" />
+</div></blockquote>
+</section>
+</section>
+<section id="configuration-groups">
+<span id="config-groups-label"></span><h2>Configuration Groups<a class="headerlink" href="DS_ref_app_deepstream.html#configuration-groups" title="Link to this heading">#</a></h2>
+<p>The application configuration is divided into groups of configurations for each component and application-specific component. The configuration groups are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Configuration Groups - deepstream app</span><a class="headerlink" href="DS_ref_app_deepstream.html#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 42.9%" />
+<col style="width: 57.1%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Group</p></th>
+<th class="head"><p>Configuration Group</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#application-group">Application Group</a></p></td>
+<td><p>Application configurations that are not related to a specific component.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#tiled-display-group">Tiled-display Group</a></p></td>
+<td><p>Tiled display in the application.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#source-group">Source Group</a></p></td>
+<td><p>Source properties. There can be multiple sources. The groups must be named as: [source0], [source1] …</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#source-list-and-source-attr-all-groups">Source-list and source-attr-all Groups</a></p></td>
+<td><p>Source URI provided as a list. There can be multiple sources. The groups must be named as: [source-list] and [source-attr-all]</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#streammux-group">Streammux Group</a></p></td>
+<td><p>Specify properties and modify behavior of the streammux component.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#preprocess-group">Preprocess Group</a></p></td>
+<td><p>Specify properties and modify behavior of the preprocess component.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#primary-gie-and-secondary-gie-group">Primary GIE and Secondary GIE Group</a></p></td>
+<td><p>Specify properties and modify behavior of the primary GIE.
+Specify properties and modify behavior of the secondary GIE. The groups must be named as: [secondary-gie0], [secondary-gie1] …</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#tracker-group">Tracker Group</a></p></td>
+<td><p>Specify properties and modify behavior of the object tracker.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#message-converter-group">Message Converter Group</a></p></td>
+<td><p>Specify properties and modify behavior of the message converter component.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#message-consumer-group">Message Consumer Group</a></p></td>
+<td><p>Specify properties and modify behavior of message consumer components. The pipeline can contain multiple message consumer components. Groups must be named as [message-consumer0], [message-consumer1] …</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#osd-group">OSD Group</a></p></td>
+<td><p>Specify properties and modify the on-screen display (OSD) component that overlays text and rectangles on the frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#sink-group">Sink Group</a></p></td>
+<td><p>Specify properties and modify behavior of sink components that represent outputs such as displays and files for rendering, encoding, and file saving. The pipeline can contain multiple sinks. Groups must be named as: [sink0], [sink1] …</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#tests-group">Tests Group</a></p></td>
+<td><p>Diagnostics and debugging. This group is experimental.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_ref_app_deepstream.html#nvds-analytics-group">NvDs-analytics Group</a></p></td>
+<td><p>Specify nvdsanalytics plugin configuration file, and to add the plugin in the application</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<section id="application-group">
+<h3>Application Group<a class="headerlink" href="DS_ref_app_deepstream.html#application-group" title="Link to this heading">#</a></h3>
+<p>The application group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Application group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable-perf-measurement</p></td>
+<td><p>Indicates whether the application performance measurement is enabled.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable-perf-measurement=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>perf-measurement-interval-sec</p></td>
+<td><p>The interval, in seconds, at which the performance metrics are sampled and printed.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>perf-measurement-interval-sec=10</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>gie-kitti-output-dir</p></td>
+<td><p>Pathname of an existing directory where the application stores primary detector output in a modified KITTI metadata format.</p></td>
+<td><p>String</p></td>
+<td><p>gie-kitti-output-dir=­/home/­ubuntu/­kitti_data/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>kitti-track-output-dir</p></td>
+<td><p>Pathname of an existing directory where the application stores tracker output in a modified KITTI metadata format.</p></td>
+<td><p>String</p></td>
+<td><p>kitti-track-output-dir=­/home/­ubuntu/­kitti_data_tracker/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>reid-track-output-dir</p></td>
+<td><p>Pathname of an existing directory where the application stores tracker’s Re-ID feature output. Each line’s first integer is object id, and the remaining floats are its feature vector.</p></td>
+<td><p>String</p></td>
+<td><p>reid-track-output-dir=­/home/­ubuntu/­reid_data_tracker/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>terminated-track-output-dir</p></td>
+<td><p>Pathname of an existing directory where the application stores terminated tracker output in a modified KITTI metadata format.</p></td>
+<td><p>String</p></td>
+<td><p>kitti-track-output-dir=­/home/­ubuntu/­terminated_data_tracker/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>shadow-track-output-dir</p></td>
+<td><p>Pathname of an existing directory where the application stores shadow track state output in a modified KITTI metadata format.</p></td>
+<td><p>String</p></td>
+<td><p>shadow-track-output-dir=­/home/­ubuntu/­shadow_data_tracker/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>global-gpu-id</p></td>
+<td><p>Set Global GPU ID for all the componenents at once if needed</p></td>
+<td><p>Integer</p></td>
+<td><p>global-gpu-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="tiled-display-group">
+<h3>Tiled-display Group<a class="headerlink" href="DS_ref_app_deepstream.html#tiled-display-group" title="Link to this heading">#</a></h3>
+<p>The tiled-display group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Tiled display group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Indicates whether tiled display is enabled.
+When user sets enable=2, first [sink] group with the key: link-to-demux=1 shall be linked to demuxer’s src_[source_id] pad where source_id is the key set in the corresponding [sink] group.</p></td>
+<td><p>Integer,
+0 = disabled,
+1 = tiler-enabled
+2 = tiler-and-parallel-demux-to-sink-enabled</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>rows</p></td>
+<td><p>Number of rows in the tiled 2D array.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>rows=5</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>columns</p></td>
+<td><p>Number of columns in the tiled 2D array.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>columns=6</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>width</p></td>
+<td><p>Width of the tiled 2D array, in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>width=1280</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>height</p></td>
+<td><p>Height of the tiled 2D array, in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>height=720</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=0</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of memory the element is to allocate for output buffers.</p>
+<p>0 (nvbuf-mem-default): a platform-specific default type</p>
+<p>1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory</p>
+<p>2 (nvbuf-mem-cuda-device): device CUDA memory</p>
+<p>3 (nvbuf-mem-cuda-unified): unified CUDA memory</p>
+<p>For dGPU: All values are valid.</p>
+<p>For Jetson: Only 0 (zero) is valid.</p>
+</td>
+<td><p>Integer, 0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>compute-hw</p></td>
+<td><p>Compute Scaling HW to use. Applicable only for Jetson. dGPU systems uses GPU by default.</p>
+<p>0 (Default): Default, GPU for Tesla, VIC for Jetson</p>
+<p>1 (GPU): GPU</p>
+<p>2 (VIC): VIC</p>
+</td>
+<td><p>Integer: 0-2</p></td>
+<td><p>compute-hw=1</p></td>
+<td><p>Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>square-seq-grid</p></td>
+<td><p>Enable automatic square tiling according to number of sources. The tiles are placed sequentially on the grid with empty tiles at the end</p></td>
+<td><p>Boolean</p></td>
+<td><p>square-seq-grid=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="source-group">
+<h3>Source Group<a class="headerlink" href="DS_ref_app_deepstream.html#source-group" title="Link to this heading">#</a></h3>
+<p>The source group specifies the source properties. The DeepStream application supports multiple simultaneous sources. For each source, a separate group with the group names such as <code class="docutils literal notranslate"><span class="pre">source%d</span></code> must be added to the configuration file. For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">source0</span><span class="p">]</span>
+<span class="n">key1</span><span class="o">=</span><span class="n">value1</span>
+<span class="n">key2</span><span class="o">=</span><span class="n">value2</span>
+<span class="p">...</span>
+
+<span class="p">[</span><span class="n">source1</span><span class="p">]</span>
+<span class="n">key1</span><span class="o">=</span><span class="n">value1</span>
+<span class="n">key2</span><span class="o">=</span><span class="n">value2</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p>The source group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Source group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id4" title="Link to this table">#</a></caption>
+<tbody>
+<tr class="row-odd"><td><p>Key</p></td>
+<td><p>Meaning</p></td>
+<td><p>Type and Value</p></td>
+<td><p>Example</p></td>
+<td><p>Platforms</p></td>
+</tr>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the source.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>Type of source; other properties of the source depend on this type.</p>
+<p>1: Camera (V4L2)</p>
+<p>2: URI</p>
+<p>3: MultiURI</p>
+<p>4: RTSP</p>
+<p>5: Camera (CSI) (Jetson only)</p>
+</td>
+<td><p>Integer,
+1, 2, 3, 4, or 5</p></td>
+<td><p>type=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>uri</p></td>
+<td><p>URI to the encoded stream. The URI can be a file, an HTTP URI, or an RTSP live source. Valid when type=2 or 3. With MultiURI, the %d format specifier can also be used to specify multiple sources. The application iterates from 0 to num-sources−1 to generate the actual URIs.</p></td>
+<td><p>String</p></td>
+<td><p>uri=file:///home/ubuntu/source.mp4
+uri=http://127.0.0.1/source.mp4
+uri=rtsp://127.0.0.1/source1
+uri=file:///home/ubuntu/source_%d.mp4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-sources</p></td>
+<td><p>Number of sources. Valid only when type=3.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>num-sources=2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>intra-decode-enable</p></td>
+<td><p>Enables or disables intra-only decode.</p></td>
+<td><p>Boolean</p></td>
+<td><p>intra-decode-enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-extra-surfaces</p></td>
+<td><p>Number of surfaces in addition to minimum decode surfaces given by the decoder. Can be used to manage the number of decoder output buffers in the pipeline.</p></td>
+<td><p>Integer,
+≥0 and ≤24</p></td>
+<td><p>num-extra-surfaces=5</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>camera-id</p></td>
+<td><p>Unique ID for the input source to be added to metadata. (Optional)</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>camera-id=2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>camera-width</p></td>
+<td><p>Width of frames to be requested from the camera, in pixels. Valid when type=1 or 5.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>camera-width=1920</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>camera-height</p></td>
+<td><p>Height of frames to be requested from the camera, in pixels. Valid when type=1 or 5.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>camera-height=1080</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>camera-fps-n</p></td>
+<td><p>Numerator part of a fraction specifying the frame rate requested by the camera, in frames/sec. Valid when type=1 or 5.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>camera-fps-n=30</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>camera-fps-d</p></td>
+<td><p>Denominator part of a fraction specifying the frame rate requested from the camera, in frames/sec. Valid when type=1 or 5.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>camera-fps-d=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>camera-v4l2-dev-node</p></td>
+<td><p>Number of the V4L2 device node. For example, /dev/video&lt;num&gt; for the open source V4L2 camera capture path. Valid when the type setting (type of source) is 1.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>camera-v4l2-dev-node=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>latency</p></td>
+<td><p>Jitterbuffer size in milliseconds; applicable only for RTSP streams.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>latency=200</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>camera-csi-sensor-id</p></td>
+<td><p>Sensor ID of the camera module. Valid when the type (type of source) is 5.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>camera-csi-sensor-id=1</p></td>
+<td><p>Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>drop-frame-interval</p></td>
+<td><p>Interval to drop frames. For example, 5 means decoder outputs every fifth frame; 0 means no frames are dropped.</p></td>
+<td><p>Integer,</p></td>
+<td><p>drop-frame-interval=5</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>cudadec-memtype</p></td>
+<td><p>Type of CUDA memory element used to allocate for output buffers for source of type 2,3 or 4. Not applicable for CSI or USB camera source</p>
+<p>0 (memtype_device): Device memory allocated with cudaMalloc().</p>
+<p>1 (memtype_pinned): host/pinned memory allocated with cudaMallocHost().</p>
+<p>2 (memtype_unified): Unified memory allocated with cudaMallocManaged().</p>
+</td>
+<td><p>Integer,
+0, 1, or 2</p></td>
+<td><p>cudadec-memtype=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of CUDA memory the element is to allocate for output buffers of nvvideoconvert, useful for source of type 1.</p>
+<p>0 (nvbuf-mem-default, a platform-specific default</p>
+<p>1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory.</p>
+<p>2 (nvbuf-mem-cuda-device): Device CUDA memory.</p>
+<p>3 (nvbuf-mem-cuda-unified): Unified CUDA memory.</p>
+<p>For dGPU: All values are valid.</p>
+<p>For Jetson: Only 0 (zero) is valid.</p>
+</td>
+<td><p>Integer,
+0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU,Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>select-rtp-protocol</p></td>
+<td><dl>
+<dt>Transport Protocol to use for RTP. Valid when type (type of source) is 4.</dt><dd><div class="line-block">
+<div class="line">0: UDP + UDP Multicast + TCP</div>
+<div class="line">4: TCP only</div>
+</div>
+</dd>
+</dl>
+</td>
+<td><p>Integer,
+0 or 4</p></td>
+<td><p>select-rtp-protocol=4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>rtsp-reconnect-interval-sec</p></td>
+<td><p>Timeout in seconds to wait since last data was received from an RTSP source before forcing a reconnection. Setting it to 0 will disable the reconnection. Valid when type (type of source) is 4.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>rtsp-reconnect-interval-sec=60</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>rtsp-reconnect-attempts</p></td>
+<td><p>Maximum number of times a reconnection is attempted. Setting it to -1 means reconnection will be attempted infinitely. Valid when type of source is 4 and rtsp-reconnect-interval-sec is a non-zero positive value.</p></td>
+<td><p>Integer, ≥-1</p></td>
+<td><p>rtsp-reconnect-attempts=2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>smart-record</p></td>
+<td><p>Ways to trigger the smart record.</p>
+<p>0: Disable</p>
+<p>1: Only through cloud messages</p>
+<p>2: Cloud message + Local events</p>
+</td>
+<td><p>Integer,
+0, 1 or 2</p></td>
+<td><p>smart-record=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-dir-path</p></td>
+<td><p>Path of directory to save the recorded file. By default, the current directory is used.</p></td>
+<td><p>String</p></td>
+<td><p>smart-rec-dir-path=/home/nvidia/</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-file-prefix</p></td>
+<td><p>Prefix of file name for recorded video. By default, Smart_Record is the prefix. For unique file names every source must be provided with a unique prefix.</p></td>
+<td><p>String</p></td>
+<td><p>smart-rec-file-prefix=Cam1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-cache</p></td>
+<td><p>Size of smart record cache in seconds.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>smart-rec-cache=20</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-container</p></td>
+<td><p>Container format of recorded video. MP4 and MKV containers are supported.</p></td>
+<td><p>Integer,
+0 or 1</p></td>
+<td><p>smart-rec-container=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-start-time</p></td>
+<td><p>Number of seconds earlier from now to start the recording.
+E.g. if t0 is the current time and N is the start time in seconds that means recording will start from t0 – N. Obviously for it to work the video cache size must be greater than the N.</p></td>
+<td><blockquote>
+<div><p>Integer, ≥0</p>
+</div></blockquote>
+</td>
+<td><p>smart-rec-start-time=5</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-default-duration</p></td>
+<td><p>In case a Stop event is not generated. This parameter will ensure the recording is stopped after a predefined default duration.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>smart-rec-default-duration=20</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>smart-rec-duration</p></td>
+<td><p>Duration of recording in seconds.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>smart-rec-duration=15</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>smart-rec-interval</p></td>
+<td><p>This is the time interval in seconds for SR start / stop events generation.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>smart-rec-interval=10</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>udp-buffer-size</p></td>
+<td><p>UDP buffer size in bytes for RTSP sources.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>udp-buffer-size=2000000</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>video-format</p></td>
+<td><p>Output video format for the source. This value is set as the output format of the nvvideoconvert element for the source.</p></td>
+<td><p>String: NV12, I420, P010_10LE, BGRx, RGBA</p></td>
+<td><p>video-format=RGBA</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="source-list-and-source-attr-all-groups">
+<h3>Source-list and source-attr-all Groups<a class="headerlink" href="DS_ref_app_deepstream.html#source-list-and-source-attr-all-groups" title="Link to this heading">#</a></h3>
+<p>The source-list group allows users to provide an initial list of source URI to start streaming with.
+This group along with [source-attr-all] can replace the need for separate [source] groups for each stream.</p>
+<p>Also, DeepStream support (Alpha feature) dynamic sensor provisioning via REST API.
+For more details on this feature, please refer to the sample configuration file and deepstream reference application run command <a class="reference internal" href="DS_ref_app_test5.html#ds-ref-app-test5-runtime-sensor-provisioning"><span class="std std-ref">here</span></a>.</p>
+<p>For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">source</span><span class="o">-</span><span class="n">list</span><span class="p">]</span>
+<span class="n">num</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">bins</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">list</span><span class="o">=</span><span class="n">file</span><span class="o">:</span><span class="c1">///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h265.mp4</span>
+<span class="n">sgie</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span>
+<span class="p">...</span>
+<span class="p">[</span><span class="n">source</span><span class="o">-</span><span class="n">attr</span><span class="o">-</span><span class="n">all</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">type</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">num</span><span class="o">-</span><span class="n">sources</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">gpu</span><span class="o">-</span><span class="n">id</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">cudadec</span><span class="o">-</span><span class="n">memtype</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">latency</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">rtsp</span><span class="o">-</span><span class="n">reconnect</span><span class="o">-</span><span class="n">interval</span><span class="o">-</span><span class="n">sec</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: [source-list] now support REST Server with use-nvmultiurisrcbin=1</p>
+<p>For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">source</span><span class="o">-</span><span class="n">list</span><span class="p">]</span>
+<span class="n">num</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">bins</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">list</span><span class="o">=</span><span class="n">file</span><span class="o">:</span><span class="c1">///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h264.mp4;file:///opt/nvidia/deepstream/deepstream/samples/streams/sample_1080p_h265.mp4</span>
+<span class="n">use</span><span class="o">-</span><span class="n">nvmultiurisrcbin</span><span class="o">=</span><span class="mi">1</span>
+<span class="cp">#sensor-id-list vector is one to one mapped with the uri-list</span>
+<span class="cp">#identifies each sensor by a unique ID</span>
+<span class="n">sensor</span><span class="o">-</span><span class="n">id</span><span class="o">-</span><span class="n">list</span><span class="o">=</span><span class="n">UniqueSensorId1</span><span class="p">;</span><span class="n">UniqueSensorId2</span>
+<span class="cp">#Optional sensor-name-list vector is one to one mapped with the uri-list</span>
+<span class="n">sensor</span><span class="o">-</span><span class="n">name</span><span class="o">-</span><span class="n">list</span><span class="o">=</span><span class="n">UniqueSensorName1</span><span class="p">;</span><span class="n">UniqueSensorName2</span>
+<span class="n">max</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">http</span><span class="o">-</span><span class="n">ip</span><span class="o">=</span><span class="n">localhost</span>
+<span class="n">http</span><span class="o">-</span><span class="n">port</span><span class="o">=</span><span class="mi">9000</span>
+<span class="cp">#sgie batch size is number of sources * fair fraction of number of objects detected per frame per source</span>
+<span class="cp">#the fair fraction of number of object detected is assumed to be 4</span>
+<span class="n">sgie</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">40</span>
+
+<span class="p">[</span><span class="n">source</span><span class="o">-</span><span class="n">attr</span><span class="o">-</span><span class="n">all</span><span class="p">]</span>
+<span class="n">enable</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">type</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">num</span><span class="o">-</span><span class="n">sources</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">gpu</span><span class="o">-</span><span class="n">id</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">cudadec</span><span class="o">-</span><span class="n">memtype</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">latency</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">rtsp</span><span class="o">-</span><span class="n">reconnect</span><span class="o">-</span><span class="n">interval</span><span class="o">-</span><span class="n">sec</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>The [source-list] group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Source List group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id5" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the source.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-source-bins</p></td>
+<td><p>The total number of source URI’s provided with the key list</p></td>
+<td><p>Integer</p></td>
+<td><p>num-source-bins=2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sgie-batch-size</p></td>
+<td><p>sgie batch size is number of sources * fair fraction of number of objects detected per frame per source
+the fair fraction of number of object detected is assumed to be 4</p></td>
+<td><p>Integer</p></td>
+<td><p>sgie-batch-size=8</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>list</p></td>
+<td><p>The list of URI’s separated by semi-colon ‘;’</p></td>
+<td><p>String</p></td>
+<td><p>list=rtsp://ip-address:port/stream1;rtsp://ip-address:port/stream2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sensor-id-list</p></td>
+<td><p>(Alpha Feature) Applicable only when use-nvmultiurisrcbin=1. The list of unique Identifiers identifying each stream separated by semi-colon ‘;’</p></td>
+<td><p>String</p></td>
+<td><p>sensor-id-list=UniqueSensorId1;UniqueSensorId2</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>sensor-name-list</p></td>
+<td><p>(Alpha Feature) Applicable only when use-nvmultiurisrcbin=1. The Optional list of sensor names identifying each stream separated by semi-colon ‘;’</p></td>
+<td><p>String</p></td>
+<td><p>sensor-name-list=SensorName1;SensorName2</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>use-nvmultiurisrcbin</p></td>
+<td><p>(Alpha Feature) Boolean if set enable the use of nvmultiurisrcbin with REST API support for dynamic sensor provisioning</p></td>
+<td><p>Boolean</p></td>
+<td><p>use-nvmultiurisrcbin=0(default)</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-batch-size</p></td>
+<td><p>(Alpha Feature) Applicable only when use-nvmultiurisrcbin=1. Sets the maximum number of sensors that can be streamed using this instance of DeepStream</p></td>
+<td><p>Integer</p></td>
+<td><p>max-batch-size=10</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>http-ip</p></td>
+<td><p>(Alpha Feature) Applicable only when use-nvmultiurisrcbin=1. The HTTP Endpoint IP address to use</p></td>
+<td><p>String</p></td>
+<td><p>http-ip=localhost (default)</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>http-port</p></td>
+<td><p>(Alpha Feature) Applicable only when use-nvmultiurisrcbin=1. The HTTP Endpoint port number to use. Note: User may pass empty string to disable REST API server</p></td>
+<td><p>String</p></td>
+<td><p>http-ip=9001 (default)</p></td>
+<td><p>dGPU</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>The [source-attr-all] group support all properties except uri from the <a class="reference internal" href="DS_ref_app_deepstream.html#source-group">Source Group</a>.
+A sample config file can be found at <cite>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-test5/configs/test5_config_file_nvmultiurisrcbin_src_list_attr_all.txt</cite>.</p>
+</section>
+<section id="streammux-group">
+<h3>Streammux Group<a class="headerlink" href="DS_ref_app_deepstream.html#streammux-group" title="Link to this heading">#</a></h3>
+<p>The [streammux] group specifies and modifies properties of the <code class="docutils literal notranslate"><span class="pre">Gst-nvstreammux</span></code> plugin.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id6">
+<caption><span class="caption-text">Streammux group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id6" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>gpu-id</p></td>
+<td><p>GPU element is to use in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>live-source</p></td>
+<td><p>Informs the muxer that sources are live.</p></td>
+<td><p>Boolean</p></td>
+<td><p>live-source=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>buffer-pool-size</p></td>
+<td><p>Number of buffers in Muxer output buffer pool.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>buffer-pool-size=4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>batch-size</p></td>
+<td><p>Muxer batch size.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>batch-size=4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>batched-push-timeout</p></td>
+<td><p>Timeout in microseconds after to push the batch after the first buffer is available, even if the complete batch is not formed.</p></td>
+<td><p>Integer, ≥−1</p></td>
+<td><p>batched-push-timeout=40000</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>width</p></td>
+<td><p>Muxer output width in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>width=1280</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>height</p></td>
+<td><p>Muxer output height in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>height=720</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable-padding</p></td>
+<td><p>Indicates whether to maintain source aspect ratio when scaling by adding black bands.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable-padding=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of CUDA memory the element is to allocate for output buffers.</p>
+<p>0 (nvbuf-mem-default, a platform-specific default</p>
+<p>1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory.</p>
+<p>2 (nvbuf-mem-cuda-device): Device CUDA memory.</p>
+<p>3 (nvbuf-mem-cuda-unified): Unified CUDA memory.</p>
+<p>For dGPU: All values are valid.</p>
+<p>For Jetson: Only 0 (zero) is valid.</p>
+</td>
+<td><p>Integer,
+0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>attach-sys-ts-as-ntp</p></td>
+<td><p>For live sources, the muxed buffer shall have associated NvDsFrameMeta-&gt;ntp_timestamp set to system time or the server’s NTP time when streaming RTSP.</p>
+<p>If set to 1, system timestamp will be attached as ntp timestamp.</p>
+<p>If set to 0, ntp timestamp from rtspsrc, if available, will be attached.</p>
+</td>
+<td><p>Boolean</p></td>
+<td><p>attach-sys-ts-as-ntp=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>config-file-path</p></td>
+<td><p>This key is valid only for the new streammux. Please refer the plugin manual section “New Gst-nvstreammux” for more information.
+Absolute or relative (to DS config-file location) path of mux configuration file.</p></td>
+<td><p>String</p></td>
+<td><p>config-file-path=config_mux_source30.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>sync-inputs</p></td>
+<td><p>Time synchronize input frames before batching them.</p></td>
+<td><p>Boolean</p></td>
+<td><p>sync-inputs=0 (default)</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>max-latency</p></td>
+<td><p>Additional latency in live mode to allow upstream to take longer to produce buffers for the current position (in nanoseconds).</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>max-latency=0 (default)</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>drop-pipeline-eos</p></td>
+<td><p>Boolean property to control EOS propagation downstream from nvstreammux when all the sink pads are at EOS. (Experimental)</p></td>
+<td><p>Boolean</p></td>
+<td><p>drop-pipeline-eos=0(default)</p></td>
+<td><p>dGPU/Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="preprocess-group">
+<h3>Preprocess Group<a class="headerlink" href="DS_ref_app_deepstream.html#preprocess-group" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">[pre-process]</span></code> group is for adding <code class="docutils literal notranslate"><span class="pre">nvdspreprocess</span></code> plugin in the pipeline. Supports preprocessing for only Primary GIE.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-text">Preprocess group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the plugin.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>config-file</p></td>
+<td><p>Configuration file path for nvdspreprocess plugin</p></td>
+<td><p>String</p></td>
+<td><p>config-file=config_preprocess.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primary-gie-and-secondary-gie-group">
+<h3>Primary GIE and Secondary GIE Group<a class="headerlink" href="DS_ref_app_deepstream.html#primary-gie-and-secondary-gie-group" title="Link to this heading">#</a></h3>
+<p>The DeepStream application supports multiple secondary GIEs. For each secondary GIE, a separate group with the name <code class="docutils literal notranslate"><span class="pre">secondary-gie%d</span></code> must be added to the configuration file. For example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">primary</span><span class="o">-</span><span class="n">gie</span><span class="p">]</span>
+<span class="n">key1</span><span class="o">=</span><span class="n">value1</span>
+<span class="n">key2</span><span class="o">=</span><span class="n">value2</span>
+<span class="p">...</span>
+
+<span class="p">[</span><span class="n">secondary</span><span class="o">-</span><span class="n">gie1</span><span class="p">]</span>
+<span class="n">key1</span><span class="o">=</span><span class="n">value1</span>
+<span class="n">key2</span><span class="o">=</span><span class="n">value2</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<p>The primary and secondary GIE configurations are as follows. For each configuration, the Valid for column indicates whether the configuration property is valid for the primary or secondary TensorRT model, or for both models.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id8">
+<caption><span class="caption-text">Primary and Secondary GIE* group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id8" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms/ GIEs*</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Indicates whether the primary GIE must be enabled.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>gie-unique-id</p></td>
+<td><p>Unique component ID to be assigned to the nvinfer instance. Used to identify metadata generated by the instance.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>gie-unique-id=2</p></td>
+<td><p>Both</p></td>
+</tr>
+<tr class="row-even"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU, Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>model-engine-file</p></td>
+<td><p>Absolute pathname of the pre-generated serialized engine file for the mode.</p></td>
+<td><p>String</p></td>
+<td><p>model-engine-file=­../../models/­Primary_Detector/­resnet18_trafficcamnet_pruned.onnx_b4_gpu0_int8.engine</p></td>
+<td><p>Both GIEs</p></td>
+</tr>
+<tr class="row-even"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of CUDA memory element is to allocate for output buffers.</p>
+<p>0 (nvbuf-mem-default): a platform-specific default</p>
+<p>1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory</p>
+<p>2 (nvbuf-mem-cuda-device): Device CUDA memory</p>
+<p>3 (nvbuf-mem-cuda-unified): Unified CUDA memory</p>
+<p>For dGPU: All values are valid.</p>
+<p>For Jetson: Only 0 (zero) is valid.</p>
+</td>
+<td><p>Integer,
+0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU, Jetson
+Primary GIE</p></td>
+</tr>
+<tr class="row-odd"><td><p>config-file</p></td>
+<td><p>Pathname of a configuration file which specifies properties for the Gst-nvinfer plugin. It may contain any of the properties described in this table except config-file itself. Properties must be defined in a group named [property].
+For more details about parameters see “Gst-nvinfer File Configuration Specifications” in the DeepStream 4.0 Plugin Manual.</p></td>
+<td><p>String</p></td>
+<td><p>config-file=¬/home/-ubuntu/-config_infer_resnet.txt
+For complete examples, see the sample file samples/¬configs/-deepstream-app/-config_infer_resnet.txt or the deepstream-test2 sample application.</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-even"><td><p>batch-size</p></td>
+<td><p>The number of frames(P.GIE)/objects(S.GIE) to be inferred together in a batch.</p></td>
+<td><p>Integer, &gt;0 Integer, &gt;0</p></td>
+<td><p>batch-size=2</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>interval</p></td>
+<td><p>Number of consecutive batches to skip for inference.</p></td>
+<td><p>Integer, &gt;0 Integer, &gt;0</p></td>
+<td><p>interval=2</p></td>
+<td><p>dGPU, Jetson
+Primary GIE</p></td>
+</tr>
+<tr class="row-even"><td><p>bbox-border-color</p></td>
+<td><p>The color of the borders for the objects of a specific class ID, specified in RGBA format. The key must be of format bbox-border-color&lt;class-id&gt;. This property can be identified multiple times for multiple class IDs. If this property is not identified for the class ID, the borders are not drawn for objects of that class-id.</p></td>
+<td><p>R:G:B:A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>bbox-border-color2=
+1;0;0;1
+(Red for class-id 2)</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>bbox-bg-color</p></td>
+<td><p>The color of the boxes drawn over objects of a specific class ID, in RGBA format. The key must be of format bbox-bg-color&lt;class-id&gt;. This property can be used multiple times for multiple class IDs. If it is not used for a class ID, the boxes are not drawn for objects of that class ID.</p></td>
+<td><p>R:G:B:A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>bbox-bg-color3=-0;1;0;0.3
+(Semi-transparent green for class-id 3)</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-even"><td><p>operate-on-gie-id</p></td>
+<td><p>A unique ID of the GIE, on whose metadata (NvDsFrameMeta) this GIE is to operate.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>operate-on-gie-id=1</p></td>
+<td><p>dGPU, Jetson Secondary GIE</p></td>
+</tr>
+<tr class="row-odd"><td><p>operate-on-class-ids</p></td>
+<td><p>Class IDs of the parent GIE on which this GIE must operate. The parent GIE is specified using operate-on-gie-id.</p></td>
+<td><p>Semicolon separated integer array</p></td>
+<td><p>operate-on-class-ids=1;2
+(operate on objects with class IDs 1, 2 generated by parent GIE)</p></td>
+<td><p>dGPU, Jetson
+Secondary GIE</p></td>
+</tr>
+<tr class="row-even"><td><p>infer-raw-output-dir</p></td>
+<td><p>Pathname of an existing directory in which to dump the raw inference buffer contents in a file.</p></td>
+<td><p>String</p></td>
+<td><p>infer-raw-output-dir=­/home/­ubuntu/­infer_raw_out</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>labelfile-path</p></td>
+<td><p>Pathname of the labelfile.</p></td>
+<td><p>String</p></td>
+<td><p>labelfile-path=../../models/Primary_Detector/labels.txt</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-even"><td><p>plugin-type</p></td>
+<td><p>Plugin to use for inference.
+0: nvinfer (TensorRT)
+1: nvinferserver (Triton inference server)</p></td>
+<td><p>Integer,
+0 or 1</p></td>
+<td><p>plugin-type=1</p></td>
+<td><p>dGPU, Jetson
+Both GIEs</p></td>
+</tr>
+<tr class="row-odd"><td><p>input-tensor-meta</p></td>
+<td><p>Use preprocessed input tensors attached as metadata by nvdspreprocess plugin instead of preprocessing inside the nvinfer.</p></td>
+<td><p>Integer, 0 or 1</p></td>
+<td><p>input-tensor-meta=1</p></td>
+<td><p>dGPU, Jetson, Primary GIE</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>* The GIEs are the GPU Inference Engines.</p>
+</div>
+</section>
+<section id="tracker-group">
+<h3>Tracker Group<a class="headerlink" href="DS_ref_app_deepstream.html#tracker-group" title="Link to this heading">#</a></h3>
+<p>The tracker group properties include the following, and more details can be found in <a class="reference internal" href="DS_plugin_gst-nvtracker.html#nvtracker-gst-properties"><span class="std std-ref">Gst Properties</span></a>:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id9">
+<caption><span class="caption-text">Tracker group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id9" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the tracker.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>tracker-width</p></td>
+<td><p>Frame width at which the tracker will operate, in pixels. (To be a multiple of 32 when tracker config visualTrackerType: 1 or reidType is non-zero with useVPICropScaler: 0)</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>tracker-width=960</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>tracker-height</p></td>
+<td><p>Frame height at which the tracker will operate, in pixels. (To be a multiple of 32 when tracker config visualTrackerType: 1 or reidType is non-zero with useVPICropScaler: 0)</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>tracker-height=544</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>ll-config-file</p></td>
+<td><p>Configuration file for the low-level library if needed.</p>
+<p>(Alpha feature) A list of configuration files can be specified when the property <cite>sub-batches</cite> is configured.</p>
+</td>
+<td><p>String</p></td>
+<td><p>ll-config-file=iou_config.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>ll-lib-file</p></td>
+<td><p>Pathname for the low-level tracker implementation library.</p></td>
+<td><p>String</p></td>
+<td><p>ll-lib-file=/usr/-local/deepstream/libnvds_mot_iou.so</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>tracking-surface-type</p></td>
+<td><p>Set surface stream type for tracking. (default value is 0)</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>tracking-surface-type=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>display-tracking-id</p></td>
+<td><p>Enables tracking id display.</p></td>
+<td><p>Boolean</p></td>
+<td><p>display-tracking-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>tracking-id-reset-mode</p></td>
+<td><p>Allow force-reset of tracking ID based on pipeline event. Once tracking ID reset is enabled and such event happens, the lower 32-bit of the tracking ID will be reset to 0</p>
+<p>0: Not reset tracking ID when stream reset or EOS event happens</p>
+<p>1: Terminate all existing trackers and assign new IDs for a stream when the stream reset happens (i.e., GST_NVEVENT_STREAM_RESET)</p>
+<p>2: Let tracking ID start from 0 after receiving EOS event  (i.e., GST_NVEVENT_STREAM_EOS) (Note: Only the lower 32-bit of tracking ID to start from 0)</p>
+<p>3: Enable both option 1 and 2</p>
+</td>
+<td><p>Integer, 0 to 3</p></td>
+<td><p>tracking-id-reset-mode=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>input-tensor-meta</p></td>
+<td><p>Use the tensor-meta from Gst-nvdspreprocess if available for tensor-meta-gie-id</p></td>
+<td><p>Boolean</p></td>
+<td><p>input-tensor-meta=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>tensor-meta-gie-id</p></td>
+<td><p>Tensor Meta GIE ID to be used, property valid only if input-tensor-meta is TRUE</p></td>
+<td><p>Unsigned Integer, ≥0</p></td>
+<td><p>tensor-meta-gie-id=5</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>sub-batches (Alpha feature)</p></td>
+<td><p>Configures splitting of a batch of frames in sub-batches</p></td>
+<td><p>Semicolon delimited integer array.</p>
+<p>Must include all values from 0 to (batch-size -1) where batch-size is configured in <code class="docutils literal notranslate"><span class="pre">[streammux]</span></code>.</p>
+</td>
+<td><p>sub-batches=0,1;2,3</p>
+<p>In this example, a batch size of 4 is split into two sub-batches where the first sub-batch consists of source ids 0 &amp; 1 and second sub-batch consists of source ids 2 &amp; 3</p>
+</td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sub-batch-err-recovery-trial-cnt (Alpha feature)</p></td>
+<td><p>Configure the number of times the plugin can try to recover when the low level tracker in a sub-batch returns with a fatal error.</p>
+<p>To recover from the error, the plugin reinitializes the low level tracker library.</p>
+</td>
+<td><p>Integer,≥-1  where,</p>
+<p>-1 corresponds to infinite trials</p>
+</td>
+<td><p>sub-batch-err-recovery-trial-cnt=3</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>user-meta-pool-size</p></td>
+<td><p>The size of tracker miscellaneous data buffer pool</p></td>
+<td><p>Unsigned Integer, &gt;0</p></td>
+<td><p>user-meta-pool-size=32</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="message-converter-group">
+<h3>Message Converter Group<a class="headerlink" href="DS_ref_app_deepstream.html#message-converter-group" title="Link to this heading">#</a></h3>
+<p>Message converter group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id10">
+<caption><span class="caption-text">Message converter group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id10" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the message converter.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-config</p></td>
+<td><p>Pathname of the configuration file for the Gst-nvmsgconv element.</p></td>
+<td><p>String</p></td>
+<td><p>msg-conv-config=dstest5_msgconv_sample_config.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-payload-type</p></td>
+<td><p>Type of payload.</p>
+<p>0, PAYLOAD_DEEPSTREAM: Deepstream schema payload.</p>
+<p>1, PAYLOAD_DEEPSTREAM_MINIMAL: Deepstream schema payload minimal.</p>
+<p>256, PAYLOAD_RESERVED: Reserved type.</p>
+<p>257, PAYLOAD_CUSTOM: Custom schema payload.</p>
+</td>
+<td><p>Integer
+0, 1, 256, or 257</p></td>
+<td><p>msg-conv-payload-type=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-msg2p-lib</p></td>
+<td><p>Absolute pathname of an optional custom payload generation library. This library implements the API defined by sources/libs/nvmsgconv/nvmsgconv.h.</p></td>
+<td><p>String</p></td>
+<td><p>msg-conv-msg2p-lib=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_msgconv.so</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-comp-id</p></td>
+<td><p>comp-id Gst property of the gst-nvmsgconv element.
+This is the Id of the component that attaches the NvDsEventMsgMeta which must be processed by gst-nvmsgconv element.</p></td>
+<td><p>Integer, &gt;=0</p></td>
+<td><p>msg-conv-comp-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>debug-payload-dir</p></td>
+<td><p>Directory to dump payload</p></td>
+<td><p>String</p></td>
+<td><p>debug-payload-dir=&lt;absolute path&gt; Default is NULL</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>multiple-payloads</p></td>
+<td><p>Generate multiple message payloads</p></td>
+<td><p>Boolean</p></td>
+<td><p>multiple-payloads=1 Default is 0</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-msg2p-new-api</p></td>
+<td><p>Generate payloads using Gst buffer frame/object metadata</p></td>
+<td><p>Boolean</p></td>
+<td><p>msg-conv-msg2p-new-api=1 Default is 0</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-frame-interval</p></td>
+<td><p>Frame interval at which payload is generated</p></td>
+<td><p>Integer, 1 to  4,294,967,295</p></td>
+<td><p>msg-conv-frame-interval=25 Default is 30</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-dummy-payload</p></td>
+<td><p>By default payload is generated if NVDS_EVENT_MSG_META is attached to buffer. With this dummy payload can be generated if there is no  NVDS_EVENT_MSG_META attached to buffer</p></td>
+<td><p>boolean</p></td>
+<td><p>msg-conv-dummy-payload=true Default is false</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="message-consumer-group">
+<h3>Message Consumer Group<a class="headerlink" href="DS_ref_app_deepstream.html#message-consumer-group" title="Link to this heading">#</a></h3>
+<p>Message consumer group properties are:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id11">
+<caption><span class="caption-text">Message consumer group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id11" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the message consumer.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>proto-lib</p></td>
+<td><p>Path to the library having protocol adapter implementation.</p></td>
+<td><p>String</p></td>
+<td><p>proto-lib=/opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_kafka_proto.so</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>conn-str</p></td>
+<td><p>Connection string of the server.</p></td>
+<td><p>String</p></td>
+<td><p>conn-str=foo.bar.com;80</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>config-file</p></td>
+<td><p>Path to the file having additional configurations for protocol adapter,</p></td>
+<td><p>String</p></td>
+<td><p>config-file=../cfg_kafka.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>subscribe-topic-list</p></td>
+<td><p>List of topics to subscribe.</p></td>
+<td><p>String</p></td>
+<td><p>subscribe-topic-list=toipc1;topic2;topic3</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>sensor-list-file</p></td>
+<td><p>File having mappings from sensor index to sensor name.</p></td>
+<td><p>String</p></td>
+<td><p>sensor-list-file=dstest5_msgconv_sample_config.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="osd-group">
+<h3>OSD Group<a class="headerlink" href="DS_ref_app_deepstream.html#osd-group" title="Link to this heading">#</a></h3>
+<p>The OSD group specifies the properties and modifies the behavior of the OSD component, which overlays text and rectangles on the video frame.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id12">
+<caption><span class="caption-text">OSD group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id12" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the On-Screen Display (OSD).</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>border-width</p></td>
+<td><p>Border width of the bounding boxes drawn for objects, in pixels.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>border-width=10</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>border-color</p></td>
+<td><p>Border color of the bounding boxes drawn for objects.</p></td>
+<td><p>R;G;B;A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>border-color=0;0;0.7;1 #Dark Blue</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>text-size</p></td>
+<td><p>Size of the text that describes the objects, in points.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>text-size=16</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>text-color</p></td>
+<td><p>The color of the text that describes the objects, in RGBA format.</p></td>
+<td><p>R;G;B;A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>text-color=0;0;0.7;1 #Dark Blue</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>text-bg-color</p></td>
+<td><p>The background color of the text that describes the objects, in RGBA format.</p></td>
+<td><p>R;G;B;A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>text-bg-color=0;0;0;0.5 #Semi-transparent black</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>clock-text-size</p></td>
+<td><p>The size of the clock time text, in points.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>clock-text-size=16</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>clock-x-offset</p></td>
+<td><p>The horizontal offset of the clock time text, in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>clock-x-offset=100</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>clock-y-offset</p></td>
+<td><p>The vertical offset of the clock time text, in pixels.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>clock-y-offset=100</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>font</p></td>
+<td><p>Name of the font for text that describes the objects.</p></td>
+<td><p>String</p></td>
+<td><p>font=Purisa</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Enter the shell command fc-list to display the names of available fonts.</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>clock-color</p></td>
+<td><p>Color of the clock time text, in RGBA format.</p></td>
+<td><p>R;G;B;A Float,
+0≤R,G,B,A≤1</p></td>
+<td><p>clock-color=1;0;0;1 #Red</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of CUDA memory the element is to allocate for output buffers.</p>
+<p>0 (nvbuf-mem-default): a platform-specific default</p>
+<p>1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory</p>
+<p>2 (nvbuf-mem-cuda-device): Device CUDA memory</p>
+<p>3 (nvbuf-mem-cuda-unified): Unified CUDA memory</p>
+<p>For dGPU: All values are valid.</p>
+<p>For Jetson: Only 0 (zero) is valid.</p>
+</td>
+<td><p>Integer,
+0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>process-mode</p></td>
+<td><dl>
+<dt>NvOSD processing mode.</dt><dd><div class="line-block">
+<div class="line">0: CPU</div>
+<div class="line">1: GPU</div>
+</div>
+</dd>
+</dl>
+</td>
+<td><p>Integer,
+0, 1, or 2</p></td>
+<td><p>process-mode=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>display-text</p></td>
+<td><p>Indicate whether to display text</p></td>
+<td><p>Boolean</p></td>
+<td><p>display-text=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>display-bbox</p></td>
+<td><p>Indicate whether to bounding box</p></td>
+<td><p>Boolean</p></td>
+<td><p>display-bbox=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>display-mask</p></td>
+<td><p>Indicate whether to display instance mask</p></td>
+<td><p>Boolean</p></td>
+<td><p>display-mask=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="sink-group">
+<h3>Sink Group<a class="headerlink" href="DS_ref_app_deepstream.html#sink-group" title="Link to this heading">#</a></h3>
+<p>The sink group specifies the properties and modifies the behavior of the sink components for rendering, encoding, and file saving.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id13">
+<caption><span class="caption-text">Sink group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id13" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the sink.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>Type of sink, to use.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">1: Fakesink</div>
+<div class="line">2: EGL based windowed nveglglessink for dGPU and nv3dsink for Jetson</div>
+<div class="line">3: Encode + File Save (encoder + muxer + filesink)</div>
+<div class="line">4: Encode + RTSP streaming; Note: sync=1 for this type is not applicable;</div>
+<div class="line">5: nvdrmvideosink (Jetson only)</div>
+<div class="line">6: Message converter + Message broker</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer, 1, 2, 3, 4, 5 or 6</p></td>
+<td><p>type=2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sync</p></td>
+<td><p>Indicates how fast the stream is to be rendered.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0: As fast as possible</div>
+<div class="line">1: Synchronously</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer,
+0 or 1</p></td>
+<td><p>sync=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>qos</p></td>
+<td><p>Indicates whether the sink is to generate Quality-of-Service events, which can lead to the pipeline dropping frames when pipeline FPS cannot keep up with the stream frame rate.</p></td>
+<td><p>Boolean</p></td>
+<td><p>qos=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>source-id</p></td>
+<td><p>The ID of the source whose buffers this sink must use. The source ID is contained in the source group name. For example, for group [source1] source-id=1.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>source-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>gpu-id</p></td>
+<td><p>GPU to be used by the element in case of multiple GPUs.</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>gpu-id=1</p></td>
+<td><p>dGPU</p></td>
+</tr>
+<tr class="row-even"><td><p>container</p></td>
+<td><p>Container to use for the file save. Only valid for type=3.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">1: MP4</div>
+<div class="line">2: MKV</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer,
+1 or 2</p></td>
+<td><p>container=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>codec</p></td>
+<td><dl>
+<dt>The encoder to be used to save the file.</dt><dd><div class="line-block">
+<div class="line">1: H.264 (hardware)</div>
+<div class="line">2: H.265 (hardware)</div>
+</div>
+</dd>
+</dl>
+</td>
+<td><p>Integer,
+1 or 2</p></td>
+<td><p>codec=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>bitrate</p></td>
+<td><p>Bitrate to use for encoding, in bits per second. Valid for type=3 and 4.</p></td>
+<td><p>Integer, &gt;0</p></td>
+<td><p>bitrate=4000000</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>iframeinterval</p></td>
+<td><p>Encoding intra-frame occurrence frequency.</p></td>
+<td><p>Integer,
+0≤iv≤MAX_INT</p></td>
+<td><p>iframeinterval=30</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>output-file</p></td>
+<td><p>Pathname of the output encoded file. Only valid for type=3.</p></td>
+<td><p>String</p></td>
+<td><p>output-file=­/home/­ubuntu/­output.mp4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvbuf-memory-type</p></td>
+<td><p>Type of CUDA memory the plugin is to allocate for output buffers.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0 (nvbuf-mem-default): a platform-specific default</div>
+<div class="line">1 (nvbuf-mem-cuda-pinned): pinned/host CUDA memory</div>
+<div class="line">2 (nvbuf-mem-cuda-device): Device CUDA memory</div>
+<div class="line">3 (nvbuf-mem-cuda-unified): Unified CUDA memory</div>
+<div class="line">For dGPU: All values are valid.</div>
+<div class="line">For Jetson: Only 0 (zero) Is valid.</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer,
+0, 1, 2, or 3</p></td>
+<td><p>nvbuf-memory-type=3</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>rtsp-port</p></td>
+<td><p>Port for the RTSP streaming server; a valid unused port number. Valid for type=4.</p></td>
+<td><p>Integer</p></td>
+<td><p>rtsp-port=8554</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>udp-port</p></td>
+<td><p>Port used internally by the streaming implementation - a valid unused port number. Valid for type=4.</p></td>
+<td><p>Integer</p></td>
+<td><p>udp-port=5400</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>conn-id</p></td>
+<td><p>Connection index. Valid for nvdrmvideosink(type=5).</p></td>
+<td><p>Integer, &gt;=1</p></td>
+<td><p>conn-id=0</p></td>
+<td><p>Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>width</p></td>
+<td><p>Width of the renderer in pixels.</p></td>
+<td><p>Integer, &gt;=1</p></td>
+<td><p>width=1920</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>height</p></td>
+<td><p>Height of the renderer in pixels.</p></td>
+<td><p>Integer, &gt;=1</p></td>
+<td><p>height=1920</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>offset-x</p></td>
+<td><p>Horizontal offset of the renderer window, in pixels.</p></td>
+<td><p>Integer, &gt;=1</p></td>
+<td><p>offset-x=100</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>offset-y</p></td>
+<td><p>Vertical offset of the renderer window, in pixels.</p></td>
+<td><p>Integer, &gt;=1</p></td>
+<td><p>offset-y=100</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>plane-id</p></td>
+<td><p>Plane on which video should be rendered. Valid for nvdrmvideosink(type=5).</p></td>
+<td><p>Integer, ≥0</p></td>
+<td><p>plane-id=0</p></td>
+<td><p>Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-config</p></td>
+<td><p>Pathname of the configuration file for the Gst-nvmsgconv element (type=6).</p></td>
+<td><p>String</p></td>
+<td><p>msg-conv-config=dstest5_msgconv_sample_config.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-broker-proto-lib</p></td>
+<td><p>Path to the protocol adapter implementation used Gst-nvmsgbroker (type=6).</p></td>
+<td><p>String</p></td>
+<td><p>msg-broker-proto-lib= /opt/nvidia/deepstream/deepstream-5.0/lib/libnvds_amqp_proto.so</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-broker-conn-str</p></td>
+<td><p>Connection string of the backend server (type=6).</p></td>
+<td><p>String</p></td>
+<td><p>msg-broker-conn-str=foo.bar.com;80;dsapp</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>topic</p></td>
+<td><p>Name of the message topic (type=6).</p></td>
+<td><p>String</p></td>
+<td><p>topic=test-ds4</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-payload-type</p></td>
+<td><p>Type of payload.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0, PAYLOAD_DEEPSTREAM: DeepStream schema payload.</div>
+<div class="line">1, PAYLOAD_DEEPSTREAM_-MINIMAL: DeepStream schema payload minimal.</div>
+<div class="line">256, PAYLOAD_RESERVED: Reserved type.</div>
+<div class="line">257, PAYLOAD_CUSTOM: Custom schema payload (type=6).</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer 0, 1, 256, or 257</p></td>
+<td><p>msg-conv-payload-type=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-broker-config</p></td>
+<td><p>Pathname of an optional configuration file for the Gst-nvmsgbroker element (type=6).</p></td>
+<td><p>String</p></td>
+<td><p>msg-broker-config=/home/ubuntu/cfg_amqp.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>sleep-time</p></td>
+<td><p>Sleep time between consecutive do_work calls in milliseconds</p></td>
+<td><p>Integer &gt;= 0. 
+For Azure, use value &gt;= 10 depending on IoT Hub service tier message rate limit.
+Warning: failure is likely with unreasonably high sleep times, e.g. 10000000 ms</p></td>
+<td><p>sleep-time=10</p></td>
+<td><p>dGPU
+Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>new-api</p></td>
+<td><p>use protocol adapter library api’s directly or use new msgbroker library wrapper api’s (type=6)</p></td>
+<td><dl>
+<dt>Integer </dt><dd><div class="line-block">
+<div class="line">0 : Use adapter api’s directly</div>
+<div class="line">1 : msgbroker lib wrapper api’s</div>
+</div>
+</dd>
+</dl>
+</td>
+<td><p>new-api = 0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-msg2p-lib</p></td>
+<td><p>Absolute pathname of an optional custom payload generation library. This library implements the API defined by sources/libs/nvmsgconv/­nvmsgconv.h.
+Applicable only when msg-conv-payload-type=257, PAYLOAD_CUSTOM. (type=6)</p></td>
+<td><p>String</p></td>
+<td><p>msg-conv-msg2p-lib= /opt/nvidia/deepstream/deepstream-4.0/lib/libnvds_msgconv.so</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-comp-id</p></td>
+<td><p>comp-id Gst property of the nvmsgconv element; ID (gie-unique-id) of the primary/secondary-gie component from which metadata is to be processed. (type=6)</p></td>
+<td><p>Integer, &gt;=0</p></td>
+<td><p>msg-conv-comp-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>msg-broker-comp-id</p></td>
+<td><p>comp-id Gst property of the nvmsgbroker element; ID (gie-unique-id) of the primary/secondary gie component from which metadata is to be processed. (type=6)</p></td>
+<td><p>Integer, &gt;=0</p></td>
+<td><p>msg-broker-comp-id=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>debug-payload-dir</p></td>
+<td><p>Directory to dump payload (type=6)</p></td>
+<td><p>String</p></td>
+<td><p>debug-payload-dir=&lt;absolute path&gt; Default is NULL</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>multiple-payloads</p></td>
+<td><p>Generate multiple message payloads (type=6)</p></td>
+<td><p>Boolean</p></td>
+<td><p>multiple-payloads=1 Default is 0</p></td>
+<td><blockquote>
+<div><p>“dGPU Jetson”</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-odd"><td><p>msg-conv-msg2p-new-api</p></td>
+<td><p>Generate payloads using Gst buffer frame/object metadata (type=6)</p></td>
+<td><p>Boolean</p></td>
+<td><p>msg-conv-msg2p-new-api=1 Default is 0</p></td>
+<td><blockquote>
+<div><p>“dGPU Jetson”</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="row-even"><td><p>msg-conv-frame-interval</p></td>
+<td><p>Frame interval at which payload is generated (type=6)</p></td>
+<td><p>Integer, 1 to  4,294,967,295</p></td>
+<td><p>msg-conv-frame-interval=25 Default is 30</p></td>
+<td><p>dGPU Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>disable-msgconv</p></td>
+<td><p>Only add a message broker component instead of a message converter + message broker. (type=6)</p></td>
+<td><p>Integer,</p></td>
+<td><p>disable-msgconv = 1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>enc-type</p></td>
+<td><p>Engine to use for encoder</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0: NVENC hardware engine</div>
+<div class="line">1: CPU software encoder</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer,
+0 or 1</p></td>
+<td><p>enc-type=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>profile (HW)</p></td>
+<td><p>Encoder profile for the codec
+V4L2 H264 encoder(HW):</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0: Baseline</div>
+<div class="line">2: Main</div>
+<div class="line">4: High</div>
+</div>
+</div></blockquote>
+<p>V4L2 H265 encoder(HW):</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">0: Main</div>
+<div class="line">1: Main10</div>
+</div>
+</div></blockquote>
+</td>
+<td><p>Integer,
+valid values from the column beside</p></td>
+<td><p>profile=2</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-even"><td><p>udp-buffer-size</p></td>
+<td><p>UDP kernel buffer size (in bytes) for internal RTSP output pipeline.</p></td>
+<td><p>Integer, &gt;=0</p></td>
+<td><p>udp-buffer-size=100000</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>link-to-demux</p></td>
+<td><p>A boolean which enables or disables streaming a particular “source-id” alone to this sink. Please check the tiled-display group enable key for more information.</p></td>
+<td><p>Boolean</p></td>
+<td><p>link-to-demux=0</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="tests-group">
+<h3>Tests Group<a class="headerlink" href="DS_ref_app_deepstream.html#tests-group" title="Link to this heading">#</a></h3>
+<p>The tests group is for diagnostics and debugging.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id14">
+<caption><span class="caption-text">Tests group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id14" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>file-loop</p></td>
+<td><p>Indicates whether input files should be looped infinitely.</p></td>
+<td><p>Boolean</p></td>
+<td><p>file-loop=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+</section>
+<section id="nvds-analytics-group">
+<h3>NvDs-analytics Group<a class="headerlink" href="DS_ref_app_deepstream.html#nvds-analytics-group" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">[nvds-analytics]</span></code> group is for adding <code class="docutils literal notranslate"><span class="pre">nvds-analytics</span></code> plugin in the pipeline.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id15">
+<caption><span class="caption-text">NvDs-analytics group</span><a class="headerlink" href="DS_ref_app_deepstream.html#id15" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Type and Value</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable</p></td>
+<td><p>Enables or disables the plugin.</p></td>
+<td><p>Boolean</p></td>
+<td><p>enable=1</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+<tr class="row-odd"><td><p>config-file</p></td>
+<td><p>Configuration file path for nvdsanalytics plugin</p></td>
+<td><p>String</p></td>
+<td><p>config-file=config_nvdsanalytics.txt</p></td>
+<td><p>dGPU, Jetson</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the DeepStream Plugin Guide for plugin-specific configuration file specifications (for the <code class="docutils literal notranslate"><span class="pre">Gst-nvdspreprocess</span></code>, <code class="docutils literal notranslate"><span class="pre">Gst-nvinfer</span></code>, <code class="docutils literal notranslate"><span class="pre">Gst-nvtracker</span></code>, <code class="docutils literal notranslate"><span class="pre">Gst-nvdewarper</span></code>, <code class="docutils literal notranslate"><span class="pre">Gst-nvmsgconv</span></code>, <code class="docutils literal notranslate"><span class="pre">Gst-nvmsgbroker</span></code> and <code class="docutils literal notranslate"><span class="pre">Gst-nvdsanalytics</span></code> plugins).</p>
+</div>
+</section>
+</section>
+<section id="application-tuning-for-deepstream-sdk">
+<h2>Application Tuning for DeepStream SDK<a class="headerlink" href="DS_ref_app_deepstream.html#application-tuning-for-deepstream-sdk" title="Link to this heading">#</a></h2>
+<p>This section provides application tuning tips for the DeepStream SDK using the following parameters in the configuration file.</p>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="DS_ref_app_deepstream.html#performance-optimization" title="Link to this heading">#</a></h3>
+<p>This section covers various performance optimization steps that you can try for maximum performance.</p>
+<section id="deepstream-best-practices">
+<h4>DeepStream best practices<a class="headerlink" href="DS_ref_app_deepstream.html#deepstream-best-practices" title="Link to this heading">#</a></h4>
+<p>Here are few best practices to optimize DeepStream application to remove bottlenecks in your application:</p>
+<ol class="arabic simple">
+<li><p>Set the batch size of streammux and primary detector to equal the number of input sources. These settings are under <code class="docutils literal notranslate"><span class="pre">[streammux]</span></code> and <code class="docutils literal notranslate"><span class="pre">[primary-gie]</span></code> group of the config file. This keeps the pipeline running at full capacity. Higher or lower batch size than number of input sources can sometimes add latency in the pipeline.</p></li>
+<li><p>Set the height and width of streammux to the input resolution. This is set under <code class="docutils literal notranslate"><span class="pre">[streammux]</span></code> group of the config file. This ensures that stream doesn’t go through any unwanted image scaling.</p></li>
+<li><p>If you are streaming from live sources such as RTSP or from USB camera, set <code class="docutils literal notranslate"><span class="pre">live-source=1</span></code> in <code class="docutils literal notranslate"><span class="pre">[streammux]</span></code> group of config file. This enables proper timestamping for live sources creating smoother playback</p></li>
+<li><p>Tiling and visual output can take up GPU resource. There are 3 things that you can disable to maximize throughput when you do not need to render the output on your screen. As an example, rendering is not required when you want to run inference on the edge and transmit just the metadata to the cloud for further processing.</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Disable OSD or on-screen display. OSD plugin is used for drawing bounding boxes and other artifacts and adding labels in the output frame. To disable OSD set enable=0 in the <code class="docutils literal notranslate"><span class="pre">[osd]</span></code> group of the config file.</p></li>
+<li><p>The tiler creates an <code class="docutils literal notranslate"><span class="pre">NxM</span></code> grid for displaying the output streams. To disable the tiled output, set enable=0 in the <code class="docutils literal notranslate"><span class="pre">[tiled-display]</span></code> group of the config file.</p></li>
+<li><p>Disable the output sink for rendering: choose <code class="docutils literal notranslate"><span class="pre">fakesink</span></code>, that is, <code class="docutils literal notranslate"><span class="pre">type=1</span></code> in the <code class="docutils literal notranslate"><span class="pre">[sink]</span></code> group of the config file. All the performance benchmark in Performance section are ran with tiling, OSD and output sink disabled.</p></li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>If CPU/GPU utilization is low, then one of the possibilities is that the elements in the pipeline are getting starved for buffers. Then try increasing the number of buffers allocated by the decoder by setting the <code class="docutils literal notranslate"><span class="pre">num-extra-surfaces</span></code> property of the <code class="docutils literal notranslate"><span class="pre">[source#]</span></code> group in the application or the <code class="docutils literal notranslate"><span class="pre">num-extra-surfaces</span></code> property of <code class="docutils literal notranslate"><span class="pre">Gst-nvv4l2decoder</span></code> element.</p></li>
+<li><p>If you are running the application inside docker console and it delivers low FPS, set <code class="docutils literal notranslate"><span class="pre">qos=0</span></code> in the configuration file’s <code class="docutils literal notranslate"><span class="pre">[sink0]</span></code> group. The issue is caused by initial load. When qos set to 1, as the property’s default value in the <code class="docutils literal notranslate"><span class="pre">[sink0]</span></code> group, <cite>decodebin</cite> starts dropping frames.</p></li>
+<li><p>If you want to optimize processing pipelines end to end latency you can use latency measurement method in DeepStream.</p></li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p>To enable frame latency measurement, run this command on the console:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="k">export</span><span class="w"> </span><span class="n">NVDS_ENABLE_LATENCY_MEASUREMENT</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>To enable latency for all plugins, run this command on the console:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="k">export</span><span class="w"> </span><span class="n">NVDS_ENABLE_COMPONENT_LATENCY_MEASUREMENT</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When measuring frame latency using DeepStream latency APIs if large frame latency numbers in the order of <code class="docutils literal notranslate"><span class="pre">10^12</span></code> or <code class="docutils literal notranslate"><span class="pre">1e12</span></code> are observed, modify the latency measurement code (call to <code class="docutils literal notranslate"><span class="pre">nvds_measure_buffer_latency</span></code> API) to</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="n">guint</span><span class="w"> </span><span class="n">num_sources_in_batch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvds_measure_buffer_latency</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">latency_info</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num_sources_in_batch</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">latency_info</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">latency</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1e6</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">NvDsBatchMeta</span><span class="w"> </span><span class="o">*</span><span class="n">batch_meta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gst_buffer_get_nvds_batch_meta</span><span class="w"> </span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="w">  </span><span class="n">batch_meta</span><span class="o">-&gt;</span><span class="n">batch_user_meta_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g_list_reverse</span><span class="w"> </span><span class="p">(</span><span class="n">batch_meta</span><span class="o">-&gt;</span><span class="n">batch_user_meta_list</span><span class="p">);</span>
+<span class="w">  </span><span class="n">num_sources_in_batch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvds_measure_buffer_latency</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">latency_info</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="jetson-optimization">
+<h4>Jetson optimization<a class="headerlink" href="DS_ref_app_deepstream.html#jetson-optimization" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>Ensure that Jetson clocks are set high. Run these commands to set Jetson clocks high.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">nvpmodel</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="o">&lt;</span><span class="n">mode</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="k">for</span><span class="w"> </span><span class="n">MAX</span><span class="w"> </span><span class="n">perf</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">power</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">jetson_clocks</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For NX: use mode as 2.</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>On Jetson, use <code class="docutils literal notranslate"><span class="pre">Gst-nvdrmvideosink</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Gst-nv3dsink</span></code> as <code class="docutils literal notranslate"><span class="pre">nv3dsink</span></code> requires GPU utilization.</p></li>
+</ol>
+</section>
+<section id="triton">
+<h4>Triton<a class="headerlink" href="DS_ref_app_deepstream.html#triton" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>If you are using Triton with DeepStream, tune <code class="docutils literal notranslate"><span class="pre">tf_gpu_memory_fraction</span></code> values for TensorFlow GPU memory usage per process - suggested range [0.2, 0.6]. Too large value  can cause Out-of-memory and too small may cause low perf.</p></li>
+<li><p>Enable TensorRT optimization when using TensorFlow or ONNX with Triton. Update Triton config file to enable TensorFlow/ONNX TensorRT online optimization. This will take several minutes during initialization each time. Alternatively, you can generate TF-TRT <cite>graphdef/savedmodel</cite> models offline.</p></li>
+</ol>
+</section>
+<section id="inference-throughput">
+<h4>Inference Throughput<a class="headerlink" href="DS_ref_app_deepstream.html#inference-throughput" title="Link to this heading">#</a></h4>
+<p>Here are a few steps to help you increase channel density for your application:</p>
+<ol class="arabic simple">
+<li><p>If you are using Jetson AGX Orin or Jetson Orin NX, you can use the DLA (Deep learning accelerator) for inferencing. This frees GPU for other models or more streams.</p></li>
+<li><p>With DeepStream, users can infer every other frame or every third frame and use a tracker to predict the location in the object. This can be done with a simple config file change. Users can use one of the 3 available trackers to track the object in the frame. In the inference config file, change the interval parameter under <code class="docutils literal notranslate"><span class="pre">[property]</span></code>. This is a skip interval, number of frames to skip between inference. Interval of 0 means infer every frames and interval of 1 means skip 1 frame and infer every other frame. This can effectively double your overall channel throughput by going from interval of 0 to 1.</p></li>
+<li><p>Choose lower precision such as FP16 or INT8 for inference. If you want to use FP16, no new model is required. This is a simple change in the DS. To change, update the network-mode option in the inference config file. If you want to run INT8, an INT8 calibration cache is required which contains the FP32 to INT8 quantization table.</p></li>
+<li><p>DeepStream app can also be configured to have cascaded neural network. First network does the detection followed by second network with does some classification on the detection. To enable secondary inference, enable the secondary-gie from the config file. Set the appropriate batch sizes. Batch size will depend on number of objects that are typically sent to the secondary inference from primary inference. You’ll have to experiment to see what the appropriate batch size for their use case is. To reduce the number of inferences of the secondary classifier, the objects to infer on can be filtered by setting <code class="docutils literal notranslate"><span class="pre">input-object-min-width</span></code>, <code class="docutils literal notranslate"><span class="pre">input-object-min-height</span></code>, <code class="docutils literal notranslate"><span class="pre">input-object-max-width</span></code>, <code class="docutils literal notranslate"><span class="pre">input-object-max-height</span></code>, <code class="docutils literal notranslate"><span class="pre">operate-on-gie-id</span></code>, <code class="docutils literal notranslate"><span class="pre">operate-on-class-ids</span></code> appropriately.</p></li>
+</ol>
+</section>
+</section>
+<section id="reducing-spurious-detections">
+<h3>Reducing Spurious Detections<a class="headerlink" href="DS_ref_app_deepstream.html#reducing-spurious-detections" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table" id="id16">
+<caption><span class="caption-text">Reducing spurious detections</span><a class="headerlink" href="DS_ref_app_deepstream.html#id16" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Configuration Parameter</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Use Case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>threshold</p></td>
+<td><p>Per-class-threshold of primary detector.
+Increasing the threshold restricts output to objects with higher detection confidence.</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>roi-top-offset
+roi-bottom-offset</p></td>
+<td><p>Per-class top/bottom region of interest (roi) offset.
+Restricts output to objects in a specified region of the frame.</p></td>
+<td><p>To reduce spurious detections seen on the dashboard of dashcams</p></td>
+</tr>
+<tr class="row-even"><td><p>detected-min-w
+detected-min-h
+detected-max-w
+detected-max-h</p></td>
+<td><p>Per-class min/max object width/height for primary-detector
+Restricts output to objects of specified size.</p></td>
+<td><p>To reduce false detections, for example, a tree being detected as a person</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Python_Sample_Apps.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python Sample Apps and Bindings Source Details</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_ref_app_test5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DeepStream Reference Application - deepstream-test5 app</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#application-architecture">Application Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#reference-application-configuration">Reference Application Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#expected-output-for-the-deepstream-reference-application-deepstream-app">Expected Output for the DeepStream Reference Application (deepstream-app)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#configuration-groups">Configuration Groups</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#application-group">Application Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#tiled-display-group">Tiled-display Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#source-group">Source Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#source-list-and-source-attr-all-groups">Source-list and source-attr-all Groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#streammux-group">Streammux Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#preprocess-group">Preprocess Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#primary-gie-and-secondary-gie-group">Primary GIE and Secondary GIE Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#tracker-group">Tracker Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#message-converter-group">Message Converter Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#message-consumer-group">Message Consumer Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#osd-group">OSD Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#sink-group">Sink Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#tests-group">Tests Group</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#nvds-analytics-group">NvDs-analytics Group</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#application-tuning-for-deepstream-sdk">Application Tuning for DeepStream SDK</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#performance-optimization">Performance Optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#deepstream-best-practices">DeepStream best practices</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#jetson-optimization">Jetson optimization</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#triton">Triton</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#inference-throughput">Inference Throughput</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_ref_app_deepstream.html#reducing-spurious-detections">Reducing Spurious Detections</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

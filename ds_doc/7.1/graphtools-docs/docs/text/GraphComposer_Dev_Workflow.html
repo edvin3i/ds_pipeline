@@ -1,0 +1,1114 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Extension Development Workflow &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GraphComposer_Dev_Workflow';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Developing Extensions for DeepStream" href="../../../text/DS_Zero_Coding_Developing_Extension.html" />
+    <link rel="prev" title="Reference graphs" href="../../../text/DS_Zero_Coding_Sample_Graphs.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GraphComposer_Dev_Workflow.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="GraphComposer_Dev_Workflow.html#">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Extension...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="extension-development-workflow">
+<h1>Extension Development Workflow<a class="headerlink" href="GraphComposer_Dev_Workflow.html#extension-development-workflow" title="Link to this heading">#</a></h1>
+<p>The graph composer tool can be used to create an application using GXF standard or public extensions.
+However, quite often, a custom codelet may also be required to be developed based on specific needs.
+This workflow is for custom extension developers. It allows developers to implement new functionality and add business logic to applications through graph.</p>
+<img alt="Graph Composer Development Workflow" class="align-center" src="../../../_images/GXFWorkflow.PNG" />
+<p>There are two options to for developing extensions and application graphs:</p>
+<ol class="arabic simple">
+<li><p>Native workstation</p></li>
+<li><p>DeepStream SDK devel container image</p></li>
+</ol>
+<p>When developing on native workstation, install pre-requisites for extension generation and build:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">graph</span><span class="o">-</span><span class="n">composer</span><span class="o">/</span><span class="n">extension</span><span class="o">-</span><span class="n">dev</span><span class="o">/</span><span class="n">install_dependencies</span><span class="p">.</span><span class="n">sh</span>
+
+<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">libtool</span><span class="w"> </span><span class="n">autoconf</span><span class="w"> </span><span class="n">gtk</span><span class="o">-</span><span class="n">doc</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+</div>
+<p>Using the DeepStreamSDK development container image. The image has all the dependencies already installed:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">gc</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">devel</span>
+<span class="n">xhost</span><span class="w"> </span><span class="o">+</span>
+<span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">--</span><span class="n">entrypoint</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"> </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=</span><span class="n">$</span><span class="p">{</span><span class="n">DISPLAY</span><span class="p">}</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">/:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="o">--</span><span class="n">privileged</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="p">.</span><span class="n">sock</span><span class="o">:/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="p">.</span><span class="n">sock</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-</span><span class="n">gc</span><span class="o">-</span><span class="n">triton</span><span class="o">-</span><span class="n">devel</span>
+</pre></div>
+</div>
+<p>In both the cases, either commandline or Composer UI can used. To launch composer, run:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">composer</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using the Composer from the devel container image, users could have a problem browsing the “/” folder from the file browser, in this case they can just type the file path directly or copy and paste it.</p>
+</div>
+<img alt="Graph Composer Default Window" class="align-center" src="../../../_images/Composer_launch_window.png" />
+<section id="sync-extensions">
+<span id="developmentworkflow-syncextensions"></span><h2>Sync Extensions<a class="headerlink" href="GraphComposer_Dev_Workflow.html#sync-extensions" title="Link to this heading">#</a></h2>
+<p>Before any extension can be built or graph created, extensions from NGC public
+repo must be sync’ed. Follow the steps below to sync the extensions:</p>
+<section id="using-commandline">
+<h3>Using commandline<a class="headerlink" href="GraphComposer_Dev_Workflow.html#using-commandline" title="Link to this heading">#</a></h3>
+<p>Sync published extensions from NVIDIA Cloud repository using following command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ngc</span><span class="o">-</span><span class="k">public</span>
+</pre></div>
+</div>
+<p>Check the extensions using following commands:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">registry</span><span class="w"> </span><span class="n">extn</span><span class="w"> </span><span class="n">list</span>
+<span class="n">registry</span><span class="w"> </span><span class="n">comp</span><span class="w"> </span><span class="n">list</span>
+</pre></div>
+</div>
+<p>Refer to the <a class="reference internal" href="GraphComposer_Registry_CLI.html"><span class="doc">Registry Command Line Interface</span></a> for more commands.</p>
+</section>
+<section id="using-composer-ui">
+<h3>Using Composer UI<a class="headerlink" href="GraphComposer_Dev_Workflow.html#using-composer-ui" title="Link to this heading">#</a></h3>
+<p>Open the <code class="docutils literal notranslate"><span class="pre">Registry</span></code> menu from the menubar at the top and click on <code class="docutils literal notranslate"><span class="pre">Sync</span> <span class="pre">Repo</span></code></p>
+<img alt="Graph Composer Registry Menu" class="align-center" src="../../../_images/Composer_registry_sync_menu.png" />
+<p>Select <code class="docutils literal notranslate"><span class="pre">ngc-public</span></code> from the drop-down list and click on <code class="docutils literal notranslate"><span class="pre">Sync</span></code></p>
+<img alt="Graph Composer Select Repo" class="align-center" src="../../../_images/Composer_registry_sync_selection.png" />
+<p>Composer will report the current status using a progress bar</p>
+<img alt="Graph Composer Sync Progress" class="align-center" src="../../../_images/Composer_registry_sync_progress.png" />
+<p>Once the extension sync is complete, composer will display a success message.</p>
+<img alt="Graph Composer Sync Success" class="align-center" src="../../../_images/Composer_registry_sync_success.png" />
+<p>On clicking close, composer will automatically refresh component list and the
+refreshed list can be seen in the component list window on the right</p>
+<img alt="Graph Composer Default View" class="align-center" src="../../../_images/Composer_registry_sync_refreshed_list.png" />
+</section>
+</section>
+<section id="develop-new-extension">
+<h2>Develop New Extension<a class="headerlink" href="GraphComposer_Dev_Workflow.html#develop-new-extension" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Using commandline<a class="headerlink" href="GraphComposer_Dev_Workflow.html#id1" title="Link to this heading">#</a></h3>
+<section id="sample-gxf-extension">
+<h4>Sample GXF Extension<a class="headerlink" href="GraphComposer_Dev_Workflow.html#sample-gxf-extension" title="Link to this heading">#</a></h4>
+<p>Graph Composer package provides a useful tool to help create new extensions and components.
+The extension-dev project located at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/graph-composer/extension-dev/</span></code> helps create the
+boiler plate code required to create custom extensions. Check LICENSE.txt for the corresponding licenses.</p>
+<p>A script has been provided to generate a sample extension with a codelet and a graph to test
+the extension within an application. The generated extension contains a single codelet component that
+logs a message in the start() and tick() methods once and the graph finishes
+execution. To use the script, run the following commands.</p>
+<p>Generate <cite>sample</cite> extension called test with a codelet named <cite>HelloWorld</cite></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">python3</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">graph</span><span class="o">-</span><span class="n">composer</span><span class="o">/</span><span class="n">extension</span><span class="o">-</span><span class="n">dev</span><span class="o">/</span><span class="n">generate_codelet</span><span class="p">.</span><span class="n">py</span><span class="w"> </span>\
+<span class="w">      </span><span class="o">--</span><span class="n">output_dir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="w">  </span><span class="o">--</span><span class="n">extn_name</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">--</span><span class="n">codelet_name</span><span class="w"> </span><span class="n">HelloWorld</span>
+<span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span>
+</pre></div>
+</div>
+<p>Within the target directory, the following files are autogenerated: codelet (component),
+extension and an application. The BUILD files needed to generate the extension libraries
+using bazel build system are also generated.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>.
+<span class="linenos"> 2</span>|____WORKSPACE
+<span class="linenos"> 3</span>|____.bazelrc
+<span class="linenos"> 4</span>|____apps
+<span class="linenos"> 5</span>| |____app.yaml
+<span class="linenos"> 6</span>|____extensions
+<span class="linenos"> 7</span>| |____test
+<span class="linenos"> 8</span>| | |____BUILD
+<span class="linenos"> 9</span>| | |____HelloWorld.hpp
+<span class="linenos">10</span>| | |____test.cpp
+<span class="linenos">11</span>| | |____HelloWorld.cpp
+</pre></div>
+</div>
+<p>Header file - hello_world.hpp</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gxf/std/codelet.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">sample</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">test</span><span class="w"> </span><span class="p">{</span>
+
+<span class="c1">// Logs a message in start() and tick()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloWorld</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">tick</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace test</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace sample</span>
+</pre></div>
+</div>
+<p>cpp file - hello_world.cpp</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;HelloWorld.hpp&quot;</span><span class="c1">  // NOLINT</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">sample</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">test</span><span class="w"> </span><span class="p">{</span>
+
+<span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">HelloWorld::start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;HelloWorld::start&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">HelloWorld::tick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">GXF_LOG_INFO</span><span class="p">(</span><span class="s">&quot;HelloWorld::tick&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace test</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace sample</span>
+</pre></div>
+</div>
+<p>extension cpp file - test.cpp</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;HelloWorld.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gxf/std/extension_factory_helper.hpp&quot;</span>
+
+<span class="n">GXF_EXT_FACTORY_BEGIN</span><span class="p">()</span>
+<span class="n">GXF_EXT_FACTORY_SET_INFO</span><span class="p">(</span><span class="mh">0xd8629d822909316d</span><span class="p">,</span><span class="w"> </span><span class="mh">0xa9ee7410c8c1a7b6</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test&quot;</span><span class="p">,</span>
+<span class="w">                       </span><span class="s">&quot;A Dummy Example&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;NVIDIA&quot;</span><span class="p">);</span>
+<span class="n">GXF_EXT_FACTORY_ADD</span><span class="p">(</span><span class="mh">0xd39d70014cab3ecf</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb397c9d200cf9e8d</span><span class="p">,</span><span class="w"> </span><span class="n">sample</span><span class="o">::</span><span class="n">test</span><span class="o">::</span><span class="n">HelloWorld</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Codelet</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dummy example source codelet.&quot;</span><span class="p">);</span>
+<span class="n">GXF_EXT_FACTORY_END</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Build the extension for both x86 (default) and the aarch64 (jetson) platforms. The tool also generates
+a <cite>workspace</cite> file which creates a bazel workspace to compile and execute the extension. It also includes
+a target for registering the extension to the local workspace. The extension can then be used from Composer
+to create graph or by container builder to deploy the graph.</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">$</span> <span class="pre">cd</span> <span class="pre">&lt;extension_path&gt;</span>
+<span class="pre">$</span> <span class="pre">bazel</span> <span class="pre">build</span> <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">For</span> <span class="pre">building</span> <span class="pre">x86</span> <span class="pre">variant</span>
+<span class="pre">$</span> <span class="pre">bazel</span> <span class="pre">build</span> <span class="pre">...</span> <span class="pre">--config=jetson</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">#</span> <span class="pre">For</span> <span class="pre">building</span> <span class="pre">jetson(aarch64)</span> <span class="pre">variant</span>
+<span class="pre">`</span></code></p>
+</section>
+<section id="sample-gxf-application">
+<h4>Sample GXF Application<a class="headerlink" href="GraphComposer_Dev_Workflow.html#sample-gxf-application" title="Link to this heading">#</a></h4>
+<p>The tool also generates a sample application which executes the <cite>HelloWorld</cite> codelet 10 times and exits.</p>
+<p>application yaml file - <cite>apps/app.yaml</cite></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">%YAML</span><span class="w"> </span><span class="m">1.2</span>
+<span class="nn">---</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">extension</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">  </span><span class="nt">uuid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">d8629d82-2909-316d-a9ee-7410c8c1a7b6</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nn">---</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">source</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">signal</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sample::test::HelloWorld</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::CountSchedulingTerm</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="nn">---</span>
+<span class="nt">components</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nvidia::gxf::GreedyScheduler</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">realtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">max_duration_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span>
+</pre></div>
+</div>
+<p>Entities are defined in the yaml file. Each entity will have one or more components associated with it.
+Any entity defined in the yaml file needs to be scheduled by a scheduler. The sample makes use of
+<a class="reference internal" href="GXF_Internals.html#greedy-scheduler"><span class="std std-ref">Greedy Scheduler</span></a>. All schedulers are associated with a clock and RealtimeClock is chosen.</p>
+</section>
+<section id="running-the-sample-application">
+<h4>Running the sample application<a class="headerlink" href="GraphComposer_Dev_Workflow.html#running-the-sample-application" title="Link to this heading">#</a></h4>
+<p>Graph Composer package provides tool to execute applications. The execute_graph.sh script located
+at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/graph-composer/execute_graph.sh</span></code> helps install the graph using registry and then executes it.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ /opt/nvidia/graph-composer/execute_graph.sh --help
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>/opt/nvidia/graph-composer/execute_graph.sh<span class="w"> </span>-d<span class="w"> </span>/opt/nvidia/graph-composer/config/target_x86_64.yaml<span class="w"> </span>apps/app.yaml
+</pre></div>
+</div>
+<p>This will print the following logs generated by the test component among others</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> INFO  extensions/test/HelloWorld.cpp@9: HelloWorld::start
+<span class="linenos">2</span> INFO  extensions/test/HelloWorld.cpp@14: HelloWorld::tick
+</pre></div>
+</div>
+<p>Replace implementation in tick() and start() with custom implementation.</p>
+</section>
+<section id="generate-an-extension-for-gxf-wrapper-of-gstelement">
+<h4>Generate an extension for GXF wrapper of GstElement<a class="headerlink" href="GraphComposer_Dev_Workflow.html#generate-an-extension-for-gxf-wrapper-of-gstelement" title="Link to this heading">#</a></h4>
+<p>This requires the DeepStream 7.1 SDK and Reference Graphs package to be installed or use DeepStream 7.1 devel container image.</p>
+<ul>
+<li><p>Create a text file containing the list of GStreamer elements for which the extensions are to be generated, with name of one element per line.
+The listed elements must be installed on the system. Following is an example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">timeoverlay</span>
+<span class="n">filesrc</span>
+<span class="n">filesink</span>
+</pre></div>
+</div>
+</li>
+<li><p>To list all the GStreamer elements installed on the system, run</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">gst</span><span class="o">-</span><span class="n">inspect</span><span class="mf">-1.0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Next, to generate the extension source code, run</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">graph_extension_generator</span><span class="o">/</span><span class="n">generate_extensions</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">&lt;</span><span class="n">element_list</span><span class="p">.</span><span class="n">txt</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">output</span><span class="o">-</span><span class="n">directory</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Navigate to the output directory</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">&lt;</span><span class="n">output</span><span class="o">-</span><span class="n">directory</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command to build and register the extension for x86_64</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="p">...</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command to build and register the extension for Jetson</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">bazel</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">jetson</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the extension build fails because of git clone errors from freedesktop gitlab repository with errors like
+<code class="docutils literal notranslate"><span class="pre">fatal:</span> <span class="pre">unable</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">'https://gitlab.freedesktop.org/gstreamer/common.git/':</span> <span class="pre">server</span> <span class="pre">certificate</span> <span class="pre">verification</span> <span class="pre">failed.</span> <span class="pre">CAfile:</span> <span class="pre">none</span> <span class="pre">CRLfile:</span> <span class="pre">none</span></code>,
+temporarily disable git SSL verification by running <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">GIT_SSL_NO_VERIFY=true</span></code> before running <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">build</span></code> command</p>
+</div>
+</section>
+</section>
+<section id="id2">
+<h3>Using Composer UI<a class="headerlink" href="GraphComposer_Dev_Workflow.html#id2" title="Link to this heading">#</a></h3>
+<p>Composer UI currently supports generating DeepStream (GStreamer) based extensions only.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the Deepstream SDK package is not installed, Generate Extension button will be disabled.</p>
+</div>
+<p>To start, open the <code class="docutils literal notranslate"><span class="pre">Tools</span></code> menu from the menubar at the top and select <code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">Extension</span></code>.</p>
+<img alt="Graph Composer Tools Menu" class="align-center" src="../../../_images/Composer_tools_menu.png" />
+<p>This will launch the <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">Generator</span></code> dialog. The extension generator needs some dependencies to be installed.
+This can be done by clicking on the <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Dependencies</span></code> button. This only needs to be done once on a machine. This
+is not required when running from the DeepStreamSDK development docker since the dependencies pre-installed.</p>
+<img alt="Graph Composer Extension Generator Dialog - Install Dependencies" class="align-center" src="../../../_images/Composer_Extn_Generation_dependencies.png" />
+<p>Next, type in the comma-separated list of GStreamer elements for which corresponding extensions must be generated.
+Select the output directory using the file browser.</p>
+<p>Click on <code class="docutils literal notranslate"><span class="pre">Generate</span></code> first to generate the extension source code at the selected directory and then
+<code class="docutils literal notranslate"><span class="pre">Build</span></code> to build and register the extensions. The progress will be reported via logs in the console
+window.</p>
+<img alt="Graph Composer Extension Generator Dialog" class="align-center" src="../../../_images/Composer_Extn_Generation.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the extension build fails because of git clone errors from freedesktop gitlab repository with errors like
+<code class="docutils literal notranslate"><span class="pre">fatal:</span> <span class="pre">unable</span> <span class="pre">to</span> <span class="pre">access</span> <span class="pre">'https://gitlab.freedesktop.org/gstreamer/common.git/':</span> <span class="pre">server</span> <span class="pre">certificate</span> <span class="pre">verification</span> <span class="pre">failed.</span> <span class="pre">CAfile:</span> <span class="pre">none</span> <span class="pre">CRLfile:</span> <span class="pre">none</span></code>,
+temporarily disable git SSL verification by:</p>
+<ul>
+<li><p>Closing the composer and then <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">GIT_SSL_NO_VERIFY=true</span></code> before starting the composer from the same shell session</p>
+<blockquote>
+<div><p>OR</p>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">http.sslVerify</span> <span class="pre">false</span></code> to disable git SSL verification machine-wide and retrying <code class="docutils literal notranslate"><span class="pre">Build</span></code>. This does not require the composer to be restarted. To re-enable, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">http.sslVerify</span> <span class="pre">true</span></code>.</p></li>
+</ul>
+</div>
+<p>After extension build is done, newly added extensions will appear in the component list</p>
+</section>
+</section>
+<section id="create-and-test-graph">
+<h2>Create and test graph<a class="headerlink" href="GraphComposer_Dev_Workflow.html#create-and-test-graph" title="Link to this heading">#</a></h2>
+<p>Drag and drop newly created components from the component list to the graph window and link to other components
+to create a complete application.</p>
+<img alt="Graph Composer Development Workflow Graph Creation" class="align-center" src="../../../_images/Composer_development_workflow_graph_create.png" />
+<p>Save and execute the graph as demonstrated in <a class="reference internal" href="GraphComposer_Getting_Started.html#gc-dev"><span class="std std-ref">Graph Composer</span></a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../../text/DS_Zero_Coding_Sample_Graphs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Reference graphs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../../text/DS_Zero_Coding_Developing_Extension.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Developing Extensions for DeepStream</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#sync-extensions">Sync Extensions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#using-commandline">Using commandline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#using-composer-ui">Using Composer UI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#develop-new-extension">Develop New Extension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#id1">Using commandline</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#sample-gxf-extension">Sample GXF Extension</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#sample-gxf-application">Sample GXF Application</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#running-the-sample-application">Running the sample application</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#generate-an-extension-for-gxf-wrapper-of-gstelement">Generate an extension for GXF wrapper of GstElement</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#id2">Using Composer UI</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Dev_Workflow.html#create-and-test-graph">Create and test graph</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1191 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>C/C++ Sample Apps Source Details &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_C_Sample_Apps';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Sample Apps and Bindings Source Details" href="DS_Python_Sample_Apps.html" />
+    <link rel="prev" title="Docker Containers" href="DS_docker_containers.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_C_Sample_Apps.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_C_Sample_Apps.html#">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">C/C++...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="c-c-sample-apps-source-details">
+<h1>C/C++ Sample Apps Source Details<a class="headerlink" href="DS_C_Sample_Apps.html#c-c-sample-apps-source-details" title="Link to this heading">#</a></h1>
+<p>The DeepStream SDK package includes archives containing plugins, libraries, applications, and source code.
+The sources directory is located at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/sources</span></code> for both Debian installation (on Jetson or dGPU) and SDK Manager installation. For tar packages the source files are in the extracted <cite>deepstream</cite> package.
+DeepStream Python bindings and sample applications are available as separate packages. For more information, see <a class="github reference external" href="https://github.com/NVIDIA-AI-IOT/deepstream_python_apps">NVIDIA-AI-IOT/deepstream_python_apps</a>.</p>
+<p>DeepStream graphs created using the Graph Composer are listed under <a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html"><span class="doc">Reference graphs</span></a> section. For more information, see the Graph Composer <a class="reference internal" href="DS_Zero_Coding_Introduction.html"><span class="doc">Introduction</span></a>.</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Sample source details</span><a class="headerlink" href="DS_C_Sample_Apps.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Reference test application</p></th>
+<th class="head"><p>Path inside <cite>sources</cite> directory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sample test application 1</p></td>
+<td><p>apps/sample_apps/deepstream-test1</p></td>
+<td><p>Sample of how to use DeepStream elements for a single H.264 stream: filesrc → decode → nvstreammux → nvinfer or nvinferserver (primary detector) → nvdsosd →  renderer. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sample test application 2</p></td>
+<td><p>apps/sample_apps/deepstream-test2</p></td>
+<td><p>Sample of how to use DeepStream elements for a single H.264 stream: filesrc → decode → nvstreammux → nvinfer or nvinferserver (primary detector) → nvtracker → nvinfer or nvinferserver (secondary classifier) → nvdsosd → renderer. This app uses resnet18_trafficcamnet_pruned.onnx for detection and 2 classifier models (i.e., resnet18_vehiclemakenet_pruned.onnx, resnet18_vehicletypenet_pruned.onnx).</p></td>
+</tr>
+<tr class="row-even"><td><p>Sample test application 3</p></td>
+<td><p>apps/sample_apps/deepstream-test3</p></td>
+<td><p>Builds on deepstream-test1 (simple test application 1) to demonstrate how to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use multiple sources in the pipeline.</p></li>
+<li><p>Use a uridecodebin to accept any type of input (e.g. RTSP/File), any GStreamer supported container format, and any codec.</p></li>
+<li><p>Configure Gst-nvstreammux to generate a batch of frames and infer on it for better resource utilization.</p></li>
+<li><p>Extract the stream metadata, which contains useful information about the frames in the batched buffer.</p></li>
+</ul>
+</div></blockquote>
+<p>This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Sample test application 4</p></td>
+<td><p>apps/sample_apps/­deepstream-test4</p></td>
+<td><p>Builds on deepstream-test1 for a single H.264 stream: filesrc, decode, nvstreammux, nvinfer or nvinferserver, nvdsosd, renderer to demonstrate how to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use the Gst-nvmsgconv and Gst-nvmsgbroker plugins in the pipeline.</p></li>
+<li><p>Create NVDS_META_EVENT_MSG type metadata and attach it to the buffer.</p></li>
+<li><p>Use NVDS_META_EVENT_MSG for different types of objects, e.g. vehicle and person.</p></li>
+<li><p>Implement “copy” and “free” functions for use if metadata is extended through the extMsg field.</p></li>
+</ul>
+</div></blockquote>
+<p>This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Sample test application 5</p></td>
+<td><p>apps/sample_apps/­deepstream-test5</p></td>
+<td><p>Builds on top of deepstream-app. Demonstrates:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use of Gst-nvmsgconv and Gst-nvmsgbroker plugins in the pipeline for multistream.</p></li>
+<li><p>How to configure Gst-nvmsgbroker plugin from the config file as a sink plugin (for KAFKA, Azure, etc.).</p></li>
+<li><p>How to handle the RTCP sender reports from RTSP servers or cameras and translate the Gst Buffer PTS to a UTC timestamp.</p></li>
+</ul>
+</div></blockquote>
+<p>For more details refer the RTCP Sender Report callback function <code class="docutils literal notranslate"><span class="pre">test5_rtcp_sender_report_callback()</span></code> registration and usage in <code class="docutils literal notranslate"><span class="pre">deepstream_test5_app_main.c</span></code>.
+GStreamer callback registration with rtpmanager element’s “handle-sync” signal is documented in <code class="docutils literal notranslate"><span class="pre">apps-common/src/deepstream_source_bin.c</span></code>.</p>
+<p>This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html"><span class="doc">DeepStream 3D Multi-Modal Lidar Camera Sensor Fusion App</span></a></p></td>
+<td><p>apps/sample_apps/deepstream-3d-lidar-sensor-fusion</p></td>
+<td><p>The sample app <a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html"><span class="doc">deepstream-3d-lidar-sensor-fusion</span></a>  showcases a multi-modal sensor fusion pipeline for LiDAR and camera data using the DS3D framework. There are 2 pipelines integrated into this sample,   <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html"><span class="doc">ds3d multi-modal bevfusion</span></a> with 6 cameras plus a lidar data fusion and 3D detection; <cite>v2x</cite> model Processes data from a single camera and a LiDAR, utilizing a batch size of 4.</p></td>
+</tr>
+<tr class="row-even"><td><p>AMQP protocol test application</p></td>
+<td><p>libs/amqp_­protocol_adaptor</p></td>
+<td><p>Application to test AMQP protocol. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Azure MQTT test application</p></td>
+<td><p>libs/azure_protocol_adaptor</p></td>
+<td><p>Test application to show Azure IoT device2edge messaging and device2cloud messaging using MQTT. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>DeepStream reference application</p></td>
+<td><p>apps/sample_apps/­deepstream-app</p></td>
+<td><p>Source code for the DeepStream reference application. This app uses resnet18_trafficcamnet_pruned.onnx for detection and 2 classifier models (i.e., resnet18_vehiclemakenet_pruned.onnx, resnet18_vehicletypenet_pruned.onnx).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dewarper example</p></td>
+<td><p>apps/sample_apps/deepstream-dewarper-test</p></td>
+<td><p>Demonstrates dewarper functionality for single or multiple 360-degree camera streams. Reads camera calibration parameters from a CSV file and renders aisle and spot surfaces on the display.</p></td>
+</tr>
+<tr class="row-even"><td><p>Optical flow example</p></td>
+<td><p>apps/sample_apps/deepstream-nvof-test</p></td>
+<td><p>Demonstrates optical flow functionality for single or multiple streams. This example uses two GStreamer plugins (Gst-nvof and Gst-nvofvisual). The Gst-nvof element generates the MV (motion vector) data and attaches it as user metadata. The Gst-nvofvisual element visualizes the MV data using a predefined color wheel matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Custom meta data example</p></td>
+<td><p>apps/sample_apps/deepstream-user-metadata-test</p></td>
+<td><p>Demonstrates how to add custom or user-specific metadata to any component of DeepStream. The test code attaches a 16-byte array filled with user data to the chosen component. The data is retrieved in another component. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>MJPEG and JPEG decoder and inferencing example</p></td>
+<td><p>apps/sample_apps/deepstream-image-decode-test</p></td>
+<td><p>Builds on deepstream-test3 to demonstrate image decoding instead of video. This example uses a custom decode bin so the MJPEG codec can be used as input. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Handling metadata before Gst-nvstreammux</p></td>
+<td><p>apps/sample_apps/deepstream-gst-metadata-test</p></td>
+<td><p>Demonstrates how to set metadata before the Gst-nvstreammux plugin in the DeepStream pipeline, and how to access it after Gst-nvstreammux. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>Gst-nvinfer tensor meta flow example</p></td>
+<td><p>apps/sample_apps/deepstream-infer-tensor-meta-app</p></td>
+<td><p>Demonstrates how to flow and access nvinfer tensor output as metadata. NOTE: This binary is not packaged due to OpenCV deprecation. This app needs to be compiled by the user. This app uses resnet18_trafficcamnet_pruned.onnx for detection and 2 classifier models (i.e., resnet18_vehiclemakenet_pruned.onnx, resnet18_vehicletypenet_pruned.onnx).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Preprocess example</p></td>
+<td><p>apps/sample_apps/deepstream-preprocess-test</p></td>
+<td><p>Demonstrates inference on preprocessed ROIs configured for the streams. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>3D action recognition Reference app</p></td>
+<td><p>apps/sample_apps/deepstream-3d-action-recognition</p></td>
+<td><p>Demonstrates a sequence batching based 3D or 2D model inference pipeline for action recognition. It also includes a sequence based preprocess custom lib for NCSHW temporal batching. Refer Prerequisites in README before running the application. This app uses resnet18_2d_rgb_hmdb5_32.etlt for 2D and resnet18_3d_rgb_hmdb5_32.etlt for 3D action recognition.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Analytics example</p></td>
+<td><p>apps/sample_apps/deepstream-nvdsanalytics-test</p></td>
+<td><p>Demonstrates batched analytics like ROI filtering, Line crossing, direction detection and overcrowding. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>OpenCV example</p></td>
+<td><p>apps/sample_apps/deepstream-opencv-test</p></td>
+<td><p>Demonstrates the use of OpenCV in dsexample plugin. Need to compile dsexample with flag <code class="docutils literal notranslate"><span class="pre">WITH_OPENCV=1</span></code>. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Image as Metadata example</p></td>
+<td><p>Apps/sample_apps / deepstream-image-meta-test</p></td>
+<td><p>Demonstrates how to attach encoded image as meta data and save the images in jpeg format. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>Appsrc and Appsink example</p></td>
+<td><p>apps/sample_apps/deepstream-appsrc-test</p></td>
+<td><p>Demonstrates AppSrc and AppSink usage for consuming and giving data from non DeepStream code respectively. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cuda Appsrc and Appsink example</p></td>
+<td><p>apps/sample_apps/deepstream-appsrc-cuda-test</p></td>
+<td><p>Demonstrates  how cuda frames acquired from outside DeepStream can be fed to a DeepStream pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p>Transfer learning example</p></td>
+<td><p>apps/sample_apps/ deepstream-transfer-learning-app</p></td>
+<td><p>Demonstrates a mechanism to save the images for objects which have lesser confidence and the same can be used for training further. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Smart Record example</p></td>
+<td><p>apps/sample_apps/deepstream-testsr</p></td>
+<td><p>Demonstrates event based smart record functionality. This app uses resnet18_trafficcamnet_pruned.onnx for detection.</p></td>
+</tr>
+<tr class="row-even"><td><p>Audio+video+Text Synchronization (Alpha)</p></td>
+<td><p>apps/sample_apps/deepstream-avsync-app</p></td>
+<td><p>Demonstrates synchronization of audio, video and text output from nvdsasr in DeepStream pipeline. Note: This application requires Riva ASR services to be available. Refer prerequisites in README before running the application. This app uses Jasper models for Speech Recognition.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepStream NMOS Application</p></td>
+<td><p>apps/sample_apps/deepstream-nmos</p></td>
+<td><p>This application demonstrates how to create a DeepStream app as an <a class="reference external" href="https://specs.amwa.tv/nmos/">NMOS</a> Node.
+It uses a library (NvDsNmos) which provides the APIs to create, destroy and internally manage the NMOS Node.
+The NMOS Node can automatically discover and register with an NMOS Registry on the network using the <a class="reference external" href="https://specs.amwa.tv/is-04/">AMWA IS-04</a> Registration API.</p>
+<p>It also shows how to create various Video and Audio pipelines, run them simultaneously and reconfigure them based on NMOS events such as <a class="reference external" href="https://specs.amwa.tv/is-05/">AMWA IS-05</a> Connection API requests from an NMOS Controller.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>DeepStream UCX test</p></td>
+<td><p>apps/sample_apps/deepstream-ucx-test</p></td>
+<td><p>Demonstrates how to use the communication plugin <cite>gst-nvdsucx</cite> with DeepStream SDK. The application has been validated with kernel-5.15.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepStream 3D Depth Camera Reference App</p></td>
+<td><p>apps/sample_apps/deepstream-3d-depth-camera</p></td>
+<td><p>Demonstrates how to setup depth capture, depth render, 3D-point-cloud processing and 3D-points render pipelines over DS3D interfaces and custom-libs of <cite>ds3d::dataloader</cite>, <cite>ds3d::datafilter</cite> and <cite>ds3d::datarender</cite>. See more details in <a class="reference internal" href="DS_3D_Depth_Camera.html"><span class="doc">DeepStream 3D Depth Camera App</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>DeepStream 3D Lidar Data Inferencing Reference App</p></td>
+<td><p>apps/sample_apps/deepstream-lidar-inference-app</p></td>
+<td><p>Demonstrates how to read in point cloud data, inference pont cloud data with pointpillar 3D objects detection model with Triton, render point cloud data and 3D objects with GLES. The whole application is based on DS3D interfaces and custom-libs of <cite>ds3d::dataloader</cite>, <cite>ds3d::datafilter</cite> and <cite>ds3d::datarender</cite>. See more details in <a class="reference internal" href="DS_3D_Lidar_Inference.html"><span class="doc">DeepStream 3D Lidar Inference App</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Deepstream Server Application</p></td>
+<td><p>apps/sample_apps/deepstream-server</p></td>
+<td><p>Demonstrates REST API support to control DeepStream pipeline on-the-fly.</p></td>
+</tr>
+<tr class="row-even"><td><p>DeepStream Can Orientation Sample App</p></td>
+<td><p>apps/sample_apps/deepstream-can-orientation-app</p></td>
+<td><p>Demonstrates can orientation detection with CV-based VPI template matching algorithm.  VPI template matching is implemented with DeepStream video template plugin. See more details in apps/sample_apps/deepstream-can-orientation-app/README</p></td>
+</tr>
+<tr class="row-odd"><td><p>Triton Ensemble Model Example</p></td>
+<td><p>sources/TritonBackendEnsemble</p></td>
+<td><p>Configuration files, Triton custom C++ backend implementation and custom library implementation for Triton ensemble model example. Demonstrates use of Triton ensemble models with gst-nvinferserver plugin and how to implement custom Triton C++ backend to access DeespStream metadata like stream ID using multi-input tensors.</p></td>
+</tr>
+<tr class="row-even"><td><p>deepstream-multigpu-nvlink-test</p></td>
+<td><p>apps/sample_apps/deepstream-multigpu-nvlink-test</p></td>
+<td><p>Uses gst-nvdsxfer plugin to simulate pipelines with NVLINK enabled multi-gpu setup to achieve better performance. User can use “position” param of nvxfer config section from dsmultigpu_config.yml file to simulate gst-nvxfer plugin supported various multi-gpu usecase pipelines.</p></td>
+</tr>
+<tr class="row-odd"><td><p>deepstream-ipc-test-app</p></td>
+<td><p>apps/sample_apps/deepstream-ipc-test-app</p></td>
+<td><p>Demonstrates decoder buffer sharing IPC use-case on Jetson platform for live streams to optimize NVDEC HW utilization. This example uses IPC sink and IPC source element to interconnect GStreamer pipelines that run in different processes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Apps which write output files (example: <code class="docutils literal notranslate"><span class="pre">deepstream-image-meta-test</span></code>, <code class="docutils literal notranslate"><span class="pre">deepstream-testsr</span></code>, <code class="docutils literal notranslate"><span class="pre">deepstream-transfer-learning-app</span></code>) should be run with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> permission.</p>
+</div>
+<section id="plugin-and-library-source-details">
+<h2>Plugin and Library Source Details<a class="headerlink" href="DS_C_Sample_Apps.html#plugin-and-library-source-details" title="Link to this heading">#</a></h2>
+<p>The following table describes the contents of the sources directory except for the reference test applications:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Plugin and Library source details</span><a class="headerlink" href="DS_C_Sample_Apps.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+<col style="width: 33.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin or library</p></th>
+<th class="head"><p>Path inside sources directory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DsExample GStreamer plugin</p></td>
+<td><p>gst-plugins/gst-dsexample</p></td>
+<td><p>Template plugin for integrating custom algorithms into DeepStream SDK graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GStreamer Gst-nvmsgconv plugin</p></td>
+<td><p>gst-plugins/gst-nvmsgconv</p></td>
+<td><p>Source code for the GStreamer Gst-nvmsgconv plugin to convert metadata to schema format.</p></td>
+</tr>
+<tr class="row-even"><td><p>GStreamer Gst-nvmsgbroker plugin</p></td>
+<td><p>gst-plugins/gst-nvmsgbroker</p></td>
+<td><p>Source code for the GStreamer Gst-nvmsgbroker plugin to send data to the server.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GStreamer Gst-nvdspreprocess plugin</p></td>
+<td><p>gst-plugins/gst-nvdspreprocess</p></td>
+<td><p>Source code for the GStreamer Gst-nvdspreprocess plugin for preprocessing on the predefined ROIs.</p></td>
+</tr>
+<tr class="row-even"><td><p>GStreamer Gst-nvinfer plugin</p></td>
+<td><p>gst-plugins/gst-nvinfer</p></td>
+<td><p>Source code for the GStreamer Gst-nvinfer plugin for inference.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GStreamer Gst-nvinferserver plugin</p></td>
+<td><p>gst-plugins/gst-nvinferserver</p></td>
+<td><p>Source code for the GStreamer Gst-nvinferserver plugin for inference using Triton Inference Server.</p></td>
+</tr>
+<tr class="row-even"><td><p>GStreamer Gst-nvdsosd plugin</p></td>
+<td><p>gst-plugins/gst-nvdsosd</p></td>
+<td><p>Source code for the GStreamer Gst-nvdsosd plugin to draw bboxes, text and other objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer Gst-nvdewarper plugin</p></td>
+<td><p>gst-plugins/gst-nvdewarper</p></td>
+<td><p>Source code for the GStreamer Gst-nvdewarper plugin to dewarp frames</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsInfer library</p></td>
+<td><p>libs/nvdsinfer</p></td>
+<td><p>Source code for the NvDsInfer library, used by the Gst-nvinfer GStreamer plugin.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsInferServer library</p></td>
+<td><p>libs/nvdsinferserver</p></td>
+<td><p>Source code for the NvDsInferServer library, used by the Gst-nvinferserver GStreamer plugin.</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsNmos library</p></td>
+<td><p>libs/nvdsnmos</p></td>
+<td><p>Source code for the NvDsNmos library, demonstrated by the DeepStream NMOS Application.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvMsgConv library</p></td>
+<td><p>libs/nvmsgsconv</p></td>
+<td><p>Source code for the NvMsgConv library, required by the Gst-nvmsgconv GStreamer plugin.</p></td>
+</tr>
+<tr class="row-even"><td><p>Kafka protocol adapter</p></td>
+<td><p>libs/kafka_protocol_adapter</p></td>
+<td><p>Protocol adapter for Kafka.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvds_rest_server library</p></td>
+<td><p>libs/nvds_rest_server</p></td>
+<td><p>Source code for the rest server.</p></td>
+</tr>
+<tr class="row-even"><td><p>nvds_customhelper</p></td>
+<td><p>libs/gstnvdscustomhelper</p></td>
+<td><p>Source code for “nvdsmultiurisrcbin helper” and custom “gst-events, gst-messages and common configs” required for rest server.</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvdsinfer_customparser</p></td>
+<td><p>libs/nvdsinfer_customparser</p></td>
+<td><p>Custom model output parsing example for detectors and classifiers.</p></td>
+</tr>
+<tr class="row-even"><td><p>Gst-v4l2</p></td>
+<td><p>See the note below <a class="footnote-reference brackets" href="DS_C_Sample_Apps.html#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></td>
+<td><p>Source code for v4l2 codecs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvdsvideotemplate plugin</p></td>
+<td><p>gst-plugins/gst-nvdsvideotemplate</p></td>
+<td><p>Source code for template plugin to implement video custom algorithms (non Gstreamer based)</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsVideoTemplate custom library</p></td>
+<td><p>gst-plugins/gst-nvdsvideotemplate/customlib_impl</p></td>
+<td><p>Source code for custom library to implement video custom algorithms</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvdsaudiotemplate plugin</p></td>
+<td><p>gst-plugins/gst-nvdsaudiotemplate</p></td>
+<td><p>Source code for template plugin to implement audio custom algorithms (non Gstreamer based)</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsVideoTemplate custom library</p></td>
+<td><p>gst-plugins/gst-nvdsaudiotemplate/customlib_impl</p></td>
+<td><p>Source code for custom library to implement audio custom algorithms</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvdsmetautils</p></td>
+<td><p>gst-plugins/gst-nvdsmetautils</p></td>
+<td><p>Source code for Gstreamer Gst-nvdsmetainsert and Gst-nvdsmetaextract plugins to process metadata</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsMetaUtils SEI serialization library</p></td>
+<td><p>gst-plugins/gst-nvdsmetautils/sei_serialization</p></td>
+<td><p>Source code for custom meta de/serialization to embed in encoded bitstream as SEI data, required by Gst-nvdsmetautils plugins</p></td>
+</tr>
+<tr class="row-odd"><td><p>NvDsMetaUtils Audio serialization library</p></td>
+<td><p>gst-plugins/gst-nvdsmetautils/audio_metadata_serialization</p></td>
+<td><p>Source code for Audio NvDsFrameMeta de/serialization, required by Gst-nvdsmetautils plugins</p></td>
+</tr>
+<tr class="row-even"><td><p>NvDsMetaUtils Video serialization library</p></td>
+<td><p>gst-plugins/gst-nvdsmetautils/video_metadata_serialization</p></td>
+<td><p>Source code for Video NvDsFrameMeta &amp; NvDsObjectMeta de/serialization, required by Gst-nvdsmetautils plugins</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvvideotestsrc plugin</p></td>
+<td><p>gst-plugins/gst-nvvideotestsrc</p></td>
+<td><p>Source code to generate video test data in a variety of formats and patterns that is written directly to GPU output buffers</p></td>
+</tr>
+<tr class="row-even"><td><p>Gstreamer gst-nvdsspeech plugin</p></td>
+<td><p>gst-plugins/gst-nvdsspeech</p></td>
+<td><p>Interface for custom low level Automatic Speech Recognition (ASR) library that can be loaded by the Gst-nvdsasr plugin</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvdstexttospeech plugin</p></td>
+<td><p>gst-plugins/gst-nvdstexttospeech</p></td>
+<td><p>Interface for custom low level Text To Speech (TTS) library that can be loaded by the Gst-nvds_text_to_speech plugin</p></td>
+</tr>
+<tr class="row-even"><td><p>Gstreamer gst-nvdspostprocess plugin</p></td>
+<td><p>gst-plugins/gst-nvdspostprocess</p></td>
+<td><p>Source code for the plugin and low level lib to provide a custom library interface for post processing on Tensor output of inference plugins (nvinfer/nvinferserver)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvtracker plugin</p></td>
+<td><p>gst-plugins/gst-nvtracker</p></td>
+<td><p>Source code for the plugin to track the detected objects with persistent (possibly unique) IDs over time</p></td>
+</tr>
+<tr class="row-even"><td><p>Gstreamer gst-nvdsanalytics plugin</p></td>
+<td><p>gst-plugins/gst-nvdsanalytics</p></td>
+<td><p>Interface for performing analytics on metadata attached by nvinfer (primary detector) and nvtracker</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer gst-nvstreammux New plugin</p></td>
+<td><p>gst-plugins/gst-nvmultistream2</p></td>
+<td><p>Source code for the plugin to form a batch of frames from multiple input sources</p></td>
+</tr>
+<tr class="row-even"><td><p>DS3D lidar file reader custom lib</p></td>
+<td><p>libs/ds3d/dataloader/lidarsource</p></td>
+<td><p>Source code for DS3D lidar file reader with an implementaion of ds3d::dataloader interface, developer could follow it to implement custom lidar device catpure,  see lib details in <a class="reference internal" href="DS_3D_Custom_Manual.html#ds-3d-custom-manual-dataloader-lidar-file-spec"><span class="std std-ref">Custom Dataloader libnvds_lidarfileread Configuration Specifications</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>DS3D lidar data reader custom process lib</p></td>
+<td><p>libs/ds3d/datafilter/lidar_preprocess</p></td>
+<td><p>Source code for DS3D lidar data processing with an implementaion of ds3d::datafilter interface</p></td>
+</tr>
+<tr class="row-even"><td><p>DS3D lidar detection postprocess custom lib</p></td>
+<td><p>libs/ds3d/inference_custom_lib/ds3d_lidar_detection_postprocess</p></td>
+<td><p>Source code for DS3D lidar and sensor fusion(bevfusion) postprocessing custom lib</p></td>
+</tr>
+<tr class="row-odd"><td><p>DS3D lidar v2xfusion postprocess custom lib</p></td>
+<td><p>libs/ds3d/inference_custom_lib/ds3d_v2x_infer_custom_postprocess</p></td>
+<td><p>Source code for DS3D lidar and sensor fusion(v2xfusion) postprocessing custom lib</p></td>
+</tr>
+<tr class="row-even"><td><p>DS3D lidar v2xfusion preprocess custom lib</p></td>
+<td><p>ds3d/inference_custom_lib/ds3d_v2x_infer_custom_preprocess</p></td>
+<td><p>Source code for DS3D sensor fusion(v2xfusion) preprocess custom lib</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gstreamer Gst-nvurisrcbin plugin</p></td>
+<td><p>gst-plugins/gst-nvurisrcbin</p></td>
+<td><p>Source code for the Gstreamer Gst-nvurisrcbin plugin which is is a wrapper over uridecodebin with additional functionality of the file looping, rtsp reconnection and smart record</p></td>
+</tr>
+<tr class="row-even"><td><p>Gstreamer Gst-nvmultiurisrcbin plugin</p></td>
+<td><p>gst-plugins/gst-nvmultiurisrcbin</p></td>
+<td><p>Source code for the Gstreamer Gst-nvmultiurisrcbin plugin which integrates gstnvurisrcbin, nvstreammux plugin with REST server support enabled by default.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="DS_C_Sample_Apps.html#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Gst-v4l2 sources are not present in DeepStream package. To download, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Go to: <a class="reference external" href="https://developer.nvidia.com/embedded/downloads">https://developer.nvidia.com/embedded/downloads</a>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">filter</span></code> field, enter <code class="docutils literal notranslate"><span class="pre">L4T</span></code></p></li>
+<li><p>Select the appropriate item for L4T Release <code class="docutils literal notranslate"><span class="pre">36.4</span></code>.</p></li>
+<li><p>Search for <code class="docutils literal notranslate"><span class="pre">L4T</span> <span class="pre">Driver</span> <span class="pre">Package</span> <span class="pre">(BSP)</span> <span class="pre">Sources</span></code></p></li>
+<li><p>Download the file and <cite>un-tar</cite> it, to get the <code class="docutils literal notranslate"><span class="pre">.tbz2</span></code> file.</p></li>
+<li><p>Expand the <code class="docutils literal notranslate"><span class="pre">.tbz2</span></code> file. <code class="docutils literal notranslate"><span class="pre">Gst-v4l2</span></code> source files are in <code class="docutils literal notranslate"><span class="pre">gst-nvvideo4linux2_src.tbz2</span></code>. libnvv4l2 sources are present in <code class="docutils literal notranslate"><span class="pre">v4l2_libs_src.tbz2</span></code></p></li>
+</ol>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_docker_containers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Docker Containers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_Python_Sample_Apps.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Python Sample Apps and Bindings Source Details</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_C_Sample_Apps.html#plugin-and-library-source-details">Plugin and Library Source Details</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

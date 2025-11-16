@@ -1,0 +1,1252 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Developing Extensions for DeepStream &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Zero_Coding_Developing_Extension';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DeepStream Components" href="DS_Zero_Coding_DS_Components.html" />
+    <link rel="prev" title="Extension Development Workflow" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Zero_Coding_Developing_Extension.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Zero_Coding_Developing_Extension.html#">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Developing...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="developing-extensions-for-deepstream">
+<h1>Developing Extensions for DeepStream<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#developing-extensions-for-deepstream" title="Link to this heading">#</a></h1>
+<p>This section provides an overview of developing extensions with a focus on developing DeepStream based components. The usage of various interfaces and components is explained through sample code snippets.</p>
+<p>For the sake of simplicity, the component definition and implementation of its methods are shown together in the sample code. However, this can be split between a header file and <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> source file as required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The interfaces.hpp header provided as part of <code class="docutils literal notranslate"><span class="pre">NvDsInterfaceExt</span></code> contains the basic DeepStream interface definitions.</p></li>
+<li><p>The definition of some concrete component types like the I/Os, <code class="docutils literal notranslate"><span class="pre">NvDsProbeConnector</span></code> are included in header files provided as part of <code class="docutils literal notranslate"><span class="pre">NvDsBaseExt</span></code>.</p></li>
+<li><p>The definitions of component specific Action, Signal, PropertyController, and Configuration types are included in header files provided as part of the extension the component belongs to.</p></li>
+<li><p>All DeepStream types are defined under the namespace <code class="docutils literal notranslate"><span class="pre">nvidia::deepstream</span></code>. Implementations should take care of this if not using the same namespace.</p></li>
+</ul>
+</div>
+<section id="extension-and-component-factory-registration-boilerplate">
+<h2>Extension and component factory registration boilerplate<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#extension-and-component-factory-registration-boilerplate" title="Link to this heading">#</a></h2>
+<p>The following provides a boilerplate on registering extensions and components</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gxf/std/extension_factory_helper.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;sample_runtime_source_manipulator.hpp&quot;</span>
+<span class="p">...</span>
+
+<span class="n">GXF_EXT_FACTORY_BEGIN</span><span class="p">()</span>
+<span class="n">GXF_EXT_FACTORY_SET_INFO</span><span class="p">(</span><span class="mh">0x44a711e485194a68</span><span class="p">,</span><span class="w"> </span><span class="mh">0x81e8be7ee4af3ff0</span><span class="p">,</span>
+<span class="w">                         </span><span class="s">&quot;NvDsSampleExt&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="s">&quot;Sample components for demonstrating usage of various &quot;</span>
+<span class="w">                         </span><span class="s">&quot;DeepStream interfaces and components&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="s">&quot;NVIDIA&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0.0.1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Proprietary&quot;</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="n">GXF_EXT_FACTORY_ADD</span><span class="p">(</span>
+<span class="w">    </span><span class="mh">0x717b2c432f104fe8</span><span class="p">,</span><span class="w"> </span><span class="mh">0xb96165e408ece299</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nvidia</span><span class="o">::</span><span class="n">deepstream</span><span class="o">::</span><span class="n">NvDsSimpleComponent</span><span class="p">,</span>
+
+<span class="w">    </span><span class="n">nvidia</span><span class="o">::</span><span class="n">deepstream</span><span class="o">::</span><span class="n">INvDsComponent</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Description of a simple component&quot;</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="n">GXF_EXT_FACTORY_END</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Include the header file <code class="docutils literal notranslate"><span class="pre">gxf/std/extension_factory_helper.hpp</span></code> containing the helper macros. Include any other header file containing the definitions of components to be registered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_BEGIN()</span></code> and <code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_END()</span></code> mark the beginning and end of the block of code containing registration code.</p></li>
+<li><p>Within the factory block, call <code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_SET_INFO()</span></code> to set the extension information including the UUID for the extension, the extension name, description, author, version and license.</p></li>
+<li><p>For each of the component to be registered as part of the extension, call <code class="docutils literal notranslate"><span class="pre">GXF_EXT_FACTORY_ADD()</span></code> to add the component along with the component information including the UUID for the component, the component type, the component’s base type and a description of the component.</p></li>
+<li><p>The UUIDs are unique 128-bit identifiers. This must be unique across all extensions and component registered. In the code, two 64-bit unsigned integers represent the upper 64 bits and lower 64bits of the 128-bit UUID.</p></li>
+</ul>
+</section>
+<section id="a-simple-deepstream-component">
+<h2>A simple DeepStream component<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#a-simple-deepstream-component" title="Link to this heading">#</a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;extensions/nvdsinterface/interfaces.hpp&quot;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NvDsSimpleComponent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">INvDsComponent</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="c1">// Public methods using which other components can interact with this</span>
+<span class="w">  </span><span class="c1">// component via its handle.</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">simpleComponentMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w"> </span><span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Expected</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">simple_param_</span><span class="p">,</span><span class="w">       </span><span class="c1">// Parameter member variable</span>
+<span class="w">        </span><span class="s">&quot;simple-param-key&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Parameter name(key). This is used to set</span>
+<span class="w">                             </span><span class="c1">// parameter value in a graph</span>
+<span class="w">        </span><span class="s">&quot;Simple Parameter&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// Parameter head line</span>
+<span class="w">        </span><span class="s">&quot;Description of the simple parameter&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// A description of the</span>
+<span class="w">                                                </span><span class="c1">// parameter</span>
+<span class="w">        </span><span class="mi">100UL</span><span class="p">,</span><span class="w">                        </span><span class="c1">// A default value for the parameter</span>
+<span class="w">        </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="w">  </span><span class="c1">// Parameter flags marking it</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span><span class="n">handle_param_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;handle-parameter&quot;</span><span class="p">,</span>
+<span class="w">                                   </span><span class="s">&quot;Handle Parameter&quot;</span><span class="p">,</span>
+<span class="w">                                   </span><span class="s">&quot;Description of the handle parameter&quot;</span><span class="p">,</span>
+<span class="w">                                   </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">initialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This method can be used to initialize the component.</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="c1">// Check if parameter is set</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">simple_param_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">simple_param_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simple_param_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w">  </span><span class="c1">// return GXF_FAILURE in case of any fatal error</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">deinitialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This method can be used to deinitialize the component.</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w">  </span><span class="c1">// return GXF_FAILURE in case of any fatal error</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Start the component. The underlying DeepStream pipeline and other</span>
+<span class="w">    </span><span class="c1">// components are already initialized. It is safe to call methods of other components</span>
+<span class="w">    </span><span class="c1">// via their handles.</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="c1">// Check if any component is attached to the parameter</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">handle_param</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">SampleOtherComponent</span><span class="w"> </span><span class="o">*</span><span class="n">other_comp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle_param</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>
+<span class="w">      </span><span class="n">other_comp</span><span class="o">-&gt;</span><span class="n">otherComponentMethod</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w">  </span><span class="c1">// return GXF_FAILURE in case of any fatal error</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="n">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Pipeline has been stopped. All the components would be deinitialized</span>
+<span class="w">    </span><span class="c1">// after this. Add any logic for stopping the component.</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span><span class="w">  </span><span class="c1">// return GXF_FAILURE in case of any fatal error</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">simple_param_</span><span class="p">;</span>
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">SampleOtherComponent</span><span class="o">&gt;&gt;</span>
+<span class="w">      </span><span class="n">handle_param_</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+</pre></div>
+</div>
+</section>
+<section id="implementation-of-invdsinplacedatahandler">
+<h2>Implementation of INvDsInPlaceDataHandler<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#implementation-of-invdsinplacedatahandler" title="Link to this heading">#</a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;extensions/nvdsbase/nvds_probe_connector.hpp&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;extensions/nvdsinterface/interfaces.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NvDsSampleInPlaceDataHandler</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">INvDsInPlaceDataHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">NvDsProbeConnector</span><span class="o">&gt;&gt;</span>
+<span class="w">      </span><span class="n">probe_connector_</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1">// Must register a handle parameter of type NvDsProbeConnector</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">probe_connector_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;probe-connector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Probe Connector&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;Handle to a nvidia::deepstream::NvDsProbeConnector component&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">initialize</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="c1">// Need to set the handler and flags which tells NvDsProbe component</span>
+<span class="w">    </span><span class="c1">// what type of data this component wants to handle. This must be done</span>
+<span class="w">    </span><span class="c1">// in the initialize method.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">probe_connector_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// The pointer to self (this) can be passed since the component</span>
+<span class="w">      </span><span class="c1">// implements the INvDsInPlaceDataHandler interface.</span>
+<span class="w">      </span><span class="n">probe_connector_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">set_handler</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">      </span><span class="n">probe_connector_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">set_flags</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NvDsProbeFlags</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">          </span><span class="n">NvDsProbeFlags</span><span class="o">::</span><span class="n">BUFFER</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">NvDsProbeFlags</span><span class="o">::</span><span class="n">EVENT</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_buffer</span><span class="p">(</span><span class="n">GstPad</span><span class="w"> </span><span class="o">*</span><span class="n">pad</span><span class="p">,</span><span class="w"> </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Entity</span><span class="w"> </span><span class="n">buffer_data</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Check for presence of NvDsBatchMeta and NvBufSurface in the buffer_data</span>
+<span class="w">    </span><span class="c1">// entity since this implementation requires it. Other implementations may</span>
+<span class="w">    </span><span class="c1">// want to check for presence of other data components.</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">buffer_data</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">NvDsBatchMetaHandle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BUF_DATA_KEY_VIDEO_BATCH_META</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">buffer_data</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">NvBufSurfaceHandle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BUF_DATA_KEY_NVBUFSURFACE</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">NvDsBatchMeta</span><span class="w"> </span><span class="o">*</span><span class="n">batch_meta</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="o">*</span><span class="p">(</span><span class="n">buffer_data</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">NvDsBatchMetaHandle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BUF_DATA_KEY_VIDEO_BATCH_META</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
+<span class="w">    </span><span class="n">NvBufSurface</span><span class="w"> </span><span class="o">*</span><span class="n">surf</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="o">*</span><span class="p">(</span><span class="n">buffer_data</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">NvBufSurfaceHandle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BUF_DATA_KEY_VIDEO_BATCH_META</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
+
+<span class="w">    </span><span class="c1">// Use batch_meta and surf</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// allows buffer to pass through. return false to drop the buffer</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_event</span><span class="p">(</span><span class="n">GstPad</span><span class="w"> </span><span class="o">*</span><span class="n">pad</span><span class="p">,</span><span class="w"> </span><span class="n">GstEvent</span><span class="w"> </span><span class="o">*</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Use the event</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// allows buffer to pass through. return false to drop the event</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace nvidia</span>
+</pre></div>
+</div>
+<p>The component <code class="docutils literal notranslate"><span class="pre">NvDsSampleProbeMessageMetaCreation</span></code> provided as part of the sample extension is a complete sample implementation of <code class="docutils literal notranslate"><span class="pre">INvDsInPlaceDataHandler</span></code> interface.</p>
+</section>
+<section id="controlling-properties">
+<h2>Controlling Properties<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#controlling-properties" title="Link to this heading">#</a></h2>
+<p>This sample code demonstrates the usage of an <code class="docutils literal notranslate"><span class="pre">INvDsPropertyController</span></code> (<code class="docutils literal notranslate"><span class="pre">NvDsOSDPropertyController</span></code> in this case) component by a custom component to control properties of an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component (<code class="docutils literal notranslate"><span class="pre">NvDsOSD</span></code> in this case).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Provided as part of the NvDsVisualizationExt extension which contains the</span>
+<span class="c1">// NvDsOSD component. This header contains the definition of</span>
+<span class="c1">// NvDsOSDPropertyController component which provides methods to control</span>
+<span class="c1">// properties of NvDsOSD component.</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;nvdsvisualization_prop_controllers.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NvDsSamplePropertyControl</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">INvDsComponent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">NvDsOSDPropertyController</span><span class="o">&gt;&gt;</span>
+<span class="w">      </span><span class="n">osd_property_controller_</span><span class="p">;</span>
+<span class="w">  </span><span class="n">NvDsOSDPropertyController</span><span class="w"> </span><span class="o">*</span><span class="n">osd_property_controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1">// Must register a handle parameter of type NvDsOSDPropertyController</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">osd_property_controller_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;nvdsosd-prop-controller&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;NvDsOSD Property Controller&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;Handle to a nvidia::deepstream::NvDsOSDPropertyController &quot;</span>
+<span class="w">        </span><span class="s">&quot;component.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">sample_thread_func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">bool</span><span class="w"> </span><span class="n">display_text</span><span class="p">;</span>
+<span class="w">      </span><span class="c1">// Get the current property value</span>
+<span class="w">      </span><span class="n">osd_property_controller</span><span class="o">-&gt;</span><span class="n">get_display_text</span><span class="p">(</span><span class="o">&amp;</span><span class="n">display_text</span><span class="p">);</span>
+<span class="w">      </span><span class="c1">// Toggle the property value</span>
+<span class="w">      </span><span class="n">osd_property_controller</span><span class="o">-&gt;</span><span class="n">set_display_text</span><span class="p">(</span><span class="o">!</span><span class="n">display_text</span><span class="p">);</span>
+
+<span class="w">      </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">      </span><span class="c1">// Break when signalled to stop</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1">// Check if the property controller component is attached</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">osd_property_controller_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">osd_property_controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">osd_property_controller_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>
+<span class="w">      </span><span class="n">osd_property_controller</span><span class="o">-&gt;</span><span class="n">set_display_text</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">      </span><span class="c1">// Start a thread which periodically toggles the display-text property</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Signal samplethread to stop</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace nvidia</span>
+</pre></div>
+</div>
+</section>
+<section id="triggering-actions">
+<h2>Triggering Actions<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#triggering-actions" title="Link to this heading">#</a></h2>
+<p>This sample code demonstrates the usage of an <code class="docutils literal notranslate"><span class="pre">INvDsAction</span></code> (<code class="docutils literal notranslate"><span class="pre">NvDsSourceManipulationAction</span></code> in this case) component by a custom component to trigger actions of an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component (<code class="docutils literal notranslate"><span class="pre">NvDsMultiSrcInput</span></code> in this case).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1">// Provided as part of the NvDsSourceExt extension which contains the</span>
+<span class="w">   </span><span class="c1">// NvDsMultiSrcInput component. This header contains the definition of</span>
+<span class="w">  </span><span class="c1">// NvDsSourceManipulationAction component which provides methods to trigger</span>
+<span class="w">  </span><span class="c1">// add/remove source actions of NvDsMultiSrcInput component.</span>
+<span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;nvdsinputsrc_signals.hpp&quot;</span>
+
+<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">NvDsSampleSourceManipulator</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">INvDsComponent</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">NvDsSourceManipulationAction</span><span class="o">&gt;&gt;</span>
+<span class="n">source_manip_action_</span><span class="p">;</span>
+<span class="w">  </span><span class="n">NvDsSourceManipulationAction</span><span class="w"> </span><span class="o">*</span><span class="n">source_manip_action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="c1">// Must register a handle parameter of type NvDsSourceManipulationAction</span>
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span>
+<span class="w">  </span><span class="n">source_manip_action_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;source-manip-action&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Source Manipulation Action&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;Handle to a nvidia::deepstream::NvDsSourceManipulationAction &quot;</span>
+<span class="s">&quot;component&quot;</span><span class="p">,</span>
+<span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">sample_thread_func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// Call methods of the action component via it&#39;s handle to trigger the add/remove actions.</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">source_manip_action</span><span class="o">-&gt;</span><span class="n">add_source</span><span class="p">(</span><span class="s">&quot;file:///some/file/path.mp4&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">GXF_LOG_WARNING</span><span class="p">(</span><span class="s">&quot;Failed to add source&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">source_manip_action</span><span class="o">-&gt;</span><span class="n">remove_source</span><span class="p">(</span><span class="s">&quot;file:///some/file/path.mp4&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">GXF_LOG_WARNING</span><span class="p">(</span><span class="s">&quot;Failed to remove source&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">add</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// Break when signalled to stop</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="c1">// Check if the action component is attached</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">source_manip_action_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="n">source_manip_action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source_manip_action_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// Start a thread to periodically add / remove a source</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Stop the thread</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// namespace nvidia</span>
+</pre></div>
+</div>
+<p>The component <code class="docutils literal notranslate"><span class="pre">NvDsSampleSourceManipulator</span></code> provided as part of the sample extension is a complete sample implementation demonstrating this.</p>
+</section>
+<section id="handling-signal-callbacks">
+<h2>Handling signal callbacks<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#handling-signal-callbacks" title="Link to this heading">#</a></h2>
+<p>This sample code demonstrates the usage of an <code class="docutils literal notranslate"><span class="pre">INvDsSignal</span></code> (<code class="docutils literal notranslate"><span class="pre">NvDsModelUpdatedSignal</span></code> in this case) component by a custom component to handle signals emitted by an <code class="docutils literal notranslate"><span class="pre">INvDsElement</span></code> based component (<code class="docutils literal notranslate"><span class="pre">NvDsInferVideo</span></code> in this case).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Provided as part of the NvDsInferenceExt extension which contains the</span>
+<span class="c1">// NvDsInferVideo component. This header contains the definition of</span>
+<span class="c1">// NvDsModelUpdatedSignal component which provides the Handler interface and</span>
+<span class="c1">// callback method prototype and a way to set the Handler instance.</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;nvdsinference_signals.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NvDsSampleSignalHandler</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">INvDsComponent</span><span class="p">,</span>
+<span class="w">                       </span><span class="k">public</span><span class="w"> </span><span class="n">NvDsModelUpdatedSignal</span><span class="o">::</span><span class="n">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Handle</span><span class="o">&lt;</span><span class="n">NvDsModelUpdatedSignal</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">model_update_signal_</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="c1">// Must register a handle parameter of type NvDsModelUpdatedSignal</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">model_update_signal_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;model-update-signal&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;Model Updated Signal&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;Handle to a nvidia::deepstream::NvDsModelUpdatedSignal &quot;</span>
+<span class="w">        </span><span class="s">&quot;component.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="c1">// Implement the methods of the NvDsModelUpdatedSignal::Handler interface</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_model_updated</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">errorCode</span><span class="p">,</span><span class="w"> </span><span class="n">gchar</span><span class="w"> </span><span class="o">*</span><span class="n">configFilePath</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle the on-the-fly model update status.</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Start the component</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="c1">// Check if the signal component is attached, set the signal handler to self</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">model_update_signal_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// The pointer to self (this) can be passed since the component</span>
+<span class="w">      </span><span class="c1">// implements the NvDsModelUpdatedSignal::Handler interface</span>
+<span class="w">      </span><span class="n">model_update_signal_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">set_handler</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Stop the component</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace nvidia</span>
+</pre></div>
+</div>
+</section>
+<section id="implementation-of-an-configuration-provider-component">
+<h2>Implementation of an Configuration Provider component<a class="headerlink" href="DS_Zero_Coding_Developing_Extension.html#implementation-of-an-configuration-provider-component" title="Link to this heading">#</a></h2>
+<p>This sample code demonstrates the implementation of a configuration provider interface (<code class="docutils literal notranslate"><span class="pre">INvDsInferModelConfigComponent</span></code> in this case) component by a custom component to provide a configuration (to <code class="docutils literal notranslate"><span class="pre">NvDsInferVideo</span></code> in this case).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Provided as part of the NvDsInferenceExt extension which contains the</span>
+<span class="c1">// NvDsInferVideo component. This header contains the definition of</span>
+<span class="c1">// INvDsInferModelConfigComponent interface which acts as a model configuration</span>
+<span class="c1">// provider to the NvDsInferVideo component.</span>
+<span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;nvdsinference_config.hpp&quot;</span>
+
+<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">nvidia</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">namespace</span><span class="w"> </span><span class="nn">deepstream</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">SampleModel</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">INvDsInferModelConfigComponent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">fill_config</span><span class="p">(</span><span class="n">NvDsInferModelConfig</span><span class="w"> </span><span class="o">*</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// config_infer_primary.txt is packaged alongside the extension binary,</span>
+<span class="w">      </span><span class="c1">// along with caffemodel, prototxt and labels file. Use get_absolute_path()</span>
+<span class="w">      </span><span class="c1">// method to convert a path relative to the extension binary to an absolute</span>
+<span class="w">      </span><span class="c1">// path at runtime.</span>
+<span class="w">      </span><span class="n">config</span><span class="o">-&gt;</span><span class="n">config_file_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_absolute_path</span><span class="p">(</span><span class="s">&quot;config_infer_primary.txt&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">engine_file_</span><span class="p">.</span><span class="n">try_get</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// The configuration provider component itself can have parameters which</span>
+<span class="w">        </span><span class="c1">// can be used to populate the configuration.</span>
+<span class="w">        </span><span class="n">config</span><span class="o">-&gt;</span><span class="n">model_engine_path</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">get_absolute_path</span><span class="p">(</span><span class="n">engine_file_</span><span class="p">.</span><span class="n">try_get</span><span class="p">().</span><span class="n">value</span><span class="p">());</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">GXF_SUCCESS</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">gxf_result_t</span><span class="w"> </span><span class="nf">registerInterface</span><span class="p">(</span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Registrar</span><span class="w"> </span><span class="o">*</span><span class="n">registrar</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Expected</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="n">registrar</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">(</span><span class="n">engine_file_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;model-engine-file&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="s">&quot;Model Engine File&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="s">&quot;Path to the model engine file. Absolute or &quot;</span>
+<span class="w">                         </span><span class="s">&quot;relative to the extension directoy.&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span><span class="w"> </span><span class="n">GXF_PARAMETER_FLAGS_OPTIONAL</span><span class="p">);</span>
+
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">ToResultCode</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">nvidia</span><span class="o">::</span><span class="n">gxf</span><span class="o">::</span><span class="n">Parameter</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">engine_file_</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// namespace deepstream</span>
+<span class="w">  </span><span class="p">}</span><span class="w">  </span><span class="c1">// namespace nvidia</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">NvDsSampleAudioTemplateLib</span></code> and <code class="docutils literal notranslate"><span class="pre">NvDsSampleVideoTemplateLib</span></code> are other examples of components acting as configuration providers. These components are part of the sample extension.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Extension Development Workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_Zero_Coding_DS_Components.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DeepStream Components</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#extension-and-component-factory-registration-boilerplate">Extension and component factory registration boilerplate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#a-simple-deepstream-component">A simple DeepStream component</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#implementation-of-invdsinplacedatahandler">Implementation of INvDsInPlaceDataHandler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#controlling-properties">Controlling Properties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#triggering-actions">Triggering Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#handling-signal-callbacks">Handling signal callbacks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Zero_Coding_Developing_Extension.html#implementation-of-an-configuration-provider-component">Implementation of an Configuration Provider component</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

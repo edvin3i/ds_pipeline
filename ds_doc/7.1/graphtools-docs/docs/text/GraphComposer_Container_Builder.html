@@ -1,0 +1,2173 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Container Builder &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../../../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'graphtools-docs/docs/text/GraphComposer_Container_Builder';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../../../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../../../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="GXF Command Line Interface" href="GraphComposer_gxf_CLI.html" />
+    <link rel="prev" title="Composer" href="GraphComposer_Composer.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Jan 13, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  <link rel="stylesheet" href="../../../../../../common-libs/common.css">
+<script src="../../../../../../common-libs/common.js"></script>
+</head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="GraphComposer_Container_Builder.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../text/Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../text/ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="GraphComposer_Container_Builder.html#">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../text/Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../text/DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Container Builder</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="container-builder">
+<h1>Container Builder<a class="headerlink" href="GraphComposer_Container_Builder.html#container-builder" title="Link to this heading">#</a></h1>
+<p>Container Builder (CB) is used to build docker images for AI Application graphs created using Composer. In addition to docker images, it can also push the final image into the cloud for deployment.</p>
+<p>Container Builder interacts with <a class="reference internal" href="GraphComposer_Registry.html"><span class="doc">Registry</span></a>: to:</p>
+<ul class="simple">
+<li><p>Download extensions and other related files into your local system.</p></li>
+<li><p>Copy other required files specified in the config file to generate an intermediate work folder and an optimized dockerfile.</p></li>
+<li><p>Convert archives/packages dependencies and instructions into docker and try to build a minimal sized local image. For optimization, you can easily configure container builder to support multi-stage docker build.</p></li>
+</ul>
+<img alt="Container Builder" class="align-center" src="../../../_images/Container_builder_overview.png" />
+<p>Container Builder supports graph installing and container image building on x86 Ubuntu systems. It can also build arm64 images from x86_64 platforms - to do this, you will need to install QEMU and <code class="docutils literal notranslate"><span class="pre">bintutils</span></code>.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="GraphComposer_Container_Builder.html#prerequisites" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Install right docker version <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a></p></li>
+<li><p>log into the server which you might need pull/push images. Run:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">server</span><span class="o">:</span><span class="n">port</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>If you need NGC images and resources, follow <a class="reference external" href="https://ngc.nvidia.com/setup/api-key">https://ngc.nvidia.com/setup/api-key</a> to apply permission and get <cite>API_KEY</cite> token. Then run,</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p>Some features (e.g. squash) might need docker experimental support. To enable that, update <code class="docutils literal notranslate"><span class="pre">/etc/docker/daemon.json</span></code> and add</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">       </span><span class="s">&quot;experimental&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then restart docker by running</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">restart</span><span class="w"> </span><span class="n">docker</span>
+</pre></div>
+</div>
+</li>
+<li><p>If you want to build ARM docker images from x86_64 platform, then need to install <cite>QEMU</cite> and <cite>binfmt</cite>. OS restart might be needed.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">qemu</span><span class="w"> </span><span class="n">binfmt</span><span class="o">-</span><span class="n">support</span><span class="w"> </span><span class="n">qemu</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="k">static</span>
+<span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">privileged</span><span class="w"> </span><span class="n">multiarch</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="k">static</span><span class="w"> </span><span class="o">--</span><span class="n">reset</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">yes</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>To verify if it is working, run</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">arm64v8</span><span class="o">/</span><span class="n">ubuntu</span><span class="w"> </span><span class="n">uname</span><span class="w"> </span><span class="o">-</span><span class="n">m</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Install Graph Composer package. Make sure  <code class="docutils literal notranslate"><span class="pre">container_builder</span></code> executable binary is installed.</p></li>
+</ol>
+</section>
+<section id="container-builder-features">
+<h2>Container Builder Features<a class="headerlink" href="GraphComposer_Container_Builder.html#container-builder-features" title="Link to this heading">#</a></h2>
+<p>The image building is based on docker build. Container builder provides different stage models to build the image. There are <cite>compile_stage</cite> and <cite>clean_stage</cite> models for users to select. Some features are applicable for one stage only. For more details, see the feature table.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id1">
+<caption><span class="caption-text">Container Builder features</span><a class="headerlink" href="GraphComposer_Container_Builder.html#id1" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Features</p></td>
+<td><p>Description</p></td>
+<td><p>Stage
+(compile_stage/clean_stage)</p></td>
+</tr>
+<tr class="row-even"><td><p>Local files/folders copy</p></td>
+<td><p>Copies local files/folders to the current image destination path.</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>Stage files/folders copy</p></td>
+<td><p>Copies files/folders from other target stages or other image to current image/stage destination path.</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>Multiple deepstream graph files installation</p></td>
+<td><p>Installs one or more deepstream graph files extensions and relevant files into image</p></td>
+<td><p>N/A, final image</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple registry repo create/destroy</p></td>
+<td><p>Specifies multiple registry repo list to create and delete</p></td>
+<td><p>N/A, final image</p></td>
+</tr>
+<tr class="row-even"><td><p>Packages installation by apt/pip3</p></td>
+<td><p>Installs debian package and pip3 packages online</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>HTTP archives download and installation</p></td>
+<td><p>Downloads HTTP archives and runs custom commands thereafter.</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>git repo clone and custom build</p></td>
+<td><p>Clones specific branch/tag/commit from repo and does custom build</p></td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-odd"><td><p>Multiple Stage docker build</p></td>
+<td><p>Builder final target image from multiple stages.</p></td>
+<td><p>N/A, for final image</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom cmdline runs</p></td>
+<td><p>Runs custom commands for on a image stage</p></td>
+<td><p>clean_stage</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dockerfile misc</p></td>
+<td><p>Base image Selection and other miscs</p>
+<p>WORKDIR/ENV/ENTRYPOINT/LABEL</p>
+</td>
+<td><p>clean_stage</p></td>
+</tr>
+<tr class="row-even"><td><p>docker build options</p></td>
+<td><p>Supports platforms, arguments, network, cache, squash</p></td>
+<td><p>N/A, for final image</p></td>
+</tr>
+<tr class="row-odd"><td><p>Push Image to cloud</p></td>
+<td><p>Pushes local built image to remote server</p></td>
+<td><p>N/A, for final image</p></td>
+</tr>
+<tr class="row-even"><td><p>Cross platform container build</p></td>
+<td><p>Supports build other platforms(e.g. ARM64) containers from x86_64</p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="container-builder-tool-usage">
+<h2>Container Builder Tool Usage<a class="headerlink" href="GraphComposer_Container_Builder.html#container-builder-tool-usage" title="Link to this heading">#</a></h2>
+<p>CB (container_builder) tool has very few input arguments. The config file collects all user settings as a YAML format text file. Briefly to generate a container, users need update the config file and run command line, where <code class="docutils literal notranslate"><span class="pre">graph_target_key</span></code> can be <code class="docutils literal notranslate"><span class="pre">x86</span></code> or <code class="docutils literal notranslate"><span class="pre">aarch64</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">container_builder</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">graph_target_key</span>
+</pre></div>
+</div>
+<p>Container image can also be pushed to remote repository using command</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">container_builder</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">graph_target</span><span class="p">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>See more details of config settings from Configuration Specification. The graph target key corresponds to the graph target configuration, stored in file <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/graph-composer/graph_targets.yaml</span></code>, which is used by registry during graph install. See registry cli graph install documentation for sample file.</p>
+<p>The default log print level is INFO and output stream displays on screen. log-level, log-file, and other arguments are used for debug. For more details, refer to help option from the following command</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">container_builder</span><span class="w"> </span><span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+</section>
+<section id="multiarch-build">
+<h2>Multiarch Build<a class="headerlink" href="GraphComposer_Container_Builder.html#multiarch-build" title="Link to this heading">#</a></h2>
+<p>Additionally, CB tool can now build multiarch images. Users can use the following command to achieve the same</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">container_builder</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">config_file1</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="n">config_file2</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">target_key1</span><span class="w"> </span><span class="n">target_key2</span><span class="w"> </span><span class="o">-</span><span class="n">wd</span><span class="w"> </span><span class="p">[</span><span class="n">working</span><span class="w"> </span><span class="n">dir</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The users may also skip the target key mentioned in the command if they have specified the target within each of the config files as shown below:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">%YAML</span><span class="w"> </span><span class="m">1.2</span>
+<span class="nn">---</span>
+<span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86</span><span class="w">   </span><span class="c1"># optional</span>
+<span class="nt">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">final_image</span>
+<span class="nt">base_image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<span class="nt">stage_model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clean_stage</span>
+</pre></div>
+</div>
+<p>One thing to note here is the multiarch feature requires the users to mention the docker push configurations as well; otherwise CB will fail to generate the final multiarch image.</p>
+</section>
+<section id="run-container-builder">
+<h2>Run Container Builder<a class="headerlink" href="GraphComposer_Container_Builder.html#run-container-builder" title="Link to this heading">#</a></h2>
+<p>The following are a basic set of steps to build a container using an existing Container Builder configuration file and execute the container.</p>
+<ol class="arabic">
+<li><p>Update the config file to start the build. Open <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/reference_graphs/deepstream-test1/ds_test1_container_builder_dgpu.yaml</span></code></p></li>
+<li><p>Specify the right base image with correct DeepStream SDK version for the <code class="docutils literal notranslate"><span class="pre">graph_files</span></code>. If base image is not specified, container builder will attempt to auto select it from a pool of
+predefined base images in <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/graph-composer/container_builder.yaml</span></code>. The container which matches the graph target closest will be selected</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">base_image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/nvidia/deepstream:x.x-x&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Specify the output image name in <code class="docutils literal notranslate"><span class="pre">docker_build</span></code> section</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">image_name</span><span class="p">:</span><span class="w"> </span><span class="n">deepstream_test1_dgpu</span><span class="o">:</span><span class="n">nvgcb_test</span>
+</pre></div>
+</div>
+</li>
+<li><p>Ensure the gxf server has started by running the following command in a terminal:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="o">--</span><span class="n">user</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">gxf_server</span>
+</pre></div>
+</div>
+<p>The users can also run the <code class="docutils literal notranslate"><span class="pre">gxf_server</span></code> on a different port by setting the environment variable <code class="docutils literal notranslate"><span class="pre">GXF_SERVER_PORT</span></code>.
+Currently, the Container Builder CLI only supports locally running <code class="docutils literal notranslate"><span class="pre">gxf_server</span></code> while Windows based users or GUI based Graph Composer users can set the remote address to connect to a remotely running <code class="docutils literal notranslate"><span class="pre">gxf_server</span></code>.</p>
+</li>
+<li><p>Run Container builder tool to build the image:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">container_builder</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">ds_test1_container_builder_dgpu</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">x86</span><span class="w"> </span><span class="o">-</span><span class="n">wd</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span><span class="n">reference_graphs</span><span class="o">/</span><span class="n">deepstream</span><span class="o">-</span><span class="n">test1</span><span class="o">/</span>
+</pre></div>
+</div>
+</li>
+<li><p>Verify the image and graph in container, use image in config file</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w">  </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w">  </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="o">&lt;</span><span class="n">image_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="container-builder-configuration">
+<h2>Container Builder Configuration<a class="headerlink" href="GraphComposer_Container_Builder.html#container-builder-configuration" title="Link to this heading">#</a></h2>
+<p>The input config file for Container Builder is following YAML1.2 format rules <a class="reference external" href="https://yaml.org/spec/1.2/spec.html">https://yaml.org/spec/1.2/spec.html</a>.</p>
+<p>There are 2 major YAML document sections in the configuration settings.</p>
+<ol class="arabic">
+<li><p>Container builder main control section - With that, users can specify graph installation options, build/push options and other host side control options. Each config file can have only one control section with key field container_builder: name</p></li>
+<li><p>Container dockerfile stage section - All the sections will be converted into dockerfiles. Users can specify multiple stage sections. There are 2 model templates for different stages.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>clean_stage model: This is the default model if not specified. The output container image must have a clean_stage section as final stage. Users should keep the final stage as clean as possible.</p></li>
+<li><p>compile_stage model: It is used to do some extra work such as build binaries from source code and to install some compile tools. It should be an intermediate stage, users can specify the clean_stage to copy required binaries from compile_stage.</p></li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must store private information safely when building docker images from container builders. Learn more details of docker reference <a class="reference external" href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a> to avoid exposing critical layers to the public.
+MSB(Multi-stage build) is one of the best practices to separate internal source code stage and clean public stage. In container builder, users can use compile_stage to quickly start source code compiling and copy results to clean_stage for the final image. More details refer to <a class="reference external" href="https://docs.docker.com/develop/develop-images/multistage-build/">https://docs.docker.com/develop/develop-images/multistage-build/</a></p>
+</div>
+</section>
+<section id="a-basic-example-of-container-builder-configuration">
+<h2>A Basic Example of Container Builder Configuration<a class="headerlink" href="GraphComposer_Container_Builder.html#a-basic-example-of-container-builder-configuration" title="Link to this heading">#</a></h2>
+<p>This example has 2 sections with a <cite>clean_stage</cite> build section and a main control section.</p>
+<p>During stage build:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Starts from <cite>base_image</cite> and installs some <cite>debian</cite>, python3 packages into the target image</p></li>
+<li><p>Installs archives</p></li>
+<li><p>Copies files from local and other image</p></li>
+<li><p>Finally do some cleanup and environment settings on output target image.</p></li>
+</ul>
+</div></blockquote>
+<p>The main control section would install the graph dependencies through registry into the target image. You can specify some build options to control the stage build and finally push the target image into the cloud.</p>
+<p>Here is the sample code with comments inline.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> # Container dockerfile Stage build section
+---
+# target: x86   # optional, can be used during multi-arch build
+unique_stage: final_image  # required, name must be unique
+# base_image is required
+base_image: &quot;nvcr.io/nvidia/deepstream:7.1-triton-multiarch&quot;
+stage_model: clean_stage # Optional
+
+# Install debian packages
+apt_deps:
+- curl
+- ca-certificates
+- tar
+- python3
+- python3-pip
+
+# Install pip3 packages
+pip3_deps:
+- PyYAML&gt;=5.4.1
+
+# Copy local files to image
+local_copy_files:
+- src: &quot;/opt/nvidia/graph-composer/gxe&quot;
+  # dst: &quot;/opt/nvidia/graph-composer/gxe&quot;
+- src: &quot;/opt/nvidia/graph-composer/libgxf_core.so&quot;
+  # dst: &quot;/opt/nvidia/graph-composer/libgxf_core.so&quot;
+
+# Copy files from other images or other stages
+stage_copy_files:
+- src_stage: &quot;nvcr.io/nvidia/deepstream:7.1-samples&quot;
+  src: &quot;/opt/nvidia/deepstream/deepstream/samples&quot;
+  # dst: &quot;/opt/nvidia/deepstream/deepstream/samples&quot;
+
+# Download HTTP archives and install
+http_archives:
+- url: https://host:port/archive.tar.bz2
+  curl_option: &quot;-u user:token&quot;
+  post_cmd: &quot;tar -jxvf archive.tar.bz2 -C /&quot;
+
+# Clean up operations
+custom_runs:
+- &quot;apt autoremove &amp;&amp; ln -s /opt/nvidia/deepstream/deepstream/samples /samples&quot;
+
+# Specify WORKDIR
+work_folder: /workspace/test/
+
+# Specify multiple ENV
+env_list:
+   PATH: &quot;/opt/nvidia/graph-composer:$PATH&quot;
+   LD_LIBRARY_PATH: &quot;/opt/nvidia/graph-composer/:$LD_LIBRARY_PATH&quot;
+
+# specify ENTRYPOINT
+#entrypoint: [&quot;/opt/nvidia/graph-composer/gxe&quot;]
+
+# Container Builder Main Control Section
+---  # delimiter required
+container_builder: main # required, any string is ok for name
+graph: # optional
+   graph_files: [deepstream-test1.yaml] # graph file in local
+   graph_dst: /workspace/test/  # destination path in target image
+
+   # extension manifest location in target image
+   manifest_dst: /workspace/test/
+
+   # extensions installed location in target image
+   ext_install_root: /workspace/test/
+
+# docker build options
+docker_build:
+   image_name: deepstream_test1:nvgcb_test
+   no_cache: true
+   squash: false
+
+# docker push list to cloud, optional
+# username/password are optional if $docker login already ran
+docker_push:
+-  url: &quot;nvcr.io/nvidian/user/deepstream_test1:nvgcb_test&quot;
+   Username:
+   password:
+</pre></div>
+</div>
+</section>
+<section id="a-multi-stage-example">
+<h2>A Multi-Stage Example<a class="headerlink" href="GraphComposer_Container_Builder.html#a-multi-stage-example" title="Link to this heading">#</a></h2>
+<p>This example shows a multi-stage build. The <code class="docutils literal notranslate"><span class="pre">download_stage</span></code> within compile_stage model would download all ONNX models from a private git repo with <code class="docutils literal notranslate"><span class="pre">netrc</span></code> file for permissions. The final image would copy a specific file out of <code class="docutils literal notranslate"><span class="pre">download_stage</span></code> into the final image location.
+The <code class="docutils literal notranslate"><span class="pre">download_stage</span></code> would be lost as some intermediate layers and the final image is clean to keep minimal dependencies and get rid of <code class="docutils literal notranslate"><span class="pre">netrc</span></code> files.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># use compile_stage to download all models through git
+---
+unique_stage: download_stage
+base_image: &quot;ubuntu:22.04&quot;
+stage_model: compile_stage
+
+
+# copy netrc file into compile stage for git clone
+local_copy_files:
+- src: &quot;/home/user/.netrc&quot;
+  dst: &quot;/root/.netrc&quot;
+
+# download models into folder /download/models
+git_repo_list:
+- repo_folder: /downloads/models
+  url: https://privatehost/user/models #a private host require netrc
+  tag: master
+
+# use clean_stage for final image output
+---
+# Final Stage
+unique_stage: final_image
+base_image: &quot;ubuntu:22.04&quot;
+stage_model: clean_stage
+
+# copy a specific file out of download_stage into final_image
+stage_copy_files:
+- src_stage: &quot;download_stage&quot;
+  src: &quot;/downloads/models/modelA.onnx&quot;
+  dst: &quot;/data/modelA.onnx&quot;
+
+# Container builder main control settings
+---
+# Container Builder Config
+container_builder: builder_name # required
+docker_build:
+  image_name: &quot;cb_multi_stage:cb_test&quot;
+  # specify step orders in case multiple stages out of order
+  stage_steps: [download_stage, final_image]
+  no_cache: true
+</pre></div>
+</div>
+</section>
+<section id="container-builder-main-control-section-specification">
+<h2>Container builder main control section specification<a class="headerlink" href="GraphComposer_Container_Builder.html#container-builder-main-control-section-specification" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All fields with <cite>/*dst</cite> ends with ‘/’ means that is a folder path on the target image. <cite>/*src</cite> depends on the real source path.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Container Builder Control Specification</span><a class="headerlink" href="GraphComposer_Container_Builder.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Fields</p></td>
+<td><p>Description</p></td>
+<td><p>Type and Range</p></td>
+<td><p>Example Notes</p></td>
+</tr>
+<tr class="row-even"><td><p>container_builder</p></td>
+<td><p>The control section name</p></td>
+<td><p>string, required</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">container_builder</span><span class="p">:</span><span class="w"> </span><span class="n">main</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>graph</p></td>
+<td><p>A dictionary with graph file, extension and registry setting</p></td>
+<td><p>dictionary, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">graph_files</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">test1</span><span class="p">.</span><span class="n">yaml</span><span class="p">]</span>
+<span class="w">  </span><span class="nl">manifest_dst</span><span class="p">:</span><span class="w">    </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">test</span><span class="o">/</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>graph.graphfiles</p></td>
+<td><p>Deepstream gxf graph files in YAML format, which could be generated by Composer</p></td>
+<td><p>list[string], required for graph</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">graph_files</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">test1</span><span class="p">.</span><span class="n">yaml</span><span class="p">,</span><span class="w"> </span><span class="n">test2</span><span class="p">.</span><span class="n">yaml</span><span class="p">]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>graph.graph_dst</p></td>
+<td><p>Destination in target image for the graph files. If not provided, User can decide to copy from through stage build</p></td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">graph_dst</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">test1</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Must specify a folder path if multiple graph_files exists.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>graph.manifest_dst</p></td>
+<td><p>Destination in target image for the manifest files</p></td>
+<td><p>string, required for graph</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">manifest_dst</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">test</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Must specify a folder path if multiple graph_files exists.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>graph.ext_install_root</p></td>
+<td><p>Destination in target image for graph extensions prefix directory</p></td>
+<td><p>string, optional</p>
+<p>depends on registry behavior is not set</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">ext_install_root</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">graph</span><span class="o">-</span><span class="n">composer</span>
+</pre></div>
+</div>
+<p>Must specify a folder path</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>docker_build.image_name</p></td>
+<td><p>target image name with tag</p></td>
+<td><p>string, optional</p>
+<p>if absent, a random name would be used</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">image_name</span><span class="p">:</span><span class="w"> </span><span class="n">nvgcb_test</span><span class="o">:</span><span class="mf">21.04</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>docker_build.no_cache</p></td>
+<td><p>Build with cache or not
+Cache is disabled by default</p></td>
+<td><p>bool, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">no_cache</span><span class="p">:</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>docker_build.squash</p></td>
+<td><p>Squash image layers to reduce image size, need enable experimental in docker, check prerequisites.</p>
+<p>Note: not all layers support squash, if some layers failed, need disable squash</p>
+</td>
+<td><p>bool, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">squash</span><span class="p">:</span><span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>docker_build.network</p></td>
+<td><p>Network mode for docker build</p></td>
+<td><p>string, optional</p>
+<p>Default value is <code class="docutils literal notranslate"><span class="pre">host</span></code></p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">network</span><span class="p">:</span><span class="w"> </span><span class="n">host</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>docker_build.stage_steps</p></td>
+<td><p>The sequence of stage build sections, available when multi-stage build enabled.</p></td>
+<td><p>list[string], optional</p>
+<p>If disabled, default sequence is the order of stage sections</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="nl">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="n">final_stage</span>
+<span class="p">...</span>
+<span class="o">---</span>
+<span class="nl">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="n">download_stage</span>
+<span class="p">...</span>
+<span class="o">---</span>
+<span class="nl">docker_build</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">stage_steps</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="n">download_stage</span><span class="p">,</span><span class="w"> </span><span class="n">final_stage</span><span class="p">]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>docker_push</p></td>
+<td><p>A list of remote image repos for docker to push. each item have a url for remote repo with tag</p></td>
+<td><p>list[dict], optional</p>
+<p>Must if you intend to use the multi-arch feature</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_push</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/user/repo1:cb_test1&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;gitlab/user/repo1:cb_test1&quot;</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>docker_push.url</p></td>
+<td><p>Each url is a remote image repo and tag names.</p></td>
+<td><p>string, required for docker_push</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_push</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/user/repo1:cb_test1&quot;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>docker_push.username</p></td>
+<td><p>username to login the remote repo server</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Note:</strong> it is not required if user already have ran $docker login server:port</p>
+</td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_push</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/user/repo1:cb_test1&quot;</span>
+<span class="w">  </span><span class="nl">username</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">user</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>docker_push.password</p></td>
+<td><p>text password to login the remote repo server</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Note:</strong> it is not required if user already have ran $docker login server:port</p>
+</td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_push</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/user/repo1:cb_test1&quot;</span>
+<span class="w">  </span><span class="nl">username</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">user</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="nl">password</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>docker_push.password_env</p></td>
+<td><p>A variable name of the global OS environment which stores the password. This can avoid user expose text password in config file</p>
+<p><strong>Note:</strong> it is not required if user already have ran $docker login</p>
+</td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">docker_push</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/user/repo1:cb_test1&quot;</span>
+<span class="w">  </span><span class="nl">username</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">user</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="nl">password_env</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span><span class="n">TOKEN</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>debug</p></td>
+<td><p>Some debug info and reserve some intermediate state</p></td>
+<td><p>dictionary, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">debug</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">docker_file</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dockerfile</span>
+<span class="w">  </span><span class="nl">docker_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">docker_folder</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>debug.docker_file</p></td>
+<td><p>Preserve the generated dockerfile for debug</p></td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">debug</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">docker_file</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dockerfile</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>debug.docker_folder</p></td>
+<td><p>Preserve the generated docker folder for debug</p></td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">debug</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">docker_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">docker_folder</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="container-dockerfile-stage-section-specification">
+<h2>Container dockerfile stage section specification<a class="headerlink" href="GraphComposer_Container_Builder.html#container-dockerfile-stage-section-specification" title="Link to this heading">#</a></h2>
+<p>The table below lists both <code class="docutils literal notranslate"><span class="pre">compile_stage</span></code> and clean_stage sections configuration specification. Most fields are common for both stage models. Only clean_stage should be used for the final stage. In addition, users should keep in mind stages of <code class="docutils literal notranslate"><span class="pre">compile_stage</span></code> are not optimized and may have extra packages and files not required for final output.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All fields with <cite>*dst</cite> ends with ‘/’ means that is a folder path on the target image. <cite>*src</cite> depends on the real source path.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Container Builder Dockerfile Stage Specification</span><a class="headerlink" href="GraphComposer_Container_Builder.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Fields</p></td>
+<td><p>Description</p></td>
+<td><p>Type and
+Range</p></td>
+<td><p>Example Notes</p></td>
+<td><p>Stage
+compile_stage /
+clean_stage</p></td>
+</tr>
+<tr class="row-even"><td><p>target</p></td>
+<td><p>A graph target key,
+which corresponds to a target configuration
+, used by registry during graph install</p></td>
+<td><p>string,
+optional
+Choose from</p>
+<ul class="simple">
+<li><p>x86</p></li>
+<li><p>aarch64</p></li>
+</ul>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">target</span><span class="p">:</span><span class="w"> </span><span class="n">x86</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>unique_stage</p></td>
+<td><p>A unique
+name on the
+present stage,
+It is also used
+for dockerfile
+target name</p></td>
+<td><p>string,
+required</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="n">final_image</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>base_image</p></td>
+<td><p>Specify a
+stage name or
+a remote/local
+image for
+which the
+current target
+stage is
+based on.</p></td>
+<td><p>string,
+Optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">base_image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ubuntu:22.04&quot;</span>
+</pre></div>
+</div>
+<p>For auto selection based on specified dependencies</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">base_image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;auto&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>platform</p></td>
+<td><p>Specify the
+platform of the
+base_image
+in case it has
+same name in
+multiple
+platforms</p></td>
+<td><p>string,
+optional
+Choose from</p>
+<ul class="simple">
+<li><p>linux/amd64</p></li>
+<li><p>linux/arm64</p></li>
+</ul>
+<p>Default
+value:
+linux/amd64</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">platform</span><span class="p">:</span><span class="w"> </span><span class="n">linux</span><span class="o">/</span><span class="n">amd64</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>stage_model</p></td>
+<td><p>Which
+stage_model
+the config file
+would be
+used to build
+this stage</p></td>
+<td><p>string,
+optional
+Choose
+from</p>
+<ul class="simple">
+<li><p>clean_stage</p></li>
+<li><p>compile_stage</p></li>
+</ul>
+<p>Default
+value:
+clean_stage</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_model</span><span class="p">:</span><span class="w"> </span><span class="n">clean_stage</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>build_args</p></td>
+<td><p>A dictionary of
+build
+arguments on
+top of the
+autogenerate
+d docker file.
+The
+arguments
+could be used
+for docker and
+other
+cmdlines</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">build_args</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">CURL_PACK</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;curl&quot;</span>
+
+<span class="nl">apt_deps</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="s">&quot;$CURL_PACK&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>apt_deps</p></td>
+<td><p>A list of
+debian
+package
+names for apt
+install</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">apt_deps</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">curl</span>
+<span class="o">-</span><span class="w"> </span><span class="n">ca</span><span class="o">-</span><span class="n">certificates</span>
+<span class="o">-</span><span class="w"> </span><span class="n">zip</span><span class="o">=</span><span class="mf">3.0</span><span class="mi">-11</span><span class="n">build1</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>pip3_deps</p></td>
+<td><p>A list of
+Python
+package
+names for
+pip3 install.
+Note: user
+need specify
+apt_deps to
+install
+python3-pip in
+config file</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">pip3_deps</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">PyGObject</span>
+<span class="o">-</span><span class="w"> </span><span class="n">PyYAML</span>
+<span class="o">-</span><span class="w"> </span><span class="n">result</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>resources_files</p></td>
+<td><p>A list of resources
+files describing resources
+to copy to the container</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">resources_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">resources1</span><span class="p">.</span><span class="n">yaml</span>
+<span class="o">-</span><span class="w"> </span><span class="n">resources2</span><span class="p">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>local_copy_files</p></td>
+<td><p>A list file
+names to
+copy from
+local
+files/folders to
+destination
+path of stage
+image</p></td>
+<td><p>list[dict],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/graph-composer/gxe&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/bin/&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="n">deepstream</span><span class="o">-</span><span class="n">test1</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="n">folder</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">local</span><span class="p">)</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/workspace/deepstream-test1&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>local_copy_files.src</p></td>
+<td><p>Specify a
+file/folder
+name in the
+local machine.
+A relative path
+is relative to
+the config file</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/graph-composer/gxe&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/bin/&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="n">deepstream</span><span class="o">-</span><span class="n">test1</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/workspace/deepstream-test1&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>local_copy_files.dst</p></td>
+<td><p>Specify an
+absolute path
+location in the
+target image
+stage.
+If src is
+absolute path
+and dst is
+empty, dst
+would be
+same path as
+src
+Read note on
+top of the
+section about
+dst folders
+policy</p></td>
+<td><p>string,
+optional</p></td>
+<td><p>Local file example</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/graph-composer/gxe&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/graph-composer/gxe&quot;</span>
+</pre></div>
+</div>
+<p>Alternatives for dst.</p>
+<p>1. dst is empty</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">dst</span><span class="p">:</span>
+
+<span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/graph-composer&quot;</span>
+</pre></div>
+</div>
+<p>2. local folder example</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samplefolder&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/data/samplefolder&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>stage_copy_files</p></td>
+<td><p>A list of
+StageCopyStr
+ucture to copy
+files across
+multiple
+stages and
+multiple
+images</p></td>
+<td><p>list[dict],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/public/image:xxxx&quot;</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samples&quot;</span>
+<span class="n">An</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">src</span><span class="w"> </span><span class="n">path</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>stage_copy_files.src_stage</p></td>
+<td><p>Specify a
+stage name or
+a image name
+where the src
+files come
+from</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/public/image:xxxx&quot;</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samples&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&lt;compile_stage_name&gt;&quot;</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/bin&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>stage_copy_files.sr
+c</p></td>
+<td><p>Specify a
+file/folder
+name in
+src_stage
+image/stage.
+Note:
+absolute path
+is
+recommended
+to avoid
+conflicts</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/public/image:xxxx&quot;</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samples&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>stage_copy_files.dst</p></td>
+<td><p>Specify a file/folder name in target stage.</p>
+<p>Note: absolute path is recommended to avoid conflicts, an empty dst is same path as src</p>
+</td>
+<td><p>string, optional</p>
+<p>default: empty value is same path as src</p>
+</td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;nvcr.io/public/image:xxxx&quot;</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samples&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/nvidia/samples&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>http_archives</p></td>
+<td><p>A list of HTTP archive structures to download and custom install.</p>
+<p>Note:
+Base image/stage should have curl/ca-certificates otherwise need users specify them in apt_deps.
+Archives are downloaded into a temp folder and later auto-cleaned. User need specify an absolute path for filename if don’t want it auto-cleaned</p>
+</td>
+<td><p>list[dict], optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/installer.sh</span>
+<span class="w">  </span><span class="nl">post_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bash installer.sh&quot;</span>
+<span class="w">  </span><span class="nl">post_env</span><span class="p">:</span>
+<span class="w">    </span><span class="nl">key</span><span class="p">:</span><span class="w"> </span><span class="n">PATH</span>
+<span class="w">    </span><span class="nl">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/root/bin:$PATH&quot;</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/sample.mp4</span>
+<span class="w">  </span><span class="nl">filename</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">video</span><span class="o">/</span><span class="n">sample</span><span class="p">.</span><span class="n">mp4</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>http_archives.url</p></td>
+<td><p>Specify a url to download the archive</p></td>
+<td><p>string, required for http_archives</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/installer.sh</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>http_archives.filename</p></td>
+<td><p>Rename the downloaded file
+It could be:
+a. Empty, parse the last field in the url path as filename and download into a temporary folder and recycle later.
+b. A filename without a path will make the archive downloaded into a temporary folder and recycled later.
+c. An absolute path will make the archive downloaded into the path on the target image and keep it there without being recycled.
+d. A relative path is not supported and causes undefined results.</p></td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/sample.mp4</span>
+<span class="w">  </span><span class="nl">filename</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">video</span><span class="o">/</span><span class="n">sample</span><span class="p">.</span><span class="n">mp4</span>
+</pre></div>
+</div>
+<p>same as</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/sample.mp4</span>
+<span class="w">  </span><span class="nl">filename</span><span class="p">:</span><span class="w"> </span><span class="n">sample</span><span class="p">.</span><span class="n">mp4</span>
+<span class="w">  </span><span class="nl">post_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cp -a sample.mp4 /opt/nvidia/video/sample.mp4&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>http_archives.post_cmd</p></td>
+<td><p>Specify how to install the archive during stage build</p></td>
+<td><p>string, optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/installer.sh</span>
+<span class="w">  </span><span class="nl">post_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;chmod a+x installer.sh &amp;&amp; ./installer.sh&quot;</span>
+</pre></div>
+</div>
+<p>The default filename is installer.sh</p>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>http_archives.post_env</p></td>
+<td><p>Specify a
+environment
+setting after
+download and
+install this
+archive
+The
+environment
+variable has a
+key:string and
+value:string.
+key and value
+settings must
+follow Linux
+Shell
+environment
+variable rules</p></td>
+<td><p>dict[key,
+value],
+optional
+key:string
+value:
+string</p></td>
+<td><p>Refine environment PATH=/root/bin:$PATH</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/installer.sh</span>
+<span class="w">  </span><span class="nl">post_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;bash installer.sh&quot;</span>
+<span class="w">  </span><span class="nl">post_env</span><span class="p">:</span>
+<span class="w">    </span><span class="nl">key</span><span class="p">:</span><span class="w"> </span><span class="n">PATH</span>
+<span class="w">    </span><span class="nl">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/root/bin:$PATH&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>http_archives.curl_option</p></td>
+<td><p>Specify extra
+curl
+options(e.g.
+permissions)
+while
+downloading
+archives.</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/sample.mp4</span>
+<span class="w">  </span><span class="nl">curl_option</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-u user:token&quot;</span>
+<span class="w">  </span><span class="nl">filename</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sample</span><span class="p">.</span><span class="n">mp4</span>
+</pre></div>
+</div>
+<p>An example copy netrc file to image
+for curl and remove after archives
+downloaded</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/home/user/.netrc&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/root/.netrc&quot;</span>
+<span class="nl">http_archives</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//host/download/sample.mp4</span>
+<span class="w">  </span><span class="nl">curl_option</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;-n&quot;</span>
+<span class="w">  </span><span class="nl">filename</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sample</span><span class="p">.</span><span class="n">mp4</span>
+<span class="nl">custom_runs</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="s">&quot;rm -rf /root/.netrc&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>git_repo_list</p></td>
+<td><p>A list of git
+repo to clone,
+download and
+do custom
+build from
+source.
+User can use
+multi-stage
+config files to
+build source
+code and
+stage copy
+binaries to
+final stage</p></td>
+<td><p>list[dict],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="nl">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="n">compile_1</span>
+<span class="nl">stage_model</span><span class="p">:</span><span class="w"> </span><span class="n">compile_stage</span>
+<span class="nl">git_repo_list</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/org/project</span>
+<span class="w">  </span><span class="nl">repo_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">project</span>
+<span class="w">  </span><span class="nl">tag</span><span class="p">:</span><span class="w"> </span><span class="n">master</span>
+<span class="w">  </span><span class="nl">build_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./autogen.sh &amp;&amp; make &amp;&amp; make install&quot;</span>
+<span class="o">---</span>
+<span class="nl">unique_stage</span><span class="p">:</span><span class="w"> </span><span class="k">final</span>
+<span class="nl">stage_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src_stage</span><span class="o">:</span><span class="w"> </span><span class="n">compile_1</span>
+<span class="w">  </span><span class="nl">src</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/local/bin/binary&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/bin/binary&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-odd"><td><p>git_repo_list.url</p></td>
+<td><p>Specify a url
+to git fetch the
+repo souce
+code</p></td>
+<td><p>string,
+required
+for
+git_repo_list</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">git_repo_list</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/org/project</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-even"><td><p>git_repo_list.tag</p></td>
+<td><p>Specify a
+exact
+tag/branch/co
+mmit-id of the
+git repo to
+fetch</p></td>
+<td><p>string,
+required
+for
+git_repo_li
+st</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">git_repo_list</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/org/project</span>
+<span class="w">  </span><span class="nl">tag</span><span class="p">:</span><span class="w"> </span><span class="n">master</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-odd"><td><p>git_repo_list.repo_folder</p></td>
+<td><p>Specify
+abosulate
+folder path in
+target stage to
+store the repo
+files</p></td>
+<td><p>string,
+required
+for
+git_repo_li
+st</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">git_repo_list</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/org/project</span>
+<span class="w">  </span><span class="nl">tag</span><span class="p">:</span><span class="w"> </span><span class="n">master</span>
+<span class="w">  </span><span class="nl">repo_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">project</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-even"><td><p>git_repo_list.build_cmd</p></td>
+<td><p>Specify
+custom shell
+cmdline how
+to build and
+install the
+repo from
+source</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">stage_model</span><span class="p">:</span><span class="w"> </span><span class="n">compile_stage</span>
+<span class="nl">git_repo_list</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/org/project</span>
+<span class="w">  </span><span class="nl">tag</span><span class="p">:</span><span class="w"> </span><span class="n">master</span>
+<span class="w">  </span><span class="nl">repo_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">project</span>
+<span class="w">  </span><span class="nl">build_cmd</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;./autogen.sh &amp;&amp; make &amp;&amp; make install&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssh_key_host_copy</p></td>
+<td><p>Enable to
+automatically
+copy
+<code class="docutils literal notranslate"><span class="pre">$HOME/.ssh/</span></code>
+config
+<code class="docutils literal notranslate"><span class="pre">$HOME/.ssh/id_rsa</span></code>
+into compile
+stage
+<code class="docutils literal notranslate"><span class="pre">/root/.ssh/</span></code>
+and ssh-keyscan all
+host in
+git_repo_list</p>
+<p><strong>Note:</strong> It is not
+recommended
+to use but
+could be
+useful for
+some git repo
+requires SSH
+keys.
+Users should
+be careful to
+enable it since
+it might
+expose the
+private key in
+the compile
+stage.</p>
+</td>
+<td><p>string,
+optional
+Default
+value:
+false</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">ssh_key_host_copy</span><span class="p">:</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+</td>
+<td><p>compile_stage only</p></td>
+</tr>
+<tr class="row-even"><td><p>work_folder</p></td>
+<td><p>Specify
+workspace
+folder in
+image stage
+for default
+folder when
+launch the
+container</p></td>
+<td><p>string,
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">work_folder</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">deepstream</span><span class="o">/</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>custom_runs</p></td>
+<td><p>A list of
+custom RUNs
+at the end of
+the docker
+build</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">local_copy_files</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">src</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;mypackage.deb&quot;</span>
+<span class="w">  </span><span class="nl">dst</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/tmp/&quot;</span>
+<span class="nl">custom_runs</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="s">&quot;dpkg -i /tmp/mypackage.deb &amp;&amp; rm -rf /tmp/*.deb&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>disable_run_true</p></td>
+<td><p>Auto
+generated
+dockerfile
+have a RUN
+true between
+each copy in
+locals and
+stages. It’s a
+workaround
+for docker
+build in some
+cases report
+copy errors.
+It is
+recommended
+to keep
+default value
+before
+docker’s fix
+but still keep
+an option for
+users to
+update.</p></td>
+<td><p>bool,
+optional
+Default
+value:
+false</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">disable_run_true</span><span class="p">:</span><span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+</td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-odd"><td><p>env_list</p></td>
+<td><p>Specify a list
+of custom
+environment
+settings at the
+end of docker
+build</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">env_list</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">PATH</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/bin/:$PATH&quot;</span>
+<span class="w">  </span><span class="nl">LD_LIBRARY_PATH</span><span class="p">:</span><span class="s">&quot;/opt/lib/:$LD_LIBRARY_PATH&quot;</span>
+<span class="w">  </span><span class="nl">DISPLAY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;:0&quot;</span>
+</pre></div>
+</div>
+</td>
+<td><p>clean_stage only</p></td>
+</tr>
+<tr class="row-even"><td><p>entrypoint</p></td>
+<td><p>Specify a
+string list of
+entrypoint for
+the image</p></td>
+<td><p>list[string],
+optional</p></td>
+<td><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">entrypoint</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;/opt/bin/entrypoint.sh&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;param1&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</td>
+<td><p>clean_stage only</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="GraphComposer_Composer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Composer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GraphComposer_gxf_CLI.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GXF Command Line Interface</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#container-builder-features">Container Builder Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#container-builder-tool-usage">Container Builder Tool Usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#multiarch-build">Multiarch Build</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#run-container-builder">Run Container Builder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#container-builder-configuration">Container Builder Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#a-basic-example-of-container-builder-configuration">A Basic Example of Container Builder Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#a-multi-stage-example">A Multi-Stage Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#container-builder-main-control-section-specification">Container builder main control section specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="GraphComposer_Container_Builder.html#container-dockerfile-stage-section-specification">Container dockerfile stage section specification</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../../../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 13, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

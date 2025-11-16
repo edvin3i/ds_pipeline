@@ -1,0 +1,1067 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Docker Containers &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_docker_containers';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C/C++ Sample Apps Source Details" href="DS_C_Sample_Apps.html" />
+    <link rel="prev" title="Quickstart Guide" href="DS_Quickstart.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_docker_containers.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_docker_containers.html#">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Docker Containers</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="docker-containers">
+<span id="triton-dockers-ffmpeg-command"></span><h1>Docker Containers<a class="headerlink" href="DS_docker_containers.html#docker-containers" title="Link to this heading">#</a></h1>
+<p>DeepStream 7.1 provides Docker containers for dGPU on both x86 and ARM platforms (like SBSA, GH100, etc.,) and Jetson platforms. These containers provide a convenient, out-of-the-box way to deploy DeepStream applications by packaging all associated dependencies within the container. The associated Docker images are hosted on the NVIDIA container registry in the NGC web portal at <a class="reference external" href="https://ngc.nvidia.com">https://ngc.nvidia.com</a>. They use the <code class="docutils literal notranslate"><span class="pre">nvidia-docker</span></code> package, which enables access to the required GPU resources from containers. This section describes the features supported by the DeepStream Docker container for dGPU on both x86 and ARM and Jetson platforms.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The DeepStream 7.1 containers for dGPU on x86 and ARM (SBSA) and Jetson are distinct, so you must get the right image for your platform.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With DS 7.1, DeepStream docker containers do not package libraries necessary for certain multimedia operations like audio data parsing, CPU decode, and CPU encode.
+This change could affect processing certain video streams/files like mp4 that include audio track.
+Run the below script inside the docker images to install additional packages (e.g. <cite>gstreamer1.0-libav</cite>, <cite>gstreamer1.0-plugins-good</cite>, <cite>gstreamer1.0-plugins-bad</cite>, <cite>gstreamer1.0-plugins-ugly</cite> as required) that might be necessary to use all of the DeepStreamSDK features:
+<code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/user_additional_install.sh</span></code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The script <code class="docutils literal notranslate"><span class="pre">prepare_classification_test_video.sh</span></code> present at <code class="docutils literal notranslate"><span class="pre">/opt/nvidia/deepstream/deepstream/samples</span></code> requires <code class="docutils literal notranslate"><span class="pre">ffmpeg</span></code> to be installed. Some of the low level codec libraries need to be re-installed along with ffmpeg.</p></li>
+<li><p>Use the following command to install/re-install  ffmpeg: <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">--reinstall</span> <span class="pre">libflac8</span> <span class="pre">libmp3lame0</span> <span class="pre">libxvidcore4</span> <span class="pre">ffmpeg</span></code></p></li>
+</ul>
+</div>
+</div></blockquote>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="DS_docker_containers.html#prerequisites" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Install <code class="code docutils literal notranslate"><span class="pre">docker-ce</span></code> by following the <a class="reference external" href="https://docs.docker.com/engine/install">official instructions</a>.</p>
+<p>Once you have installed <cite>docker-ce</cite>, follow the <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-installation steps</a> to ensure that the
+docker can be run without <code class="code docutils literal notranslate"><span class="pre">sudo</span></code>.</p>
+</li>
+<li><p>Install <code class="code docutils literal notranslate"><span class="pre">nvidia-container-toolkit</span></code> by following the <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">install-guide</a>.</p>
+</li>
+<li><p>Get an <a class="reference external" href="https://ngc.nvidia.com/">NGC</a> account and API key:</p>
+<ol class="loweralpha simple">
+<li><p>Go to NGC and search the <strong>DeepStream</strong> in the <strong>Container</strong> tab. This
+message is displayed: “Sign in to access the PULL feature of this repository”.</p></li>
+<li><p>Enter your Email address and click <strong>Next</strong>, or click <strong>Create an Account</strong>.</p></li>
+<li><p>Choose your organization when prompted for <strong>Organization/Team</strong>.</p></li>
+<li><p>Click <strong>Sign In</strong>.</p></li>
+</ol>
+</li>
+<li><p>Log in to the NGC docker registry (<code class="code docutils literal notranslate"><span class="pre">nvcr.io</span></code>) using the command
+<code class="code docutils literal notranslate"><span class="pre">docker</span> <span class="pre">login</span> <span class="pre">nvcr.io</span></code> and enter the following credentials:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>a.<span class="w"> </span>Username:<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$oauthtoken</span><span class="s2">&quot;</span>
+b.<span class="w"> </span>Password:<span class="w"> </span><span class="s2">&quot;YOUR_NGC_API_KEY&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>where <code class="code docutils literal notranslate"><span class="pre">YOUR_NGC_API_KEY</span></code> corresponds to the key you generated from step 3.</p>
+</li>
+</ol>
+<p>Sample commands to run a docker container:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp"># Pull the required docker.  Refer Docker Containers table to get docker container name.</span>
+<span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="o">&lt;</span><span class="n">required</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="n">name</span><span class="o">&gt;</span>
+<span class="cp"># Step to run the docker</span>
+<span class="n">$</span><span class="w"> </span><span class="k">export</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=:</span><span class="mi">0</span>
+<span class="n">$</span><span class="w"> </span><span class="n">xhost</span><span class="w"> </span><span class="o">+</span>
+<span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">net</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">--</span><span class="n">gpus</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="n">DISPLAY</span><span class="o">=</span><span class="n">$DISPLAY</span><span class="w"> </span><span class="o">--</span><span class="n">device</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">snd</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="o">/:/</span><span class="n">tmp</span><span class="o">/</span><span class="p">.</span><span class="n">X11</span><span class="o">-</span><span class="n">unix</span><span class="w"> </span><span class="o">&lt;</span><span class="n">required</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="a-docker-container-for-dgpu">
+<h2>A Docker Container for dGPU<a class="headerlink" href="DS_docker_containers.html#a-docker-container-for-dgpu" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://ngc.nvidia.com/catalog/containers?orderBy=modifiedDESC&amp;pageNumber=0&amp;query=&amp;quickFilter=containers&amp;filters=">Containers</a> page in the NGC web portal gives instructions for pulling and running the container, along with a description of its contents. The dGPU container is called <code class="docutils literal notranslate"><span class="pre">deepstream</span></code> and the Jetson container is called <code class="docutils literal notranslate"><span class="pre">deepstream-l4t</span></code>.
+Unlike the container in DeepStream 3.0, the dGPU DeepStream 7.1 container supports DeepStream application development within the container. It contains the same build tools and development libraries as the DeepStream 7.1 SDK.
+In a typical scenario, you build, execute and debug a DeepStream application within the DeepStream container. Once your application is ready, you can use the DeepStream 7.1 container as a base image to create your own Docker container holding your application files (binaries, libraries, models, configuration file, etc.,). Here is an example snippet of <cite>Dockerfile</cite> for creating your own Docker container:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">FROM</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-&lt;</span><span class="n">container</span><span class="w"> </span><span class="n">type</span><span class="o">&gt;</span>
+<span class="n">COPY</span><span class="w"> </span><span class="n">myapp</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">myapp</span>
+<span class="cp"># To get video driver libraries at runtime (libnvidia-encode.so/libnvcuvid.so)</span>
+<span class="n">ENV</span><span class="w"> </span><span class="n">NVIDIA_DRIVER_CAPABILITIES</span><span class="w"> </span><span class="n">$NVIDIA_DRIVER_CAPABILITIES</span><span class="p">,</span><span class="n">video</span>
+</pre></div>
+</div>
+<p>This <cite>Dockerfile</cite> copies your application (from directory <code class="docutils literal notranslate"><span class="pre">mydsapp</span></code>) into the container (<code class="docutils literal notranslate"><span class="pre">pathname</span> <span class="pre">/root/apps</span></code>). Note that you must ensure the DeepStream 7.1 image location from NGC is accurate.</p>
+<p>Table below lists the docker containers for dGPU released with DeepStream 7.1:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id2">
+<caption><span class="caption-text">Docker Containers for dGPU</span><a class="headerlink" href="DS_docker_containers.html#id2" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Container</p></th>
+<th class="head"><p>Container pull commands</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Triton devel docker (contains the entire SDK along with a development environment for building DeepStream applications and graph composer)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-gc-triton-devel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Triton Inference Server docker with Triton Inference Server and dependencies installed along with a development environment for building DeepStream applications</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-triton-multiarch</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>DeepStream samples docker (contains the runtime libraries, GStreamer plugins, reference applications and sample streams, models and configs)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-samples-multiarch</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>See the <cite>DeepStream 7.1 Release Notes</cite> for information regarding <code class="docutils literal notranslate"><span class="pre">nvcr.io</span></code> authentication and more.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference external" href="https://ngc.nvidia.com/catalog/containers/nvidia:deepstream">dGPU container</a> on NGC for more details and instructions to run the dGPU containers.</p>
+</div>
+<section id="suggested-setup-for-video-subsystem-on-x86-dgpu-docker">
+<h3>Suggested Setup for Video Subsystem on x86 dGPU docker<a class="headerlink" href="DS_docker_containers.html#suggested-setup-for-video-subsystem-on-x86-dgpu-docker" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not affect dGPUs which utilize Nvidia Driver 560 series on RTX series.</p>
+</div>
+<p>DeepStream 7.1 supports Cuda-12.6 in the compute stack and also in the docker container by default. Data Center GPUs are currently only supported by driver 535.183.06, which comes with Cuda-12.2 driver by default.</p>
+<p>Even though CUDA supports forward compatibility with newer runtime versions like Cuda-12.6, other components such as Cuda-GL Interop do not support forward compatibility and might not work as expected which are required for display sink to work.
+Hence, for other components such as Cuda-GL Interop to work, Cuda-12.2 toolkit also must be installed along with the default Cuda-12.6 runtime inside the docker container.</p>
+<p>For users who need to use/enable display output, following steps are suggested inside the docker to implement this workaround:</p>
+<ol class="arabic simple">
+<li><p>Start the docker as shown in the step above.</p></li>
+<li><p>Install cuda-toolkit-12-2. Please follow <a class="reference external" href="https://developer.nvidia.com/cuda-12-2-2-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=Ubuntu&amp;target_version=22.04&amp;target_type=deb_local">these instructions</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PLEASE</span> <span class="pre">NOTE</span></code>: From the Cuda-12 installation instructions mentioned in link above, please replace : <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda</span></code> with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">-y</span> <span class="pre">install</span> <span class="pre">cuda-toolkit-12-2</span></code></p></li>
+<li><p>Change default CUDA version to point to Cuda-12.2 inside the docker using update alternatives: <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--set</span> <span class="pre">cuda</span> <span class="pre">/usr/local/cuda-12.2</span></code></p></li>
+<li><p>To check which version of CUDA is currently in use inside the docker, run : <code class="docutils literal notranslate"><span class="pre">update-alternatives</span> <span class="pre">--display</span> <span class="pre">cuda</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">Similar limitation is also present for dGPU driver 550, which comes with Cuda-12.4 by default and Cuda-12.6 based docker containers which need to use/enable display.</div>
+<div class="line">For users who need to use/enable display on systems using dGPU driver 550, please enable cuda-toolkit-12-4 in addition to Cuda-12.6 inside the container by following similar steps as above.</div>
+<div class="line">Replace step no. 2 with cuda-toolkit-12-4 installation instructions <a class="reference external" href="https://developer.nvidia.com/cuda-12-4-1-download-archive?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=Ubuntu&amp;target_version=22.04&amp;target_type=deb_local">found here</a></div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-docker-container-for-jetson">
+<h2>A Docker Container for Jetson<a class="headerlink" href="DS_docker_containers.html#a-docker-container-for-jetson" title="Link to this heading">#</a></h2>
+<p>As of JetPack release 4.2.1, <a class="reference external" href="https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson">NVIDIA Container Runtime</a> for Jetson has been added, enabling you to run GPU-enabled containers on Jetson devices. Using this capability, DeepStream 7.1 can be run inside containers on Jetson devices using Docker images on NGC.
+Pull the container and execute it according to the instructions on the <a class="reference external" href="https://ngc.nvidia.com/catalog/containers?orderBy=modifiedDESC&amp;pageNumber=0&amp;query=&amp;quickFilter=containers&amp;filters=">NGC Containers</a> page.
+The DeepStream container no longer expects CUDA, TensorRT to be installed on the Jetson device, because it is included within the container image.
+Make sure that the BSP is installed using JetPack and nvidia-container tools installed from Jetpack or apt server (See instructions below) on your Jetson prior to launching the DeepStream container.
+The Jetson Docker containers are for deployment only. They do not support DeepStream software development within a container. You can build applications natively on the Jetson target and create containers for them by adding binaries to your docker images. Alternatively, you can generate Jetson containers from your workstation using instructions in the <cite>Building Jetson Containers on an x86 Workstation</cite> section in the NVIDIA Container Runtime for Jetson documentation.
+The table below lists the docker containers for Jetson released with DeepStream 7.1:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id3">
+<caption><span class="caption-text">Docker Containers for Jetson</span><a class="headerlink" href="DS_docker_containers.html#id3" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 41.7%" />
+<col style="width: 58.3%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Container</p></th>
+<th class="head"><p>Container pull commands</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DeepStream samples docker
+(contains the runtime libraries, GStreamer plugins, reference applications and sample streams, models and configs)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-samples-multiarch</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>DeepStream Triton docker
+(contains contents of the samples docker plus devel libraries and Triton Inference Server backends)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-triton-multiarch</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the Jetson Triton Container an error message is printed “Failed to detect NVIDIA driver version” when running the docker. No impact on functionality is observed currently.</p>
+</div>
+<p>See the <cite>DeepStream 7.1 Release Notes</cite> for information regarding <code class="docutils literal notranslate"><span class="pre">nvcr.io</span></code> authentication and more.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference external" href="https://ngc.nvidia.com/catalog/containers/nvidia:deepstream-l4t">Jetson container</a> on NGC for more details and instructions to run the Jetson containers.</p>
+</div>
+</section>
+<section id="a-docker-container-for-dgpu-on-arm-igx-dgpu-gh100-gh200-sbsa">
+<h2>A Docker Container for dGPU on ARM (IGX/dGPU, GH100, GH200, SBSA)<a class="headerlink" href="DS_docker_containers.html#a-docker-container-for-dgpu-on-arm-igx-dgpu-gh100-gh200-sbsa" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://ngc.nvidia.com/catalog/containers?orderBy=modifiedDESC&amp;pageNumber=0&amp;query=&amp;quickFilter=containers&amp;filters=">Containers</a> page in the NGC web portal gives instructions for pulling and running the container, along with a description of its contents. The dGPU on ARM container is called <code class="docutils literal notranslate"><span class="pre">deepstream:&lt;version&gt;-triton-arm-sbsa</span></code> and the Jetson container is called <code class="docutils literal notranslate"><span class="pre">deepstream-l4t</span></code>.
+Unlike the container in DeepStream 3.0, the dGPU DeepStream 7.1 container supports DeepStream application development within the container. It contains the same build tools and development libraries as the DeepStream 7.1 SDK.
+In a typical scenario, you build, execute and debug a DeepStream application within the DeepStream container. Once your application is ready, you can use the DeepStream 7.1 container as a base image to create your own Docker container holding your application files (binaries, libraries, models, configuration file, etc.,). Here is an example snippet of <cite>Dockerfile</cite> for creating your own Docker container:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">FROM</span><span class="w"> </span><span class="n">nvcr</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">nvidia</span><span class="o">/</span><span class="n">deepstream</span><span class="o">:</span><span class="mf">7.1</span><span class="o">-&lt;</span><span class="n">container</span><span class="w"> </span><span class="n">type</span><span class="o">&gt;</span>
+<span class="n">COPY</span><span class="w"> </span><span class="n">myapp</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">myapp</span>
+<span class="cp"># To get video driver libraries at runtime (libnvidia-encode.so/libnvcuvid.so)</span>
+<span class="n">ENV</span><span class="w"> </span><span class="n">NVIDIA_DRIVER_CAPABILITIES</span><span class="w"> </span><span class="n">$NVIDIA_DRIVER_CAPABILITIES</span><span class="p">,</span><span class="n">video</span>
+</pre></div>
+</div>
+<p>This <cite>Dockerfile</cite> copies your application (from directory <code class="docutils literal notranslate"><span class="pre">mydsapp</span></code>) into the container (<code class="docutils literal notranslate"><span class="pre">pathname</span> <span class="pre">/root/apps</span></code>). Note that you must ensure the DeepStream 7.1 image location from NGC is accurate.</p>
+<p>Table below lists the docker containers for dGPU on ARM released with DeepStream 7.1:</p>
+<blockquote>
+<div><div class="pst-scrollable-table-container"><table class="table" id="id4">
+<caption><span class="caption-text">Docker Containers for dGPU on ARM</span><a class="headerlink" href="DS_docker_containers.html#id4" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Container</p></th>
+<th class="head"><p>Container pull commands</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Triton Inference Server docker with Triton Inference Server and dependencies installed along with a development environment for building DeepStream applications</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">nvcr.io/nvidia/deepstream:7.1-triton-arm-sbsa</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></blockquote>
+<p>See the <cite>DeepStream 7.1 Release Notes</cite> for information regarding <code class="docutils literal notranslate"><span class="pre">nvcr.io</span></code> authentication and more.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference external" href="https://ngc.nvidia.com/catalog/containers/nvidia:deepstream">dGPU on ARM container</a> on NGC for more details and instructions to run the dGPU on ARM (SBSA) containers.</p>
+</div>
+<section id="known-limitation-with-video-subsystem-and-workaround">
+<h3>Known Limitation with Video Subsystem and Workaround<a class="headerlink" href="DS_docker_containers.html#known-limitation-with-video-subsystem-and-workaround" title="Link to this heading">#</a></h3>
+<p>With DS 7.1 arm sbsa docker, video display will not work by default on dGPU on ARM systems. Please see section <a class="reference internal" href="DS_Installation.html#ds-installation-sbsa-known-limitation"><span class="std std-ref">Known Limitation with Video Subsystem and Workaround</span></a> for details and workaround.</p>
+</section>
+</section>
+<section id="creating-custom-deepstream-dockers-for-dgpu-or-jetson-using-deepstreamsdk-package">
+<h2>Creating custom DeepStream dockers for dGPU or Jetson using DeepStreamSDK package<a class="headerlink" href="DS_docker_containers.html#creating-custom-deepstream-dockers-for-dgpu-or-jetson-using-deepstreamsdk-package" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference external" href="https://github.com/NVIDIA-AI-IOT/deepstream_dockers">DeepStream Dockerfile Guide</a> on GitHub for more details.</p>
+</div>
+</div></blockquote>
+</section>
+<section id="recommended-minimal-l4t-setup-necessary-to-run-the-new-docker-images-on-jetson">
+<h2>Recommended Minimal L4T Setup necessary to run the new docker images on Jetson<a class="headerlink" href="DS_docker_containers.html#recommended-minimal-l4t-setup-necessary-to-run-the-new-docker-images-on-jetson" title="Link to this heading">#</a></h2>
+<p>Users are encouraged to install the L4T BSP alone from Jetpack and later use command line to install NVIDIA Container runtime from Debian repo
+to save space on the Jetson device.</p>
+<p>1. In Step 02 of <cite>sdkmanager</cite> Jetpack setup, select “Jetson OS” and de-select “Jetson SDK Components” to flash just the BSP.
+Refer to the screenshot below for reference.</p>
+<img alt="Gst-nvstreammux AV pipeline" class="align-center" src="../_images/DS_docker_containers_screenshot_BSP_only.png" />
+<ol class="arabic" start="2">
+<li><p>Instructions for installing nvidia-container from command line:</p>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Flash</span><span class="w"> </span><span class="n">BSP</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">Jetpack</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">boot</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo apt update&quot;</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo apt install docker.io&quot;</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo apt install nvidia-container&quot;</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo apt install nvidia-l4t-gstreamer&quot;</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo apt install nvidia-l4t-dla-compiler&quot;</span>
+
+<span class="n">Run</span><span class="w"> </span><span class="s">&quot;sudo service docker restart&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Quickstart.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quickstart Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_C_Sample_Apps.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">C/C++ Sample Apps Source Details</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#a-docker-container-for-dgpu">A Docker Container for dGPU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#suggested-setup-for-video-subsystem-on-x86-dgpu-docker">Suggested Setup for Video Subsystem on x86 dGPU docker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#a-docker-container-for-jetson">A Docker Container for Jetson</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#a-docker-container-for-dgpu-on-arm-igx-dgpu-gh100-gh200-sbsa">A Docker Container for dGPU on ARM (IGX/dGPU, GH100, GH200, SBSA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#known-limitation-with-video-subsystem-and-workaround">Known Limitation with Video Subsystem and Workaround</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#creating-custom-deepstream-dockers-for-dgpu-or-jetson-using-deepstreamsdk-package">Creating custom DeepStream dockers for dGPU or Jetson using DeepStreamSDK package</a><ul class="simple nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_docker_containers.html#recommended-minimal-l4t-setup-necessary-to-run-the-new-docker-images-on-jetson">Recommended Minimal L4T Setup necessary to run the new docker images on Jetson</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

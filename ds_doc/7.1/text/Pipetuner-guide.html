@@ -1,0 +1,1978 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pipetuner Guide &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/Pipetuner-guide';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html" />
+    <link rel="prev" title="GXF Command Line Interface" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="Pipetuner-guide.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="Pipetuner-guide.html#">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Pipetuner Guide</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pipetuner-guide">
+<h1>Pipetuner Guide<a class="headerlink" href="Pipetuner-guide.html#pipetuner-guide" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="Pipetuner-guide.html#introduction" title="Link to this heading">#</a></h2>
+<p>Pipelines for AI applications (e.g, intelligent video analytics) typically consist of a set of inference and processing modules, each of which typically has a distinct functionality implemented using corresponding logics and algorithms. Such logics and algorithms may have a number of parameters that determine the behavior and characteristics just like how the coefficients in a polynomial function shape the output of the function.</p>
+<p>When you are trying to define and use a data processing pipeline for your application, such process typically entails a series of evaluations of the pipeline outputs in terms of a set of KPIs with a different set of parameters with respect to the expected outputs. Such a process of differing parameters is to get the best KPI from the pipeline, and it is typically carried out by a tedious manual iterative process in practice or a simple exhaustive/random search might be used, as shown in Figure 1:</p>
+<img alt="Illustration of typical manual tuning process" class="align-center" src="../_images/Illustration-typical-manual-tuning-process.png" />
+<p>However, such a manual tuning process requires one to have in-depth knowledge on all the relevant data processing modules and their algorithms as well as how each parameter would affect the functionality. If the number of parameters is large in a pipeline, the complexity of the tuning would increase exponentially, and it would become a non-trivial task for ordinary users. In addition, tuning a pipeline for a particular use case or a dataset may negatively affect other use cases or a different dataset. Therefore, the tuning of a pipeline is an essential part of system deployment by users; yet it is one of the biggest challenges and pain points.</p>
+<p>PipeTuner is a tool that efficiently explores the (potentially very high-dimensional) parameter space and automatically finds the optimal parameters for the pipelines, which yields the highest KPI on the dataset provided by the user. An important advantage of using PipeTuner is that the users are not required to have technical knowledge on the pipeline and its parameters. Therefore, PipeTuner can make the seemingly-daunting task of pipeline tuning more accessible to a wider range of users in terms of technical knowledge.</p>
+<img alt="High-level Workflow of PipeTuner" class="align-center" src="../_images/High-level-Workflow.png" />
+<p>This document is a complete user guide for PipeTuner and walks users through easy-to-follow step-by-step instructions for tuning complete AI processing pipelines, including DeepStream-based perception pipelines and an end-to-end NVIDIA Metropolis multi-target multi-camera tracking pipeline, which is described in more details below:</p>
+<ul class="simple">
+<li><p>DeepStream perception pipeline:</p></li>
+</ul>
+<blockquote>
+<div><p>Typical DeepStream pipelines employ a detector (i.e., PGIE) and a multi-object tracker (MOT) to perform a perception task for each stream. PipeTuner allows users to optimize the detector and MOT parameters to achieve the highest-attainable perception accuracy KPI automatically based on the KPI metric and the dataset.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Metropolis Multi-Target Multi-Camera tracking (MTMC) pipeline</p></li>
+</ul>
+<blockquote>
+<div><p>Metropolis MTMC consists of per-camera perception modules and a MTMC analytics module that aggregates the per-camera perception results to yield the global perception results across multiple cameras. The per-camera perception is carried out by DeepStream pipelines, and the perception results are fed to the MTMC analytics module. As the end-to-end MTMC pipeline consists into two parts, users are allowed to perform tuning only a part of the pipeline or the whole end-to-end pipeline as they wish.</p>
+</div></blockquote>
+<p>To help users to better understand and set up the PipeTuner workflow, sample data and config files with different detectors and tracking algorithms are provided as a part of the release on NGC. Users then can customize their pipelines and datasets for their own use cases.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-text">Term/Acronym Definition</span><a class="headerlink" href="Pipetuner-guide.html#id7" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Terms</p></th>
+<th class="head"><p>Definition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>parameters</p></td>
+<td><p>A set of numerical values or discrete choices that determines the behavior of a software or algorithm in terms of  accuracy and performance, typically defined in some configuration files, such as DeepStream or MTMC config files.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pipeline</p></td>
+<td><p>A software that typically consists of multiple modules, each of which potentially has its own set of parameters, performs some processing given input data (e.g., video processing for perception or analytics). The output of a pipeline may include a set of metadata extracted from the input data, which can be evaluated qualitatively and quantitatively.</p></td>
+</tr>
+<tr class="row-even"><td><p>accuracy metric</p></td>
+<td><p>An evaluation criteria or a method for getting a particular type of accuracy value, such as MOTA, IDF1 or HOTA. Those metrics are typically in the range of 0 and 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>optimizer</p></td>
+<td><p>An optimizing algorithm or library that is used to search globally optimal parameters in the defined parameter search space</p></td>
+</tr>
+<tr class="row-even"><td><p>checkpoint</p></td>
+<td><p>A folder that stores the accuracy results and the corresponding parameters of an intermediate step during tuning.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DS</p></td>
+<td><p>NVIDIA DeepStream SDK</p></td>
+</tr>
+<tr class="row-even"><td><p>MOT</p></td>
+<td><p>Single camera multi-object tracking, requiring NVIDIA DeepStream SDK. The pipeline is DeepStream PGIE + Tracker. The output includes the metadata for target bounding boxes, IDs, frame numbers, etc. The same target is expected to have a unique ID persistently over frames in each camera/stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p>MTMC</p></td>
+<td><p>Multi-target multi-camera tracking, requiring access to NVIDIA Metropolis Microservices. The pipeline consists of DS-based perception and MTMC analytics. The perception module for MTMC provides metadata for each target, including bounding boxes, IDs, and ReID embeddings. Then MTMC aggregates such metadata from multiple cameras and uses them to perform global target association and clustering over multiple cameras, and generates fused location data with globally-unique target IDs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="Pipetuner-guide.html#prerequisites" title="Link to this heading">#</a></h2>
+<p>PipeTuner supports both NVIDIA DeepStream SDK and Metropolis Microservices. The setup and usage have some differences listed below.</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id8">
+<caption><span class="caption-text">Term/Acronym Definition</span><a class="headerlink" href="Pipetuner-guide.html#id8" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 35.0%" />
+<col style="width: 35.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>DeepStream users</p></th>
+<th class="head"><p>Metropolis Microservices users</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Which user group do I belong to?</p></td>
+<td><p>I only want to use DeepStream SDK</p></td>
+<td><p>I want to use Metropolis Microservices. I clicked “Download for Enterprise GPU” and applied for access</p></td>
+</tr>
+<tr class="row-odd"><td><p>Containers</p></td>
+<td><p>Users have access to DeepStream container</p></td>
+<td><p>Users have access to Metropolis Standalone Deployment package and mdx-perception container</p></td>
+</tr>
+<tr class="row-even"><td><p>Use Cases</p></td>
+<td><p>Only DeepStream perception pipeline tuning is supported</p></td>
+<td><p>Both DeepStream perception and MTMC pipeline tuning are supported</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="system-requirements">
+<h3>System Requirements<a class="headerlink" href="Pipetuner-guide.html#system-requirements" title="Link to this heading">#</a></h3>
+<p>PipeTuner requires the following components on an x86_64 system:</p>
+<ul class="simple">
+<li><p>OS Ubuntu 22.04</p></li>
+<li><p>NVIDIA driver 535.104 or 535.161</p></li>
+<li><p>Docker - Setup instructions (need to run without sudo privilege - Instructions)</p></li>
+<li><p>NVIDIA container toolkit - Setup instructions</p></li>
+</ul>
+</section>
+</section>
+<section id="ngc-setup">
+<h2>NGC Setup<a class="headerlink" href="Pipetuner-guide.html#ngc-setup" title="Link to this heading">#</a></h2>
+<p>Users need to follow below steps to sign in to an NGC account and get an API key.</p>
+<ol class="arabic simple">
+<li><p>Visit NGC sign in page, Enter your email address and click Next, or Create an Account.</p></li>
+<li><p>Choose your organization when prompted for Organization/Team. DeepStream users may use any organization and team; Metropolis Microservice users need to select nv-mdx/mdx-v2-0; Click Sign In.</p></li>
+<li><p>Generate an API key following the instructions.</p></li>
+<li><p>Log in to the NGC docker registry (nvcr.io) and enter the following credentials:</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ docker login nvcr.io
+Username: $oauthtoken
+Password: &quot;YOUR_NGC_API_KEY&quot;
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">YOUR_NGC_API_KEY</span></code> corresponds to the key you generated from the previous step.</p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Metropolis Microservice users need to install NGC CLI following the instructions, and set ngc config as below. DeepStream users can skip this step.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ngc config set
+Enter API key: &quot;YOUR_NGC_API_KEY&quot;
+Enter org: nfgnkvuikvjm
+Enter team: mdx-v2-0
+</pre></div>
+</div>
+</div></blockquote>
+<section id="sample-data-setup">
+<h3>Sample Data Setup<a class="headerlink" href="Pipetuner-guide.html#sample-data-setup" title="Link to this heading">#</a></h3>
+<p>The sample data consists of a mini-synthetic dataset with eight 1-minute streams and config files for tuning. You can download the sample files pipe-tuner-sample.zip from NGC web UI.
+Click three-dots under Actions, and click one option to download the file like below.</p>
+<img alt="Download File" class="align-center" src="../_images/Pipetuner-action-button.png" />
+<p>Once you download the sample file, unzip the file and run setup.sh to finish sample data for either DeepStream or Metropolis Microservices.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ unzip pipe-tuner-sample.zip
+$ cd pipe-tuner-sample/scripts
+
+$ # DeepStream or Metropolis Microservices users should run only one of the following two commands based on their usage
+$ bash setup.sh deepstream            # DeepStream users
+
+$ bash setup.sh metropolis            # Metropolis Microservices users
+</pre></div>
+</div>
+</section>
+<section id="deepstream-tuning-case">
+<h3>DeepStream Tuning Case<a class="headerlink" href="Pipetuner-guide.html#deepstream-tuning-case" title="Link to this heading">#</a></h3>
+<p>Once the set-up script is executed, the expected console output of DeepStream setup command would look like below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash setup.sh deepstream
+
+Setup for PipeTuner and DeepStream SDK...
+Pulling required containers...
+1.0: Pulling from nvidia/pipetuner
+Digest: sha256:17df032022cf1e94514f8625fadfff123e1ec3f297d8647bbd980cbd0683dfcf
+Status: Downloaded image for nvcr.io/nvidia/pipetuner:1.0
+nvcr.io/nvidia/pipetuner:1.0
+[1/2] Pulled pipe-tuner image
+7.0-triton-multiarch: Pulling from nvidia/deepstream
+Digest: sha256:d94590278fb116176b54189c9740d3a3577f6ab71b875b68588dfc38947f657b
+Status: Downloaded image for nvcr.io/nvidia/deepstream:7.0-triton-multiarch
+nvcr.io/nvidia/deepstream:7.0-triton-multiarch
+[2/2] Pulled deepstream image
+Downloading NGC models...
+--2024-04-19 16:12:11--  https://api.ngc.nvidia.com/v2/models/nvidia/tao/peoplenet/versions/deployable_quantized_v2.6.1/zip
+Resolving api.ngc.nvidia.com (api.ngc.nvidia.com)... 34.209.247.55, 35.160.16.170
+Connecting to api.ngc.nvidia.com (api.ngc.nvidia.com)|34.209.247.55|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+…
+Saving to: ‘../ngc_download//peoplenet_deployable_quantized.zip’
+
+../ngc_download//peoplenet_deployable_ 100%[===========================================================================&gt;]  85.05M  26.3MB/s    in 3.2s
+
+2024-04-19 16:12:15 (26.3 MB/s) - ‘../ngc_download//peoplenet_deployable_quantized.zip’ saved [89182990/89182990]
+
+Archive:  ../ngc_download//peoplenet_deployable_quantized.zip
+ inflating: ../models/labels.txt
+ inflating: ../models/resnet34_peoplenet_int8.etlt
+ inflating: ../models/resnet34_peoplenet_int8.txt
+--2024-04-19 16:12:15--  https://api.ngc.nvidia.com/v2/models/nvidia/tao/reidentificationnet/versions/deployable_v1.2/files/resnet50_market1501_aicity156.onnx
+Resolving api.ngc.nvidia.com (api.ngc.nvidia.com)... 34.209.247.55, 35.160.16.170
+Connecting to api.ngc.nvidia.com (api.ngc.nvidia.com)|34.209.247.55|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+…
+Saving to: ‘../models/resnet50_market1501_aicity156.onnx’
+
+resnet50_market1501_aicity156.onnx     100%[===========================================================================&gt;]  91.93M  29.0MB/s    in 3.2s
+
+2024-04-19 16:12:20 (29.0 MB/s) - ‘../models/resnet50_market1501_aicity156.onnx’ saved [96398132/96398132]
+
+Updating DeepStream Perception SV3DT configs...
+Sample data setup is done
+$ cd pipe-tuner-sample/scripts
+</pre></div>
+</div>
+<p>DeepStream users should see docker images like below.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ docker images
+REPOSITORY                                              TAG
+nvcr.io/nvidia/pipetuner                                1.0
+nvcr.io/nvidia/deepstream                               7.0-triton-multiarc
+</pre></div>
+</div>
+<p>Also, model files should be under the ‘models’ folder. They will be mapped into DeepStream containers during tuning.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ls ../models
+labels.txt  resnet34_peoplenet_int8.etlt  resnet34_peoplenet_int8.txt  resnet50_market1501_aicity156.onnx
+</pre></div>
+</div>
+</section>
+<section id="mtmc-tuning-case">
+<h3>MTMC Tuning Case<a class="headerlink" href="Pipetuner-guide.html#mtmc-tuning-case" title="Link to this heading">#</a></h3>
+<p>Once the setup script is executed like below:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="n">setup</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="n">metropolis</span>
+</pre></div>
+</div>
+<p>Metropolis MTMC users should see docker images like below. The ‘models’ folder is empty because default models in mdx-perception container will be used.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ docker images
+REPOSITORY                                              TAG
+nvcr.io/nvidia/pipetuner                                1.0
+nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception            2.1
+</pre></div>
+</div>
+<p>The final directory under pipe-tuner-sample is like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pipe-tuner-sample
+├── configs
+│   ├── config_CameraMatrix
+│   ├── config_GuiTool
+│   ├── config_MTMC
+│   ├── config_PGIE
+│   ├── config_PipeTuner
+│   └── config_Tracker
+├── data
+│   ├── SDG_1min_utils
+│   └── SDG_1min_videos
+├── models
+├── ngc_download
+├── multi-camera-tracking (only for Metropolis Microservice)
+└── scripts
+</pre></div>
+</div>
+</section>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="Pipetuner-guide.html#quick-start" title="Link to this heading">#</a></h2>
+<p>PipeTuner searches the optimal parameters by iterating the following three steps until the accuracy KPI converges or up to the max number of iterations (i.e., epochs) specified:</p>
+<ul class="simple">
+<li><p>ParamSearch</p></li>
+</ul>
+<blockquote>
+<div><p>Given the accuracy KPI score in the previous iteration, make an educated guess on the set of parameters that would yield a higher accuracy KPI. For the very first iteration, a random sampling in the parameter space would be conducted</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>PipeExec</p></li>
+</ul>
+<blockquote>
+<div><p>Given the sampled/guessed parameter set, execute the pipeline with the params and generates metadata to allow accuracy evaluation</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>PipeEval</p></li>
+</ul>
+<blockquote>
+<div><p>Given the metadata outputs from the pipeline and the dataset, perform the accuracy evaluation based on the accuracy metric and generates accuracy KPI score</p>
+</div></blockquote>
+<p>The sample PipeTuner config files are included in pipe-tuner-sample/configs/config_PipeTuner to help users to get familiarized with the workflow, so that later they can come up with their custom pipeline with their own dataset.</p>
+<p>Currently three different types of pipelines are supported for tuning:</p>
+<ul class="simple">
+<li><p>DS-based Perception tuning</p></li>
+<li><p>MTMC tuning with frozen perception</p></li>
+<li><p>MTMC end-to-end (E2E) tuning</p></li>
+</ul>
+<p>Users are allowed to choose to employ different neural net models in DeepStream for the first and the third use case, for example,</p>
+<ul class="simple">
+<li><p>Object detector</p>
+<ul>
+<li><p>ResNet34-based PeopleNet</p></li>
+<li><p>Transformer-based PeopleNet</p></li>
+</ul>
+</li>
+<li><p>ReID model</p>
+<ul>
+<li><p>ResNet50-based TAO ReID model</p></li>
+<li><p>SWIN Transformer ReID model</p></li>
+</ul>
+</li>
+</ul>
+<p>The multi-object tracking (MOT) in DeepStream can use any of the tracker types in DeepStream, but for the MTMC perception, the NvDCF tracker is used as it has the highest accuracy and also it supports both camera image-based 2D tracking and Single-View 3D Tracking (more info can be found in the DeepStream documentation).</p>
+<p>The instructions with the sample data and pipeline below section are designed to walk through the entire tuning process step-by-step.</p>
+<section id="launch-tuning-process">
+<h3>Launch Tuning Process<a class="headerlink" href="Pipetuner-guide.html#launch-tuning-process" title="Link to this heading">#</a></h3>
+<p>To run the sample pipelines, enter pipe-tuner-sample/scripts:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">pipe</span><span class="o">-</span><span class="n">tuner</span><span class="o">-</span><span class="n">sample</span><span class="o">/</span><span class="n">scripts</span>
+</pre></div>
+</div>
+<p>Script launch.sh takes in a PipeTuner config file, automatically launches the containers and starts the tuning process. Usage:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">bash</span><span class="w"> </span><span class="n">launch</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="p">[</span><span class="n">deepstream</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">mdx</span><span class="o">-</span><span class="n">perception</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">id</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">config_pipetuner</span><span class="p">.</span><span class="n">yml</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Users can choose to run one config file from below examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each sample pipeline can take 3 to 40 hours to finish depending on the model size and GPU type. To reduce the tuning turn-around time, users may choose to use smaller dataset or decrease the max number of iterations (i.e., “max_iteration” param in a PipeTuner config file in ../configs/config_PipeTuner/ folder) like in an example below. It’s currently set as “100”, but users can set it to 5 or 10 for quick experiments. Users can still keep it as 100 and stop it in the middle (how to stop the tuning process in the middle is explained later)</p>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># black box optimization configs
+bbo:
+...
+# different optimizers for tuning. Comment or uncomment to select different optimizers
+# change max_iteration to set tuning iterations
+optimizers:
+  type1:
+    name: &quot;pysot&quot;
+    max_iteration: 100
+</pre></div>
+</div>
+</section>
+<section id="ds-perception-tuning">
+<h3>DS Perception Tuning<a class="headerlink" href="Pipetuner-guide.html#ds-perception-tuning" title="Link to this heading">#</a></h3>
+<p>This use case optimizes DeepStream PGIE (i.e., object detection) and tracker parameters for perception accuracy. The pipeline for PipeExec step is constructed as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">(file</span> <span class="pre">source</span> <span class="pre">streams)</span> <span class="pre">→</span> <span class="pre">Decoder</span> <span class="pre">→</span> <span class="pre">PGIE</span> <span class="pre">→</span> <span class="pre">MOT→</span> <span class="pre">(per-stream</span> <span class="pre">tracking</span> <span class="pre">results)</span></code></p>
+<p>PipeEval step is then performed for MOT Eval to generate accuracy KPI scores.</p>
+<p>To launch a pipeline with ResNet34-based PeopleNet model and NvDCF tracker with TAO ReID model, for example, run one of below commands based on your user group:
+For DeepStream users:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nvidia/deepstream:7.0-triton-multiarch  ../configs/config_PipeTuner/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml
+</pre></div>
+</div>
+<p>For Metropolis Microservices users:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1  ../configs/config_PipeTuner/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml # For Metropolis Microservices users
+</pre></div>
+</div>
+<p>To launch a pipeline with Transformer-based PeopleNet model and NvDCF tracker with SWIN-based ReID model and SV3DT enabled, for example, run:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1  ../configs/config_Pipecccccbldttjhbecjtvbvgrtdclfvtnetlifccucjnbuj
+Tuner/SDG_sample_PeopleNet-Transformer_NvDCF-SWIN-3D_MOT.yml # For Metropolis Microservices users
+</pre></div>
+</div>
+</section>
+<section id="mtmc-tuning-with-frozen-perception">
+<h3>MTMC Tuning with Frozen Perception<a class="headerlink" href="Pipetuner-guide.html#mtmc-tuning-with-frozen-perception" title="Link to this heading">#</a></h3>
+<p>This use case assumes the metadata from the DS perception pipeline (i.e., MOT results + ReID embeddings) are already generated and stored in JSON format. Only MTMC parameters are searched. The pipeline uses that as fixed input and searches for optimal MTMC parameters that would yield the highest MTMC accuracy. The pipeline for PipeExec step is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">(MOT</span> <span class="pre">results</span> <span class="pre">+</span> <span class="pre">ReID</span> <span class="pre">embeddings)</span> <span class="pre">→</span> <span class="pre">MTMC</span> <span class="pre">analytics</span> <span class="pre">→</span> <span class="pre">(MTMC</span> <span class="pre">results</span> <span class="pre">with</span> <span class="pre">global</span> <span class="pre">IDs)</span></code></p>
+<p>To launch the pipeline, run:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1  ../configs/config_PipeTuner/SDG_sample_MTMC_only.yml
+</pre></div>
+</div>
+</section>
+<section id="mtmc-e2e-tuning">
+<h3>MTMC E2E Tuning<a class="headerlink" href="Pipetuner-guide.html#mtmc-e2e-tuning" title="Link to this heading">#</a></h3>
+<p>This use case jointly optimizes DS perception (i.g., PGIE and tracker) and MTMC parameters for e2e MTMC accuracy tuning. This provides the highest flexibility for optimization, yet takes the longest time because of the pipeline complexity. The pipeline for PipeExec would look like:
+<code class="docutils literal notranslate"><span class="pre">(file</span> <span class="pre">source</span> <span class="pre">streams)</span> <span class="pre">→</span> <span class="pre">Decoder</span> <span class="pre">→</span> <span class="pre">PGIE</span> <span class="pre">→</span> <span class="pre">MOT→</span> <span class="pre">(per-stream</span> <span class="pre">tracking</span> <span class="pre">results)</span> <span class="pre">→</span> <span class="pre">MTMC</span> <span class="pre">analytics</span> <span class="pre">→</span> <span class="pre">(MTMC</span> <span class="pre">results</span> <span class="pre">with</span> <span class="pre">global</span> <span class="pre">IDs)</span></code></p>
+<p>To launch the e2e MTMC pipeline with DS perception module consisting of ResNet34-based PeopleNet model and NvDCF tracker with TAO ReID model, for example, run:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1  ../configs/config_PipeTuner/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MTMC.yml
+</pre></div>
+</div>
+<p>To launch the e2e MTMC pipeline with DS perception module consisting of Transformer-based PeopleNet model and NvDCF tracker with SWIN-based ReID model and SV3DT enabled, for example, run:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ bash launch.sh  nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1  ../configs/config_PipeTuner/SDG_sample_PeopleNet-Transformer_NvDCF-SWIN-3D_MTMC.yml
+</pre></div>
+</div>
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="Pipetuner-guide.html#output" title="Link to this heading">#</a></h3>
+<p>After launching, pipeline outputs are saved in the below directory as an example.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pipe-tuner-sample
+├── output
+│   ├── log_client_2023-08-23_16-39-36
+│   ├── log_server_2023-08-23_16-39-36
+│   ├── &lt;PipeTuner configname.yml&gt;
+│   └── &lt;PipeTuner configname.yml&gt;_output
+│        ├── checkpoints
+│        │   ├──DsAppRun_output_20230823_163959
+│        │   ├──DsAppRun_output_20230823_164106
+│        │   └──…
+│        └── results
+│            ├──configs_08-23-2023_16-39-57
+│            └──&lt;PipeTuner configname.yml&gt;-2023-08-23_16-39-36_accuracy.csv
+└──…
+</pre></div>
+</div>
+<p>Explanation:</p>
+<ul class="simple">
+<li><p>log_client_2023-08-23_16-39-36 and log_server_2023-08-23_16-39-36 are log files for the server and client inside the PipeTuner container.</p></li>
+<li><p>&lt;PipeTuner config name.yml&gt; stores the automatically generated config files for the tuning</p></li>
+<li><p>Each checkpoint folder (e.g. DsAppRun_output_20230823_163959) stores a checkpoint with tuned parameters and accuracy metric of that iteration. Also, the folder has the log file (log_DsAppRun.log) which contains the output of DeepStream app.</p></li>
+<li><p>configs_08-23-2023_16-39-57 stores the automatically generated config files for pipeline components such as PGIE, tracker.</p></li>
+<li><p>&lt;PipeTuner config name.yml&gt;-2023-08-23_16-39-36_accuracy.csv is a csv file that stores the accuracy metric and parameter values of all the iterations.</p></li>
+</ul>
+<p>Here shows how the console output would look like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Installing dependencies...
+Installing dependencies (1/2)
+Installing dependencies (2/2)
+Launch BBO client...
+Launch BBO server...
+PipeTuner started successfully!
+
+!!!!! To stop tuning process in the middle, press CTRL+C !!!!!
+
+adding: DsAppServer (deflated 63%)
+2024-03-19 08:09:52,108 root           INFO    seq_list: [&#39;Retail_Synthetic_Cam01&#39;, &#39;Retail_Synthetic_Cam02&#39;, &#39;Retail_Synthetic_Cam03&#39;, &#39;Retail_Synthetic_Cam04&#39;, &#39;Retail_Synthetic_Cam05&#39;, &#39;Retail_Synthetic_Cam06&#39;, &#39;Retail_Synthetic_Cam07&#39;, &#39;Retail_Synthetic_Cam08&#39;]
+2024-03-19 08:09:52,169 root           INFO    Writing configs to &lt;path&gt;/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT_test.yml_output/results/configs_03-19-2024_08-09-52
+2024-03-19 08:09:52,169 root           INFO    send backend init
+2024-03-19 08:09:52,170 root           INFO    creating optimizers...
+2024-03-19 08:09:52,170 root           INFO    done. created 2
+ * Serving Flask app &#39;ds_bbo_frontend_server&#39;
+ * Debug mode: on
+2024-03-19 08:09:52,186 root           INFO    init jobs done
+2024-03-19 08:09:52,187 root           INFO    progress: 0% (0/4)
+2024-03-19 08:09:52,193 root           INFO    wait backend ready
+...
+2024-03-19 08:12:15,232 root           INFO    progress: 25% (1/4) ETA 00:07:09
+2024-03-19 08:12:25,447 root           INFO    progress: 25% (1/4) ETA 00:07:39
+...
+2024-03-19 08:13:47,190 root           INFO    progress: 50% (2/4) ETA 00:03:55
+2024-03-19 08:13:57,413 root           INFO    progress: 75% (3/4) ETA 00:01:21
+...
+2024-03-19 08:14:58,719 root           INFO    progress: 100% (4/4) ETA 00:00:00
+2024-03-19 08:14:58,720 root           INFO    OPTIMIZATION DONE!
+…
+stopping workers...
+number of workers to stop: 2
+number of workers to stop: 0
+done.
+
+!!!!! Press CTRL+C key to end PipeTuner !!!!!
+</pre></div>
+</div>
+<p>Check what containers are running by:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ docker ps
+
+
+CONTAINER ID   IMAGE                                           COMMAND                 CREATED         STATUS          PORTS   NAMES
+83b909fc0ddb   nvcr.io/nvidia/pipetuner:1.0    &quot;/bin/bash&quot;             44 minutes ago   Up 44 minutes          tuner_2024-01-17_21-44-58
+41e514acf177   nvcr.io/nfgnkvuikvjm/mdx-v2-0/mdx-perception:2.1   &quot;/opt/nvidia/nvidia_…&quot;   44 minutes ago   Up 44 minutes              ds_2024-01-17_21-44-58
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>TensorRT engine files are generated during the first iteration, so it may take 10 to 30 minutes longer than the next iterations.</p>
+</div>
+</section>
+</section>
+<section id="stop-pipetuner">
+<h2>Stop PipeTuner<a class="headerlink" href="Pipetuner-guide.html#stop-pipetuner" title="Link to this heading">#</a></h2>
+<p>When the optimization ends, <code class="docutils literal notranslate"><span class="pre">“!!!!!</span> <span class="pre">Press</span> <span class="pre">CTRL+C</span> <span class="pre">key</span> <span class="pre">to</span> <span class="pre">end</span> <span class="pre">PipeTuner</span> <span class="pre">!!!!!”</span></code> is displayed on the console. PipeTuner can simply be stopped with pressing CTRL+C key. Pressing CTRL+C key stops the PipeTuner and the running docker containers. Also, the PipeTuner can be stopped with the keys in the middle of the optimization.The tuning results are still saved in the output directory. For example,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>!!!!! Press CTRL+C key to end PipeTuner !!!!!
+
+^C
+Ctrl + C pressed!
+Stopping containers...
+tuner_2024-04-23_21-36-49
+ds_2024-04-23_21-36-49
+Containers stopped successfully
+
+PipeTuner ends
+</pre></div>
+</div>
+<p>(Optional) The launch.sh stops the docker images, but it doesn’t remove them. If users want to remove the The downloaded containers, they can simply be removed with command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">rm</span> <span class="pre">-f</span> <span class="pre">[container</span> <span class="pre">names]</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">tuner_2024</span><span class="mo">-01</span><span class="mi">-17</span><span class="n">_21</span><span class="mi">-44-58</span><span class="w"> </span><span class="n">ds_2024</span><span class="mo">-01</span><span class="mi">-17</span><span class="n">_21</span><span class="mi">-44-58</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieve-and-visualize-tuning-results">
+<h2>Retrieve and Visualize Tuning Results<a class="headerlink" href="Pipetuner-guide.html#retrieve-and-visualize-tuning-results" title="Link to this heading">#</a></h2>
+<p>PipeTuner provides the following features to get the tuned parameters and results.</p>
+<ul class="simple">
+<li><p>Plot accuracy convergence graph</p></li>
+<li><p>Retrieve the optimal checkpoint</p></li>
+</ul>
+<p>All the commands below are executed under pipe-tuner-sample/scripts</p>
+<p><strong>Usage</strong>: After launching tuning for a couple of iterations, run below command to retrieve the optimal results from checkpoints already generated:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bash</span> <span class="pre">result_analysis.sh</span> <span class="pre">&lt;output</span> <span class="pre">folder&gt;</span> <span class="pre">&lt;metric&gt;</span></code></p>
+<p>Here &lt;output folder&gt; is the output directory created in “launch tuning process” step: pipe-tuner-sample/output/&lt;PipeTuner configname.yml&gt;_output, and &lt;metric&gt; should be the same as evaluation metric defined in PipeTuner config among MOTA, IDF1 and HOTA.</p>
+<p>For example, to retrieve the result for SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml, users can run the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bash</span> <span class="pre">result_analysis.sh</span> <span class="pre">../output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/</span> <span class="pre">HOTA</span></code></p>
+<p>Result analysis is saved in the below directory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pipe-tuner-sample
+├── output
+│   ├── …
+│   └── SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output
+│        ├── …
+│        └── results
+│            ├──accuracy_plot.png
+│            └──DsAppRun_output_20230823_163959
+└──…
+</pre></div>
+</div>
+<p><em>Explanation</em>:</p>
+<ul>
+<li><p>The copied checkpoint folder under pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/results/ (e.g. DsAppRun_output_20230823_163959) is the optimal checkpoint with tuned PGIE, tracker, DeepStream configs and accuracy metric, which is good for deployment.</p></li>
+<li><p>accuracy_plot.png is the accuracy metric vs iteration figure:</p>
+<img alt="Accuracy Plot" class="align-center" src="../_images/accuracy-plot.png" />
+</li>
+</ul>
+<p><em>Console output</em>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>storage: /media/sdb/pipe-tuner-sample
+Result analysis command:
+docker run --gpus all --rm -itd --net=host --name analysis_2023-08-23_16-53-39 -v /var/run/docker.sock:/var/run/docker.sock -v /media/sdb/pipe-tuner-sample:/media/sdb/pipe-tuner-sample nvcr.io/nvidia/pipetuner:1.0 /bin/bash -c &quot;python3 /pipe-tuner/utils/plot_csv_results.py /media/sdb/pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/results/*.csv /media/sdb/pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/results/accuracy_plot.png; python3 /pipe-tuner/utils/retrieve_checkpoints.py /media/sdb/pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output HOTA;&quot;
+Found optimal HOTA: 44.942
+Checkpoint path: /media/sdb/pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/checkpoints/DsAppRun_output_20230823_163959
+Optimal checkpoint copied to: /media/sdb/pipe-tuner-sample/output/SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml_output/results/DsAppRun_output_20230823_163959
+…
+</pre></div>
+</div>
+</section>
+<section id="custom-tuning">
+<h2>Custom Tuning<a class="headerlink" href="Pipetuner-guide.html#custom-tuning" title="Link to this heading">#</a></h2>
+<p>This section describes how to customize the tuning process, including using new datasets, models and config files. Read the Understanding PipeTuner Config Path section to understand how paths are defined and mapped into docker containers.</p>
+<section id="understanding-pipetuner-config-path">
+<h3>Understanding PipeTuner Config Path<a class="headerlink" href="Pipetuner-guide.html#understanding-pipetuner-config-path" title="Link to this heading">#</a></h3>
+<p>&lt;path&gt;/pipe-tuner-sample/ is the only folder mapped from host to all the containers. All the tuning related files must be placed in this folder when customizing tuning.
+During runtime, rootPath in PipeTuner config is automatically overwritten by the sample data folder’s absolute path &lt;path&gt;/pipe-tuner-sample/.
+In PipeTuner config, all the other paths are the relative path to rootPath. For example, if seqmapPath is data/SDG_1min_utils/SDG_1min_all.txt, its absolute path is &lt;path&gt;/pipe-tuner-sample/data/SDG_1min_utils/SDG_1min_all.txt</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parameter_space:
+  Init:
+    Exec:
+      …
+      rootPath: &quot;overwritten as &lt;path&gt;/pipe-tuner-sample/ runtime&quot;
+      datasetPath: &quot;data/SDG_1min_videos&quot;
+      seqmapPath: &quot;data/SDG_1min_utils/SDG_1min_all.txt&quot;
+      …
+</pre></div>
+</div>
+<p>In PGIE and tracker config, all the paths are absolute paths. They need to be manually updated to match the actual paths on the machine.
+Paths in other config files are automatically generated, so no need to change them.</p>
+</section>
+</section>
+<section id="custom-dataset">
+<h2>Custom Dataset<a class="headerlink" href="Pipetuner-guide.html#custom-dataset" title="Link to this heading">#</a></h2>
+<p>Steps to use customize dataset in PipeTuner are:</p>
+<ul class="simple">
+<li><p>Create video files</p></li>
+<li><p>Create ground truth labels</p></li>
+<li><p>Launch PipeTuner with the new config file</p></li>
+</ul>
+<p>Different use cases require different dataset files. Only need to generate the files for the desired use case. For example, if DS Perception Tuning is the use case, only need to follow “Create Video Files - DS Perception Tuning” and “Create Ground Truth Labels - DS Perception Tuning”.</p>
+<section id="create-video-files">
+<h3>Create Video Files<a class="headerlink" href="Pipetuner-guide.html#create-video-files" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4>DS Perception Tuning<a class="headerlink" href="Pipetuner-guide.html#id1" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Add videos: Create a new video folder under pipe-tuner-sample/data. It should contain all the videos used for tuning. The videos need to have 1920x1080 resolution in mp4 format.</p>
+<ul>
+<li><p>pipe-tuner-sample</p>
+<blockquote>
+<div><ul>
+<li><p>data</p>
+<blockquote>
+<div><ul>
+<li><p>&lt;new dataset videos&gt;</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&lt;video0.mp4&gt;</p></li>
+<li><p>&lt;video1.mp4&gt;</p></li>
+<li><p>…</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Create sequence map: Create a new utils folder under pipe-tuner-sample/data. Create a txt file &lt;seqmap.txt&gt; containing all the video names without “.mp4” extension</p>
+<blockquote>
+<div><ul>
+<li><p>pipe-tuner-sample</p>
+<ul>
+<li><p>data</p>
+<blockquote>
+<div><ul>
+<li><p>&lt;new dataset utils&gt;</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>&lt;seqmap.txt&gt;</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The content in &lt;seqmap.txt&gt; is below. The first line should always be “name”, and then each line is one video name.
+name
+&lt;video0&gt;
+&lt;video1&gt;
+…</p>
+<ul>
+<li><p>Update PipeTuner Config: Change datasetPath, seqmapPath in PipeTuner config <code class="docutils literal notranslate"><span class="pre">SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MOT.yml</span></code> to match the path of the new tracker config.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">datasetPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;data/&lt;new dataset videos&gt;/&quot;</span>
+<span class="nl">seqmapPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;data/&lt;new dataset utils&gt;/&lt;seqmap.txt&gt;&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id2">
+<h4>MTMC Tuning with Frozen Perception<a class="headerlink" href="Pipetuner-guide.html#id2" title="Link to this heading">#</a></h4>
+<p>Add videos: Not required.
+Create sequence map: The same as section “Create sequence map” in DS Perception Tuning.
+Update PipeTuner Config: Change seqmapPath in PipeTuner config SDG_sample_MTMC_only.yml to match the path of the new tracker config.
+seqmapPath: “data/&lt;new dataset utils&gt;/&lt;seqmap.txt&gt;”</p>
+</section>
+<section id="id3">
+<h4>MTMC E2E Tuning<a class="headerlink" href="Pipetuner-guide.html#id3" title="Link to this heading">#</a></h4>
+<p>All the steps are the same as  DS Perception Tuning except the PipeTuner config is in PipeTuner config SDG_sample_PeopleNet-ResNet34_NvDCF-ResNet50_MTMC.yml.</p>
+</section>
+</section>
+<section id="create-ground-truth-labels">
+<h3>Create Ground Truth Labels<a class="headerlink" href="Pipetuner-guide.html#create-ground-truth-labels" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h4>DS Perception Tuning<a class="headerlink" href="Pipetuner-guide.html#id4" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Create ground truth files in data/&lt;new dataset videos&gt;. For each video, create gt.txt and seqinfo.ini like below</p>
+<ul>
+<li><p>pipe-tuner-sample</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>data</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>- &lt;new dataset videos&gt;
+
+   - &lt;video0&gt;
+
+     - seqinfo.ini
+     - gt
+
+        - gt.txt
+
+   - &lt;video1&gt;
+
+     - seqinfo.ini
+     - gt
+
+       - gt.txt
+
+   - …
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">gt.txt</span></code> is the DS perception ground truth label file in the MOT format, which is</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">frame_num</span><span class="p">,</span><span class="w"> </span><span class="n">object_id</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">top</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">included_for_eval</span><span class="p">,</span><span class="w"> </span><span class="n">class_id</span><span class="p">,</span><span class="w"> </span><span class="n">visibility_ratio</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">315</span><span class="p">,</span><span class="mi">176</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+<span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">511</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">seqinfo.ini</span></code> is the sequence information file. Its format is below. The first line must be [Sequence]. There can be multiple parameters, but only seqLength is actually needed.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span>
+<span class="n">seqLength</span><span class="o">=&lt;</span><span class="n">num</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">frames</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">video</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">other</span><span class="w"> </span><span class="n">info</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>The evaluation script automatically finds the above ground truth files in datasetPath, so no need to change PipeTuner config.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h4>MTMC Tuning with Frozen Perception<a class="headerlink" href="Pipetuner-guide.html#id5" title="Link to this heading">#</a></h4>
+<p>Add MTMC camera calibration file and MTMC ground truth file under pipe-tuner-sample/data/&lt;new dataset utils&gt;. MTMC ground truth file format is
+camera, id, frame, left, top, width, height, x_on_ground, y_on_ground</p>
+<p>Run DeepStream perception pipeline to generate single camera tracking results with Re-ID features as MTMC input. The MTMC input is in JSON format and defined by Kafka schema. Place it under pipe-tuner-sample/data/&lt;new dataset utils&gt;.
+Change mtmcCalibrationPath, mtmcGroundTruthPath and mtmcPlaybackPath in PipeTuner config to match the path of the new tracker config.
+mtmcCalibrationPath: “data/&lt;new dataset utils&gt;/&lt;calibration.json&gt;”
+mtmcGroundTruthPath: “data/&lt;new dataset utils&gt;/&lt;MTMC ground truth.txt&gt;”
+mtmcPlaybackPath: “data/&lt;new dataset utils&gt;/&lt;MTMC input.json&gt;”</p>
+</section>
+<section id="id6">
+<h4>MTMC E2E Tuning<a class="headerlink" href="Pipetuner-guide.html#id6" title="Link to this heading">#</a></h4>
+<p>Add MTMC camera calibration file and MTMC ground truth file under pipe-tuner-sample/data/&lt;new dataset utils&gt;. MTMC ground truth file format is
+camera, id, frame, left, top, width, height, x_on_ground, y_on_ground</p>
+<p>Change mtmcCalibrationPath, mtmcGroundTruthPath in PipeTuner config to match the path of the new tracker config.
+mtmcCalibrationPath: “data/&lt;new dataset utils&gt;/&lt;calibration.json&gt;”
+mtmcGroundTruthPath: “data/&lt;new dataset utils&gt;/&lt;MTMC ground truth.txt&gt;”</p>
+</section>
+</section>
+<section id="launch-pipetuner-with-the-new-config-file">
+<h3>Launch PipeTuner with the New Config File<a class="headerlink" href="Pipetuner-guide.html#launch-pipetuner-with-the-new-config-file" title="Link to this heading">#</a></h3>
+<p>Review the PipeTuner config file to ensure all the paths are valid. The tuning workflow is the same as the sample dataset.
+Summary
+Below table summarizes the files to include in a new dataset. “v” means the specific files are required for that use case;</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id9">
+<caption><span class="caption-text">List of Files</span><a class="headerlink" href="Pipetuner-guide.html#id9" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 13.0%" />
+<col style="width: 13.0%" />
+<col style="width: 13.0%" />
+<col style="width: 13.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+<col style="width: 12.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Dataset components</p></th>
+<th class="head"><p>Content format requirements</p></th>
+<th class="head"><p>File name requirements</p></th>
+<th class="head"><p>Path in the sample dataset</p></th>
+<th class="head"><p>PipeTuner config</p></th>
+<th class="head"><p>Single camera MOT tuning</p></th>
+<th class="head"><p>MTMC tuning with frozen perception</p></th>
+<th class="head"><p>MTMC E2E tuning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Video files</p></td>
+<td><p>In mp4 format; All the videos have 1920x1080 resolution</p></td>
+<td><p>Videos must be stored under datasetPath folder. Video names must match sequence map.</p></td>
+<td><p>data/SDG_1min_videos/Retail_Synthetic_Cam01.mp4 data/SDG_1min_videos/Retail_Synthetic_Cam02.mp4</p></td>
+<td><p>…</p></td>
+<td><p>datasetPath</p></td>
+<td><p>v</p></td>
+<td><p>v</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sequence map</p></td>
+<td><p>Contains all the video names for tuning</p></td>
+<td><p>Any name is fine</p></td>
+<td><p>data/SDG_1min_utils/SDG_1min_all.txt</p></td>
+<td><p>seqmapPath</p></td>
+<td><p>v</p></td>
+<td><p>v</p></td>
+<td><p>v</p></td>
+</tr>
+<tr class="row-even"><td><p>MOT ground truth</p></td>
+<td><p>MOT ground truth</p></td>
+<td><p>&lt;datasetPath&gt;/&lt;video name&gt;/gt/gt.txt</p></td>
+<td><p>data/SDG_1min_videos/Retail_Synthetic_Cam01/gt/gt.txt</p></td>
+<td><p>data/SDG_1min_videos/Retail_Synthetic_Cam02/gt/gt.txt</p></td>
+<td><p>…</p></td>
+<td><p>datasetPath</p></td>
+<td><p>v</p></td>
+</tr>
+<tr class="row-odd"><td><p>MOT sequence info</p></td>
+<td><p>Contains video information</p></td>
+<td><p>&lt;datasetPath&gt;/&lt;video_name&gt;/seqinfo.ini</p></td>
+<td><p>data/SDG_1min_videos/Retail_Synthetic_Cam01/seqinfo.ini</p></td>
+<td><p>datasetPath</p></td>
+<td><p>v</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p>MTMC camera calibration</p></td>
+<td><p>Camera calibration format defined by MDX team</p></td>
+<td><p>Any name is fine</p></td>
+<td><p>data/SDG_1min_utils/calibration.json</p></td>
+<td><p>mtmcCalibrationPath</p></td>
+<td></td>
+<td><p>v</p></td>
+<td><p>v</p></td>
+</tr>
+<tr class="row-odd"><td><p>MTMC ground truth</p></td>
+<td><p>MTMC ground truth defined by MDX team</p></td>
+<td><p>Any name is fine</p></td>
+<td><p>data/SDG_1min_utils/ground_truth.txt</p></td>
+<td><p>mtmcGroundTruthPath</p></td>
+<td></td>
+<td><p>v</p></td>
+<td><p>v</p></td>
+</tr>
+<tr class="row-even"><td><p>MTMC sample input</p></td>
+<td><p>In JSON format; Messages follow kafka schema defined by MDX team</p></td>
+<td><p>Any name is fine</p></td>
+<td><p>data/SDG_1min_utils/mtmc_playback_sample.json</p></td>
+<td><p>mtmcPlaybackPath</p></td>
+<td></td>
+<td><p>v</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="data-augmentation">
+<h2>Data Augmentation<a class="headerlink" href="Pipetuner-guide.html#data-augmentation" title="Link to this heading">#</a></h2>
+<p>PipeTuner helps finding the optimal parameters for the dataset used. What if the dataset used for tuning may not be representative of the physical environment that the camera system would be deployed? If the tuned parameters are overfitted to the dataset while the dataset is not general enough, then these tuned parameters may not work well when actually deployed to the test environment.</p>
+<p>To mitigate this issue, PipeTuner provides an additional tool, which augment the dataset by introducing artificial noises or occlusion, so that the tuned params are robust to those variations that may be present in the real test environment.</p>
+<p>Currently the data augmentation tool has very simple occlusion-inducing capability only, but it can be extended to offer wider varieties in the future.</p>
+<p>A sample usage of the data augmentation tool is illustrated in the following sections.</p>
+<section id="video-generation">
+<h3>Video Generation<a class="headerlink" href="Pipetuner-guide.html#video-generation" title="Link to this heading">#</a></h3>
+<p>To generate augmented videos, execute below command under pipe-tuner-sample/scripts:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bash</span> <span class="pre">create_aug_videos.sh</span> <span class="pre">&lt;input</span> <span class="pre">video</span> <span class="pre">folder&gt;</span></code></p>
+<ul>
+<li><p>&lt;input video folder&gt;: a folder that contains videos to be used for data augmentation</p>
+<p>Example:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">bash</span> <span class="pre">create_aug_videos.sh</span> <span class="pre">../data/SDG_1min_videos/</span></code></p>
+</div></blockquote>
+</li>
+</ul>
+<blockquote>
+<div><p>Augmented videos are saved in the below directory.</p>
+<blockquote>
+<div><ul>
+<li><p>pipe-tuner-sample</p>
+<blockquote>
+<div><ul>
+<li><p>data</p>
+<ul>
+<li><p>SDG_1min_videos_augmented</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Retail_Synthetic_Cam01.mp4</p></li>
+<li><p>Retail_Synthetic_Cam02.mp4</p></li>
+<li><p>…</p></li>
+<li><p>Retail_Synthetic_Cam01/</p></li>
+<li><p>Retail_Synthetic_Cam02/</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Interpretation:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Retail_Synthetic_Cam&lt;num&gt;.mp4</span></code> are generated augmented videos like below.</p>
+<blockquote>
+<div><blockquote>
+<div><img alt="Augmented videos" class="align-center" src="../_images/Data-augmentation.png" />
+</div></blockquote>
+<p>Folder <code class="docutils literal notranslate"><span class="pre">Retail_Synthetic_Cam&lt;num&gt;</span></code> contains the single camera MOT labels, which are the same as the original dataset.</p>
+<p>Console output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Launch command:
+docker run --gpus all -it --rm --net=host --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY= -v /media/sdb/pipe-tuner-sample:/media/sdb/pipe-tuner-sample pipe-tuner:latest /bin/bash /pipe-tuner/utils/launch_augmenter.sh /media/sdb/pipe-tuner-sample/data/SDG_1min_videos
+Augment /media/sdb/pipe-tuner-sample/data/SDG_1min_videos/Retail_Synthetic_Cam01.mp4 as /media/sdb/pipe-tuner-sample/data/SDG_1min_videos_augmented/Retail_Synthetic_Cam01.mp4
+[VideoSource] Total # of frames = 1800
+[VideoSource] Video frame rate = 30 fps
+[FrameSourceUtil] Frame source type = VIDEO
+OpenCV: FFMPEG: tag 0x34363248/&#39;H264&#39; is not supported with codec id 27 and format &#39;mp4 / MP4 (MPEG-4 Part 14)&#39;
+OpenCV: FFMPEG: fallback to use tag 0x31637661/&#39;avc1&#39;
+Wrote 0 frames among 1800
+Wrote 100 frames among 1800
+…
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="use-in-ds-perception-tuning">
+<h3>Use in DS Perception Tuning<a class="headerlink" href="Pipetuner-guide.html#use-in-ds-perception-tuning" title="Link to this heading">#</a></h3>
+<p>Tune DS perception parameters on the augmented dataset, and use the tuned config files on normal dataset without augmentation. Fewer ID switches and higher accuracy metrics are observed than tuning without augmentation.</p>
+<p>To use an augmentation dataset for DS perception tuning, just change datasetPath in PipeTuner config to match the path of the augmented dataset.</p>
+<p>What the figure below shows is that even if the original dataset does not have such large full-occlusion cases (i.e., the white vertical pole in the middle), if the pipeline is tuned with the augmented dataset with longer full occlusions, then the pipeline is tuned in such a way that the tracking can be done robustly even with the prolonged occlusions which were not present in the original dataset.</p>
+<img alt="Using augmented Dataset for DS Perception Tuning" class="align-center" src="../_images/DS-perception-tuning1.png" />
+</section>
+<section id="custom-models">
+<h3>Custom Models<a class="headerlink" href="Pipetuner-guide.html#custom-models" title="Link to this heading">#</a></h3>
+<p>The PGIE and Re-ID models used in sample configs are included in mdx-perception containers already. When using customized PGIE and Re-ID models in PipeTuner, they need to be added in pipe-tuner-sample/models directory on the host machine following the below steps.</p>
+<section id="models-on-ngc">
+<h4>Models on NGC<a class="headerlink" href="Pipetuner-guide.html#models-on-ngc" title="Link to this heading">#</a></h4>
+<p>Below PGIE and Re-ID models are used in sample configs, which can be downloaded from NGC.</p>
+<ul>
+<li><p>Object detector (i.e., PGIE)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ResNet34-based PeopleNet</p></li>
+<li><p>Transformer-based PeopleNet</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>ReID model</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ResNet50-based TAO ReID model</p></li>
+<li><p>SWIN Transformer ReID model</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<section id="object-detector-i-e-pgie">
+<h5>Object detector (i.e., PGIE)<a class="headerlink" href="Pipetuner-guide.html#object-detector-i-e-pgie" title="Link to this heading">#</a></h5>
+<p>Steps to customize a PGIE model and use it in PipeTuner are:</p>
+<ol class="arabic simple">
+<li><p>Refer to how to customize a model in DeepStream. Place all the model resources under pipe-tuner-sample/models, such as label files, model files, model engine and customized libraries, etc.</p>
+<ul class="simple">
+<li><p>pipe-tuner-sample</p>
+<ul>
+<li><p>models</p>
+<ul>
+<li><p>labels.txt</p></li>
+<li><p>&lt;ETLT file&gt;</p></li>
+<li><p>&lt;ONNX file&gt;</p></li>
+<li><p>&lt;engine file&gt;</p></li>
+<li><p>&lt;Custom library if any&gt;</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Create a new PGIE config file as pipe-tuner-sample/configs/config_PGIE/&lt;new PGIE config.txt&gt;, make sure below parameters match the absolute path of the new model.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>model-engine-file=&lt;path&gt;/pipe-tuner-sample/models/&lt;engine file&gt;
+labelfile-path=&lt;path&gt;/pipe-tuner-sample/models/labels.txt
+# for TAO model
+tlt-encoded-model=&lt;path&gt;/pipe-tuner-sample/models/&lt;ETLT file&gt;
+# for ONNX model
+onnx-file=&lt;path&gt;/pipe-tuner-sample/models/&lt;ONNX file&gt;
+</pre></div>
+</div>
+<p>Other parameters need changing based on the model architecture as well.</p>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p>Change pgiePath in PipeTuner config to match the path of the new PGIE config.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">pgiePath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;configs/config_PGIE/&lt;new PGIE config.txt&gt;&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="re-id">
+<h5>Re-ID<a class="headerlink" href="Pipetuner-guide.html#re-id" title="Link to this heading">#</a></h5>
+<p>Steps to customize a Re-ID model and use it in PipeTuner are:</p>
+<ol class="arabic">
+<li><p>Refer to customizing a Re-ID model in DeepStream tracker. Place all the model resources under pipe-tuner-sample/models.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>pipe-tuner-sample</p>
+<ul>
+<li><p>models</p>
+<ul>
+<li><p>&lt;ETLT file&gt;</p></li>
+<li><p>&lt;ONNX file&gt;</p></li>
+<li><p>&lt;engine file&gt;</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Create a new tracker config file as pipe-tuner-sample/configs/config_Tracker/&lt;new tracker config.yml&gt;, make sure below parameters match the absolute path of the new model.</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  # for TAO model
+  tltEncodedModel: &lt;path&gt;/pipe-tuner-sample/models/Tracker/&lt;ETLT file&gt;
+  # for ONNX model
+  onnxFile: &lt;path&gt;/pipe-tuner-sample/models/Tracker/&lt;ONNX file&gt;
+  modelEngineFile: &lt;path&gt;/pipe-tuner-sample/models/Tracker/&lt;engine file&gt;
+
+Other parameters need changing based on the model architecture as well.
+</pre></div>
+</div>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p>Change trackerPath in PipeTuner config to match the path of the new tracker config.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="nl">trackerPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;configs/config_Tracker/&lt;new Tracker config.yml&gt;&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="custom-algorithms">
+<h3>Custom Algorithms<a class="headerlink" href="Pipetuner-guide.html#custom-algorithms" title="Link to this heading">#</a></h3>
+<p>DeepStream and Metropolis provide multiple algorithms for DS perception and MTMC. Users can enable them by changing the corresponding config files.</p>
+<section id="multi-object-trackers">
+<h4>Multi-Object Trackers<a class="headerlink" href="Pipetuner-guide.html#multi-object-trackers" title="Link to this heading">#</a></h4>
+<p>Currently used DeepStream tracker is NvDCF_accuracy, but other algorithms such as NvDeepSORT or NvSORT can also be used. Place the new tracker config file as pipe-tuner-sample/configs/config_Tracker/&lt;new tracker config.yml&gt;, and change trackerPath in PipeTuner config to match the new path.</p>
+</section>
+<section id="single-view-3d-tracking">
+<h4>Single-View 3D Tracking<a class="headerlink" href="Pipetuner-guide.html#single-view-3d-tracking" title="Link to this heading">#</a></h4>
+<p>Sample config_Tracker/config_tracker_NvDCF_accuracy_ResNet50_3D.yml and config_Tracker/config_tracker_NvDCF_accuracy_SWIN_3D.yml already provide examples for single camera 3D tracking. They use the pre-generated camera matrix configs in config_CameraMatrix directory. When switching to a new dataset, users need to:</p>
+<ul class="simple">
+<li><p>Generate the new camera matrix configs following the steps in DeepStream document</p></li>
+<li><p>Update cameraModelFilepath in tracker config with the absolute path of the new camera matrix configs</p></li>
+</ul>
+</section>
+<section id="mtmc-analytics">
+<h4>MTMC Analytics<a class="headerlink" href="Pipetuner-guide.html#mtmc-analytics" title="Link to this heading">#</a></h4>
+<p>Currently used MTMC analytics algorithm config file is pipe-tuner-sample/configs/config_MTMC/config_mtmc_app.json. If some new MTMC config file is needed, place it as pipe-tuner-sample/configs/config_MTMC/&lt;new MTMC config.yml&gt;, and change mtmcPath in PipeTuner config to match the new path.</p>
+</section>
+</section>
+<section id="customize-parameters">
+<h3>Customize Parameters<a class="headerlink" href="Pipetuner-guide.html#customize-parameters" title="Link to this heading">#</a></h3>
+<section id="change-accuracy-metric">
+<h4>Change Accuracy Metric<a class="headerlink" href="Pipetuner-guide.html#change-accuracy-metric" title="Link to this heading">#</a></h4>
+<p>Three accuracy metrics are supported for either single camera MOT or MTMC: MOTA, IDF1 and HOTA. It can be changed in PipeTuner config file as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parameter_space:
+  Init:
+    …
+    Eval:
+      metric: &#39;HOTA&#39; # accuracy metric across [&#39;MOTA&#39;, &#39;IDF1&#39;, &#39;HOTA&#39;]
+</pre></div>
+</div>
+</section>
+<section id="parameter-search-space">
+<h4>Parameter Search Space<a class="headerlink" href="Pipetuner-guide.html#parameter-search-space" title="Link to this heading">#</a></h4>
+<p>There are lots of parameters in PGIE, tracker and MTMC config files. The search space of each parameter is defined in PipeTuner config file as parameter_name: [ lower_bound, upper_bound (included), distribution, data_type ].
+During each iteration, a value is generated in the search range and overwrites the original PGIE, tracker or MTMC config file provided.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>parameter_name must exist in the original config file. lower_bound, upper_bound must be within the feasible range of a parameter.</p></li>
+<li><p>If a parameter appears in the original config file, but not in PipeTuner config, its value will be fixed as the original value.</p></li>
+</ul>
+</div>
+<p>Below is an example in PipeTuner config. Different use cases have different parameter search space. Feel free to add, change or remove the search space. More parameters and larger search ranges require more optimizers and longer iterations to run, but can give better results than small range.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parameter_space:
+  Init:
+    …
+  NvDCF:
+    BaseConfig:
+        minDetectorConfidence: [ 0,0.9,linear,real ]
+      StateEstimator:
+        processNoiseVar4Loc: [ 1,10000,linear,real ]
+      …
+  PGIE:
+      &quot;[class-attrs-all]&quot;:
+        nms-iou-threshold: [ 0.3,0.8,linear,real ]
+      …
+  MTMC:
+    default:
+        locationBboxBottomGapThresh: [0.01,0.05,linear,real ]
+      …
+</pre></div>
+</div>
+</section>
+<section id="optimizers">
+<h4>Optimizers<a class="headerlink" href="Pipetuner-guide.html#optimizers" title="Link to this heading">#</a></h4>
+<p>Five optimizers are supported: pysot, tpe, hyper, opentuner and scikit. Different optimizers generate different checkpoints, and the optimal checkpoint is selected from all the optimizers enabled. Uncomment below section in PipeTuner config to enable an optimizer (e.g. tpe). Typically 2 or 3 optimizers can give satisfying results. Change max_iteration to control the number of iterations for each optimizer.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>bbo:
+problem_type_is_min: false
+job_batch_size: 1
+optimizers:
+  type1:
+    name: &quot;pysot&quot;
+    max_iteration: 100
+    redundancy: 1
+    batch_size: 1
+#   type2:
+#       name: &quot;tpe&quot;
+#       max_iteration: 100
+#       redundancy: 1
+#       batch_size: 1
+…
+</pre></div>
+</div>
+<p>It is recommended that worker_number is set equal to the number of optimizers used.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>servers:
+ server1:
+   …
+   worker_number: 2
+</pre></div>
+</div>
+</section>
+<section id="optimization-manager-configs">
+<h4>Optimization Manager Configs<a class="headerlink" href="Pipetuner-guide.html#optimization-manager-configs" title="Link to this heading">#</a></h4>
+<p>When a DeepStream application could fail to run with errors or output zero KPI score, then the optimization manager can capture the failures or zero scores. If there are too many failures or zero scores from DeepStream application, then the optimization process stops immediately. We can set the thresholds for the number of zero scores and failures.</p>
+<ul class="simple">
+<li><p>threshold_zero_scores: if the number of zero scores from DeepStream application is higher than this parameter, then the process stops.</p></li>
+<li><p>threshold_ds_app_fails: if the number of failures of DeepStream application  is higher than this parameter, then the process stops.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># optimization manager configs
+optim_manager:
+  # threshold for the number of 0 scores
+  threshold_zero_scores: 10
+  # threshold for the number of DS app fails
+  threshold_ds_app_fails: 3
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="changelog">
+<h2>Changelog<a class="headerlink" href="Pipetuner-guide.html#changelog" title="Link to this heading">#</a></h2>
+<section id="version-1-0">
+<h3>Version 1.0<a class="headerlink" href="Pipetuner-guide.html#version-1-0" title="Link to this heading">#</a></h3>
+<section id="features">
+<h4>Features<a class="headerlink" href="Pipetuner-guide.html#features" title="Link to this heading">#</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p>Allow tuning of DeepStream-based perception pipeline</p></li>
+<li><p>Allow tuning of end-to-end MTMC pipeline (i.e., DS-perception + MTMC-Analytics)</p></li>
+<li><p>Output BBO client log messages to the console and the log file. Log levels are DEBUG, INFO, WARNING, and ERROR. All level messages are logged in the log file, whereas higher than INFO messages are displayed in the console.</p></li>
+<li><p>Save DeepStream application’s log messages as a file (log_DsAppRun.log) under “checkpoints/DsAppRun_output__XXXX”</p></li>
+<li><p>Check the DS app’s last log message is “App run failed”, then find and show the messages with Error, ERROR, and [Exception] in a console.</p></li>
+<li><p>If the number of 0 scores from DS app is higher than a configurable parameter, then output error messages and stop all process</p></li>
+<li><p>If the number of DS app fails is higher than a configurable parameter, then output error messages and stop all process</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GXF Command Line Interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../graphtools-docs/docs/text/GraphComposer_FAQ.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">FAQ</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#system-requirements">System Requirements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#ngc-setup">NGC Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#sample-data-setup">Sample Data Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#deepstream-tuning-case">DeepStream Tuning Case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#mtmc-tuning-case">MTMC Tuning Case</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#quick-start">Quick Start</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#launch-tuning-process">Launch Tuning Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#ds-perception-tuning">DS Perception Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#mtmc-tuning-with-frozen-perception">MTMC Tuning with Frozen Perception</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#mtmc-e2e-tuning">MTMC E2E Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#stop-pipetuner">Stop PipeTuner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#retrieve-and-visualize-tuning-results">Retrieve and Visualize Tuning Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#custom-tuning">Custom Tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#understanding-pipetuner-config-path">Understanding PipeTuner Config Path</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#custom-dataset">Custom Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#create-video-files">Create Video Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id1">DS Perception Tuning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id2">MTMC Tuning with Frozen Perception</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id3">MTMC E2E Tuning</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#create-ground-truth-labels">Create Ground Truth Labels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id4">DS Perception Tuning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id5">MTMC Tuning with Frozen Perception</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#id6">MTMC E2E Tuning</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#launch-pipetuner-with-the-new-config-file">Launch PipeTuner with the New Config File</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#data-augmentation">Data Augmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#video-generation">Video Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#use-in-ds-perception-tuning">Use in DS Perception Tuning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#custom-models">Custom Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#models-on-ngc">Models on NGC</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#object-detector-i-e-pgie">Object detector (i.e., PGIE)</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#re-id">Re-ID</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#custom-algorithms">Custom Algorithms</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#multi-object-trackers">Multi-Object Trackers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#single-view-3d-tracking">Single-View 3D Tracking</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#mtmc-analytics">MTMC Analytics</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#customize-parameters">Customize Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#change-accuracy-metric">Change Accuracy Metric</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#parameter-search-space">Parameter Search Space</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#optimizers">Optimizers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#optimization-manager-configs">Optimization Manager Configs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#changelog">Changelog</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#version-1-0">Version 1.0</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="Pipetuner-guide.html#features">Features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

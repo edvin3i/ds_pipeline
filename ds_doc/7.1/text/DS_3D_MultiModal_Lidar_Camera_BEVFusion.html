@@ -1,0 +1,1228 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DeepStream-3D Multi-Modal BEVFusion Setup &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_3D_MultiModal_Lidar_Camera_BEVFusion';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DeepStream-3D Multi-Modal V2XFusion Setup" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html" />
+    <link rel="prev" title="DeepStream-3D Sensor Fusion Multi-Modal Application and Framework" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Accuracy.html">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">DeepStream-3...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deepstream-3d-multi-modal-bevfusion-setup">
+<h1>DeepStream-3D Multi-Modal BEVFusion Setup<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#deepstream-3d-multi-modal-bevfusion-setup" title="Link to this heading">#</a></h1>
+<p>The pipeline efficiently processes data from 6 cameras and 1 LiDAR, leveraging a pre-trained <a class="reference external" href="https://github.com/mit-han-lab/bevfusion">PyTorch BEVFusion</a> model. This model is optimized for NVIDIA GPUs using TensorRT and CUDA, as showcased by the <a class="reference external" href="https://github.com/NVIDIA-AI-IOT/Lidar_AI_Solution/tree/master/CUDA-BEVFusion">CUDA-BEVFusion</a> project. Enhancing integration, a multi-modal inference module (<cite>triton-lmm</cite>) based on <a class="reference external" href="https://github.com/triton-inference-server/pytriton">PyTriton</a> simplifies the incorporation of the Python BEVFusion model. The pipeline seamlessly employs <code class="docutils literal notranslate"><span class="pre">ds3d::datatfiler</span></code> for triton inference through gRPC. Ultimately, users can visualize the results by examining the <code class="docutils literal notranslate"><span class="pre">ds3d::datamap</span></code> with 6 camera views. The pipeline also projects LiDAR data and 3D bounding boxes into each view. Furthermore, the same LiDAR data is thoughtfully visualized in both a top view and a side view for enhanced comprehension.</p>
+<blockquote>
+<div><img alt="DeepStream 3D Lidar BEVFusion pipeline overview" class="align-center" src="../_images/DS3D_lidar_sensor_fusion_bevfusion_pipeline.png" />
+</div></blockquote>
+<p>To run the demo, you need to run two processes, either on the same machine or on different machines.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Run tritonserver to startup pytriton-hosted BEVFusion model.</strong> This model requires an x86 platform with a GPU compute capability of 8.0 or higher.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p><strong>Run the DS3D sensor fusion 3D detection pipeline to request inference from the Triton server.</strong> The pipeline can run on any x86 or Jetson platform.</p></li>
+</ul>
+<section id="prerequisites">
+<span id="bevfusion-prerequisites"></span><h2>Prerequisites<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#prerequisites" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>The following development packages must be installed.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GStreamer-1.0</p></li>
+<li><p>GStreamer-1.0 Base Plugins</p></li>
+<li><p>GLES library</p></li>
+<li><p>libyaml-cpp-dev</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Download and install <a class="reference external" href="https://developer.nvidia.com/deepstream-sdk">DeepStream SDK</a> locally.</p></li>
+</ul>
+<p>Dependencies for Triton Server are automatically installed during the building of the DeepStream Triton BEVFusion container.
+Check dependencies in</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-3d-lidar-sensor-fusion/bevfusion/bevfusion.Dockerfile
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If scripts are run outside of container or if file read/write permission errors are experienced, please run the commands with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-E</span></code>.</p>
+</div>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#getting-started" title="Link to this heading">#</a></h2>
+<p>To get started, navigate to the following directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the following commandline outside of the container.</span>
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="m">0</span>.0<span class="w"> </span><span class="c1"># set the correct display number if DISPLAY is not exported</span>
+$<span class="w"> </span>xhost<span class="w"> </span>+
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-3d-lidar-sensor-fusion
+$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span>a+rw<span class="w"> </span>.<span class="w"> </span><span class="c1"># Grant read/write permission for all of the files in this folder</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All the following commandline for BEVFusion setup are run outside of the container unless other comments specified</p>
+</div>
+</section>
+<section id="prepare-deepstream-triton-bevfusion-container-and-models-on-x86-with-a-dgpu">
+<span id="prepare-deepstream-triton-bevfusion"></span><h2>Prepare DeepStream Triton BEVFusion Container and Models on X86 with a dGPU<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#prepare-deepstream-triton-bevfusion-container-and-models-on-x86-with-a-dgpu" title="Link to this heading">#</a></h2>
+<section id="build-the-docker-target-image-for-deepstream-triton-bevfusion-x86">
+<h3>Build the Docker Target Image for deepstream-triton-bevfusion [x86]<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#build-the-docker-target-image-for-deepstream-triton-bevfusion-x86" title="Link to this heading">#</a></h3>
+<p>Build the docker target image named <code class="docutils literal notranslate"><span class="pre">deepstream-triton-bevfusion:{DS_VERSION_NUM}</span></code>.
+Ensure that the DeepStream version number, represented by {DS_VERSION_NUM}, is greater than or equal to 7.0.</p>
+<p>Run the following script to build the target image on top of the DeepStream Triton base image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># The following commands are require to enable Docker-in-Docker functionality if anyone want to run</span>
+<span class="c1"># DeepStream docker inside another docker.</span>
+<span class="c1"># Please start the container using a command like the following, adding your own parameters as needed:</span>
+<span class="c1"># docker run --gpus all -it --rm --net=host --privileged \</span>
+<span class="c1">#      -v /usr/bin/docker:/usr/bin/docker \</span>
+<span class="c1">#      -v /usr/libexec/docker:/usr/libexec/docker \</span>
+<span class="c1">#      -v /var/run/docker.sock:/var/run/docker.sock \</span>
+<span class="c1">#      -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY nvcr.io/nvidia/deepstream:{xx.xx.xx}-triton-multiarch</span>
+$<span class="w"> </span>bevfusion/docker_build_bevfusion_image.sh<span class="w"> </span>nvcr.io/nvidia/deepstream:<span class="o">{</span>xx.xx.xx<span class="o">}</span>-triton-multiarch
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace {xx.xx.xx} with a version number greater than or equal to 7.0. The latest base image can be found at:
+<a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/deepstream">https://catalog.ngc.nvidia.com/orgs/nvidia/containers/deepstream</a></p>
+</div>
+</section>
+<section id="download-cuda-bevfusion-models-and-build-tensorrt-engine-files-x86">
+<h3>Download CUDA-BEVFusion Models and Build TensorRT Engine Files [x86]<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#download-cuda-bevfusion-models-and-build-tensorrt-engine-files-x86" title="Link to this heading">#</a></h3>
+<p>Download the model chunks from CUDA-BEVFusion and use <code class="docutils literal notranslate"><span class="pre">trtexec</span></code> to convert some ONNX model chunks into TensorRT engine files with INT8 precision. The user needs to specify a host directory to store the models. The script will mount this directory to the target container to prepare the model files.</p>
+<p>First, please visit <a class="github reference external" href="https://github.com/NVIDIA-AI-IOT/Lidar_AI_Solution/tree/master/CUDA-BEVFusion#model-and-data">NVIDIA-AI-IOT/Lidar_AI_Solution</a> for the latest instructions on how to download the models directly. Then move the <code class="docutils literal notranslate"><span class="pre">model.zip</span></code> you download to the <code class="docutils literal notranslate"><span class="pre">bevfusion/model_root</span></code> directory before building the models.</p>
+<p>To move your downloaded model to the default file location:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>bevfusion/model_root
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span><span class="o">{</span>PATH<span class="w"> </span>TO<span class="w"> </span>YOUR<span class="w"> </span>model.zip<span class="w"> </span>DOWNLOAD<span class="o">}</span><span class="w"> </span>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-3d-lidar-sensor-fusion/bevfusion/model_root/model.zip
+</pre></div>
+</div>
+<p>Then run the following script based on the target Docker image:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_generate_trt_engine_models.sh<span class="w"> </span>bevfusion/model_root
+</pre></div>
+</div>
+<p>All models can be found in the host directory <cite>bevfusion/model_root</cite>.</p>
+</section>
+<section id="start-tritonserver-for-bevfusion-model-x86">
+<span id="start-triton-server"></span><h3>Start Tritonserver for BEVFusion Model [x86]<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#start-tritonserver-for-bevfusion-model-x86" title="Link to this heading">#</a></h3>
+<p>Start Tritonserver with localhost:8001 to serve the BEVFusion model. Specify the model
+root directory from previous steps. The script will initiate the <cite>triton_lmm</cite> Python module
+to serve the BEVFusion model with NVIDIA Triton-python backend. Run the following script to start the server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_triton_server_bevfusion.sh<span class="w"> </span>bevfusion/model_root
+</pre></div>
+</div>
+<p>[Deprecated] As an alternative to using the Tritonserver, you can start the PyTriton server to host the BEVFusion model.
+Note that the performance of Triton-python is better than PyTriton on average as it supports a GPU-only data buffer, but PyTriton is
+still compatible with the DS3D pipeline.</p>
+<p>To start the PyTriton server, run the following script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_pytriton_server_bevfusion.sh<span class="w"> </span>bevfusion/model_root
+</pre></div>
+</div>
+</section>
+<section id="download-test-data-and-start-ds3d-bevfusion-pipeline">
+<span id="start-ds3d-bevfusion-pipeline"></span><h3>Download Test Data and Start DS3D BEVFusion Pipeline<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#download-test-data-and-start-ds3d-bevfusion-pipeline" title="Link to this heading">#</a></h3>
+<p>Download the NuScenes subset dataset into the host directory <code class="docutils literal notranslate"><span class="pre">data/nuscene</span></code> and mount the dataset
+into the target container to start the BEVFusion pipeline. The script will automatically check and download the dataset.
+The <cite>nuscene</cite> dataset for DS3D bevfusion is hosted at
+<a class="reference external" href="https://github.com/NVIDIA-AI-IOT/deepstream_reference_apps/tree/master/deepstream-3d-sensor-fusion/">GitHub Deepstream Reference Apps</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh</span></code> script will check and download the dataset into host directory ‘data/nuscene’ automatically.</p>
+<p>If you want to download and un-compress the dataset manually, run the scripts:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">NUSCENE_DATASET_URL</span><span class="o">=</span><span class="s2">&quot;https://github.com/NVIDIA-AI-IOT/deepstream_reference_apps/raw/DS_7.1/deepstream-3d-sensor-fusion/data/nuscene.tar.gz&quot;</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>data<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>curl<span class="w"> </span>-o<span class="w"> </span>data/nuscene.tar.gz<span class="w"> </span>-L<span class="w"> </span><span class="si">${</span><span class="nv">NUSCENE_DATASET_URL</span><span class="si">}</span>
+$<span class="w"> </span>tar<span class="w"> </span>-pxvf<span class="w"> </span>data/nuscene.tar.gz<span class="w"> </span>-C<span class="w"> </span>data/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The nuscene dataset is under a Non-Commercial Use license. Refer to the terms of use at: &lt;<a class="reference external" href="https://www.nuscenes.org/terms-of-use">https://www.nuscenes.org/terms-of-use</a>&gt;</p>
+</div>
+<p>There are 2 BEVFusion config files with same pipeline but with differnt 3D rendering options.
+- <code class="docutils literal notranslate"><span class="pre">ds3d_lidar_plus_multi_cam_bev_fusion.yaml</span></code> renders each camera and LiDAR data into a multi-view windows, meanwhile projects LiDAR data and detected 3D bounding-box into each camera’s view to demonstrate LiDAR data alignment.
+- <code class="docutils literal notranslate"><span class="pre">ds3d_lidar_plus_multi_cam_bev_fusion_with_label.yaml</span></code> each camera and LiDAR data into a multi-view windows, meanwhile projects detected 3D bounding-box and labels into each camera’s view.</p>
+<p>Replace the 2 config files with each other in the following tests to see the difference.</p>
+<section id="for-x86">
+<span id="run-pipeline-on-x86"></span><h4><strong>For x86:</strong><a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-x86" title="Link to this heading">#</a></h4>
+<p>The script will first check and download the dataset if they are not in <code class="docutils literal notranslate"><span class="pre">data/nuscene</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">NUSCENE_DATASET_URL</span><span class="o">=</span><span class="s2">&quot;https://github.com/NVIDIA-AI-IOT/deepstream_reference_apps/raw/DS_7.1/deepstream-3d-sensor-fusion/data/nuscene.tar.gz&quot;</span>
+</pre></div>
+</div>
+<p>Run the script to download the dataset and start the pipeline demo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ds3d_lidar_plus_multi_cam_bev_fusion.yaml
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ds3d_lidar_plus_multi_cam_bev_fusion_with_label.yaml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CTRL</span> <span class="pre">+</span> <span class="pre">C</span></code> to terminate.</p>
+</section>
+<section id="for-tritonserver-on-remote-machine">
+<span id="remote-server"></span><h4><strong>For Tritonserver on Remote machine:</strong><a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-tritonserver-on-remote-machine" title="Link to this heading">#</a></h4>
+<p>If tritonserver is running on a remote machine/container distinct from the ds3d pipeline, be sure to update the local gRPC config file at <code class="docutils literal notranslate"><span class="pre">model_config_files/config_triton_bev_fusion_infer_grpc.pbtxt</span></code> to use the IP address of the remote machine running tritonserver instead of localhost:</p>
+<ul>
+<li><p>Update config file on local client machine.</p>
+<div class="highlight-protobuf notranslate"><div class="highlight"><pre><span></span><span class="n">grpc</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;[tritonserver_ip_address]:8001&quot;</span>
+<span class="w">  </span><span class="n">enable_cuda_buffer_sharing</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Uncomment the following line in <code class="docutils literal notranslate"><span class="pre">bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh</span></code> to use your local configs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">MOUNT_OPTIONS</span><span class="o">+=</span><span class="s2">&quot; -v ./:</span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the script on local machine:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion.yaml
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion.yaml<span class="w"> </span>nvcr.io/nvidia/deepstream:<span class="o">{</span>xx.xx.xx<span class="o">}</span>-triton-multiarch
+
+Users<span class="w"> </span>can<span class="w"> </span>replace<span class="w"> </span>yaml<span class="w"> </span>config<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span><span class="sb">``</span>ds3d_lidar_plus_multi_cam_bev_fusion_with_label.yaml<span class="sb">``</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>tests<span class="w"> </span>as<span class="w"> </span>well.
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="for-jetson-devices">
+<h4><strong>For Jetson Devices:</strong><a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-jetson-devices" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Follow steps in <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#start-triton-server"><span class="std std-ref">Start Tritonserver for BEVFusion Model [x86]</span></a> on an remote x86 machine to set up the BEVFusion Triton inference server.</p></li>
+<li><p>Follow steps in <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#remote-server"><span class="std std-ref">For Tritonserver on Remote machine:</span></a>, update local config file <code class="docutils literal notranslate"><span class="pre">model_config_files/config_triton_bev_fusion_infer_grpc.pbtxt</span></code> and mount option as described.</p></li>
+<li><p>Then, run the script on the prebuilt deepstream-triton image:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion.yaml<span class="w"> </span>nvcr.io/nvidia/deepstream:<span class="o">{</span>xx.xx.xx<span class="o">}</span>-triton-multiarch
+$<span class="w"> </span>bevfusion/docker_run_ds3d_sensor_fusion_bevfusion_pipeline.sh<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion_with_label.yaml<span class="w"> </span>nvcr.io/nvidia/deepstream:<span class="o">{</span>xx.xx.xx<span class="o">}</span>-triton-multiarch
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CTRL</span> <span class="pre">+</span> <span class="pre">C</span></code> to terminate.</p>
+</section>
+</section>
+</section>
+<section id="usage">
+<h2>Usage:<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#usage" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>start tritonserver BEVFusion model on x86:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bevfusion/docker_run_triton_server_bevfusion.sh<span class="w"> </span>bevfusion/model_root
+</pre></div>
+</div>
+<p>The cmdline would docker-run the deepstream-triton-bevfusion container to start tritonserver and listen port 8001 for grpc inference request/response.</p>
+<ul class="simple">
+<li><p>Start DS3D BEVFusion inference and rendering pipeline inside of the container:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the following commandline inside of the container.</span>
+$<span class="w"> </span>deepstream-3d-lidar-sensor-fusion<span class="w"> </span>-c<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion.yaml
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>How to update camera intrinsic/extrinsic parameters from nuscene:</p></li>
+</ul>
+<p>following next steps to run triton_lmm/helper/nuscene_data_setup.py to print calibration data and update them into ds3d-sensor-fusion config file.
+See details in <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#dataset-generation-for-ds3d-bevfusion"><span class="std std-ref">Dataset Generation for DS3D BEVFusion</span></a></p>
+</section>
+<section id="iot-messaging">
+<h2>IoT Messaging:<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#iot-messaging" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Follow <a class="reference external" href="https://kafka.apache.org/quickstart">Kafka Quick Start</a> to setup Kafka server and create topic <cite>quick-test</cite> for messaging tests.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">9092</span>:9092<span class="w"> </span>apache/kafka:3.7.0<span class="w"> </span><span class="c1"># start kafka server with port 9092</span>
+$<span class="w"> </span>bin/kafka-topics.sh<span class="w"> </span>--create<span class="w"> </span>--topic<span class="w"> </span>quick-test<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w"> </span><span class="c1"># creat topic &#39;quick-test&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>After kafka installed, uers can follow instructions below to check the resutls.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>bin/kafka-console-consumer.sh<span class="w"> </span>--topic<span class="w"> </span>quick-test<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w"> </span><span class="c1"># see fusion ds3d messaging results.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Start DS3D BEVFusion inference and kafka messaging pipeline inside of deepstream triton container:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># run the following commandline inside of the container.</span>
+$<span class="w"> </span>deepstream-3d-lidar-sensor-fusion<span class="w"> </span>-c<span class="w"> </span>ds3d_lidar_plus_multi_cam_bev_fusion_iot.yaml
+<span class="c1"># edit ds3d_lidar_plus_multi_cam_bev_fusion_iot.yaml, search ds3d_fusion_msg_broker block</span>
+<span class="c1"># update payload-type=1 for minimum 3D bbox; 2 for lidar data with protobuf</span>
+</pre></div>
+</div>
+</section>
+<section id="build-from-source">
+<h2>Build from source:<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#build-from-source" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>To compile the sample app deepstream-3d-lidar-sensor-fusion inside of container:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make
+$<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install<span class="w"> </span><span class="o">(</span>sudo<span class="w"> </span>not<span class="w"> </span>required<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="k">case</span><span class="w"> </span>of<span class="w"> </span>docker<span class="w"> </span>containers<span class="o">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Build custom components from source, check <a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html"><span class="doc">DeepStream 3D Multi-Modal Lidar and Camera Sensor Fusion App</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To compile the sources, run make with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-E</span></code> or root permission.</p>
+</div>
+</section>
+<section id="nuscenes-dataset-setup-for-ds3d-bevfusion-pipeline">
+<span id="nuscene-dataset-setup-for-ds3d-bevfusion-pipeline"></span><h2>NuScenes Dataset Setup for DS3D BEVFusion Pipeline<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#nuscenes-dataset-setup-for-ds3d-bevfusion-pipeline" title="Link to this heading">#</a></h2>
+<p>The sample dataset, available from <a class="reference external" href="https://github.com/NVIDIA-AI-IOT/deepstream_reference_apps/blob/master/deepstream-3d-sensor-fusion">GitHub Deepstream Reference Apps</a>, is picked from the official NuScenes dataset (<a class="reference external" href="https://www.nuscenes.org/">https://www.nuscenes.org/</a>) and licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License (“CC BY-NC-SA 4.0”).</p>
+<p>This DS3D BEVFusion demo is using data from the NuScenes scene <code class="docutils literal notranslate"><span class="pre">cc8c0bf57f984915a77078b10eb33198</span></code> (name: <code class="docutils literal notranslate"><span class="pre">scene-0061</span></code>), containing 39 samples.</p>
+</section>
+<section id="dataset-generation-for-ds3d-bevfusion">
+<span id="id1"></span><h2>Dataset Generation for DS3D BEVFusion<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#dataset-generation-for-ds3d-bevfusion" title="Link to this heading">#</a></h2>
+<p>Users can modify the script <code class="docutils literal notranslate"><span class="pre">triton_lmm/helper/nuscene_data_setup.py</span></code> to generate data for the DS3D sensor fusion use case from different NuScenes scenes.</p>
+<section id="generate-dataset-from-nuscene-samples">
+<h3>Generate dataset from nuscene samples<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#generate-dataset-from-nuscene-samples" title="Link to this heading">#</a></h3>
+<p>To reproduce the sample data and obtain the calibration matrix, follow these commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_WORKSPACE</span><span class="o">=</span>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-3d-lidar-sensor-fusion
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>dataset/nuscene<span class="w"> </span>data
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>./dataset/nuscene:<span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span>/dataset/nuscene<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>./data:<span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span>/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span><span class="w"> </span>--sig-proxy<span class="w"> </span>--entrypoint<span class="w"> </span>python3<span class="w"> </span>deepstream-triton-bevfusion:xxx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python/triton_lmm/helper/nuscene_data_setup.py<span class="w">  </span>--data_dir<span class="o">=</span>dataset/nuscene<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ds3d_fusion_workspace<span class="o">=</span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span><span class="w"> </span>--print_calibration
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace deepstream-triton-bevfusion:xxx with the latest DeepStream version number (e.g., 7.0)</p>
+</div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><p>The first two lines set the environment variable <code class="docutils literal notranslate"><span class="pre">TARGET_WORKSPACE</span></code> to the location of the deepstream-3d-lidar-sensor-fusion sample code and then change the directory to that location.</p></li>
+<li><p>The third line creates directories named <code class="docutils literal notranslate"><span class="pre">dataset/nuscene</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> inside the target workspace.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command executes the <code class="docutils literal notranslate"><span class="pre">nuscene_data_setup.py</span></code> script within a Docker container.</p>
+<blockquote>
+<div><ul>
+<li><p>Options</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--rm</span></code>: Removes the container after it finishes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--net=host</span></code>: Allows the container to use the host network.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code>: Mounts volumes to share data between the host and container.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">${TARGET_WORKSPACE}</span></code>: Sets the working directory inside the container.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sig-proxy</span></code>: Enables handling of signals inside the container.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--entrypoint</span> <span class="pre">python3</span></code>: Sets the entrypoint for the container to run <code class="docutils literal notranslate"><span class="pre">python3</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>The command mounts the <code class="docutils literal notranslate"><span class="pre">dataset/nuscene</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> directories from the host system into the container and then executes <code class="docutils literal notranslate"><span class="pre">nuscene_data_setup.py</span></code> with the following arguments.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--data_dir=dataset/nuscene</span></code>: Specifies the directory containing the NuScenes dataset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--ds3d_fusion_workspace=${TARGET_WORKSPACE}</span></code>: Sets the target workspace for the DS3D sensor fusion data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--print_calibration</span></code>: Instructs the script to print the calibration data.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">deepstream-triton-bevfusion:xxx</span></code> with the latest DeepStream version number (e.g., 7.0).</p>
+</div>
+<p>The script downloads the original NuScenes data into the <code class="docutils literal notranslate"><span class="pre">dataset/nuscene</span></code> directory and then converts it into the format required by DS3D sensor fusion, storing the converted data in the <code class="docutils literal notranslate"><span class="pre">${TARGET_WORKSPACE}/data/nuscene</span></code> directory.</p>
+</section>
+<section id="calibration-data-generation-for-ds3d-sensor-fusion">
+<h3>Calibration Data Generation for DS3D Sensor Fusion<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#calibration-data-generation-for-ds3d-sensor-fusion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--print_calibration</span></code> argument in the previous command outputs the following calibration data,</p>
+<ul>
+<li><p>Camera intrinsic matrix(4x4).</p></li>
+<li><p>Camera-to-LiDAR extrinsic matrix(4x4).</p></li>
+<li><p>LiDAR-to-Camera extrinsic matrix(4x4).</p></li>
+<li><p>LiDAR-to-Image matrix(4x4)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="how-to-use-other-nuscenes-scene-samples">
+<h2>How to use other nuScenes scene samples:<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#how-to-use-other-nuscenes-scene-samples" title="Link to this heading">#</a></h2>
+<p>You can seamlessly integrate a different nuScenes scene dataset into the <code class="docutils literal notranslate"><span class="pre">deepstream-3d-sensor-fusion</span></code> pipeline, ensuring accurate calibration for your specific use case.</p>
+<p>If you wish to employ an alternative scene samples in nuScenes dataset for setting up a demonstration, follow these steps:</p>
+<ul class="simple">
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">nuscene_data_setup.py</span></code> script to a different scene number and generate the required sample data formats for ds3d-sensor-fusion. Run the same commandline inside the container.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_WORKSPACE</span><span class="o">=</span>/opt/nvidia/deepstream/deepstream/sources/apps/sample_apps/deepstream-3d-lidar-sensor-fusion
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span>
+$<span class="w"> </span>python3<span class="w"> </span>python/triton_lmm/helper/nuscene_data_setup.py<span class="w">  </span>--data_dir<span class="o">=</span>dataset/nuscene<span class="w"> </span><span class="se">\</span>
+--ds3d_fusion_workspace<span class="o">=</span><span class="si">${</span><span class="nv">TARGET_WORKSPACE</span><span class="si">}</span><span class="w"> </span>--print_calibration
+</pre></div>
+</div>
+<ul>
+<li><p>Update the new calibration data into DS3D sensor fusion pipeline configuration files</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Update intrinsic and extrinsic calibration matrix in <code class="docutils literal notranslate"><span class="pre">ds3d::datafilter</span></code> <code class="docutils literal notranslate"><span class="pre">lidar_alignment_filter</span></code> from config file <code class="docutils literal notranslate"><span class="pre">ds3d_lidar_plus_multi_cam_bev_fusion.yaml</span></code>.</p></li>
+<li><p>each <code class="docutils literal notranslate"><span class="pre">cam_intrinsic</span></code> and <code class="docutils literal notranslate"><span class="pre">lidar_to_cam_extrisic</span></code> requires matrix <code class="docutils literal notranslate"><span class="pre">shape:</span> <span class="pre">3x4</span></code> with <code class="docutils literal notranslate"><span class="pre">row_major:</span> <span class="pre">True</span></code>, User need copy the first 3x4 matrix from the previous cmdline log output.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Update the new calibration data into triton-lmm before startup tritonserver.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">python/triton_lmm/server/pytriton_server.py</span></code> for all required matrix.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Restart tritonserver
+see instructions in <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#start-triton-server"><span class="std std-ref">Start Tritonserver for BEVFusion Model [x86]</span></a></p></li>
+<li><p>Restart ds3d sensorfusion pipeline
+see instructions in <a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#start-ds3d-bevfusion-pipeline"><span class="std std-ref">Download Test Data and Start DS3D BEVFusion Pipeline</span></a></p></li>
+</ul>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#citation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>BEVFusion model is originally from <a class="reference external" href="https://github.com/mit-han-lab/bevfusion">github bevfusion</a>.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@inproceedings{liu2022bevfusion,
+   title={BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird&#39;s-Eye View Representation},
+   author={Liu, Zhijian and Tang, Haotian and Amini, Alexander and Yang, Xingyu and Mao, Huizi and Rus, Daniela and Han, Song},
+   booktitle={IEEE International Conference on Robotics and Automation (ICRA)},
+   year={2023}
+}
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>nuscene dataset is from <a class="reference external" href="https://www.nuscenes.org/">nuscene.org</a>.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@article{nuscenes2019,
+  title={nuScenes: A multimodal dataset for autonomous driving},
+  author={Holger Caesar and Varun Bankiti and Alex H. Lang and Sourabh Vora and
+          Venice Erin Liong and Qiang Xu and Anush Krishnan and Yu Pan and
+          Giancarlo Baldan and Oscar Beijbom},
+  journal={arXiv preprint arXiv:1903.11027},
+  year={2019}
+}
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@article{fong2021panoptic,
+  title={Panoptic nuScenes: A Large-Scale Benchmark for LiDAR Panoptic Segmentation and Tracking},
+  author={Fong, Whye Kit and Mohan, Rohit and Hurtado, Juana Valeria and Zhou, Lubing and Caesar, Holger and
+          Beijbom, Oscar and Valada, Abhinav},
+  journal={arXiv preprint arXiv:2109.03805},
+  year={2021}
+}
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DeepStream-3D Multi-Modal V2XFusion Setup</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#getting-started">Getting Started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#prepare-deepstream-triton-bevfusion-container-and-models-on-x86-with-a-dgpu">Prepare DeepStream Triton BEVFusion Container and Models on X86 with a dGPU</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#build-the-docker-target-image-for-deepstream-triton-bevfusion-x86">Build the Docker Target Image for deepstream-triton-bevfusion [x86]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#download-cuda-bevfusion-models-and-build-tensorrt-engine-files-x86">Download CUDA-BEVFusion Models and Build TensorRT Engine Files [x86]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#start-tritonserver-for-bevfusion-model-x86">Start Tritonserver for BEVFusion Model [x86]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#download-test-data-and-start-ds3d-bevfusion-pipeline">Download Test Data and Start DS3D BEVFusion Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-x86"><strong>For x86:</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-tritonserver-on-remote-machine"><strong>For Tritonserver on Remote machine:</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#for-jetson-devices"><strong>For Jetson Devices:</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#usage">Usage:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#iot-messaging">IoT Messaging:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#build-from-source">Build from source:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#nuscenes-dataset-setup-for-ds3d-bevfusion-pipeline">NuScenes Dataset Setup for DS3D BEVFusion Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#dataset-generation-for-ds3d-bevfusion">Dataset Generation for DS3D BEVFusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#generate-dataset-from-nuscene-samples">Generate dataset from nuscene samples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#calibration-data-generation-for-ds3d-sensor-fusion">Calibration Data Generation for DS3D Sensor Fusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#how-to-use-other-nuscenes-scene-samples">How to use other nuScenes scene samples:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html#citation">Citation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1130 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Accuracy Tuning Tools &#8212; DeepStream documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css%3Fdigest=dfe6caa3a7d634c4db9b.css" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css%3Fv=a746c00c.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css%3Fv=eb367b29.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css%3Fv=7abaf8bc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css%3Fv=95c83b7e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js%3Fv=22d9b4cb"></script>
+    <script src="../_static/doctools.js%3Fv=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js%3Fv=dc90522c"></script>
+    <script src="../_static/design-tabs.js%3Fv=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'text/DS_Accuracy';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '7.1';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/version-patch.js%3Fv=c24f8c5d"></script>
+    <link rel="icon" href="../_static/Nvidia.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using a Custom Model with DeepStream" href="DS_using_custom_model.html" />
+    <link rel="prev" title="Performance" href="DS_Performance.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Sep 15, 2025"/>
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" ></script>
+    
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="DS_Accuracy.html#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="DeepStream documentation - Home"/>
+    <script>document.write(`<img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark" alt="DeepStream documentation - Home"/>`);</script>
+  
+  
+    <p class="title logo__title">DeepStream documentation</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Overview.html">Welcome to the DeepStream Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Migration_guide.html">Migration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_docker_containers.html">Docker Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Samples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_C_Sample_Apps.html">C/C++ Sample Apps Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Python_Sample_Apps.html">Python Sample Apps and Bindings Source Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_deepstream.html">DeepStream Reference Application - deepstream-app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_test5.html">DeepStream Reference Application - deepstream-test5 app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_nmos.html">DeepStream Reference Application - deepstream-nmos app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_ref_app_github.html">DeepStream Reference Application on GitHub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_configs_streams.html">Sample Configurations and Streams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_sample_custom_gstream.html">Implementing a Custom GStreamer Plugin with OpenCV Integration Example</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">TAO toolkit Integration with DeepStream</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_TAO_integration.html">TAO Toolkit Integration with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials and How-to's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Custom_Manual.html">DeepStream-3D Custom Apps and Libs Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Performance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Performance.html">Performance</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Accuracy</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="DS_Accuracy.html#">Accuracy Tuning Tools</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Custom Model</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_using_custom_model.html">Using a Custom Model with DeepStream</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Key Features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Sensor_Fusion.html">DeepStream-3D Sensor Fusion Multi-Modal Application and Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_BEVFusion.html">DeepStream-3D Multi-Modal BEVFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_MultiModal_Lidar_Camera_V2XFusion.html">DeepStream-3D Multi-Modal V2XFusion Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Smart_video.html">Smart Video Record</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_IoT.html">IoT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_on_the_fly_model.html">On the Fly Model Update</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_NTP_Timestamp.html">NTP Timestamp in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_AVSync.html">AV Sync in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_RestServer.html">DeepStream With REST API Sever</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Action.html">DeepStream 3D Action Recognition App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Depth_Camera.html">DeepStream 3D Depth Camera App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_3D_Lidar_Inference.html">DeepStream 3D Lidar Inference App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_library_nvdsnmos.html">Networked Media Open Specifications (NMOS) in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_postprocessing_plugin.html">Gst-nvdspostprocess in DeepStream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_Can_Orientation.html">DeepStream Can Orientation App</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Application Migration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Application_migration.html">Application Migration to DeepStream 7.1 from DeepStream 7.0</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Plugin Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_plugin_Intro.html">GStreamer Plugin Overview</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_metadata.html">MetaData in the DeepStream SDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspreprocess.html">Gst-nvdspreprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinfer.html">Gst-nvinfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvinferserver.html">Gst-nvinferserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvtracker.html">Gst-nvtracker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux.html">Gst-nvstreammux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreammux2.html">Gst-nvstreammux New</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvstreamdemux.html">Gst-nvstreamdemux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultistreamtiler.html">Gst-nvmultistreamtiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsosd.html">Gst-nvdsosd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsmetautils.html">Gst-nvdsmetautils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsvideotemplate.html">Gst-nvdsvideotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsaudiotemplate.html">Gst-nvdsaudiotemplate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideoconvert.html">Gst-nvvideoconvert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdewarper.html">Gst-nvdewarper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvof.html">Gst-nvof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvofvisual.html">Gst-nvofvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvsegvisual.html">Gst-nvsegvisual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideo4linux2.html">Gst-nvvideo4linux2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegdec.html">Gst-nvjpegdec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimagedec.html">Gst-nvimagedec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvjpegenc.html">Gst-nvjpegenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvimageenc.html">Gst-nvimageenc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgconv.html">Gst-nvmsgconv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmsgbroker.html">Gst-nvmsgbroker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsanalytics.html">Gst-nvdsanalytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsrc.html">Gst-nvdsudpsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsudpsink.html">Gst-nvdsudpsink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdspostprocess.html">Gst-nvdspostprocess (Alpha)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dfilter.html">Gst-nvds3dfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dbridge.html">Gst-nvds3dbridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvds3dmixer.html">Gst-nvds3dmixer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsucx.html">Gst-NvDsUcx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvdsxfer.html">Gst-nvdsxfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvvideotestsrc.html">Gst-nvvideotestsrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvmultiurisrcbin.html">Gst-nvmultiurisrcbin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_plugin_gst-nvurisrcbin.html">Gst-nvurisrcbin</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Troubleshooting and FAQ</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_FAQ.html">Frequently Asked Questions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream On WSL2</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_on_WSL2.html">DeepStream On WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_WSL2_FAQ.html">FAQ for Deepstream On WSL</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream API Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_API_Guide.html">DeepStream API Guides</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Service Maker</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_intro.html">What is Deepstream Service Maker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_cpp.html">Service Maker for C/C++ Developers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="DS_service_maker_python.html">Service Maker for Python Developers(alpha)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_flow_api.html">Introduction to Flow APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_into_to_pipeline_api.html">Introduction to Pipeline APIs</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_python_advanced_features.html">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DS_service_maker_traditional_app_migration.html">Migrating Traditional Deepstream Apps to Service Maker Apps in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="DS_service_maker_plugin.html">What is a Deepstream Service Maker Plugin</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Deepstream Libraries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Libraries.html">DeepStream Libraries (Developer Preview)</a></li>
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_intro.html">Overview</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Platforms</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Platforms.html">Supported platforms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Getting_Started.html">Application Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_GraphComposer_Create_Graph.html">Creating an AI Application</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Sample_Graphs.html">Reference graphs</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Dev_Workflow.html">Extension Development Workflow</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_Developing_Extension.html">Developing Extensions for DeepStream</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Zero_Coding_DS_Components.html">DeepStream Components</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Internals.html">GXF Internals</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph eXecution Engine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Graph_Runtime.html">Graph Execution Engine</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Graph Composer Containers</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Containers.html">Graph Composer and GXF Containers</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Component Interfaces</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Component_Interfaces.html">GXF Component Interfaces</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Application API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_C++_APIs.html">GXF App C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_App_Python_APIs.html">GXF App Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">GXF Runtime API's</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C++_APIs.html">GXF Core C++ APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_C_APIs.html">GXF Core C APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GXF_Core_Python_APIs.html">GXF Core Python APIs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Extension Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Extensionmanual_toc.html">Extensions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/CudaExtension.html">CudaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StreamSync.html">GXF Stream Sync</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/StandardExtension.html">StandardExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Python_Codelet.html">Python Codelets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NetworkExtension.html">NetworkExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/NvTritonExt.html">NvTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/SerializationExtension.html">SerializationExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/MultimediaExtension.html">MultimediaExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoEncoderExtension.html">VideoEncoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/VideoDecoderExtension.html">VideoDecoderExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/Behavior_Tree.html">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/UcxExtension.html">UCX Extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/HttpExtension.html">HttpExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/GrpcExtension.html">GrpcExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../graphtools-docs/docs/text/ExtensionsManual/TensorrtExtension.html">TensorRTExtension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDs3dProcessingExt.html">NvDs3dProcessingExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsActionRecognitionExt.html">NvDsActionRecognitionExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsAnalyticsExt.html">NvDsAnalyticsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsBaseExt.html">NvDsBaseExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsCloudMsgExt.html">NvDsCloudMsgExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsConverterExt.html">NvDsConverterExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsDewarperExt.html">NvDsDewarperExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceExt.html">NvDsInferenceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInferenceUtilsExt.html">NvDsInferenceUtilsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsInterfaceExt.html">NvDsInterfaceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsMuxDemuxExt.html">NvDsMuxDemuxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOpticalFlowExt.html">NvDsOpticalFlowExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsOutputSinkExt.html">NvDsOutputSinkExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleExt.html">NvDsSampleExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSampleModelsExt.html">NvDsSampleModelsExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsSourceExt.html">NvDsSourceExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTemplateExt.html">NvDsTemplateExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTrackerExt.html">NvDsTrackerExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTranscodeExt.html">NvDsTranscodeExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsTritonExt.html">NvDsTritonExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUcxExt.html">NvDsUcxExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsUdpExt.html">NvDsUdpExt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ExtensionsManual/NvDsVisualizationExt.html">NvDsVisualizationExt</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry.html">Registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Registry_CLI.html">Registry Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Composer.html">Composer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_Container_Builder.html">Container Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_gxf_CLI.html">GXF Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pipetuner-guide.html">Pipetuner Guide</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FAQ Guide</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../graphtools-docs/docs/text/GraphComposer_FAQ.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Legal Information</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DS_Legal.html">DeepStream End User License Agreement</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">DeepStream Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="DeepStream_Main_Feedback_Form.html">Feedback form</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Accuracy...</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="accuracy-tuning-tools">
+<h1>Accuracy Tuning Tools<a class="headerlink" href="DS_Accuracy.html#accuracy-tuning-tools" title="Link to this heading">#</a></h1>
+<p>A typical DeepStream perception pipeline includes a detector and the multi-object tracker, and each module has a number of parameters listed in the detector (PGIE) and tracker configuration files. For example, the clustering thresholds for detection post-processing, the Kalman filter parameters in tracker, etc. When users deploy such data processing pipelines in diverse applications, such as traffic, retail, warehouse etc., a pain point is how to find the optimal parameters with the highest accuracy KPI for each use case. Manual parameter tuning requires in-depth knowledge on the algorithm and how each parameter would
+affect the functionality. Given the large number of parameters, the complexity of such process would increase exponentially.</p>
+<p>Starting from DeepStream 7.0, a new tool <strong>PipeTuner</strong> is released for automatic accuracy tuning. It efficiently explores the (potentially very high-dimensional) parameter space and automatically finds the optimal parameters for the pipelines, which yields the highest
+KPI on the dataset. The difference between automatic and traditional manual tuning can be summarized as follows:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p>Approach</p></td>
+<td><p>Workflow</p></td>
+<td><p>Pros/Cons</p></td>
+<td><p>Requirements</p></td>
+</tr>
+<tr class="row-even"><td><p>Automatic tuning
+using PipeTuner</p></td>
+<td><ul class="simple">
+<li><p>Download PipeTuner, and prepare a dataset for the target use case.</p></li>
+<li><p>Define a DeepStream pipeline with required models to be used and initial parameters
+in the config files. And then register a set of parameters to be tuned with a search range
+for each parameter.</p></li>
+<li><p>Launch PipeTuner and it will automatically search the parameters with the highest accuracy KPI.</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>Users are not required to have technical knowledge on the pipeline and its parameters.</p></li>
+<li><p>The automatic tuning algorithm find the best parameter set within the search range
+that would yield the highest accuracy KPI.</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>Users need to provide a dataset, which includes a few video streams with the resolution same as the one that will be used in the actual deployments,
+and ground truth (i.e. bounding box and object IDs). The videos should have the same resolution,
+represent the typical use case, and not be too long, otherwise the tuning turn-around time may take too long; we recommend 1-2 min in length.</p></li>
+<li><p>The pipeline tuning would be carried out through a number of iterations of DeepStream pipeline execution, which may take several hours depending on various
+factors, such as the number of iterations (similar to epochs), the size of the dataset and the HW capabilities.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Manual tuning</p></td>
+<td><ul class="simple">
+<li><p>Read the technical documentation to understand how each parameter affects the accuracy.</p></li>
+<li><p>Perform heuristic or random search for the parameters and check the result quality.</p></li>
+<li><p>Manually run DeepStream pipeline multiple times to compare which parameters work the best.</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>If a user is very experienced/skilled in DeepStream tuning, then it could be quick fix.</p></li>
+<li><p>Quick fix on some parameters for a corner case may lead to a regression on other cases.</p></li>
+<li><p>Any manual tuning would be sub-optimal as exploring the high-dimensional parameter
+space manual is not tractable.</p></li>
+</ul>
+</td>
+<td><ul class="simple">
+<li><p>Users need special technical knowledge on the pipeline and its parameters, and need to go through a trial-and-error process.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For more detailed tutorials, please check out <a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/pipetuner-data">PipeTuner User Guide</a> from NGC for step-to-step setup instructions and all the technical details.
+In case manual tuning is still needed, we also provide in the following sections the functionality of some of the configuration parameters to give a better understanding on their potential impacts on both performance and accuracy on multi-object tracking operations.</p>
+<section id="pipetuner-for-automatic-tuning-developer-preview">
+<h2>PipeTuner for Automatic Tuning (Developer Preview)<a class="headerlink" href="DS_Accuracy.html#pipetuner-for-automatic-tuning-developer-preview" title="Link to this heading">#</a></h2>
+<section id="download">
+<h3>Download<a class="headerlink" href="DS_Accuracy.html#download" title="Link to this heading">#</a></h3>
+<p>PipeTuner is hosted on NGC. Users need to download the following resources to start.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/collections/pipetuner">PipeTuner Collection</a>: The collection of all Pipetuner resources, including introduction, user guide and setup instructions;</p></li>
+<li><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pipetuner">PipeTuner Container</a>: PipeTuner docker container;</p></li>
+<li><p><a class="reference external" href="https://catalog.ngc.nvidia.com/orgs/nvidia/resources/pipetuner-data">PipeTuner User Guide and Sample Data</a>: PipeTuner user guide and the sample data to run as an example, including a sample dataset for people tracking, configuration files for tuning, and scripts to launch the pipeline.</p></li>
+</ul>
+</section>
+<section id="features-and-requirements">
+<h3>Features and Requirements<a class="headerlink" href="DS_Accuracy.html#features-and-requirements" title="Link to this heading">#</a></h3>
+<p>Here is a summary of PipeTuner’s functionalities and requirements:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<tbody>
+<tr class="row-odd"><td><p>Dataset</p></td>
+<td><p>Users need to provide the typical dataset for their use case. It should include a few sample videos, with bounding box and object ID ground truth annotated</p></td>
+</tr>
+<tr class="row-even"><td><p>Models</p></td>
+<td><p>Users need to provide the required models, including the object detection model (for PGIE) and Re-ID models (Re-ID only required when using NvDCF_accuracy or NvDeepSORT tracker). They can be NVIDIA TAO models in
+DeepStream container, NGC, or customized pre-trained ONNX models</p></td>
+</tr>
+<tr class="row-odd"><td><p>Container</p></td>
+<td><p>Users need to download PipeTuner and DeepStream container from NGC</p></td>
+</tr>
+<tr class="row-even"><td><p>Accuracy KPI</p></td>
+<td><p>Users select one of the multi-object tracking KPIs: <a class="reference external" href="https://link.springer.com/article/10.1007/s11263-020-01375-2">HOTA</a>, <a class="reference external" href="https://link.springer.com/article/10.1155/2008/246309">MOTA</a> or <a class="reference external" href="https://arxiv.org/abs/1609.01775">IDF1</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="DS_Accuracy.html#setup" title="Link to this heading">#</a></h3>
+<p>Overall steps to setup PipeTuner are as below.</p>
+<ul class="simple">
+<li><p><strong>Download Container</strong>: Pull PipeTuner and DeepStream perception container from NGC repository;</p></li>
+<li><p><strong>Download Sample Data</strong>: Download and extract sample data from NGC resource;</p></li>
+<li><p><strong>Data Preparation</strong>: Users create their own dataset with the same format as sample data, and update configuration files to match their use case;</p></li>
+<li><p><strong>Launch Tuning</strong>: Launch the tuning pipeline using the desired configuration and data;</p></li>
+<li><p><strong>Retrieve Results</strong>: Retrieve the optimal parameters and visualize the tuning results;</p></li>
+<li><p><strong>Deploy</strong>: Deploy the optimal parameters into the desired use case.</p></li>
+</ul>
+<p>PipeTuner searches the optimal parameters by iterating the following three steps until the
+accuracy KPI converges or up to the max number of iterations (i.e., epochs) specified:</p>
+<ul class="simple">
+<li><p><strong>ParamSearch</strong>: Given the accuracy KPI score in the previous iteration, make an educated guess on the set of parameters that would yield a higher accuracy KPI. For the very first iteration, a random sampling in the parameter space would be conducted;</p></li>
+<li><p><strong>PipeExec</strong>: Given the sampled/guessed parameter set, execute the pipeline with the params and generates metadata to allow accuracy evaluation;</p></li>
+<li><p><strong>PipeEval</strong>: Given the metadata outputs from the pipeline and the dataset, perform the accuracy evaluation based on the accuracy metric and generates accuracy KPI score.</p></li>
+</ul>
+</section>
+</section>
+<section id="multi-object-tracking-parameter-functionalities-for-manual-tuning">
+<h2>Multi-Object Tracking Parameter Functionalities for Manual Tuning<a class="headerlink" href="DS_Accuracy.html#multi-object-tracking-parameter-functionalities-for-manual-tuning" title="Link to this heading">#</a></h2>
+<p>This section describes the configuration parameters in each module of the detector and tracker, and their potential impacts on both performance and accuracy. A general introduction to <code class="docutils literal notranslate"><span class="pre">NvMultiObjectTracker</span></code> tracker library can be found in DeepStream SDK Plugin Manual.</p>
+<section id="accuracy-performance-tradeoffs">
+<h3>Accuracy-Performance Tradeoffs<a class="headerlink" href="DS_Accuracy.html#accuracy-performance-tradeoffs" title="Link to this heading">#</a></h3>
+<p>The visual feature size, detection interval and input frame size have impact on both accuracy and performance. They should be properly set for a good accuracy-performance tradeoff.</p>
+<section id="visual-feature-types-and-feature-sizes">
+<h4>Visual Feature Types and Feature Sizes<a class="headerlink" href="DS_Accuracy.html#visual-feature-types-and-feature-sizes" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul>
+<li><p>Visual feature types</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">useColorNames</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">useHog</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Feature sizes</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">featureImgSizeLevel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">searchRegionPaddingScale</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>NvDCF tracker can use multiple types of visual features such as Histogram of Oriented Gradient (HOG) and ColorNames. If both features are used (by setting <code class="docutils literal notranslate"><span class="pre">useColorNames:</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">useHog:</span> <span class="pre">1</span></code>), then the total number of channels would be 28. The more channels of visual features are used, the more accurately the algorithm would track but would  increase the computational complexity and reduce performance.</p>
+<p>In addition to the types of the visual features, we can configure the number of pixels used to represent an object for each feature channel. The corresponding parameter is <code class="docutils literal notranslate"><span class="pre">featureImgSizeLevel</span></code>, and its range is from 1 to 5. Each level between 1 and 5 corresponds to 12x12, 18x18, 24x24, 36x36, and 48x48, respectively, for each feature channel. Therefore, if one uses both HOG and ColorNames with <code class="docutils literal notranslate"><span class="pre">featureImgSizeLevel:</span> <span class="pre">5</span></code>, then the dimension of visual features that represents an object would be 28x48x48.</p>
+<p>One thing to note is that the visual features for an object are extracted from a region whose size is a bit larger than the object region in order to make sure that the object in the next frame appears within the region even when there is a movement by the object between frames. This region is referred to as <cite>the search region</cite>, whose size is defined by adding a degree of padding to the object <cite>bbox</cite>. More details can be found in the section for NvDCF tracker in DeepStream Plugin Manual.</p>
+<p>Increasing the search region size lowers the probability of missing the object in the next frame; however, given a fixed feature size (i.e., <code class="docutils literal notranslate"><span class="pre">featureImgSizeLevel</span></code>), if we increase <code class="docutils literal notranslate"><span class="pre">searchRegionPaddingScale</span></code>, it would effectively decrease the number of pixels belonging to the object, resulting in lower resolution in terms of object representation in visual features. This may result in lower accuracy in tracking; however, if the degree of movement of an object between two consecutive frames is expected to be small, the object would be highly likely to appear in the search region in the next frame even with a smaller search region size. It would especially be the case if a state estimator is enabled and the prediction by the state estimator is reasonably accurate, because the search region would be defined at the predicted location in the next frame.</p>
+</section>
+<section id="detection-interval">
+<h4>Detection Interval<a class="headerlink" href="DS_Accuracy.html#detection-interval" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul>
+<li><p>Detection interval</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">interval</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Instead of reducing the visual feature types and sizes, users can explore increasing the detection interval instead (i.e., <code class="docutils literal notranslate"><span class="pre">interval</span></code> in PGIE config). Thanks to the enhanced accuracy and robustness, the NvDCF tracker allows users to increase the detection interval without sacrificing the accuracy too much. Especially when a heavier neural net model is used for the object detection, the performance gain by increasing the detection interval will be higher. Thus, users may consider increasing the detection interval instead of lowering the accuracy setting for NvDCF tracker.</p>
+</section>
+<section id="video-frame-size-for-tracker">
+<h4>Video Frame Size for Tracker<a class="headerlink" href="DS_Accuracy.html#video-frame-size-for-tracker" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul>
+<li><p>Video frame size for tracker</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tracker-width</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tracker-height</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The video frame size configured in tracker plugin has some impact on the performance, as a higher resolution video frame would take longer time to transfer between memories. If one sets the frame resolution lower, hoping to achieve a higher performance, however, its negative impact on the accuracy may outweigh the performance gain. Therefore, it is recommended to use at least 960x544 resolution (for 1080p source resolution) to minimize the accuracy degradation.</p>
+</section>
+</section>
+<section id="robustness">
+<h3>Robustness<a class="headerlink" href="DS_Accuracy.html#robustness" title="Link to this heading">#</a></h3>
+<p>To deal with false positives and false negatives from the detector, the <code class="docutils literal notranslate"><span class="pre">NvMultiObjectTracker</span></code> library utilizes two strategies called <cite>Late Activation</cite> and <cite>Shadow Tracking</cite> (more details can be found in DeepStream SDK Plugin Manual). In addition to the config parameters related to those strategies, there are a few config parameters that affect when a tracker for a new object is created and terminated.</p>
+<section id="target-creation-policy">
+<h4>Target Creation Policy<a class="headerlink" href="DS_Accuracy.html#target-creation-policy" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul class="simple">
+<li><p>Target Candidacy</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">minDetectorConfidence</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minIouDiff4NewTarget</span></code></p></li>
+</ul>
+</li>
+<li><p>Late Activation</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">probationAge</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">earlyTerminationAge</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>If an object detected by a detector meets the minimum qualifications (i.e., target candidacy) specified by the following, a new tracker is instantiated for the object:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">minDetectorConfidence</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minIouDiff4NewTarget</span></code></p></li>
+</ul>
+<p>If spurious false detections are observed with lower detector confidence values, one can increase the minimum detector confidence (i.e., <code class="docutils literal notranslate"><span class="pre">minDetectorConfidence</span></code>) to filter them out. If the maxmimum IOU score of a newly detected object to any of the existing targets is lower than <code class="docutils literal notranslate"><span class="pre">minIouDiff4NewTarget</span></code>, a new target tracker would be created to track the object. Thus, if one wishes to further suppress the creation of duplicate bboxes on the same target that may have a bit different bbox sizes, <code class="docutils literal notranslate"><span class="pre">minIouDiff4NewTarget</span></code> can be set lower.</p>
+<p>Once a tracker is instantiated for a new object, it initially starts tracking the object in a temporary mode (i.e., <cite>Tentative</cite> mode) until further criteria are met during a period specified by <code class="docutils literal notranslate"><span class="pre">probationAge</span></code> in terms of the number of frames. During this probationary period, whenever the tracker bbox is not matched with detector bbox or the tracker confidence gets lower than <code class="docutils literal notranslate"><span class="pre">minTrackerConfidence</span></code>, the shadow tracking age (which is an internal variable) is incremented. If the shadow tracking age reaches a predefined threshold (i.e., <code class="docutils literal notranslate"><span class="pre">earlyTerminationAge</span></code>), then the tracker will be terminated prematurely, effectively eliminating the false positives.</p>
+<p>If a higher rate of false detections is expected, then one may consider to increase the <code class="docutils literal notranslate"><span class="pre">probationAge</span></code> and/or decrease <code class="docutils literal notranslate"><span class="pre">earlyTerminationAge</span></code> for stricter creation policy. If the expected detector confidence for the false detections is low while that of the true positives is high, one can set <code class="docutils literal notranslate"><span class="pre">minDetectorConfidence</span></code> accordingly to filter out false detections.</p>
+</section>
+<section id="target-termination-policy">
+<h4>Target Termination Policy<a class="headerlink" href="DS_Accuracy.html#target-termination-policy" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul class="simple">
+<li><p>Shadow Tracking</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">minTrackerConfidence</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maxShadowTrackingAge</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>In addition to the aforementioned early termination policy during the probationary period, there are certain criteria to be met when a tracker is terminated. Once a tracker starts tracking in <cite>Active</cite> mode, its status changes to <cite>Inactive</cite> mode if:</p>
+<ol class="arabic simple">
+<li><p>The tracker confidence is lower than <code class="docutils literal notranslate"><span class="pre">minTrackerConfidence</span></code> or</p></li>
+<li><p>It is not matched with a detector bbox during data association.</p></li>
+</ol>
+<p>The shadow tracking age is incremented every frame when a target is not associated with a detector object. If the tracker gets matched again with a detector bbox, then the shadow tracking age is reset to zero, and the tracker’s mode changes to <cite>Active</cite> mode again if it was in <cite>Inactive</cite> mode (meaning that the tracker outputs will be reported to the downstream). However, if the shadow tracking age exceeds a predefined threshold (i.e., <code class="docutils literal notranslate"><span class="pre">maxShadowTrackingAge</span></code>), the tracker will be terminated.</p>
+<p>For more robust tracking, one may increase the value for <code class="docutils literal notranslate"><span class="pre">maxShadowTrackingAge</span></code> because it will allow an object to be re-associated even after missed detections over multiple consecutive frames. However, in case that the visual appearance of the object undergoes a significant change during the missed detections (e.g., prolonged occlusions), the learned correlation filter may not yield a high correlation response when the object reappears. In addition, increasing <code class="docutils literal notranslate"><span class="pre">maxShadowTrackingAge</span></code> would allow a tracker to live longer (i.e., more delayed termination), resulting in an increased number of trackers present at the memory at a given time, which would in turn increase the computational load.</p>
+</section>
+<section id="state-estimation">
+<h4>State Estimation<a class="headerlink" href="DS_Accuracy.html#state-estimation" title="Link to this heading">#</a></h4>
+<p>An object tracker in <code class="docutils literal notranslate"><span class="pre">NvMultiObjectTracker</span></code> library maintains a set of states for a target like below:</p>
+<ul class="simple">
+<li><p>Target location (in 2D camera coordinates)</p>
+<ul>
+<li><p>Location</p></li>
+<li><p>Location velocity</p></li>
+</ul>
+</li>
+<li><p>Target Bbox</p>
+<ul>
+<li><p>Size</p></li>
+<li><p>Size velocity</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="kalman-filter">
+<h4>Kalman Filter<a class="headerlink" href="DS_Accuracy.html#kalman-filter" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">processNoiseVar4Loc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processNoiseVar4Size</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">processNoiseVar4Vel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measurementNoiseVar4Detector</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measurementNoiseVar4Tracker</span></code></p></li>
+</ul>
+<p>The Kalman Filter (KF) implementation in <code class="docutils literal notranslate"><span class="pre">NvMultiObjectTracker</span></code> library mostly follows a standard 2D KF approach where the user needs to define the process noise and measurement noise based on the expected uncertainty level. If the object has relatively simple and linear motion, one may set the process noise lower than the measurement noise, effectively putting more trust on the prediction. If the object is expected to have more dynamic motions or abrupt changes of states, it would be more advised to set the measurement noise lower; otherwise, there could be some lagging if the prediction is not correct.</p>
+<p>One additional consideration that is put in is to allow users to set different measurement noise for detector <cite>bbox</cite> and tracker <cite>bbox</cite> for the case where a visual tracker module is enabled (i.e., NvDCF). There is always a possibility of false negatives by the detector or there could be video frames where the inference for object detection is skipped. For such cases, each object tracker makes its own localization using the learned correlation filter, and the results are used to update the Kalman filter. Thus, from KF’s point of view, the measurements are from two different sources: one from the detector and the other from the tracker. In cases that the measurements are expected from multiple sources, such measurements are expected to be fused to estimate the target states properly with appropriate measurement models (i.e., uncertainty modeling for the measurements).</p>
+<p>Depending on the accuracy characteristics of the detector and the tracker, the measurement noises should be configured accordingly. When a very high accuracy model is used for object detection, one may set <code class="docutils literal notranslate"><span class="pre">measurementNoiseVar4Detector</span></code> value lower than <code class="docutils literal notranslate"><span class="pre">measurementNoiseVar4Tracker</span></code>, effectively putting more trust on the detector’s measurement than the tracker’s prediction/localization.</p>
+</section>
+</section>
+<section id="data-association">
+<h3>Data Association<a class="headerlink" href="DS_Accuracy.html#data-association" title="Link to this heading">#</a></h3>
+<p><strong>Related Parameters</strong></p>
+<ul class="simple">
+<li><p>Matching Candidacy</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">minMatchingScore4Overall</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minMatchingScore4SizeSimilarity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minMatchingScore4Iou</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">minMatchingScore4VisualSimilarity</span></code></p></li>
+</ul>
+</li>
+<li><p>Matching Score Weights</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4VisualSimilarity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4SizeSimilarity</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4Iou</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>In the video frames where the detector performs inference (referred to as the inference frames), the NvDCF tracker performs the data association to match a set of detector objects to a set of existing targets. To reduce the computational cost for matching, it is essential to define a small set of good candidates for each object tracker. That is where the criteria for matching candidacy comes in. For each tracker <cite>bbox</cite>, only the detector <cite>bboxes</cite> that are qualified in terms of the minimum size similarity, IOU, and the visual similarity are marked as candidates for matching. The visual similarity is computed based on the correlation response of the tracker at the detector <cite>bbox</cite> location. If one wants to consider only the detector <cite>bboxes</cite> that have at least some overlap with the tracker <cite>bbox</cite>, for example, then <code class="docutils literal notranslate"><span class="pre">minMatchingScore4Iou</span></code> would need to be set with a non-zero value. One can tune the other parameters in a similar manner.</p>
+<p>Given a set of candidate detector <cite>bboxes</cite> for each tracker, the data association matrix is constructed between the detector <cite>bbox</cite> set and the tracker set with the matching scores as the value for the elements in the matrix. The matching score for each element is computed as a weighted sum of:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>The visual similarity</p></li>
+<li><p>The size similarity, and</p></li>
+<li><p>IOU score with the corresponding weights in <code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4VisualSimilarity</span></code>, <code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4SizeSimilarity</span></code>, and <code class="docutils literal notranslate"><span class="pre">matchingScoreWeight4Iou</span></code>, respectively.</p></li>
+</ol>
+</div></blockquote>
+<p>The resulting matching score is put into the data association matrix only if the score exceeds a predefined threshold (i.e., <code class="docutils literal notranslate"><span class="pre">minMatchingScore4Overall</span></code>)</p>
+</section>
+<section id="dcf-core-parameters">
+<h3>DCF Core Parameters<a class="headerlink" href="DS_Accuracy.html#dcf-core-parameters" title="Link to this heading">#</a></h3>
+<p>Apart from the types and sizes of the visual features employed, there are parameters related to how to learn and update the classifier for each object in DCF frameworks, which would affect the accuracy.</p>
+<section id="dcf-filter-learning">
+<h4>DCF Filter Learning<a class="headerlink" href="DS_Accuracy.html#dcf-filter-learning" title="Link to this heading">#</a></h4>
+<p><strong>Related Parameters</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filterLr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filterChannelWeightsLr</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gaussianSigma</span></code></p></li>
+</ul>
+<p>DCF-based trackers learn a classifier (i.e., discriminative correlation filter) for each object with implicit positive and negative samples. Such learned classifiers are updated on-the-fly for temporal consistency with a predefined learning rate (i.e., <code class="docutils literal notranslate"><span class="pre">filterLr</span></code>). If the visual appearance of the target objects is expected to vary quickly over time, one may employ a high learning rate for better adaptation of the correlation filter to the changing appearance. However, there is a risk of learning the background quickly as well, resulting in potentially more frequent track drift.</p>
+<p>As NvDCF tracker utilizes multi-channel visual features, it is of concern on how to merge those channels for the final correlation response. NvDCF employs an adaptive channel weight approach where the importance of each channel is examined on-the-fly, and the corresponding channel weights are updated over time with a pre-defined learning rate (i.e., <code class="docutils literal notranslate"><span class="pre">filterChannelWeightsLr</span></code>). The tuning strategy for this learning rate would be similar to the case of <code class="docutils literal notranslate"><span class="pre">filterLr</span></code> as described before.</p>
+<p>When a correlation filter is learned, <code class="docutils literal notranslate"><span class="pre">gaussianSigma</span></code> determines how tight we want to fit the resulting filter to the positive sample. A lower value means the tighter fit, but it may result in overfitting. On the other hand, a higher value may result in lower discriminative power in the learned filter.</p>
+<p>See also the <a class="reference internal" href="DS_troubleshooting.html#nvdcf-param-troubleshooting-label"><span class="std std-ref">Troubleshooting in Tracker Setup and Parameter Tuning</span></a> section for solutions to common problems in tracker behavior and tuning.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DS_Performance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Performance</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="DS_using_custom_model.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using a Custom Model with DeepStream</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#pipetuner-for-automatic-tuning-developer-preview">PipeTuner for Automatic Tuning (Developer Preview)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#download">Download</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#features-and-requirements">Features and Requirements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#setup">Setup</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#multi-object-tracking-parameter-functionalities-for-manual-tuning">Multi-Object Tracking Parameter Functionalities for Manual Tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#accuracy-performance-tradeoffs">Accuracy-Performance Tradeoffs</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#visual-feature-types-and-feature-sizes">Visual Feature Types and Feature Sizes</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#detection-interval">Detection Interval</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#video-frame-size-for-tracker">Video Frame Size for Tracker</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#robustness">Robustness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#target-creation-policy">Target Creation Policy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#target-termination-policy">Target Termination Policy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#state-estimation">State Estimation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#kalman-filter">Kalman Filter</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#data-association">Data Association</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#dcf-core-parameters">DCF Core Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="DS_Accuracy.html#dcf-filter-learning">DCF Filter Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js%3Fdigest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2024-2025, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Sep 15, 2025.
+  <br/>
+</p></div>
+      
+        <div class="footer-item">
+<div class="extra_footer">
+  
+      <script type="text/javascript">if (typeof _satellite !== "undefined") {_satellite.pageBottom();}</script>
+    
+  
+</div></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
