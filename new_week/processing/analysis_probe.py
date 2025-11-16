@@ -100,6 +100,9 @@ class AnalysisProbeHandler:
                  field_mask,
                  tensor_processor,
                  roi_configs: List[Tuple[int, int, int, int]],
+                 all_detections_history: Dict[float, Dict[str, List]],
+                 panorama_width: int,
+                 panorama_height: int,
                  confidence_threshold: float = 0.35,
                  analysis_skip_interval: int = 5):
         """
@@ -111,6 +114,9 @@ class AnalysisProbeHandler:
             field_mask: FieldMaskBinary instance for field boundary checking
             tensor_processor: TensorProcessor instance for YOLO output processing
             roi_configs: List of ROI configurations (x, y, width, height)
+            all_detections_history: Shared dict for all detections by timestamp
+            panorama_width: Width of panorama for coordinate validation
+            panorama_height: Height of panorama for coordinate validation
             confidence_threshold: Minimum confidence for ball detection
             analysis_skip_interval: Frame skip interval for analysis
         """
@@ -120,6 +126,8 @@ class AnalysisProbeHandler:
         self.field_mask = field_mask
         self.tensor_processor = tensor_processor
         self.roi_configs = roi_configs
+        self.panorama_width = panorama_width
+        self.panorama_height = panorama_height
 
         # Configuration
         self.confidence_threshold = confidence_threshold
@@ -133,8 +141,8 @@ class AnalysisProbeHandler:
         self.frames_without_reliable_detection = 0
         self.current_display_timestamp = 0.0
 
-        # Detection history for rendering (shared with main class)
-        self.all_detections_history: Dict[float, Dict[str, List]] = {}
+        # Detection history for rendering (shared reference, not a new dict)
+        self.all_detections_history = all_detections_history
 
         # Timing (optional, for statistics)
         self.start_time = None

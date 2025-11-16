@@ -250,6 +250,8 @@ class PanoramaWithVirtualCamera:
         self.appsink = None
         self.appsrc = None
         self.audio_appsrc = None
+        self.audio_appsink_analysis = None  # Audio appsink from analysis pipeline
+        self.audio_device = None  # Audio device (e.g., "pulse")
         self.playback_pipeline = None
 
         # Pipelines
@@ -333,7 +335,7 @@ class PanoramaWithVirtualCamera:
 
         DELEGATED TO: PipelineBuilder (pipeline module)
         """
-        # Initialize pipeline builder
+        # Initialize pipeline builder (roi_configs removed - handled internally by builder)
         pipeline_builder = PipelineBuilder(
             source_type=self.source_type,
             video1=self.video1,
@@ -341,13 +343,12 @@ class PanoramaWithVirtualCamera:
             config_path=self.config_path,
             panorama_width=self.panorama_width,
             panorama_height=self.panorama_height,
-            roi_configs=self.roi_configs,
             buffer_duration=self.buffer_duration,
             framerate=self.framerate
         )
 
-        # Build pipeline
-        result = pipeline_builder.build()
+        # Build pipeline - use correct method name
+        result = pipeline_builder.create_pipeline()
         if not result:
             return False
 
@@ -355,31 +356,36 @@ class PanoramaWithVirtualCamera:
         self.pipeline = result['pipeline']
         self.appsink = result['appsink']
 
+        # Store audio_appsink if available
+        self.audio_appsink_analysis = result.get('audio_appsink')
+        self.audio_device = result.get('audio_device')
+
         # ============================================================
         # DELEGATED: Analysis probe → AnalysisProbeHandler (processing)
         # ============================================================
         # Now we can initialize the analysis probe handler with all dependencies
         self.analysis_probe_handler = AnalysisProbeHandler(
-            tensor_processor=self.tensor_processor,
-            field_mask=self.field_mask,
-            history=self.history,
+            ball_history=self.history,
             players_history=self.players_history,
-            all_detections_history=self.all_detections_history,
+            field_mask=self.field_mask,
+            tensor_processor=self.tensor_processor,
             roi_configs=self.roi_configs,
+            all_detections_history=self.all_detections_history,
             panorama_width=self.panorama_width,
             panorama_height=self.panorama_height
         )
 
-        # Connect frame skip probe
-        if 'tee_analysis' in result:
-            tee_analysis = result['tee_analysis']
-            tee_pad = tee_analysis.get_static_pad("src_0")
-            if tee_pad:
-                tee_pad.add_probe(Gst.PadProbeType.BUFFER, self.frame_skip_probe, None)
+        # Connect frame skip probe - get element by name
+        frame_filter = self.pipeline.get_by_name("frame-filter")
+        if frame_filter:
+            filter_src_pad = frame_filter.get_static_pad("src")
+            if filter_src_pad:
+                filter_src_pad.add_probe(Gst.PadProbeType.BUFFER, self.frame_skip_probe, None)
+                logger.info("✓ Frame skip probe connected")
 
-        # Connect analysis probe
-        if 'nvinfer' in result:
-            nvinfer = result['nvinfer']
+        # Connect analysis probe - get nvinfer by name
+        nvinfer = self.pipeline.get_by_name("primary-infer")
+        if nvinfer:
             nvinfer_src_pad = nvinfer.get_static_pad("src")
             if nvinfer_src_pad:
                 nvinfer_src_pad.add_probe(
@@ -387,13 +393,16 @@ class PanoramaWithVirtualCamera:
                     self.analysis_probe_handler.analysis_probe,
                     None
                 )
+                logger.info("✓ Analysis probe connected")
 
         # ============================================================
         # DELEGATED: Buffer sink → BufferManager (pipeline)
         # ============================================================
         # Connect appsink callback to buffer manager
-        self.appsink.set_property("emit-signals", True)
-        self.appsink.connect("new-sample", self.buffer_manager.on_new_sample)
+        if self.appsink:
+            self.appsink.set_property("emit-signals", True)
+            self.appsink.connect("new-sample", self.buffer_manager.on_new_sample)
+            logger.info("✓ Video appsink connected to buffer manager")
 
         logger.info("✓ Analysis pipeline created successfully")
         return True
@@ -404,21 +413,22 @@ class PanoramaWithVirtualCamera:
 
         DELEGATED TO: PlaybackPipelineBuilder (pipeline module)
         """
-        # Initialize playback builder
+        # Initialize playback builder (framerate and auto_zoom removed - not in __init__)
+        # Pass audio_device and audio_appsink from analysis pipeline
         playback_builder = PlaybackPipelineBuilder(
             display_mode=self.display_mode,
             panorama_width=self.panorama_width,
             panorama_height=self.panorama_height,
-            framerate=self.framerate,
             stream_url=self.stream_url,
             stream_key=self.stream_key,
             output_file=self.output_file,
             bitrate=self.bitrate,
-            auto_zoom=self.auto_zoom
+            audio_device=self.audio_device,
+            audio_appsink=self.audio_appsink_analysis
         )
 
-        # Build pipeline
-        result = playback_builder.build()
+        # Build pipeline - use correct method name
+        result = playback_builder.create_playback_pipeline()
         if not result:
             return False
 
@@ -431,14 +441,12 @@ class PanoramaWithVirtualCamera:
         # ============================================================
         # DELEGATED: Virtual camera control → VirtualCameraProbeHandler (rendering)
         # ============================================================
-        if self.vcam and self.display_mode == 'virtualcam':
+        if self.vcam and self.display_mode in ['virtualcam', 'stream', 'record']:
             self.vcam_probe_handler = VirtualCameraProbeHandler(
-                vcam=self.vcam,
                 ball_history=self.history,
                 players_history=self.players_history,
-                auto_zoom=self.auto_zoom,
-                panorama_width=self.panorama_width,
-                panorama_height=self.panorama_height
+                all_detections_history=self.all_detections_history,
+                vcam=self.vcam
             )
 
             # Connect vcam probe
@@ -449,30 +457,36 @@ class PanoramaWithVirtualCamera:
                     self.vcam_probe_handler.vcam_update_probe,
                     None
                 )
+                logger.info("✓ Virtual camera probe connected")
 
         # ============================================================
         # DELEGATED: Display probe → DisplayProbeHandler (rendering)
         # ============================================================
-        # Connect display probe for panorama rendering
-        if 'osd' in result:
-            osd = result['osd']
-            osd_sink_pad = osd.get_static_pad("sink")
-            if osd_sink_pad:
-                osd_sink_pad.add_probe(
-                    Gst.PadProbeType.BUFFER,
-                    self.display_probe_handler.playback_draw_probe,
-                    None
-                )
+        # Connect display probe for panorama rendering (get osd by name)
+        if self.display_mode == 'panorama':
+            osd = self.playback_pipeline.get_by_name("nvdsosd")
+            if osd:
+                osd_sink_pad = osd.get_static_pad("sink")
+                if osd_sink_pad:
+                    osd_sink_pad.add_probe(
+                        Gst.PadProbeType.BUFFER,
+                        self.display_probe_handler.playback_draw_probe,
+                        None
+                    )
+                    logger.info("✓ Display probe connected to nvdsosd")
 
         # ============================================================
         # DELEGATED: appsrc callbacks → BufferManager (pipeline)
         # ============================================================
-        self.appsrc.set_property("emit-signals", True)
-        self.appsrc.connect("need-data", self.buffer_manager._on_appsrc_need_data)
+        if self.appsrc:
+            self.appsrc.set_property("emit-signals", True)
+            self.appsrc.connect("need-data", self.buffer_manager._on_appsrc_need_data)
+            logger.info("✓ Video appsrc connected to buffer manager")
 
         if self.audio_appsrc:
             self.audio_appsrc.set_property("emit-signals", True)
             self.audio_appsrc.connect("need-data", self.buffer_manager._on_audio_appsrc_need_data)
+            logger.info("✓ Audio appsrc connected to buffer manager")
 
         # Store references in buffer manager
         self.buffer_manager.set_elements(
