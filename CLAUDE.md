@@ -78,9 +78,9 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         INPUT SOURCES (Dual 4K Cameras)                      │
-│  Camera 0 (Left): 3840×2160 @ 30fps    Camera 1 (Right): 3840×2160 @ 30fps │
-└──────────────┬──────────────────────────────────────┬─────────────────────────┘
+│                         INPUT SOURCES (Dual 4K Cameras)                     │
+│  Camera 0 (Left): 3840×2160 @ 30fps    Camera 1 (Right): 3840×2160 @ 30fps  │
+└──────────────┬──────────────────────────────────────┬───────────────────────┘
                │                                      │
                ▼                                      ▼
         [nvarguscamerasrc]                   [nvarguscamerasrc]
@@ -95,7 +95,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
                    batch-size=2, GPU memory
                               │
                               ▼
-                  ┌───────────────────────┐
+                  ┌────────────────────────┐
                   │    MY_STEACH PLUGIN    │
                   │  Panorama Stitching    │
                   │    5700×1900 RGBA      │
@@ -107,7 +107,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
                               │
                     ┌─────────┴─────────┐
                     │                   │
-      ┌─────────────▼──────┐   ┌────────▼────────────────┐
+      ┌─────────────▼──────┐   ┌────────▼─────────────────┐
       │  ANALYSIS BRANCH   │   │  DISPLAY BRANCH (7s lag) │
       │    (Real-time)     │   │    (Buffered playback)   │
       └─────────┬──────────┘   └───────────┬──────────────┘
@@ -122,25 +122,25 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
       TensorRT INT8                  pipeline
                 │                          │
                 ▼                          │
-    [Tensor Processing]                   │
-    Post-NMS multiclass:                  │
-    - ball (class 0)                      │
-    - player (class 1)                    │
-    - staff (class 2)                     │
-    - side_referee (class 3)              │
-    - main_referee (class 4)              │
+    [Tensor Processing]                    │
+    Post-NMS multiclass:                   │
+    - ball (class 0)                       │
+    - player (class 1)                     │
+    - staff (class 2)                      │
+    - side_referee (class 3)               │
+    - main_referee (class 4)               │
                 │                          │
                 ▼                          │
-    [BallDetectionHistory]                │
-     + PlayersHistory                     │
-     Raw → Processed → Confirmed          │
-     (10s history, interpolation)         │
+    [BallDetectionHistory]                 │
+     + PlayersHistory                      │
+     Raw → Processed → Confirmed           │
+     (10s history, interpolation)          │
                 │                          │
                 └──────────┬───────────────┘
                            │
                            ▼
-              ┌────────────────────────┐
-              │  MY_VIRT_CAM PLUGIN    │
+              ┌─────────────────────────┐
+              │  MY_VIRT_CAM PLUGIN     │
               │ (CUDA perspective       │
               │  projection)            │
               │                         │
@@ -222,7 +222,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
 - Vertical/horizontal flip transformation
 - Dynamic panorama size configuration
 
-**See**: `my_steach/PLUGIN.MD` for detailed documentation
+**See**: `my_steach/PLUGIN.md` for detailed documentation
 
 ---
 
@@ -250,13 +250,13 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
 
 #### Control Parameters
 
-| Parameter | Range | Purpose |
-|-----------|-------|---------|
-| **yaw** | -90° to +90° | Horizontal pan |
-| **pitch** | -32° to +22° | Vertical tilt |
-| **roll** | -28° to +28° | Image rotation |
-| **fov** | 55° to 68° | Zoom level |
-| **smooth-factor** | 0.0 to 1.0 | Movement interpolation (default: 0.3) |
+| Parameter         | Range        | Purpose                               |
+|-------------------|--------------|---------------------------------------|
+| **yaw**           | -90° to +90° | Horizontal pan                        |
+| **pitch**         | -32° to +22° | Vertical tilt                         |
+| **roll**          | -28° to +28° | Image rotation                        |
+| **fov**           | 55° to 68°   | Zoom level                            |
+| **smooth-factor** | 0.0 to 1.0   | Movement interpolation (default: 0.3) |
 
 #### Auto-Zoom Formula
 
@@ -282,7 +282,7 @@ effective_fov = target_fov × yaw_factor
 
 **Performance**: 47.90 FPS, 20.88ms latency
 
-**See**: `my_virt_cam/PLUGIN.MD` for detailed documentation
+**See**: `my_virt_cam/PLUGIN.md` for detailed documentation
 
 ---
 
@@ -338,7 +338,7 @@ effective_fov = target_fov × yaw_factor
 
 **Target**: ≥30 FPS on Jetson Orin NX
 
-**See**: `my_tile_batcher/PLUGIN.MD` for detailed documentation
+**See**: `my_tile_batcher/PLUGIN.md` for detailed documentation
 
 ---
 
@@ -386,7 +386,7 @@ The stitcher (test_stiching.py) uses calibration data:
 4. Homography computation (RANSAC threshold 5.0px)
 5. Cylindrical or planar projection
 
-**See**: `calibration/CALIBRATION.MD` for detailed documentation
+**See**: `calibration/CALIBRATION.md` for detailed documentation
 
 ---
 
@@ -512,7 +512,7 @@ topk = 100                   # Max detections per class
 - 30 points/second linear interpolation
 
 **See**:
-- `new_week/INFERENCE.MD` - Inference pipeline documentation
+- `new_week/INFERENCE.md` - Inference pipeline documentation
 - `new_week/README_REFACTORING.md` - Refactoring overview
 - `new_week/REFACTORING_SUMMARY.md` - Detailed delegation map
 - `new_week/pipeline/BUFFER_MANAGER_USAGE.md` - Buffer manager guide
@@ -799,7 +799,7 @@ ds_pipeline/
 │   ├── recalibrate_cleaned.py          # Individual camera calibration
 │   ├── test_stiching.py                # Stitching integration test
 │   ├── calibration_result_standard.pkl # Binary calibration data
-│   └── CALIBRATION.MD                  # Calibration documentation
+│   └── CALIBRATION.md                  # Calibration documentation
 │
 ├── my_steach/                    # Panorama stitching plugin
 │   ├── src/
@@ -811,7 +811,7 @@ ds_pipeline/
 │   ├── libnvdsstitch.so               # Compiled plugin
 │   ├── panorama_stream.py             # File-based test
 │   ├── panorama_cameras_realtime.py   # Live camera test
-│   └── PLUGIN.MD                      # Plugin documentation
+│   └── PLUGIN.md                      # Plugin documentation
 │
 ├── my_tile_batcher/              # Tile extraction plugin
 │   ├── src/
@@ -823,7 +823,7 @@ ds_pipeline/
 │   ├── libnvtilebatcher.so            # Compiled plugin
 │   ├── test_tilebatcher.py            # Standalone test
 │   ├── test_complete_pipeline.py      # Full pipeline test
-│   └── PLUGIN.MD
+│   └── PLUGIN.md
 │
 ├── my_virt_cam/                  # Virtual camera plugin
 │   ├── src/
@@ -837,7 +837,7 @@ ds_pipeline/
 │   ├── test_virtual_camera_sliders.py # Interactive GUI test
 │   ├── test_virtual_camera_keyboard.py
 │   ├── calculate_safe_boundaries.py
-│   └── PLUGIN.MD
+│   └── PLUGIN.md
 │
 ├── new_week/                     # Main inference pipeline (REFACTORED)
 │   ├── version_masr_multiclass.py      # Main entry (712 lines)
@@ -874,7 +874,7 @@ ds_pipeline/
 │   ├── config_infer.txt                # YOLO config
 │   ├── labels.txt                      # Class labels
 │   ├── auto_restart.sh                 # Auto-restart script
-│   ├── INFERENCE.MD                    # Pipeline docs
+│   ├── INFERENCE.md                    # Pipeline docs
 │   ├── README_REFACTORING.md           # Refactoring guide
 │   └── REFACTORING_SUMMARY.md          # Detailed delegation
 │
@@ -900,11 +900,11 @@ ds_pipeline/
 ├── ds_doc/                       # DeepStream documentation
 │   └── 7.1/                           # HTML reference
 │
-├── CLAUDE.MD                     # This file (main documentation)
-├── CODEX_report.MD               # CPU performance analysis
-├── COMPILED_CODEX_REPORT.MD      # Compiled CPU analysis
+├── CLAUDE.md                     # This file (main documentation)
+├── CODEX_report.md               # CPU performance analysis
+├── COMPILED_CODEX_REPORT.md      # Compiled CPU analysis
 ├── DEEPSTREAM_CODE_REVIEW.md     # Code review findings
-├── Performance_report.MD         # Performance benchmarks
+├── Performance_report.md         # Performance benchmarks
 ├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
 └── nvidia_jetson_orin_nx_16GB_super_arch.txt
 ```
@@ -915,7 +915,7 @@ ds_pipeline/
 
 The codebase has undergone comprehensive analysis and review, documented in the following reports:
 
-### CODEX_report.MD - CPU Performance Analysis
+### CODEX_report.md - CPU Performance Analysis
 
 **Key Findings**: 6 high-CPU load paths identified
 
@@ -949,7 +949,7 @@ The codebase has undergone comprehensive analysis and review, documented in the 
    - Impact: Frame drops under high detection load
    - Recommendation: Async logging or buffered writes
 
-**See**: `CODEX_report.MD` for full analysis
+**See**: `CODEX_report.md` for full analysis
 
 ---
 
@@ -977,7 +977,7 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 
 ---
 
-### Performance_report.MD - Comprehensive Benchmarks
+### Performance_report.md - Comprehensive Benchmarks
 
 **System-Level Metrics**:
 - Overall pipeline: 30 FPS @ 70% GPU load
@@ -997,7 +997,7 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 3. LUT compression for memory savings
 4. Multi-stream batching for throughput
 
-**See**: `Performance_report.MD` for full benchmarks
+**See**: `Performance_report.md` for full benchmarks
 
 ---
 
@@ -1005,31 +1005,32 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 
 ### Official Documentation
 
-1. **NVIDIA DeepStream SDK 7.1**: https://docs.nvidia.com/metropolis/deepstream/dev-guide/
+1. **NVIDIA DeepStream SDK 7.1**: https://docs.nvidia.com/metropolis/deepstream/7.1/index.html
 2. **YOLOv11 Documentation**: https://docs.ultralytics.com/models/yolo11/
 3. **GStreamer 1.0 Reference**: https://gstreamer.freedesktop.org/documentation/
 
 ### Hardware Specifications
 
-4. **Jetson Orin NX Datasheet**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
+4. **Jetson Orin NX Datasheet PDF**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
+4.5 **Jetson Orin NX Datasheet**: nvidia_jetson_orin_nx_16GB_super_arch.txt
 5. **Sony IMX678 Camera**: camera_doc/IMX678C_Framos_Docs_documentation.pdf
 
 ### Project Documentation
 
-6. **Main Documentation**: `CLAUDE.MD` (this file)
-7. **Stitching Plugin**: `my_steach/PLUGIN.MD`
-8. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.MD`
-9. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.MD`
-10. **Calibration Guide**: `calibration/CALIBRATION.MD`
-11. **Inference Pipeline**: `new_week/INFERENCE.MD`
+6. **Main Documentation**: `CLAUDE.md` (this file)
+7. **Stitching Plugin**: `my_steach/PLUGIN.md`
+8. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.md`
+9. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.md`
+10. **Calibration Guide**: `calibration/CALIBRATION.md`
+11. **Inference Pipeline**: `new_week/INFERENCE.md`
 12. **Refactoring Guide**: `new_week/README_REFACTORING.md`
 13. **Buffer Manager**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
 
 ### Analysis Reports
 
-14. **CPU Performance Analysis**: `CODEX_report.MD`
+14. **CPU Performance Analysis**: `CODEX_report.md`
 15. **Code Review Findings**: `DEEPSTREAM_CODE_REVIEW.md`
-16. **Performance Benchmarks**: `Performance_report.MD`
+16. **Performance Benchmarks**: `Performance_report.md`
 17. **Refactoring Summary**: `new_week/REFACTORING_SUMMARY.md`
 
 ---
@@ -1077,21 +1078,21 @@ The project includes **50+ test scripts** across all modules:
 This project is a production sports analytics system. For technical questions or contributions, refer to individual documentation files:
 
 **Core Documentation**:
-- Main: `CLAUDE.MD` (this file)
+- Main: `CLAUDE.md` (this file)
 - Refactoring: `new_week/README_REFACTORING.md`
 
 **Component Documentation**:
-- Stitching: `my_steach/PLUGIN.MD`
-- Virtual Camera: `my_virt_cam/PLUGIN.MD`
-- Tile Batching: `my_tile_batcher/PLUGIN.MD`
-- Calibration: `calibration/CALIBRATION.MD`
-- Inference: `new_week/INFERENCE.MD`
+- Stitching: `my_steach/PLUGIN.md`
+- Virtual Camera: `my_virt_cam/PLUGIN.md`
+- Tile Batching: `my_tile_batcher/PLUGIN.md`
+- Calibration: `calibration/CALIBRATION.md`
+- Inference: `new_week/INFERENCE.md`
 - Buffer Manager: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
 
 **Analysis Reports**:
-- CPU Analysis: `CODEX_report.MD`
+- CPU Analysis: `CODEX_report.md`
 - Code Review: `DEEPSTREAM_CODE_REVIEW.md`
-- Performance: `Performance_report.MD`
+- Performance: `Performance_report.md`
 
 ---
 
