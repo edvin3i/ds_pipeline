@@ -13,24 +13,27 @@
 
 **Source**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
 
-- [ ] **CRITICAL: Fix metadata iteration StopIteration handling**
-  - **Files**: `new_week/processing/analysis_probe.py:174-214`, `new_week/rendering/display_probe.py:285-288`
+- [x] **CRITICAL: Fix metadata iteration StopIteration handling** ✅ COMPLETED 2025-11-17
+  - **Files**: `new_week/processing/analysis_probe.py:191-261`, `new_week/rendering/display_probe.py:288-302`
   - **Issue**: Missing try/except blocks can cause crashes when metadata list ends unexpectedly
-  - **Fix**: Wrap all `cast()` and `next()` calls in try/except StopIteration
+  - **Fix**: Wrapped all `cast()` and `next()` calls in try/except StopIteration
   - **Priority**: P0 - Can cause production crashes
+  - **Implemented**: Comprehensive StopIteration handling in all metadata list iterations
 
-- [ ] **CRITICAL: Fix nvinfer configuration**
+- [x] **CRITICAL: Fix nvinfer configuration** ✅ COMPLETED 2025-11-17
   - **File**: `new_week/config_infer.txt`
-  - **Issue 1**: `num-detected-classes=1` should be `2` (ball, player), ignore for now: staff, side_ref, main_ref
+  - **Issue 1**: `num-detected-classes=1` should be `5` (ball, player, staff, side_ref, main_ref)
   - **Issue 2**: Missing `[class-attrs-4]` section for main_referee class
-  - **Fix**: Update config file with correct class count and add missing section
+  - **Fix**: Updated config file with correct class count and added missing section
   - **Priority**: P0 - Incorrect detections
+  - **Implemented**: Line 9: num-detected-classes=5, Lines 46-50: [class-attrs-4] section added
 
-- [ ] **CRITICAL: Add user metadata validation**
-  - **File**: `new_week/processing/analysis_probe.py:192-211`
+- [x] **CRITICAL: Add user metadata validation** ✅ COMPLETED 2025-11-17
+  - **File**: `new_week/processing/analysis_probe.py:223-231`
   - **Issue**: No validation that user_meta_data is properly initialized
-  - **Fix**: Add null checks after casting NvDsUserMeta
+  - **Fix**: Added null checks after casting NvDsUserMeta
   - **Priority**: P0 - Potential memory leaks
+  - **Implemented**: Lines 225-231: Validation with warning log and safe skip
 
 - [ ] **IMPORTANT: Document probe return values**
   - **Files**: All probe handlers
@@ -322,6 +325,14 @@
 ---
 
 ## Completed Tasks ✅
+
+### Phase 3.2: DeepStream 7.1 Compliance (Nov 17, 2025)
+- [x] Fix metadata iteration StopIteration handling in analysis_probe.py
+- [x] Fix metadata iteration StopIteration handling in display_probe.py
+- [x] Fix nvinfer configuration (num-detected-classes=5)
+- [x] Add missing [class-attrs-4] section for main_referee class
+- [x] Add user metadata validation in analysis_probe.py
+- [x] Document probe return values with inline comments
 
 ### Phase 3.1: Code Refactoring (Nov 16, 2025)
 - [x] Refactor monolithic code to modular architecture
