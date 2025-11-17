@@ -4,7 +4,9 @@ The following high-load paths were identified while reviewing the DeepStream pip
 
 ## 1. Deep copies of every NVMM frame in `BufferManager`
 *Evidence:* `BufferManager.on_new_sample()` clones each `GstBuffer` with `copy_deep()` before enqueuing it (`new_week/pipeline/buffer_manager.py`, lines 123-158). The playback side later copies audio chunks as well (`lines 321-359`).
+
 *Impact:* On Jetson Orin NX the CPU and GPU share the same 16 GB LPDDR5 pool and any extra DRAM copy competes with GPU workloads for bandwidth.【F:new_week/pipeline/buffer_manager.py†L123-L205】【F:nvidia_jetson_orin_nx_16GB_super_arch.txt†L4-L78】 DeepStream docs warn against heavy buffer work inside pipeline callbacks because they sit on the critical path; deep-copying every frame inside the appsink callback contradicts that guidance.【F:ds_doc/7.1/text/DS_service_maker_python_advanced_features.html†L641-L658】 Aside from the DRAM bandwidth hit, `copy_deep()` forces the Cortex-A78AE cluster (~2 GHz) to touch every pixel of the 5700×1900 panorama defined across the pipeline modules, so a single copy burns ~43 MB of bandwidth and can monopolize multiple CPU cores.【F:new_week/pipeline/pipeline_builder.py†L21-L72】
+
 
 ## 2. O(n) scans per frame when feeding the playback `appsrc`
 *Evidence:* `_on_appsrc_need_data()` linearly walks the entire `frame_buffer` deque on every `need-data` signal to find the next timestamp (`lines 223-244`). `_push_audio_for_timestamp()` performs another linear scan through all audio chunks to locate the closest timestamp (`lines 330-359`).
@@ -24,6 +26,7 @@ The following high-load paths were identified while reviewing the DeepStream pip
 
 ## 6. Disk I/O and NumPy reshapes inside the panorama tile saver
 *Evidence:* `PanoramaTileSaver.on_new_sample()` pulls each appsink buffer into a NumPy array, reshapes it, and writes full-resolution JPEGs plus six 1024×1024 tiles every N frames (`sliser/panorama_tiles_saver.py`, lines 65-170). Each write happens under the GLib main loop.
+
 *Impact:* NumPy reshaping and JPEG compression of 5700×1900 panoramas (43 MB RGBA frames) are CPU-heavy. On Jetson’s 8-core CPU those synchronous operations can block the GLib loop, which also handles bus messages and timers for the stitching pipeline. When combined with the shared-memory architecture, such CPU spikes compete with GPU inference for DRAM bandwidth.【F:sliser/panorama_tiles_saver.py†L26-L177】【F:new_week/pipeline/pipeline_builder.py†L21-L72】【F:nvidia_jetson_orin_nx_16GB_super_arch.txt†L4-L78】
 
 ## Summary
