@@ -83,7 +83,7 @@ class PlaybackPipelineBuilder:
         try:
             if self.display_mode == "stream":
                 # Режим стриминга: с записью или без
-                # Общая часть до h264parse (кодирование)
+                # ВАЖНО: FLV/RTMP требует H.264, H.265 не поддерживается
                 pipeline_str = f"""
                 appsrc name=src format=time is-live=true do-timestamp=true !
                 video/x-raw,format=RGB !
@@ -94,19 +94,19 @@ class PlaybackPipelineBuilder:
                     output-height=1080
                     panorama-width={self.panorama_width}
                     panorama-height={self.panorama_height}
-                    yaw=0 pitch=10 roll=0 fov=70
+                    yaw=0 pitch=10 roll=0 fov=68
                     auto-follow=true
                     smooth-factor=0.15 !
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
                 nvvideoconvert compute-hw=1 !
                 video/x-raw(memory:NVMM),format=NV12 !
-                nvv4l2h265enc
+                nvv4l2h264enc
                     bitrate={self.bitrate}
                     preset-level=2
                     insert-sps-pps=1
                     iframeinterval=50
                     maxperf-enable=true !
-                h265parse !
+                h264parse !
                 """
 
                 # Если нужна запись - добавляем tee для разделения потока
@@ -198,7 +198,7 @@ class PlaybackPipelineBuilder:
                     output-height=1080
                     panorama-width={self.panorama_width}
                     panorama-height={self.panorama_height}
-                    yaw=0 pitch=10 roll=0 fov=70
+                    yaw=0 pitch=10 roll=0 fov=68
                     auto-follow=true
                     smooth-factor=0.15 !
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
@@ -237,7 +237,7 @@ class PlaybackPipelineBuilder:
                         output-height=1080
                         panorama-width={self.panorama_width}
                         panorama-height={self.panorama_height}
-                        yaw=0 pitch=15 roll=0 fov=70
+                        yaw=0 pitch=15 roll=0 fov=68
                         auto-follow=true
                         smooth-factor=0.15 !
                     nvvideoconvert !
