@@ -198,7 +198,7 @@ class DisplayProbeHandler:
 
     def handle_playback_draw_probe(self, pad, info, u_data):
         """
-        Render detections in playback pipeline.
+        Render detections in playback pipeline (nvdsosd sink pad probe).
 
         This is the main rendering callback that:
         1. Gets current frame metadata
@@ -208,12 +208,16 @@ class DisplayProbeHandler:
         5. Adds text overlays with statistics
 
         Args:
-            pad: GStreamer pad
-            info: Probe info containing buffer
+            pad: GStreamer pad (nvdsosd sink pad)
+            info: GstPadProbeInfo containing buffer
             u_data: User data (unused)
 
         Returns:
-            Gst.PadProbeReturn.OK
+            Gst.PadProbeReturn.OK - Always continue processing.
+            We never drop buffers as all frames need rendering for display.
+
+        Reference:
+            DeepStream SDK 7.1 - /ds_doc/7.1/text/DS_Zero_Coding_DS_Components.html
         """
         try:
             gst_buffer = info.get_buffer()
@@ -281,16 +285,28 @@ class DisplayProbeHandler:
                 self.playback_log_count += 1
 
             # Draw on nvdsosd
+            # CRITICAL FIX: Proper metadata iteration with StopIteration handling
+            # Reference: DeepStream SDK 7.1 documentation
             l_frame = batch_meta.frame_meta_list
-            while l_frame:
-                fm = pyds.NvDsFrameMeta.cast(l_frame.data)
+            while l_frame is not None:
+                try:
+                    fm = pyds.NvDsFrameMeta.cast(l_frame.data)
+                except StopIteration:
+                    break
+
                 if not fm:
-                    l_frame = l_frame.next
+                    try:
+                        l_frame = l_frame.next
+                    except StopIteration:
+                        break
                     continue
 
                 display_meta = pyds.nvds_acquire_display_meta_from_pool(batch_meta)
                 if not display_meta:
-                    l_frame = l_frame.next
+                    try:
+                        l_frame = l_frame.next
+                    except StopIteration:
+                        break
                     continue
 
                 # Prepare text
@@ -445,9 +461,7 @@ class DisplayProbeHandler:
                 lbl.text_bg_clr.set(0.0, 0.0, 0.0, 0.6)
 
                 pyds.nvds_add_display_meta_to_frame(fm, display_meta)
-                break
-
-                l_frame = l_frame.next
+                break  # Only process first frame in batch
 
         except Exception as e:
             logger.error(f"playback_draw_probe error: {e}")

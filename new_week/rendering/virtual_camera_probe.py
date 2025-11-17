@@ -81,7 +81,24 @@ class VirtualCameraProbeHandler:
         self.vcam = vcam
 
     def handle_vcam_update_probe(self, pad, info, u_data):
-        """Обновление параметров виртуальной камеры."""
+        """
+        Virtual camera parameter update probe callback.
+
+        Updates virtual camera position and zoom based on ball tracking
+        with fallback to player center of mass when ball is lost.
+
+        Args:
+            pad: GStreamer pad (virtualcam sink pad)
+            info: GstPadProbeInfo containing buffer
+            u_data: User data (unused)
+
+        Returns:
+            Gst.PadProbeReturn.OK - Always continue processing.
+            Camera parameters are updated in-place without dropping buffers.
+
+        Reference:
+            DeepStream SDK 7.1 - /ds_doc/7.1/text/DS_Zero_Coding_DS_Components.html
+        """
         try:
             if not self.vcam:
                 # Дебаг: vcam не создан!

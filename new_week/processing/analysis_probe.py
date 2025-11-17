@@ -148,7 +148,24 @@ class AnalysisProbeHandler:
         self.start_time = None
 
     def handle_analysis_probe(self, pad, info, user_data):
-        """Обработка YOLO с фильтрацией."""
+        """
+        YOLO detection processing probe callback.
+
+        This probe is attached to nvinfer src pad and processes raw tensor outputs
+        for multi-class object detection (ball, players, staff, referees).
+
+        Args:
+            pad: GStreamer pad (nvinfer src pad)
+            info: GstPadProbeInfo containing buffer
+            user_data: User data (unused)
+
+        Returns:
+            Gst.PadProbeReturn.OK - Always continue processing.
+            We never drop buffers as all frames are needed for detection history.
+
+        Reference:
+            DeepStream SDK 7.1 - /ds_doc/7.1/text/DS_Zero_Coding_DS_Components.html
+        """
         try:
             buf = info.get_buffer()
             if not buf:
@@ -171,11 +188,21 @@ class AnalysisProbeHandler:
             # ВАЖНО: tile_id считаем вручную, т.к. pad_index ВСЕГДА 0!
             tile_counter = 0
 
+            # CRITICAL FIX: Proper metadata iteration with StopIteration handling
+            # Reference: DeepStream SDK 7.1 documentation - /ds_doc/7.1/python-api/PYTHON_API/NvDsMeta/
+            # All metadata list iteration MUST use try/except StopIteration blocks
             l_frame = batch_meta.frame_meta_list
-            while l_frame:
-                fm = pyds.NvDsFrameMeta.cast(l_frame.data)
+            while l_frame is not None:
+                try:
+                    fm = pyds.NvDsFrameMeta.cast(l_frame.data)
+                except StopIteration:
+                    break
+
                 if not fm:
-                    l_frame = l_frame.next
+                    try:
+                        l_frame = l_frame.next
+                    except StopIteration:
+                        break
                     continue
 
                 # Используем счетчик вместо pad_index!
@@ -187,9 +214,22 @@ class AnalysisProbeHandler:
                 ts_sec = float(fm.buf_pts) / float(Gst.SECOND)
 
                 l_user = fm.frame_user_meta_list
-                while l_user:
-                    um = pyds.NvDsUserMeta.cast(l_user.data)
+                while l_user is not None:
+                    try:
+                        um = pyds.NvDsUserMeta.cast(l_user.data)
+                    except StopIteration:
+                        break
+
                     if um and um.base_meta.meta_type == pyds.NvDsMetaType.NVDSINFER_TENSOR_OUTPUT_META:
+                        # Validate user metadata has data (best practice)
+                        if not um.user_meta_data:
+                            logger.warning("User metadata has no data, skipping")
+                            try:
+                                l_user = l_user.next
+                            except StopIteration:
+                                break
+                            continue
+
                         tensor_found_tiles.append(tile_id)
                         tensor_meta = pyds.NvDsInferTensorMeta.cast(um.user_meta_data)
                         for i in range(tensor_meta.num_output_layers):
@@ -210,8 +250,15 @@ class AnalysisProbeHandler:
                                 per_ts_fnum[ts_sec] = frame_num
                                 self.detection_count += len(dets)
 
-                    l_user = l_user.next
-                l_frame = l_frame.next
+                    try:
+                        l_user = l_user.next
+                    except StopIteration:
+                        break
+
+                try:
+                    l_frame = l_frame.next
+                except StopIteration:
+                    break
 
             # Дебаг лог (каждые 10 кадров)
             if self.analysis_frame_count % 10 == 0:
