@@ -1,11 +1,175 @@
 # DeepStream Sports Analytics Pipeline - TODO List
 
 **Last Updated**: 2025-11-17
-**Status**: Phase 3 - Production Optimization
+**Status**: Phase 4 - Critical Performance Optimization
 
 ---
 
-## Current Sprint: Production Readiness
+## 🔥 CRITICAL: GPU/CPU Optimization (Week 47-50, 2025)
+
+**Root Cause Identified**: Pipeline breaks DeepStream zero-copy architecture
+**Impact**: GPU 94-99%, CPU 45-60%, RAM 13.2G/15.3G, micro-freezes present
+**Reports**: `docs/reports/GPU_CPU_OPTIMIZATION_PLAN.md`, `docs/reports/PIPELINE_MEMORY_FLOW_ANALYSIS.md`
+
+### Performance Analysis Completed ✅
+
+- [x] **Analyze pipeline memory flow** ✅ COMPLETED 2025-11-17
+  - Identified 4 critical bottlenecks
+  - NVMM→CPU break at appsink (1.29 GB/s waste)
+  - Deep buffer copies (9GB RAM waste)
+  - O(n) searches (6,300 comparisons/sec)
+  - Heavy Python in probes (CPU saturation)
+  - **Finding**: DLA not useful for YOLOv11 FP16 (optimized for INT8)
+
+### Phase 1: NVMM Zero-Copy Refactor (P0 - Week 47-48)
+
+**Goal**: Eliminate GPU↔CPU copies, reduce RAM by 9GB, eliminate micro-freezes
+**Expected**: -30% CPU, -40% RAM, +15% GPU headroom
+
+- [ ] **⏳ Create feature branch `optimize/nvmm-zero-copy`**
+  - Branch from current working state
+  - Ensure full backup before major refactor
+  - **Priority**: P0 - Foundation for all optimizations
+
+- [ ] **Remove NVMM→CPU conversion in PipelineBuilder**
+  - **File**: `new_week/pipeline/pipeline_builder.py:228-230`
+  - **Current**: `nvvideoconvert ! capsfilter caps="video/x-raw,format=RGB" ! appsink`
+  - **Target**: `capsfilter caps="video/x-raw(memory:NVMM),format=RGBA" ! appsink`
+  - **Change**: Remove nvvideoconvert, keep NVMM format
+  - **Priority**: P0 - Critical bottleneck
+  - **Risk**: Medium - requires BufferManager refactor
+
+- [ ] **Refactor BufferManager for NVMM buffers**
+  - **File**: `new_week/pipeline/buffer_manager.py`
+  - **Current**: `buffer.copy_deep()` (43MB × 210 = 9GB)
+  - **Target**: `gst_buffer_ref(buffer)` (reference counting)
+  - **Changes**:
+    - Replace deep copy with GStreamer ref counting (line 147)
+    - Implement NvBufSurface API for NVMM access
+    - Add proper `gst_buffer_unref()` on cleanup (line 392)
+    - Lock NVMM surfaces during access
+  - **Priority**: P0 - Highest RAM/CPU impact
+  - **Risk**: High - careful memory management required
+
+- [ ] **Update PlaybackPipelineBuilder for NVMM input**
+  - **File**: `new_week/pipeline/playback_builder.py`
+  - **Change**: Accept NVMM buffers from appsrc
+  - **Verify**: NVMM flow through virtualcam/osd/encode
+  - **Priority**: P0 - Required for zero-copy
+  - **Risk**: Medium - ensure format compatibility
+
+- [ ] **Add CUDA unified memory type specification**
+  - **Files**: All pipeline builders
+  - **Change**: Add `nvbuf-mem-type=3` to nvvideoconvert, nvstreammux
+  - **Example**: `nvvideoconvert nvbuf-mem-type=3 ! ...`
+  - **Priority**: P0 - Memory consistency
+  - **Risk**: Low - configuration only
+
+- [ ] **Testing: NVMM zero-copy validation**
+  - Test all display modes (panorama, virtualcam, stream, record)
+  - Test file sources (left.mp4 + right.mp4)
+  - Test camera sources (sensor-id=0,1)
+  - Verify no visual artifacts
+  - Monitor RAM usage (<6GB target)
+  - Check for memory leaks (long run)
+  - **Priority**: P0 - Must not break functionality
+  - **Success**: RAM < 6GB, no micro-freezes, 30 FPS stable
+
+### Phase 2: Performance Tuning (P1 - Week 49)
+
+**Goal**: Eliminate search overhead, use native acceleration
+**Expected**: -10% CPU, smoother playback, better GPU utilization
+
+- [ ] **Replace O(n) search with binary search**
+  - **File**: `new_week/pipeline/buffer_manager.py:231-234`
+  - **Current**: `for frame in self.frame_buffer:` (O(n))
+  - **Target**: `bisect.bisect_left()` (O(log n))
+  - **Changes**:
+    - Add sorted timestamp index
+    - Use Python bisect module
+    - Update index on add/remove
+  - **Priority**: P1 - Eliminates jitter
+  - **Risk**: Low - standard library
+
+- [ ] **Enable DeepStream native NMS clustering**
+  - **File**: `new_week/config_infer.txt`
+  - **Current**: Python NMS in probe (nested loops)
+  - **Target**: `cluster-mode=2` (DBSCAN GPU-accelerated)
+  - **Change**: Add clustering config to nvinfer
+  - **Remove**: `new_week/utils/nms.py` usage in probes
+  - **Priority**: P1 - GPU acceleration
+  - **Risk**: Medium - need to tune parameters
+
+- [ ] **Validate native NMS output quality**
+  - Compare detection quality vs Python NMS
+  - Tune cluster parameters if needed
+  - Verify no false negatives for ball
+  - **Priority**: P1 - Quality assurance
+  - **Success**: Same or better detection accuracy
+
+- [ ] **Testing: Performance tuning validation**
+  - Measure CPU usage (<30% target)
+  - Verify smooth playback (no jitter)
+  - Check detection quality maintained
+  - Monitor GPU utilization (80-90% target)
+  - **Priority**: P1 - Performance validation
+
+### Phase 3: Advanced Optimization (P2 - Week 50)
+
+**Goal**: Move heavy processing off critical path
+**Expected**: -15% CPU, higher throughput potential
+
+- [ ] **Move heavy processing to background thread**
+  - **Files**: `new_week/processing/analysis_probe.py`
+  - **Current**: All processing in probe (50-100ms)
+  - **Target**: Lightweight probe + background thread
+  - **Changes**:
+    - Create processing queue (thread-safe)
+    - Extract metadata only in probe (<1ms)
+    - Heavy work in background thread
+    - Thread-safe history updates
+  - **Priority**: P2 - Advanced optimization
+  - **Risk**: Medium - threading complexity
+
+- [ ] **Implement batch metadata processing**
+  - **Strategy**: Accumulate 5 frames, process together
+  - **Benefits**: Better CPU cache, vectorizable NumPy ops
+  - **Tradeoff**: +5 frame latency (~166ms @ 30fps)
+  - **Priority**: P2 - Throughput optimization
+  - **Risk**: Low - latency acceptable for analytics
+
+- [ ] **Add Numba JIT compilation for hot paths**
+  - **Targets**:
+    - `utils/nms.py:24-86` (if still used)
+    - `core/trajectory_filter.py:63-210`
+    - `core/trajectory_interpolator.py`
+  - **Change**: Add `@jit(nopython=True)` decorator
+  - **Priority**: P2 - CPU optimization
+  - **Risk**: Low - easy to revert
+
+- [ ] **Testing: Advanced optimization validation**
+  - Long-running stability (8+ hours)
+  - Monitor thread safety (no race conditions)
+  - Check queue depth (no unbounded growth)
+  - Measure end-to-end latency (<200ms)
+  - **Priority**: P2 - Stability validation
+
+### Success Criteria (All Phases)
+
+- [ ] ✅ CPU usage < 30% average
+- [ ] ✅ RAM usage < 6GB
+- [ ] ✅ GPU usage 80-90% (inference-limited)
+- [ ] ✅ No micro-freezes in playback
+- [ ] ✅ Stable 30 FPS in all modes
+- [ ] ✅ End-to-end latency < 150ms
+- [ ] ✅ No visual artifacts
+- [ ] ✅ Detection quality maintained
+- [ ] ✅ All display modes working
+- [ ] ✅ Long-term stability (8+ hours)
+
+---
+
+## Current Sprint: Production Readiness (On Hold - Blocked by Optimization)
 
 ### High Priority
 
@@ -49,53 +213,42 @@
 
 ---
 
-### Medium Priority
+### Medium Priority (Deferred - See GPU/CPU Optimization Above)
 
-#### Performance Optimizations
+#### Legacy Performance Optimizations
 
-**Source**: `docs/reports/CODEX_report.md`
+**Note**: These tasks have been superseded by comprehensive optimization plan above.
+**Source**: `docs/reports/CODEX_report.md` (analysis basis for new plan)
 
-- [ ] **Optimize BufferManager deep copies**
-  - **File**: `new_week/pipeline/buffer_manager.py:116`
-  - **Issue**: Deep copying ~15MB frames on every buffer add
-  - **Impact**: Significant CPU overhead in frame buffering
-  - **Fix**: Use shallow copies or zero-copy techniques
-  - **Priority**: P1 - CPU bottleneck
+- [x] **Optimize BufferManager deep copies** - ✅ SUPERSEDED by Phase 1
+  - Now tracked in: Phase 1 "Refactor BufferManager for NVMM buffers"
+  - Enhanced approach: NVMM zero-copy instead of shallow copy
 
-- [ ] **Optimize playback timestamp scans**
-  - **File**: `new_week/pipeline/buffer_manager.py:156`
-  - **Issue**: Linear O(n) search through buffer for timestamps
-  - **Impact**: Performance degrades with buffer size
-  - **Fix**: Implement binary search or ring buffer with indexing
-  - **Priority**: P1 - CPU bottleneck
+- [x] **Optimize playback timestamp scans** - ✅ SUPERSEDED by Phase 2
+  - Now tracked in: Phase 2 "Replace O(n) search with binary search"
+  - Same fix, integrated into optimization plan
 
-- [ ] **Move Python post-processing to C++/Numba**
-  - **Files**: `new_week/processing/analysis_probe.py`, `new_week/rendering/display_probe.py`
-  - **Issue**: Heavy Python processing in critical path
-  - **Impact**: CPU bottleneck in detection pipeline
-  - **Fix**: JIT compile with Numba or rewrite in C++
-  - **Priority**: P2 - Performance optimization
+- [x] **Replace Python NMS with native implementation** - ✅ SUPERSEDED by Phase 2
+  - Now tracked in: Phase 2 "Enable DeepStream native NMS clustering"
+  - Enhanced: Use GPU-accelerated DBSCAN clustering
+
+- [x] **Move Python post-processing to C++/Numba** - ✅ SUPERSEDED by Phase 3
+  - Now tracked in: Phase 3 "Add Numba JIT compilation for hot paths"
+  - Enhanced: Background threading + JIT compilation
 
 - [ ] **GPU-accelerate field mask validation**
   - **File**: `new_week/utils/field_mask.py`
   - **Issue**: Per-detection mask lookup on CPU
   - **Impact**: O(n) overhead for n detections
   - **Fix**: Move to CUDA kernel or use texture memory
-  - **Priority**: P2 - Performance optimization
-
-- [ ] **Replace Python NMS with native implementation**
-  - **File**: `new_week/utils/nms.py`
-  - **Issue**: Pure Python with nested loops
-  - **Impact**: O(n²) complexity for overlapping detections
-  - **Fix**: Use DeepStream native NMS or GPU implementation
-  - **Priority**: P2 - Performance optimization
+  - **Priority**: P3 - Deferred (low impact vs other optimizations)
 
 - [ ] **Implement async CSV logging**
   - **File**: `new_week/utils/csv_logger.py`
   - **Issue**: Synchronous file I/O in probe callbacks
   - **Impact**: Frame drops under high detection load
   - **Fix**: Use async logging or buffered writes
-  - **Priority**: P2 - Reliability
+  - **Priority**: P3 - Deferred (CSV logging is debug-only)
 
 ---
 
@@ -326,6 +479,16 @@
 
 ## Completed Tasks ✅
 
+### Phase 4.0: Critical Performance Analysis (Nov 17, 2025)
+- [x] Comprehensive GPU/CPU pipeline analysis
+- [x] Root cause identification (4 critical bottlenecks)
+- [x] DLA feasibility assessment (not useful for FP16)
+- [x] Memory flow architecture analysis
+- [x] Created GPU_CPU_OPTIMIZATION_PLAN.md (comprehensive)
+- [x] Created PIPELINE_MEMORY_FLOW_ANALYSIS.md (visual comparison)
+- [x] Defined 3-phase implementation plan with success criteria
+- [x] Updated todo.md with actionable tasks
+
 ### Phase 3.2: DeepStream 7.1 Compliance (Nov 17, 2025)
 - [x] Fix metadata iteration StopIteration handling in analysis_probe.py
 - [x] Fix metadata iteration StopIteration handling in display_probe.py
@@ -385,4 +548,6 @@
 
 **Document Owner**: edvin3i
 **Review Frequency**: Weekly during active development
-**Next Review**: 2025-11-25 (Sprint Week 2)
+**Current Sprint**: Week 47-50 (GPU/CPU Optimization)
+**Next Review**: 2025-11-24 (Phase 1 Progress Check)
+**Critical Milestone**: Week 50 - All optimizations complete, production-ready performance
