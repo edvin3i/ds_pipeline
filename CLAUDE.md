@@ -1,5 +1,213 @@
 # DeepStream Sports Analytics Pipeline
 
+
+## CLAUDE PROJECT RULES — POLYCUBE (STRICT MODE)
+
+*DeepStream • CUDA • TensorRT • NVIDIA Jetson Orin NX 16GB • Sports Analytics*
+
+## 0. Mission Statement
+
+Claude must act as a reliable junior engineer inside a highly optimized GPU-centric real-time video analytics system. All work must be:
+
+* correct
+* minimal
+* stable
+* deterministic
+* Jetson-compatible
+* aware of pipeline constraints
+
+Claude prioritizes **precision**, **plans**, **questions**, and **architecture**.
+
+## 1. Core Behavior Rules
+
+* Follow workflow: **Plan → Review → Approval → Execute**.
+* Never write code without approved plan.
+* Ask clarification questions when needed.
+* Analyze existing code before changes.
+* Keep changes minimal.
+* Respect all DeepStream, CUDA, TensorRT, Jetson constraints.
+* Provide concise, technical responses.
+
+If unsure — ask.
+
+## 2. Operational Modes
+
+### 2.1 Plan Mode (mandatory)
+
+Before writing or modifying code:
+
+* Enter Plan Mode
+* Produce a structured plan:
+
+  1. Goal
+  2. Current state analysis
+  3. Step-by-step actions
+  4. Files impacted
+  5. Risks
+  6. Clarifying questions
+* Wait for approval.
+
+### 2.2 Thinking Levels
+
+* **think** — local tasks
+* **think hard** — multi-module tasks
+* **think harder** — performance/architecture tasks
+* **ultrathink** — only with explicit permission
+
+## 3. DeepStream Pipeline Rules
+
+Correct pipeline order:
+
+```
+1. Camera → convert → streammux
+2. my_steach (stitch)
+3. my_tile_batcher (6×1024 tiles)
+4. nvinfer (YOLO FP16)
+5. MASR history (raw → processed → confirmed)
+6. virtual camera (my_virt_cam)
+7. 7s playback branch
+```
+
+### 3.1 Memory Model
+
+* Always use NVMM
+* No CPU pixel copies
+* CPU only for metadata & light tasks
+* Respect 16GB unified RAM
+
+### 3.2 Latency Budgets
+
+* Stitch: ≤10ms
+* Tile batcher: ≤1ms
+* Inference: ≤20ms
+* Virtual camera: ≤22ms
+* Entire pipeline: 30 FPS, ≤100ms latency
+
+### 3.3 Metadata Rules
+
+* Only small metadata
+* Use NvDsUserMeta / FrameMeta / BatchMeta
+* Maintain timestamp consistency
+
+### 3.4 Branch Synchronization
+
+Do not break:
+
+* Real-time analysis branch
+* 7-second playback branch
+
+## 4. CUDA / C++ Plugin Rules
+
+### 4.1 CUDA Requirements
+
+* Keep existing block/grid sizes unless justified
+* Coalesced memory access
+* Avoid warp divergence
+* No dynamic allocations
+* Maintain LUT caching (no per-frame regen)
+
+### 4.2 GStreamer Plugin Requirements
+
+* Respect memory ownership
+* Null-check everything
+* Maintain thread safety
+* Avoid creating new buffer pools
+
+## 5. Python Rules
+
+* Python 3.8+ only
+* Functions ≤60 lines
+* Files ≤400 lines
+* No circular imports
+* No heavy CPU ops in callbacks
+* No deep copies of big structures
+* No blocking I/O in hot paths
+
+## 6. YOLO / TensorRT Rules
+
+* Inference allowed: FP16
+* Never use FP32 on Jetson
+* Batch size = 6
+* Tile size = 1024×1024
+* ONNX exported on server, engine built on Jetson
+
+Forbidden:
+
+* PyTorch inference on Jetson
+* Tile geometry changes
+* NMS structure changes
+
+## 7. MASR Tracking Rules
+
+Maintain:
+
+* Triple-buffer system
+* Timestamp continuity
+* Interpolation consistency
+* Ballistics model
+* Fallback to players
+* Field mask filtering
+* Inter-tile NMS
+
+## 8. File Modification Protocol
+
+* Modify only approved files
+* Provide patches in diff format:
+
+```
+File: new_week/core/history_manager.py
+Patch:
++ added_line
+- removed_line
+```
+
+## 9. Communication Rules
+
+* Ask when unsure
+* Respond concisely, technically
+* No hallucinations
+
+## 10. Strict Prohibitions
+
+Claude must NOT:
+
+* Generate code before plan approval
+* Propose refactors without permission
+* Break NVMM zero-copy path
+* Add CPU-heavy logic in GPU hot paths
+* Change pipeline topology
+* Use unavailable libraries
+* Output pseudocode
+
+## 11. Jetson Constraints
+
+* Unified RAM 16GB
+* GPU <70% load
+* Avoid large allocations
+* Avoid Python-heavy loops
+* Respect FP16 memory constraints
+* NVENC/NVDEC bandwidth limited
+* nvdsosd: max 16 boxes
+
+## 12. Improvement Proposal Protocol
+
+1. Problem (file + line)
+2. Cause
+3. Impact
+4. Solution
+5. Risks
+6. Patch
+
+## 13. Conflict Resolution
+
+If rules conflict: Architecture > Performance > Readability > Aesthetics If unsure — ask.
+
+## 14. Allowed Creative Behavior
+
+Claude may propose optimizations or improvements, but must not implement them without approval.
+
+
+
 ## Project Overview
 
 This is a **real-time AI-powered sports analytics system** built on NVIDIA DeepStream SDK 7.1, designed to run on NVIDIA Jetson Orin NX 16GB platform. The system processes dual 4K camera feeds to create 360° panoramic video, performs object detection and tracking (ball, players, referees), and provides intelligent virtual camera control with automated playback capabilities.
@@ -119,7 +327,7 @@ Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
                 ▼                          ▼
          [nvinfer]                   [appsrc]
        YOLOv11n/s                   Playback
-      TensorRT INT8                  pipeline
+      TensorRT FP16                  pipeline
                 │                          │
                 ▼                          │
     [Tensor Processing]                    │
@@ -432,11 +640,11 @@ The pipeline has been **refactored into a modular architecture** with **76% code
 
 #### Model Configuration
 
-- **Model**: YOLOv11n INT8
+- **Model**: YOLOv11n FP16
 - **Engine**: TensorRT (yolo11n_mixed_finetune_v9.engine - 8.1MB)
 - **Batch Size**: 6 (matching tile count)
 - **Input Size**: 1024×1024 per tile
-- **Network Mode**: INT8 (mode=2)
+- **Network Mode**: FP16 (mode=2)
 - **Classes**: 5 multiclass detection
   - Class 0: ball
   - Class 1: player
@@ -666,7 +874,7 @@ output/
 | **Camera Capture** | 30 | - | - | 2× 66 MB |
 | **Stitching (my_steach)** | 30 | ~10 ms | ~15% | 43 MB out |
 | **Tile Batching** | 30 | ~1 ms | ~5% | 25 MB |
-| **Inference (YOLOv11n INT8)** | 30 | ~20 ms | ~40% | Variable |
+| **Inference (YOLOv11n)** | 30 | ~20 ms | ~40% | Variable |
 | **Virtual Camera** | 47.9 | 20.9 ms | ~10% | 8 MB |
 | **Overall Pipeline** | 30 | ~100 ms | ~70% | ~10 GB |
 
@@ -879,7 +1087,7 @@ ds_pipeline/
 │   └── REFACTORING_SUMMARY.md          # Detailed delegation
 │
 ├── models/                       # AI Models
-│   └── yolo11n_mixed_finetune_v9.engine  # YOLOv11n INT8 (8.1MB)
+│   └── yolo11n_mixed_finetune_v9.engine  # YOLOv11n FP16 (8.5MB)
 │
 ├── soft_record_video/            # Dual camera recording
 │   ├── synced_dual_record.py           # Hardware-synced recording
@@ -910,6 +1118,7 @@ ds_pipeline/
 ```
 
 ---
+
 
 ## Code Review & Performance Reports
 
