@@ -100,13 +100,13 @@ class PlaybackPipelineBuilder:
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
                 nvvideoconvert compute-hw=1 !
                 video/x-raw(memory:NVMM),format=NV12 !
-                nvv4l2h264enc
+                nvv4l2h265enc
                     bitrate={self.bitrate}
                     preset-level=2
                     insert-sps-pps=1
                     iframeinterval=50
                     maxperf-enable=true !
-                h264parse !
+                h265parse !
                 """
 
                 # Если нужна запись - добавляем tee для разделения потока
@@ -204,19 +204,19 @@ class PlaybackPipelineBuilder:
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
                 nvvideoconvert compute-hw=1 !
                 video/x-raw(memory:NVMM),format=NV12 !
-                nvv4l2h264enc
+                nvv4l2h265enc
                     bitrate={self.bitrate}
                     preset-level=2
                     insert-sps-pps=1
                     iframeinterval=50
                     maxperf-enable=true !
-                h264parse !
+                h265parse !
                 queue max-size-time=4000000000 max-size-buffers=0 max-size-bytes=0 !
                 {muxer} !
                 filesink location={self.output_file} sync=false async=false
                 """
                 bitrate_mbps = self.bitrate / 1000000.0
-                logger.info(f"💾 Режим записи H.264: {self.output_file}")
+                logger.info(f"💾 Режим записи H.265 (HEVC): {self.output_file}")
                 logger.info(f"⚡ Параметры: bitrate={bitrate_mbps:.1f}Mbps, preset=2, iframe=50")
                 if use_flv:
                     logger.info(f"📦 Формат: FLV (рекомендуется, как у YouTube)")
