@@ -390,25 +390,59 @@ The stitcher (test_stiching.py) uses calibration data:
 
 ---
 
-### 5. MASR Inference Pipeline
+### 5. MASR Inference Pipeline (Refactored Modular Architecture)
 
-**Location**: `~/ds_pipeline/new_week/version_masr_multiclass.py`
+**Location**: `~/ds_pipeline/new_week/`
 
-**Function**: Multi-class object detection and intelligent tracking
+**Function**: Multi-class object detection and intelligent tracking with modular design
+
+#### Architecture Overview
+
+The pipeline has been **refactored into a modular architecture** with **76% code reduction** (from 3,015 to 712 lines), maintaining 100% API compatibility while improving maintainability and testability.
+
+**Main Entry Point**: `version_masr_multiclass.py` (712 lines)
+
+#### Modular Structure
+
+**core/** - Detection & History Management
+- `history_manager.py` (15KB) - Ball detection history with 3-tier buffering
+- `players_history.py` (1.8KB) - Player center-of-mass tracking
+- `detection_storage.py` (9.4KB) - Three-tier storage (raw, processed, confirmed)
+- `trajectory_filter.py` (12KB) - Outlier detection and blacklisting
+- `trajectory_interpolator.py` (10KB) - Smooth trajectory interpolation
+
+**pipeline/** - GStreamer Pipeline Building
+- `pipeline_builder.py` (16KB) - Analysis pipeline construction
+- `playback_builder.py` (15KB) - Playback/display pipeline construction
+- `config_builder.py` (3.7KB) - YOLO config generation
+- `buffer_manager.py` (18KB) - 7-second RAM buffer for frame/audio
+
+**processing/** - YOLO Analysis
+- `analysis_probe.py` (27KB) - Analysis probe callback and detection aggregation
+- `tensor_processor.py` (5.7KB) - YOLO tensor parsing and post-processing
+
+**rendering/** - Display & Virtual Camera
+- `display_probe.py` (20KB) - Panorama rendering with multi-class bboxes
+- `virtual_camera_probe.py` (17KB) - Virtual camera control and ball tracking
+
+**utils/** - General Utilities
+- `field_mask.py` (1.4KB) - Field mask validation
+- `csv_logger.py` (1.6KB) - Detection event logging
+- `nms.py` (2.3KB) - Non-maximum suppression
 
 #### Model Configuration
 
-- **Model**: YOLOv11n/s FP16
-- **Engine**: TensorRT (yolo11n_mixed_finetune_v9.engine)
+- **Model**: YOLOv11n INT8
+- **Engine**: TensorRT (yolo11n_mixed_finetune_v9.engine - 8.1MB)
 - **Batch Size**: 6 (matching tile count)
 - **Input Size**: 1024×1024 per tile
-- **Network Mode**: FP16 (mode=2)
+- **Network Mode**: INT8 (mode=2)
 - **Classes**: 5 multiclass detection
   - Class 0: ball
   - Class 1: player
-  - Class 2: staff (ignore for now)
-  - Class 3: side_referee (ignore for now)
-  - Class 4: main_referee (ignore for now)
+  - Class 2: staff
+  - Class 3: side_referee
+  - Class 4: main_referee
 
 #### Detection Thresholds
 
@@ -477,7 +511,123 @@ topk = 100                   # Max detections per class
 - Generates synthetic trajectory for smooth camera movement
 - 30 points/second linear interpolation
 
-**See**: `new_week/INFERENCE.MD` for detailed documentation
+**See**:
+- `new_week/INFERENCE.MD` - Inference pipeline documentation
+- `new_week/README_REFACTORING.md` - Refactoring overview
+- `new_week/REFACTORING_SUMMARY.md` - Detailed delegation map
+- `new_week/pipeline/BUFFER_MANAGER_USAGE.md` - Buffer manager guide
+
+---
+
+### 6. Buffer Manager
+
+**Location**: `~/ds_pipeline/new_week/pipeline/buffer_manager.py`
+
+**Function**: 7-second intelligent buffering system for analysis/playback synchronization
+
+#### Technical Details
+
+- **Buffer Duration**: 7 seconds (configurable)
+- **Frame Storage**: 210 frames @ 30fps
+- **Memory**: ~3 GB (210 frames × ~15 MB H.264 encoded)
+- **Audio Support**: Synchronized audio buffering via PulseAudio
+
+#### Key Features
+
+**Frame Buffering**:
+- Stores encoded H.264 frames with timestamps
+- Fixed-size circular buffer with automatic overflow handling
+- Deep copy management for frame data safety
+
+**Playback Synchronization**:
+- Timestamp-based frame retrieval
+- 7-second lag between analysis and display branches
+- Smooth playback with frame interpolation
+
+**Audio Integration**:
+- PulseAudio source synchronization
+- Audio/video timestamp alignment
+- Optional audio muting in analysis branch
+
+**Performance Notes**:
+- Deep copies identified as CPU bottleneck (CODEX report)
+- O(n) timestamp scans flagged for optimization
+- Future optimization: Ring buffer with binary search
+
+**See**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md` for detailed API
+
+---
+
+### 7. Soft Record Video Module
+
+**Location**: `~/ds_pipeline/soft_record_video/`
+
+**Function**: Synchronized dual 4K camera recording utilities
+
+#### Key Scripts
+
+- **`synced_dual_record.py`** (27KB) - Primary synchronized recording
+  - Hardware master/slave synchronization
+  - Sony IMX678/IMX477 camera support
+  - 4K @ 30fps recording
+  - Synchronized start/stop
+
+- **`fixed_exposure_recorder.py`** (20KB) - Fixed exposure recording
+  - Manual exposure control
+  - Consistent lighting conditions
+  - Calibration-ready output
+
+- **`check_frame_sync.py`** - Frame synchronization verification
+  - Validates timestamp alignment
+  - Detects frame drops
+  - Reports sync drift
+
+#### Features
+
+- **Hardware Synchronization**: Master camera triggers slave via GPIO
+- **Dual Output**: Simultaneous left/right camera recording
+- **MP4 Format**: H.264/HEVC encoding with nvenc
+- **Metadata**: Embedded timestamp and camera ID
+- **Recovery**: Auto-restart on camera failure
+
+**Shell Utilities**:
+- `fix_mp4.sh` - Repair corrupted MP4 files
+- `test_sync.sh` - Synchronization testing script
+
+---
+
+### 8. Sliser Module
+
+**Location**: `~/ds_pipeline/sliser/`
+
+**Function**: Panorama and tile extraction for dataset creation
+
+#### Key Scripts
+
+- **`panorama_tiles_saver.py`** (16KB) - Main extraction utility
+  - Saves full panorama (5700×1900 JPEG)
+  - Extracts 6× 1024×1024 tiles
+  - Configurable frame interval
+  - Sequential numbering system
+
+**Output Structure**:
+```
+output/
+├── panorama_0000.jpg
+├── panorama_0001.jpg
+├── tile0_0000.jpg
+├── tile0_0001.jpg
+├── tile1_0000.jpg
+...
+├── tile5_0000.jpg
+└── tile5_0001.jpg
+```
+
+**Use Cases**:
+- Training dataset creation
+- Manual annotation preparation
+- Quality assurance review
+- Stitching validation
 
 ---
 
@@ -644,68 +794,309 @@ python3 version_masr_multiclass.py \
 ```
 ds_pipeline/
 ├── calibration/                  # Stereo calibration tools
-│   ├── stereo_essential_matrix.py
-│   ├── test_stiching.py
-│   ├── calibration_result_standard.pkl
-│   └── CALIBRATION.MD
+│   ├── stereo_essential_matrix.py      # PRIMARY: Wide-angle calibration
+│   ├── stereo_calibration.py           # Standard stereo calibration
+│   ├── recalibrate_cleaned.py          # Individual camera calibration
+│   ├── test_stiching.py                # Stitching integration test
+│   ├── calibration_result_standard.pkl # Binary calibration data
+│   └── CALIBRATION.MD                  # Calibration documentation
+│
 ├── my_steach/                    # Panorama stitching plugin
 │   ├── src/
-│   │   ├── gstnvdsstitch.cpp    # GStreamer plugin
-│   │   └── cuda_stitch_kernel.cu # CUDA stitching
-│   ├── Makefile
-│   ├── libnvdsstitch.so
-│   └── PLUGIN.MD
-├── my_virt_cam/                  # Virtual camera plugin
-│   ├── src/
-│   │   ├── gstnvvirtualcam.cpp  # GStreamer plugin
-│   │   └── virtual_camera_kernel.cu # CUDA projection
-│   ├── Makefile
-│   └── PLUGIN.MD
+│   │   ├── gstnvdsstitch.cpp           # GStreamer plugin (1,427 lines)
+│   │   ├── cuda_stitch_kernel.cu       # CUDA stitching (765 lines)
+│   │   ├── gstnvdsstitch_allocator.cpp # Memory allocator (595 lines)
+│   │   └── *.h                         # Header files
+│   ├── Makefile                        # Build system
+│   ├── libnvdsstitch.so               # Compiled plugin
+│   ├── panorama_stream.py             # File-based test
+│   ├── panorama_cameras_realtime.py   # Live camera test
+│   └── PLUGIN.MD                      # Plugin documentation
+│
 ├── my_tile_batcher/              # Tile extraction plugin
 │   ├── src/
-│   │   ├── gstnvtilebatcher.cpp
-│   │   └── cuda_tile_extractor.cu
+│   │   ├── gstnvtilebatcher.cpp        # Plugin (1,733 lines)
+│   │   ├── cuda_tile_extractor.cu      # CUDA kernel (150 lines)
+│   │   ├── gstnvtilebatcher_allocator.cpp
+│   │   └── *.h
 │   ├── Makefile
+│   ├── libnvtilebatcher.so            # Compiled plugin
+│   ├── test_tilebatcher.py            # Standalone test
+│   ├── test_complete_pipeline.py      # Full pipeline test
 │   └── PLUGIN.MD
-├── new_week/                     # Main inference pipeline
-│   ├── version_masr_multiclass.py
-│   ├── config_infer.txt
-│   ├── labels.txt
-│   ├── yolo11n_mixed_finetune_v9.engine
-│   └── INFERENCE.MD
+│
+├── my_virt_cam/                  # Virtual camera plugin
+│   ├── src/
+│   │   ├── gstnvdsvirtualcam.cpp       # Plugin (2,100+ lines)
+│   │   ├── cuda_virtual_cam_kernel.cu  # CUDA kernel (350 lines)
+│   │   ├── gstnvdsvirtualcam_allocator.cpp
+│   │   ├── nvds_ball_meta.h            # Ball metadata
+│   │   └── *.h
+│   ├── Makefile
+│   ├── libnvdsvirtualcam.so           # Compiled plugin
+│   ├── test_virtual_camera_sliders.py # Interactive GUI test
+│   ├── test_virtual_camera_keyboard.py
+│   ├── calculate_safe_boundaries.py
+│   └── PLUGIN.MD
+│
+├── new_week/                     # Main inference pipeline (REFACTORED)
+│   ├── version_masr_multiclass.py      # Main entry (712 lines)
+│   ├── version_masr_multiclass_REFACTORED.py  # Modular version
+│   ├── version_masr_multiclass_ORIGINAL_BACKUP.py  # Original (3,015 lines)
+│   │
+│   ├── core/                           # Detection & History
+│   │   ├── history_manager.py
+│   │   ├── players_history.py
+│   │   ├── detection_storage.py
+│   │   ├── trajectory_filter.py
+│   │   └── trajectory_interpolator.py
+│   │
+│   ├── pipeline/                       # GStreamer Builders
+│   │   ├── pipeline_builder.py
+│   │   ├── playback_builder.py
+│   │   ├── config_builder.py
+│   │   ├── buffer_manager.py
+│   │   └── BUFFER_MANAGER_USAGE.md
+│   │
+│   ├── processing/                     # YOLO Analysis
+│   │   ├── analysis_probe.py
+│   │   └── tensor_processor.py
+│   │
+│   ├── rendering/                      # Display & Camera
+│   │   ├── display_probe.py
+│   │   └── virtual_camera_probe.py
+│   │
+│   ├── utils/                          # Utilities
+│   │   ├── field_mask.py
+│   │   ├── csv_logger.py
+│   │   └── nms.py
+│   │
+│   ├── config_infer.txt                # YOLO config
+│   ├── labels.txt                      # Class labels
+│   ├── auto_restart.sh                 # Auto-restart script
+│   ├── INFERENCE.MD                    # Pipeline docs
+│   ├── README_REFACTORING.md           # Refactoring guide
+│   └── REFACTORING_SUMMARY.md          # Detailed delegation
+│
+├── models/                       # AI Models
+│   └── yolo11n_mixed_finetune_v9.engine  # YOLOv11n INT8 (8.1MB)
+│
+├── soft_record_video/            # Dual camera recording
+│   ├── synced_dual_record.py           # Hardware-synced recording
+│   ├── synced_dual_record_robust.py
+│   ├── fixed_exposure_recorder.py
+│   ├── dual_record.py
+│   ├── check_frame_sync.py
+│   ├── fix_mp4.sh                      # MP4 repair utility
+│   └── test_sync.sh
+│
+├── sliser/                       # Panorama tile saver
+│   ├── panorama_tiles_saver.py         # Dataset creation
+│   └── test_gstreamer_import.py
+│
 ├── camera_doc/                   # Camera specifications
 │   └── IMX678C_Framos_Docs_documentation.pdf
+│
 ├── ds_doc/                       # DeepStream documentation
-│   └── 7.1/                     # HTML reference
+│   └── 7.1/                           # HTML reference
+│
+├── CLAUDE.MD                     # This file (main documentation)
+├── CODEX_report.MD               # CPU performance analysis
+├── COMPILED_CODEX_REPORT.MD      # Compiled CPU analysis
+├── DEEPSTREAM_CODE_REVIEW.md     # Code review findings
+├── Performance_report.MD         # Performance benchmarks
 ├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
-├── field_mask.png               # Binary field mask for filtering
-└── CLAUDE.MD                    # This file
+└── nvidia_jetson_orin_nx_16GB_super_arch.txt
 ```
+
+---
+
+## Code Review & Performance Reports
+
+The codebase has undergone comprehensive analysis and review, documented in the following reports:
+
+### CODEX_report.MD - CPU Performance Analysis
+
+**Key Findings**: 6 high-CPU load paths identified
+
+1. **BufferManager Deep Copies** (buffer_manager.py:116)
+   - Issue: Deep copying ~15MB frames on every buffer add
+   - Impact: Significant CPU overhead in frame buffering
+   - Recommendation: Use shallow copies or zero-copy techniques
+
+2. **Playback O(n) Scans** (buffer_manager.py:156)
+   - Issue: Linear timestamp search through buffer
+   - Impact: Performance degrades with buffer size
+   - Recommendation: Binary search or ring buffer with indexing
+
+3. **Heavy Python Post-Processing** (analysis_probe.py, display_probe.py)
+   - Issue: Extensive Python processing in critical path
+   - Impact: CPU bottleneck in detection pipeline
+   - Recommendation: Move to C++ or use Numba JIT compilation
+
+4. **Field Mask Validation** (field_mask.py)
+   - Issue: Per-detection mask lookup
+   - Impact: O(n) overhead for n detections
+   - Recommendation: GPU-accelerated mask checking
+
+5. **NMS Implementation** (nms.py)
+   - Issue: Pure Python NMS with nested loops
+   - Impact: O(n²) complexity for overlapping detections
+   - Recommendation: Use DeepStream native NMS or GPU implementation
+
+6. **CSV Logging** (csv_logger.py)
+   - Issue: Synchronous file I/O in probe callbacks
+   - Impact: Frame drops under high detection load
+   - Recommendation: Async logging or buffered writes
+
+**See**: `CODEX_report.MD` for full analysis
+
+---
+
+### DEEPSTREAM_CODE_REVIEW.md - DeepStream 7.1 Compliance
+
+**Critical Issues** (15 findings):
+- Memory leak potential in probe callbacks
+- Missing null checks in metadata iteration
+- Improper GStreamer state management
+- Unsafe buffer pool handling
+
+**Important Issues** (8 findings):
+- Suboptimal batch processing
+- Missing error recovery paths
+- Inconsistent metadata handling
+- Thread safety concerns
+
+**Recommendations** (12 items):
+- Migrate to DeepStream 7.1 best practices
+- Implement proper error handling
+- Add comprehensive logging
+- Use native DeepStream analytics
+
+**See**: `DEEPSTREAM_CODE_REVIEW.md` for detailed findings
+
+---
+
+### Performance_report.MD - Comprehensive Benchmarks
+
+**System-Level Metrics**:
+- Overall pipeline: 30 FPS @ 70% GPU load
+- End-to-end latency: ~100ms (camera to display)
+- Memory usage: ~10 GB / 16 GB
+- Available headroom: ~3 GB
+
+**Component Breakdown**:
+- Stitching: 30 FPS, 10ms latency, 15% GPU
+- Tile batching: 30 FPS, 1ms latency, 5% GPU
+- Inference: 30 FPS, 20ms latency, 40% GPU
+- Virtual camera: 47.9 FPS, 20.9ms latency, 10% GPU
+
+**Optimization Opportunities**:
+1. DLA offload for YOLO inference (reduce GPU load)
+2. H.264 hardware encoding for buffer (reduce CPU load)
+3. LUT compression for memory savings
+4. Multi-stream batching for throughput
+
+**See**: `Performance_report.MD` for full benchmarks
 
 ---
 
 ## References
 
+### Official Documentation
+
 1. **NVIDIA DeepStream SDK 7.1**: https://docs.nvidia.com/metropolis/deepstream/dev-guide/
-2. **Jetson Orin NX Datasheet**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
-3. **Camera Documentation**: camera_doc/IMX678C_Framos_Docs_documentation.pdf
-4. **Platform Architecture**: See embedded PDF analysis on unified memory
-5. **YOLOv11 Documentation**: https://docs.ultralytics.com/models/yolo11/
+2. **YOLOv11 Documentation**: https://docs.ultralytics.com/models/yolo11/
+3. **GStreamer 1.0 Reference**: https://gstreamer.freedesktop.org/documentation/
+
+### Hardware Specifications
+
+4. **Jetson Orin NX Datasheet**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
+5. **Sony IMX678 Camera**: camera_doc/IMX678C_Framos_Docs_documentation.pdf
+
+### Project Documentation
+
+6. **Main Documentation**: `CLAUDE.MD` (this file)
+7. **Stitching Plugin**: `my_steach/PLUGIN.MD`
+8. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.MD`
+9. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.MD`
+10. **Calibration Guide**: `calibration/CALIBRATION.MD`
+11. **Inference Pipeline**: `new_week/INFERENCE.MD`
+12. **Refactoring Guide**: `new_week/README_REFACTORING.md`
+13. **Buffer Manager**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
+
+### Analysis Reports
+
+14. **CPU Performance Analysis**: `CODEX_report.MD`
+15. **Code Review Findings**: `DEEPSTREAM_CODE_REVIEW.md`
+16. **Performance Benchmarks**: `Performance_report.MD`
+17. **Refactoring Summary**: `new_week/REFACTORING_SUMMARY.md`
+
+---
+
+## Development & Testing
+
+### Test Suite
+
+The project includes **50+ test scripts** across all modules:
+
+**Plugin Testing**:
+- `my_steach/panorama_stream.py` - File-based stitching
+- `my_steach/panorama_cameras_realtime.py` - Live camera stitching
+- `my_virt_cam/test_virtual_camera_sliders.py` - Interactive GUI testing
+- `my_tile_batcher/test_complete_pipeline.py` - Full pipeline validation
+
+**Performance Testing**:
+- `my_steach/test_fps.py` - FPS measurement
+- `my_tile_batcher/test_performance.py` - Benchmarking
+- `my_virt_cam/test_ball_positions.py` - Tracking validation
+
+**Calibration Testing**:
+- `calibration/check_calibration_quality.py` - Quality assessment
+- `calibration/test_calibration_visual.py` - Visual validation
+- `calibration/test_undistortion.py` - Undistortion verification
+
+**Recording Testing**:
+- `soft_record_video/check_frame_sync.py` - Sync verification
+- `soft_record_video/test_sync.sh` - Synchronization testing
+
+### Shell Utilities
+
+**Automation**:
+- `new_week/auto_restart.sh` - Automatic restart on failure
+- `new_week/rest_cameras.sh` - Camera reset utility
+
+**Maintenance**:
+- `soft_record_video/fix_mp4.sh` - MP4 file repair
+- `new_week/test_stitch_ringbuffer.sh` - Ring buffer testing
 
 ---
 
 ## Contact & Contribution
 
-This project is a production sports analytics system. For technical questions or contributions, refer to individual plugin documentation files:
+This project is a production sports analytics system. For technical questions or contributions, refer to individual documentation files:
+
+**Core Documentation**:
+- Main: `CLAUDE.MD` (this file)
+- Refactoring: `new_week/README_REFACTORING.md`
+
+**Component Documentation**:
 - Stitching: `my_steach/PLUGIN.MD`
 - Virtual Camera: `my_virt_cam/PLUGIN.MD`
 - Tile Batching: `my_tile_batcher/PLUGIN.MD`
 - Calibration: `calibration/CALIBRATION.MD`
-- Inference Pipeline: `new_week/INFERENCE.MD`
+- Inference: `new_week/INFERENCE.MD`
+- Buffer Manager: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
+
+**Analysis Reports**:
+- CPU Analysis: `CODEX_report.MD`
+- Code Review: `DEEPSTREAM_CODE_REVIEW.md`
+- Performance: `Performance_report.MD`
 
 ---
 
-**Last Updated**: 2025-11-16
+**Last Updated**: 2025-11-17
 **Platform**: NVIDIA Jetson Orin NX 16GB
 **DeepStream**: 7.1
 **CUDA**: 12.6
+**Architecture**: Refactored modular design (76% code reduction)
