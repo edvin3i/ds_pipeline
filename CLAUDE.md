@@ -722,7 +722,7 @@ topk = 100                   # Max detections per class
 **See**:
 - `new_week/INFERENCE.md` - Inference pipeline documentation
 - `new_week/README_REFACTORING.md` - Refactoring overview
-- `new_week/REFACTORING_SUMMARY.md` - Detailed delegation map
+- `new_week/refactoring_reference.md` - Detailed delegation map
 - `new_week/pipeline/BUFFER_MANAGER_USAGE.md` - Buffer manager guide
 
 ---
@@ -1084,7 +1084,7 @@ ds_pipeline/
 │   ├── auto_restart.sh                 # Auto-restart script
 │   ├── INFERENCE.md                    # Pipeline docs
 │   ├── README_REFACTORING.md           # Refactoring guide
-│   └── REFACTORING_SUMMARY.md          # Detailed delegation
+│   └── refactoring_reference.md        # Detailed delegation map
 │
 ├── models/                       # AI Models
 │   └── yolo11n_mixed_finetune_v9.engine  # YOLOv11n FP16 (8.5MB)
@@ -1108,11 +1108,18 @@ ds_pipeline/
 ├── ds_doc/                       # DeepStream documentation
 │   └── 7.1/                           # HTML reference
 │
+├── docs/                         # Documentation and reports
+│   └── reports/                       # Analysis reports
+│       ├── CODEX_report.md            # CPU performance analysis
+│       ├── COMPILED_CODEX_REPORT.md   # Compiled CPU analysis
+│       ├── DEEPSTREAM_CODE_REVIEW.md  # Code review findings
+│       └── Performance_report.md      # Performance benchmarks
+│
 ├── CLAUDE.md                     # This file (main documentation)
-├── CODEX_report.md               # CPU performance analysis
-├── COMPILED_CODEX_REPORT.md      # Compiled CPU analysis
-├── DEEPSTREAM_CODE_REVIEW.md     # Code review findings
-├── Performance_report.md         # Performance benchmarks
+├── architecture.md               # System architecture documentation
+├── decisions.md                  # Architectural Decision Records (ADRs)
+├── plan.md                       # Master project plan and roadmap
+├── todo.md                       # Current tasks and backlog
 ├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
 └── nvidia_jetson_orin_nx_16GB_super_arch.txt
 ```
@@ -1124,7 +1131,7 @@ ds_pipeline/
 
 The codebase has undergone comprehensive analysis and review, documented in the following reports:
 
-### CODEX_report.md - CPU Performance Analysis
+### docs/reports/CODEX_report.md - CPU Performance Analysis
 
 **Key Findings**: 6 high-CPU load paths identified
 
@@ -1158,11 +1165,11 @@ The codebase has undergone comprehensive analysis and review, documented in the 
    - Impact: Frame drops under high detection load
    - Recommendation: Async logging or buffered writes
 
-**See**: `CODEX_report.md` for full analysis
+**See**: `docs/reports/CODEX_report.md` for full analysis
 
 ---
 
-### DEEPSTREAM_CODE_REVIEW.md - DeepStream 7.1 Compliance
+### docs/reports/DEEPSTREAM_CODE_REVIEW.md - DeepStream 7.1 Compliance
 
 **Critical Issues** (15 findings):
 - Memory leak potential in probe callbacks
@@ -1182,11 +1189,11 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 - Add comprehensive logging
 - Use native DeepStream analytics
 
-**See**: `DEEPSTREAM_CODE_REVIEW.md` for detailed findings
+**See**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md` for detailed findings
 
 ---
 
-### Performance_report.md - Comprehensive Benchmarks
+### docs/reports/Performance_report.md - Comprehensive Benchmarks
 
 **System-Level Metrics**:
 - Overall pipeline: 30 FPS @ 70% GPU load
@@ -1206,7 +1213,7 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 3. LUT compression for memory savings
 4. Multi-stream batching for throughput
 
-**See**: `Performance_report.md` for full benchmarks
+**See**: `docs/reports/Performance_report.md` for full benchmarks
 
 ---
 
@@ -1227,20 +1234,24 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 ### Project Documentation
 
 6. **Main Documentation**: `CLAUDE.md` (this file)
-7. **Stitching Plugin**: `my_steach/PLUGIN.md`
-8. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.md`
-9. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.md`
-10. **Calibration Guide**: `calibration/CALIBRATION.md`
-11. **Inference Pipeline**: `new_week/INFERENCE.md`
-12. **Refactoring Guide**: `new_week/README_REFACTORING.md`
-13. **Buffer Manager**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
+7. **System Architecture**: `architecture.md`
+8. **Architectural Decisions**: `decisions.md`
+9. **Master Plan & Roadmap**: `plan.md`
+10. **Current Tasks & Backlog**: `todo.md`
+11. **Stitching Plugin**: `my_steach/PLUGIN.md`
+12. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.md`
+13. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.md`
+14. **Calibration Guide**: `calibration/CALIBRATION.md`
+15. **Inference Pipeline**: `new_week/INFERENCE.md`
+16. **Refactoring Guide**: `new_week/README_REFACTORING.md`
+17. **Refactoring Reference**: `new_week/refactoring_reference.md`
+18. **Buffer Manager**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
 
 ### Analysis Reports
 
-14. **CPU Performance Analysis**: `CODEX_report.md`
-15. **Code Review Findings**: `DEEPSTREAM_CODE_REVIEW.md`
-16. **Performance Benchmarks**: `Performance_report.md`
-17. **Refactoring Summary**: `new_week/REFACTORING_SUMMARY.md`
+19. **CPU Performance Analysis**: `docs/reports/CODEX_report.md`
+20. **Code Review Findings**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
+21. **Performance Benchmarks**: `docs/reports/Performance_report.md`
 
 ---
 
@@ -1288,7 +1299,10 @@ This project is a production sports analytics system. For technical questions or
 
 **Core Documentation**:
 - Main: `CLAUDE.md` (this file)
-- Refactoring: `new_week/README_REFACTORING.md`
+- Architecture: `architecture.md`
+- Decisions: `decisions.md`
+- Plan: `plan.md`
+- TODO: `todo.md`
 
 **Component Documentation**:
 - Stitching: `my_steach/PLUGIN.md`
@@ -1296,12 +1310,13 @@ This project is a production sports analytics system. For technical questions or
 - Tile Batching: `my_tile_batcher/PLUGIN.md`
 - Calibration: `calibration/CALIBRATION.md`
 - Inference: `new_week/INFERENCE.md`
+- Refactoring: `new_week/README_REFACTORING.md`
 - Buffer Manager: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
 
 **Analysis Reports**:
-- CPU Analysis: `CODEX_report.md`
-- Code Review: `DEEPSTREAM_CODE_REVIEW.md`
-- Performance: `Performance_report.md`
+- CPU Analysis: `docs/reports/CODEX_report.md`
+- Code Review: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
+- Performance: `docs/reports/Performance_report.md`
 
 ---
 
