@@ -83,8 +83,7 @@ class PlaybackPipelineBuilder:
         try:
             if self.display_mode == "stream":
                 # Режим стриминга: с записью или без
-                # Общая часть до h265parse (кодирование H.265/HEVC)
-                h265_bitrate = int(self.bitrate * 0.67)  # 67% for conservative H.265
+                # Общая часть до h264parse (кодирование)
                 pipeline_str = f"""
                 appsrc name=src format=time is-live=true do-timestamp=true !
                 video/x-raw,format=RGB !
@@ -101,22 +100,21 @@ class PlaybackPipelineBuilder:
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
                 nvvideoconvert compute-hw=1 !
                 video/x-raw(memory:NVMM),format=NV12 !
-                nvv4l2h265enc
-                    bitrate={h265_bitrate}
+                nvv4l2h264enc
+                    bitrate={self.bitrate}
                     preset-level=2
                     insert-sps-pps=1
                     iframeinterval=50
                     maxperf-enable=true !
-                h265parse !
+                h264parse !
                 """
 
                 # Если нужна запись - добавляем tee для разделения потока
-                # H.265 не поддерживается FLV, используем MP4
                 if self.output_file:
                     pipeline_str += f"""
                 tee name=t !
                 queue max-size-time=4000000000 max-size-buffers=0 max-size-bytes=0 !
-                mp4mux name=mp4mux faststart=true !
+                flvmux name=flvmux streamable=true !
                 rtmpsink
                     location={self.stream_url}{self.stream_key}
                     sync=false
@@ -124,15 +122,15 @@ class PlaybackPipelineBuilder:
 
                 t. !
                 queue max-size-time=4000000000 max-size-buffers=0 max-size-bytes=0 !
-                mp4mux faststart=true !
+                flvmux streamable=true !
                 filesink location={self.output_file} sync=false async=false
                 """
-                    logger.info(f"💾 Запись в MP4 включена: {self.output_file}")
+                    logger.info(f"💾 Запись в FLV включена: {self.output_file}")
                 else:
                     # Только стриминг без записи
                     pipeline_str += f"""
                 queue max-size-time=4000000000 max-size-buffers=0 max-size-bytes=0 !
-                mp4mux name=mp4mux faststart=true !
+                flvmux name=flvmux streamable=true !
                 rtmpsink
                     location={self.stream_url}{self.stream_key}
                     sync=false
@@ -154,7 +152,7 @@ class PlaybackPipelineBuilder:
                     voaacenc bitrate=128000 !
                     aacparse !
                     queue max-size-buffers=100 !
-                    mp4mux.
+                    flvmux.
                     """
                     logger.info("🎤 Используем буферизированное аудио")
                 else:
@@ -166,33 +164,29 @@ class PlaybackPipelineBuilder:
                     voaacenc bitrate=128000 !
                     aacparse !
                     queue !
-                    mp4mux.
+                    flvmux.
                     """
                     logger.warning("🔇 Микрофон не найден, используем тишину")
 
             elif self.display_mode == "record":
                 # Режим только записи (без окна, без стрима)
-                # Используем виртуальную камеру с кодированием H.265 напрямую в файл
-                # УЛУЧШЕННЫЕ параметры качества с H.265 (HEVC)
+                # Используем виртуальную камеру с кодированием напрямую в файл
+                # УЛУЧШЕННЫЕ параметры качества (как у stream режима)
 
                 # Выбор формата по расширению:
-                # .flv = DEPRECATED (не поддерживает H.265, принудительно MP4)
-                # .mkv = Matroska (поддерживает H.265)
-                # .mp4 = MP4 (поддерживает H.265, рекомендуется)
+                # .flv = FLV (рекомендуется, как у YouTube)
+                # .mkv = Matroska
+                # .mp4 = MP4
                 use_flv = self.output_file.endswith('.flv')
-                use_mp4 = self.output_file.endswith('.mp4') or use_flv  # FLV → MP4
+                use_mp4 = self.output_file.endswith('.mp4')
 
-                # Выбираем мультиплексор (FLV deprecated, используем MP4/MKV)
+                # Выбираем мультиплексор
                 if use_flv:
-                    logger.warning("⚠️ FLV не поддерживает H.265, используем MP4 вместо FLV")
-                    muxer = "mp4mux faststart=true"
+                    muxer = "flvmux streamable=true"
                 elif use_mp4:
-                    muxer = "mp4mux faststart=true"
+                    muxer = "mp4mux"
                 else:
                     muxer = 'matroskamux streamable=false writing-app="DeepStream Football Tracker"'
-
-                # H.265 bitrate: 67% от H.264 для сохранения качества
-                h265_bitrate = int(self.bitrate * 0.67)
 
                 pipeline_str = f"""
                 appsrc name=src format=time is-live=true do-timestamp=true !
@@ -210,22 +204,22 @@ class PlaybackPipelineBuilder:
                 video/x-raw(memory:NVMM),format=RGBA,width=1920,height=1080 !
                 nvvideoconvert compute-hw=1 !
                 video/x-raw(memory:NVMM),format=NV12 !
-                nvv4l2h265enc
-                    bitrate={h265_bitrate}
+                nvv4l2h264enc
+                    bitrate={self.bitrate}
                     preset-level=2
                     insert-sps-pps=1
                     iframeinterval=50
                     maxperf-enable=true !
-                h265parse !
+                h264parse !
                 queue max-size-time=4000000000 max-size-buffers=0 max-size-bytes=0 !
                 {muxer} !
                 filesink location={self.output_file} sync=false async=false
                 """
-                bitrate_mbps = h265_bitrate / 1000000.0
-                logger.info(f"💾 Режим записи H.265 (HEVC): {self.output_file}")
-                logger.info(f"⚡ Параметры: bitrate={bitrate_mbps:.1f}Mbps (67% of H.264), preset=2, iframe=50")
+                bitrate_mbps = self.bitrate / 1000000.0
+                logger.info(f"💾 Режим записи H.264: {self.output_file}")
+                logger.info(f"⚡ Параметры: bitrate={bitrate_mbps:.1f}Mbps, preset=2, iframe=50")
                 if use_flv:
-                    logger.info(f"📦 Формат: MP4 (FLV deprecated для H.265)")
+                    logger.info(f"📦 Формат: FLV (рекомендуется, как у YouTube)")
                 elif use_mp4:
                     logger.info(f"📦 Формат: MP4")
                 else:
@@ -308,15 +302,12 @@ class PlaybackPipelineBuilder:
 
             # Логирование конфигурации
             if self.display_mode == "stream":
-                h265_bitrate = int(self.bitrate * 0.67)
-                bitrate_mbps = h265_bitrate / 1000000.0
+                bitrate_mbps = self.bitrate / 1000000.0
                 logger.info(f"🚀 Playback pipeline создан для стриминга")
-                logger.info(f"🎬 Кодек: H.265 (HEVC)")
                 logger.info(f"📡 URL: {self.stream_url}")
                 if self.stream_key:
                     logger.info(f"🔑 Ключ: {self.stream_key[:4]}...{self.stream_key[-4:]}")
-                logger.info(f"⚡ Качество видео: {bitrate_mbps:.1f} Mbps (67% от H.264)")
-                logger.info(f"📦 Контейнер: MP4")
+                logger.info(f"⚡ Качество видео: {bitrate_mbps:.1f} Mbps")
                 if self.audio_device:
                     logger.info(f"🎤 Аудио: {self.audio_device}")
                 else:
