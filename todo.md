@@ -21,7 +21,7 @@
 
 - [ ] **CRITICAL: Fix nvinfer configuration**
   - **File**: `new_week/config_infer.txt`
-  - **Issue 1**: `num-detected-classes=1` should be `5` (ball, player, staff, side_ref, main_ref)
+  - **Issue 1**: `num-detected-classes=1` should be `2` (ball, player), ignore for now: staff, side_ref, main_ref
   - **Issue 2**: Missing `[class-attrs-4]` section for main_referee class
   - **Fix**: Update config file with correct class count and add missing section
   - **Priority**: P0 - Incorrect detections

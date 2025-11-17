@@ -16,19 +16,19 @@ This document records all significant architectural and design decisions made du
 Need embedded platform for real-time dual 4K camera processing with AI inference.
 
 ### Alternatives Considered
-1. **NVIDIA Jetson Orin NX 16GB** (selected)
+1. **NVIDIA Jetson Orin NX SUPER 16GB** (selected)
 2. NVIDIA Jetson AGX Orin 32GB (more powerful but larger/expensive)
 3. NVIDIA Jetson Xavier NX (older generation, less AI performance)
 4. x86 workstation with dGPU (not embedded, higher power)
 
 ### Decision
-Use **NVIDIA Jetson Orin NX 16GB**
+Use **NVIDIA Jetson Orin NX SUPER 16GB**
 
 ### Rationale
-- **AI Performance**: 100 TOPS (INT8) sufficient for YOLOv11 on 6 tiles
+- **AI Performance**: 100 TOPS (INT8) sufficient for YOLOv11 on 6 tiles (but we are usin FP16 model engine)
 - **Memory**: 16GB unified RAM adequate for pipeline + 7s buffer
 - **Form Factor**: Compact embedded design
-- **Power**: 15W-25W TDP (suitable for passive cooling)
+- **Power**: 40W TDP (maximum for NVIDIA Jetson Orin NX SUper 16GB)
 - **Video**: 2× 4K60 decode, 1× 4K60 encode (matches dual camera requirement)
 - **Cost**: Balanced price/performance (~$699)
 
@@ -283,9 +283,9 @@ Use **single YOLOv11 multi-class model** with 5 classes
 ```
 Class 0: ball          (confidence threshold: 0.25)
 Class 1: player        (confidence threshold: 0.40)
-Class 2: staff         (confidence threshold: 0.40)
-Class 3: side_referee  (confidence threshold: 0.40)
-Class 4: main_referee  (confidence threshold: 0.40)
+Class 2: staff         (confidence threshold: 0.40) - ignoring for now
+Class 3: side_referee  (confidence threshold: 0.40) - ignoring for now
+Class 4: main_referee  (confidence threshold: 0.40) - ignoring for now
 ```
 
 ### Consequences

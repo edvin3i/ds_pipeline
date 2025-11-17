@@ -198,11 +198,17 @@ Claude must NOT:
 5. Risks
 6. Patch
 
-## 13. Conflict Resolution
+## 13. Documentation Using
+1. Search the documentation for every aspect in docs/ directory.
+2. Explore a documentation before coding, follow the documentation strictly.
+3. If you can not find some documentation in docs/ or in any projec dirertory - search on internet.
+4. Create the docs/DOCs_NOTES.md if you need note or memorize something in documentation.
+
+## 14. Conflict Resolution
 
 If rules conflict: Architecture > Performance > Readability > Aesthetics If unsure — ask.
 
-## 14. Allowed Creative Behavior
+## 15. Allowed Creative Behavior
 
 Claude may propose optimizations or improvements, but must not implement them without approval.
 
@@ -1102,18 +1108,22 @@ ds_pipeline/
 │   ├── panorama_tiles_saver.py         # Dataset creation
 │   └── test_gstreamer_import.py
 │
-├── camera_doc/                   # Camera specifications
-│   └── IMX678C_Framos_Docs_documentation.pdf
 │
-├── ds_doc/                       # DeepStream documentation
-│   └── 7.1/                           # HTML reference
 │
 ├── docs/                         # Documentation and reports
-│   └── reports/                       # Analysis reports
-│       ├── CODEX_report.md            # CPU performance analysis
-│       ├── COMPILED_CODEX_REPORT.md   # Compiled CPU analysis
-│       ├── DEEPSTREAM_CODE_REVIEW.md  # Code review findings
-│       └── Performance_report.md      # Performance benchmarks
+│   ├── reports/                        # Analysis reports
+│   │    ├── CODEX_report.md            # CPU performance analysis
+│   │    ├── COMPILED_CODEX_REPORT.md   # Compiled CPU analysis
+│   │    ├── DEEPSTREAM_CODE_REVIEW.md  # Code review findings
+│   │    └── Performance_report.md      # Performance benchmarks
+│   ├── ds_doc/                         # DeepStream documentation
+│   ├── 7.1/                            # HTML reference
+│   ├── camera_doc/                     # Camera specifications
+│   │    └── IMX678C_Framos_Docs_documentation.pdf
+    └── hw_arch/                        # Platform harware specifications and documentation
+         ├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
+         └── nvidia_jetson_orin_nx_16GB_super_arch.txt
+
 │
 ├── CLAUDE.md                     # This file (main documentation)
 ├── architecture.md               # System architecture documentation
@@ -1228,8 +1238,8 @@ The codebase has undergone comprehensive analysis and review, documented in the 
 ### Hardware Specifications
 
 4. **Jetson Orin NX Datasheet PDF**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
-4.5 **Jetson Orin NX Datasheet**: nvidia_jetson_orin_nx_16GB_super_arch.txt
-5. **Sony IMX678 Camera**: camera_doc/IMX678C_Framos_Docs_documentation.pdf
+4.5 **Jetson Orin NX Datasheet TXT**: nvidia_jetson_orin_nx_16GB_super_arch.txt
+5. **Sony IMX678 Camera**: docs/camera_doc/IMX678C_Framos_Docs_documentation.pdf
 
 ### Project Documentation
 
@@ -1303,6 +1313,9 @@ This project is a production sports analytics system. For technical questions or
 - Decisions: `decisions.md`
 - Plan: `plan.md`
 - TODO: `todo.md`
+- DeepStream 7.1: 'docs/ds_doc/7.1/'
+- Hardware: 'docs/hw_arch'
+- Cameras: 'docs/camera_doc'
 
 **Component Documentation**:
 - Stitching: `my_steach/PLUGIN.md`

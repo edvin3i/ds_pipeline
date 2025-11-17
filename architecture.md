@@ -16,7 +16,7 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 ┌─────────────────────────────────────────────────────────────────┐
 │                    NVIDIA Jetson Orin NX 16GB                   │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
+│                                                                 │
 │  ┌────────────────────┐           ┌──────────────────────────┐  │
 │  │  CPU Complex       │           │  GPU Complex             │  │
 │  │  8× Cortex-A78AE   │◄─────────►│  1024 CUDA cores         │  │
@@ -31,18 +31,18 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 │              │ 16 GB LPDDR5    │                                │
 │              │ @ 102 GB/s      │                                │
 │              └─────────────────┘                                │
-│                                                                  │
-│  ┌──────────────────┐      ┌──────────────────┐                │
-│  │  Video Decode    │      │  Video Encode    │                │
-│  │  2× 4K60         │      │  1× 4K60         │                │
-│  │  HEVC/H.264/AV1  │      │  HEVC/H.264      │                │
-│  └──────────────────┘      └──────────────────┘                │
-│                                                                  │
-│  ┌──────────────────┐      ┌──────────────────┐                │
-│  │  NVDLA Engines   │      │  ISP             │                │
-│  │  2× ~20 TOPS     │      │  MIPI CSI-2      │                │
-│  └──────────────────┘      └──────────────────┘                │
-│                                                                  │
+│                                                                 │
+│  ┌──────────────────┐      ┌──────────────────┐                 │
+│  │  Video Decode    │      │  Video Encode    │                 │
+│  │  2× 4K60         │      │  1× 4K60         │                 │
+│  │  HEVC/H.264/AV1  │      │  HEVC/H.264      │                 │
+│  └──────────────────┘      └──────────────────┘                 │
+│                                                                 │
+│  ┌──────────────────┐      ┌──────────────────┐                 │
+│  │  NVDLA Engines   │      │  ISP             │                 │
+│  │  2× ~20 TOPS     │      │  MIPI CSI-2      │                 │
+│  └──────────────────┘      └──────────────────┘                 │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
                               │
                     ┌─────────┴─────────┐
@@ -74,12 +74,12 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 │                    APPLICATION LAYER                              │
 │                 version_masr_multiclass.py                        │
 │                                                                   │
-│  ┌─────────────────────────────────────────────────────────────┐ │
-│  │ PanoramaWithVirtualCamera (Orchestrator)                    │ │
-│  │ • Configuration management                                  │ │
-│  │ • Component composition                                     │ │
-│  │ • Pipeline lifecycle control                                │ │
-│  └─────────────────────────────────────────────────────────────┘ │
+│  ┌─────────────────────────────────────────────────────────────┐  │
+│  │ PanoramaWithVirtualCamera (Orchestrator)                    │  │
+│  │ • Configuration management                                  │  │
+│  │ • Component composition                                     │  │
+│  │ • Pipeline lifecycle control                                │  │
+│  └─────────────────────────────────────────────────────────────┘  │
 └───────────────────────────────────────────────────────────────────┘
                               │
             ┌─────────────────┼─────────────────┐
@@ -105,33 +105,33 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 │                    PIPELINE LAYER                                 │
 │                     pipeline/                                     │
 │                                                                   │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────────┐ │
-│  │ Pipeline     │  │ Playback     │  │ Buffer                 │ │
-│  │ Builder      │  │ Builder      │  │ Manager                │ │
-│  │ (Analysis)   │  │ (Display)    │  │ (7s sync)              │ │
-│  └──────────────┘  └──────────────┘  └────────────────────────┘ │
+│  ┌──────────────┐  ┌──────────────┐  ┌────────────────────────┐   │
+│  │ Pipeline     │  │ Playback     │  │ Buffer                 │   │
+│  │ Builder      │  │ Builder      │  │ Manager                │   │
+│  │ (Analysis)   │  │ (Display)    │  │ (7s sync)              │   │
+│  └──────────────┘  └──────────────┘  └────────────────────────┘   │
 └───────────────────────────────────────────────────────────────────┘
                               │
 ┌───────────────────────────────▼───────────────────────────────────┐
 │                  GSTREAMER FRAMEWORK                              │
 │                    (Media Pipeline)                               │
 │                                                                   │
-│  ┌──────────┐  ┌────────────┐  ┌─────────┐  ┌──────────────┐   │
-│  │nvstreammux│→│nvdsstitch  │→│nvtile   │→│nvinfer       │   │
-│  │          │  │(my_steach) │  │batcher  │  │(TensorRT)    │   │
-│  └──────────┘  └────────────┘  └─────────┘  └──────────────┘   │
+│  ┌──────────┐  ┌────────────┐  ┌─────────┐  ┌──────────────┐      │
+│  │nvstreammux│→│nvdsstitch  │→│nvtile    │→│nvinfer        │      │
+│  │          │  │(my_steach) │  │batcher  │  │(TensorRT)    │      │
+│  └──────────┘  └────────────┘  └─────────┘  └──────────────┘      │
 └───────────────────────────────────────────────────────────────────┘
                               │
 ┌───────────────────────────────▼───────────────────────────────────┐
 │                    CUDA/HARDWARE LAYER                            │
 │                                                                   │
-│  ┌────────────┐  ┌─────────────┐  ┌─────────────┐              │
-│  │ CUDA       │  │ TensorRT    │  │ NVMM        │              │
-│  │ Kernels    │  │ Inference   │  │ Zero-copy   │              │
-│  │ (stitching,│  │ Engine      │  │ Buffers     │              │
-│  │  tiling,   │  │             │  │             │              │
-│  │  virtcam)  │  │             │  │             │              │
-│  └────────────┘  └─────────────┘  └─────────────┘              │
+│  ┌────────────┐  ┌─────────────┐  ┌─────────────┐                 │
+│  │ CUDA       │  │ TensorRT    │  │ NVMM        │                 │
+│  │ Kernels    │  │ Inference   │  │ Zero-copy   │                 │
+│  │ (stitching,│  │ Engine      │  │ Buffers     │                 │
+│  │  tiling,   │  │             │  │             │                 │
+│  │  virtcam)  │  │             │  │             │                 │
+│  └────────────┘  └─────────────┘  └─────────────┘                 │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
@@ -144,7 +144,7 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 ```
 ┌────────────────────────────────────────────────────────────────────┐
 │                        CAMERA INPUTS                               │
-│         Camera 0 (3840×2160)          Camera 1 (3840×2160)        │
+│         Camera 0 (3840×2160)          Camera 1 (3840×2160)         │
 └───────────────┬──────────────────────────────┬─────────────────────┘
                 │                              │
                 ▼                              ▼
@@ -297,7 +297,7 @@ Display (nveglglessink)
 ┌────────────────────────────────────────────────────────────────┐
 │         PanoramaWithVirtualCamera (Orchestrator)               │
 │                      ~400 lines                                │
-└────┬───────┬────────┬─────────┬──────────┬────────────────────┘
+└────┬───────┬────────┬─────────┬──────────┬─────────────────────┘
      │       │        │         │          │
      │creates│creates │creates  │creates   │creates
      │       │        │         │          │
@@ -311,20 +311,20 @@ Display (nveglglessink)
    ▼        ▼           ▼         ▼         ▼
 ┌──────────────────────────────────────────────────┐
 │         Probe Handlers (created later)           │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │Analysis  │  │VirtualCam│  │Display   │      │
-│  │Probe     │  │Probe     │  │Probe     │      │
-│  └──────────┘  └──────────┘  └──────────┘      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐        │
+│  │Analysis  │  │VirtualCam│  │Display   │        │
+│  │Probe     │  │Probe     │  │Probe     │        │
+│  └──────────┘  └──────────┘  └──────────┘        │
 └──────────────────────────────────────────────────┘
          │              │              │
          │ callbacks    │ callbacks    │ callbacks
          ▼              ▼              ▼
 ┌────────────────────────────────────────────────────┐
 │            GStreamer Pipelines                     │
-│  ┌─────────────┐         ┌─────────────┐          │
-│  │ Analysis    │─────────│ Playback    │          │
-│  │ Pipeline    │ buffers │ Pipeline    │          │
-│  └─────────────┘         └─────────────┘          │
+│  ┌─────────────┐         ┌─────────────┐           │
+│  │ Analysis    │─────────│ Playback    │           │
+│  │ Pipeline    │ buffers │ Pipeline    │           │
+│  └─────────────┘         └─────────────┘           │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -535,7 +535,7 @@ __global__ void panorama_lut_kernel(
     output[idx*4 + 0] = w_l * pixel_left.x + w_r * pixel_right.x;  // R
     output[idx*4 + 1] = w_l * pixel_left.y + w_r * pixel_right.y;  // G
     output[idx*4 + 2] = w_l * pixel_left.z + w_r * pixel_right.z;  // B
-    output[idx*4 + 3] = 255;                                        // A
+    output[idx*4 + 3] = 255;                                       // A
 }
 ```
 
@@ -712,16 +712,16 @@ NvDsBatchMeta (created by nvstreammux)
 ┌─────────────────────────────────────────────────────────┐
 │                   Jetson Orin NX                        │
 │                                                         │
-│  ┌───────────────────────────────────────────────────┐ │
-│  │  DeepStream Pipeline                              │ │
-│  │  • Auto-restart on failure                        │ │
-│  │  • Watchdog monitoring                            │ │
-│  │  • Log rotation                                   │ │
-│  └───────────────┬───────────────────────────────────┘ │
-│                  │                                     │
-│                  ├─→ Local Display (HDMI)             │
-│                  ├─→ RTMP Stream (network)            │
-│                  └─→ Video Recording (SSD)            │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  DeepStream Pipeline                              │  │
+│  │  • Auto-restart on failure                        │  │
+│  │  • Watchdog monitoring                            │  │
+│  │  • Log rotation                                   │  │
+│  └───────────────┬───────────────────────────────────┘  │
+│                  │                                      │
+│                  ├─→ Local Display (HDMI)               │
+│                  ├─→ RTMP Stream (network)              │
+│                  └─→ Video Recording (SSD)              │
 └─────────────────────────────────────────────────────────┘
                       │
                       ├─→ Remote Monitoring (SSH/VNC)
