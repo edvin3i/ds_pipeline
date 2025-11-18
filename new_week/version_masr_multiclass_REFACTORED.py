@@ -639,7 +639,7 @@ def main():
 
     parser.add_argument('--stream-url', default='rtmp://a.rtmp.youtube.com/live2/',
                        help='RTMP URL для стриминга (например: rtmp://live.twitch.tv/live)')
-    parser.add_argument('--stream-key', default='ufpj-dffk-f1de-8ya6-crq5',
+    parser.add_argument('--stream-key', default='eub1-0rce-quc6-c1xm-d72s',
                        help='Ключ стрима stream')
     parser.add_argument('--bitrate', type=int, default=6000000,
                        help='Битрейт видео в bps (3500000=3.5Mbps для слабого 4G, 4500000=4.5Mbps для среднего 4G, 6000000=6Mbps для хорошего WiFi/4G)')

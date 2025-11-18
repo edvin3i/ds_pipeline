@@ -24,10 +24,10 @@
 **File**: `config_infer.txt`
 ```ini
 [property]
-model-engine-file=yolo11n_mixed_finetune_v9.engine
+model-engine-file=yolo11n_mixed_finetune_v10.engine
 batch-size=6
-network-mode=2  # INT8
-num-detected-classes=1  # Legacy, actual: 5 classes
+network-mode=2  # FP16
+num-detected-classes=2  # actual: 5 classes but using only two
 output-tensor-meta=1
 output-blob-names=output0
 
