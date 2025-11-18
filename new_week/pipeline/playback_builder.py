@@ -259,12 +259,19 @@ class PlaybackPipelineBuilder:
             # Настройка video appsrc
             self.appsrc = self.playback_pipeline.get_by_name("src")
             if self.appsrc:
+                # CRITICAL: Set caps BEFORE pipeline starts (prevent not-negotiated error)
+                video_caps = Gst.Caps.from_string(
+                    f"video/x-raw(memory:NVMM),format=RGBA,"
+                    f"width={self.panorama_width},height={self.panorama_height},"
+                    f"framerate=30/1"
+                )
+                self.appsrc.set_property("caps", video_caps)
                 self.appsrc.set_property("is-live", True)
                 self.appsrc.set_property("do-timestamp", True)
                 self.appsrc.set_property("format", Gst.Format.TIME)
                 if on_appsrc_need_data_callback:
                     self.appsrc.connect("need-data", on_appsrc_need_data_callback)
-                logger.info("✅ Video appsrc настроен")
+                logger.info("✅ Video appsrc настроен с NVMM caps")
 
             # Настраиваем audio appsrc если есть (только для stream режима)
             if self.display_mode == "stream" and self.audio_device and self.audio_appsink:

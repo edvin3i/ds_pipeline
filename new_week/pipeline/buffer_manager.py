@@ -164,11 +164,9 @@ class NVMMBufferManager:
                 # CRITICAL: Store sample object - Python's GC keeps buffer alive!
                 # No need for .ref()/.unref() - Python GI handles refcounting automatically
                 # Buffer stays in NVMM (zero-copy), we just hold Python reference
-                caps_copy = sample.get_caps()
                 self.frame_buffer.append({
                     'timestamp': timestamp,
-                    'sample': sample,  # Python reference keeps buffer alive
-                    'caps': caps_copy if self.frames_received == 0 else None
+                    'sample': sample  # Python reference keeps buffer alive
                 })
 
                 self.frames_received += 1
@@ -275,8 +273,8 @@ class NVMMBufferManager:
             buffer.dts = buffer.pts
             buffer.duration = int((1.0 / self.framerate) * Gst.SECOND)
 
-            if self.frames_sent == 0 and frame_to_send.get('caps') is not None:
-                self.appsrc.set_property("caps", frame_to_send['caps'])
+            # NOTE: Caps are set in playback_builder.py before pipeline starts
+            # No need to set caps here - appsrc already has NVMM caps configured
 
             result = src.emit("push-buffer", buffer)
             if result == Gst.FlowReturn.OK:
@@ -427,7 +425,6 @@ class NVMMBufferManager:
             # Clear references to help Python's GC
             # When sample goes out of scope, GI layer unrefs GStreamer buffer
             old_frame['sample'] = None
-            old_frame['caps'] = None
             removed_count += 1
 
         if removed_count > 0:

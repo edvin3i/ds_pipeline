@@ -577,5 +577,67 @@ old_frame['sample'] = None  # Help GC (optional)
 
 ---
 
-**Last Updated:** 2025-11-18
-**Status:** Research complete, ready for refactoring plan approval
+## CRITICAL FIX #2: Caps Negotiation Error (2025-11-18 19:11 UTC)
+
+### Issue: `not-negotiated (-4)` Error in Playback Pipeline
+
+**Error:**
+```
+ERROR: gst-stream-error-quark: Internal data stream error. (1)
+streaming stopped, reason not-negotiated (-4)
+```
+
+**Root Cause:**
+Video appsrc in playback pipeline didn't have caps set before pipeline started negotiation. Unlike audio appsrc (which sets caps immediately), video appsrc relied on buffer_manager.py setting caps on first frame - but by then negotiation had already failed.
+
+**Pipeline Flow:**
+```python
+# playback_builder.py line 250
+appsrc name=src format=time is-live=false do-timestamp=false block=false !
+video/x-raw(memory:NVMM),format=RGBA,width=...,height=...,framerate=30/1 !
+```
+
+**Problem:**
+1. Pipeline parse creates appsrc with caps string in pipeline
+2. playback_builder.py gets appsrc but doesn't set caps property
+3. Pipeline starts → appsrc tries to negotiate → NO caps set → fails
+4. buffer_manager.py tries to set caps on first frame → TOO LATE
+
+### Correct Fix
+
+**Set caps on appsrc BEFORE pipeline starts** (same pattern as audio):
+
+```python
+# playback_builder.py after line 260
+self.appsrc = self.playback_pipeline.get_by_name("src")
+if self.appsrc:
+    # CRITICAL: Set caps BEFORE pipeline starts
+    video_caps = Gst.Caps.from_string(
+        f"video/x-raw(memory:NVMM),format=RGBA,"
+        f"width={self.panorama_width},height={self.panorama_height},"
+        f"framerate=30/1"
+    )
+    self.appsrc.set_property("caps", video_caps)  # Set caps upfront!
+    # ... rest of appsrc configuration
+```
+
+**Also removed redundant code:**
+- buffer_manager.py line 278-279: Removed caps setting on first frame (no longer needed)
+- buffer_manager.py line 171: Removed caps storage in frame buffer (simplified)
+- buffer_manager.py line 428: Removed caps cleanup (no longer stored)
+
+### Key Principle
+
+**GStreamer appsrc caps negotiation:**
+1. appsrc must know its output caps BEFORE pipeline enters PLAYING state
+2. Two ways to set caps:
+   - Pipeline string: `appsrc ! video/x-raw,... !` (partial, needs property too)
+   - Element property: `appsrc.set_property("caps", Gst.Caps.from_string(...))` (complete)
+3. **Both are required** for proper negotiation with memory features like `(memory:NVMM)`
+
+**Pattern:** Always set caps on appsrc/appsink elements programmatically when using custom memory types (NVMM, CUDA, etc.)
+
+---
+
+**Last Updated:** 2025-11-18 19:20 UTC
+**Status:** Both fixes applied and tested
