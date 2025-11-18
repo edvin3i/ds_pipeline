@@ -218,6 +218,7 @@ class PipelineBuilder:
             pipeline_str = sources_str + mux_config + common_str
 
             # Ветка дисплея с буферизацией для обоих режимов
+            # NVMM ZERO-COPY: Buffers stay in GPU memory throughout (no CPU conversion)
             if self.enable_display:
                 pipeline_str += f"""
                     main_tee. !
@@ -225,8 +226,8 @@ class PipelineBuilder:
                         max-size-buffers={buffer_size}
                         max-size-time={buffer_time_ns}
                         leaky=0 !
-                    nvvideoconvert name=display_convert compute-hw=1 !
-                    capsfilter caps="video/x-raw,format=RGB" !
+                    identity name=display_passthrough !
+                    capsfilter caps="video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height}" !
                     appsink name=display_sink emit-signals=true sync=false drop=false max-buffers=60 wait-on-eos=true
                 """
 
@@ -264,6 +265,19 @@ class PipelineBuilder:
 
             logger.info(f"Создаём основной pipeline для источника: {self.source_type}")
             self.pipeline = Gst.parse_launch(pipeline_str)
+
+            # CRITICAL: Configure buffer pools for NVMM zero-copy buffering
+            # Required to accommodate 7-second buffer (210 frames @ 30fps)
+            nvdsstitch = self.pipeline.get_by_name("nvdsstitch")
+            if nvdsstitch and nvdsstitch.find_property("num-extra-surfaces"):
+                nvdsstitch.set_property("num-extra-surfaces", 64)
+                logger.info("[NVMM-BUFFER-POOL] nvdsstitch: added 64 extra surfaces")
+
+            display_queue = self.pipeline.get_by_name("display_queue")
+            if display_queue:
+                # Increase queue buffer capacity for 7s buffering
+                display_queue.set_property("max-size-buffers", 250)  # 7s @ 30fps + margin
+                logger.info("[NVMM-BUFFER-POOL] display_queue: max-size-buffers=250")
 
             # Подключаем video appsink для буферизации
             if self.enable_display:

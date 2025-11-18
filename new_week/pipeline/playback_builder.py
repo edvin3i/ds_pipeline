@@ -84,11 +84,10 @@ class PlaybackPipelineBuilder:
             if self.display_mode == "stream":
                 # Режим стриминга: с записью или без
                 # ВАЖНО: FLV/RTMP требует H.264, H.265 не поддерживается
+                # NVMM ZERO-COPY: appsrc receives NVMM buffers directly (no CPU conversion)
                 pipeline_str = f"""
-                appsrc name=src format=time is-live=true do-timestamp=true !
-                video/x-raw,format=RGB !
-                nvvideoconvert compute-hw=1 !
-                video/x-raw(memory:NVMM),format=RGBA !
+                appsrc name=src format=time is-live=false do-timestamp=false block=false !
+                video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height},framerate=30/1 !
                 nvdsvirtualcam name=vcam
                     output-width=1920
                     output-height=1080
@@ -188,11 +187,10 @@ class PlaybackPipelineBuilder:
                 else:
                     muxer = 'matroskamux streamable=false writing-app="DeepStream Football Tracker"'
 
+                # NVMM ZERO-COPY: appsrc receives NVMM buffers directly (no CPU conversion)
                 pipeline_str = f"""
-                appsrc name=src format=time is-live=true do-timestamp=true !
-                video/x-raw,format=RGB !
-                nvvideoconvert compute-hw=1 !
-                video/x-raw(memory:NVMM),format=RGBA !
+                appsrc name=src format=time is-live=false do-timestamp=false block=false !
+                video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height},framerate=30/1 !
                 nvdsvirtualcam name=vcam
                     output-width=1920
                     output-height=1080
@@ -227,11 +225,10 @@ class PlaybackPipelineBuilder:
 
             elif self.display_mode == "virtualcam":
                 # Виртуальная камера для просмотра
+                # NVMM ZERO-COPY: appsrc receives NVMM buffers directly (no CPU conversion)
                 pipeline_str = f"""
-                    appsrc name=src format=time is-live=true do-timestamp=true !
-                    video/x-raw,format=RGB !
-                    nvvideoconvert name=nvconv-pre compute-hw=1 !
-                    video/x-raw(memory:NVMM),format=RGBA !
+                    appsrc name=src format=time is-live=false do-timestamp=false block=false !
+                    video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height},framerate=30/1 !
                     nvdsvirtualcam name=vcam
                         output-width=1920
                         output-height=1080
@@ -247,11 +244,10 @@ class PlaybackPipelineBuilder:
                 """
             else:
                 # Панорама с nvdsosd
-                pipeline_str = """
-                    appsrc name=src format=time is-live=true do-timestamp=true !
-                    video/x-raw,format=RGB !
-                    nvvideoconvert name=nvconv-pre compute-hw=1 !
-                    video/x-raw(memory:NVMM),format=RGBA !
+                # NVMM ZERO-COPY: appsrc receives NVMM buffers directly (no CPU conversion)
+                pipeline_str = f"""
+                    appsrc name=src format=time is-live=false do-timestamp=false block=false !
+                    video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height},framerate=30/1 !
                     nvdsosd name=nvdsosd process-mode=0 !
                     nvvideoconvert name=nvconv-display compute-hw=1 nvbuf-memory-type=0 !
                     nveglglessink sync=false async=false enable-last-sample=false name=eglsink

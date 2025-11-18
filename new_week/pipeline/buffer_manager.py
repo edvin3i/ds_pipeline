@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Buffer Manager for Video and Audio Frame Buffering.
+NVMM Buffer Manager for Video and Audio Frame Buffering.
 
-Manages video and audio frame buffering in RAM with:
+Manages video and audio frame buffering using GPU memory (NVMM) with:
 - 7 second window buffering (configurable)
+- Zero-copy buffer reference management (no deep copies)
+- GStreamer buffer refcount management (ref/unref)
 - Timestamp synchronization between analysis and display
 - Thread-safe buffer access with locks
-- Buffer statistics tracking (duration, frame count, etc.)
+- Buffer statistics tracking (duration, frame count, refs)
 - Both video and audio data stream handling
 - Background buffering thread management
+
+CRITICAL: Video buffers stay in NVMM (GPU memory) throughout.
+Uses buffer.ref()/unref() instead of deep copy for zero-copy operation.
 """
 
 import gi
@@ -24,17 +29,21 @@ from typing import Optional, Dict, Any
 logger = logging.getLogger("buffer-manager")
 
 
-class BufferManager:
+class NVMMBufferManager:
     """
-    Manages video and audio frame buffering for GStreamer pipelines.
+    Manages video and audio frame buffering for GStreamer pipelines using NVMM.
 
     This class handles:
     - Receiving video/audio frames from appsink callbacks
-    - Buffering frames in RAM with configurable duration
+    - Buffering frame REFERENCES (not copies) in NVMM with configurable duration
+    - GStreamer buffer reference counting (ref/unref) for zero-copy operation
     - Pushing frames to playback pipeline via appsrc callbacks
     - Timestamp synchronization between video and audio
     - Cleanup of old frames to maintain buffer window
     - Background thread for buffer management
+
+    CRITICAL: Video buffers stay in GPU memory (NVMM) throughout.
+    No CPU copies or deep copies - only buffer references with proper refcounting.
     """
 
     def __init__(self,
@@ -77,6 +86,7 @@ class BufferManager:
         # Statistics
         self.frames_received = 0
         self.frames_sent = 0
+        self._ref_count = 0  # Track active buffer references for leak detection
 
         # Playback state
         self.current_playback_time = None
@@ -122,7 +132,10 @@ class BufferManager:
 
     def on_new_sample(self, sink):
         """
-        Получаем кадры из appsink.
+        Receive NVMM buffers from appsink (zero-copy).
+
+        CRITICAL: Buffer stays in NVMM, only store reference.
+        Uses buffer.ref() to increment refcount, preventing premature free.
 
         GStreamer callback for receiving video frames.
 
@@ -141,25 +154,39 @@ class BufferManager:
             if not buffer:
                 return Gst.FlowReturn.OK
 
-            timestamp = float(buffer.pts) / float(Gst.SECOND) if buffer.pts != Gst.CLOCK_TIME_NONE else time.time()
+            # Get timestamp
+            timestamp = (float(buffer.pts) / float(Gst.SECOND)
+                        if buffer.pts != Gst.CLOCK_TIME_NONE
+                        else time.time())
 
             with self.buffer_lock:
-                buffer_copy = buffer.copy_deep() if hasattr(buffer, 'copy_deep') else buffer.copy()
+                # CRITICAL: Increment refcount to keep buffer alive
+                # This prevents GStreamer from freeing the buffer
+                buffer_ref = buffer.ref()  # Returns new reference
+
+                # Store only reference + timestamp (no pixel data copy!)
                 caps_copy = sample.get_caps()
                 self.frame_buffer.append({
                     'timestamp': timestamp,
-                    'buffer': buffer_copy,
+                    'buffer': buffer_ref,  # Just a pointer, not a deep copy!
                     'caps': caps_copy if self.frames_received == 0 else None
                 })
-                self.frames_received += 1
 
+                self.frames_received += 1
+                self._ref_count += 1  # Track for leak detection
+
+                # Log every 300 frames
                 if self.frames_received % 300 == 0:
-                    logger.info(f"[SOURCE] recv={self.frames_received}, buf={len(self.frame_buffer)}/{self.frame_buffer.maxlen}")
+                    logger.info(
+                        f"[NVMM-BUFFER] recv={self.frames_received}, "
+                        f"buf={len(self.frame_buffer)}/{self.frame_buffer.maxlen}, "
+                        f"refs={self._ref_count}"
+                    )
 
             return Gst.FlowReturn.OK
 
         except Exception as e:
-            logger.error(f"on_new_sample error: {e}")
+            logger.error(f"on_new_sample error: {e}", exc_info=True)
             return Gst.FlowReturn.ERROR
 
     def on_new_audio_sample(self, sink):
@@ -263,7 +290,10 @@ class BufferManager:
                     self._push_audio_for_timestamp(self.current_playback_time)
 
                 if self.frames_sent % 300 == 0:
-                    logger.info(f"[PLAYBACK] sent={self.frames_sent}, delay={self.display_buffer_duration:.2f}s")
+                    logger.info(
+                        f"[NVMM-PLAYBACK] sent={self.frames_sent}, "
+                        f"delay={self.display_buffer_duration:.2f}s"
+                    )
 
         except Exception as e:
             logger.error(f"_on_appsrc_need_data error: {e}")
@@ -379,19 +409,38 @@ class BufferManager:
 
     def _remove_old_frames_locked(self):
         """
-        Удаляем старые кадры из буфера.
+        Remove old frames and unref buffers (CRITICAL for pool recycling).
 
-        Cleanup old video frames from buffer (must be called with lock held).
+        Must be called with buffer_lock held.
+
+        CRITICAL: Calls buffer.unref() to decrement refcount.
+        When refcount reaches 0, buffer returns to pool for reuse.
         """
         if self.current_playback_time is None or not self.frame_buffer:
             return
-        threshold = self.current_playback_time - 0.5
-        removed = 0
-        while len(self.frame_buffer) > 1 and self.frame_buffer[0]['timestamp'] < threshold:
-            fr = self.frame_buffer.popleft()
-            fr['buffer'] = None
-            fr['caps'] = None
-            removed += 1
+
+        threshold = self.current_playback_time - 0.5  # Keep 0.5s history
+        removed_count = 0
+
+        while (len(self.frame_buffer) > 1 and
+               self.frame_buffer[0]['timestamp'] < threshold):
+            old_frame = self.frame_buffer.popleft()
+
+            # CRITICAL: Decrement refcount to return buffer to pool
+            if old_frame.get('buffer'):
+                old_frame['buffer'].unref()  # Returns buffer to pool when refcount=0
+                self._ref_count -= 1
+                removed_count += 1
+
+            # Clear references (Python garbage collection)
+            old_frame['buffer'] = None
+            old_frame['caps'] = None
+
+        if removed_count > 0:
+            logger.debug(
+                f"[NVMM-BUFFER] Released {removed_count} buffer refs, "
+                f"active refs={self._ref_count}"
+            )
 
     def _buffer_loop(self):
         """
@@ -464,19 +513,34 @@ class BufferManager:
     def clear_buffers(self):
         """
         Clear all buffers and reset state.
+
+        CRITICAL: Unrefs all video buffers before clearing.
         """
         with self.buffer_lock:
+            # CRITICAL: Unref all video buffers before clearing
+            for frame in self.frame_buffer:
+                if frame.get('buffer'):
+                    frame['buffer'].unref()
+                    self._ref_count -= 1
+
             self.frame_buffer.clear()
             self.audio_buffer.clear()
             self.frames_received = 0
             self.frames_sent = 0
             self.current_playback_time = None
             self.audio_caps = None
-            logger.info("[BUFFER] Buffers cleared")
+
+            if self._ref_count != 0:
+                logger.warning(
+                    f"[NVMM-BUFFER] clear_buffers: ref count mismatch, "
+                    f"{self._ref_count} refs remaining"
+                )
+
+            logger.info("[NVMM-BUFFER] Buffers cleared")
 
     def get_stats(self) -> Dict[str, Any]:
         """
-        Get buffer statistics.
+        Get buffer statistics including NVMM reference counts.
 
         Returns:
             Dictionary with buffer statistics
@@ -491,4 +555,43 @@ class BufferManager:
                 'audio_buffer_capacity': self.audio_buffer.maxlen,
                 'display_buffer_duration': self.display_buffer_duration,
                 'current_playback_time': self.current_playback_time,
+                'active_buffer_refs': self._ref_count,  # NVMM buffer references
+                'memory_type': 'NVMM',  # Indicates zero-copy NVMM buffering
             }
+
+    def __del__(self):
+        """
+        Cleanup on destruction - unref all buffers.
+
+        CRITICAL: Prevents memory leaks on shutdown.
+        Unrefs all remaining buffer references to return them to pool.
+        """
+        try:
+            with self.buffer_lock:
+                logger.info(
+                    f"[NVMM-BUFFER] Destructor: unreffing {len(self.frame_buffer)} buffers"
+                )
+
+                # Unref all video buffers
+                for frame in self.frame_buffer:
+                    if frame.get('buffer'):
+                        frame['buffer'].unref()
+                        self._ref_count -= 1
+
+                self.frame_buffer.clear()
+
+                # Check for ref count leaks
+                if self._ref_count != 0:
+                    logger.warning(
+                        f"[NVMM-BUFFER] Destructor: ref count mismatch, "
+                        f"{self._ref_count} refs remaining (possible leak!)"
+                    )
+                else:
+                    logger.info("[NVMM-BUFFER] Destructor: all buffers released cleanly")
+
+        except Exception as e:
+            logger.error(f"[NVMM-BUFFER] Destructor error: {e}", exc_info=True)
+
+
+# Backward compatibility alias
+BufferManager = NVMMBufferManager
