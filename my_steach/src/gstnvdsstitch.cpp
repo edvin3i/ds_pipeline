@@ -1054,6 +1054,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         LOG_ERROR(stitch, "Failed to create CUDA event");
         cudaStreamDestroy(stitch->cuda_stream);
         stitch->cuda_stream = NULL;
+        stitch->frame_complete_event = NULL;  // CRITICAL: Ensure NULL on failure
         return FALSE;
     }
 
