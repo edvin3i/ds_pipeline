@@ -639,5 +639,85 @@ if self.appsrc:
 
 ---
 
-**Last Updated:** 2025-11-18 19:20 UTC
-**Status:** Both fixes applied and tested
+## CRITICAL FIX #3: Timestamp Handling for NVMM Zero-Copy (2025-11-18 20:10 UTC)
+
+### Issue: Charlie Chaplin Effect (Fast Motion) + Freezes
+
+**Symptoms:**
+- **virtualcam mode**: Fast motion (Charlie Chaplin effect) - video plays too fast
+- **stream mode**: Freezes (3-4 sec freeze on 3 sec playback)
+- **panorama mode**: Charlie Chaplin effect + detection boxes moving very slowly
+
+**Root Cause #1: Direct NVMM Buffer Modification**
+
+We were modifying NVMM buffer timestamps directly (buffer_manager.py:272-274):
+```python
+buffer = frame_to_send['sample'].get_buffer()
+buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)  # ❌ WRONG!
+```
+
+**Problem:**
+- `get_buffer()` returns a reference to NVMM buffer (zero-copy)
+- Modifying it directly violates buffer immutability contract
+- GStreamer may ignore modified timestamps on non-writable buffers
+- Can cause undefined behavior with GPU memory
+
+**Root Cause #2: appsrc Configuration Conflict**
+
+Pipeline string: `is-live=false do-timestamp=false`
+Python code: `is-live=True do-timestamp=True`
+
+These conflicting settings caused GStreamer to ignore manual timestamps.
+
+**Root Cause #3: Display Sinks with sync=false**
+
+All display sinks had `sync=false`, causing them to ignore buffer timestamps and display as fast as possible (Charlie Chaplin effect).
+
+### Correct Fix
+
+**1. Make Buffer Writable Before Modifying Timestamps:**
+```python
+# buffer_manager.py:274
+buffer = buffer.make_writable()  # Copies metadata, keeps NVMM data pointer
+buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
+buffer.dts = buffer.pts
+buffer.duration = int((1.0 / self.framerate) * Gst.SECOND)
+```
+
+**Key Principle:** `make_writable()` creates a copy of buffer **metadata** (PTS/DTS/duration/flags) but keeps the **NVMM data pointer** unchanged. This maintains zero-copy for pixel data while allowing safe timestamp modification.
+
+**2. Remove Configuration Conflict:**
+```python
+# playback_builder.py:269-272
+# Removed: is-live=True, do-timestamp=True
+# Keep pipeline string settings: is-live=false, do-timestamp=false
+# We manually set timestamps in buffer_manager.py
+```
+
+**3. Enable Timestamp Synchronization on Display Sinks:**
+```python
+# virtualcam mode (line 243)
+xvimagesink sync=true  # Was: sync=false
+
+# panorama mode (line 253)
+nveglglessink sync=true  # Was: sync=false
+```
+
+**Note:** Stream mode (rtmpsink) keeps `sync=false` - this is correct for network sinks as encoder/muxer handle timing.
+
+### GStreamer Buffer Mutability Rules
+
+1. **Buffers from samples are READ-ONLY by default**
+2. **Always use `make_writable()` before modifying**:
+   - Timestamps (PTS/DTS/duration)
+   - Flags (DELTA_UNIT, DISCONT, etc.)
+   - Metadata
+3. **`make_writable()` is smart**:
+   - If refcount == 1: Returns same buffer (no copy)
+   - If refcount > 1: Creates metadata copy, shares data
+4. **For NVMM**: Data stays in GPU, only GstBuffer struct copied
+
+---
+
+**Last Updated:** 2025-11-18 20:10 UTC
+**Status:** All three critical fixes applied

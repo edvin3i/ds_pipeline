@@ -268,7 +268,12 @@ class NVMMBufferManager:
             # Get buffer from sample (buffer stays in NVMM)
             buffer = frame_to_send['sample'].get_buffer()
 
-            # Используем оригинальные временные метки
+            # CRITICAL: Make buffer writable before modifying timestamps
+            # This creates a copy of METADATA (PTS/DTS) but keeps NVMM data pointer unchanged
+            # Zero-copy for pixel data, writeable for timing metadata
+            buffer = buffer.make_writable()
+
+            # Set timestamps for 7-second delayed playback
             buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
             buffer.dts = buffer.pts
             buffer.duration = int((1.0 / self.framerate) * Gst.SECOND)

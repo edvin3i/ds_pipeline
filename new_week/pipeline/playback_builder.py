@@ -240,7 +240,7 @@ class PlaybackPipelineBuilder:
                     nvvideoconvert !
                     video/x-raw,format=RGBA !
                     videoconvert !
-                    xvimagesink sync=false
+                    xvimagesink sync=true
                 """
             else:
                 # Панорама с nvdsosd
@@ -250,7 +250,7 @@ class PlaybackPipelineBuilder:
                     video/x-raw(memory:NVMM),format=RGBA,width={self.panorama_width},height={self.panorama_height},framerate=30/1 !
                     nvdsosd name=nvdsosd process-mode=0 !
                     nvvideoconvert name=nvconv-display compute-hw=1 nvbuf-memory-type=0 !
-                    nveglglessink sync=false async=false enable-last-sample=false name=eglsink
+                    nveglglessink sync=true async=false enable-last-sample=false name=eglsink
                 """
 
             # Создаем pipeline
@@ -266,8 +266,9 @@ class PlaybackPipelineBuilder:
                     f"framerate=30/1"
                 )
                 self.appsrc.set_property("caps", video_caps)
-                self.appsrc.set_property("is-live", True)
-                self.appsrc.set_property("do-timestamp", True)
+                # NOTE: is-live=false, do-timestamp=false already set in pipeline string
+                # This is buffered playback (7s delay), not live source
+                # We manually set buffer PTS/DTS in buffer_manager.py
                 self.appsrc.set_property("format", Gst.Format.TIME)
                 if on_appsrc_need_data_callback:
                     self.appsrc.connect("need-data", on_appsrc_need_data_callback)
