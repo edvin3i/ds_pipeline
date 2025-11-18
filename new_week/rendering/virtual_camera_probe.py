@@ -157,6 +157,17 @@ class VirtualCameraProbeHandler:
             cx_g = det[6] if len(det) > 6 else det[0]  # Используем глобальные координаты если есть
             cy_g = det[7] if len(det) > 7 else det[1]
             ball_width = det[8] if len(det) > 8 else det[2]
+
+            # Validate numeric values (prevent format errors)
+            try:
+                cx_g = float(cx_g) if cx_g is not None else 0.0
+                cy_g = float(cy_g) if cy_g is not None else 0.0
+                ball_width = float(ball_width) if ball_width is not None else 20.0
+            except (ValueError, TypeError):
+                # Malformed detection - skip this frame
+                self.display_frame_count += 1
+                return Gst.PadProbeReturn.OK
+
             ball_radius_raw = ball_width / 2.0  # Сырой радиус из детекции
 
             # ========== ИНТЕРПОЛЯЦИЯ РАЗМЕРА МЯЧА ==========
@@ -224,11 +235,14 @@ class VirtualCameraProbeHandler:
 
             # Логирование каждые 30 кадров
             if self.display_frame_count % 30 == 0:
-                clamped_suffix = "" if ball_radius == ball_radius_unclamped else f"→{ball_radius:.1f}px(clamped)"
-                logger.info(f"Ball tracking: pos=({cx_g:.0f},{cy_g:.0f}), "
-                        f"radius={ball_radius_raw:.1f}px→{ball_radius_base:.1f}px(smooth)→{ball_radius_unclamped:.1f}px(speed×{self.speed_zoom_factor:.2f}){clamped_suffix}, "
-                        f"speed={self.current_smooth_speed:.0f}px/s, "
-                        f"target_size={target_ball_size:.3f}")
+                try:
+                    clamped_suffix = "" if ball_radius == ball_radius_unclamped else f"→{ball_radius:.1f}px(clamped)"
+                    logger.info(f"Ball tracking: pos=({cx_g:.0f},{cy_g:.0f}), "
+                            f"radius={ball_radius_raw:.1f}px→{ball_radius_base:.1f}px(smooth)→{ball_radius_unclamped:.1f}px(speed×{self.speed_zoom_factor:.2f}){clamped_suffix}, "
+                            f"speed={self.current_smooth_speed:.0f}px/s, "
+                            f"target_size={target_ball_size:.3f}")
+                except (ValueError, TypeError) as log_err:
+                    logger.debug(f"Skipped ball tracking log due to format error: {log_err}")
 
             self.display_frame_count += 1
             return Gst.PadProbeReturn.OK
