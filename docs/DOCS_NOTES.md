@@ -407,5 +407,108 @@ nvdsvirtualcam ...
 
 ---
 
-**Last Updated:** 2025-11-17
-**Status:** Analysis complete, awaiting implementation approval
+**Last Updated:** 2025-11-18
+**Status:** Analysis complete, refactoring plan in progress
+
+---
+
+## Additional Research (2025-11-18)
+
+### Unified Memory Architecture Clarification
+
+**Question:** Will NVMM buffer storage exceed 16GB RAM limit?
+
+**Answer:** ✅ **NO** - Memory accounting corrected
+
+**Current System:**
+```
+Pipeline components:      ~3.2 GB NVMM
+BufferManager (RGB CPU):  ~6.8 GB CPU RAM
+                         ─────────────
+Total:                    ~10 GB unified RAM
+```
+
+**Proposed NVMM System:**
+```
+Pipeline components:       ~3.2 GB NVMM
+BufferManager (RGBA NVMM): ~9.0 GB NVMM  ← replaces CPU buffer
+                          ─────────────
+Total:                     ~12.2 GB unified RAM (+2.2 GB net)
+```
+
+**Key Insight:** Since Jetson Orin NX uses **unified memory**, we're not adding on top - we're **relocating** from CPU space to GPU space within the same physical RAM.
+
+**New total: 12.2 GB / 16 GB = 76% utilization** ✅
+**Headroom: 3.8 GB remaining** ✅
+
+### GStreamer Buffer Reference Counting (Verified)
+
+**Source:** GStreamer official documentation + web search 2025-11-18
+
+**Key Findings:**
+- `gst_buffer_ref()` / `.ref()` in Python: Increments refcount
+- `gst_buffer_unref()` / `.unref()` in Python: Decrements refcount
+- When refcount reaches 0: Buffer returns to pool (recycled)
+- Buffers from GstBufferPool are automatically managed
+- **Thread-safe:** Reference counting is atomic
+
+**Python GI Syntax:**
+```python
+# Increment reference
+buf_ref = buffer.ref()  # Returns new reference
+
+# Decrement reference
+buffer.unref()  # Releases reference
+
+# Check writability (refcount == 1)
+is_writable = buffer.is_writable()
+```
+
+### DeepStream NVMM with appsink/appsrc (Verified)
+
+**Source:** NVIDIA Developer Forums + DeepStream 8.0 docs
+
+**Confirmed Patterns:**
+1. **appsink with NVMM:**
+   ```python
+   appsink.set_property("caps", Gst.Caps.from_string(
+       "video/x-raw(memory:NVMM), format=RGBA, width=5700, height=1900"
+   ))
+   ```
+
+2. **appsrc with NVMM:**
+   ```python
+   appsrc.set_property("caps", Gst.Caps.from_string(
+       "video/x-raw(memory:NVMM), format=RGBA, width=5700, height=1900"
+   ))
+   ```
+
+3. **Zero-copy confirmed:** Staying in NVMM avoids GPU↔CPU transfers
+
+### Buffer Pool Configuration
+
+**Source:** DS_FAQ.html line 1143, nvstreammux documentation
+
+**Key Properties:**
+- `nvbuf-memory-type=0`: Default (CPU)
+- `nvbuf-memory-type=3`: NVMM (GPU memory)
+- `num-extra-surfaces`: Increases buffer pool size
+
+**For our pipeline:**
+```python
+# On nvdsstitch or queue elements
+element.set_property("num-extra-surfaces", 64)  # Add 64 extra buffers
+```
+
+**Default pool sizes:**
+- nvstreammux: ~32 buffers
+- nvvideoconvert: ~4 buffers (configurable with output-buffers)
+
+**Required for 7s buffer:**
+- Minimum: 210 buffers (7s @ 30fps)
+- Recommended: 250 buffers (with margin)
+
+---
+
+**Last Updated:** 2025-11-18
+**Status:** Research complete, ready for refactoring plan approval
