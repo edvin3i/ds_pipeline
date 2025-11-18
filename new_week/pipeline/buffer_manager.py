@@ -268,10 +268,11 @@ class NVMMBufferManager:
             # Get buffer from sample (buffer stays in NVMM)
             buffer = frame_to_send['sample'].get_buffer()
 
-            # CRITICAL: Make buffer writable before modifying timestamps
-            # This creates a copy of METADATA (PTS/DTS) but keeps NVMM data pointer unchanged
-            # Zero-copy for pixel data, writeable for timing metadata
-            buffer = buffer.make_writable()
+            # CRITICAL: In Python GI, buffer timestamps can be modified directly
+            # Unlike pixel data (which requires ctypes for write access),
+            # PTS/DTS/duration are simple int64 fields that Python GI exposes as writable
+            # Buffer pixel data stays in NVMM (zero-copy), only metadata modified
+            # No make_writable() needed - that method doesn't exist in Python GI
 
             # Set timestamps for 7-second delayed playback
             buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)

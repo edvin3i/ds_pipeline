@@ -675,16 +675,17 @@ All display sinks had `sync=false`, causing them to ignore buffer timestamps and
 
 ### Correct Fix
 
-**1. Make Buffer Writable Before Modifying Timestamps:**
+**1. Modify Buffer Timestamps Directly (Python GI):**
 ```python
-# buffer_manager.py:274
-buffer = buffer.make_writable()  # Copies metadata, keeps NVMM data pointer
+# buffer_manager.py:277-280
+buffer = frame_to_send['sample'].get_buffer()
+# In Python GI, timestamps can be modified directly (no make_writable needed)
 buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
 buffer.dts = buffer.pts
 buffer.duration = int((1.0 / self.framerate) * Gst.SECOND)
 ```
 
-**Key Principle:** `make_writable()` creates a copy of buffer **metadata** (PTS/DTS/duration/flags) but keeps the **NVMM data pointer** unchanged. This maintains zero-copy for pixel data while allowing safe timestamp modification.
+**Key Principle:** In Python GI, buffer **timestamps** (PTS/DTS/duration) are exposed as writable int64 fields. Unlike pixel data (which requires ctypes for modification), metadata can be set directly. The `make_writable()` C function is NOT available in Python GI bindings - timestamps are automatically writable.
 
 **2. Remove Configuration Conflict:**
 ```python
@@ -705,19 +706,54 @@ nveglglessink sync=true  # Was: sync=false
 
 **Note:** Stream mode (rtmpsink) keeps `sync=false` - this is correct for network sinks as encoder/muxer handle timing.
 
-### GStreamer Buffer Mutability Rules
+### GStreamer Buffer Mutability Rules (C vs Python)
 
-1. **Buffers from samples are READ-ONLY by default**
-2. **Always use `make_writable()` before modifying**:
-   - Timestamps (PTS/DTS/duration)
-   - Flags (DELTA_UNIT, DISCONT, etc.)
-   - Metadata
-3. **`make_writable()` is smart**:
-   - If refcount == 1: Returns same buffer (no copy)
-   - If refcount > 1: Creates metadata copy, shares data
-4. **For NVMM**: Data stays in GPU, only GstBuffer struct copied
+**C GStreamer:**
+1. Buffers from samples are READ-ONLY by default
+2. Always use `gst_buffer_make_writable()` before modifying
+3. Smart copy-on-write: Copies GstBuffer struct if needed, shares data
+
+**Python GI Differences:**
+1. **`make_writable()` method does NOT exist** in Python GI bindings
+2. **Timestamps (PTS/DTS/duration) are DIRECTLY writable** - Python GI exposes them as mutable int64 fields
+3. **Pixel data modification** requires ctypes to call C functions directly
+4. **For NVMM zero-copy**: Timestamps writable, pixel data stays in GPU untouched
+
+**Key Takeaway:** In Python, just set `buffer.pts`, `buffer.dts`, `buffer.duration` directly - no `make_writable()` needed or available!
 
 ---
 
-**Last Updated:** 2025-11-18 20:10 UTC
-**Status:** All three critical fixes applied
+## CRITICAL FIX #4: make_writable() Not Available in Python GI (2025-11-18 20:50 UTC)
+
+### Issue: AttributeError - 'Buffer' object has no attribute 'make_writable'
+
+**Error:**
+```
+ERROR - _on_appsrc_need_data error: 'Buffer' object has no attribute 'make_writable'
+```
+
+**Root Cause:**
+Similar to `buffer.ref()`, the `gst_buffer_make_writable()` C function is NOT exposed in Python GI bindings. Python GObject Introspection handles buffer mutability differently.
+
+**Fix:**
+Remove `buffer.make_writable()` call - timestamps are directly writable in Python GI:
+```python
+# WRONG (C-style, doesn't work in Python):
+buffer = buffer.make_writable()  # ❌ AttributeError!
+
+# CORRECT (Python GI):
+buffer.pts = int(timestamp * Gst.SECOND)  # ✅ Works directly!
+```
+
+**Why This Works:**
+- Python GI exposes PTS/DTS/duration as writable properties
+- GObject introspection handles memory safety automatically
+- Only PIXEL DATA requires ctypes for modification
+- METADATA (timestamps, flags) can be set directly
+
+**Reference:** https://lifestyletransfer.com/how-to-make-gstreamer-buffer-writable-in-python/
+
+---
+
+**Last Updated:** 2025-11-18 20:50 UTC
+**Status:** All four critical fixes applied
