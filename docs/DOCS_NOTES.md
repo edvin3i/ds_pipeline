@@ -755,5 +755,75 @@ buffer.pts = int(timestamp * Gst.SECOND)  # ✅ Works directly!
 
 ---
 
-**Last Updated:** 2025-11-18 20:50 UTC
-**Status:** All four critical fixes applied
+## CRITICAL FIX #5: appsrc is-live=false Causes Freeze with sync=true Sinks (2025-11-18 21:00 UTC)
+
+### Issue: Pipeline Freezes Completely (Especially Panorama Mode)
+
+**Symptoms:**
+- Complete freeze - pipeline stops displaying frames
+- Especially bad in panorama mode
+- No errors in logs - just hangs
+
+**Root Cause:**
+
+When `sync=true` is set on display sinks (xvimagesink, nveglglessink), the sink waits for each buffer's timestamp to match the pipeline clock before displaying it.
+
+**The Problem:**
+```python
+# Pipeline string:
+appsrc is-live=false do-timestamp=false !  # ❌ Doesn't drive clock!
+...
+nveglglessink sync=true  # ⏰ Waits for clock to advance
+```
+
+**What Happens:**
+1. appsrc with `is-live=false` doesn't drive the pipeline clock
+2. Pipeline clock stays at 0 or doesn't advance
+3. Sink with `sync=true` waits for buffer.pts to match clock
+4. Clock never advances → Sink waits forever → **FREEZE**
+
+**From GStreamer Documentation:**
+> "appsrc hanging with debug message 'waiting for free space' - buffer management and synchronization issue"
+
+> "With is-live=false, the pipeline doesn't run in live mode, clock timing is different"
+
+### Correct Fix
+
+**Set `is-live=true` on appsrc:**
+
+```python
+# playback_builder.py:275-277
+self.appsrc.set_property("is-live", True)        # ✅ Drive pipeline clock!
+self.appsrc.set_property("do-timestamp", False)  # We set PTS manually
+self.appsrc.set_property("format", Gst.Format.TIME)
+```
+
+**Why This Works:**
+- `is-live=true`: Tells GStreamer this is a pseudo-live source
+  - Pipeline clock runs in live mode
+  - Allows sync=true sinks to properly time buffer display
+- `do-timestamp=false`: We manually set buffer.pts in buffer_manager.py
+- `format=TIME`: Timestamps are in GST_FORMAT_TIME units
+
+**Note:** Audio appsrc already had `is-live=true` (line 286) - that's why audio worked!
+
+### GStreamer Clock Modes
+
+**Live Mode (is-live=true):**
+- Pipeline clock advances continuously
+- Buffers displayed based on their PTS relative to clock
+- sync=true sinks work properly
+- Used for: live sources, pseudo-live sources (like our buffered playback)
+
+**Non-Live Mode (is-live=false):**
+- Clock behavior depends on other elements
+- May not advance if no other live sources
+- sync=true sinks may wait indefinitely
+- Used for: pure file playback with filesrc
+
+**Our Case:** We're a pseudo-live source (generating frames on-demand from buffer) → Need `is-live=true`
+
+---
+
+**Last Updated:** 2025-11-18 21:00 UTC
+**Status:** All five critical fixes applied

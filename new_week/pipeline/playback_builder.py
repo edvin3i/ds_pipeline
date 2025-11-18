@@ -266,13 +266,19 @@ class PlaybackPipelineBuilder:
                     f"framerate=30/1"
                 )
                 self.appsrc.set_property("caps", video_caps)
-                # NOTE: is-live=false, do-timestamp=false already set in pipeline string
-                # This is buffered playback (7s delay), not live source
-                # We manually set buffer PTS/DTS in buffer_manager.py
+
+                # CRITICAL: is-live=true required for sync=true sinks to work!
+                # With is-live=false, appsrc doesn't drive pipeline clock
+                # With sync=true sinks, they wait for clock that never advances → FREEZE
+                # is-live=true makes pipeline clock run, allowing sync to work properly
+                # We manually set buffer PTS/DTS in buffer_manager.py (do-timestamp=false)
+                self.appsrc.set_property("is-live", True)
+                self.appsrc.set_property("do-timestamp", False)
                 self.appsrc.set_property("format", Gst.Format.TIME)
+
                 if on_appsrc_need_data_callback:
                     self.appsrc.connect("need-data", on_appsrc_need_data_callback)
-                logger.info("✅ Video appsrc настроен с NVMM caps")
+                logger.info("✅ Video appsrc настроен: NVMM caps, is-live=true")
 
             # Настраиваем audio appsrc если есть (только для stream режима)
             if self.display_mode == "stream" and self.audio_device and self.audio_appsink:
