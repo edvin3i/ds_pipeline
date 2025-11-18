@@ -825,5 +825,92 @@ self.appsrc.set_property("format", Gst.Format.TIME)
 
 ---
 
-**Last Updated:** 2025-11-18 21:00 UTC
-**Status:** All five critical fixes applied
+## CRITICAL FIX #6: Absolute Timestamps Cause Freeze with is-live=true (2025-11-18 21:10 UTC)
+
+### Issue: 4-5 Second Freezes in virtualcam/panorama, Black Screen in stream
+
+**Symptoms:**
+- virtualcam mode: 4-5 second freeze at start
+- panorama mode: 4-5 second freeze at start
+- stream mode: Black screen (encoder waiting)
+
+**Root Cause:**
+
+We were setting **absolute timestamps** from the analysis pipeline, but with `is-live=true`, the playback pipeline clock starts at 0 and runs in real-time.
+
+**The Problem:**
+```python
+# buffer_manager.py:278 (OLD CODE)
+buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
+# e.g., frame_to_send['timestamp'] = 10.5 seconds (from analysis pipeline)
+
+# Playback pipeline just started:
+# - Pipeline clock = 0.1 seconds
+# - Buffer PTS = 10.5 seconds
+# - Sink with sync=true waits for clock to reach 10.5s
+# - Result: 10.4 second freeze!
+```
+
+**Why This Happens:**
+1. Analysis pipeline runs for ~2 seconds before buffer fills
+2. First buffered frame has timestamp ~2.1 seconds
+3. Playback pipeline starts with clock at 0
+4. Sink waits for clock to advance from 0 to 2.1 seconds → 2.1 second freeze
+5. Subsequent frames: timestamp ~9.1s (7s delay + 2.1s) → 9 second freeze!
+
+**From GStreamer Behavior:**
+- `is-live=true` → Pipeline clock runs in real-time starting from 0
+- `sync=true` → Sink waits until `pipeline_clock >= buffer.pts`
+- Absolute timestamps → Clock must "catch up" → FREEZE
+
+### Correct Fix
+
+**Calculate relative timestamps starting from 0:**
+
+```python
+# buffer_manager.py:286-295 (NEW CODE)
+# Store first frame timestamp as offset
+if self.timestamp_offset is None:
+    self.timestamp_offset = frame_to_send['timestamp']  # e.g., 2.1s
+    logger.info(f"[TIMESTAMP] Offset set to {self.timestamp_offset:.3f}s")
+
+# Calculate relative timestamp (starts from 0)
+relative_timestamp = frame_to_send['timestamp'] - self.timestamp_offset
+
+# Set relative timestamp
+buffer.pts = int(relative_timestamp * Gst.SECOND)  # 0.0s, 0.033s, 0.067s...
+```
+
+**Example:**
+```
+Analysis timestamps: 2.1s, 2.133s, 2.167s, ...
+timestamp_offset = 2.1s (first frame)
+
+Relative timestamps:
+  2.1 - 2.1 = 0.0s     ← First frame plays immediately
+  2.133 - 2.1 = 0.033s ← Second frame plays 33ms later
+  2.167 - 2.1 = 0.067s ← Third frame plays 67ms later
+  ...
+```
+
+**Result:**
+- Pipeline clock at 0 → First buffer PTS at 0 → No wait → No freeze!
+- Clock advances in real-time → Buffers display at correct 30 FPS
+
+### Key Principle: is-live Timestamp Requirements
+
+**With `is-live=true` appsrc:**
+- Timestamps MUST start near 0 (or current pipeline running time)
+- Pipeline clock runs in real-time from 0
+- Buffers with future timestamps cause sink to wait
+- Solution: Use **relative** timestamps, not absolute
+
+**With `is-live=false` filesrc:**
+- Timestamps can be absolute (from file)
+- Clock behavior depends on demuxer
+- Less strict timing requirements
+
+---
+
+**Last Updated:** 2025-11-18 21:10 UTC
+**Status:** All six critical fixes applied

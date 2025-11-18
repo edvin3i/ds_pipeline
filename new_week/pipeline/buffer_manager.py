@@ -96,6 +96,10 @@ class NVMMBufferManager:
         self.send_interval = 1.0 / self.framerate
         self.display_buffer_duration = 0.0
 
+        # Timestamp offset for is-live=true pipelines
+        # Store first frame timestamp to calculate relative timestamps starting from 0
+        self.timestamp_offset = None
+
         # Background thread
         self.buffer_thread = None
         self.buffer_thread_running = False
@@ -274,8 +278,19 @@ class NVMMBufferManager:
             # Buffer pixel data stays in NVMM (zero-copy), only metadata modified
             # No make_writable() needed - that method doesn't exist in Python GI
 
-            # Set timestamps for 7-second delayed playback
-            buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
+            # CRITICAL: Calculate RELATIVE timestamps for is-live=true pipelines
+            # With is-live=true, pipeline clock starts at 0 and runs in real-time
+            # If we set absolute timestamps (e.g., 10.5s from analysis pipeline),
+            # sync=true sinks will wait for clock to reach 10.5s → FREEZE!
+            # Solution: Reset timestamps to start from 0 (relative to first frame)
+            if self.timestamp_offset is None:
+                self.timestamp_offset = frame_to_send['timestamp']
+                logger.info(f"[TIMESTAMP] Offset set to {self.timestamp_offset:.3f}s (first frame)")
+
+            relative_timestamp = frame_to_send['timestamp'] - self.timestamp_offset
+
+            # Set timestamps for 7-second delayed playback (starting from 0)
+            buffer.pts = int(relative_timestamp * Gst.SECOND)
             buffer.dts = buffer.pts
             buffer.duration = int((1.0 / self.framerate) * Gst.SECOND)
 
@@ -294,7 +309,8 @@ class NVMMBufferManager:
                 if self.frames_sent % 300 == 0:
                     logger.info(
                         f"[NVMM-PLAYBACK] sent={self.frames_sent}, "
-                        f"delay={self.display_buffer_duration:.2f}s"
+                        f"delay={self.display_buffer_duration:.2f}s, "
+                        f"pts={relative_timestamp:.3f}s"
                     )
 
         except Exception as e:
