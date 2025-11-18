@@ -90,7 +90,10 @@ struct _GstNvdsStitch {
     
     // CUDA stream
     cudaStream_t cuda_stream;
-    
+
+    // CUDA event for frame completion synchronization
+    cudaEvent_t frame_complete_event;
+
     // Конфигурация kernel
     StitchKernelConfig kernel_config;
 

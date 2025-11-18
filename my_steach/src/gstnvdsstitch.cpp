@@ -628,11 +628,12 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
     transform_params.src_rect = &src_rect;
     transform_params.dst_rect = &dst_rect;
     
-    err = NvBufSurfTransform(&temp_left_surface, stitch->intermediate_left_surf, 
+    err = NvBufSurfTransform(&temp_left_surface, stitch->intermediate_left_surf,
                              &transform_params);
-    
+
     if (err != NvBufSurfTransformError_Success) {
         LOG_ERROR(stitch, "Failed to copy left frame: %d", err);
+        reset_cuda_state(stitch);  // Reset GPU state on VIC error
         return FALSE;
     }
     
@@ -643,11 +644,12 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
     temp_right_surface.numFilled = 1;
     temp_right_surface.batchSize = 1;
     
-    err = NvBufSurfTransform(&temp_right_surface, stitch->intermediate_right_surf, 
+    err = NvBufSurfTransform(&temp_right_surface, stitch->intermediate_right_surf,
                              &transform_params);
-    
+
     if (err != NvBufSurfTransformError_Success) {
         LOG_ERROR(stitch, "Failed to copy right frame: %d", err);
+        reset_cuda_state(stitch);  // Reset GPU state on VIC error
         return FALSE;
     }
     
@@ -679,22 +681,9 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
     stitch->kernel_config.output_height = output_params->height;
     stitch->kernel_config.output_pitch = output_params->planeParams.pitch[0];
 
-    // Цветокоррекция БЕЗ синхронизации - асинхронно
-    if (stitch->current_frame_number % 30 == 0) {
-        update_color_correction_simple(
-            (const unsigned char*)left_params->dataPtr,
-            (const unsigned char*)right_params->dataPtr,
-            stitch->weight_left_gpu,
-            stitch->weight_right_gpu,
-            output_params->width,
-            output_params->height,
-            output_params->planeParams.pitch[0],
-            stitch->cuda_stream
-        );
-        // НЕ ЖДЁМ результат цветокоррекции!
-        LOG_DEBUG(stitch, "Color correction update launched at frame %lu", 
-                  stitch->current_frame_number);
-    }
+    // NOTE: Advanced async color correction deferred to Phase 2
+    // Color gains are initialized at startup via init_color_correction()
+    // Future: Implement proper async color correction with separate stream
 
     // Запускаем kernel (с VIC оптимизацией для буферов)
     err = launch_panorama_kernel(
@@ -765,23 +754,10 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
     stitch->kernel_config.output_width = output_surface->surfaceList[0].width;
     stitch->kernel_config.output_height = output_surface->surfaceList[0].height;
     stitch->kernel_config.output_pitch = output_surface->surfaceList[0].planeParams.pitch[0];
-    
-    // Цветокоррекция БЕЗ синхронизации
-    if (stitch->current_frame_number % 30 == 0) {
-        update_color_correction_simple(
-            (const unsigned char*)frames[0].frame.pPitch[0],
-            (const unsigned char*)frames[1].frame.pPitch[0],
-            stitch->weight_left_gpu,
-            stitch->weight_right_gpu,
-            output_surface->surfaceList[0].width,
-            output_surface->surfaceList[0].height,
-            output_surface->surfaceList[0].planeParams.pitch[0],
-            stitch->cuda_stream
-        );
-        // НЕ ЖДЁМ результат!
-        LOG_DEBUG(stitch, "EGL: Color correction update launched at frame %lu", 
-                  stitch->current_frame_number);
-    }
+
+    // NOTE: Advanced async color correction deferred to Phase 2
+    // Color gains are initialized at startup via init_color_correction()
+    // Future: Implement proper async color correction with separate stream
 
     // Запускаем kernel (с VIC оптимизацией для буферов)
     err = launch_panorama_kernel(
@@ -833,13 +809,7 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(btrans);
     GstFlowReturn flow_ret = GST_FLOW_OK;
-    
-    // Статическое событие для синхронизации кадров
-    static cudaEvent_t frame_complete_event = nullptr;
-    if (!frame_complete_event) {
-        cudaEventCreateWithFlags(&frame_complete_event, cudaEventDisableTiming);
-    }
-    
+
     stitch->current_input = inbuf;
     
     if (!stitch->pool_configured) {
@@ -920,17 +890,18 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
     GstBuffer *output_buf = gst_buffer_new();
     GstMemory *mem = gst_buffer_peek_memory(pool_buf, 0);
     gst_buffer_append_memory(output_buf, gst_memory_ref(mem));
-    
+
+    // Increment index while still holding lock
     stitch->output_pool_fixed.current_index = (buf_idx + 1) % FIXED_OUTPUT_POOL_SIZE;
-    g_mutex_unlock(&stitch->output_pool_fixed.mutex);
-    
+
     output_surface->numFilled = 1;
-    
+
     gboolean stitch_success = FALSE;
-    
+
+    // Keep mutex locked while accessing registered[] array and launching kernel
     if (stitch->use_egl) {
 #ifdef __aarch64__
-        if (stitch->warp_maps_loaded && 
+        if (stitch->warp_maps_loaded &&
             stitch->intermediate_left_surf->memType == NVBUF_MEM_SURFACE_ARRAY &&
             stitch->output_pool_fixed.registered[buf_idx]) {
             stitch_success = panorama_stitch_frames_egl(stitch, buf_idx);
@@ -940,6 +911,9 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
             stitch_success = panorama_stitch_frames(stitch, output_surface);
         }
     }
+
+    // Now safe to unlock - kernel is queued, buf_idx no longer accessed
+    g_mutex_unlock(&stitch->output_pool_fixed.mutex);
     
     gst_buffer_unmap(inbuf, &in_map);
     
@@ -951,15 +925,15 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
     }
     
     // ВАЖНО: Синхронизация через событие ТОЛЬКО для основного kernel
-    if (stitch->cuda_stream) {
+    if (stitch->cuda_stream && stitch->frame_complete_event) {
         // Записываем событие после завершения основного kernel
-        cudaError_t err = cudaEventRecord(frame_complete_event, stitch->cuda_stream);
+        cudaError_t err = cudaEventRecord(stitch->frame_complete_event, stitch->cuda_stream);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to record CUDA event: %s", cudaGetErrorString(err));
         }
-        
+
         // Ждём ТОЛЬКО завершения этого конкретного kernel
-        err = cudaEventSynchronize(frame_complete_event);
+        err = cudaEventSynchronize(stitch->frame_complete_event);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to synchronize CUDA event: %s", cudaGetErrorString(err));
         }
@@ -1076,6 +1050,13 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         return FALSE;
     }
 
+    if (cudaEventCreateWithFlags(&stitch->frame_complete_event, cudaEventDisableTiming) != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create CUDA event");
+        cudaStreamDestroy(stitch->cuda_stream);
+        stitch->cuda_stream = NULL;
+        return FALSE;
+    }
+
     if (init_color_correction() != cudaSuccess) {
         LOG_ERROR(stitch, "Failed to initialize color correction");
         return FALSE;
@@ -1159,6 +1140,11 @@ static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
         stitch->egl_resource_cache = NULL;
     }
     
+    if (stitch->frame_complete_event) {
+        cudaEventDestroy(stitch->frame_complete_event);
+        stitch->frame_complete_event = NULL;
+    }
+
     if (stitch->cuda_stream) {
         cudaStreamDestroy(stitch->cuda_stream);
         stitch->cuda_stream = NULL;
@@ -1377,6 +1363,7 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->weight_right_gpu = NULL;
     stitch->warp_maps_loaded = FALSE;
     stitch->cuda_stream = NULL;
+    stitch->frame_complete_event = NULL;
 
     // Инициализация входных параметров (константы)
     stitch->kernel_config.input_width = NvdsStitchConfig::INPUT_WIDTH;
