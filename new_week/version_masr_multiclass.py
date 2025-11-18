@@ -151,7 +151,7 @@ class PanoramaWithVirtualCamera:
                 enable_display: bool = True,
                 display_mode: str = "panorama",  # "panorama", "virtualcam", "stream", "record"
                 enable_analysis: bool = True,
-                analysis_skip_interval: int = 5,
+                analysis_skip_interval: int = 2,
                 confidence_threshold: float = 0.35,
                 auto_zoom: bool = True,
                 stream_key: str = None,
