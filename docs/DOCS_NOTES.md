@@ -511,4 +511,71 @@ element.set_property("num-extra-surfaces", 64)  # Add 64 extra buffers
 ---
 
 **Last Updated:** 2025-11-18
+**Status:** Implementation in progress - fixing Python GI API compatibility
+
+---
+
+## CRITICAL FIX REQUIRED (2025-11-18 18:53 UTC)
+
+### Issue: `buffer.ref()` Does Not Exist in Python GStreamer
+
+**Error:**
+```python
+AttributeError: 'Buffer' object has no attribute 'ref'
+```
+
+**Root Cause:**
+`gst_buffer_ref()` is marked as "**not introspectable**" in GStreamer - it's NOT available in Python GI bindings. Python uses automatic reference counting via GObject introspection.
+
+**Sources:**
+- https://lazka.github.io/pgi-docs/Gst-1.0/classes/Buffer.html
+- Stack Overflow: "Pushing sample/buffers from AppSink to AppSrc"
+- GStreamer Python binding documentation
+
+### Correct Approach for Python
+
+**WRONG (C-style, doesn't work in Python):**
+```python
+buffer_ref = buffer.ref()  # ❌ AttributeError!
+buffer.unref()  # ❌ Also doesn't exist!
+```
+
+**CORRECT (Python automatic reference counting):**
+```python
+# Store the Gst.Sample or Gst.Buffer object
+# Python's GC keeps it alive automatically!
+self.frame_buffer.append({
+    'timestamp': timestamp,
+    'sample': sample  # Store sample, not buffer.ref()!
+})
+
+# When done, just remove from list
+# Python's GC will clean up when no references remain
+old_frame = self.frame_buffer.popleft()
+old_frame['sample'] = None  # Help GC (optional)
+```
+
+### Key Principles
+
+1. **No manual ref/unref in Python**: Python's garbage collector handles reference counting automatically through GObject introspection
+2. **Store Gst.Sample objects**: Keep reference to samples (which contain buffers + caps)
+3. **GC handles cleanup**: When Python object goes out of scope, GI layer decrements GStreamer's internal refcount
+4. **Zero-copy still works**: Storing Python references doesn't copy pixel data - just keeps buffer alive
+
+### Updated Implementation Strategy
+
+**For NVMM zero-copy buffering:**
+- Store `Gst.Sample` objects in deque (Python holds reference)
+- Buffers stay in NVMM throughout (no CPU copy)
+- Python's GC manages lifetime (no manual ref/unref)
+- When popleft(), sample goes out of scope → GI layer unrefs → GStreamer recycles buffer
+
+**Memory behavior:**
+- While sample in deque: GStreamer refcount ≥ 1 (buffer alive)
+- After popleft() + GC: GStreamer refcount → 0 (buffer returns to pool)
+- Zero pixel data copies (NVMM buffers stay in GPU)
+
+---
+
+**Last Updated:** 2025-11-18
 **Status:** Research complete, ready for refactoring plan approval

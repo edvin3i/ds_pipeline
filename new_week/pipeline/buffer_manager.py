@@ -6,15 +6,16 @@ NVMM Buffer Manager for Video and Audio Frame Buffering.
 Manages video and audio frame buffering using GPU memory (NVMM) with:
 - 7 second window buffering (configurable)
 - Zero-copy buffer reference management (no deep copies)
-- GStreamer buffer refcount management (ref/unref)
+- Python automatic memory management (no manual ref/unref)
 - Timestamp synchronization between analysis and display
 - Thread-safe buffer access with locks
-- Buffer statistics tracking (duration, frame count, refs)
+- Buffer statistics tracking (duration, frame count)
 - Both video and audio data stream handling
 - Background buffering thread management
 
 CRITICAL: Video buffers stay in NVMM (GPU memory) throughout.
-Uses buffer.ref()/unref() instead of deep copy for zero-copy operation.
+Python's GC manages buffer lifetime automatically via GObject introspection.
+Stores Gst.Sample objects - Python references keep NVMM buffers alive.
 """
 
 import gi
@@ -35,15 +36,16 @@ class NVMMBufferManager:
 
     This class handles:
     - Receiving video/audio frames from appsink callbacks
-    - Buffering frame REFERENCES (not copies) in NVMM with configurable duration
-    - GStreamer buffer reference counting (ref/unref) for zero-copy operation
+    - Buffering Gst.Sample REFERENCES (not copies) in NVMM with configurable duration
+    - Python automatic memory management (no manual ref/unref needed)
     - Pushing frames to playback pipeline via appsrc callbacks
     - Timestamp synchronization between video and audio
     - Cleanup of old frames to maintain buffer window
     - Background thread for buffer management
 
     CRITICAL: Video buffers stay in GPU memory (NVMM) throughout.
-    No CPU copies or deep copies - only buffer references with proper refcounting.
+    No CPU copies or deep copies - only Python references to Gst.Sample objects.
+    Python's GC automatically handles buffer lifetime via GObject introspection.
     """
 
     def __init__(self,
@@ -86,7 +88,6 @@ class NVMMBufferManager:
         # Statistics
         self.frames_received = 0
         self.frames_sent = 0
-        self._ref_count = 0  # Track active buffer references for leak detection
 
         # Playback state
         self.current_playback_time = None
@@ -134,8 +135,8 @@ class NVMMBufferManager:
         """
         Receive NVMM buffers from appsink (zero-copy).
 
-        CRITICAL: Buffer stays in NVMM, only store reference.
-        Uses buffer.ref() to increment refcount, preventing premature free.
+        CRITICAL: Buffer stays in NVMM, only store Python reference.
+        Python's GC manages buffer lifetime automatically (no manual ref/unref needed).
 
         GStreamer callback for receiving video frames.
 
@@ -160,27 +161,23 @@ class NVMMBufferManager:
                         else time.time())
 
             with self.buffer_lock:
-                # CRITICAL: Increment refcount to keep buffer alive
-                # This prevents GStreamer from freeing the buffer
-                buffer_ref = buffer.ref()  # Returns new reference
-
-                # Store only reference + timestamp (no pixel data copy!)
+                # CRITICAL: Store sample object - Python's GC keeps buffer alive!
+                # No need for .ref()/.unref() - Python GI handles refcounting automatically
+                # Buffer stays in NVMM (zero-copy), we just hold Python reference
                 caps_copy = sample.get_caps()
                 self.frame_buffer.append({
                     'timestamp': timestamp,
-                    'buffer': buffer_ref,  # Just a pointer, not a deep copy!
+                    'sample': sample,  # Python reference keeps buffer alive
                     'caps': caps_copy if self.frames_received == 0 else None
                 })
 
                 self.frames_received += 1
-                self._ref_count += 1  # Track for leak detection
 
                 # Log every 300 frames
                 if self.frames_received % 300 == 0:
                     logger.info(
                         f"[NVMM-BUFFER] recv={self.frames_received}, "
-                        f"buf={len(self.frame_buffer)}/{self.frame_buffer.maxlen}, "
-                        f"refs={self._ref_count}"
+                        f"buf={len(self.frame_buffer)}/{self.frame_buffer.maxlen}"
                     )
 
             return Gst.FlowReturn.OK
@@ -270,7 +267,8 @@ class NVMMBufferManager:
                     newest_ts = self.frame_buffer[-1]['timestamp']
                     self.display_buffer_duration = max(0.0, newest_ts - self.current_playback_time)
 
-            buffer = frame_to_send['buffer']
+            # Get buffer from sample (buffer stays in NVMM)
+            buffer = frame_to_send['sample'].get_buffer()
 
             # Используем оригинальные временные метки
             buffer.pts = int(frame_to_send['timestamp'] * Gst.SECOND)
@@ -409,12 +407,12 @@ class NVMMBufferManager:
 
     def _remove_old_frames_locked(self):
         """
-        Remove old frames and unref buffers (CRITICAL for pool recycling).
+        Remove old frames (CRITICAL for pool recycling).
 
         Must be called with buffer_lock held.
 
-        CRITICAL: Calls buffer.unref() to decrement refcount.
-        When refcount reaches 0, buffer returns to pool for reuse.
+        Python's GC automatically handles buffer cleanup when samples
+        go out of scope - no manual unref() needed.
         """
         if self.current_playback_time is None or not self.frame_buffer:
             return
@@ -426,20 +424,15 @@ class NVMMBufferManager:
                self.frame_buffer[0]['timestamp'] < threshold):
             old_frame = self.frame_buffer.popleft()
 
-            # CRITICAL: Decrement refcount to return buffer to pool
-            if old_frame.get('buffer'):
-                old_frame['buffer'].unref()  # Returns buffer to pool when refcount=0
-                self._ref_count -= 1
-                removed_count += 1
-
-            # Clear references (Python garbage collection)
-            old_frame['buffer'] = None
+            # Clear references to help Python's GC
+            # When sample goes out of scope, GI layer unrefs GStreamer buffer
+            old_frame['sample'] = None
             old_frame['caps'] = None
+            removed_count += 1
 
         if removed_count > 0:
             logger.debug(
-                f"[NVMM-BUFFER] Released {removed_count} buffer refs, "
-                f"active refs={self._ref_count}"
+                f"[NVMM-BUFFER] Released {removed_count} sample refs (Python GC)"
             )
 
     def _buffer_loop(self):
@@ -514,14 +507,13 @@ class NVMMBufferManager:
         """
         Clear all buffers and reset state.
 
-        CRITICAL: Unrefs all video buffers before clearing.
+        Python's GC automatically cleans up samples when they go out of scope.
         """
         with self.buffer_lock:
-            # CRITICAL: Unref all video buffers before clearing
+            # Clear all references - Python's GC will clean up automatically
             for frame in self.frame_buffer:
-                if frame.get('buffer'):
-                    frame['buffer'].unref()
-                    self._ref_count -= 1
+                frame['sample'] = None
+                frame['caps'] = None
 
             self.frame_buffer.clear()
             self.audio_buffer.clear()
@@ -530,17 +522,11 @@ class NVMMBufferManager:
             self.current_playback_time = None
             self.audio_caps = None
 
-            if self._ref_count != 0:
-                logger.warning(
-                    f"[NVMM-BUFFER] clear_buffers: ref count mismatch, "
-                    f"{self._ref_count} refs remaining"
-                )
-
-            logger.info("[NVMM-BUFFER] Buffers cleared")
+            logger.info("[NVMM-BUFFER] Buffers cleared (Python GC will cleanup)")
 
     def get_stats(self) -> Dict[str, Any]:
         """
-        Get buffer statistics including NVMM reference counts.
+        Get buffer statistics.
 
         Returns:
             Dictionary with buffer statistics
@@ -555,39 +541,29 @@ class NVMMBufferManager:
                 'audio_buffer_capacity': self.audio_buffer.maxlen,
                 'display_buffer_duration': self.display_buffer_duration,
                 'current_playback_time': self.current_playback_time,
-                'active_buffer_refs': self._ref_count,  # NVMM buffer references
                 'memory_type': 'NVMM',  # Indicates zero-copy NVMM buffering
             }
 
     def __del__(self):
         """
-        Cleanup on destruction - unref all buffers.
+        Cleanup on destruction.
 
-        CRITICAL: Prevents memory leaks on shutdown.
-        Unrefs all remaining buffer references to return them to pool.
+        Python's GC automatically handles buffer cleanup.
+        This method just clears references to help GC.
         """
         try:
-            with self.buffer_lock:
-                logger.info(
-                    f"[NVMM-BUFFER] Destructor: unreffing {len(self.frame_buffer)} buffers"
-                )
+            logger.info(
+                f"[NVMM-BUFFER] Destructor: clearing {len(self.frame_buffer)} sample refs"
+            )
 
-                # Unref all video buffers
-                for frame in self.frame_buffer:
-                    if frame.get('buffer'):
-                        frame['buffer'].unref()
-                        self._ref_count -= 1
+            # Clear all references - Python's GC will clean up automatically
+            for frame in self.frame_buffer:
+                frame['sample'] = None
+                frame['caps'] = None
 
-                self.frame_buffer.clear()
+            self.frame_buffer.clear()
 
-                # Check for ref count leaks
-                if self._ref_count != 0:
-                    logger.warning(
-                        f"[NVMM-BUFFER] Destructor: ref count mismatch, "
-                        f"{self._ref_count} refs remaining (possible leak!)"
-                    )
-                else:
-                    logger.info("[NVMM-BUFFER] Destructor: all buffers released cleanly")
+            logger.info("[NVMM-BUFFER] Destructor: all sample refs cleared (GC will cleanup)")
 
         except Exception as e:
             logger.error(f"[NVMM-BUFFER] Destructor error: {e}", exc_info=True)
