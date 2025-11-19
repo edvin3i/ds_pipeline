@@ -1232,6 +1232,18 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
     LOG_INFO(stitch, "Async color correction initialized (interval: %u frames, smoothing: %.3f)",
              stitch->color_update_interval, stitch->color_smoothing_factor);
 
+    // CRITICAL: Initialize g_color_factors device constant memory to identity
+    // Without this, apply_color_correction_gamma() will read garbage values!
+    err = update_color_correction_factors(&stitch->current_factors);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to initialize color correction factors: %s", cudaGetErrorString(err));
+        cudaFree(stitch->d_color_analysis_buffer);
+        cudaEventDestroy(stitch->color_analysis_event);
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+    LOG_INFO(stitch, "Color correction factors initialized to identity (1.0, 1.0, 1.0, 1.0)");
+
     // Загружаем LUT карты и веса для панорамы
     std::string left_x_path = NvdsStitchConfig::getWarpLeftXPath();
     std::string left_y_path = NvdsStitchConfig::getWarpLeftYPath();
