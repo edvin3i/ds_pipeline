@@ -188,15 +188,19 @@ class PanoramaWithVirtualCamera:
         )
 
         # ============================================================
-        # DELEGATED: Ball detection history → HistoryManager (core)
-        # Replaces: BallDetectionHistory
-        # ============================================================
-        self.history = HistoryManager(history_duration=10.0, cleanup_interval=1000)
-
-        # ============================================================
         # DELEGATED: Players history → PlayersHistory (core)
         # ============================================================
         self.players_history = PlayersHistory(history_duration=10.0)
+
+        # ============================================================
+        # DELEGATED: Ball detection history → HistoryManager (core)
+        # Replaces: BallDetectionHistory
+        # ============================================================
+        self.history = HistoryManager(
+            history_duration=10.0,
+            cleanup_interval=1000,
+            players_history=self.players_history  # Pass for camera trajectory
+        )
 
         # ============================================================
         # DELEGATED: Tensor processing → TensorProcessor (processing)
@@ -642,7 +646,7 @@ def main():
                        help='Битрейт видео в bps (3500000=3.5Mbps для слабого 4G, 4500000=4.5Mbps для среднего 4G, 6000000=6Mbps для хорошего WiFi/4G)')
     parser.add_argument('--skip-interval', type=int, default=15,
                        help='Анализировать каждый N-й кадр')
-    parser.add_argument('--confidence', type=float, default=0.35,
+    parser.add_argument('--confidence', type=float, default=0.45,
                        help='Порог уверенности детекции')
     parser.add_argument('--no-zoom', action='store_true',
                        help='Отключить автозум в режиме virtualcam')

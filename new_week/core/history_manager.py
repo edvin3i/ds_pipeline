@@ -23,6 +23,7 @@ from typing import Dict, List, Optional, Any, Tuple
 from .detection_storage import DetectionStorage
 from .trajectory_filter import TrajectoryFilter
 from .trajectory_interpolator import TrajectoryInterpolator
+from .camera_trajectory_history import CameraTrajectoryHistory
 
 logger = logging.getLogger("panorama-virtualcam")
 
@@ -37,13 +38,14 @@ class HistoryManager:
     - TrajectoryInterpolator: Trajectory interpolation
     """
 
-    def __init__(self, history_duration=10.0, cleanup_interval=1000):
+    def __init__(self, history_duration=10.0, cleanup_interval=1000, players_history=None):
         """
         Initialize the history manager with all components.
 
         Args:
             history_duration: Duration to keep history (seconds)
             cleanup_interval: Interval for cleanup operations
+            players_history: PlayersHistory instance for fallback tracking (optional)
         """
         # Initialize components
         self.storage = DetectionStorage(
@@ -59,6 +61,12 @@ class HistoryManager:
             fps=30,
             max_gap=10.0
         )
+        self.camera_trajectory = CameraTrajectoryHistory(
+            history_duration=history_duration,
+            max_gap=3.0,  # Don't interpolate gaps > 3 sec
+            outlier_threshold=300  # Pixels
+        )
+        self.players_history = players_history
 
         # Processing state
         self.last_full_process_time = 0
@@ -324,6 +332,26 @@ class HistoryManager:
             # Update references
             self.processed_future_history = self.storage.processed_future_history
             self.interpolated_history = self.storage.interpolated_history
+
+            # NEW: Populate camera trajectory from interpolated ball history and players
+            if self.players_history:
+                self.camera_trajectory.populate_from_ball_and_players(
+                    self.storage.processed_future_history,
+                    self.players_history
+                )
+                # Smooth to remove outliers
+                self.camera_trajectory.smooth_trajectory(
+                    window_size=5,
+                    threshold_px=300
+                )
+                # Interpolate for smooth camera motion
+                self.camera_trajectory.interpolate_gaps(fps=30)
+
+                # Log trajectory stats every 30 frames
+                if self.frame_counter % 30 == 0:
+                    stats = self.camera_trajectory.get_stats()
+                    logger.info(f"📹 CAMERA_TRAJ: {stats['total_points']} points, "
+                              f"sources={stats['sources']}")
 
     def clean_detection_history(self, history, preserve_recent_seconds=0.5,
                                outlier_threshold=2.5, window_size=3):
