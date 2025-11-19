@@ -268,6 +268,27 @@ class DisplayProbeHandler:
                 if not is_duplicate:
                     all_detections['ball'].append(ball_det)
 
+                # ===== PANORAMA MODE: Add camera trajectory box =====
+                # Draw a bounding box around the camera trajectory position
+                camera_point = self.history.camera_trajectory.get_point_for_timestamp(pts_sec, max_delta=0.12)
+                if camera_point:
+                    # Create a detection entry for camera trajectory visualization
+                    # Size: small box (40x40 px) to mark the position
+                    camera_traj_det = {
+                        'x': camera_point['x'],
+                        'y': camera_point['y'],
+                        'width': 40,  # Small box
+                        'height': 40,
+                        'confidence': camera_point.get('confidence', 0.5),
+                        'source_type': camera_point.get('source_type', 'unknown'),
+                        'is_camera_trajectory': True  # Special marker for this visualization
+                    }
+
+                    # Add to all_detections under a special key for rendering
+                    if 'camera_trajectory' not in all_detections:
+                        all_detections['camera_trajectory'] = []
+                    all_detections['camera_trajectory'].append(camera_traj_det)
+
             # Compute smoothed center of mass using entire history (7 seconds)
             self._compute_smoothed_center_of_mass(pts_sec)
 
@@ -319,11 +340,12 @@ class DisplayProbeHandler:
                 num_tiles = 0  # Disabled tiles
 
                 # Count how many boxes we need to draw
-                # ONLY BALL AND PLAYERS (staff and referees disabled)
+                # ONLY BALL, PLAYERS, and CAMERA_TRAJECTORY (staff and referees disabled)
                 num_detection_rects = 0
                 if all_detections:
                     num_detection_rects = (len(all_detections.get('ball', [])) +
-                                          len(all_detections.get('player', [])))
+                                          len(all_detections.get('player', [])) +
+                                          len(all_detections.get('camera_trajectory', [])))
 
                 # Limit total number of rectangles
                 # IMPORTANT: On this platform limit rect_params = 16
@@ -346,18 +368,21 @@ class DisplayProbeHandler:
                 total_drawn = 0
 
                 if all_detections:
-                    # Color scheme: only ball and players
+                    # Color scheme: ball, players, and camera trajectory
                     # ball: red (1.0, 0.0, 0.0, 1.0)
                     # player: green (0.0, 1.0, 0.0, 1.0)
+                    # camera_trajectory: cyan (0.0, 1.0, 1.0, 1.0) - highlight with bright color
 
                     class_colors = {
-                        'ball': (1.0, 0.0, 0.0, 1.0),      # Red
-                        'player': (0.0, 1.0, 0.0, 1.0)      # Green
+                        'ball': (1.0, 0.0, 0.0, 1.0),           # Red
+                        'player': (0.0, 1.0, 0.0, 1.0),         # Green
+                        'camera_trajectory': (0.0, 1.0, 1.0, 1.0)  # Cyan (bright)
                     }
 
                     class_widths = {
                         'ball': 3,      # Thicker for ball
-                        'player': 2     # Thicker for visibility
+                        'player': 2,    # Thicker for visibility
+                        'camera_trajectory': 2  # Same as player
                     }
 
                     # Limit number of boxes to draw
@@ -446,8 +471,8 @@ class DisplayProbeHandler:
                     text += f" | Ball:({int(cx)},{int(cy)}) conf={conf:.2f}"
 
                 if all_detections:
-                    # Show only ball and players
-                    text += f" | Drawn: Ball={len(all_detections.get('ball', []))}, Players={len(all_detections.get('player', []))}"
+                    # Show ball, players, and camera trajectory
+                    text += f" | Drawn: Ball={len(all_detections.get('ball', []))}, Players={len(all_detections.get('player', []))}, CamTraj={len(all_detections.get('camera_trajectory', []))}"
 
                 # Add main text (FPS, buffer, ball)
                 lbl = display_meta.text_params[0]  # Index 0, as no tiles
