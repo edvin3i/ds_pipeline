@@ -833,13 +833,7 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(btrans);
     GstFlowReturn flow_ret = GST_FLOW_OK;
-    
-    // Статическое событие для синхронизации кадров
-    static cudaEvent_t frame_complete_event = nullptr;
-    if (!frame_complete_event) {
-        cudaEventCreateWithFlags(&frame_complete_event, cudaEventDisableTiming);
-    }
-    
+
     stitch->current_input = inbuf;
     
     if (!stitch->pool_configured) {
@@ -951,15 +945,15 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
     }
     
     // ВАЖНО: Синхронизация через событие ТОЛЬКО для основного kernel
-    if (stitch->cuda_stream) {
+    if (stitch->cuda_stream && stitch->frame_complete_event) {
         // Записываем событие после завершения основного kernel
-        cudaError_t err = cudaEventRecord(frame_complete_event, stitch->cuda_stream);
+        cudaError_t err = cudaEventRecord(stitch->frame_complete_event, stitch->cuda_stream);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to record CUDA event: %s", cudaGetErrorString(err));
         }
-        
+
         // Ждём ТОЛЬКО завершения этого конкретного kernel
-        err = cudaEventSynchronize(frame_complete_event);
+        err = cudaEventSynchronize(stitch->frame_complete_event);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to synchronize CUDA event: %s", cudaGetErrorString(err));
         }
@@ -1076,6 +1070,12 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         return FALSE;
     }
 
+    if (cudaEventCreateWithFlags(&stitch->frame_complete_event,
+                                 cudaEventDisableTiming) != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create CUDA event for frame synchronization");
+        return FALSE;
+    }
+
     if (init_color_correction() != cudaSuccess) {
         LOG_ERROR(stitch, "Failed to initialize color correction");
         return FALSE;
@@ -1163,7 +1163,12 @@ static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
         cudaStreamDestroy(stitch->cuda_stream);
         stitch->cuda_stream = NULL;
     }
-    
+
+    if (stitch->frame_complete_event) {
+        cudaEventDestroy(stitch->frame_complete_event);
+        stitch->frame_complete_event = NULL;
+    }
+
     if (stitch->intermediate_pool) {
         gst_buffer_pool_set_active(stitch->intermediate_pool, FALSE);
         stitch->intermediate_left = NULL;
@@ -1377,6 +1382,7 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->weight_right_gpu = NULL;
     stitch->warp_maps_loaded = FALSE;
     stitch->cuda_stream = NULL;
+    stitch->frame_complete_event = NULL;
 
     // Инициализация входных параметров (константы)
     stitch->kernel_config.input_width = NvdsStitchConfig::INPUT_WIDTH;

@@ -80,27 +80,6 @@ cudaError_t update_color_correction_simple(
 );
 cudaError_t init_color_correction(void);
 
-// ============================================================================
-// ОПТИМИЗИРОВАННАЯ ВЕРСИЯ С TEXTURE MEMORY
-// ============================================================================
-// Запуск оптимизированного kernel с texture memory
-cudaError_t launch_panorama_kernel_textured(
-    const unsigned char* input_left,
-    const unsigned char* input_right,
-    unsigned char* output,
-    const float* lut_left_x,
-    const float* lut_left_y,
-    const float* lut_right_x,
-    const float* lut_right_y,
-    const float* weight_left,
-    const float* weight_right,
-    const StitchKernelConfig* config,
-    cudaStream_t stream
-);
-
-// Очистка texture resources
-void cleanup_texture_resources(void);
-
 #ifdef __cplusplus
 }
 #endif

@@ -480,8 +480,9 @@ __global__ void panorama_lut_kernel(
     }
     
     // Записываем результат (с переворотом как у вас было)
-    size_t out_idx = (size_t)(output_height - 1 - y) * (size_t)output_pitch + 
-                 (size_t)(output_width - 1 - x) * 4;
+    // Cast to size_t before arithmetic to prevent integer overflow
+    size_t out_idx = ((size_t)output_height - 1 - (size_t)y) * output_pitch +
+                     ((size_t)output_width - 1 - (size_t)x) * 4;
     
     *((uchar4*)(output + out_idx)) = make_uchar4(
         __float2uint_rn(result.x),
