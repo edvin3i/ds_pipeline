@@ -333,14 +333,15 @@ class HistoryManager:
             self.processed_future_history = self.storage.processed_future_history
             self.interpolated_history = self.storage.interpolated_history
 
-            # CAMERA TRAJECTORY: Populate IMMEDIATELY from interpolated ball history
-            # This ensures synchronization: we use the SAME interpolated history
-            # that was just created, avoiding time base mismatches
+            # CAMERA TRAJECTORY: Populate IMMEDIATELY from ball history
+            # This ensures we detect the ORIGINAL gaps > 3s BEFORE they get interpolated
+            # Then we fill those gaps with player COM, and finally interpolate the rest
             if self.players_history:
-                # Step 1: Populate from interpolated ball history
-                # This will use all interpolated points from ball AND fill gaps > 3s with player positions
+                # Step 1: Populate from processed_future_history (with original gaps!)
+                # This will use all ball points AND detect gaps > 3s to fill with player positions
+                # After gap filling, we'll interpolate the remaining small gaps
                 self.camera_trajectory.populate_from_ball_and_players(
-                    interpolated,  # Use interpolated history (not processed_future_history)
+                    self.storage.processed_future_history,  # Use RAW history (with gaps!)
                     self.players_history
                 )
                 # Step 2: Smooth to remove sharp jumps
