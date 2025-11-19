@@ -1083,11 +1083,37 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         return FALSE;
     }
 
-    if (init_color_correction() != cudaSuccess) {
-        LOG_ERROR(stitch, "Failed to initialize color correction");
+    // Create low-priority CUDA stream for async color analysis
+    int leastPriority, greatestPriority;
+    cudaDeviceGetStreamPriorityRange(&leastPriority, &greatestPriority);
+    cudaError_t err = cudaStreamCreateWithPriority(&stitch->color_analysis_stream,
+                                                    cudaStreamNonBlocking,
+                                                    leastPriority);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create color analysis stream: %s", cudaGetErrorString(err));
         return FALSE;
     }
-    
+
+    // Create event for async analysis completion
+    err = cudaEventCreateWithFlags(&stitch->color_analysis_event, cudaEventDisableTiming);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create color analysis event: %s", cudaGetErrorString(err));
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+
+    // Allocate device buffer for reduction results (9 floats)
+    err = cudaMalloc(&stitch->d_color_analysis_buffer, 9 * sizeof(float));
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to allocate color analysis buffer: %s", cudaGetErrorString(err));
+        cudaEventDestroy(stitch->color_analysis_event);
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+
+    LOG_INFO(stitch, "Async color correction initialized (interval: %u frames, smoothing: %.3f)",
+             stitch->color_update_interval, stitch->color_smoothing_factor);
+
     // Загружаем LUT карты и веса для панорамы
     std::string left_x_path = NvdsStitchConfig::getWarpLeftXPath();
     std::string left_y_path = NvdsStitchConfig::getWarpLeftYPath();
@@ -1175,6 +1201,24 @@ static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
         cudaEventDestroy(stitch->frame_complete_event);
         stitch->frame_complete_event = NULL;
     }
+
+    // Cleanup color analysis resources
+    if (stitch->d_color_analysis_buffer) {
+        cudaFree(stitch->d_color_analysis_buffer);
+        stitch->d_color_analysis_buffer = NULL;
+    }
+
+    if (stitch->color_analysis_event) {
+        cudaEventDestroy(stitch->color_analysis_event);
+        stitch->color_analysis_event = NULL;
+    }
+
+    if (stitch->color_analysis_stream) {
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        stitch->color_analysis_stream = NULL;
+    }
+
+    LOG_INFO(stitch, "Async color correction cleaned up");
 
     if (stitch->intermediate_pool) {
         gst_buffer_pool_set_active(stitch->intermediate_pool, FALSE);
@@ -1490,7 +1534,28 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     
     stitch->cached_indices.left_index = -1;
     stitch->cached_indices.right_index = -1;
-    
+
+    // Initialize color correction members
+    stitch->color_analysis_stream = NULL;
+    stitch->color_analysis_event = NULL;
+    stitch->d_color_analysis_buffer = NULL;
+
+    // Initialize factors to identity (no correction)
+    stitch->current_factors = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+    stitch->pending_factors = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+
+    stitch->frame_count = 0;
+    stitch->last_color_frame = 0;
+    stitch->color_analysis_pending = FALSE;
+
+    // Initialize properties to defaults
+    stitch->enable_color_correction = TRUE;
+    stitch->overlap_size = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_OVERLAP_SIZE;
+    stitch->color_update_interval = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ANALYZE_INTERVAL;
+    stitch->color_smoothing_factor = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR;
+    stitch->spatial_falloff = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF;
+    stitch->enable_gamma = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ENABLE_GAMMA;
+
     gst_base_transform_set_passthrough(GST_BASE_TRANSFORM(stitch), FALSE);
     gst_base_transform_set_in_place(GST_BASE_TRANSFORM(stitch), FALSE);
 }
