@@ -417,6 +417,7 @@ nvdsvirtualcam ...
 **Date:** 2025-11-19
 **Source:** NVIDIA CUDA Best Practices Guide, CUDA C++ Programming Guide
 **Platform:** Jetson Orin NX 16GB with CUDA 12.6, Compute Capability SM87
+**Local Docs:** docs/cuda-12.6.0-docs/ (HTML and PDF)
 
 ## Memory Access Patterns
 
@@ -839,12 +840,15 @@ sudo jetson_clocks  # Lock clocks to max (for benchmarking)
 ---
 
 **References:**
-- NVIDIA CUDA C++ Best Practices Guide (2024)
-- NVIDIA CUDA C++ Programming Guide
-- Jetson Orin Developer Guide
-- "CUDA for Tegra" Documentation
+- NVIDIA CUDA C++ Best Practices Guide (Local: docs/cuda-12.6.0-docs/cuda-c-best-practices-guide.html)
+- NVIDIA CUDA C++ Programming Guide (Local: docs/cuda-12.6.0-docs/cuda-c-programming-guide.html)
+- Jetson Orin Developer Guide (Local: docs/hw_arch/nvidia_jetson_orin_nx_16GB_super_arch.pdf)
+- "CUDA for Tegra" Documentation (Local: docs/cuda-12.6.0-docs/cuda-for-tegra.html)
+- Online: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html
+- Online: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html
 
 **Last Updated:** 2025-11-19
+**Note:** Download CUDA 12.6.0 documentation to docs/cuda-12.6.0-docs/ for offline reference
 
 ---
 
