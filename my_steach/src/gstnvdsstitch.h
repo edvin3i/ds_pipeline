@@ -12,6 +12,7 @@
 #endif
 
 #include "cuda_stitch_kernel.h"
+#include "nvdsstitch_config.h"
 
 G_BEGIN_DECLS
 

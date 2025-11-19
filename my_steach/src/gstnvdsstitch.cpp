@@ -1126,7 +1126,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
              NvdsStitchConfig::WARP_MAPS_DIR,
              stitch->output_width, stitch->output_height);
 
-    cudaError_t err = load_panorama_luts(
+    cudaError_t lut_err = load_panorama_luts(
         left_x_path.c_str(),
         left_y_path.c_str(),
         right_x_path.c_str(),
@@ -1143,7 +1143,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         stitch->output_height   // Используем динамический размер из property!
     );
 
-    stitch->warp_maps_loaded = (err == cudaSuccess);
+    stitch->warp_maps_loaded = (lut_err == cudaSuccess);
     if (stitch->warp_maps_loaded) {
         LOG_INFO(stitch, "Panorama LUT maps loaded successfully");
         stitch->kernel_config.warp_width = stitch->output_width;   // Динамический размер!
