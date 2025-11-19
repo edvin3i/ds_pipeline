@@ -78,11 +78,8 @@ logger = logging.getLogger("panorama-virtualcam")
 # ============================================================
 # Инициализация GStreamer
 # ============================================================
-# ВАЖНО: Устанавливаем путь к кастомным плагинам ПЕРЕД Gst.init()
-tilebatcher_path = "/home/nvidia/deep_cv_football/my_tile_batcher/src"
-virtualcam_path = "/home/nvidia/deep_cv_football/my_virt_cam/src"
-os.environ['GST_PLUGIN_PATH'] = f"{tilebatcher_path}:{virtualcam_path}:{os.environ.get('GST_PLUGIN_PATH', '')}"
-
+# Плагины устанавливаются в ~/.local/share/gstreamer-1.0/plugins/
+# GStreamer найдёт их автоматически при инициализации
 Gst.init(None)
 
 
@@ -643,7 +640,7 @@ def main():
                        help='Ключ стрима stream')
     parser.add_argument('--bitrate', type=int, default=6000000,
                        help='Битрейт видео в bps (3500000=3.5Mbps для слабого 4G, 4500000=4.5Mbps для среднего 4G, 6000000=6Mbps для хорошего WiFi/4G)')
-    parser.add_argument('--skip-interval', type=int, default=8,
+    parser.add_argument('--skip-interval', type=int, default=15,
                        help='Анализировать каждый N-й кадр')
     parser.add_argument('--confidence', type=float, default=0.35,
                        help='Порог уверенности детекции')
