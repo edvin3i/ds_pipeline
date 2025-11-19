@@ -106,7 +106,14 @@ enum {
     PROP_GPU_ID,
     PROP_USE_EGL,
     PROP_PANORAMA_WIDTH,
-    PROP_PANORAMA_HEIGHT
+    PROP_PANORAMA_HEIGHT,
+    // Color correction properties (async)
+    PROP_ENABLE_COLOR_CORRECTION,
+    PROP_OVERLAP_SIZE,
+    PROP_ANALYZE_INTERVAL,
+    PROP_SMOOTHING_FACTOR,
+    PROP_SPATIAL_FALLOFF,
+    PROP_ENABLE_GAMMA
 };
 
 /* ============================================================================
@@ -1239,6 +1246,30 @@ static void gst_nvds_stitch_set_property(GObject *object, guint prop_id,
             stitch->kernel_config.output_height = stitch->output_height;
             stitch->kernel_config.warp_height = stitch->output_height;
             break;
+        case PROP_ENABLE_COLOR_CORRECTION:
+            stitch->enable_color_correction = g_value_get_boolean(value);
+            LOG_INFO(stitch, "Color correction %s", stitch->enable_color_correction ? "enabled" : "disabled");
+            break;
+        case PROP_OVERLAP_SIZE:
+            stitch->overlap_size = g_value_get_float(value);
+            LOG_INFO(stitch, "Overlap size set to %.1f degrees", stitch->overlap_size);
+            break;
+        case PROP_ANALYZE_INTERVAL:
+            stitch->color_update_interval = g_value_get_uint(value);
+            LOG_INFO(stitch, "Analyze interval set to %u frames", stitch->color_update_interval);
+            break;
+        case PROP_SMOOTHING_FACTOR:
+            stitch->color_smoothing_factor = g_value_get_float(value);
+            LOG_INFO(stitch, "Smoothing factor set to %.3f", stitch->color_smoothing_factor);
+            break;
+        case PROP_SPATIAL_FALLOFF:
+            stitch->spatial_falloff = g_value_get_float(value);
+            LOG_INFO(stitch, "Spatial falloff set to %.2f", stitch->spatial_falloff);
+            break;
+        case PROP_ENABLE_GAMMA:
+            stitch->enable_gamma = g_value_get_boolean(value);
+            LOG_INFO(stitch, "Gamma correction %s", stitch->enable_gamma ? "enabled" : "disabled");
+            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
@@ -1268,6 +1299,24 @@ static void gst_nvds_stitch_get_property(GObject *object, guint prop_id,
             break;
         case PROP_PANORAMA_HEIGHT:
             g_value_set_uint(value, stitch->output_height);
+            break;
+        case PROP_ENABLE_COLOR_CORRECTION:
+            g_value_set_boolean(value, stitch->enable_color_correction);
+            break;
+        case PROP_OVERLAP_SIZE:
+            g_value_set_float(value, stitch->overlap_size);
+            break;
+        case PROP_ANALYZE_INTERVAL:
+            g_value_set_uint(value, stitch->color_update_interval);
+            break;
+        case PROP_SMOOTHING_FACTOR:
+            g_value_set_float(value, stitch->color_smoothing_factor);
+            break;
+        case PROP_SPATIAL_FALLOFF:
+            g_value_set_float(value, stitch->spatial_falloff);
+            break;
+        case PROP_ENABLE_GAMMA:
+            g_value_set_boolean(value, stitch->enable_gamma);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -1342,6 +1391,41 @@ static void gst_nvds_stitch_class_init(GstNvdsStitchClass *klass)
                          "Output panorama height (REQUIRED!)", 0, 10000,
                          0,  // НЕТ дефолта - ОБЯЗАТЕЛЬНО передавать через properties!
                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    // Color correction properties (async, hardware-sync-aware)
+    g_object_class_install_property(gobject_class, PROP_ENABLE_COLOR_CORRECTION,
+        g_param_spec_boolean("enable-color-correction", "Enable Color Correction",
+                            "Enable asynchronous color correction in overlap region", TRUE,
+                            (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_OVERLAP_SIZE,
+        g_param_spec_float("overlap-size", "Overlap Size",
+                          "Overlap region size for color analysis (degrees)", 5.0f, 15.0f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_OVERLAP_SIZE,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_ANALYZE_INTERVAL,
+        g_param_spec_uint("analyze-interval", "Analyze Interval",
+                         "Color analysis interval in frames (0=disable)", 0, 120,
+                         NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ANALYZE_INTERVAL,
+                         (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_SMOOTHING_FACTOR,
+        g_param_spec_float("smoothing-factor", "Smoothing Factor",
+                          "Temporal smoothing for color transitions (0.05-0.5)", 0.05f, 0.5f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_SPATIAL_FALLOFF,
+        g_param_spec_float("spatial-falloff", "Spatial Falloff",
+                          "Vignetting compensation exponent (1.0-3.0)", 1.0f, 3.0f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_ENABLE_GAMMA,
+        g_param_spec_boolean("enable-gamma", "Enable Gamma Correction",
+                            "Enable gamma/brightness correction in addition to RGB gains", TRUE,
+                            (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
 
     gstbasetransform_class->submit_input_buffer = GST_DEBUG_FUNCPTR(gst_nvds_stitch_submit_input_buffer);
     gstbasetransform_class->generate_output = GST_DEBUG_FUNCPTR(gst_nvds_stitch_generate_output);
