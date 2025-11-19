@@ -269,8 +269,11 @@ class DisplayProbeHandler:
                     all_detections['ball'].append(ball_det)
 
                 # ===== PANORAMA MODE: Add camera trajectory box =====
-                # Draw a bounding box around the camera trajectory position
-                camera_point = self.history.camera_trajectory.get_point_for_timestamp(pts_sec, max_delta=0.12)
+                # Get camera trajectory point for this timestamp
+                # Camera trajectory is filled from interpolated ball history in analysis thread,
+                # so timestamps should match (use larger max_delta for safety)
+                camera_point = self.history.camera_trajectory.get_point_for_timestamp(pts_sec, max_delta=0.5)
+
                 if camera_point:
                     # Create a detection entry for camera trajectory visualization
                     # Size: small box (40x40 px) to mark the position
