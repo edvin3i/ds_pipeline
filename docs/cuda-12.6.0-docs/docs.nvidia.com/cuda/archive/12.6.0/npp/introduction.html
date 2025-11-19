@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is NPP ? — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="Data Types, Structs, Enums, and Constants" href="nppdefs.html">
+    <link rel="prev" title="NVIDIA 2D Image and Signal Processing Performance Primitives (NPP)" href="index.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="introduction.html#">What is NPP ?</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#introduction_lb_1Files">Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#introduction_lb_1header_files">Header Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#introduction_lb_1library_files">Library Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction_lb_1NPP">Library Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction_lb_1supported_hardware">Supported NVIDIA Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#general-conventions">General Conventions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#general_conventions_lb_1memory_management_lb">Memory Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#general_conventions_lb_1general_scratch_buffer">Scratch Buffer and Host Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general_conventions_lb_1npp_naming">Function Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general_conventions_lb_1integer_result_scaling">Integer Result Scaling</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_modes">Rounding Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_mode_parameter">Rounding Mode Parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1nppi_naming">Function Naming</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1passing_image_data">Image Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step">Line Step</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_parameter_names">Parameter Names for Image Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image">Passing Source-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_pointer">Source-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_batch_images_pointer">Source-Batch-Images Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer_array">Source-Planar-Image Pointer Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer">Source-Planar-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_line_step">Source-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step_array">Source-Planar-Image Line Step Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step">Source-Planar-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image">Passing Destination-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_pointer">Destination-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_batch_images_pointer">Destination-Batch-Images Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer_array">Destination-Planar-Image Pointer Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer">Destination-Planar-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_line_step">Destination-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_line_step">Destination-Planar-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image">Passing In-Place Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image_pointer">In-Place Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image_line_step">In-Place-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image">Passing Mask-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image_pointer">Mask-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image_line_step">Mask-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest_section">Passing Channel-of-Interest Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest_number">Channel_of_Interest Number</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_alignment">Image Data Alignment Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes">Image Data Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification">Region-Of-Interest (ROI)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes">ROI Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1masked_operation">Masked Operation</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest">Channel-of-Interest API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_source_pointer">Select-Channel Source-Image Pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_source_channel">Select-Channel Source-Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_destination_pointer">Select-Channel Destination-Image Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_sampling">Source-Image Sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1point_wise_operations">Point-Wise Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1neighborhood_operations">Neighborhood Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_size_parameter">Mask-Size Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1anchor_point_parameter">Anchor-Point Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1sampling_beyond_image_boundaries">Sampling Beyond Image Boundaries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1passing_signal_data">Signal Data</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_parameter_names">Parameter Names for Signal Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer">Source Signal Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer">Destination Signal Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1in_place_signal_pointer">In-Place Signal Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_alignment">Signal Data Alignment Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes">Signal Data Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification">Signal Length</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes">Length Related Error Codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>What is NPP ?</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="what-is-npp">
+<h1>What is NPP ?<a class="headerlink" href="introduction.html#what-is-npp" title="Permalink to this headline"></a>
+</h1>
+<p id="introduction_lb">NVIDIA NPP is a library of functions for performing CUDA accelerated 2D image and signal processing. </p>
+<p>The primary set of functionality in the library focuses on image processing and is widely applicable for developers in these areas. NPP will evolve over time to encompass more of the compute heavy tasks in a variety of problem domains. The NPP library is written to maximize flexibility, while maintaining high performance.</p>
+<p>NPP can be used in one of two ways: </p>
+<ul class="simple">
+<li><p>A stand-alone library for adding GPU acceleration to an application with minimal effort. Using this route allows developers to add GPU acceleration to their applications in a matter of hours.</p></li>
+<li><p>A cooperative library for interoperating with a developer’s GPU code efficiently.</p></li>
+</ul>
+
+<p>Either route allows developers to harness the massive compute resources of NVIDIA GPUs, while simultaneously reducing development times. After reading this Main Page it is recommended that you read the General API Conventions page below and either the Image-Processing Specific API Conventions page or Signal-Processing Specific API Conventions page depending on the kind of processing you expect to do. Finally, if you select the Modules tab at the top of this page you can find the kinds of functions available for the NPP operations that support your needs.</p>
+<p><a class="reference internal" href="introduction.html#introduction_lb"><span class="std std-ref">What is NPP?</span></a> <a class="reference internal" href="introduction.html#general_conventions_lb"><span class="std std-ref">general_conventions_lb</span></a> <a class="reference internal" href="introduction.html#nppi_conventions_lb"><span class="std std-ref">nppi_conventions_lb</span></a> <a class="reference internal" href="introduction.html#npps_conventions_lb"><span class="std std-ref">npps_conventions_lb</span></a></p>
+<section id="introduction_lb_1Files">
+<h2>Files<a class="headerlink" href="introduction.html#introduction_lb_1Files" title="Permalink to this headline"></a>
+</h2>
+<p id="introduction_lb_1files">NPP API is defined in the following files:</p>
+<section id="introduction_lb_1header_files">
+<h3>Header Files<a class="headerlink" href="introduction.html#introduction_lb_1header_files" title="Permalink to this headline"></a>
+</h3>
+<p id="introduction_lb_1header_files"></p>
+<ul class="simple">
+<li><p>npp.h</p></li>
+<li><p>nppdefs.h</p></li>
+<li><p>nppcore.h</p></li>
+<li><p>nppi.h</p></li>
+<li><p>npps.h</p></li>
+</ul>
+
+<p>All those header files are located in the following CUDA Toolkit’s directory: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/include/
+</pre></div>
+</div>
+
+</section>
+<section id="introduction_lb_1library_files">
+<h3>Library Files<a class="headerlink" href="introduction.html#introduction_lb_1library_files" title="Permalink to this headline"></a>
+</h3>
+<p id="introduction_lb_1library_files">NPP’s functionality is split up into 3 distinct library groups:</p>
+<ul class="simple">
+<li><p>A core library (NPPC) containing basic functionality from the npp.h header file as well as common functionality used by the other two libraries.</p></li>
+<li><p>The image processing library NPPI. Any functions from the nppi.h header file or the various header files named “nppi_xxx.h” are bundled into the NPPI library.</p></li>
+<li><p>The signal processing library NPPS. Any function from the npps.h header file or the various header files named “npps_xxx.h” are bundled into the NPPS library.</p></li>
+</ul>
+
+<p>On the Windows platform the NPP stub libraries are found in the CUDA Toolkit’s library directory: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppc.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppial.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppicc.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppidei.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppif.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppig.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppim.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppist.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppisu.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/nppitc.lib
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>/lib/npps.lib
+</pre></div>
+</div>
+
+<p>The matching DLLs are located in the CUDA Toolkit’s binary directory. Example </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>* /bin/nppial64_111_&lt;build_no&gt;.dll  // Dynamic image-processing library for 64-bit Windows.
+</pre></div>
+</div>
+
+<p>On Linux platforms the dynamic libraries are located in the lib directory and the names include major and minor version numbers along with build numbers </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>* /lib/libnppc.so.11.1.&lt;build_no&gt;   // NPP dynamic core library for Linux
+</pre></div>
+</div>
+
+</section>
+</section>
+<section id="introduction_lb_1NPP">
+<h2>Library Organization<a class="headerlink" href="introduction.html#introduction_lb_1NPP" title="Permalink to this headline"></a>
+</h2>
+<p id="introduction_lb_1npp">Note: The static NPP libraries depend on a common thread abstraction layer library called cuLIBOS (<code class="docutils literal notranslate"><span class="pre">libculibos.a</span></code>) that is now distributed as a part of the toolkit. Consequently, cuLIBOS must be provided to the linker when the static library is being linked against. To minimize library loading and CUDA runtime startup times it is recommended to use the static library(s) whenever possible. To improve loading and runtime performance when using dynamic libraries, NPP provides a full set of NPPI sub-libraries. 
+ Linking to only the sub-libraries that contain functions that your application uses can significantly improve load time and runtime startup performance. 
+ Some NPPI functions make calls to other NPPI and/or NPPS functions internally so you may need to link to a few extra libraries depending on what function calls your application makes. The NPPI sub-libraries are split into sections corresponding to the way that NPPI header files are split. This list of sub-libraries is as follows:</p>
+<ul class="simple">
+<li><p>NPPC, NPP core library which MUST be included when linking any application, functions are listed in nppCore.h,</p></li>
+<li><p>NPPIAL, arithmetic and logical operation functions in nppi_arithmetic_and_logical_operations.h,</p></li>
+<li><p>NPPICC, color conversion and sampling functions in nppi_color_conversion.h,</p></li>
+<li><p>NPPIDEI, data exchange and initialization functions in nppi_data_exchange_and_initialization.h,</p></li>
+<li><p>NPPIF, filtering and computer vision functions in nppi_filtering_functions.h,</p></li>
+<li><p>NPPIG, geometry transformation functions found in nppi_geometry_transforms.h,</p></li>
+<li><p>NPPIM, morphological operation functions found in nppi_morphological_operations.h,</p></li>
+<li><p>NPPIST, statistics and linear transform in nppi_statistics_functions.h and nppi_linear_transforms.h,</p></li>
+<li><p>NPPISU, memory support functions in nppi_support_functions.h,</p></li>
+<li><p>NPPITC, threshold and compare operation functions in nppi_threshold_and_compare_operations.h,</p></li>
+</ul>
+
+<p>For example, on Linux, to compile a small color conversion application <code class="docutils literal notranslate"><span class="pre">foo</span></code> using NPP against the dynamic library, the following command can be used: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nvcc foo.c  -lnppc -lnppicc -o foo
+</pre></div>
+</div>
+
+<p>Whereas to compile against the static NPP library, the following command has to be used: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nvcc foo.c  -lnppc_static -lnppicc_static -lculibos -o foo
+</pre></div>
+</div>
+
+<p>It is also possible to use the native host C++ compiler. Depending on the host operating system, some additional libraries like pthread or dl might be needed on the linking line. The following command on Linux is suggested: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>g++ foo.c  -lnppc_static -lnppicc_static -lculibos -lcudart_static -lpthread -ldl 
+-I &lt;cuda-toolkit-path&gt;/include -L &lt;cuda-toolkit-path&gt;/lib64 -o foo
+</pre></div>
+</div>
+
+<p>NPP is a stateless API, as of NPP 6.5 the ONLY state that NPP remembers between function calls is the current stream ID, i.e. the stream ID that was set in the most recent <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> call and a few bits of device specific information about that stream. 
+ The default stream ID is 0. If an application intends to use NPP with multiple streams then it is the responsibility of the application to use the fully stateless application managed stream context interface described below or call <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> whenever it wishes to change stream IDs. Any NPP function call which does not use an application managed stream context will use the stream set by the most recent call to <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> and <a class="reference internal" href="core_npp.html#group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"><span class="std std-ref">nppGetStream()</span></a> and other “nppGet” type function calls which do not contain an application managed stream context parameter will also always use that stream.</p>
+<p>All NPP functions should be thread safe.</p>
+<p>Note: In NPP 12.4 in order to support very large images NPP 12.4 and beyond has change the return value from GetBufferSize calls for statistics functions and a few others from int to size_t. Signal lengths have also changed from int to size_t. 
+ This should be the only change required for applications to be rebuilt using these versions of NPP.</p>
+<p>Note: NPP 12.1 is the last release of NPP which will support NPP API calls that do not contain NPP stream context parameters. Also NPP will soon release an API variant that provides collapsed combined parameter versions of many API calls. For example a call like nppiAdd_8u_C3R_Ctx(pSrc1, nSrc1Step, pSrc2, nSrc2Step, pDst, nDstStep, oSizeROI, nppStreamCtx) will become nppiAdd_Ctx(NPP_8U, NPP_CH_3, pSrc1, nSrc1Step, pSrc2, nSrcStep2, pDst, nDstStep, oSizeROI, nppStreamCtx). This makes adding support for new data types and number of channels simpler as well as significantly reducing redundant documentation.</p>
+<p>Note: New to NPP 11.6 are</p>
+<p></p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiContoursImageMarchingSquaresInterpolation_32f_C1R_Ctx
+</pre></div>
+</div>
+ <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiContoursImageMarchingSquaresInterpolation_64f_C1R_Ctx
+</pre></div>
+</div>
+
+<p>Note: New to NPP 10.1 is support for the fp16 (__half) data type in GPU architectures of Volta and beyond in some NPP image processing functions. NPP image functions that support pixels of __half data types have function names of type 16f and pointers to pixels of that data type need to be passed to NPP as NPP data type <a class="reference internal" href="nppdefs.html#structnpp16f"><span class="std std-ref">Npp16f</span></a>. Here is an example of how to pass image pointers of type __half to an NPP 16f function that should work on all compilers including Armv7.</p>
+<p></p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiAdd_16f_C3R(reinterpret_cast&lt;const Npp16f *&gt;((const void *)(pSrc1Data)), nSrc1Pitch,
+                reinterpret_cast&lt;const Npp16f *&gt;((const void *)(pSrc2Data)), nSrc2Pitch,
+                reinterpret_cast&lt;Npp16f *&gt;((void *)(pDstData)),  nDstPitch,
+                oDstROI);
+</pre></div>
+</div>
+
+<p><a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a> Application Managed Stream Context</p>
+<p>Note: Also new to NPP 10.1 is support for application managed stream contexts. Application managed stream contexts make NPP truely stateless internally allowing for rapid, no overhead, stream context switching. While it is recommended that all new NPP application code use application managed stream contexts, existing application code can continue to use <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> and <a class="reference internal" href="core_npp.html#group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"><span class="std std-ref">nppGetStream()</span></a> to manage stream contexts (also with no overhead now) but over time NPP will likely deprecate the older non-application managed stream context API. Both the new and old stream management techniques can be intermixed in applications but any NPP calls using the old API will use the stream set by the most recent call to <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> and <a class="reference internal" href="core_npp.html#group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"><span class="std std-ref">nppGetStream()</span></a> calls will also return that stream ID. All NPP function names ending in _Ctx expect application managed stream contexts to be passed as a parameter to that function. The new <a class="reference internal" href="nppdefs.html#structnppstreamcontext"><span class="std std-ref">NppStreamContext</span></a> application managed stream context structure is defined in nppdefs.h and should be initialized by the application to the Cuda device ID and values associated with a particular stream. Applications can use multiple fixed stream contexts or change the values in a particular stream context on the fly whenever a different stream is to be used.</p>
+<p>Note: NPP 10.2 and beyond contain an additional element in the <a class="reference internal" href="nppdefs.html#structnppstreamcontext"><span class="std std-ref">NppStreamContext</span></a> structure named nStreamFlags which MUST also be initialized by the application. Failure to do so could unnecessarily reduce NPP performance in some functions.</p>
+<p>Note: NPP does not support non blocking streams on Windows for devices working in WDDM mode.</p>
+<p>Note that some of the “GetBufferSize” style functions now have application managed stream contexts associated with them and should be used with the same stream context that the associated application managed stream context NPP function will use.</p>
+<p>Note that NPP does minimal checking of the parameters in an application managed stream context structure so it is up to the application to assure that they are correct and valid when passed to NPP functions.</p>
+<p>Note that NPP has deprecated the nppicom JPEG compression library as of NPP 11.0, use the NVJPEG library instead.</p>
+</section>
+<section id="introduction_lb_1supported_hardware">
+<h2>Supported NVIDIA Hardware<a class="headerlink" href="introduction.html#introduction_lb_1supported_hardware" title="Permalink to this headline"></a>
+</h2>
+<p id="introduction_lb_1supported_hardware">NPP runs on all CUDA capable NVIDIA hardware. For details please see <a class="reference external" href="http://www.nvidia.com/object/cuda_learn_products.html">http://www.nvidia.com/object/cuda_learn_products.html</a> </p>
+</section>
+</section>
+<section id="general-conventions">
+<h1>General Conventions<a class="headerlink" href="introduction.html#general-conventions" title="Permalink to this headline"></a>
+</h1>
+<section id="general_conventions_lb_1memory_management_lb">
+<span id="general_conventions_lb"></span><h2>Memory Management<a class="headerlink" href="introduction.html#general_conventions_lb_1memory_management_lb" title="Permalink to this headline"></a>
+</h2>
+<p id="general_conventions_lb_1memory_management_lb">The design of all the NPP functions follows the same guidelines as other NVIDIA CUDA libraries like cuFFT and cuBLAS. That is that all pointer arguments in those APIs are device pointers.</p>
+<p>This convention enables the individual developer to make smart choices about memory management that minimize the number of memory transfers. It also allows the user the maximum flexibility regarding which of the various memory transfer mechanisms offered by the CUDA runtime is used, e.g. synchronous or asynchronous memory transfers, zero-copy and pinned memory, etc.</p>
+<p>The most basic steps involved in using NPP for processing data is as follows:</p>
+<ol class="arabic simple">
+<li>
+<p>Transfer input data from the host to device using </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>cudaMemCpy(...)
+</pre></div>
+</div>
+</li>
+<li><p>Process data using one or several NPP functions or custom CUDA kernels</p></li>
+<li>
+<p>Transfer the result data from the device to the host using </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>cudaMemCpy(...)
+</pre></div>
+</div>
+</li>
+</ol>
+
+<section id="general_conventions_lb_1general_scratch_buffer">
+<h3>Scratch Buffer and Host Pointer<a class="headerlink" href="introduction.html#general_conventions_lb_1general_scratch_buffer" title="Permalink to this headline"></a>
+</h3>
+<p id="general_conventions_lb_1general_scratch_buffer">Some primitives of NPP require additional device memory buffers (scratch buffers) for calculations, e.g. signal and image reductions (Sum, Max, Min, MinMax, etc.). In order to give the NPP user maximum control regarding memory allocations and performance, it is the user’s responsibility to allocate and delete those temporary buffers. For one this has the benefit that the library will not allocate memory unbeknownst to the user. It also allows developers who invoke the same primitive repeatedly to allocate the scratch only once, improving performance and potential device-memory fragmentation.</p>
+<p>Scratch-buffer memory is unstructured and may be passed to the primitive in uninitialized form. This allows for reuse of the same scratch buffers with any primitive require scratch memory, as long as it is sufficiently sized.</p>
+<p>The minimum scratch-buffer size for a given primitive (e.g. <a class="reference internal" href="signal_statistical_functions.html#group__signal__sum_1ga9f369d0a17303ffb66b8903342b79a68"><span class="std std-ref">nppsSum_32f()</span></a>) can be obtained by a companion function (e.g. <a class="reference internal" href="signal_statistical_functions.html#group__signal__sum_1ga7b13fe2468feec5a03f5b7d50a6fef43"><span class="std std-ref">nppsSumGetBufferSize_32f()</span></a>). The buffer size is returned via a host pointer as allocation of the scratch-buffer is performed via CUDA runtime host code.</p>
+<p>An example to invoke signal sum primitive and allocate and free the necessary scratch memory: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>// pSrc, pSum, pDeviceBuffer are all device pointers. 
+Npp32f * pSrc; 
+Npp32f * pSum; 
+Npp8u * pDeviceBuffer;
+int nLength = 1024;
+
+// Allocate the device memroy.
+cudaMalloc((void **)(&amp;pSrc), sizeof(Npp32f) * nLength);
+nppsSet_32f(1.0f, pSrc, nLength);  
+cudaMalloc((void **)(&amp;pSum), sizeof(Npp32f) * 1);
+
+// Compute the appropriate size of the scratch-memory buffer 
+int nBufferSize;
+nppsSumGetBufferSize_32f(nLength, &amp;nBufferSize);
+// Allocate the scratch buffer 
+cudaMalloc((void **)(&amp;pDeviceBuffer), nBufferSize);
+
+// Call the primitive with the scratch buffer
+nppsSum_32f(pSrc, nLength, pSum, pDeviceBuffer);
+Npp32f nSumHost;
+cudaMemcpy(&amp;nSumHost, pSum, sizeof(Npp32f) * 1, cudaMemcpyDeviceToHost);
+printf("sum = %f\n", nSumHost); // nSumHost = 1024.0f;
+
+// Free the device memory
+cudaFree(pSrc);
+cudaFree(pDeviceBuffer);
+cudaFree(pSum);
+</pre></div>
+</div>
+
+</section>
+</section>
+<section id="general_conventions_lb_1npp_naming">
+<h2>Function Naming<a class="headerlink" href="introduction.html#general_conventions_lb_1npp_naming" title="Permalink to this headline"></a>
+</h2>
+<p id="general_conventions_lb_1npp_naming">Since NPP is a C API and therefore does not allow for function overloading for different data-types the NPP naming convention addresses the need to differentiate between different flavors of the same algorithm or primitive function but for various data types. This disambiguation of different flavors of a primitive is done via a suffix containing data type and other disambiguating information.</p>
+<p>In addition to the flavor suffix, all NPP functions are prefixed with by the letters “npp”. Primitives belonging to NPP’s image-processing module add the letter “i” to the npp prefix, i.e. are prefixed by “nppi”. Similarly signal-processing primitives are prefixed with “npps”.</p>
+<p>The general naming scheme is:</p>
+<p></p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>npp&lt;module info&gt;&lt;PrimitiveName&gt;_&lt;data-type info&gt;[_&lt;additional flavor info&gt;](&lt;parameter list&gt;)
+</pre></div>
+</div>
+
+<p>The data-type information uses the same names as the Basic NPP Data Types. For example the data-type information “8u” would imply that the primitive operates on <a class="reference internal" href="nppdefs.html#group__npp__basic__types_1ga29b502b6816fc0066fd59538483a5b62"><span class="std std-ref">Npp8u</span></a> data.</p>
+<p>If a primitive consumes different type data from what it produces, both types will be listed in the order of consumed to produced data type.</p>
+<p>Details about the “additional flavor information” is provided for each of the NPP modules, since each problem domain uses different flavor information suffixes.</p>
+</section>
+<section id="general_conventions_lb_1integer_result_scaling">
+<h2>Integer Result Scaling<a class="headerlink" href="introduction.html#general_conventions_lb_1integer_result_scaling" title="Permalink to this headline"></a>
+</h2>
+<p id="general_conventions_lb_1integer_result_scaling">NPP signal processing and imaging primitives often operate on integer data. This integer data is usually a fixed point fractional representation of some physical magnitue (e.g. luminance). Because of this fixed-point nature of the representation many numerical operations (e.g. addition or multiplication) tend to produce results exceeding the original fixed-point range if treated as regular integers.</p>
+<p>In cases where the results exceed the original range, these functions clamp the result values back to the valid range. E.g. the maximum positive value for a 16-bit unsigned integer is 32767. A multiplication operation of 4 * 10000 = 40000 would exceed this range. The result would be clamped to be 32767.</p>
+<p>To avoid the level of lost information due to clamping most integer primitives allow for result scaling. Primitives with result scaling have the “Sfs” suffix in their name and provide a parameter “nScaleFactor” that controls the amount of scaling. Before the results of an operation are clamped to the valid output-data range by multiplying them with <span class="math notranslate nohighlight">\(2^{\mbox{-nScaleFactor}}\)</span>.</p>
+<p>Example: The primitive <a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__square_1ga8d463f3f704e119256418551f4b71e9a"><span class="std std-ref">nppsSqr_8u_Sfs()</span></a> computes the square of 8-bit unsigned sample values in a signal (1D array of values). The maximum value of a 8-bit value is 255. The square of <span class="math notranslate nohighlight">\(255^2 = 65025\)</span> which would be clamped to 255 if no result scaling is performed. In order to map the maximum value of 255 to 255 in the result, one would specify an integer result scaling factor of 8, i.e. multiply each result with <span class="math notranslate nohighlight">\(2^{-8} = \frac{1}{2^8} = \frac{1}{256}\)</span>. The final result for a signal value of 255 being squared and scaled would be: </p>
+<div class="math notranslate nohighlight">
+\[255^2\cdot 2^{-8} = 254.00390625\]</div>
+ which would be rounded to a final result of 254.
+<p>A medium gray value of 128 would result in </p>
+<div class="math notranslate nohighlight">
+\[128^2 * 2^{-8} = 64\]</div>
+
+</section>
+<section id="general_conventions_lb_1rounding_modes">
+<h2>Rounding Modes<a class="headerlink" href="introduction.html#general_conventions_lb_1rounding_modes" title="Permalink to this headline"></a>
+</h2>
+<p id="general_conventions_lb_1rounding_modes">Many NPP functions require converting floating-point values to integers. The <a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_modes"><span class="std std-ref">Rounding Modes</span></a> enum lists NPP’s supported rounding modes. Not all primitives in NPP that perform rounding as part of their functionality allow the user to specify the round-mode used. Instead they use NPP’s default rounding mode, which is NPP_RND_FINANCIAL.</p>
+<section id="general_conventions_lb_1rounding_mode_parameter">
+<h3>Rounding Mode Parameter<a class="headerlink" href="introduction.html#general_conventions_lb_1rounding_mode_parameter" title="Permalink to this headline"></a>
+</h3>
+<p id="general_conventions_lb_1rounding_mode_parameter">A subset of NPP functions performing rounding as part of their functionality do allow the user to specify which rounding mode is used through a parameter of the <a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_modes"><span class="std std-ref">Rounding Modes</span></a> type. </p>
+</section>
+</section>
+</section>
+<section id="image-processing-conventions">
+<h1>Image Processing Conventions<a class="headerlink" href="introduction.html#image-processing-conventions" title="Permalink to this headline"></a>
+</h1>
+<section id="nppi_conventions_lb_1nppi_naming">
+<span id="nppi_conventions_lb"></span><h2>Function Naming<a class="headerlink" href="introduction.html#nppi_conventions_lb_1nppi_naming" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1nppi_naming">Image processing related functions use a number of suffixes to indicate various different flavors of a primitive beyond just different data types. The flavor suffix uses the following abbreviations:</p>
+<ul class="simple">
+<li><p>”A” if the image is a 4 channel image this indicates the result alpha channel is not affected by the primitive.</p></li>
+<li><p>”Cn” the image consists of n channel packed pixels, where n can be 1, 2, 3 or 4.</p></li>
+<li><p>”Pn” the image consists of n separate image planes, where n can be 1, 2, 3 or 4.</p></li>
+<li><p>”C” (following the channel information) indicates that the primitive only operates on one of the color channels, the “channel-of-interest”. All other output channels are not affected by the primitive.</p></li>
+<li><p>”I” indicates that the primitive works “in-place”. In this case the image-data pointer is usually named <code class="docutils literal notranslate"><span class="pre">pSrcDst</span></code> to indicate that the image data serves as source and destination at the same time.</p></li>
+<li><p>”M” indicates “masked operation”. These types of primitives have an additional “mask image” as as input. Each pixel in the destination image corresponds to a pixel in the mask image. Only pixels with a corresponding non-zero mask pixel are being processed.</p></li>
+<li><p>”R” indicates the primitive operates only on a rectangular region_of_interest or “ROI”. All ROI primitives take an additional input parameter of type <a class="reference internal" href="nppdefs.html#structnppisize"><span class="std std-ref">NppiSize</span></a>, which specifies the width and height of the rectangular region that the primitive should process. For details on how primitives operate on ROIs see: :ref: ‘roi_specification’.</p></li>
+<li><p>”Sfs” indicates the result values are processed by fixed scaling and saturation before they’re written out.</p></li>
+</ul>
+
+The suffixes above always appear in alphabetical order. E.g. a 4 channel primitive not affecting the alpha channel with masked operation, in place and with scaling/saturation and ROI would have the postfix: “AC4IMRSfs”.
+</section>
+<section id="nppi_conventions_lb_1passing_image_data">
+<h2>Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1passing_image_data" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1passing_image_data">Image data is passed to and from NPPI primitives via a pair of parameters:</p>
+<ol class="arabic simple">
+<li><p>A pointer to the image’s underlying data type.</p></li>
+<li><p>A line step in bytes (also sometimes called line stride).</p></li>
+</ol>
+
+The general idea behind this fairly low-level way of passing image data is ease-of-adoption into existing software projects:<ul class="simple">
+<li><p>Passing a raw pointer to the underlying pixel data type, rather than structured (by color) channel pixel data allows usage of the function in a wide variety of situations avoiding risky type cast or expensive image data copies.</p></li>
+<li><p>Passing the data pointer and line step individually rather than a higher-level image struct again allows for easy adoption by not requiring a specific image representation and thus avoiding awkward packing and unpacking of image data from the host application to an NPP specific image representation.</p></li>
+</ul>
+
+<section id="nppi_conventions_lb_1line_step">
+<h3>Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1line_step" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1line_step">The line step (also called “line stride” or “row step”) allows lines of oddly sized images to start on well-aligned addresses by adding a number of unused bytes at the ends of the lines. This type of line padding has been common practice in digital image processing for a long time and is not particular to GPU image processing.</p>
+<p>The line step is the number of bytes in a line <strong>including the padding.</strong> An other way to interpret this number is to say that it is the number of bytes between the first pixels of successive rows in the image, or generally the number of bytes between two neighboring pixels in any column of pixels.</p>
+<p>The general reason for the existence of the line step it is that uniformly aligned rows of pixel enable optimizations of memory-access patterns.</p>
+<p>Even though all functions in NPP will work with arbitrarily aligned images, best performance can only be achieved with well aligned image data. Any image data allocated with the NPP image allocators or the 2D memory allocators in the CUDA runtime, is well aligned.</p>
+<p>Particularly on older CUDA capable GPUs it is likely that the performance decrease for misaligned data is substantial (orders of magnitude).</p>
+<p>All image data passed to NPPI primitives requires a line step to be provided. It is important to keep in mind that this line step is always specified in terms of bytes, not pixels.</p>
+</section>
+<section id="nppi_conventions_lb_1image_data_parameter_names">
+<h3>Parameter Names for Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1image_data_parameter_names" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1image_data_parameter_names">There are three general cases of image-data passing throughout NPP detailed in the following sections.</p>
+<section id="nppi_conventions_lb_1source_image">
+<h4>Passing Source-Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_image" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_image">Those are images consumed by the algorithm.</p>
+</section>
+<section id="nppi_conventions_lb_1source_image_pointer">
+<h4>Source-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_image_pointer">The source image data is generally passed via a pointer named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc 
+</pre></div>
+</div>
+ The source image pointer is generally defined constant, enforcing that the primitive does not change any image data pointed to by that pointer. E.g. <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiPrimitive_32s_C1R(const Npp32s * pSrc, ...) 
+</pre></div>
+</div>
+ In case the primitive consumes multiple images as inputs the source pointers are numbered like this: <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc1, pScr2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1source_batch_images_pointer">
+<h4>Source-Batch-Images Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_batch_images_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_batch_images_pointer">The batch of source images data is generally passed via a pointer of <a class="reference internal" href="nppdefs.html#structnppiimagedescriptor"><span class="std std-ref">NppiImageDescriptor</span></a> type named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrcBatchList 
+</pre></div>
+</div>
+ The source batch pointer is generally defined constant, enforcing that the primitive does not change any source data pointed to by that pointer. E.g. <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiYUVToRGBBatch_8u_C3R(NppiSize oSizeROI, const NppiImageDescriptor* pSrcBatchList, ...) 
+</pre></div>
+</div>
+ All primitives processing batch data require providing the size of the batch in a separate parameter.
+</section>
+<section id="nppi_conventions_lb_1source_planar_image_pointer_array">
+<h4>Source-Planar-Image Pointer Array<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer_array" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_planar_image_pointer_array">The planar source image data is generally passed via an array of pointers named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc[] 
+</pre></div>
+</div>
+ The planar source image pointer array is generally defined a constant array of constant pointers, enforcing that the primitive does not change any image data pointed to by those pointers. E.g. <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiPrimitive_8u_P3R(const Npp8u * const pSrc[3], ...) 
+</pre></div>
+</div>
+ Each pointer in the array points to a different image plane.
+</section>
+<section id="nppi_conventions_lb_1source_planar_image_pointer">
+<h4>Source-Planar-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_planar_image_pointer">The multiple plane source image data is passed via a set of pointers named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc1, pSrc2, ... 
+</pre></div>
+</div>
+ The planar source image pointer is generally defined as one of a set of constant pointers with each pointer pointing to a different input image plane.
+</section>
+<section id="nppi_conventions_lb_1source_image_line_step">
+<h4>Source-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_image_line_step">The source image line step is the number of bytes between successive rows in the image. The source image line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nSrcStep 
+</pre></div>
+</div>
+ or in the case of multiple source images <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nSrcStep1, nSrcStep2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1source_planar_image_line_step_array">
+<h4>Source-Planar-Image Line Step Array<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step_array" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_planar_image_line_step_array">The source planar image line step array is an array where each element of the array contains the number of bytes between successive rows for a particular plane in the input image. The source planar image line step array parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>rSrcStep[] 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1source_planar_image_line_step">
+<h4>Source-Planar-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1source_planar_image_line_step">The source planar image line step is the number of bytes between successive rows in a particular plane of the multiplane input image. The source planar image line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nSrcStep1, nSrcStep2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1destination_image">
+<h4>Passing Destination-Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_image" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_image">Those are images produced by the algorithm.</p>
+</section>
+<section id="nppi_conventions_lb_1destination_image_pointer">
+<h4>Destination-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_image_pointer">The destination image data is generally passed via a pointer named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst 
+</pre></div>
+</div>
+ In case the primitive generates multiple images as outputs the destination pointers are numbered like this: <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst1, pDst2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1destination_batch_images_pointer">
+<h4>Destination-Batch-Images Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_batch_images_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_batch_images_pointer">The batch of destination images data is generally passed via a pointer of <a class="reference internal" href="nppdefs.html#structnppiimagedescriptor"><span class="std std-ref">NppiImageDescriptor</span></a> type named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDstBatchList 
+</pre></div>
+</div>
+ All primitives processing batch data require providing the size of the batch in a separate parameter.
+</section>
+<section id="nppi_conventions_lb_1destination_planar_image_pointer_array">
+<h4>Destination-Planar-Image Pointer Array<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer_array" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_planar_image_pointer_array">The planar destination image data pointers are generally passed via an array of pointers named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst[] 
+</pre></div>
+</div>
+ Each pointer in the array points to a different image plane.
+</section>
+<section id="nppi_conventions_lb_1destination_planar_image_pointer">
+<h4>Destination-Planar-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_planar_image_pointer">The destination planar image data is generally passed via a pointer to each plane of a multiplane output image named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst1, pDst2, ...  
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1destination_image_line_step">
+<h4>Destination-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_image_line_step">The destination image line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nDstStep 
+</pre></div>
+</div>
+ or in the case of multiple destination images <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nDstStep1, nDstStep2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1destination_planar_image_line_step">
+<h4>Destination-Planar-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1destination_planar_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1destination_planar_image_line_step">The destination planar image line step is the number of bytes between successive rows for a particular plane in a multiplane output image. The destination planar image line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nDstStep1, nDstStep2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1in_place_image">
+<h4>Passing In-Place Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1in_place_image" title="Permalink to this headline"></a>
+</h4>
+</section>
+<section id="nppi_conventions_lb_1in_place_image_pointer">
+<span id="nppi_conventions_lb_1in_place_image"></span><h4>In-Place Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1in_place_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1in_place_image_pointer">In the case of in-place processing, source and destination are served by the same pointer and thus pointers to in-place image data are called: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrcDst 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1in_place_image_line_step">
+<h4>In-Place-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1in_place_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1in_place_image_line_step">The in-place line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nSrcDstStep 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1mask_image">
+<h4>Passing Mask-Image Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1mask_image" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1mask_image">Some image processing primitives have variants supporting masked_operation.</p>
+</section>
+<section id="nppi_conventions_lb_1mask_image_pointer">
+<h4>Mask-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1mask_image_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1mask_image_pointer">The mask-image data is generally passed via a pointer named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pMask 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1mask_image_line_step">
+<h4>Mask-Image Line Step<a class="headerlink" href="introduction.html#nppi_conventions_lb_1mask_image_line_step" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1mask_image_line_step">The mask-image line step parameter is </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nMaskStep 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1channel_of_interest_section">
+<h4>Passing Channel-of-Interest Data<a class="headerlink" href="introduction.html#nppi_conventions_lb_1channel_of_interest_section" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1channel_of_interest_section">Some image processing primitives support channel_of_interest.</p>
+</section>
+<section id="nppi_conventions_lb_1channel_of_interest_number">
+<h4>Channel_of_Interest Number<a class="headerlink" href="introduction.html#nppi_conventions_lb_1channel_of_interest_number" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1channel_of_interest_number">The channel-of-interest data is generally an integer (either 1, 2, or 3): </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nCOI 
+</pre></div>
+</div>
+
+</section>
+</section>
+<section id="nppi_conventions_lb_1image_data_alignment">
+<h3>Image Data Alignment Requirements<a class="headerlink" href="introduction.html#nppi_conventions_lb_1image_data_alignment" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1image_data_alignment">NPP requires pixel data to adhere to certain alignment constraints.</p>
+<p>For 2 and 4 channel images the following alignment requirement holds: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>data_pointer % (\#channels * sizeof(channel type)) == 0
+</pre></div>
+</div>
+ E.g. a 4 channel image with underlying type <a class="reference internal" href="nppdefs.html#group__npp__basic__types_1ga29b502b6816fc0066fd59538483a5b62"><span class="std std-ref">Npp8u</span></a> (8-bit unsigned) would require all pixels to fall on addresses that are multiples of 4 (4 channels * 1 byte size).
+<p>As a logical consequence of all pixels being aligned to their natural size the image line steps of 2 and 4 channel images also need to be multiples of the pixel size.</p>
+<p>For 1 and 3 channel images only require that pixel pointers are aligned to the underlying data type, i.e. <code class="docutils literal notranslate"><span class="pre">pData</span> <span class="pre">%</span> <span class="pre">sizof(data</span> <span class="pre">type)</span> <span class="pre">==</span> <span class="pre">0</span></code>. And consequentially line steps are also held to this requirement.</p>
+</section>
+<section id="nppi_conventions_lb_1image_data_error_codes">
+<h3>Image Data Related Error Codes<a class="headerlink" href="introduction.html#nppi_conventions_lb_1image_data_error_codes" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1image_data_error_codes">All NPPI primitives operating on image data validate the image-data pointer for proper alignment and test that the point is not null. They also validate the line stride for proper alignment and guard against the step being less or equal to 0. Failed validation results in one of the following error codes being returned and the primitive not being executed: NPP_STEP_ERROR is returned if the data step is 0 or negative. NPP_NOT_EVEN_STEP_ERROR is returned if the line step is not a multiple of the pixel size for 2 and 4 channel images. NPP_NULL_POINTER_ERROR is returned if the image-data pointer is 0 (NULL). NPP_ALIGNMENT_ERROR if the image-data pointer address is not a multiple of the pixel size for 2 and 4 channel images.</p>
+</section>
+</section>
+<section id="nppi_conventions_lb_1roi_specification">
+<h2>Region-Of-Interest (ROI)<a class="headerlink" href="introduction.html#nppi_conventions_lb_1roi_specification" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1roi_specification">In practice processing a rectangular sub-region of an image is often more common than processing complete images. The vast majority of NPP’s image-processing primitives allow for processing of such sub regions also referred to as regions-of-interest or ROIs.</p>
+<p>All primitives supporting ROI processing are marked by a “R” in their name suffix. In most cases the ROI is passed as a single <a class="reference internal" href="nppdefs.html#structnppisize"><span class="std std-ref">NppiSize</span></a> struct, which provides the width and height of the ROI. This raises the question how the primitive knows where in the image this rectangle of (width, height) is located. The “start pixel” of the ROI is implicitly given by the image-data pointer. I.e. instead of explicitly passing a pixel coordinate for the upper-left corner (lowest memory address), the user simply offsets the image-data pointers to point to the first pixel of the ROI.</p>
+<p>In practice this means that for an image (<code class="docutils literal notranslate"><span class="pre">pSrc</span></code>, <code class="docutils literal notranslate"><span class="pre">nSrcStep</span></code>) and the start-pixel of the ROI being at location (x, y), one would pass</p>
+<p></p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrcOffset = pSrc + y * nSrcStep + x * PixelSize; 
+</pre></div>
+</div>
+
+<p>as the image-data source to the primitive. <code class="docutils literal notranslate"><span class="pre">PixelSize</span></code> is typically computed as</p>
+<p></p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>PixelSize = NumberOfColorChannels * sizeof(PixelDataType). 
+</pre></div>
+</div>
+
+<p>E.g. for a pimitive like <a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__set_1ga217e8dacb892f5f24ab1789a0fdae0b2"><span class="std std-ref">nppiSet_16s_C4R()</span></a> we would have</p>
+<ul class="simple">
+<li><p>NumberOfColorChannels == 4;</p></li>
+<li><p>sizeof(Npp16s) == 2;</p></li>
+<li><p>and thus PixelSize = 4 * 2 = 8;</p></li>
+</ul>
+
+<section id="nppi_conventions_lb_1roi_error_codes">
+<h3>ROI Related Error Codes<a class="headerlink" href="introduction.html#nppi_conventions_lb_1roi_error_codes" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1roi_error_codes">All NPPI primitives operating on ROIs of image data validate the ROI size and image’s step size. Failed validation results in one of the following error codes being returned and the primitive not being executed: NPP_SIZE_ERROR is returned if either the ROI width or ROI height are negative. NPP_STEP_ERROR is returned if the ROI width exceeds the image’s line step. In mathematical terms <code class="docutils literal notranslate"><span class="pre">(widthROI</span> <span class="pre">*</span> <span class="pre">PixelSize)</span> <span class="pre">&gt;</span> <span class="pre">nLinStep</span></code> indicates an error.</p>
+</section>
+</section>
+<section id="nppi_conventions_lb_1masked_operation">
+<h2>Masked Operation<a class="headerlink" href="introduction.html#nppi_conventions_lb_1masked_operation" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1masked_operation">Some primitive support masked operation. An “M” in the suffix of those variants indicates masked operation. Primitives supporting masked operation consume an additional input image provided via a mask_image_pointer and mask_image_line_step. The mask image is interpreted by these primitives as a boolean image. The values of type Npp8u are interpreted as boolean values where a values of 0 indicates false, any non-zero values true.</p>
+<p>Unless otherwise indicated the operation is only performed on pixels where its spatially corresponding mask pixel is true (non-zero). E.g. a masked copy operation would only copy those pixels in the ROI that have corresponding non-zero mask pixels.</p>
+</section>
+<section id="nppi_conventions_lb_1channel_of_interest">
+<h2>Channel-of-Interest API<a class="headerlink" href="introduction.html#nppi_conventions_lb_1channel_of_interest" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1channel_of_interest">Some primitives allow restricting operations to a single channel of interest within a multi-channel image. These primitives are suffixed with the letter “C” (after the channel information, e.g. <a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__channel__copy_1ga01990d24931f7822929a3f582cf08fcf"><span class="std std-ref">nppiCopy_8u_C3CR()</span></a>). The channel-of-interest is generally selected by offsetting the image-data pointer to point directly to the channel- of-interest rather than the base of the first pixel in the ROI. Some primitives also explicitly specify the selected channel number and pass it via an integer, e.g. <a class="reference internal" href="image_statistics_functions.html#group__image__mean__stddev_1ga00d110048082bd3315093a20ea04fd0d"><span class="std std-ref">nppiMean_StdDev_8u_C3CR()</span></a>.</p>
+<section id="nppi_conventions_lb_1select_source_pointer">
+<h3>Select-Channel Source-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1select_source_pointer" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1select_source_pointer">This is a pointer to the channel-of-interest within the first pixel of the source image. E.g. if <code class="docutils literal notranslate"><span class="pre">pSrc</span></code> is the pointer to the first pixel inside the ROI of a three channel image. Using the appropriate select-channel copy primitive one could copy the second channel of this source image into the first channel of a destination image given by <code class="docutils literal notranslate"><span class="pre">pDst</span></code> by offsetting the pointer by one: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiCopy_8u_C3CR(pSrc + 1, nSrcStep, pDst, nDstStep, oSizeROI); 
+</pre></div>
+</div>
+
+</section>
+<section id="nppi_conventions_lb_1select_source_channel">
+<h3>Select-Channel Source-Image<a class="headerlink" href="introduction.html#nppi_conventions_lb_1select_source_channel" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1select_source_channel">Some primitives allow the user to select the channel-of-interest by specifying the channel number (<code class="docutils literal notranslate"><span class="pre">nCOI</span></code>). This approach is typically used in the image statistical functions. For example, </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiMean_StdDev_8u_C3CR(pSrc, nSrcStep, oSizeROI, nCOI, pDeviceBuffer, pMean, pStdDev ); 
+</pre></div>
+</div>
+
+<p>The channel-of-interest number can be either 1, 2, or 3. </p>
+</section>
+<section id="nppi_conventions_lb_1select_destination_pointer">
+<h3>Select-Channel Destination-Image Pointer<a class="headerlink" href="introduction.html#nppi_conventions_lb_1select_destination_pointer" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1select_destination_pointer">This is a pointer to the channel-of-interest within the first pixel of the destination image. E.g. if <code class="docutils literal notranslate"><span class="pre">pDst</span></code> is the pointer to the first pixel inside the ROI of a three channel image. Using the appropriate select-channel copy primitive one could copy data into the second channel of this destination image from the first channel of a source image given by <code class="docutils literal notranslate"><span class="pre">pSrc</span></code> by offsetting the destination pointer by one: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppiCopy_8u_C3CR(pSrc, nSrcStep, pDst + 1, nDstStep, oSizeROI); 
+</pre></div>
+</div>
+
+</section>
+</section>
+<section id="nppi_conventions_lb_1source_image_sampling">
+<h2>Source-Image Sampling<a class="headerlink" href="introduction.html#nppi_conventions_lb_1source_image_sampling" title="Permalink to this headline"></a>
+</h2>
+<p id="nppi_conventions_lb_1source_image_sampling">A large number of NPP image-processing functions consume at least one source image and produce an output image (e.g. <a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addc_1gaa9d2480694acd95de34b77153014a9b5"><span class="std std-ref">nppiAddC_8u_C1RSfs()</span></a> or <a class="reference internal" href="image_filtering_functions.html#group__image__filter__box_1ga862d35eb4a41a230cae4f4c58564f160"><span class="std std-ref">nppiFilterBox_8u_C1R()</span></a>). All NPP functions falling into this category also operate on ROIs (see :ref: _roi_specification) which for these functions should be considered to describe the destination ROI. In other words the ROI describes a rectangular region in the destination image and all pixels inside of this region are being written by the function in question.</p>
+<p>In order to use such functions successfully it is important to understand how the user defined destination ROI affects which pixels in the input image(s) are being read by the algorithms. To simplify the discussion of ROI propagation (i.e. given a destination ROI, what are the ROIs in in the source(s)), it makes sense to distinguish two major cases:</p>
+<ol class="arabic simple">
+<li><p>Point-Wise Operations: These are primitives like <a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addc_1gaa9d2480694acd95de34b77153014a9b5"><span class="std std-ref">nppiAddC_8u_C1RSfs()</span></a>. Each output pixel requires exactly one input pixel to be read.</p></li>
+<li><p>Neighborhood Operations: These are primitives like <a class="reference internal" href="image_filtering_functions.html#group__image__filter__box_1ga862d35eb4a41a230cae4f4c58564f160"><span class="std std-ref">nppiFilterBox_8u_C1R()</span></a>, which require a group of pixels from the source image(s) to be read in order to produce a single output.</p></li>
+</ol>
+
+<section id="nppi_conventions_lb_1point_wise_operations">
+<h3>Point-Wise Operations<a class="headerlink" href="introduction.html#nppi_conventions_lb_1point_wise_operations" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1point_wise_operations">As mentioned above, point-wise operations consume a single pixel from the input image (or a single pixel from each input image, if the operation in question has more than one input image) in order to produce a single output pixel.</p>
+</section>
+<section id="nppi_conventions_lb_1neighborhood_operations">
+<h3>Neighborhood Operations<a class="headerlink" href="introduction.html#nppi_conventions_lb_1neighborhood_operations" title="Permalink to this headline"></a>
+</h3>
+<p id="nppi_conventions_lb_1neighborhood_operations">In the case of neighborhood operations a number of input pixels (a “neighborhood” of pixels) is read in the input image (or images) in order to compute a single output pixel. All of the functions for image_filtering_functions and image_morphological_operations are neighborhood operations.</p>
+<p>Most of these functions have parameters that affect the size and relative location of the neighborhood: a mask-size structure and an achor-point structure. Both parameters are described in more detail in the next subsections.</p>
+<section id="nppi_conventions_lb_1mask_size_parameter">
+<h4>Mask-Size Parameter<a class="headerlink" href="introduction.html#nppi_conventions_lb_1mask_size_parameter" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1mask_size_parameter">Many NPP neighborhood operations allow the user to specify the size of the neighborhood via a parameter usually named <code class="docutils literal notranslate"><span class="pre">oMaskSize</span></code> of type <a class="reference internal" href="nppdefs.html#structnppisize"><span class="std std-ref">NppiSize</span></a>. In those cases the neighborhood of pixels read from the source(s) is exactly the size of the mask. Assuming the mask is anchored at location (0, 0) (see anchor_point_parameter below) and has a size of (w, h), i.e. </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>assert(oMaskSize.w == w);
+assert(oMaskSize.h == h);
+assert(oAnchor.x == 0);
+assert(oAnchor.y == 0);
+</pre></div>
+</div>
+
+<p>a neighborhood operation would read the following source pixels in order to compute destination pixel <span class="math notranslate nohighlight">\( D_{i,j} \)</span>:  </p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{lllll}
+     S_{i,j}      &amp; S_{i,j+1}      &amp; \ldots &amp; S_{i,j+w-1} \\
+     S_{i+1,j}    &amp; S_{i+1,j+1}    &amp; \ldots &amp; S_{i+1, j+w-1} \\
+     \vdots       &amp; \vdots         &amp; \ddots &amp; \vdots \\
+     S_{i+h-1, j} &amp; S_{i+h-1, j+1} &amp; \ldots &amp; S_{i+h-1, j+w-1} 
+\end{array}
+\end{split}\]</div>
+
+</section>
+<section id="nppi_conventions_lb_1anchor_point_parameter">
+<h4>Anchor-Point Parameter<a class="headerlink" href="introduction.html#nppi_conventions_lb_1anchor_point_parameter" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1anchor_point_parameter">Many NPP primitives performing neighborhood operations allow the user to specify the relative location of the neighborhood via a parameter usually named <code class="docutils literal notranslate"><span class="pre">oAnchor</span></code> of type <a class="reference internal" href="nppdefs.html#structnppipoint"><span class="std std-ref">NppiPoint</span></a>. Using the anchor a developer can chose the position of the mask (see mask_size_parameter) relative to current pixel index.</p>
+<p>Using the same example as in mask_size_parameter, but this time with an anchor position of (a, b): </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>assert(oMaskSize.w == w);
+assert(oMaskSize.h == h);
+assert(oAnchor.x == a);
+assert(oAnchor.y == b);
+</pre></div>
+</div>
+
+<p>the following pixels from the source image would be read:  </p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{lllll}
+     S_{i-a,j-b}      &amp; S_{i-a,j-b+1}      &amp; \ldots &amp; S_{i-a,j-b+w-1} \\
+     S_{i-a+1,j-b}    &amp; S_{i-a+1,j-b+1}    &amp; \ldots &amp; S_{i-a+1, j-b+w-1} \\
+     \vdots           &amp; \vdots             &amp; \ddots &amp; \vdots \\
+     S_{i-a+h-1, j-b} &amp; S_{i-a+h-1, j-b+1} &amp; \ldots &amp; S_{i-a+h-1, j-b+w-1} 
+\end{array}
+\end{split}\]</div>
+
+</section>
+<section id="nppi_conventions_lb_1sampling_beyond_image_boundaries">
+<h4>Sampling Beyond Image Boundaries<a class="headerlink" href="introduction.html#nppi_conventions_lb_1sampling_beyond_image_boundaries" title="Permalink to this headline"></a>
+</h4>
+<p id="nppi_conventions_lb_1sampling_beyond_image_boundaries">NPP primitives in general and NPP neighborhood operations in particular require that all pixel locations read and written are valid and within the boundaries of the respective images. Sampling outside of the defined image data regions results in undefined behavior and may lead to system instability.</p>
+<p>This poses a problem in practice: when processing full-size images one cannot choose the destination ROI to be the same size as the source image. Because neighborhood operations read pixels from an enlarged source ROI, the destination ROI must be shrunk so that the expanded source ROI does not exceed the source image’s size OR if the neighborhood operation function supports a Border version then this version can be used without ROI adjustment with the appropriate border protection mode selected.</p>
+<p>For cases where this “shrinking” of the destination image size is unacceptable and a Border version of the function is not available, NPP provides a set of border-expanding Copy primitives. E.g. <a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__constant__border_1ga8e040e14af9edf095b4c12b97453920e"><span class="std std-ref">nppiCopyConstBorder_8u_C1R()</span></a>, <a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__replicate__border_1ga10c5d07faf1ff74af682019d8cb94e04"><span class="std std-ref">nppiCopyReplicateBorder_8u_C1R()</span></a> and <a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__wrap__border_1ga235129584353176f8f60593f3fb1af0f"><span class="std std-ref">nppiCopyWrapBorder_8u_C1R()</span></a>. The user can use these primitives to “expand” the source image’s size using one of the three expansion modes. The expanded image can then be safely passed to a neighborhood operation producing a full-size result. </p>
+</section>
+</section>
+</section>
+</section>
+<section id="signal-processing-conventions">
+<h1>Signal Processing Conventions<a class="headerlink" href="introduction.html#signal-processing-conventions" title="Permalink to this headline"></a>
+</h1>
+<section id="npps_conventions_lb_1passing_signal_data">
+<span id="npps_conventions_lb"></span><h2>Signal Data<a class="headerlink" href="introduction.html#npps_conventions_lb_1passing_signal_data" title="Permalink to this headline"></a>
+</h2>
+<p id="npps_conventions_lb_1passing_signal_data">Signal data is passed to and from NPPS primitives via a pointer to the signal’s data type.</p>
+<p>The general idea behind this fairly low-level way of passing signal data is ease-of-adoption into existing software projects:</p>
+<ul class="simple">
+<li><p>Passing the data pointer rather than a higher-level signal struct allows for easy adoption by not requiring a specific signal representation (that could include total signal size offset, or other additional information). This avoids awkward packing and unpacking of signal data from the host application to an NPP specific signal representation.</p></li>
+</ul>
+
+<section id="npps_conventions_lb_1signal_data_parameter_names">
+<h3>Parameter Names for Signal Data<a class="headerlink" href="introduction.html#npps_conventions_lb_1signal_data_parameter_names" title="Permalink to this headline"></a>
+</h3>
+<p id="npps_conventions_lb_1signal_data_parameter_names">There are three general cases of image-data passing throughout NPP detailed in the following sections.</p>
+<p>Those are signals consumed by the algorithm.</p>
+<section id="npps_conventions_lb_1source_signal_pointer">
+<h4>Source Signal Pointer<a class="headerlink" href="introduction.html#npps_conventions_lb_1source_signal_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="npps_conventions_lb_1source_signal_pointer">The source signal data is generally passed via a pointer named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc 
+</pre></div>
+</div>
+ The source signal pointer is generally defined constant, enforcing that the primitive does not change any image data pointed to by that pointer. E.g. <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nppsPrimitive_32s(const Npp32s * pSrc, ...) 
+</pre></div>
+</div>
+ In case the primitive consumes multiple signals as inputs the source pointers are numbered like this: <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrc1, pScr2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="npps_conventions_lb_1destination_signal_pointer">
+<h4>Destination Signal Pointer<a class="headerlink" href="introduction.html#npps_conventions_lb_1destination_signal_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="npps_conventions_lb_1destination_signal_pointer">The destination signal data is generally passed via a pointer named </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst 
+</pre></div>
+</div>
+ In case the primitive consumes multiple signals as inputs the source pointers are numbered like this: <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pDst1, pDst2, ... 
+</pre></div>
+</div>
+
+</section>
+<section id="npps_conventions_lb_1in_place_signal_pointer">
+<h4>In-Place Signal Pointer<a class="headerlink" href="introduction.html#npps_conventions_lb_1in_place_signal_pointer" title="Permalink to this headline"></a>
+</h4>
+<p id="npps_conventions_lb_1in_place_signal_pointer">In the case of in-place processing, source and destination are served by the same pointer and thus pointers to in-place signal data are called: </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>pSrcDst 
+</pre></div>
+</div>
+
+</section>
+</section>
+<section id="npps_conventions_lb_1signal_data_alignment">
+<h3>Signal Data Alignment Requirements<a class="headerlink" href="introduction.html#npps_conventions_lb_1signal_data_alignment" title="Permalink to this headline"></a>
+</h3>
+<p id="npps_conventions_lb_1signal_data_alignment">NPP requires signal sample data to be naturally aligned, i.e. any pointer </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>NppType * p; 
+</pre></div>
+</div>
+ to a sample in a signal needs to fulfill: <div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>assert(p % sizeof(p) == 0); 
+</pre></div>
+</div>
+
+</section>
+<section id="npps_conventions_lb_1signal_data_error_codes">
+<h3>Signal Data Related Error Codes<a class="headerlink" href="introduction.html#npps_conventions_lb_1signal_data_error_codes" title="Permalink to this headline"></a>
+</h3>
+<p id="npps_conventions_lb_1signal_data_error_codes">All NPPI primitives operating on signal data validate the signal-data pointer for proper alignment and test that the point is not null.</p>
+<p>Failed validation results in one of the following error codes being returned and the primitive not being executed: NPP_NULL_POINTER_ERROR is returned if the image-data pointer is 0 (NULL). NPP_ALIGNMENT_ERROR if the signal-data pointer address is not a multiple of the signal’s data-type size.</p>
+</section>
+</section>
+<section id="npps_conventions_lb_1length_specification">
+<h2>Signal Length<a class="headerlink" href="introduction.html#npps_conventions_lb_1length_specification" title="Permalink to this headline"></a>
+</h2>
+<p id="npps_conventions_lb_1length_specification">The vast majority of NPPS functions take a </p>
+<div class="highlight-none notranslate">
+<div class="highlight"><pre><span></span>nLength 
+</pre></div>
+</div>
+ parameter that tells the primitive how many of the signal’s samples starting from the given data pointer are to be processed.
+<section id="npps_conventions_lb_1length_error_codes">
+<h3>Length Related Error Codes<a class="headerlink" href="introduction.html#npps_conventions_lb_1length_error_codes" title="Permalink to this headline"></a>
+</h3>
+<p id="npps_conventions_lb_1length_error_codes">All NPPS primitives taking a length parameter validate this input.</p>
+<p>Failed validation results in the following error code being returned and the primitive not being executed: NPP_SIZE_ERROR is returned if the length is negative. </p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

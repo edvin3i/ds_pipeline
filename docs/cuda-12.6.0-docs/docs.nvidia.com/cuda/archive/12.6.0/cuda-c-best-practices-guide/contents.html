@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — CUDA C++ Best Practices Guide 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Preface" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#heterogeneous-computing">2. Heterogeneous Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#application-profiling">3. Application Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#parallelizing-your-application">4. Parallelizing Your Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#getting-started">5. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#getting-the-right-answer">6. Getting the Right Answer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#optimizing-cuda-applications">7. Optimizing CUDA Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#performance-metrics">8. Performance Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#memory-optimizations">9. Memory Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#execution-configuration-optimizations">10. Execution Configuration Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#instruction-optimization">11. Instruction Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#control-flow">12. Control Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#deploying-cuda-applications">13. Deploying CUDA Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#understanding-the-programming-environment">14. Understanding the Programming Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-compatibility-developer-s-guide">15. CUDA Compatibility Developer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#preparing-for-deployment">16. Preparing for Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#deployment-infrastructure-tools">17. Deployment Infrastructure Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id3">18. Recommendations and Best Practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#nvcc-compiler-switches">19. nvcc Compiler Switches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">20. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">CUDA C++ Best Practices Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_C_Best_Practices_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<p>White paper covering the most common issues related to NVIDIA GPUs.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#who-should-read-this-guide">1.1. Who Should Read This Guide?</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#assess-parallelize-optimize-deploy">1.2. Assess, Parallelize, Optimize, Deploy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#assess">1.2.1. Assess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parallelize">1.2.2. Parallelize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#optimize">1.2.3. Optimize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#deploy">1.2.4. Deploy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#recommendations-and-best-practices">1.3. Recommendations and Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#assessing-your-application">1.4. Assessing Your Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#heterogeneous-computing">2. Heterogeneous Computing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#differences-between-host-and-device">2.1. Differences between Host and Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-runs-on-a-cuda-enabled-device">2.2. What Runs on a CUDA-Enabled Device?</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#application-profiling">3. Application Profiling</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#profile">3.1. Profile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#creating-the-profile">3.1.1. Creating the Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#identifying-hotspots">3.1.2. Identifying Hotspots</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#understanding-scaling">3.1.3. Understanding Scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#strong-scaling-and-amdahl-s-law">3.1.3.1. Strong Scaling and Amdahl’s Law</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#weak-scaling-and-gustafson-s-law">3.1.3.2. Weak Scaling and Gustafson’s Law</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#applying-strong-and-weak-scaling">3.1.3.3. Applying Strong and Weak Scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#parallelizing-your-application">4. Parallelizing Your Application</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-started">5. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parallel-libraries">5.1. Parallel Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parallelizing-compilers">5.2. Parallelizing Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#coding-to-expose-parallelism">5.3. Coding to Expose Parallelism</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-the-right-answer">6. Getting the Right Answer</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#verification">6.1. Verification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#reference-comparison">6.1.1. Reference Comparison</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unit-testing">6.1.2. Unit Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#debugging">6.2. Debugging</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#numerical-accuracy-and-precision">6.3. Numerical Accuracy and Precision</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#single-vs-double-precision">6.3.1. Single vs. Double Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#floating-point-math-is-not-associative">6.3.2. Floating Point Math Is not Associative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ieee-754-compliance">6.3.3. IEEE 754 Compliance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#x86-80-bit-computations">6.3.4. x86 80-bit Computations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#optimizing-cuda-applications">7. Optimizing CUDA Applications</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#performance-metrics">8. Performance Metrics</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#timing">8.1. Timing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#using-cpu-timers">8.1.1. Using CPU Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#using-cuda-gpu-timers">8.1.2. Using CUDA GPU Timers</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#bandwidth">8.2. Bandwidth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#theoretical-bandwidth-calculation">8.2.1. Theoretical Bandwidth Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#effective-bandwidth-calculation">8.2.2. Effective Bandwidth Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#throughput-reported-by-visual-profiler">8.2.3. Throughput Reported by Visual Profiler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#memory-optimizations">9. Memory Optimizations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#data-transfer-between-host-and-device">9.1. Data Transfer Between Host and Device</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#pinned-memory">9.1.1. Pinned Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#asynchronous-and-overlapping-transfers-with-computation">9.1.2. Asynchronous and Overlapping Transfers with Computation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#zero-copy">9.1.3. Zero Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unified-virtual-addressing">9.1.4. Unified Virtual Addressing</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#device-memory-spaces">9.2. Device Memory Spaces</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#coalesced-access-to-global-memory">9.2.1. Coalesced Access to Global Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#a-simple-access-pattern">9.2.1.1. A Simple Access Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#a-sequential-but-misaligned-access-pattern">9.2.1.2. A Sequential but Misaligned Access Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#effects-of-misaligned-accesses">9.2.1.3. Effects of Misaligned Accesses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#strided-accesses">9.2.1.4. Strided Accesses</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#l2-cache">9.2.2. L2 Cache</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#l2-cache-access-window">9.2.2.1. L2 Cache Access Window</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tuning-the-access-window-hit-ratio">9.2.2.2. Tuning the Access Window Hit-Ratio</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#shared-memory">9.2.3. Shared Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#shared-memory-and-memory-banks">9.2.3.1. Shared Memory and Memory Banks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#shared-memory-in-matrix-multiplication-c-ab">9.2.3.2. Shared Memory in Matrix Multiplication (C=AB)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#shared-memory-in-matrix-multiplication-c-aat">9.2.3.3. Shared Memory in Matrix Multiplication (C=AAT)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#asynchronous-copy-from-global-memory-to-shared-memory">9.2.3.4. Asynchronous Copy from Global Memory to Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#local-memory">9.2.4. Local Memory</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#texture-memory">9.2.5. Texture Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#additional-texture-capabilities">9.2.5.1. Additional Texture Capabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#constant-memory">9.2.6. Constant Memory</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#registers">9.2.7. Registers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#register-pressure">9.2.7.1. Register Pressure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#allocation">9.3. Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#numa-best-practices">9.4. NUMA Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#execution-configuration-optimizations">10. Execution Configuration Optimizations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#occupancy">10.1. Occupancy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#calculating-occupancy">10.1.1. Calculating Occupancy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hiding-register-dependencies">10.2. Hiding Register Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-and-block-heuristics">10.3. Thread and Block Heuristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#effects-of-shared-memory">10.4. Effects of Shared Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#concurrent-kernel-execution">10.5. Concurrent Kernel Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multiple-contexts">10.6. Multiple contexts</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#instruction-optimization">11. Instruction Optimization</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#arithmetic-instructions">11.1. Arithmetic Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#division-modulo-operations">11.1.1. Division Modulo Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#loop-counters-signed-vs-unsigned">11.1.2. Loop Counters Signed vs. Unsigned</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#reciprocal-square-root">11.1.3. Reciprocal Square Root</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#other-arithmetic-instructions">11.1.4. Other Arithmetic Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#exponentiation-with-small-fractional-arguments">11.1.5. Exponentiation With Small Fractional Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#math-libraries">11.1.6. Math Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#precision-related-compiler-flags">11.1.7. Precision-related Compiler Flags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-instructions">11.2. Memory Instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#control-flow">12. Control Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#branching-and-divergence">12.1. Branching and Divergence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#branch-predication">12.2. Branch Predication</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#deploying-cuda-applications">13. Deploying CUDA Applications</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#understanding-the-programming-environment">14. Understanding the Programming Environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-compute-capability">14.1. CUDA Compute Capability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#additional-hardware-data">14.2. Additional Hardware Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#which-compute-capability-target">14.3. Which Compute Capability Target</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-runtime">14.4. CUDA Runtime</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cuda-compatibility-developer-s-guide">15. CUDA Compatibility Developer’s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-toolkit-versioning">15.1. CUDA Toolkit Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#source-compatibility">15.2. Source Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#binary-compatibility">15.3. Binary Compatibility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-binary-cubin-compatibility">15.3.1. CUDA Binary (cubin) Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cuda-compatibility-across-minor-releases">15.4. CUDA Compatibility Across Minor Releases</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#existing-cuda-applications-within-minor-versions-of-cuda">15.4.1. Existing CUDA Applications within Minor Versions of CUDA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#handling-new-cuda-features-and-driver-apis">15.4.1.1. Handling New CUDA Features and Driver APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#using-ptx">15.4.1.2. Using PTX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#dynamic-code-generation">15.4.1.3. Dynamic Code Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#recommendations-for-building-a-minor-version-compatible-library">15.4.1.4. Recommendations for building a minor-version compatible library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#recommendations-for-taking-advantage-of-minor-version-compatibility-in-your-application">15.4.1.5. Recommendations for taking advantage of minor version compatibility in your application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#preparing-for-deployment">16. Preparing for Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#testing-for-cuda-availability">16.1. Testing for CUDA Availability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#error-handling">16.2. Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#building-for-maximum-compatibility">16.3. Building for Maximum Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#distributing-the-cuda-runtime-and-libraries">16.4. Distributing the CUDA Runtime and Libraries</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cuda-toolkit-library-redistribution">16.4.1. CUDA Toolkit Library Redistribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#which-files-to-redistribute">16.4.1.1. Which Files to Redistribute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#where-to-install-redistributed-cuda-libraries">16.4.1.2. Where to Install Redistributed CUDA Libraries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#deployment-infrastructure-tools">17. Deployment Infrastructure Tools</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#nvidia-smi">17.1. Nvidia-SMI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#queryable-state">17.1.1. Queryable state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#modifiable-state">17.1.2. Modifiable state</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvml">17.2. NVML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cluster-management-tools">17.3. Cluster Management Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compiler-jit-cache-management-tools">17.4. Compiler JIT Cache Management Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-visible-devices">17.5. CUDA_VISIBLE_DEVICES</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#id3">18. Recommendations and Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#overall-performance-optimization-strategies">18.1. Overall Performance Optimization Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#nvcc-compiler-switches">19. nvcc Compiler Switches</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvcc">19.1. nvcc</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">20. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">20.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">20.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">20.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

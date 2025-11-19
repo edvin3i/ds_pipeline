@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.6. Bfloat162 Arithmetic Functions — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="3.7. Bfloat162 Comparison Functions" href="group__CUDA__MATH____BFLOAT162__COMPARISON.html">
+    <link rel="prev" title="3.5. Bfloat16 Precision Conversion and Data Movement" href="group__CUDA__MATH____BFLOAT16__MISC.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16__CONSTANTS.html">3.1. Bfloat16 Arithmetic Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__ARITHMETIC.html">3.2. Bfloat16 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__COMPARISON.html">3.3. Bfloat16 Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__FUNCTIONS.html">3.4. Bfloat16 Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__MISC.html">3.5. Bfloat16 Precision Conversion and Data Movement</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#">3.6. Bfloat162 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT162__COMPARISON.html">3.7. Bfloat162 Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html">3.8. Bfloat162 Math Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html"><span class="section-number">3. </span>Bfloat16 Precision Intrinsics</a> »</li>
+<li>
+<span class="section-number">3.6. </span>Bfloat162 Arithmetic Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bfloat162-arithmetic-functions">
+<h1>
+<span class="section-number">3.6. </span>Bfloat162 Arithmetic Functions<a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#bfloat162-arithmetic-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math____bfloat162__arithmetic">To use these functions, include the header file <code class="docutils literal notranslate"><span class="pre">cuda_bf16.h</span></code> in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gafd76cc3bc300ba79379e3c5047db137b"><span class="std std-ref">__h2div</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector division in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga3b9f2d5a7c1ce970ebe3e69bc3517fa7"><span class="std std-ref">__habs2</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates the absolute value of both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number and returns the result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga1895e9284260c1e9e529222741b8052c"><span class="std std-ref">__hadd2</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga100cfa7cb0067763736dd984f4f74c1f"><span class="std std-ref">__hadd2_rn</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga501ccacb4df2e72ec16d02e5437a8da1"><span class="std std-ref">__hadd2_sat</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gabc701160c6e396bac0b32b4650061511"><span class="std std-ref">__hcmadd</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b, const __nv_bfloat162 c)</dt>
+<dd>
+<p>Performs fast complex multiply-accumulate.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga8fa0c08fb5f65d1b9ea77f3ee79f57d9"><span class="std std-ref">__hfma2</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b, const __nv_bfloat162 c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga08d638e0bc9dc82784c719db62b8f8f7"><span class="std std-ref">__hfma2_relu</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b, const __nv_bfloat162 c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode with relu saturation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gafd1b605d76521c4427aec5732d40366f"><span class="std std-ref">__hfma2_sat</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b, const __nv_bfloat162 c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga1350943b1a7cebb91802d1fa088df266"><span class="std std-ref">__hmul2</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga94efbcd563a3a6b29f29d528135469bf"><span class="std std-ref">__hmul2_rn</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gafde78c5625a64ee79d40bc7e3dc94559"><span class="std std-ref">__hmul2_sat</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gad1835fa708d28615643228088c68eddd"><span class="std std-ref">__hneg2</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Negates both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number and returns the result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga3ee826f92e1842a689d2fe16f611e6b6"><span class="std std-ref">__hsub2</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gac4358f8ec1540e32c409f699ecf3ea46"><span class="std std-ref">__hsub2_rn</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gabb9dcd8a30a77c16fabf11f575ae92ce"><span class="std std-ref">__hsub2_sat</span></a>(const __nv_bfloat162 a, const __nv_bfloat162 b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga550f52c89d672213390e9bfd8a3c42bf"><span class="std std-ref">atomicAdd</span></a>(__nv_bfloat162 *const address, const __nv_bfloat162 val)</dt>
+<dd>
+<p>Vector add <code class="docutils literal notranslate"><span class="pre">val</span></code> to the value stored at <code class="docutils literal notranslate"><span class="pre">address</span></code> in global or shared memory, and writes this value back to <code class="docutils literal notranslate"><span class="pre">address</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga5e46e99243aced3c76b0cb14782fd1fd"><span class="std std-ref">operator*</span></a>(const __nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> multiplication operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga166a105a27ed5040ba4133f27b228e5e"><span class="std std-ref">operator*=</span></a>(__nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with multiplication operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gad4c815fbf8e2ced46ae1b0e5ec654cbd"><span class="std std-ref">operator+</span></a>(const __nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> addition operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gaeabfebcc5013bbf03529bb280dae388c"><span class="std std-ref">operator+</span></a>(const __nv_bfloat162 &amp;h)</dt>
+<dd>
+<p>Implements packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> unary plus operator, returns input value.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga459c3cf6d19e5851afac82b71472638a"><span class="std std-ref">operator++</span></a>(__nv_bfloat162 &amp;h, const int ignored)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> postfix increment operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga5797fb0110e54d1be743861bd7d8b258"><span class="std std-ref">operator++</span></a>(__nv_bfloat162 &amp;h)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> prefix increment operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gacd40ba16f73dc35bebc41fbf59136c85"><span class="std std-ref">operator+=</span></a>(__nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with addition operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga7a7d576e531a48a516200d62ded7b999"><span class="std std-ref">operator-</span></a>(const __nv_bfloat162 &amp;h)</dt>
+<dd>
+<p>Implements packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> unary minus operator.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga7d8385d1471691d60060e78c2b0bcd49"><span class="std std-ref">operator-</span></a>(const __nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> subtraction operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga9445e11c1d9d0be26d8b3a16d2f2ea9b"><span class="std std-ref">operator–</span></a>(__nv_bfloat162 &amp;h, const int ignored)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> postfix decrement operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gab9262473a6c34108ccb6e95dc85c0728"><span class="std std-ref">operator–</span></a>(__nv_bfloat162 &amp;h)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> prefix decrement operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga479a5464e74f7360b3d0c70b22a6eb21"><span class="std std-ref">operator-=</span></a>(__nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with subtraction operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gaff12e44dec31246ac019a218986b4760"><span class="std std-ref">operator/</span></a>(const __nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> division operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __nv_bfloat162 &amp;</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gab329ee51db72cf33ded920ae5f033679"><span class="std std-ref">operator/=</span></a>(__nv_bfloat162 &amp;lh, const __nv_bfloat162 &amp;rh)</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with division operation.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">3.6.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__h2divK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv37__h2divK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv27__h2divK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__h2div____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gafd76cc3bc300ba79379e3c5047db137b"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__h2div</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__h2divK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector division in round-to-nearest-even mode. </p>
+<p>Divides <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> by input vector <code class="docutils literal notranslate"><span class="pre">b</span></code> in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise division of <code class="docutils literal notranslate"><span class="pre">a</span></code> with <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__habs2K14__nv_bfloat162">
+<span id="_CPPv37__habs2K14__nv_bfloat162"></span><span id="_CPPv27__habs2K14__nv_bfloat162"></span><span id="__habs2____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga3b9f2d5a7c1ce970ebe3e69bc3517fa7"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__habs2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__habs2K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates the absolute value of both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number and returns the result. </p>
+<p>Calculates the absolute value of both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number and returns the result. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>bfloat2</p>
+<ul class="simple">
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">a</span></code> with the absolute value of both halves. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__hadd2K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv37__hadd2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv27__hadd2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hadd2____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga1895e9284260c1e9e529222741b8052c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__hadd2K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The sum of vectors <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hadd2_rnK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv310__hadd2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv210__hadd2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hadd2_rn____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga100cfa7cb0067763736dd984f4f74c1f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd2_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv410__hadd2_rnK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode. Prevents floating-point contractions of mul+add into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The sum of vectors <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__hadd2_satK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv311__hadd2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv211__hadd2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hadd2_sat____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga501ccacb4df2e72ec16d02e5437a8da1"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd2_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv411__hadd2_satK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector addition in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode, and clamps the results to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The sum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__hcmaddK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv38__hcmaddK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv28__hcmaddK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hcmadd____nv_bfloat162C.__nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gabc701160c6e396bac0b32b4650061511"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hcmadd</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv48__hcmaddK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs fast complex multiply-accumulate. </p>
+<p>Interprets vector <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> input pairs <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> as complex numbers in <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> precision and performs complex multiply-accumulate operation: a*b + c </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of complex multiply-accumulate operation on complex numbers <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__hfma2K14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv37__hfma2K14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv27__hfma2K14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hfma2____nv_bfloat162C.__nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga8fa0c08fb5f65d1b9ea77f3ee79f57d9"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__hfma2K14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise fused multiply-add operation on vectors <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412__hfma2_reluK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv312__hfma2_reluK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv212__hfma2_reluK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hfma2_relu____nv_bfloat162C.__nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga08d638e0bc9dc82784c719db62b8f8f7"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma2_relu</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv412__hfma2_reluK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode with relu saturation. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode. Then negative result is clamped to 0. NaN result is converted to canonical NaN. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise fused multiply-add operation on vectors <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> with relu saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__hfma2_satK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv311__hfma2_satK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv211__hfma2_satK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hfma2_sat____nv_bfloat162C.__nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gafd1b605d76521c4427aec5732d40366f"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma2_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv411__hfma2_satK14__nv_bfloat162K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector fused multiply-add in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode, and clamps the results to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise fused multiply-add operation on vectors <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__hmul2K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv37__hmul2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv27__hmul2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hmul2____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga1350943b1a7cebb91802d1fa088df266"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__hmul2K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise multiplying the vectors <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hmul2_rnK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv310__hmul2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv210__hmul2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hmul2_rn____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga94efbcd563a3a6b29f29d528135469bf"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul2_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv410__hmul2_rnK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode. Prevents floating-point contractions of mul+add or sub into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise multiplying the vectors <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__hmul2_satK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv311__hmul2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv211__hmul2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hmul2_sat____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gafde78c5625a64ee79d40bc7e3dc94559"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul2_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv411__hmul2_satK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode, and clamps the results to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The result of elementwise multiplication of vectors <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__hneg2K14__nv_bfloat162">
+<span id="_CPPv37__hneg2K14__nv_bfloat162"></span><span id="_CPPv27__hneg2K14__nv_bfloat162"></span><span id="__hneg2____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gad1835fa708d28615643228088c68eddd"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hneg2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__hneg2K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Negates both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number and returns the result. </p>
+<p>Negates both halves of the input <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> number <code class="docutils literal notranslate"><span class="pre">a</span></code> and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>Returns <code class="docutils literal notranslate"><span class="pre">a</span></code> with both halves negated. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__hsub2K14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv37__hsub2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv27__hsub2K14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hsub2____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga3ee826f92e1842a689d2fe16f611e6b6"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv47__hsub2K14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> input vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The subtraction of vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hsub2_rnK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv310__hsub2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv210__hsub2_rnK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hsub2_rn____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gac4358f8ec1540e32c409f699ecf3ea46"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub2_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv410__hsub2_rnK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> input vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. Prevents floating-point contractions of mul+sub into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The subtraction of vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__hsub2_satK14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv311__hsub2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv211__hsub2_satK14__nv_bfloat162K14__nv_bfloat162"></span><span id="__hsub2_sat____nv_bfloat162C.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gabb9dcd8a30a77c16fabf11f575ae92ce"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub2_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv411__hsub2_satK14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector subtraction in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> input vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode, and clamps the results to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The subtraction of vector <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49atomicAddPC14__nv_bfloat162K14__nv_bfloat162">
+<span id="_CPPv39atomicAddPC14__nv_bfloat162K14__nv_bfloat162"></span><span id="_CPPv29atomicAddPC14__nv_bfloat162K14__nv_bfloat162"></span><span id="atomicAdd____nv_bfloat162PC.__nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga550f52c89d672213390e9bfd8a3c42bf"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">atomicAdd</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">address</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv49atomicAddPC14__nv_bfloat162K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Vector add <code class="docutils literal notranslate"><span class="pre">val</span></code> to the value stored at <code class="docutils literal notranslate"><span class="pre">address</span></code> in global or shared memory, and writes this value back to <code class="docutils literal notranslate"><span class="pre">address</span></code>. </p>
+<p>The atomicity of the add operation is guaranteed separately for each of the two nv_bfloat16 elements; the entire <a class="reference internal" href="struct____nv__bfloat162.html#struct____nv__bfloat162"><span class="std std-ref">__nv_bfloat162</span></a> is not guaranteed to be atomic as a single 32-bit access.</p>
+<p>The location of <code class="docutils literal notranslate"><span class="pre">address</span></code> must be in global or shared memory. This operation has undefined behavior otherwise. This operation is natively supported by devices of compute capability 9.x and higher, older devices use emulation path.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more details for this function see the Atomic Functions section in the CUDA C++ Programming Guide. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>address</strong> – <strong>[in]</strong> - __nv_bfloat162*. An address in global or shared memory. </p></li>
+<li><p><strong>val</strong> – <strong>[in]</strong> - <a class="reference internal" href="struct____nv__bfloat162.html#struct____nv__bfloat162"><span class="std std-ref">__nv_bfloat162</span></a>. The value to be added.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="struct____nv__bfloat162.html#struct____nv__bfloat162"><span class="std std-ref">__nv_bfloat162</span></a></p>
+<ul class="simple">
+<li><p>The old value read from <code class="docutils literal notranslate"><span class="pre">address</span></code>.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mlRK14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3mlRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2mlRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="mul-operator____nv_bfloat162CR.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga5e46e99243aced3c76b0cb14782fd1fd"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4mlRK14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> multiplication operation. </p>
+<p>See also <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga1350943b1a7cebb91802d1fa088df266"><span class="std std-ref">__hmul2(__nv_bfloat162, __nv_bfloat162)</span></a> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mLR14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3mLR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2mLR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="mul-assign-operator____nv_bfloat162R.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga166a105a27ed5040ba4133f27b228e5e"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4mLR14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with multiplication operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4plRK14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3plRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2plRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="add-operator____nv_bfloat162CR.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gad4c815fbf8e2ced46ae1b0e5ec654cbd"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4plRK14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> addition operation. </p>
+<p>See also <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga1895e9284260c1e9e529222741b8052c"><span class="std std-ref">__hadd2(__nv_bfloat162, __nv_bfloat162)</span></a> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4plRK14__nv_bfloat162">
+<span id="_CPPv3plRK14__nv_bfloat162"></span><span id="_CPPv2plRK14__nv_bfloat162"></span><span id="add-operator____nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gaeabfebcc5013bbf03529bb280dae388c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4plRK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Implements packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> unary plus operator, returns input value. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4ppR14__nv_bfloat162Ki">
+<span id="_CPPv3ppR14__nv_bfloat162Ki"></span><span id="_CPPv2ppR14__nv_bfloat162Ki"></span><span id="inc-operator____nv_bfloat162R.iC"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga459c3cf6d19e5851afac82b71472638a"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignored</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4ppR14__nv_bfloat162Ki" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> postfix increment operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4ppR14__nv_bfloat162">
+<span id="_CPPv3ppR14__nv_bfloat162"></span><span id="_CPPv2ppR14__nv_bfloat162"></span><span id="inc-operator____nv_bfloat162R"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga5797fb0110e54d1be743861bd7d8b258"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4ppR14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> prefix increment operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4pLR14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3pLR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2pLR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="add-assign-operator____nv_bfloat162R.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gacd40ba16f73dc35bebc41fbf59136c85"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4pLR14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with addition operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4miRK14__nv_bfloat162">
+<span id="_CPPv3miRK14__nv_bfloat162"></span><span id="_CPPv2miRK14__nv_bfloat162"></span><span id="sub-operator____nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga7a7d576e531a48a516200d62ded7b999"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4miRK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Implements packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> unary minus operator. </p>
+<p>See also <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gad1835fa708d28615643228088c68eddd"><span class="std std-ref">__hneg2(__nv_bfloat162)</span></a> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4miRK14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3miRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2miRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="sub-operator____nv_bfloat162CR.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga7d8385d1471691d60060e78c2b0bcd49"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4miRK14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> subtraction operation. </p>
+<p>See also <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1ga3ee826f92e1842a689d2fe16f611e6b6"><span class="std std-ref">__hsub2(__nv_bfloat162, __nv_bfloat162)</span></a> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mmR14__nv_bfloat162Ki">
+<span id="_CPPv3mmR14__nv_bfloat162Ki"></span><span id="_CPPv2mmR14__nv_bfloat162Ki"></span><span id="dec-operator____nv_bfloat162R.iC"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga9445e11c1d9d0be26d8b3a16d2f2ea9b"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignored</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4mmR14__nv_bfloat162Ki" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> postfix decrement operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mmR14__nv_bfloat162">
+<span id="_CPPv3mmR14__nv_bfloat162"></span><span id="_CPPv2mmR14__nv_bfloat162"></span><span id="dec-operator____nv_bfloat162R"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gab9262473a6c34108ccb6e95dc85c0728"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4mmR14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> prefix decrement operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mIR14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3mIR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2mIR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="sub-assign-operator____nv_bfloat162R.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1ga479a5464e74f7360b3d0c70b22a6eb21"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4mIR14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with subtraction operation. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4dvRK14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3dvRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2dvRK14__nv_bfloat162RK14__nv_bfloat162"></span><span id="div-operator____nv_bfloat162CR.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gaff12e44dec31246ac019a218986b4760"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">/</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4dvRK14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> division operation. </p>
+<p>See also <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#group__cuda__math____bfloat162__arithmetic_1gafd76cc3bc300ba79379e3c5047db137b"><span class="std std-ref">__h2div(__nv_bfloat162, __nv_bfloat162)</span></a> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4dVR14__nv_bfloat162RK14__nv_bfloat162">
+<span id="_CPPv3dVR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="_CPPv2dVR14__nv_bfloat162RK14__nv_bfloat162"></span><span id="div-assign-operator____nv_bfloat162R.__nv_bfloat162CR"></span><span class="target" id="group__cuda__math____bfloat162__arithmetic_1gab329ee51db72cf33ded920ae5f033679"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">/=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html#_CPPv4dVR14__nv_bfloat162RK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs packed <code class="docutils literal notranslate"><span class="pre">nv_bfloat16</span></code> compound assignment with division operation. </p>
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

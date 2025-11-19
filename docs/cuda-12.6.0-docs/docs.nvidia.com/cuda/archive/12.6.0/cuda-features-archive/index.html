@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA Features Archive</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. CUDA 11.6 Features</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compiler">1.1. Compiler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#vs2022-support">1.1.1. VS2022 Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#new-instructions-in-public-ptx">1.1.2. New instructions in public PTX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unused-kernel-optimization">1.1.3. Unused Kernel Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#new-arch-native-option">1.1.4. New -arch=native option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generate-ptx-from-nvlink">1.1.5. Generate PTX from nvlink:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bullseye-support">1.1.6. Bullseye support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#int128-developer-tool-support">1.1.7. INT128 developer tool support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">2. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">2.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">2.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">2.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">CUDA Features Archive</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>CUDA 11.6 Features</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_Features_Archive.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">NVIDIA CUDA Features Archive</p>
+<p>The list of CUDA features by release.</p>
+<section id="cuda-11-6-features">
+<h1>
+<span class="section-number">1. </span>CUDA 11.6 Features<a class="headerlink" href="index.html#cuda-11-6-features" title="Permalink to this headline"></a>
+</h1>
+<section id="compiler">
+<h2>
+<span class="section-number">1.1. </span>Compiler<a class="headerlink" href="index.html#compiler" title="Permalink to this headline"></a>
+</h2>
+<section id="vs2022-support">
+<h3>
+<span class="section-number">1.1.1. </span>VS2022 Support<a class="headerlink" href="index.html#vs2022-support" title="Permalink to this headline"></a>
+</h3>
+<p>CUDA 11.6 officially supports the latest VS2022 as host compiler. A separate Nsight Visual Studio installer 2022.1.1 must be downloaded from <a class="reference external" href="https://developer.nvidia.com/nsight-visual-studio-edition">here</a>. A future CUDA release will have the Nsight Visual Studio installer with VS2022 support integrated into it.</p>
+</section>
+<section id="new-instructions-in-public-ptx">
+<h3>
+<span class="section-number">1.1.2. </span>New instructions in public PTX<a class="headerlink" href="index.html#new-instructions-in-public-ptx" title="Permalink to this headline"></a>
+</h3>
+<p>New instructions for bit mask creation—BMSK, and sign extension—SZEXT, are added to the public PTX ISA. You can find documentation for these instructions in the PTX ISA guide: <a class="reference external" href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#integer-arithmetic-instructions-bmsk">BMSK</a> and <a class="reference external" href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#integer-arithmetic-instructions-szext">SZEXT</a>.</p>
+</section>
+<section id="unused-kernel-optimization">
+<h3>
+<span class="section-number">1.1.3. </span>Unused Kernel Optimization<a class="headerlink" href="index.html#unused-kernel-optimization" title="Permalink to this headline"></a>
+</h3>
+<p>In CUDA 11.5, unused kernel pruning was introduced with the potential benefits of reducing binary size and improving performance through more efficient optimizations. This was an opt-in feature but in 11.6, this feature is enabled by default. As mentioned in the 11.5 blog, there is an opt-out flag that can be used in case it becomes necessary for debug purposes or for other special situations.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$ nvcc -rdc=true user.cu testlib.a -o user -Xnvlink -ignore-host-info
+</pre></div>
+</div>
+</section>
+<section id="new-arch-native-option">
+<h3>
+<span class="section-number">1.1.4. </span>New -arch=native option<a class="headerlink" href="index.html#new-arch-native-option" title="Permalink to this headline"></a>
+</h3>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">-arch=all</span></code> and <code class="docutils literal notranslate"><span class="pre">-arch=all-major</span></code> options added in CUDA 11.5, NVCC introduced <code class="docutils literal notranslate"><span class="pre">-arch=</span> <span class="pre">native</span></code> in CUDA 11.5 update 1. This -arch=native option is a convenient way for users to let NVCC determine the right target architecture to compile the CUDA device code to based on the GPU installed on the system. This can be particularly helpful for testing when applications are run on the same system they are compiled in.</p>
+</section>
+<section id="generate-ptx-from-nvlink">
+<h3>
+<span class="section-number">1.1.5. </span>Generate PTX from nvlink:<a class="headerlink" href="index.html#generate-ptx-from-nvlink" title="Permalink to this headline"></a>
+</h3>
+<p>Using the following command line, device linker, nvlink will produce PTX as an output in addition to CUBIN:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>nvcc -dlto -dlink -ptx
+</pre></div>
+</div>
+<p>Device linking by nvlink is the final stage in the CUDA compilation process. Applications that have multiple source translation units have to be compiled in separate compilation mode. LTO (introduced in CUDA 11.4) allowed nvlink to perform optimizations at device link time instead of at compile time so that separately compiled applications with several translation units can be optimized to the same level as whole program compilations with a single translation unit. However, without the option to output PTX, applications that cared about forward compatibility of device code could not benefit from Link Time Optimization or had to constrain the device code to a single source file.</p>
+<p>With the option for nvlink that performs LTO to generate the output in PTX, customer applications that require forward compatibility across GPU architectures can span across multiple files and can also take advantage of Link Time Optimization.</p>
+</section>
+<section id="bullseye-support">
+<h3>
+<span class="section-number">1.1.6. </span>Bullseye support<a class="headerlink" href="index.html#bullseye-support" title="Permalink to this headline"></a>
+</h3>
+<p>NVCC compiled source code now works with the code coverage tool Bullseye. The code coverage is only for the CPU or the host functions. Code coverage for device function is not supported through bullseye.</p>
+</section>
+<section id="int128-developer-tool-support">
+<h3>
+<span class="section-number">1.1.7. </span>INT128 developer tool support<a class="headerlink" href="index.html#int128-developer-tool-support" title="Permalink to this headline"></a>
+</h3>
+<p>In 11.5, CUDA C++ support for 128 bit was added. In 11.6, developer tools support the datatype as well. With the latest version of libcu++, int 128 data datype is supported by math functions.</p>
+</section>
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">2. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">2.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">2.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">2.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

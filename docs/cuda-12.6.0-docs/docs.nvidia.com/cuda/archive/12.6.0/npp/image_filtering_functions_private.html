@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Image Filtering Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Private Image Filtering Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="private-image-filtering-functions">
+<span id="image_filtering_functions_private"></span><h1>Private Image Filtering Functions<a class="headerlink" href="image_filtering_functions_private.html#private-image-filtering-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__image__filtering__functions__private">Private filtering functions. </p>
+<p>It is the user’s responsibility to avoid <a class="reference internal" href="introduction.html#nppi_conventions_lb_1sampling_beyond_image_boundaries"><span class="std std-ref">Sampling Beyond Image Boundaries</span></a>.</p>
+<p>These functions can be found in the nppif library. Linking to only the sub-libraries that you use can significantly save link time, application load time, and CUDA runtime startup time when using dynamic libraries. </p>
+<section id="image-culitho-filters">
+<h2>Image CuLitho Filters<a class="headerlink" href="image_filtering_functions_private.html#image-culitho-filters" title="Permalink to this headline"></a>
+</h2>
+<section id="group__image__culitho__filters_1image_culitho_filters">
+<span id="group__image__culitho__filters"></span><h3>cuLithoFilters<a class="headerlink" href="image_filtering_functions_private.html#group__image__culitho__filters_1image_culitho_filters" title="Permalink to this headline"></a>
+</h3>
+<p id="group__image__culitho__filters_1image_culitho_filters">The set of cuLitho private image functions available in the library. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-filterlocalcurvatureborder">FilterLocalCurvatureBorder</p>
+<p>Computes the local pixel neighborhood curvature via Arridge formula</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiFilterLocalCurvatureBorder_32f_C1R_Ctx">
+<span class="target" id="group__image__culitho__filters_1gafd014bde496d5e18a1ce89ec0dede77a"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiFilterLocalCurvatureBorder_32f_C1R_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nSrcStep</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nDstStep</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiFilterLocalCurvatureBorder_32f_C1R_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Single channel 32-bit floating point local curvature calculation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_pointer"><span class="std std-ref">Source-Image Pointer</span></a>. </p></li>
+<li><p><strong>nSrcStep</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_line_step"><span class="std std-ref">Source-Image Line Step</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_pointer"><span class="std std-ref">Destination-Image Pointer</span></a>. </p></li>
+<li><p><strong>nDstStep</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_line_step"><span class="std std-ref">Destination-Image Line Step</span></a>. </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-accumulateweightedsquare">AccumulateWeightedSquare</p>
+<p>Computes the squared sum of pixel</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiAccumulateWeightedSquare_32f_C1IR_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga83a471e0937dd1cac23d4fd6d832b614"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiAccumulateWeightedSquare_32f_C1IR_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nSrcStep</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pAccBuffer</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nAccStep</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="n"><span class="pre">nSrcWeight</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiAccumulateWeightedSquare_32f_C1IR_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Single channel 32-bit floating point in-place accumulate weighted square. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_pointer"><span class="std std-ref">Source-Image Pointer</span></a>. </p></li>
+<li><p><strong>nSrcStep</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_line_step"><span class="std std-ref">Source-Image Line Step</span></a>. </p></li>
+<li><p><strong>pAccBuffer</strong> – accumulation_image_pointer. </p></li>
+<li><p><strong>nAccStep</strong> – accumulation_image_line_step. </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>nSrcWeight</strong> – source_image_weight. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-sampleimagepoints">SampleImagePoints</p>
+<p>Given a list of coordinates, this will sample the provided image (with bilinear interpolation) and produce a list of values for those points inside the ROI</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiSampleImagePoints_32f_C1R_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga0abe577c5f0615606ed7dd49d32658f6"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiSampleImagePoints_32f_C1R_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nSrcStep</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiPoint64f" title="NppiPoint64f"><span class="n"><span class="pre">NppiPoint64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pXYCoordinateArray</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nCoordinateCount</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDstDataArray</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiSampleImagePoints_32f_C1R_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Single channel 32-bit pixel sampling function, uses bilinear interpolation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_pointer"><span class="std std-ref">Source-Image Pointer</span></a>. </p></li>
+<li><p><strong>nSrcStep</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_line_step"><span class="std std-ref">Source-Image Line Step</span></a>. </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>pXYCoordinateArray</strong> – list of NppiPoint64fs to sample in the image. </p></li>
+<li><p><strong>nCoordinateCount</strong> – number of points in the pXYCoordinateArray. </p></li>
+<li><p><strong>pDstDataArray</strong> – output array for sampled pixel values. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-setimagepoints">SetImagePoints</p>
+<p>Given a list of coordinates, this will set pixels in the provided image with values provided for those points inside the ROI</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiSetImagePoints_32f_C1R_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga2a55a17c5a62b3de82ff3d7de3ae97fc"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiSetImagePoints_32f_C1R_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nDstStep</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiPoint64f" title="NppiPoint64f"><span class="n"><span class="pre">NppiPoint64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pXYCoordinateArray</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nCoordinateCount</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrcDataArray</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiSetImagePoints_32f_C1R_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Single channel 32-bit pixel set function. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_pointer"><span class="std std-ref">Destination-Image Pointer</span></a>. </p></li>
+<li><p><strong>nDstStep</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_line_step"><span class="std std-ref">Destination-Image Line Step</span></a>. </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>pXYCoordinateArray</strong> – list of NppiPoint64fs to set in the image. </p></li>
+<li><p><strong>nCoordinateCount</strong> – number of points in the pXYCoordinateArray. </p></li>
+<li><p><strong>pSrcDataArray</strong> – source array for pixel values to be written </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-computecurvature">ComputeCurvature</p>
+<p>Given an array of NppiContourBlockSegmenst, for each contour specified this computes the inverse square radius of curvature for each point along that contour for those points inside the ROI</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiComputeCurvature_64f_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga8c7132f379d23df83cebadd338181da5"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiComputeCurvature_64f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.NppiPoint64f" title="NppiPoint64f"><span class="n"><span class="pre">NppiPoint64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContoursPointList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nTotalContourPointCount</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiContourBlockSegment" title="NppiContourBlockSegment"><span class="n"><span class="pre">NppiContourBlockSegment</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContourBlockSegmentList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nFirstContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nLastContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nAdjacentPixels</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pComputedContourPointCurvatureDev</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiComputeCurvature_64f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Measure inverse radius squared curvature along contours. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pContoursPointList</strong> – pointer to device memory array of <a class="reference internal" href="nppdefs.html#structnppipoint64f"><span class="std std-ref">NppiPoint64f</span></a> </p></li>
+<li><p><strong>nTotalContourPointCount</strong> – count of number of points in pContoursPointList </p></li>
+<li><p><strong>pContourBlockSegmentList</strong> – pointer to array of <a class="reference internal" href="nppdefs.html#structnppicontourblocksegment"><span class="std std-ref">NppiContourBlockSegment</span></a> objects </p></li>
+<li><p><strong>nFirstContourGeometryListID</strong> – the ID of the first contour geometry list to output. </p></li>
+<li><p><strong>nLastContourGeometryListID</strong> – the ID of the last contour geometry list to output </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>nAdjacentPixels</strong> – how far away in a contour to find adjacent points to use to compute radius </p></li>
+<li><p><strong>pComputedContourPointCurvatureDev</strong> – output array for computed values </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiComputeCurvature_32f_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga308095bfac8e15b62f75dffd45f532b9"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiComputeCurvature_32f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.NppiPoint32f" title="NppiPoint32f"><span class="n"><span class="pre">NppiPoint32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContoursPointList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nTotalContourPointCount</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiContourBlockSegment" title="NppiContourBlockSegment"><span class="n"><span class="pre">NppiContourBlockSegment</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContourBlockSegmentList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nFirstContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nLastContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nAdjacentPixels</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pComputedContourPointCurvatureDev</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiComputeCurvature_32f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Measure inverse radius squared curvature along contours. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pContoursPointList</strong> – pointer to device memory array of <a class="reference internal" href="nppdefs.html#structnppipoint32f"><span class="std std-ref">NppiPoint32f</span></a> </p></li>
+<li><p><strong>nTotalContourPointCount</strong> – count of number of points in pContoursPointList </p></li>
+<li><p><strong>pContourBlockSegmentList</strong> – pointer to array of <a class="reference internal" href="nppdefs.html#structnppicontourblocksegment"><span class="std std-ref">NppiContourBlockSegment</span></a> objects </p></li>
+<li><p><strong>nFirstContourGeometryListID</strong> – the ID of the first contour geometry list to output. </p></li>
+<li><p><strong>nLastContourGeometryListID</strong> – the ID of the last contour geometry list to output </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>nAdjacentPixels</strong> – how far away in a contour to find adjacent points to use to compute radius </p></li>
+<li><p><strong>pComputedContourPointCurvatureDev</strong> – output array for computed values </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiComputeCurvature_32s_Ctx">
+<span class="target" id="group__image__culitho__filters_1ga45fc5725a4d4aa43d33e9a5f2de8dbb7"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiComputeCurvature_32s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.NppiPoint" title="NppiPoint"><span class="n"><span class="pre">NppiPoint</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContoursPointList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nTotalContourPointCount</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiContourBlockSegment" title="NppiContourBlockSegment"><span class="n"><span class="pre">NppiContourBlockSegment</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pContourBlockSegmentList</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nFirstContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nLastContourGeometryListID</span></span>, <a class="reference internal" href="nppdefs.html#c.NppiSize" title="NppiSize"><span class="n"><span class="pre">NppiSize</span></span></a><span class="w"> </span><span class="n"><span class="pre">oSizeROI</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nAdjacentPixels</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pComputedContourPointCurvatureDev</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_filtering_functions_private.html#c.nppiComputeCurvature_32s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Measure inverse radius squared curvature along contours. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pContoursPointList</strong> – pointer to device memory array of <a class="reference internal" href="nppdefs.html#structnppipoint"><span class="std std-ref">NppiPoint</span></a> </p></li>
+<li><p><strong>nTotalContourPointCount</strong> – count of number of points in pContoursPointList </p></li>
+<li><p><strong>pContourBlockSegmentList</strong> – pointer to array of <a class="reference internal" href="nppdefs.html#structnppicontourblocksegment"><span class="std std-ref">NppiContourBlockSegment</span></a> objects </p></li>
+<li><p><strong>nFirstContourGeometryListID</strong> – the ID of the first contour geometry list to output. </p></li>
+<li><p><strong>nLastContourGeometryListID</strong> – the ID of the last contour geometry list to output </p></li>
+<li><p><strong>oSizeROI</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification"><span class="std std-ref">Region-Of-Interest (ROI)</span></a>. </p></li>
+<li><p><strong>nAdjacentPixels</strong> – how far away in a contour to find adjacent points to use to compute radius </p></li>
+<li><p><strong>pComputedContourPointCurvatureDev</strong> – output array for computed values </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes"><span class="std std-ref">Image Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes"><span class="std std-ref">ROI Related Error Codes</span></a> </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

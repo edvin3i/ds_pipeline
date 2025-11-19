@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.8. Bfloat162 Math Functions — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="4. Single Precision Mathematical Functions" href="group__CUDA__MATH__SINGLE.html">
+    <link rel="prev" title="3.7. Bfloat162 Comparison Functions" href="group__CUDA__MATH____BFLOAT162__COMPARISON.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16__CONSTANTS.html">3.1. Bfloat16 Arithmetic Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__ARITHMETIC.html">3.2. Bfloat16 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__COMPARISON.html">3.3. Bfloat16 Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__FUNCTIONS.html">3.4. Bfloat16 Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT16__MISC.html">3.5. Bfloat16 Precision Conversion and Data Movement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT162__ARITHMETIC.html">3.6. Bfloat162 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____BFLOAT162__COMPARISON.html">3.7. Bfloat162 Comparison Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#">3.8. Bfloat162 Math Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html"><span class="section-number">3. </span>Bfloat16 Precision Intrinsics</a> »</li>
+<li>
+<span class="section-number">3.8. </span>Bfloat162 Math Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bfloat162-math-functions">
+<h1>
+<span class="section-number">3.8. </span>Bfloat162 Math Functions<a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#bfloat162-math-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math____bfloat162__functions">To use these functions, include the header file <code class="docutils literal notranslate"><span class="pre">cuda_bf16.h</span></code> in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1gae00c94df17933b281f96adb87bb79096"><span class="std std-ref">h2ceil</span></a>(const __nv_bfloat162 h)</dt>
+<dd>
+<p>Calculate <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector ceiling of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga23ad268a57b40aaf009e264f932096e6"><span class="std std-ref">h2cos</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector cosine in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga91eb48f8fdc836d53a2d2798e3a5ee58"><span class="std std-ref">h2exp</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga6b146b7d4b6a8aa576799f08fc79e28a"><span class="std std-ref">h2exp10</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector decimal exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga7ab3bc21b22a9191ef580146105552a3"><span class="std std-ref">h2exp2</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector binary exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1gae12b5cf1bc3d85af3afcfd8001f7504e"><span class="std std-ref">h2floor</span></a>(const __nv_bfloat162 h)</dt>
+<dd>
+<p>Calculate the largest integer less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga7a7cdd578f3ca48b0f817e86208c1993"><span class="std std-ref">h2log</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector natural logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1gaca7c1ff5405161e558e78e1d8d8d2fe5"><span class="std std-ref">h2log10</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector decimal logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga732e00efdedce0ff352a02ffdfb0e148"><span class="std std-ref">h2log2</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector binary logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga77258a35116e017655a78e79af13543e"><span class="std std-ref">h2rcp</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector reciprocal in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga2999b2383670be6a35b07036698642ad"><span class="std std-ref">h2rint</span></a>(const __nv_bfloat162 h)</dt>
+<dd>
+<p>Round input to nearest integer value in nv_bfloat16 floating-point number.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga6b73ff4e0d66c91780168afda5c5959f"><span class="std std-ref">h2rsqrt</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector reciprocal square root in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1ga2e77ae3fb1653dcefb47ba07d9587b5d"><span class="std std-ref">h2sin</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector sine in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1gacf45a0963467d56fb9f9747657083d85"><span class="std std-ref">h2sqrt</span></a>(const __nv_bfloat162 a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector square root in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __nv_bfloat162</span> <a class="reference internal" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#group__cuda__math____bfloat162__functions_1gab41f78027d9a1500fa8643bc021db813"><span class="std std-ref">h2trunc</span></a>(const __nv_bfloat162 h)</dt>
+<dd>
+<p>Truncate <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector input argument to the integral part.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">3.8.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46h2ceilK14__nv_bfloat162">
+<span id="_CPPv36h2ceilK14__nv_bfloat162"></span><span id="_CPPv26h2ceilK14__nv_bfloat162"></span><span id="h2ceil____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1gae00c94df17933b281f96adb87bb79096"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2ceil</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv46h2ceilK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector ceiling of the input argument. </p>
+<p>For each component of vector <code class="docutils literal notranslate"><span class="pre">h</span></code> compute the smallest integer value not less than <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The vector of smallest integers not less than <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45h2cosK14__nv_bfloat162">
+<span id="_CPPv35h2cosK14__nv_bfloat162"></span><span id="_CPPv25h2cosK14__nv_bfloat162"></span><span id="h2cos____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga23ad268a57b40aaf009e264f932096e6"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2cos</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv45h2cosK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector cosine in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> cosine of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode.</p>
+<p>NOTE: this function’s implementation calls <a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga20858ddd8f75a2c8332bdecd536057bf"><span class="std std-ref">cosf(float)</span></a> function and is exposed to compiler optimizations. Specifically, <code class="docutils literal notranslate"><span class="pre">--use_fast_math</span></code> flag changes <a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga20858ddd8f75a2c8332bdecd536057bf"><span class="std std-ref">cosf(float)</span></a> into an intrinsic <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga129ff4afc615da9a5886c77713094c32"><span class="std std-ref">__cosf(float)</span></a>, which has less accurate numeric behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise cosine on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45h2expK14__nv_bfloat162">
+<span id="_CPPv35h2expK14__nv_bfloat162"></span><span id="_CPPv25h2expK14__nv_bfloat162"></span><span id="h2exp____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga91eb48f8fdc836d53a2d2798e3a5ee58"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2exp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv45h2expK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> exponential function of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise exponential function on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47h2exp10K14__nv_bfloat162">
+<span id="_CPPv37h2exp10K14__nv_bfloat162"></span><span id="_CPPv27h2exp10K14__nv_bfloat162"></span><span id="h2exp10____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga6b146b7d4b6a8aa576799f08fc79e28a"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2exp10</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv47h2exp10K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector decimal exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> decimal exponential function of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise decimal exponential function on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46h2exp2K14__nv_bfloat162">
+<span id="_CPPv36h2exp2K14__nv_bfloat162"></span><span id="_CPPv26h2exp2K14__nv_bfloat162"></span><span id="h2exp2____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga7ab3bc21b22a9191ef580146105552a3"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2exp2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv46h2exp2K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector binary exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> binary exponential function of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise binary exponential function on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47h2floorK14__nv_bfloat162">
+<span id="_CPPv37h2floorK14__nv_bfloat162"></span><span id="_CPPv27h2floorK14__nv_bfloat162"></span><span id="h2floor____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1gae12b5cf1bc3d85af3afcfd8001f7504e"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2floor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv47h2floorK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the largest integer less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<p>For each component of vector <code class="docutils literal notranslate"><span class="pre">h</span></code> calculate the largest integer value which is less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The vector of largest integers which is less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45h2logK14__nv_bfloat162">
+<span id="_CPPv35h2logK14__nv_bfloat162"></span><span id="_CPPv25h2logK14__nv_bfloat162"></span><span id="h2log____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga7a7cdd578f3ca48b0f817e86208c1993"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2log</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv45h2logK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector natural logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> natural logarithm of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise natural logarithm on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47h2log10K14__nv_bfloat162">
+<span id="_CPPv37h2log10K14__nv_bfloat162"></span><span id="_CPPv27h2log10K14__nv_bfloat162"></span><span id="h2log10____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1gaca7c1ff5405161e558e78e1d8d8d2fe5"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2log10</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv47h2log10K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector decimal logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> decimal logarithm of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise decimal logarithm on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46h2log2K14__nv_bfloat162">
+<span id="_CPPv36h2log2K14__nv_bfloat162"></span><span id="_CPPv26h2log2K14__nv_bfloat162"></span><span id="h2log2____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga732e00efdedce0ff352a02ffdfb0e148"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2log2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv46h2log2K14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector binary logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> binary logarithm of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise binary logarithm on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45h2rcpK14__nv_bfloat162">
+<span id="_CPPv35h2rcpK14__nv_bfloat162"></span><span id="_CPPv25h2rcpK14__nv_bfloat162"></span><span id="h2rcp____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga77258a35116e017655a78e79af13543e"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2rcp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv45h2rcpK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector reciprocal in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> reciprocal of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise reciprocal on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46h2rintK14__nv_bfloat162">
+<span id="_CPPv36h2rintK14__nv_bfloat162"></span><span id="_CPPv26h2rintK14__nv_bfloat162"></span><span id="h2rint____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga2999b2383670be6a35b07036698642ad"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2rint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv46h2rintK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Round input to nearest integer value in nv_bfloat16 floating-point number. </p>
+<p>Round each component of <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector <code class="docutils literal notranslate"><span class="pre">h</span></code> to the nearest integer value in nv_bfloat16 floating-point format, with bfloat16way cases rounded to the nearest even integer value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The vector of rounded integer values. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47h2rsqrtK14__nv_bfloat162">
+<span id="_CPPv37h2rsqrtK14__nv_bfloat162"></span><span id="_CPPv27h2rsqrtK14__nv_bfloat162"></span><span id="h2rsqrt____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga6b73ff4e0d66c91780168afda5c5959f"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2rsqrt</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv47h2rsqrtK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector reciprocal square root in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> reciprocal square root of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise reciprocal square root on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45h2sinK14__nv_bfloat162">
+<span id="_CPPv35h2sinK14__nv_bfloat162"></span><span id="_CPPv25h2sinK14__nv_bfloat162"></span><span id="h2sin____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1ga2e77ae3fb1653dcefb47ba07d9587b5d"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2sin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv45h2sinK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector sine in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> sine of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode.</p>
+<p>NOTE: this function’s implementation calls <a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga4677d53159664972c54bb697b9c1bace"><span class="std std-ref">sinf(float)</span></a> function and is exposed to compiler optimizations. Specifically, <code class="docutils literal notranslate"><span class="pre">--use_fast_math</span></code> flag changes <a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga4677d53159664972c54bb697b9c1bace"><span class="std std-ref">sinf(float)</span></a> into an intrinsic <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafa0ea4b2cee94521792ead0deb03addb"><span class="std std-ref">__sinf(float)</span></a>, which has less accurate numeric behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise sine on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46h2sqrtK14__nv_bfloat162">
+<span id="_CPPv36h2sqrtK14__nv_bfloat162"></span><span id="_CPPv26h2sqrtK14__nv_bfloat162"></span><span id="h2sqrt____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1gacf45a0963467d56fb9f9747657083d85"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2sqrt</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv46h2sqrtK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector square root in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> square root of input vector <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The elementwise square root on vector <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47h2truncK14__nv_bfloat162">
+<span id="_CPPv37h2truncK14__nv_bfloat162"></span><span id="_CPPv27h2truncK14__nv_bfloat162"></span><span id="h2trunc____nv_bfloat162C"></span><span class="target" id="group__cuda__math____bfloat162__functions_1gab41f78027d9a1500fa8643bc021db813"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h2trunc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat162.html#_CPPv414__nv_bfloat162" title="__nv_bfloat162"><span class="n"><span class="pre">__nv_bfloat162</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____BFLOAT162__FUNCTIONS.html#_CPPv47h2truncK14__nv_bfloat162" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Truncate <code class="docutils literal notranslate"><span class="pre">nv_bfloat162</span></code> vector input argument to the integral part. </p>
+<p>Round each component of vector <code class="docutils literal notranslate"><span class="pre">h</span></code> to the nearest integer value that does not exceed <code class="docutils literal notranslate"><span class="pre">h</span></code> in magnitude. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - nv_bfloat162. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>nv_bfloat162</p>
+<ul class="simple">
+<li><p>The truncated <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

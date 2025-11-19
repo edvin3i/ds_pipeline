@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The User guide to nvJitLink library" name="description">
+<meta content="nvJitLink" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nvJitLink</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-started">2. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#system-requirements">2.1. System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">2.2. Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#user-interface">3. User Interface</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#error-codes">3.1. Error codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#enumerations">3.1.1. Enumerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#linking">3.2. Linking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id1">3.2.1. Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#functions">3.2.2. Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#typedefs">3.2.3. Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supported-link-options">3.3. Supported Link Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#basic-usage">4. Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#compatibility">5. Compatibility</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#example-device-lto-link-time-optimization">6. Example: Device LTO (link time optimization)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#code-offline-cu">6.1. Code (offline.cu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#code-online-cpp">6.2. Code (online.cpp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#build-instructions">6.3. Build Instructions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#notices">6.4. Notices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#notice">6.4.1. Notice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#opencl">6.4.2. OpenCL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#trademarks">6.4.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">nvJitLink</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">nvJitLink</p>
+<p>The User guide to nvJitLink library.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>The JIT Link APIs are a set of APIs which can be used at runtime to link together GPU devide code.</p>
+<p>The APIs accept inputs in multiple formats, either host objects, host libraries, fatbins (including with relocatable ptx), device cubins, PTX, index files or LTO-IR. The output is a linked cubin that can be loaded by <code class="docutils literal notranslate"><span class="pre">cuModuleLoadData</span></code> and <code class="docutils literal notranslate"><span class="pre">cuModuleLoadDataEx</span></code> of the CUDA Driver API.</p>
+<p>Link Time Optimization can also be performed when given LTO-IR or higher level formats that include LTO-IR.</p>
+<p>If an input does not contain GPU assembly code, it is first compiled and then linked.</p>
+<p>The functionality in this library is similar to the <code class="docutils literal notranslate"><span class="pre">cuLink*</span></code> APIs in the CUDA Driver, with the following advantages:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cuLink*</span></code> APIs have been deprecated for use with LTO-IR</p></li>
+<li><p>Support for Link Time Optimization</p></li>
+<li><p>Allow users to use runtime linking with the latest Toolkit version that is supported as part of CUDA Toolkit release. This support may not be available in the CUDA Driver APIs if the application is running with an older driver installed in the system. Refer to <a class="reference external" href="https://docs.nvidia.com/deploy/cuda-compatibility/index.html">CUDA Compatibility</a> for more details.</p></li>
+<li><p>The clients get fine grain control and can specify low-level compiler options during linking.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h1>
+<span class="section-number">2. </span>Getting Started<a class="headerlink" href="index.html#getting-started" title="Permalink to this headline"></a>
+</h1>
+<section id="system-requirements">
+<h2>
+<span class="section-number">2.1. </span>System Requirements<a class="headerlink" href="index.html#system-requirements" title="Permalink to this headline"></a>
+</h2>
+<p>The JIT Link library requires the following system configuration:</p>
+<ul class="simple">
+<li><p>POSIX threads support for non-Windows platform.</p></li>
+<li><p>GPU: Any GPU with CUDA Compute Capability 3.5 or higher.</p></li>
+<li><p>CUDA Toolkit and Driver.</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>
+<span class="section-number">2.2. </span>Installation<a class="headerlink" href="index.html#installation" title="Permalink to this headline"></a>
+</h2>
+<p>The JIT Link library is part of the CUDA Toolkit release and the components are organized as follows in the CUDA toolkit installation directory:</p>
+<ul class="simple">
+<li>
+<p>On Windows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include\nvJitLink.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib\x64\nvJitLink.dll</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib\x64\nvJitLink_static.lib</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc\pdf\nvJitLink_User_Guide.pdf</span></code></p></li>
+</ul>
+</li>
+<li>
+<p>On Linux:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include/nvJitLink.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib64/libnvJitLink.so</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib64/libnvJitLink_static.a</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc/pdf/nvJitLink_User_Guide.pdf</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="user-interface">
+<h1>
+<span class="section-number">3. </span>User Interface<a class="headerlink" href="index.html#user-interface" title="Permalink to this headline"></a>
+</h1>
+<p>This chapter presents the JIT Link APIs. Basic usage of the API is explained in <a class="reference external" href="index.html#basic-usage">Basic Usage</a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="index.html#error-codes">Error codes</a></p></li>
+<li><p><a class="reference external" href="index.html#linking">Linking</a></p></li>
+<li><p><a class="reference external" href="index.html#supported-link-options">Supported Link Options</a></p></li>
+</ul>
+<section id="error-codes">
+<h2>
+<span class="section-number">3.1. </span>Error codes<a class="headerlink" href="index.html#error-codes" title="Permalink to this headline"></a>
+</h2>
+<p class="rubric-h2 rubric" id="group__error">Enumerations</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">nvJitLinkResult</span></a></dt>
+<dd>
+<p>The enumerated type nvJitLinkResult defines API call result codes.</p>
+</dd>
+</dl>
+</div>
+<section id="enumerations">
+<h3>
+<span class="section-number">3.1.1. </span>Enumerations<a class="headerlink" href="index.html#enumerations" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv415nvJitLinkResult">
+<span id="_CPPv315nvJitLinkResult"></span><span id="_CPPv215nvJitLinkResult"></span><span class="target" id="group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkResult</span></span></span><a class="headerlink" href="index.html#_CPPv415nvJitLinkResult" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>The enumerated type nvJitLinkResult defines API call result codes. </p>
+<p>nvJitLink APIs return nvJitLinkResult codes to indicate the result. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult17NVJITLINK_SUCCESSE">
+<span id="_CPPv3N15nvJitLinkResult17NVJITLINK_SUCCESSE"></span><span id="_CPPv2N15nvJitLinkResult17NVJITLINK_SUCCESSE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a4087904282e68bdadec90ef97960c5ac"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_SUCCESS</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult17NVJITLINK_SUCCESSE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult35NVJITLINK_ERROR_UNRECOGNIZED_OPTIONE">
+<span id="_CPPv3N15nvJitLinkResult35NVJITLINK_ERROR_UNRECOGNIZED_OPTIONE"></span><span id="_CPPv2N15nvJitLinkResult35NVJITLINK_ERROR_UNRECOGNIZED_OPTIONE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a73d89b843ab30f3fc68c6e3e491fd0cf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_UNRECOGNIZED_OPTION</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult35NVJITLINK_ERROR_UNRECOGNIZED_OPTIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult28NVJITLINK_ERROR_MISSING_ARCHE">
+<span id="_CPPv3N15nvJitLinkResult28NVJITLINK_ERROR_MISSING_ARCHE"></span><span id="_CPPv2N15nvJitLinkResult28NVJITLINK_ERROR_MISSING_ARCHE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a88d0886a2da599c568f69d0cd7b74e40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_MISSING_ARCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult28NVJITLINK_ERROR_MISSING_ARCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult29NVJITLINK_ERROR_INVALID_INPUTE">
+<span id="_CPPv3N15nvJitLinkResult29NVJITLINK_ERROR_INVALID_INPUTE"></span><span id="_CPPv2N15nvJitLinkResult29NVJITLINK_ERROR_INVALID_INPUTE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a139567798faa3fa386d5140090cfeb59"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_INVALID_INPUT</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult29NVJITLINK_ERROR_INVALID_INPUTE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult27NVJITLINK_ERROR_PTX_COMPILEE">
+<span id="_CPPv3N15nvJitLinkResult27NVJITLINK_ERROR_PTX_COMPILEE"></span><span id="_CPPv2N15nvJitLinkResult27NVJITLINK_ERROR_PTX_COMPILEE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a6213cf1cd5bc07db343b79a6f0636f6e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_PTX_COMPILE</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult27NVJITLINK_ERROR_PTX_COMPILEE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult28NVJITLINK_ERROR_NVVM_COMPILEE">
+<span id="_CPPv3N15nvJitLinkResult28NVJITLINK_ERROR_NVVM_COMPILEE"></span><span id="_CPPv2N15nvJitLinkResult28NVJITLINK_ERROR_NVVM_COMPILEE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3ad22d5012a30e10ad786fc67a5f9eadb7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_NVVM_COMPILE</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult28NVJITLINK_ERROR_NVVM_COMPILEE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult24NVJITLINK_ERROR_INTERNALE">
+<span id="_CPPv3N15nvJitLinkResult24NVJITLINK_ERROR_INTERNALE"></span><span id="_CPPv2N15nvJitLinkResult24NVJITLINK_ERROR_INTERNALE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a87c2498833cfeee0901b815df626a83c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_INTERNAL</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult24NVJITLINK_ERROR_INTERNALE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult26NVJITLINK_ERROR_THREADPOOLE">
+<span id="_CPPv3N15nvJitLinkResult26NVJITLINK_ERROR_THREADPOOLE"></span><span id="_CPPv2N15nvJitLinkResult26NVJITLINK_ERROR_THREADPOOLE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a9836a368d57e076ddc30ba11365211f4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_THREADPOOL</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult26NVJITLINK_ERROR_THREADPOOLE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult34NVJITLINK_ERROR_UNRECOGNIZED_INPUTE">
+<span id="_CPPv3N15nvJitLinkResult34NVJITLINK_ERROR_UNRECOGNIZED_INPUTE"></span><span id="_CPPv2N15nvJitLinkResult34NVJITLINK_ERROR_UNRECOGNIZED_INPUTE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a4df22a8758f363fb863464bea3b9d345"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_UNRECOGNIZED_INPUT</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult34NVJITLINK_ERROR_UNRECOGNIZED_INPUTE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15nvJitLinkResult24NVJITLINK_ERROR_FINALIZEE">
+<span id="_CPPv3N15nvJitLinkResult24NVJITLINK_ERROR_FINALIZEE"></span><span id="_CPPv2N15nvJitLinkResult24NVJITLINK_ERROR_FINALIZEE"></span><span class="target" id="group__error_1gga02b99d1f1327b90cb1ff1747a38eb1a3a99946dd9cf20c6b1477898dd807f44be"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_ERROR_FINALIZE</span></span></span><a class="headerlink" href="index.html#_CPPv4N15nvJitLinkResult24NVJITLINK_ERROR_FINALIZEE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="linking">
+<h2>
+<span class="section-number">3.2. </span>Linking<a class="headerlink" href="index.html#linking" title="Permalink to this headline"></a>
+</h2>
+<p class="rubric-h2 rubric" id="group__linking">Enumerations</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__linking_1gaa66f143b76ecc08c215ba1a45dc0aeaf"><span class="std std-ref">nvJitLinkInputType</span></a></dt>
+<dd>
+<p>The enumerated type nvJitLinkInputType defines the kind of inputs that can be passed to nvJitLinkAdd* APIs.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga9d70b5985c13679a9c64bdf621912f3b"><span class="std std-ref">nvJitLinkAddData</span></a>(nvJitLinkHandle handle, nvJitLinkInputType inputType, const void *data, size_t size, const char *name)</dt>
+<dd>
+<p>nvJitLinkAddData adds data image to the link.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1gaeade70d4845df4a329672bc796730f95"><span class="std std-ref">nvJitLinkAddFile</span></a>(nvJitLinkHandle handle, nvJitLinkInputType inputType, const char *fileName)</dt>
+<dd>
+<p>nvJitLinkAddFile reads data from file and links it in.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga9957fe993c155c0ef9426bf2466c6434"><span class="std std-ref">nvJitLinkComplete</span></a>(nvJitLinkHandle handle)</dt>
+<dd>
+<p>nvJitLinkComplete does the actual link.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga48ba234f5d1ae2dbabb037a319cd061b"><span class="std std-ref">nvJitLinkCreate</span></a>(nvJitLinkHandle *handle, uint32_t numOptions, const char **options)</dt>
+<dd>
+<p>nvJitLinkCreate creates an instance of nvJitLinkHandle with the given input options, and sets the output parameter <code class="docutils literal notranslate"><span class="pre">handle</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1gafe20a6047c57c48cf18131f772336061"><span class="std std-ref">nvJitLinkDestroy</span></a>(nvJitLinkHandle *handle)</dt>
+<dd>
+<p>nvJitLinkDestroy frees the memory associated with the given handle and sets it to NULL.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga863a571d78822b20fb73049d249064f4"><span class="std std-ref">nvJitLinkGetErrorLog</span></a>(nvJitLinkHandle handle, char *log)</dt>
+<dd>
+<p>nvJitLinkGetErrorLog puts any error messages in the log.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga3206e639d004f24e5ec9e3ceed35be75"><span class="std std-ref">nvJitLinkGetErrorLogSize</span></a>(nvJitLinkHandle handle, size_t *size)</dt>
+<dd>
+<p>nvJitLinkGetErrorLogSize gets the size of the error log.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1gad34de24b82e5e76d0f616061cef1f45f"><span class="std std-ref">nvJitLinkGetInfoLog</span></a>(nvJitLinkHandle handle, char *log)</dt>
+<dd>
+<p>nvJitLinkGetInfoLog puts any info messages in the log.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga4515b56fcd42ec2131e7ab8f7a506aa6"><span class="std std-ref">nvJitLinkGetInfoLogSize</span></a>(nvJitLinkHandle handle, size_t *size)</dt>
+<dd>
+<p>nvJitLinkGetInfoLogSize gets the size of the info log.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1gaf47e10d4e9e32a1ae864584348a6c58c"><span class="std std-ref">nvJitLinkGetLinkedCubin</span></a>(nvJitLinkHandle handle, void *cubin)</dt>
+<dd>
+<p>nvJitLinkGetLinkedCubin gets the linked cubin.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga4b802517c775509b6488599ee1276658"><span class="std std-ref">nvJitLinkGetLinkedCubinSize</span></a>(nvJitLinkHandle handle, size_t *size)</dt>
+<dd>
+<p>nvJitLinkGetLinkedCubinSize gets the size of the linked cubin.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga60547cee8fbc22a9c43edfa625b01642"><span class="std std-ref">nvJitLinkGetLinkedPtx</span></a>(nvJitLinkHandle handle, char *ptx)</dt>
+<dd>
+<p>nvJitLinkGetLinkedPtx gets the linked ptx.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga9bdabb070beca8d99a72c0df459b68d8"><span class="std std-ref">nvJitLinkGetLinkedPtxSize</span></a>(nvJitLinkHandle handle, size_t *size)</dt>
+<dd>
+<p>nvJitLinkGetLinkedPtxSize gets the size of the linked ptx.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvJitLinkResult</span> <a class="reference internal" href="index.html#group__linking_1ga04b722539d968953cb5cc70488e3f47a"><span class="std std-ref">nvJitLinkVersion</span></a>(unsigned int *major, unsigned int *minor)</dt>
+<dd>
+<p>nvJitLinkVersion returns the current version of nvJitLink.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Typedefs</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__linking_1ga3e05e7d4a1826909af1701b1e01d8526"><span class="std std-ref">nvJitLinkHandle</span></a></dt>
+<dd>
+<p>nvJitLinkHandle is the unit of linking, and an opaque handle for a program.</p>
+</dd>
+</dl>
+</div>
+<section id="id1">
+<h3>
+<span class="section-number">3.2.1. </span>Enumerations<a class="headerlink" href="index.html#id1" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv418nvJitLinkInputType">
+<span id="_CPPv318nvJitLinkInputType"></span><span id="_CPPv218nvJitLinkInputType"></span><span class="target" id="group__linking_1gaa66f143b76ecc08c215ba1a45dc0aeaf"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkInputType</span></span></span><a class="headerlink" href="index.html#_CPPv418nvJitLinkInputType" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>The enumerated type nvJitLinkInputType defines the kind of inputs that can be passed to nvJitLinkAdd* APIs. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType20NVJITLINK_INPUT_NONEE">
+<span id="_CPPv3N18nvJitLinkInputType20NVJITLINK_INPUT_NONEE"></span><span id="_CPPv2N18nvJitLinkInputType20NVJITLINK_INPUT_NONEE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafae9f90b7112f7732333b5056fad709e7b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_NONE</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType20NVJITLINK_INPUT_NONEE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_CUBINE">
+<span id="_CPPv3N18nvJitLinkInputType21NVJITLINK_INPUT_CUBINE"></span><span id="_CPPv2N18nvJitLinkInputType21NVJITLINK_INPUT_CUBINE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafa6a9a0cf692545ebceb22aac66b2157b8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_CUBIN</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_CUBINE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType19NVJITLINK_INPUT_PTXE">
+<span id="_CPPv3N18nvJitLinkInputType19NVJITLINK_INPUT_PTXE"></span><span id="_CPPv2N18nvJitLinkInputType19NVJITLINK_INPUT_PTXE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafa3f4eecebab11d82608c511df174b2b82"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_PTX</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType19NVJITLINK_INPUT_PTXE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_LTOIRE">
+<span id="_CPPv3N18nvJitLinkInputType21NVJITLINK_INPUT_LTOIRE"></span><span id="_CPPv2N18nvJitLinkInputType21NVJITLINK_INPUT_LTOIRE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafaacdeccce8404065e4386fe4e80ddb6ed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_LTOIR</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_LTOIRE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType22NVJITLINK_INPUT_FATBINE">
+<span id="_CPPv3N18nvJitLinkInputType22NVJITLINK_INPUT_FATBINE"></span><span id="_CPPv2N18nvJitLinkInputType22NVJITLINK_INPUT_FATBINE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafac64d711f570c4b8488769d72a8d28b62"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_FATBIN</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType22NVJITLINK_INPUT_FATBINE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType22NVJITLINK_INPUT_OBJECTE">
+<span id="_CPPv3N18nvJitLinkInputType22NVJITLINK_INPUT_OBJECTE"></span><span id="_CPPv2N18nvJitLinkInputType22NVJITLINK_INPUT_OBJECTE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafad551003d01d71f63f8cdfdb09c8bf31d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_OBJECT</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType22NVJITLINK_INPUT_OBJECTE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType23NVJITLINK_INPUT_LIBRARYE">
+<span id="_CPPv3N18nvJitLinkInputType23NVJITLINK_INPUT_LIBRARYE"></span><span id="_CPPv2N18nvJitLinkInputType23NVJITLINK_INPUT_LIBRARYE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafa86130125e556ff4b14062c66c4a6658a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_LIBRARY</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType23NVJITLINK_INPUT_LIBRARYE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_INDEXE">
+<span id="_CPPv3N18nvJitLinkInputType21NVJITLINK_INPUT_INDEXE"></span><span id="_CPPv2N18nvJitLinkInputType21NVJITLINK_INPUT_INDEXE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafa8a13322836c3595c9f836f076b06e15d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_INDEX</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType21NVJITLINK_INPUT_INDEXE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N18nvJitLinkInputType19NVJITLINK_INPUT_ANYE">
+<span id="_CPPv3N18nvJitLinkInputType19NVJITLINK_INPUT_ANYE"></span><span id="_CPPv2N18nvJitLinkInputType19NVJITLINK_INPUT_ANYE"></span><span class="target" id="group__linking_1ggaa66f143b76ecc08c215ba1a45dc0aeafab0c7b00395e3b75b473cc26493696727"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVJITLINK_INPUT_ANY</span></span></span><a class="headerlink" href="index.html#_CPPv4N18nvJitLinkInputType19NVJITLINK_INPUT_ANYE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+</dd>
+</dl>
+
+</section>
+<section id="functions">
+<h3>
+<span class="section-number">3.2.2. </span>Functions<a class="headerlink" href="index.html#functions" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvJitLinkAddData15nvJitLinkHandle18nvJitLinkInputTypePKv6size_tPKc">
+<span id="_CPPv316nvJitLinkAddData15nvJitLinkHandle18nvJitLinkInputTypePKv6size_tPKc"></span><span id="_CPPv216nvJitLinkAddData15nvJitLinkHandle18nvJitLinkInputTypePKv6size_tPKc"></span><span id="nvJitLinkAddData__nvJitLinkHandle.nvJitLinkInputType.voidCP.s.cCP"></span><span class="target" id="group__linking_1ga9d70b5985c13679a9c64bdf621912f3b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkAddData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <a class="reference internal" href="index.html#_CPPv418nvJitLinkInputType" title="nvJitLinkInputType"><span class="n"><span class="pre">nvJitLinkInputType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">inputType</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvJitLinkAddData15nvJitLinkHandle18nvJitLinkInputTypePKv6size_tPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkAddData adds data image to the link. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>inputType</strong> – <strong>[in]</strong> kind of input. </p></li>
+<li><p><strong>data</strong> – <strong>[in]</strong> pointer to data image in memory. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> size of the data. </p></li>
+<li><p><strong>name</strong> – <strong>[in]</strong> name of input object. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvJitLinkAddFile15nvJitLinkHandle18nvJitLinkInputTypePKc">
+<span id="_CPPv316nvJitLinkAddFile15nvJitLinkHandle18nvJitLinkInputTypePKc"></span><span id="_CPPv216nvJitLinkAddFile15nvJitLinkHandle18nvJitLinkInputTypePKc"></span><span id="nvJitLinkAddFile__nvJitLinkHandle.nvJitLinkInputType.cCP"></span><span class="target" id="group__linking_1gaeade70d4845df4a329672bc796730f95"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkAddFile</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <a class="reference internal" href="index.html#_CPPv418nvJitLinkInputType" title="nvJitLinkInputType"><span class="n"><span class="pre">nvJitLinkInputType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">inputType</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">fileName</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvJitLinkAddFile15nvJitLinkHandle18nvJitLinkInputTypePKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkAddFile reads data from file and links it in. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>inputType</strong> – <strong>[in]</strong> kind of input. </p></li>
+<li><p><strong>fileName</strong> – <strong>[in]</strong> name of file. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417nvJitLinkComplete15nvJitLinkHandle">
+<span id="_CPPv317nvJitLinkComplete15nvJitLinkHandle"></span><span id="_CPPv217nvJitLinkComplete15nvJitLinkHandle"></span><span id="nvJitLinkComplete__nvJitLinkHandle"></span><span class="target" id="group__linking_1ga9957fe993c155c0ef9426bf2466c6434"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkComplete</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv417nvJitLinkComplete15nvJitLinkHandle" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkComplete does the actual link. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415nvJitLinkCreateP15nvJitLinkHandle8uint32_tPPKc">
+<span id="_CPPv315nvJitLinkCreateP15nvJitLinkHandle8uint32_tPPKc"></span><span id="_CPPv215nvJitLinkCreateP15nvJitLinkHandle8uint32_tPPKc"></span><span id="nvJitLinkCreate__nvJitLinkHandleP.uint32_t.cCPP"></span><span class="target" id="group__linking_1ga48ba234f5d1ae2dbabb037a319cd061b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkCreate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numOptions</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">options</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv415nvJitLinkCreateP15nvJitLinkHandle8uint32_tPPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkCreate creates an instance of nvJitLinkHandle with the given input options, and sets the output parameter <code class="docutils literal notranslate"><span class="pre">handle</span></code>. </p>
+<p>
+It supports options listed in <a class="reference internal" href="index.html#group__options"><span class="std std-ref">Supported Link Options</span></a>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkDestroy </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[out]</strong> Address of nvJitLink handle. </p></li>
+<li><p><strong>numOptions</strong> – <strong>[in]</strong> Number of options passed. </p></li>
+<li><p><strong>options</strong> – <strong>[in]</strong> Array of size <code class="docutils literal notranslate"><span class="pre">numOptions</span></code> of option strings. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_UNRECOGNIZED_OPTION</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_MISSING_ARCH</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvJitLinkDestroyP15nvJitLinkHandle">
+<span id="_CPPv316nvJitLinkDestroyP15nvJitLinkHandle"></span><span id="_CPPv216nvJitLinkDestroyP15nvJitLinkHandle"></span><span id="nvJitLinkDestroy__nvJitLinkHandleP"></span><span class="target" id="group__linking_1gafe20a6047c57c48cf18131f772336061"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkDestroy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvJitLinkDestroyP15nvJitLinkHandle" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkDestroy frees the memory associated with the given handle and sets it to NULL. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkCreate </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>handle</strong> – <strong>[in]</strong> Address of nvJitLink handle. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420nvJitLinkGetErrorLog15nvJitLinkHandlePc">
+<span id="_CPPv320nvJitLinkGetErrorLog15nvJitLinkHandlePc"></span><span id="_CPPv220nvJitLinkGetErrorLog15nvJitLinkHandlePc"></span><span id="nvJitLinkGetErrorLog__nvJitLinkHandle.cP"></span><span class="target" id="group__linking_1ga863a571d78822b20fb73049d249064f4"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetErrorLog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">log</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv420nvJitLinkGetErrorLog15nvJitLinkHandlePc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetErrorLog puts any error messages in the log. </p>
+<p>
+User is responsible for allocating enough space to hold the <code class="docutils literal notranslate"><span class="pre">log</span></code>. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetErrorLogSize </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>log</strong> – <strong>[out]</strong> The error log. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424nvJitLinkGetErrorLogSize15nvJitLinkHandleP6size_t">
+<span id="_CPPv324nvJitLinkGetErrorLogSize15nvJitLinkHandleP6size_t"></span><span id="_CPPv224nvJitLinkGetErrorLogSize15nvJitLinkHandleP6size_t"></span><span id="nvJitLinkGetErrorLogSize__nvJitLinkHandle.sP"></span><span class="target" id="group__linking_1ga3206e639d004f24e5ec9e3ceed35be75"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetErrorLogSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv424nvJitLinkGetErrorLogSize15nvJitLinkHandleP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetErrorLogSize gets the size of the error log. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetErrorLog </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>size</strong> – <strong>[out]</strong> Size of the error log. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419nvJitLinkGetInfoLog15nvJitLinkHandlePc">
+<span id="_CPPv319nvJitLinkGetInfoLog15nvJitLinkHandlePc"></span><span id="_CPPv219nvJitLinkGetInfoLog15nvJitLinkHandlePc"></span><span id="nvJitLinkGetInfoLog__nvJitLinkHandle.cP"></span><span class="target" id="group__linking_1gad34de24b82e5e76d0f616061cef1f45f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetInfoLog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">log</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv419nvJitLinkGetInfoLog15nvJitLinkHandlePc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetInfoLog puts any info messages in the log. </p>
+<p>
+User is responsible for allocating enough space to hold the <code class="docutils literal notranslate"><span class="pre">log</span></code>. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetInfoLogSize </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>log</strong> – <strong>[out]</strong> The info log. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423nvJitLinkGetInfoLogSize15nvJitLinkHandleP6size_t">
+<span id="_CPPv323nvJitLinkGetInfoLogSize15nvJitLinkHandleP6size_t"></span><span id="_CPPv223nvJitLinkGetInfoLogSize15nvJitLinkHandleP6size_t"></span><span id="nvJitLinkGetInfoLogSize__nvJitLinkHandle.sP"></span><span class="target" id="group__linking_1ga4515b56fcd42ec2131e7ab8f7a506aa6"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetInfoLogSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv423nvJitLinkGetInfoLogSize15nvJitLinkHandleP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetInfoLogSize gets the size of the info log. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetInfoLog </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>size</strong> – <strong>[out]</strong> Size of the info log. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423nvJitLinkGetLinkedCubin15nvJitLinkHandlePv">
+<span id="_CPPv323nvJitLinkGetLinkedCubin15nvJitLinkHandlePv"></span><span id="_CPPv223nvJitLinkGetLinkedCubin15nvJitLinkHandlePv"></span><span id="nvJitLinkGetLinkedCubin__nvJitLinkHandle.voidP"></span><span class="target" id="group__linking_1gaf47e10d4e9e32a1ae864584348a6c58c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetLinkedCubin</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cubin</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv423nvJitLinkGetLinkedCubin15nvJitLinkHandlePv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetLinkedCubin gets the linked cubin. </p>
+<p>
+User is responsible for allocating enough space to hold the <code class="docutils literal notranslate"><span class="pre">cubin</span></code>. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetLinkedCubinSize </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>cubin</strong> – <strong>[out]</strong> The linked cubin. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427nvJitLinkGetLinkedCubinSize15nvJitLinkHandleP6size_t">
+<span id="_CPPv327nvJitLinkGetLinkedCubinSize15nvJitLinkHandleP6size_t"></span><span id="_CPPv227nvJitLinkGetLinkedCubinSize15nvJitLinkHandleP6size_t"></span><span id="nvJitLinkGetLinkedCubinSize__nvJitLinkHandle.sP"></span><span class="target" id="group__linking_1ga4b802517c775509b6488599ee1276658"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetLinkedCubinSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv427nvJitLinkGetLinkedCubinSize15nvJitLinkHandleP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetLinkedCubinSize gets the size of the linked cubin. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetLinkedCubin </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>size</strong> – <strong>[out]</strong> Size of the linked cubin. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421nvJitLinkGetLinkedPtx15nvJitLinkHandlePc">
+<span id="_CPPv321nvJitLinkGetLinkedPtx15nvJitLinkHandlePc"></span><span id="_CPPv221nvJitLinkGetLinkedPtx15nvJitLinkHandlePc"></span><span id="nvJitLinkGetLinkedPtx__nvJitLinkHandle.cP"></span><span class="target" id="group__linking_1ga60547cee8fbc22a9c43edfa625b01642"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetLinkedPtx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ptx</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv421nvJitLinkGetLinkedPtx15nvJitLinkHandlePc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetLinkedPtx gets the linked ptx. </p>
+<p>
+Linked PTX is only available when using the <code class="docutils literal notranslate"><span class="pre">-lto</span></code> option. User is responsible for allocating enough space to hold the <code class="docutils literal notranslate"><span class="pre">ptx</span></code>. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetLinkedPtxSize </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>ptx</strong> – <strong>[out]</strong> The linked PTX. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425nvJitLinkGetLinkedPtxSize15nvJitLinkHandleP6size_t">
+<span id="_CPPv325nvJitLinkGetLinkedPtxSize15nvJitLinkHandleP6size_t"></span><span id="_CPPv225nvJitLinkGetLinkedPtxSize15nvJitLinkHandleP6size_t"></span><span id="nvJitLinkGetLinkedPtxSize__nvJitLinkHandle.sP"></span><span class="target" id="group__linking_1ga9bdabb070beca8d99a72c0df459b68d8"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkGetLinkedPtxSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv415nvJitLinkHandle" title="nvJitLinkHandle"><span class="n"><span class="pre">nvJitLinkHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv425nvJitLinkGetLinkedPtxSize15nvJitLinkHandleP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkGetLinkedPtxSize gets the size of the linked ptx. </p>
+<p>
+Linked PTX is only available when using the <code class="docutils literal notranslate"><span class="pre">-lto</span></code> option. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>nvJitLinkGetLinkedPtx </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvJitLink handle. </p></li>
+<li><p><strong>size</strong> – <strong>[out]</strong> Size of the linked PTX. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvJitLinkVersionPjPj">
+<span id="_CPPv316nvJitLinkVersionPjPj"></span><span id="_CPPv216nvJitLinkVersionPjPj"></span><span id="nvJitLinkVersion__unsigned-iP.unsigned-iP"></span><span class="target" id="group__linking_1ga04b722539d968953cb5cc70488e3f47a"></span><a class="reference internal" href="index.html#_CPPv415nvJitLinkResult" title="nvJitLinkResult"><span class="n"><span class="pre">nvJitLinkResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkVersion</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvJitLinkVersionPjPj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkVersion returns the current version of nvJitLink. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>major</strong> – <strong>[out]</strong> The major version. </p></li>
+<li><p><strong>minor</strong> – <strong>[out]</strong> The minor version. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INVALID_INPUT</span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga02b99d1f1327b90cb1ff1747a38eb1a3"><span class="std std-ref">NVJITLINK_ERROR_INTERNAL</span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+<section id="typedefs">
+<h3>
+<span class="section-number">3.2.3. </span>Typedefs<a class="headerlink" href="index.html#typedefs" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv415nvJitLinkHandle">
+<span id="_CPPv315nvJitLinkHandle"></span><span id="_CPPv215nvJitLinkHandle"></span><span id="nvJitLinkHandle"></span><span class="target" id="group__linking_1ga3e05e7d4a1826909af1701b1e01d8526"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">nvJitLink</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nvJitLinkHandle</span></span></span><a class="headerlink" href="index.html#_CPPv415nvJitLinkHandle" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvJitLinkHandle is the unit of linking, and an opaque handle for a program. </p>
+<p>To link inputs, an instance of nvJitLinkHandle must be created first with nvJitLinkCreate(). </p>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="supported-link-options">
+<h2>
+<span class="section-number">3.3. </span>Supported Link Options<a class="headerlink" href="index.html#supported-link-options" title="Permalink to this headline"></a>
+</h2>
+<p id="group__options">nvJitLink supports the link options below. </p>
+<p>Option names are prefixed with a single dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>). Options that take a value have an assignment operator (<code class="docutils literal notranslate"><span class="pre">=</span></code>) followed by the option value, with no spaces, e.g. <code class="docutils literal notranslate"><span class="pre">"-arch=sm_90"</span></code>.</p>
+<p>The supported options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-arch=sm_&lt;N&gt;</span></code> 
+ Pass SM architecture value. See nvcc for valid values of &lt;N&gt;. Can use compute_&lt;N&gt; value instead if only generating PTX. This is a required option. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-maxrregcount=&lt;N&gt;</span></code> 
+ Maximum register count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-time</span></code> 
+ Print timing information to InfoLog.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-verbose</span></code> 
+ Print verbose messages to InfoLog.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-lto</span></code> 
+ Do link time optimization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-ptx</span></code> 
+ Emit ptx after linking instead of cubin; only supported with <code class="docutils literal notranslate"><span class="pre">-lto</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-O&lt;N&gt;</span></code> 
+ Optimization level. Only 0 and 3 are accepted.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span></code> 
+ Generate debug information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-lineinfo</span></code> 
+ Generate line information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-ftz=&lt;n&gt;</span></code> 
+ Flush to zero.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-prec-div=&lt;n&gt;</span></code> 
+ Precise divide.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-prec-sqrt=&lt;n&gt;</span></code> 
+ Precise square root.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-fma=&lt;n&gt;</span></code> 
+ Fast multiply add.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-kernels-used=&lt;name&gt;</span></code> 
+ Pass list of kernels that are used; any not in the list can be removed. This option can be specified multiple times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-variables-used=&lt;name&gt;</span></code> 
+ Pass list of variables that are used; any not in the list can be removed. This option can be specified multiple times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-optimize-unused-variables</span></code> 
+ Normally device code optimization is limited by not knowing what the host code references. With this option it can assume that if a variable is not referenced in device code then it can be removed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-Xptxas=&lt;opt&gt;</span></code> 
+ Pass &lt;opt&gt; to ptxas. This option can be called multiple times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-split-compile=&lt;N&gt;</span></code> 
+ Split compilation maximum thread count. Use 0 to use all available processors. Value of 1 disables split compilation (default).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-split-compile-extended=&lt;N&gt;</span></code> 
+ A more aggressive form of split compilation available in LTO mode only. Accepts a maximum thread count value. Use 0 to use all available processors. Value of 1 disables extended split compilation (default). Note: This option can potentially impact performance of the compiled binary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-jump-table-density=&lt;N&gt;</span></code> 
+ When doing LTO, specify the case density percentage in switch statements, and use it as a minimal threshold to determine whether jump table(brx.idx instruction) will be used to implement a switch statement. Default value is 101. The percentage ranges from 0 to 101 inclusively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-no-cache</span></code> 
+ Don’t cache the intermediate steps of nvJitLink.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-device-stack-protector</span></code> 
+ Enable stack canaries in device code. Stack canaries make it more difficult to exploit certain types of memory safety bugs involving stack-local variables. The compiler uses heuristics to assess the risk of such a bug in each function. Only those functions which are deemed high-risk make use of a stack canary. </p></li>
+</ul>
+
+</section>
+</section>
+<section id="basic-usage">
+<h1>
+<span class="section-number">4. </span>Basic Usage<a class="headerlink" href="index.html#basic-usage" title="Permalink to this headline"></a>
+</h1>
+<p>This section of the document uses a simple example to explain how to use the JIT Link APIs to link a program. For brevity and readability, error checks on the API return values are not shown.</p>
+<p>This example assumes we want to link for sm_80, but whatever arch is installed on the system should be used. We can create the linker and obtain a handle to it as shown in <a class="reference external" href="index.html#basic-usage-linker-creation">Figure 1</a>.</p>
+<p id="basic-usage-linker-creation">Figure 1. Linker creation and initialization of a program</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvJitLink_t</span><span class="w"> </span><span class="n">linker</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">link_options</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"-arch=sm_80"</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">nvJitLinkCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">link_options</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Assume that we already have two relocatable input files (a.o and b.o), which could be created with the <code class="docutils literal notranslate"><span class="pre">nvcc</span> <span class="pre">-dc</span></code> command. We can add the input files as show in <a class="reference external" href="index.html#basic-usage-link-inputs">Figure 2</a>.</p>
+<p id="basic-usage-link-inputs">Figure 2. Inputs to linker</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvJitLinkAddFile</span><span class="p">(</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="n">NVJITLINK_INPUT_OBJECT</span><span class="p">,</span><span class="w"> </span><span class="s">"a.o"</span><span class="p">);</span><span class="w"></span>
+<span class="n">nvJitLinkAddFile</span><span class="p">(</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="n">NVJITLINK_INPUT_OBJECT</span><span class="p">,</span><span class="w"> </span><span class="s">"b.o"</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Now the actual link can be done as shown in <a class="reference external" href="index.html#basic-usage-linking-of-program">Figure 3</a>.</p>
+<blockquote id="basic-usage-linking-of-program">
+<div>
+<p>Figure 3. Linking of the PTX program</p>
+</div>
+</blockquote>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvJitLinkComplete</span><span class="p">(</span><span class="n">linker</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The linked GPU assembly code can now be obtained. To obtain this we first allocate memory for it. And to allocate memory, we need to query the size of the image of the linked GPU assembly code which is done as shown in <a class="reference external" href="index.html#basic-usage-query-image-size">Figure 4</a>.</p>
+<p id="basic-usage-query-image-size">Figure 4. Query size of the linked assembly image</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvJitLinkGetLinkedCubinSize</span><span class="p">(</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cubinSize</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The image of the linked GPU assembly code can now be queried as shown in <a class="reference external" href="index.html#basic-usage-query-image">Figure 5</a>. This image can then be executed on the GPU by passing this image to the CUDA Driver APIs.</p>
+<p id="basic-usage-query-image">Figure 5. Query the linked assembly image</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">elf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">cubinSize</span><span class="p">);</span><span class="w"></span>
+<span class="n">nvJitLinkGetLinkedCubin</span><span class="p">(</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">elf</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>When the linker is not needed anymore, it can be destroyed as shown in <a class="reference external" href="index.html#basic-usage-destroy-linker">Figure 6</a>.</p>
+<p id="basic-usage-destroy-linker">Figure 6. Destroy the linker</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvJitLinkDestroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">linker</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="compatibility">
+<h1>
+<span class="section-number">5. </span>Compatibility<a class="headerlink" href="index.html#compatibility" title="Permalink to this headline"></a>
+</h1>
+<p>The nvJitLink library is compatible across minor versions in a release, but may not be compatible across major versions. The library version itself must be &gt;= the maximum version of the inputs, and the shared library version must be &gt;= the version that was linked with.</p>
+<p>For example, you can link an object created with 12.0 and one with 12.1 if your nvJitLink library is version 12.x where x &gt;= 1. If it was linked with 12.1, then you can replace and use the nvJitLink shared library with any version 12.x where x &gt;= 1. On the flip side, you cannot use 12.0 to link 12.1 objects, nor use 12.0 nvJitLink library to run 12.1 code.</p>
+<p>Linking across major versions (like 11.x with 12.x) works for ELF and PTX inputs, but does not work with LTOIR inputs. If using LTO, then compatibility is only guaranteed within a major release.</p>
+<p>Linking extended ISA sources (like sm_90a) against any other sm version will always fail.</p>
+<p>Linking with PTX sources from different architectures (such as compute_89 and compute_90) will work as long as the final link is the newest of all of the architectures being linked. That is, for any compute_X and compute_Y, the link is valid if the target is sm_N where N &gt;= max(X,Y).</p>
+<p>Linking with LTO sources from different architectures (such as lto_89 and lto_90) will work as long as the final link is the newest of all of the architectures being linked. That is, for any lto_X and lto_Y, the link is valid if the target is sm_N where N &gt;= max(X,Y).</p>
+<p>Linking with non-PTX, non-LTO sources is limited to link-compatible architectures, such as how sm_70 and sm_75 can link with each other but not sm_80.</p>
+</section>
+<section id="example-device-lto-link-time-optimization">
+<h1>
+<span class="section-number">6. </span>Example: Device LTO (link time optimization)<a class="headerlink" href="index.html#example-device-lto-link-time-optimization" title="Permalink to this headline"></a>
+</h1>
+<p>This section demonstrates device link time optimization (LTO). There are two units of LTO IR. The first unit is generated offline using <code class="docutils literal notranslate"><span class="pre">nvcc</span></code>, by specifying the architecture as ‘<code class="docutils literal notranslate"><span class="pre">-arch</span> <span class="pre">lto_XX</span></code>’ (see offline.cu). The generated LTO IR is packaged in a fatbinary.</p>
+<p>The second unit is generated online using NVRTC, by specifying the flag ‘<code class="docutils literal notranslate"><span class="pre">-dlto</span></code>’ (see online.cpp).</p>
+<p>These two units are then passed to <code class="docutils literal notranslate"><span class="pre">libnvJitLink*</span></code> API functions, which link together the LTO IR, run the optimizer on the linked IR, and generate a cubin (see online.cpp). The cubin is then loaded on the GPU and executed.</p>
+<section id="code-offline-cu">
+<h2>
+<span class="section-number">6.1. </span>Code (offline.cu)<a class="headerlink" href="index.html#code-offline-cu" title="Permalink to this headline"></a>
+</h2>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">__device__</span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">compute</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="code-online-cpp">
+<h2>
+<span class="section-number">6.2. </span>Code (online.cpp)<a class="headerlink" href="index.html#code-online-cpp" title="Permalink to this headline"></a>
+</h2>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvrtc.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cuda.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvJitLink.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvrtc.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="cp">#define NUM_THREADS 128</span>
+<span class="cp">#define NUM_BLOCKS 32</span>
+
+<span class="cp">#define NVRTC_SAFE_CALL(x)                                        \</span>
+<span class="cp">  do {                                                            \</span>
+<span class="cp">    nvrtcResult result = x;                                       \</span>
+<span class="cp">    if (result != NVRTC_SUCCESS) {                                \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "           \</span>
+<span class="cp">                &lt;&lt; nvrtcGetErrorString(result) &lt;&lt; '\n';           \</span>
+<span class="cp">      exit(1);                                                    \</span>
+<span class="cp">    }                                                             \</span>
+<span class="cp">  } while(0)</span>
+<span class="cp">#define CUDA_SAFE_CALL(x)                                         \</span>
+<span class="cp">  do {                                                            \</span>
+<span class="cp">    CUresult result = x;                                          \</span>
+<span class="cp">    if (result != CUDA_SUCCESS) {                                 \</span>
+<span class="cp">      const char *msg;                                            \</span>
+<span class="cp">      cuGetErrorName(result, &amp;msg);                               \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "           \</span>
+<span class="cp">                &lt;&lt; msg &lt;&lt; '\n';                                   \</span>
+<span class="cp">      exit(1);                                                    \</span>
+<span class="cp">    }                                                             \</span>
+<span class="cp">  } while(0)</span>
+<span class="cp">#define NVJITLINK_SAFE_CALL(h,x)                                  \</span>
+<span class="cp">  do {                                                            \</span>
+<span class="cp">    nvJitLinkResult result = x;                                   \</span>
+<span class="cp">    if (result != NVJITLINK_SUCCESS) {                            \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "           \</span>
+<span class="cp">                &lt;&lt; result &lt;&lt; '\n';                                \</span>
+<span class="cp">      size_t lsize;                                               \</span>
+<span class="cp">      result = nvJitLinkGetErrorLogSize(h, &amp;lsize);               \</span>
+<span class="cp">      if (result == NVJITLINK_SUCCESS &amp;&amp; lsize &gt; 0) {             \</span>
+<span class="cp">        char *log = (char*)malloc(lsize);                         \</span>
+<span class="cp">    result = nvJitLinkGetErrorLog(h, log);                        \</span>
+<span class="cp">    if (result == NVJITLINK_SUCCESS) {                            \</span>
+<span class="cp">      std::cerr &lt;&lt; "error: " &lt;&lt; log &lt;&lt; '\n';                      \</span>
+<span class="cp">      free(log);                                                  \</span>
+<span class="cp">    }                                                             \</span>
+<span class="cp">      }                                                           \</span>
+<span class="cp">      exit(1);                                                    \</span>
+<span class="cp">    }                                                             \</span>
+<span class="cp">  } while(0)</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lto_saxpy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"                                       </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">extern __device__ float compute(float a, float x, float y);     </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">                                                                </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">extern </span><span class="se">\"</span><span class="s">C</span><span class="se">\"</span><span class="s"> __global__                                         </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">void saxpy(float a, float *x, float *y, float *out, size_t n)   </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">{                                                               </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">  size_t tid = blockIdx.x * blockDim.x + threadIdx.x;           </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">  if (tid &lt; n) {                                                </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">    out[tid] = compute(a, x[tid], y[tid]);                      </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">  }                                                             </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">}                                                               </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numBlocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numThreads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Create an instance of nvrtcProgram with the code string.</span>
+<span class="w">  </span><span class="n">nvrtcProgram</span><span class="w"> </span><span class="n">prog</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">nvrtcCreateProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prog</span><span class="p">,</span><span class="w">                       </span><span class="c1">// prog</span>
+<span class="w">                       </span><span class="n">lto_saxpy</span><span class="p">,</span><span class="w">                   </span><span class="c1">// buffer</span>
+<span class="w">                       </span><span class="s">"lto_saxpy.cu"</span><span class="p">,</span><span class="w">              </span><span class="c1">// name</span>
+<span class="w">                       </span><span class="mi">0</span><span class="p">,</span><span class="w">                           </span><span class="c1">// numHeaders</span>
+<span class="w">                       </span><span class="nb">NULL</span><span class="p">,</span><span class="w">                        </span><span class="c1">// headers</span>
+<span class="w">                       </span><span class="nb">NULL</span><span class="p">));</span><span class="w">                      </span><span class="c1">// includeNames</span>
+
+<span class="w">  </span><span class="c1">// specify that LTO IR should be generated for LTO operation</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">opts</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"-dlto"</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="s">"--relocatable-device-code=true"</span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">nvrtcResult</span><span class="w"> </span><span class="n">compileResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvrtcCompileProgram</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w">  </span><span class="c1">// prog</span>
+<span class="w">                                                  </span><span class="mi">2</span><span class="p">,</span><span class="w">     </span><span class="c1">// numOptions</span>
+<span class="w">                                                  </span><span class="n">opts</span><span class="p">);</span><span class="w"> </span><span class="c1">// options</span>
+<span class="w">  </span><span class="c1">// Obtain compilation log from the program.</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">logSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetProgramLogSize</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">logSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">logSize</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetProgramLog</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">log</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">compileResult</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NVRTC_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Obtain generated LTO IR from the program.</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">LTOIRSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetLTOIRSize</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LTOIRSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">LTOIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">LTOIRSize</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetLTOIR</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="n">LTOIR</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Destroy the program.</span>
+<span class="w">  </span><span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcDestroyProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prog</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">CUdevice</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUcontext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUmodule</span><span class="w"> </span><span class="n">module</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUfunction</span><span class="w"> </span><span class="n">kernel</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuInit</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cuDevice</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Load the generated LTO IR and the LTO IR generated offline</span>
+<span class="w">  </span><span class="c1">// and link them together.</span>
+<span class="w">  </span><span class="n">nvJitLinkHandle</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Dynamically determine the arch to link for</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGetAttribute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">major</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="n">CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGetAttribute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">minor</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="n">CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">arch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">major</span><span class="o">*</span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">minor</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">smbuf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">sprintf</span><span class="p">(</span><span class="n">smbuf</span><span class="p">,</span><span class="w"> </span><span class="s">"-arch=sm_%d"</span><span class="p">,</span><span class="w"> </span><span class="n">arch</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">lopts</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"-lto"</span><span class="p">,</span><span class="w"> </span><span class="n">smbuf</span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">lopts</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// NOTE: assumes "offline.fatbin" is in the current directory</span>
+<span class="w">  </span><span class="c1">// The fatbinary contains LTO IR generated offline using nvcc</span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkAddFile</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">NVJITLINK_INPUT_FATBIN</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="s">"offline.fatbin"</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkAddData</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">NVJITLINK_INPUT_LTOIR</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">LTOIR</span><span class="p">,</span><span class="w"> </span><span class="n">LTOIRSize</span><span class="p">,</span><span class="w"> </span><span class="s">"lto_online"</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// The call to nvJitLinkComplete causes linker to link together the two</span>
+<span class="w">  </span><span class="c1">// LTO IR modules (offline and online), do optimization on the linked LTO IR,</span>
+<span class="w">  </span><span class="c1">// and generate cubin from it.</span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkComplete</span><span class="p">(</span><span class="n">handle</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">cubinSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkGetLinkedCubinSize</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cubinSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">cubin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">cubinSize</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkGetLinkedCubin</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">cubin</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">NVJITLINK_SAFE_CALL</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nvJitLinkDestroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleLoadData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n">cubin</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleGetFunction</span><span class="p">(</span><span class="o">&amp;</span><span class="n">kernel</span><span class="p">,</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="s">"saxpy"</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Generate input for execution, and create output buffers.</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NUM_THREADS</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NUM_BLOCKS</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bufferSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.1f</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">hX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">hY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">hOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">hX</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">hY</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUdeviceptr</span><span class="w"> </span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">dOut</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyHtoD</span><span class="p">(</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">hX</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyHtoD</span><span class="p">(</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">hY</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Execute SAXPY.</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">cuLaunchKernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="n">NUM_BLOCKS</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// grid dim</span>
+<span class="w">                   </span><span class="n">NUM_THREADS</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">   </span><span class="c1">// block dim</span>
+<span class="w">                   </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w">             </span><span class="c1">// shared mem and stream</span>
+<span class="w">                   </span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w">           </span><span class="c1">// arguments</span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxSynchronize</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Retrieve and print output.</span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyDtoH</span><span class="p">(</span><span class="n">hOut</span><span class="p">,</span><span class="w"> </span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" * "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hX</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" + "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hY</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"></span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hOut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Release resources.</span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dX</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dY</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dOut</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleUnload</span><span class="p">(</span><span class="n">module</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxDestroy</span><span class="p">(</span><span class="n">context</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">cubin</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hX</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hY</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hOut</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">LTOIR</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="build-instructions">
+<h2>
+<span class="section-number">6.3. </span>Build Instructions<a class="headerlink" href="index.html#build-instructions" title="Permalink to this headline"></a>
+</h2>
+<p>Assuming the environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code> points to CUDA Toolkit installation directory, build this example as:</p>
+<ul>
+<li>
+<p>Compile offline.cu to fatbinary containing LTO IR (change <code class="docutils literal notranslate"><span class="pre">lto_52</span></code> to a different <code class="docutils literal notranslate"><span class="pre">lto_XX</span></code> architecture as appropriate).</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>nvcc -arch lto_52 -rdc=true -fatbin offline.cu
+</pre></div>
+</div>
+</li>
+<li>
+<p>With nvJitLink shared library (note that if test didn’t use nvrtc then it would not need to link with nvrtc):</p>
+<ul>
+<li>
+<p>Windows:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>cl.exe online.cpp /Feonline ^
+      /I "%CUDA_PATH%\include" ^
+      "%CUDA_PATH%"\lib\x64\nvrtc.lib ^
+      "%CUDA_PATH%"\lib\x64\nvJitLink.lib ^
+      "%CUDA_PATH%"\lib\x64\cuda.lib
+</pre></div>
+</div>
+</li>
+<li>
+<p>Linux:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>g++ online.cpp -o online \
+      -I $CUDA_PATH/include \
+      -L $CUDA_PATH/lib64 \
+      -lnvrtc -lnvJitLink -lcuda \
+      -Wl,-rpath,$CUDA_PATH/lib64
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>With nvJitLink static library (when linking with static library then need to also link with nvptxcompiler_static, but with is implicitly included):</p>
+<ul>
+<li>
+<p>Windows:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>cl.exe online.cpp /Feonline  ^
+      /I "%CUDA_PATH%"\include ^
+      "%CUDA_PATH%"\lib\x64\nvrtc_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvrtc-builtins_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvJitLink_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvptxcompiler_static.lib ^
+      "%CUDA_PATH%"\lib\x64\cuda.lib user32.lib Ws2_32.lib
+</pre></div>
+</div>
+</li>
+<li>
+<p>Linux:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>g++ online.cpp -o online \
+      -I $CUDA_PATH/include \
+      -L $CUDA_PATH/lib64 \
+      -lnvrtc_static -lnvrtc-builtins_static -lnvJitLink_static -lnvptxcompiler_static -lcuda \
+      -lpthread
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="notices">
+<h2>
+<span class="section-number">6.4. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h2>
+<section id="notice">
+<h3>
+<span class="section-number">6.4.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h3>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h3>
+<span class="section-number">6.4.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h3>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h3>
+<span class="section-number">6.4.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h3>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+<p>© 2022-2022 NVIDIA Corporation &amp; affiliates. All rights reserved.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2022-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

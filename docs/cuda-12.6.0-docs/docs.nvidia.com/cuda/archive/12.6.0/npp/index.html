@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NVIDIA 2D Image and Signal Processing Performance Primitives (NPP)</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="What is NPP ?" href="introduction.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html#">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html#">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>NVIDIA 2D Image and Signal Processing Performance Primitives (NPP)</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nvidia-2d-image-and-signal-processing-performance-primitives-npp">
+<h1>NVIDIA 2D Image and Signal Processing Performance Primitives (NPP)<a class="headerlink" href="index.html#nvidia-2d-image-and-signal-processing-performance-primitives-npp" title="Permalink to this headline"></a>
+</h1>
+</section>
+<section id="indices-and-search">
+<h1>Indices and Search<a class="headerlink" href="index.html#indices-and-search" title="Permalink to this headline"></a>
+</h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html">What is NPP ?</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#introduction_lb_1Files">Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#introduction_lb_1header_files">Header Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#introduction_lb_1library_files">Library Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction_lb_1NPP">Library Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction_lb_1supported_hardware">Supported NVIDIA Hardware</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#general-conventions">General Conventions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#general_conventions_lb_1memory_management_lb">Memory Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#general_conventions_lb_1general_scratch_buffer">Scratch Buffer and Host Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general_conventions_lb_1npp_naming">Function Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#general_conventions_lb_1integer_result_scaling">Integer Result Scaling</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_modes">Rounding Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#general_conventions_lb_1rounding_mode_parameter">Rounding Mode Parameter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1nppi_naming">Function Naming</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1passing_image_data">Image Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step">Line Step</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_parameter_names">Parameter Names for Image Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image">Passing Source-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_pointer">Source-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_batch_images_pointer">Source-Batch-Images Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer_array">Source-Planar-Image Pointer Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_pointer">Source-Planar-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_line_step">Source-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step_array">Source-Planar-Image Line Step Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_planar_image_line_step">Source-Planar-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image">Passing Destination-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_pointer">Destination-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_batch_images_pointer">Destination-Batch-Images Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer_array">Destination-Planar-Image Pointer Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_pointer">Destination-Planar-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_image_line_step">Destination-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1destination_planar_image_line_step">Destination-Planar-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image">Passing In-Place Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image_pointer">In-Place Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1in_place_image_line_step">In-Place-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image">Passing Mask-Image Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image_pointer">Mask-Image Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_image_line_step">Mask-Image Line Step</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest_section">Passing Channel-of-Interest Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest_number">Channel_of_Interest Number</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_alignment">Image Data Alignment Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1image_data_error_codes">Image Data Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_specification">Region-Of-Interest (ROI)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1roi_error_codes">ROI Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1masked_operation">Masked Operation</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1channel_of_interest">Channel-of-Interest API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_source_pointer">Select-Channel Source-Image Pointer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_source_channel">Select-Channel Source-Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1select_destination_pointer">Select-Channel Destination-Image Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1source_image_sampling">Source-Image Sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1point_wise_operations">Point-Wise Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#nppi_conventions_lb_1neighborhood_operations">Neighborhood Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1mask_size_parameter">Mask-Size Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1anchor_point_parameter">Anchor-Point Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#nppi_conventions_lb_1sampling_beyond_image_boundaries">Sampling Beyond Image Boundaries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1passing_signal_data">Signal Data</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_parameter_names">Parameter Names for Signal Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer">Source Signal Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer">Destination Signal Pointer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="introduction.html#npps_conventions_lb_1in_place_signal_pointer">In-Place Signal Pointer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_alignment">Signal Data Alignment Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes">Signal Data Related Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification">Signal Length</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes">Length Related Error Codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_arithmetic_and_logical_operations.html#arithmetic-operations">Arithmetic Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__arithmetic__operations_1image_arithmetic_operations">Arithmetic Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addc_1image_addc">AddC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__mulc_1image_mulc">MulC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__mulcscale_1image_mulcscale">MulCScale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__subc_1image_subc">SubC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__divc_1image_divc">DivC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__absdiffc_1image_absdiffc">AbsDiffC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__add_1image_add">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addsquare_1image_addsquare">AddSquare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addproduct_1image_addproduct">AddProduct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__addweighted_1image_addweighted">AddWeighted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__mul_1image_mul">Mul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__mulscale_1image_mulscale">MulScale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__sub_1image_sub">Sub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__div_1image_div">Div</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__divround_1image_divround">Div_Round</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__abs_1image_abs">Abs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__absdiff_1image_absdiff">AbsDiff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__sqr_1image_sqr">Sqr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__sqrt_1image_sqrt">Sqrt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__ln_1image_ln">Ln</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__exp_1image_exp">Exp</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_arithmetic_and_logical_operations.html#logical-operations">Logical Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__logical__operations_1image_logical_operations">Logical Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__andc_1image_andc">AndC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__orc_1image_orc">OrC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__xorc_1image_xorc">XorC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__rshiftc_1image_rshiftc">RShiftC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__lshiftc_1image_lshiftc">LShiftC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__and_1image_and">And</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__or_1image_or">Or</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__xor_1image_xor">Xor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__not_1image_not">Not</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_arithmetic_and_logical_operations.html#image-alpha-composition-operations">Image Alpha Composition Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__alphacompc_1image_alphacompc">AlphaCompC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_arithmetic_and_logical_operations.html#group__image__alphacomp_1image_alphacomp">AlphaComp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_color_conversion.html#color-processing-functions">Color Processing Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#color-to-gray-conversion">Color To Gray Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#color-debayer">Color Debayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#color-gamma-correction">Color Gamma Correction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#complement-color-key">Complement Color Key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colortwist">ColorTwist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colortwistbatch">ColorTwistBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colorlut">ColorLUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colorlutlinear">ColorLUTLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colorlutcubic">ColorLUTCubic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colorluttrilinear">ColorLUTTrilinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#colorlutpalette">ColorLUTPalette</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_color_conversion.html#color-sampling-format-conversion-functions">Color Sampling Format Conversion Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420toycbcr411">YCbCr420ToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422toycbcr422">YCbCr422ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422toycrcb422">YCbCr422ToYCrCb422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422tocbycr422">YCbCr422ToCbYCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422toycbcr411">CbYCr422ToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422toycbcr420">YCbCr422ToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb420toycbcr422">YCrCb420ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422toycrcb420">YCbCr422ToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422toycbcr411">YCbCr422ToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb422toycbcr422">YCrCb422ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb422toycbcr420">YCrCb422ToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb422toycbcr411">YCrCb422ToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422toycbcr422">CbYCr422ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422toycbcr420">CbYCr422ToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422toycrcb420">CbYCr422ToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420toycbcr420">YCbCr420ToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420toycbcr422">YCbCr420ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tocbycr422">YCbCr420ToCbYCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420toycrcb420">YCbCr420ToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb420tocbycr422">YCrCb420ToCbYCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb420toycbycr420">YCrCb420ToYCbYCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb420toycbycr411">YCrCb420ToYCbYCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411toycbcr411">YCbCr411ToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411toycbcr422">YCbCr411ToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411toycrcb422">YCbCr411ToYCrCb422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411toycbcr420">YCbCr411ToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411toycrcb420">YCbCr411ToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#nv12toyuv420">NV12ToYUV420</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_color_conversion.html#color-model-conversion-functions">Color Model Conversion Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoyuv">RGBToYUV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoyuv">BGRToYUV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtorgb">YUVToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtorgbbatch">YUVToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtorgbbatchadvanced">YUVToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtobgr">YUVToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtobgrbatch">YUVToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuvtobgrbatchadvanced">YUVToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoyuv422">RGBToYUV422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv422torgb">YUV422ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv422torgbbatch">YUV422ToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv422torgbbatchadvanced">YUV422ToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv422tobgrbatch">YUV422ToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv422tobgrbatchadvanced">YUV422ToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoyuv420">RGBToYUV420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420torgb">YUV420ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420torgbbatch">YUV420ToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420torgbbatchadvanced">YUV420ToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#nv12torgb">NV12ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#nv21torgb">NV21ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoyuv420">BGRToYUV420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420tobgr">YUV420ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420tobgrbatch">YUV420ToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yuv420tobgrbatchadvanced">YUV420ToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#nv12tobgr">NV12ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#nv21tobgr">NV21ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycbcr">RGBToYCbCr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtorgb">YCbCrToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtorgbbatch">YCbCrToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtorgbbatchadvanced">YCbCrToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtobgr">YCbCrToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtobgrbatch">YCbCrToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtobgrbatchadvanced">YCbCrToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcrtobgr709csc">YCbCrToBGR709CSC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycbcr422">RGBToYCbCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422torgb">YCbCr422ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422torgbbatch">YCbCr422ToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422torgbbatchadvanced">YCbCr422ToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycrcb422">RGBToYCrCb422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb422torgb">YCrCb422ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422tobgr">YCbCr422ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422tobgrbatch">YCbCr422ToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr422tobgrbatchadvanced">YCbCr422ToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtocbycr422">RGBToCbYCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422torgb">CbYCr422ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtocbycr422">BGRToCbYCr422</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtocbycr422-709hdtv">BGRToCbYCr422 709HDTV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422tobgr">CbYCr422ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cbycr422tobgr-709hdtv">CbYCr422ToBGR 709HDTV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycbcr420">RGBToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420torgb">YCbCr420ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420torgbbatch">YCbCr420ToRGBBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420torgbbatchadvanced">YCbCr420ToRGBBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycrcb420">RGBToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycrcb420torgb">YCrCb420ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycbcr420">BGRToYCbCr420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycbcr420-709csc">BGRToYCbCr420 709CSC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycbcr420-709hdtv">BGRToYCbCr420 709HDTV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycrcb420-709csc">BGRToYCrCb420 709CSC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tobgr">YCbCr420ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tobgrbatch">YCbCr420ToBGRBatch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tobgrbatchadvanced">YCbCr420ToBGRBatchAdvanced</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tobgr-709csc">YCbCr420ToBGR 709CSC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr420tobgr-709hdtv">YCbCr420ToBGR 709HDTV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycrcb420">BGRToYCrCb420</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycbcr411">BGRToYCbCr411</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtoycbcr">BGRToYCbCr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411tobgr">YCbCr411ToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycbcr411torgb">YCbCr411ToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoxyz">RGBToXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#xyztorgb">XYZToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoluv">RGBToLUV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#luvtorgb">LUVToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtolab">BGRToLab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#labtobgr">LabToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtoycc">RGBToYCC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycctorgb">YCCToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#yccktocmyk-jpeg">YCCKToCMYK_JPEG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#cmykorycckjpegtorgb">CMYKOrYCCKJPEGToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#ycckjpegorcmyktobgr">YCCKJPEGOrCMYKToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rgbtohls">RGBToHLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#hlstorgb">HLSToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#bgrtohls">BGRToHLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#hlstobgr">HLSToBGR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#rbgtohsv">RBGToHSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#hsvtorgb">HSVToRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_color_conversion.html#jpeg-color-conversion">JPEG Color Conversion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__set_1image_set">Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__set_1CommonImageSetParameters">Common parameters for nppiSet functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__masked__set_1image_masked_set">Masked Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__masked__set_1CommonImageMaskedSetParameters">Common parameters for nppiSet_CXM functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__channel__set_1image_channel_set">Channel Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__channel__set_1CommonImageChannelSetParameters">Common parameters for nppiSet_CXC functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy_1image_copy">Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy_1CommonImageCopyParameters">Common parameters for nppiCopy functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__masked__copy_1image_masked_copy">Masked Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__masked__copy_1CommonImageMaskedCopyParameters">Common parameters for nppiCopy_CXM functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__channel__copy_1image_channel_copy">Channel Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__channel__copy_1CommonImageChannelCopyParameters">Common parameters for nppiCopy_CXC functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__extract__channel__copy_1image_extract_channel_copy">Extract Channel Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__extract__channel__copy_1CommonImageExtractChannelCopyParameters">Common parameters for nppiCopy_CXC1 functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__insert__channel__copy_1image_insert_channel_copy">Insert Channel Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__insert__channel__copy_1CommonImageInsertChannelCopyParameters">Common parameters for nppiCopy_C1CX functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__packed__to__planar__channel__copy_1image_packed_to_planar_channel_copy">Packed To Planar Channel Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__packed__to__planar__channel__copy_1CommonImagePackedToPlanarChannelCopyParameters">Common parameters for nppiCopy_CXPX functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__planar__to__packed__channel__copy_1image_planar_to_packed_channel_copy">Planar To Packed Channel Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__planar__to__packed__channel__copy_1CommonImagePlanarToPackedChannelCopyParameters">Common parameters for nppiCopy_PXCX functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__constant__border_1image_copy_constant_border">Copy Constant Border</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__constant__border_1CommonImageCopyConstantBorderParameters">Common parameters for nppiCopyConstBorder functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__replicate__border_1image_copy_replicate_border">Copy Replicate Border</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__replicate__border_1CommonImageCopyReplicateBorderParameters">Common parameters for nppiCopyReplicateBorder functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__wrap__border_1image_copy_wrap_border">Copy Wrap Border</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__wrap__border_1CommonImageCopyWrapBorderParameters">Common parameters for nppiCopyWrapBorder functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__sub__pixel_1image_copy_sub_pixel">Copy Sub-Pixel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__copy__sub__pixel_1CommonImageCopySubPixelParameters">Common parameters for nppiCopySubPix functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__convert_1image_convert">Convert Bit Depth</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__convert__increase_1image_convert_increase">Convert To Increased Bit Depth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__convert__increase_1CommonImageConvertToIncreasedBitDepthParameters">Common parameters for nppiConvert to increased bit depth functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__convert__decrease_1image_convert_decrease">Convert To Decreased Bit Depth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__convert__decrease_1CommonImageConvertToDecreasedBitDepthParameters">Common parameters for nppiConvert to decreased bit depth functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__scale_1image_scale">Scale Bit Depth</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__scale__to__higher__bit__depth_1image_scale_to_higher_bit_depth">Scale To Higher Bit Depth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__scale__to__higher__bit__depth_1CommonImageScaleToHigherBitDepthParameters">Common parameters for nppiScale to higher bit depth functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__scale__to__lower__bit__depth_1image_scale_to_lower_bit_depth">Scale To Lower Bit Depth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__scale__to__lower__bit__depth_1CommonImageScaleToLowerBitDepthParameters">Common parameters for nppiScale to lower bit depth functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__duplicate__channel_1image_duplicate_channel">Duplicate Channel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__duplicate__channel_1CommonImageDuplicateChannelParameters">Common parameters for nppiDup functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__transpose_1image_transpose">Transpose</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__transpose_1CommonImageTransposeParameters">Common parameters for nppiTranspose functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_data_exchange_and_initialization.html#group__image__swap__channels_1image_swap_channels">Swap Channels</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#image-1d-linear-filters">Image 1D Linear Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__1D__linear__filter_1image_1D_linear_filter">1DLinearFilter</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-column">Image Filter Column</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__column_1image_filter_column">FilterColumn</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-column-border">Image Filter Column Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__column__border_1image_filter_column_border">FilterColumnBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-column-32f">Image Filter Column 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__column__32f_1image_filter_column_32f">FilterColumn32f</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-column-border-32f">Image Filter Column Border 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__column__border__32f_1image_filter_column_border_32f">FilterColumnBorder32f</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-row">Image Filter Row</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__row_1image_filter_row">FilterRow</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-row-border">Image Filter Row Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__row__border_1image_filter_row_border">FilterRowBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-row-32f">Image Filter Row 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__row__32f_1image_filter_row_32f">FilterRow32f</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-row-border-32f">Image Filter Row Border 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__row__border__32f_1image_filter_row_border_32f">FilterRowBorder32f</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-sum">Image Filter 1D Window Sum</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__1D__window__sum_1image_1D_window_sum">1D Window Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-column-sum">Image Filter 1D Window Column Sum</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__1D__window__column__sum_1image_filter_1D_window_column_sum">1D Window Column Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-row-sum">Image Filter 1D Window Row Sum</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__1D__window__row__sum_1image_filter_1D_window_row_sum">1D Window Row Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-sum-border">Image Filter 1D Window Sum Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__1D__window__sum__border_1image_1D_window_sum_border">1D Window Sum with Border Control</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-column-sum-border">Image Filter 1D Window Column Sum Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__1D__window__column__sum__border_1image_filter_1D_window_column_sum_border">1D Window Column Sum Border</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-1d-window-row-sum-border">Image Filter 1D Window Row Sum Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__1D__window__row__sum__border_1image_filter_1D_window_row_sum_border">1D Window Row Sum Border</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#image-convolution">Image Convolution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__convolution_1image_convolution">Convolution</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter">Image Filter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter_1image_filter">Filter</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-32f">Image Filter 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__32f_1image_filter_32f">Filter32f</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-border">Image Filter Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__border_1image_filter_border">FilterBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-border-32f">Image Filter Border 32f</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__border__32f_1image_filter_border_32f">FilterBorder32f</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#d-fixed-linear-filters">2D Fixed Linear Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__2D__fixed__linear__filters_1image_2D_fixed_linear_filters">2D Fixed Linear Filters</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-box">Image Filter Box</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__box_1image_filter_box">FilterBox</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-box-border">Image Filter Box Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__box__border_1image_filter_box_border">FilterBoxBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-box-border-advanced">Image Filter Box Border Advanced</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__box__border__advanced_1image_filter_box_border_advanced">FilterBoxBorderAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-threshold-adaptive-box-border">Image Filter Threshold Adaptive Box Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__threshold__adaptive__box__border_1image_filter_threshold_adaptive_box_border">FilterThresholdAdaptiveBoxBorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#rank-filters">Rank Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__rank__filters_1image_rank_filters">Rank Filters</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-max">Image Filter Max</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__max_1image_filter_max">FilterMax</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-max-border">Image Filter Max Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__max__border_1image_filter_max_border">FilterMaxBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-min">Image Filter Min</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__min_1image_filter_min">FilterMin</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-min-border">Image Filter Min Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__min__border_1image_filter_min_border">FilterMinBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-median">Image Filter Median</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__median_1image_filter_median">FilterMedian</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-median-border">Image Filter Median Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__median__border_1image_filter_median_border">FilterMedianBorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#fixed-filters">Fixed Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__fixed__filters_1fixed_filters">Fixed Filters</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-prewitt">Image Filter Prewitt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__prewitt_1image_filter_prewitt">FilterPrewitt</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-prewitt-border">Image Filter Prewitt Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__prewitt__border_1image_filter_prewitt_border">FilterPrewittBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-scharr">Image Filter Scharr</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__scharr_1image_filter_scharr">FilterScharr</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-scharr-border">Image Filter Scharr Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__scharr__border_1image_filter_scharr_border">FilterScharrBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-sobel">Image Filter Sobel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__sobel_1image_filter_sobel">FilterSobel</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-sobel-border">Image Filter Sobel Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__sobel__border_1image_filter_sobel_border">FilterSobelBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-roberts">Image Filter Roberts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__roberts_1image_filter_roberts">FilterRoberts</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-roberts-border">Image Filter Roberts Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__roberts__border_1image_filter_roberts_border">FilterRobertsBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-laplace">Image Filter Laplace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__laplace_1image_filter_laplace">FilterLaplace</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-laplace-border">Image Filter Laplace Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__laplace__border_1image_filter_laplace_border">FilterLaplaceBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gauss">Image Filter Gauss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss_1image_filter_gauss">FilterGauss</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gauss-advanced">Image Filter Gauss Advanced</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss__advanced_1image_filter_gauss_advanced">FilterGaussAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gauss-border">Image Filter Gauss Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss__border_1image_filter_gauss_border">FilterGaussBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-advanced-gauss-border">Image Filter Advanced Gauss Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss__advanced__border_1image_filter_gauss_advanced_border">FilterGaussAdvancedBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gauss-pyramid-layer-down-border">Image Filter Gauss Pyramid Layer Down Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss__pyramid__layer__down__border_1image_filter_gauss_pyramid_layer_down_border">FilterGaussPyramidLayerDownBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gauss-pyramid-layer-up-border">Image Filter Gauss Pyramid Layer Up Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gauss__pyramid__layer__up__border_1image_filter_gauss_pyramid_layer_up_border">FilterGaussPyramidLayerUpBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-bilateral-gauss-border">Image Filter Bilateral Gauss Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__bilateral__gauss__border_1image_filter_bilateral_gauss_border">FilterBilateralGaussBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-high-pass">Image Filter  High Pass</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__high__pass_1image_filter_high_pass">FilterHighPass</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-high-pass-border">Image Filter High Pass Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__high__pass__border_1image_filter_high_pass_border">FilterHighPassBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-low-pass">Image Filter Low Pass</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__low__pass_1image_filter_low_pass">FilterLowPass</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-low-pass-border">Image Filter Low Pass Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__low__pass__border_1image_filter_low_pass_border">FilterLowPassBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-sharpen">Image Filter Sharpen</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__sharpen_1image_filter_sharpen">FilterSharpen</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-sharpen-border">Image Filter Sharpen Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__sharpen__border_1image_filter_sharpen_border">FilterSharpenBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-unsharp-border">Image Filter Unsharp Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__unsharp__border_1image_filter_unsharp_border">FilterUnsharpBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-wiener-border">Image Filter Wiener Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__wiener__border_1image_filter_wiener_border">FilterWienerBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gradient-vector-prewitt-border">Image Filter Gradient Vector Prewitt Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gradient__vector__prewitt__border_1image_filter_gradient_vector_prewitt_border">GradientVectorPrewittBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gradient-vector-scharr-border">Image Filter Gradient Vector Scharr Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gradient__vector__scharr__border_1image_filter_gradient_vector_scharr_border">GradientVectorScharrBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-gradient-vector-sobel-border">Image Filter Gradient Vector Sobel Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__gradient__vector__sobel__border_1image_filter_gradient_vector_sobel_border">GradientVectorSobelBorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#computer-vision-filtering-functions">Computer Vision Filtering Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__computer__vision__filtering__functions_1image_computer_vision_filtering_functions">Computer Vision</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-distance-transform">Image Filter Distance Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__distance__transform_1image_filter_distance_transform">FilterDistanceTransform</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-harris-corners-border">Image Filter Harris Corners Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__harris__corners__border_1image_filter_harris_corners_border">FilterHarrisCornersBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-hough-line">Image Filter Hough Line</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__hough__line_1image_filter_hough_line">FilterHoughLine</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-histogram-of-oriented-gradients-border">Image Filter Histogram Of Oriented Gradients Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__histogram__of__oriented__gradients__border_1image_filter_histogram_of_oriented_gradients_border">HistogramOfOrientedGradientsBorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-flood-fill">Image Filter Flood Fill</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__flood__fill_1image_filter_flood_fill">FloodFill</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill">Flood Fill</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill_1flood_fill">FloodFill</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill-boundary">Flood Fill Boundary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill__boundary_1flood_fill_boundary">FloodFillBoundary</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill-range">Flood Fill Range</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill__range_1flood_fill_range">FloodFillRange</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill-range-boundary">Flood Fill Range Boundary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill__range__boundary_1flood_fill_range_boundary">FloodFillRangeBoundary</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill-gradient">Flood Fill Gradient</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill__gradient_1flood_fill_gradient">FloodFillGradient</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#flood-fill-gradient-boundary">Flood Fill Gradient Boundary</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__flood__fill__gradient__boundary_1flood_fill_gradient_boundary">FloodFillGradientBoundary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#label-markers">Label Markers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__label__markers_1image_filter_label_markers">LabelMarkers</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#label-markersuf">Label MarkersUF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__label__markersUF_1label_markersUF">LabelMarkersUF</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#label-markersuf-batch">Label MarkersUF Batch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__label__markersUF__batch_1label_markersUF_batch">LabelMarkersUFBatch</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#label-markersuf-batch-advanced">Label MarkersUF Batch Advanced</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__label__markersUF__batch__advanced_1label_markersUF_batch_advanced">LabelMarkersUFBatchAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#image-filter-compress-marker-labels">Image Filter Compress Marker Labels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#image-filter-compressed-marker-labels-info">Image Filter Compressed Marker Labels Info</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_filtering_functions.html#image-filter-contour-pixel-interpolation">Image Filter Contour Pixel Interpolation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__contour__pixel__interpolation_1image_filter_contour_pixel_interpolation">ContourPixelInterpolation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_filtering_functions.html#bound-segments">Bound Segments</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_filtering_functions.html#watershed-segmentation">Watershed Segmentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_filtering_functions.html#group__image__filter__watershed__segmentation_1image_filter_watershed_segmentation">WatershedSegmentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__geometry__transforms_1geometric_transform_api">Geometric Transform API Specifics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__geometry__transforms_1geometric_transform_roi">Geometric Transforms and ROIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__geometry__transforms_1geometric_transforms_interpolation">Pixel Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__geometry__transforms_1resize_error_codes">Resize Error Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__resize__square__pixel_1image_resize_square_pixel">ResizeSqrPixel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__resize_1image_resize">Resize</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__resize__batch_1image_resize_batch">ResizeBatch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__resize__batch_1CommonResizeBatchParameters">Common parameters for nppiResizeBatch functions:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__resize__batch_1CommonResizeBatchAdvancedParameters">Common parameters for nppiResizeBatchAdvanced functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__image__remap_1image_remap">Remap</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__remap_1remap_error_codes">Error Codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__remap_1CommonRemapPackedPixelParameters">Common parameters for nppiRemap packed pixel functions:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__remap_1CommonRemapPlanarPixelParameters">Common parameters for nppiRemap planar pixel functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__rotate_1image_rotate">Rotate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__rotate_1rotate_error_codes">Rotate Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_geometry_transforms.html#group__rotate__utility__functions_1rotate_utility_functions">Rotate Utility Functions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__mirror_1image_mirror">Mirror</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__mirror_1mirror_error_codes">Mirror Error Codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__image__mirror_1CommonMirrorParameters">Common parameters for nppiMirror functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#affine-transforms">Affine Transforms</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__affine__transform_1image_affine_transform">Affine Transforms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__image__affine__transform_1affine_transform_error_codes">Affine Transform Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__affine__transform__utility__functions_1affine_transform_utility_functions">Affine Transform Utility Functions</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__affine__transform_1affine_transform">Affine Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__affine__transform_1CommonWarpAffinePackedPixelParameters">Common parameters for nppiWarpAffine packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__affine__transform_1CommonWarpAffinePlanarPixelParameters">Common parameters for nppiWarpAffine planar pixel functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__affine__transform__batch_1affine_transform_batch">Affine Transform Batch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__affine__transform__batch_1Error">Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="image_geometry_transforms.html#group__affine__transform__batch_1CommonWarpAffineBatchParameters">Common parameters for nppiWarpAffineBatch functions:</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__backwards__affine__transform_1backwards_affine_transform">Backwards Affine Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__backwards__affine__transform_1CommonWarpAffineBackPackedPixelParameters">Common parameters for nppiWarpAffineBack packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__backwards__affine__transform_1CommonWarpAffineBackPlanarPixelParameters">Common parameters for nppiWarpAffineBack planar pixel functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__quad__based__affine__transform_1quad_based_affine_transform">Quad-Based Affine Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__quad__based__affine__transform_1CommonWarpAffineQuadPackedPixelParameters">Common parameters for nppiWarpAffineQuad packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__quad__based__affine__transform_1CommonWarpAffineQuadPlanarPixelParameters">Common parameters for nppiWarpAffineQuad planar pixel functions:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_geometry_transforms.html#perspective-transforms">Perspective Transforms</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__image__perspective__transforms_1image_perspective_transforms">Perspective Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__image__perspective__transforms_1perspective_transform_error_codes">Perspective Transform Error Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__perspective__transform_1perspective_transform">Perspective Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__perspective__transform_1CommonWarpPerspectivePackedPixelParameters">Common parameters for nppiWarpPerspective packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__perspective__transform_1CommonWarpPerspectivePlanarPixelParameters">Common parameters for nppiWarpPerspective planar pixel functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__perspective__transform__batch_1perspective_transform_batch">Perspective Transform Batch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__perspective__transform__batch_1CommonWarpPerspectiveBatchParameters">Common parameters for nppiWarpPerspectiveBatch functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__backwards__perspective__transform_1backwards_perspective_transform">Backwards Perspective Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__backwards__perspective__transform_1CommonWarpPerspectiveBackPackedPixelParameters">Common parameters for nppiWarpPerspectiveBack packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__backwards__perspective__transform_1CommonWarpPerspectiveBackPlanarPixelParameters">Common parameters for nppiWarpPerspectiveBack planar pixel functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_geometry_transforms.html#group__quad__based__perspective__transform_1quad_based_perspective_transform">Quad-Based Perspective Transform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__quad__based__perspective__transform_1CommonWarpPerspectiveQuadPackedPixelParameters">Common parameters for nppiWarpPerspectiveQuad packed pixel functions:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_geometry_transforms.html#group__quad__based__perspective__transform_1CommonWarpPerspectiveQuadPlanarPixelParameters">Common parameters for nppiWarpPerspectiveQuad planar pixel functions:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_linear_transforms.html#group__image__fourier__transforms_1image_fourier_transforms">Fourier Transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_morphological_operations.html#dilation-functions">Dilation Functions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-dilate">Image Dilate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__dilate_1image_dilate">Dilation</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-dilate-border">Image Dilate Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__dilate__border_1image_dilate_border">Dilation with border control</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-dilate-3x3">Image Dilate 3x3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__dilate__3x3_1image_dilate_3x3">Dilate3x3</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-dilate-3x3-border">Image Dilate 3x3 Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__dilate__3x3__border_1image_dilate_3x3_border">Dilate3x3Border</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_morphological_operations.html#erosion-functions">Erosion Functions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-erode">Image Erode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__erode_1image_erode">Erode</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-erode-border">Image Erode Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__erode__border_1image_erode_border">Erosion with border control</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-erode-3x3">Image Erode 3x3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__erode__3x3_1image_erode_3x3">Erode3x3</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-erode-3x3-border">Image Erode 3x3 Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__erode__3x3__border_1image_erode_3x3_border">Erode3x3Border</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_morphological_operations.html#image-complex-morphphological-operations">Image Complex Morphphological Operations</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph">Image Morph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph_1image_morph">ComplexImageMorphology</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-get-buffer-size">Image Morph Get Buffer Size</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__get__buffer__size_1image_morph_get_buffer_size">MorphGetBufferSize</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-close-border">Image Morph Close Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__close__border_1image_morph_close_border">MorphCloseBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-open-border">Image Morph Open Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__open__border_1image_morph_open_border">MorphOpenBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-top-hat-border">Image Morph Top Hat Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__top__hat__border_1image_morph_top_hat_border">MorphToHatBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-black-hat-border">Image Morph Black Hat Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__black__hat__border_1image_morph_black_hat_border">MorphBlackHatBorder</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_morphological_operations.html#image-morph-gradient-border">Image Morph Gradient Border</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_morphological_operations.html#group__image__morph__gradient__border_1image_morph_gradient_border">MorphGradientBorder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image_statistics_functions.html#group__image__statistics__functions_1CommonGetBufferHostSizeParameters">CommonGetBufferHostSizeParameters</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-sum">Image Sum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__sum_1image_sum">Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-min">Image Min</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__min_1image_min">Min</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-min-index">Image Min Index</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__min__index_1image_min_index">MinIndx</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-max">Image Max</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#group__image__max_1image_max">Max</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__max_1CommonMaxParameters">Common parameters for nppiMax functions include:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-max-index">Image Max Index</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__max__index_1image_max_index">MaxIndx</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-minmax">Image MinMax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__min__max_1image_min_max">MinMax</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-mean">Image Mean</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__mean_1image_mean">Mean</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-mean-stddev">Image Mean StdDev</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__mean__stddev_1image_mean_stddev">Mean_StdDev</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-norms">Image Norms</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#group__image__norm_1image_norm">Image Norms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__norm_1CommonNormParameters">Common parameters for nppiNorm functions include:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-norm-inf">Image Norm Inf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__inf__norm_1image_inf_norm">Norm_Inf</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-norm-l1">Image Norm L1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L1__norm_1image_L1_norm">Norm_L1</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-norm-l2">Image Norm L2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L2__norm_1image_L2_norm">Norm_L2</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normdiff-inf">Image NormDiff Inf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__inf__normdiff_1image_inf_normdiff">NormDiff_Inf</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normdiff-l1">Image NormDiff L1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L1__normdiff_1image_L1_normdiff">NormDiff_L1</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normdiff-l2">Image NormDiff L2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L2__normdiff_1image_L2_normdiff">NormDiff_L2</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normrel-inf">Image NormRel Inf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__inf__normrel_1image_inf_normrel">NormRel_Inf</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normrel-l1">Image NormRel L1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L1__normrel_1image_L1_normrel">NormRel_L1</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#image-normrel-l2">Image NormRel L2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__L2__normrel_1image_L2_normrel">NormRel_L2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-dotprod">Image DotProd</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__dot__prod_1image_dot_prod">DotProd</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-count-in-range">Image Count In Range</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__count__in__range_1image_count_in_range">CountInRange.</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-maxevery">Image MaxEvery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__maxevery_1image_maxevery">MaxEvery</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-minevery">Image MinEvery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__minevery_1image_minevery">MinEvery</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-integral">Image Integral</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__integral_1image_integral">Integral</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-square-integral">Image Square Integral</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__sqrintegral_1image_sqrintegral">SqrIntegral</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-rectstddev">Image RectStdDev</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__rectstddev_1image_rectstddev">RectStdDev</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-histogram-even">Image Histogram Even</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__histogrameven_1image_histogrameven">HistogramEven</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-histogram-range">Image Histogram Range</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__histogramrange_1image_histogramrange">HistogramRange</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-proximity">Image Proximity</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_statistics_functions.html#group__image__proximity_1image_proximity">Image Proximity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__proximity_1general_introduction">General Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_statistics_functions.html#group__image__proximity_1category">Categorizations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-square-distance-full-norm">Image Square Distance Full Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__sqrdistancefullnorm_1sqrdistancefullnorm">SqrDistanceFull_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-square-distance-same-norm">Image Square Distance Same Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__sqrdistancesamenorm_1sqrdistancesamenorm">SqrDistanceSame_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-square-distance-valid-norm">Image Square Distance Valid Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__sqrdistancevalidnorm_1sqrdistancevalidnorm">SqrDistanceValid_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-full-norm">Image Cross Correlation Full Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrfullnorm_1crosscorrfullnorm">CrossCorrFull_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-same-norm">Image Cross Correlation Same Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrsamenorm_1crosscorrsamenorm">CrossCorrSame_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-valid-norm">Image Cross Correlation Valid Norm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrvalidnorm_1crosscorrvalidnorm">CrossCorrValid_Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-valid">Image Cross Correlation Valid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrvalid_1crosscorrvalid">CrossCorrValid</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-full-norm-level">Image Cross Correlation Full Norm Level</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrfullnormlevel_1crosscorrfullnormlevel">CrossCorrFull_NormLevel</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-same-norm-level">Image Cross Correlation Same Norm Level</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrsamenormlevel_1crosscorrsamenormlevel">CrossCorrSame_NormLevel</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-valid-norm-level">Image Cross Correlation Valid Norm Level</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrvalidnormlevel_1crosscorrvalidnormlevel">CrossCorrValid_NormLevel</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-full-norm-level-advanced">Image Cross Correlation Full Norm Level Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrfullnormlevelAdvanced_1crosscorrfullnormlevelAdvanced">CrossCorrFull_NormLevelAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-same-norm-level-advanced">Image Cross Correlation Same Norm Level Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrsamenormlevelAdvanced_1crosscorrsamenormlevelAdvanced">CrossCorrSame_NormLevelAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-cross-correlation-valid-norm-level-advanced">Image Cross Correlation Valid Norm Level Advanced</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__crosscorrvalidnormlevelAdvanced_1crosscorrvalidnormlevelAdvanced">CrossCorrValid_NormLevelAdvanced</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-quality-index">Image Quality Index</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__quality__index_1image_quality_index">Image Quality Index</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-maximum-error">Image Maximum Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__maximum__error_1image_maximum_error">MaximumError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__maximum__error_1CommonMaximumErrorParameters">Common parameters for nppiMaximumError functions include:</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-average-error">Image Average Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__average__error_1image_average_error">AverageError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-maximum-relative-error">Image Maximum Relative Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__maximum__relative__error_1image_maximum_relative_error">MaximumRelativeError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-average-relative-error">Image Average Relative Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__average__relative__error_1image_average_relative_error">AverageRelativeError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-quality-assessment-iqa">Image Quality Assessment IQA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__image__quality__assessment_1image_quality_assessment">IQA</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-batch-quality-assessment">Image Batch Quality Assessment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__batch__image__quality__assessment_1batch_image_quality_assessment">IQABatch</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_statistics_functions.html#image-advanced-batch-quality-assessment">Image Advanced Batch Quality Assessment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_statistics_functions.html#group__batch__image__quality__assessment__advanced_1batch_image_quality_assessment_advanced">IQABatchAdvanced</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-operations">Image Threshold Operations</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__operations_1image_threshold_operations">Threshold Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__operations_1CommonThresholdParameters">Common parameters for nppiThreshold non-inplace and inplace functions:</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-greater-than-operations">Image Threshold Greater Than Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__greater__than__operations_1image_threshold_greater_than_operations">Threshold Greater Than Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-less-than-operations">Image Threshold Less Than Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__less__than__operations_1image_threshold_less_than_operations">Threshold Less Than Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-value-operations">Image Threshold Value Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__value__operations_1image_threshold_value_operations">Threshold Value Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-greater-than-value-operations">Image Threshold Greater Than Value Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__greater__than__value__operations_1image_threshold_greater_than_value_operations">Threshold Greater Than Value Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-less-than-value-operations">Image Threshold Less Than Value Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__less__than__value__operations_1image_threshold_less_than_value_operations">Threshold Less Than Value Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-fused-absdiff-threshold-greater-than-value-operations">Image Fused AbsDiff Threshold Greater Than Value Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__fused__absdiff__threshold__greater__than__value__operations_1image_fused_absdiff_threshold_greater_than_value_operations">Fused AbsDiff Threshold Greater Than Value Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-threshold-less-than-value-greater-than-value-operations">Image Threshold Less Than Value Greater Than Value Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__threshold__less__than__value__greater__than__value__operations_1image_threshold_less_than_value_greater_than_value_operations">Threshold Less Than Value Or Greater Than Value Operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#image-comparison-operations">Image Comparison Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__image__comparison__operations_1image_comparison_operations">Comparison Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#compare-images-operations">Compare Images Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__compare__images__operations_1compare_images_operations">Compare Images Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#compare-image-with-constant-operations">Compare Image With Constant Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__compare__image__with__constant__operations_1compare_image_with_constant_operations">Compare Image With Constant Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#compare-image-differences-with-epsilon-operations">Compare Image Differences With Epsilon Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__compare__image__differences__with__epsilon__operations_1compare_image_differences_with_epsilon_operations">Compare Image Differences With Epsilon Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="image_threshold_and_compare_operations.html#compare-image-difference-to-constant-with-epsilon-operations">Compare Image Difference To Constant With Epsilon Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="image_threshold_and_compare_operations.html#group__compare__image__difference__to__constant__with__epsilon__operations_1compare_image_difference_to_constant_with_epsilon_operations">Compare Image Difference With Constant Within Epsilon Operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-arithmetic-functions">Signal Arithmetic Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__arithmetic_1signal_arithmetic">Arithmetic Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-addc">Signal AddC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__addc_1signal_addc">AddC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-addproductc">Signal AddProductC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__addproductc_1signal_addproductc">AddProductC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-mulc">Signal MulC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__mulc_1signal_mulc">MulC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-subc">Signal SubC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__subc_1signal_subc">SubC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-subcrev">Signal SubCRev</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__subcrev_1signal_subcrev">SubCRev</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-divc">Signal DivC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__divc_1signal_divc">DivC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-divcrev">Signal DivCRev</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__divcrev_1signal_divcrev">DivCRev</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-add">Signal Add</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__add_1signal_add">Add</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-addproduct">Signal AddProduct</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__addproduct_1signal_addproduct">AddProduct</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-mul">Signal Mul</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__mul_1signal_mul">Mul</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-sub">Signal Sub</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__sub_1signal_sub">Sub</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-div">Signal Div</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__div_1signal_div">Div</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-div-round">Signal Div Round</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__divround_1signal_divround">Div_Round</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-abs">Signal Abs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__abs_1signal_abs">Abs</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-square">Signal Square</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__square_1signal_square">Sqr</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-square-root">Signal Square Root</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__sqrt_1signal_sqrt">Sqrt</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-cube-root">Signal Cube Root</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__cuberoot_1signal_cuberoot">Cubrt</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-exp">Signal Exp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__exp_1signal_exp">Exp</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-ln">Signal Ln</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__ln_1signal_ln">Ln</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-10log10">Signal 10Log10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__10log10_1signal_10log10">10Log10</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-sumln">Signal SumLn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__sumln_1signal_sumln">SumLn</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-arctan">Signal ArcTan</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__inversetan_1signal_inversetan">Arctan</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-normalize">Signal Normalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__normalize_1signal_normalize">Normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-cauchy-couchyd-and-couchydd2">Signal Cauchy, CouchyD, And CouchyDD2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__cauchy_1signal_cauchy">Cauchy, CauchyD, and CauchyDD2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#logical-and-shift-operations">Logical And Shift Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__logical__and__shift__operations_1signal_logical_and_shift_operations">Logical And Shift Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-andc">Signal AndC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__andc_1signal_andc">AndC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-and">Signal And</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__and_1signal_and">And</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-orc">Signal OrC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__orc_1signal_orc">OrC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-or">Signal Or</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__or_1signal_or">Or</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-xorc">Signal XorC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__xorc_1signal_xorc">XorC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-xor">Signal Xor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__xor_1signal_xor">Xor</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-not">Signal Not</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__not_1signal_not">Not</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-lshiftc">Signal LShiftC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__lshiftc_1signal_lshiftc">LShiftC</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_arithmetic_and_logical_operations.html#signal-rshiftc">Signal RShiftC</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html#group__signal__rshiftc_1signal_rshiftc">RShiftC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_conversion_functions.html#signal-convert">Signal Convert</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_conversion_functions.html#group__signal__convert_1signal_convert">Convert</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_conversion_functions.html#signal-threshold">Signal Threshold</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_conversion_functions.html#group__signal__threshold_1signal_threshold">Threshold</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signal_filtering_functions.html#group__signal__integral_1signal_integral">Integral</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-set">Signal Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__set_1signal_set">Set</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-zero">Signal Zero</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__zero_1signal_zero">Zero</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-copy">Signal Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__copy_1signal_copy">Copy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-min-every-or-max-every">Signal Min Every Or Max Every</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__min__every__or__max__every_1signal_min_every_or_max_every">MinEvery And MaxEvery Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-sum">Signal Sum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__sum_1signal_sum">Sum</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-maximum">Signal Maximum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__max_1signal_max">Maximum</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-minimum">Signal Minimum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__min_1signal_min">Minimum</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-mean">Signal Mean</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__mean_1signal_mean">Mean</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-stddev">Signal StdDev</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__standard__deviation_1signal_standard_deviation">Standard Deviation</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-mean-and-stddev">Signal Mean And StdDev</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__mean__and__standard__deviation_1signal_mean_and_standard_deviation">Mean And Standard Deviation</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-minmax">Signal MinMax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__min__max_1signal_min_max">Minimum Maximum</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norms">Signal Norms</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-inf">Signal Norm Inf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__infinity__norm_1signal_infinity_norm">Infinity Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-l1">Signal Norm L1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__L1__norm_1signal_L1_norm">L1 Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-l2">Signal Norm L2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__L2__norm_1signal_L2_norm">L2 Norm</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-inf-normdiff">Signal Norm Inf NormDiff</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__infinity__norm__diff_1signal_infinity_norm_diff">Infinity Norm Diff</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-l1-normdiff">Signal Norm L1 NormDiff</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__L1__norm__diff_1signal_L1_norm_diff">L1 Norm Diff</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="signal_statistical_functions.html#signal-norm-l2-normdiff">Signal Norm L2 NormDiff</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="signal_statistical_functions.html#group__signal__L2__norm__diff_1signal_L2_norm_diff">L2 Norm Diff</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-dot-product">Signal Dot Product</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__dot__product_1signal_dot_product">Dot Product</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-count-in-range">Signal Count In Range</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__count__in__range_1signal_count_in_range">Count In Range</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-count-zero-crossings">Signal Count Zero Crossings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__count__zero__crossings_1signal_count_zero_crossings">Count Zero Crossings</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-maximum-error">Signal Maximum Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__maximum__error_1signal_maximum_error">MaximumError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-average-error">Signal Average Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__average__error_1signal_average_error">AverageError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-maximum-relative-error">Signal Maximum Relative Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__maximum__relative__error_1signal_maximum_relative_error">MaximumRelativeError</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_statistical_functions.html#signal-average-relative-error">Signal Average Relative Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_statistical_functions.html#group__signal__average__relative__error_1signal_average_relative_error">AverageRelativeError</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signal_memory_management.html#group__signal__malloc_1signal_malloc">Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_memory_management.html#group__signal__free_1signal_free">Free</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

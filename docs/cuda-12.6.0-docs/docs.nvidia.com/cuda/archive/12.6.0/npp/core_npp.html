@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core NPP Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="Image Arithmetic And Logical Operations" href="image_arithmetic_and_logical_operations.html">
+    <link rel="prev" title="Data Types, Structs, Enums, and Constants" href="nppdefs.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="core_npp.html#">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Core NPP Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="core-npp-functions">
+<span id="core_npp"></span><h1>Core NPP Functions<a class="headerlink" href="core_npp.html#core-npp-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__core__npp">Basic functions for library management, in particular library version and device property query functions. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetLibVersion">
+<span class="target" id="group__core__npp_1ga24a20492747ee132a82233fbc3b2d629"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.NppLibraryVersion" title="NppLibraryVersion"><span class="n"><span class="pre">NppLibraryVersion</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppGetLibVersion</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetLibVersion" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the NPP library version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>A struct containing separate values for major and minor revision and build number. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetGpuNumSMs">
+<span class="target" id="group__core__npp_1ga15f50a7c60f2ae72cc8e004e90e55e85"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetGpuNumSMs</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetGpuNumSMs" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the number of Streaming Multiprocessors (SM) on the active CUDA device. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Number of SMs of the default CUDA device. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetMaxThreadsPerBlock">
+<span class="target" id="group__core__npp_1ga5cf512bb8f8a98d2d4f36f37ac5d9c7b"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetMaxThreadsPerBlock</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetMaxThreadsPerBlock" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the maximum number of threads per block on the active CUDA device. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Maximum number of threads per block on the active CUDA device. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetMaxThreadsPerSM">
+<span class="target" id="group__core__npp_1gab8ef6a8a8f82e6ce03e2c6ac964fb46f"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetMaxThreadsPerSM</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetMaxThreadsPerSM" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the maximum number of threads per SM for the active GPU. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Maximum number of threads per SM for the active GPU </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetGpuDeviceProperties">
+<span class="target" id="group__core__npp_1ga012c399bf810cb59ce76593e264678ed"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetGpuDeviceProperties</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pMaxThreadsPerSM</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pMaxThreadsPerBlock</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pNumberOfSMs</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetGpuDeviceProperties" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the maximum number of threads per SM, maximum threads per block, and number of SMs for the active GPU. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>cudaSuccess for success, -1 for failure </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetGpuName">
+<span class="target" id="group__core__npp_1ga68b6b06cd2fd7190da55a62f47de9aa9"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppGetGpuName</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetGpuName" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the name of the active CUDA device. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Name string of the active graphics-card/compute device in a system. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetStream">
+<span class="target" id="group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"></span><span class="n"><span class="pre">cudaStream_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetStream</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetStream" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the NPP CUDA stream. </p>
+<p>NPP enables concurrent device tasks via a global stream state varible. The NPP stream by default is set to stream 0, i.e. non-concurrent mode. A user can set the NPP stream to any valid CUDA stream. All CUDA commands issued by NPP (e.g. kernels launched by the NPP library) are then issed to that NPP stream. </p>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetStreamContext">
+<span class="target" id="group__core__npp_1gaa30cd7476a1989c66467b1df849fb9f1"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetStreamContext</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pNppStreamContext</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetStreamContext" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the current NPP managed CUDA stream context as set by calls to <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a>. </p>
+<p>NPP enables concurrent device tasks via an NPP maintained global stream state context. The NPP stream by default is set to stream 0, i.e. non-concurrent mode. A user can set the NPP stream to any valid CUDA stream which will update the current NPP managed stream state context or supply application initialized stream contexts to NPP calls. All CUDA commands issued by NPP (e.g. kernels launched by the NPP library) are then issed to the current NPP managed stream or to application supplied stream contexts depending on whether the stream context is passed to the NPP function or not. NPP managed stream context calls (those without stream context parameters) can be intermixed with application managed stream context calls but any NPP managed stream context calls will always use the most recent stream set by <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> or the NULL stream if <a class="reference internal" href="core_npp.html#group__core__npp_1ga155122a2138b944949b0920e2bb1120f"><span class="std std-ref">nppSetStream()</span></a> has never been called. </p>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetStreamNumSMs">
+<span class="target" id="group__core__npp_1ga9cb44ed10d256db64120b9c76b182380"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetStreamNumSMs</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetStreamNumSMs" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the number of SMs on the device associated with the current NPP CUDA stream. </p>
+<p>NPP enables concurrent device tasks via a global stream state varible. The NPP stream by default is set to stream 0, i.e. non-concurrent mode. A user can set the NPP stream to any valid CUDA stream. All CUDA commands issued by NPP (e.g. kernels launched by the NPP library) are then issed to that NPP stream. This call avoids a cudaGetDeviceProperties() call. </p>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppGetStreamMaxThreadsPerSM">
+<span class="target" id="group__core__npp_1ga0a6d401d3cf81686e7fa4cf2c2093029"></span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppGetStreamMaxThreadsPerSM</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppGetStreamMaxThreadsPerSM" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the maximum number of threads per SM on the device associated with the current NPP CUDA stream. </p>
+<p>NPP enables concurrent device tasks via a global stream state varible. The NPP stream by default is set to stream 0, i.e. non-concurrent mode. A user can set the NPP stream to any valid CUDA stream. All CUDA commands issued by NPP (e.g. kernels launched by the NPP library) are then issed to that NPP stream. This call avoids a cudaGetDeviceProperties() call. </p>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppSetStream">
+<span class="target" id="group__core__npp_1ga155122a2138b944949b0920e2bb1120f"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppSetStream</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">cudaStream_t</span></span><span class="w"> </span><span class="n"><span class="pre">hStream</span></span><span class="sig-paren">)</span><a class="headerlink" href="core_npp.html#c.nppSetStream" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Set the NPP CUDA stream. </p>
+<p>This function now returns an error if a problem occurs with Cuda stream management. This function should only be called if a call to <a class="reference internal" href="core_npp.html#group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"><span class="std std-ref">nppGetStream()</span></a> returns a stream number which is different from the desired stream since unnecessarily flushing the current stream can significantly affect performance. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="core_npp.html#group__core__npp_1ga7b5dd1c9dc541b35137b0635e3150c07"><span class="std std-ref">nppGetStream()</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

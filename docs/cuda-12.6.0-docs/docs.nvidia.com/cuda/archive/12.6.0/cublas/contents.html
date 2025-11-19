@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — cuBLAS 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublas-api">2. Using the cuBLAS API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublaslt-api">3. Using the cuBLASLt API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublasxt-api">4. Using the cuBLASXt API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublasdx-api">5. Using the cuBLASDx API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublas-legacy-api">6. Using the cuBLAS Legacy API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cublas-fortran-bindings">7. cuBLAS Fortran Bindings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#interaction-with-other-libraries-and-tools">8. Interaction with Other Libraries and Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">9. Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">10. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">cuBLAS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUBLAS_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#data-layout">1.1. Data Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#new-and-legacy-cublas-api">1.2. New and Legacy cuBLAS API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#example-code">1.3. Example Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cublas-api">2. Using the cuBLAS API</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#general-description">2.1. General Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#error-status">2.1.1. Error Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-context">2.1.2. cuBLAS Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#thread-safety">2.1.3. Thread Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#results-reproducibility">2.1.4. Results Reproducibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#scalar-parameters">2.1.5. Scalar Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parallelism-with-streams">2.1.6. Parallelism with Streams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#batching-kernels">2.1.7. Batching Kernels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cache-configuration">2.1.8. Cache Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#static-library-support">2.1.9. Static Library Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#gemm-algorithms-numerical-behavior">2.1.10. GEMM Algorithms Numerical Behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-core-usage">2.1.11. Tensor Core Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-graphs-support">2.1.12. CUDA Graphs Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bit-integer-interface">2.1.13. 64-bit Integer Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublas-datatypes-reference">2.2. cuBLAS Datatypes Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublashandle-t">2.2.1. cublasHandle_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasstatus-t">2.2.2. cublasStatus_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasoperation-t">2.2.3. cublasOperation_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasfillmode-t">2.2.4. cublasFillMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasdiagtype-t">2.2.5. cublasDiagType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassidemode-t">2.2.6. cublasSideMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublaspointermode-t">2.2.7. cublasPointerMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasatomicsmode-t">2.2.8. cublasAtomicsMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgemmalgo-t">2.2.9. cublasGemmAlgo_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasmath-t">2.2.10. cublasMath_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascomputetype-t">2.2.11. cublasComputeType_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cuda-datatypes-reference">2.3. CUDA Datatypes Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudadatatype-t">2.3.1. cudaDataType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#librarypropertytype-t">2.3.2. libraryPropertyType_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublas-helper-function-reference">2.4. cuBLAS Helper Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascreate">2.4.1. cublasCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasdestroy">2.4.2. cublasDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetversion">2.4.3. cublasGetVersion()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetproperty">2.4.4. cublasGetProperty()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetstatusname">2.4.5. cublasGetStatusName()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetstatusstring">2.4.6. cublasGetStatusString()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetstream">2.4.7. cublasSetStream()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetworkspace">2.4.8. cublasSetWorkspace()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetstream">2.4.9. cublasGetStream()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetpointermode">2.4.10. cublasGetPointerMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetpointermode">2.4.11. cublasSetPointerMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetvector">2.4.12. cublasSetVector()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetvector">2.4.13. cublasGetVector()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetmatrix">2.4.14. cublasSetMatrix()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetmatrix">2.4.15. cublasGetMatrix()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetvectorasync">2.4.16. cublasSetVectorAsync()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetvectorasync">2.4.17. cublasGetVectorAsync()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetmatrixasync">2.4.18. cublasSetMatrixAsync()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetmatrixasync">2.4.19. cublasGetMatrixAsync()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetatomicsmode">2.4.20. cublasSetAtomicsMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetatomicsmode">2.4.21. cublasGetAtomicsMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetmathmode">2.4.22. cublasSetMathMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetmathmode">2.4.23. cublasGetMathMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetsmcounttarget">2.4.24. cublasSetSmCountTarget()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetsmcounttarget">2.4.25. cublasGetSmCountTarget()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasloggerconfigure">2.4.26. cublasLoggerConfigure()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgetloggercallback">2.4.27. cublasGetLoggerCallback()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublassetloggercallback">2.4.28. cublasSetLoggerCallback()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublas-level-1-function-reference">2.5. cuBLAS Level-1 Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasi-t-amax">2.5.1. cublasI&lt;t&gt;amax()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasi-t-amin">2.5.2. cublasI&lt;t&gt;amin()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-asum">2.5.3. cublas&lt;t&gt;asum()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-axpy">2.5.4. cublas&lt;t&gt;axpy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-copy">2.5.5. cublas&lt;t&gt;copy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-dot">2.5.6. cublas&lt;t&gt;dot()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-nrm2">2.5.7. cublas&lt;t&gt;nrm2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-rot">2.5.8. cublas&lt;t&gt;rot()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-rotg">2.5.9. cublas&lt;t&gt;rotg()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-rotm">2.5.10. cublas&lt;t&gt;rotm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-rotmg">2.5.11. cublas&lt;t&gt;rotmg()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-scal">2.5.12. cublas&lt;t&gt;scal()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-swap">2.5.13. cublas&lt;t&gt;swap()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublas-level-2-function-reference">2.6. cuBLAS Level-2 Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gbmv">2.6.1. cublas&lt;t&gt;gbmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemv">2.6.2. cublas&lt;t&gt;gemv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-ger">2.6.3. cublas&lt;t&gt;ger()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-sbmv">2.6.4. cublas&lt;t&gt;sbmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-spmv">2.6.5. cublas&lt;t&gt;spmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-spr">2.6.6. cublas&lt;t&gt;spr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-spr2">2.6.7. cublas&lt;t&gt;spr2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id2">2.6.8. cublas&lt;t&gt;symv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-syr">2.6.9. cublas&lt;t&gt;syr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-syr2">2.6.10. cublas&lt;t&gt;syr2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-tbmv">2.6.11. cublas&lt;t&gt;tbmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-tbsv">2.6.12. cublas&lt;t&gt;tbsv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-tpmv">2.6.13. cublas&lt;t&gt;tpmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-tpsv">2.6.14. cublas&lt;t&gt;tpsv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trmv">2.6.15. cublas&lt;t&gt;trmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trsv">2.6.16. cublas&lt;t&gt;trsv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id3">2.6.17. cublas&lt;t&gt;hemv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-hbmv">2.6.18. cublas&lt;t&gt;hbmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-hpmv">2.6.19. cublas&lt;t&gt;hpmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-her">2.6.20. cublas&lt;t&gt;her()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-her2">2.6.21. cublas&lt;t&gt;her2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-hpr">2.6.22. cublas&lt;t&gt;hpr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-hpr2">2.6.23. cublas&lt;t&gt;hpr2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemvbatched">2.6.24. cublas&lt;t&gt;gemvBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemvstridedbatched">2.6.25. cublas&lt;t&gt;gemvStridedBatched()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublas-level-3-function-reference">2.7. cuBLAS Level-3 Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemm">2.7.1. cublas&lt;t&gt;gemm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemm3m">2.7.2. cublas&lt;t&gt;gemm3m()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemmbatched">2.7.3. cublas&lt;t&gt;gemmBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemmstridedbatched">2.7.4. cublas&lt;t&gt;gemmStridedBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemmgroupedbatched">2.7.5. cublas&lt;t&gt;gemmGroupedBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-symm">2.7.6. cublas&lt;t&gt;symm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-syrk">2.7.7. cublas&lt;t&gt;syrk()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-syr2k">2.7.8. cublas&lt;t&gt;syr2k()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-syrkx">2.7.9. cublas&lt;t&gt;syrkx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trmm">2.7.10. cublas&lt;t&gt;trmm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trsm">2.7.11. cublas&lt;t&gt;trsm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trsmbatched">2.7.12. cublas&lt;t&gt;trsmBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-hemm">2.7.13. cublas&lt;t&gt;hemm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-herk">2.7.14. cublas&lt;t&gt;herk()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-her2k">2.7.15. cublas&lt;t&gt;her2k()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-herkx">2.7.16. cublas&lt;t&gt;herkx()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#blas-like-extension">2.8. BLAS-like Extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-geam">2.8.1. cublas&lt;t&gt;geam()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id10">2.8.2. cublas&lt;t&gt;dgmm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-getrfbatched">2.8.3. cublas&lt;t&gt;getrfBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-getrsbatched">2.8.4. cublas&lt;t&gt;getrsBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-getribatched">2.8.5. cublas&lt;t&gt;getriBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-matinvbatched">2.8.6. cublas&lt;t&gt;matinvBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-geqrfbatched">2.8.7. cublas&lt;t&gt;geqrfBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gelsbatched">2.8.8. cublas&lt;t&gt;gelsBatched()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-tpttr">2.8.9. cublas&lt;t&gt;tpttr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-trttp">2.8.10. cublas&lt;t&gt;trttp()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublas-t-gemmex">2.8.11. cublas&lt;t&gt;gemmEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgemmex">2.8.12. cublasGemmEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgemmbatchedex">2.8.13. cublasGemmBatchedEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgemmstridedbatchedex">2.8.14. cublasGemmStridedBatchedEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasgemmgroupedbatchedex">2.8.15. cublasGemmGroupedBatchedEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascsyrkex">2.8.16. cublasCsyrkEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascsyrk3mex">2.8.17. cublasCsyrk3mEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascherkex">2.8.18. cublasCherkEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublascherk3mex">2.8.19. cublasCherk3mEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasnrm2ex">2.8.20. cublasNrm2Ex()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasaxpyex">2.8.21. cublasAxpyEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasdotex">2.8.22. cublasDotEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasrotex">2.8.23. cublasRotEx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasscalex">2.8.24. cublasScalEx()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cublaslt-api">3. Using the cuBLASLt API</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#id41">3.1. General Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#problem-size-limitations">3.1.1. Problem Size Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#heuristics-cache">3.1.2. Heuristics Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublaslt-logging">3.1.3. cuBLASLt Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bit-floating-point-data-types-fp8-usage">3.1.4. 8-bit Floating Point Data Types (FP8) Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#disabling-cpu-instructions">3.1.5. Disabling CPU Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#atomics-synchronization">3.1.6. Atomics Synchronization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cublaslt-code-examples">3.2. cuBLASLt Code Examples</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublaslt-datatypes-reference">3.3. cuBLASLt Datatypes Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltclustershape-t">3.3.1. cublasLtClusterShape_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltepilogue-t">3.3.2. cublasLtEpilogue_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublaslthandle-t">3.3.3. cublasLtHandle_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggercallback-t">3.3.4. cublasLtLoggerCallback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgo-t">3.3.5. cublasLtMatmulAlgo_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgocapattributes-t">3.3.6. cublasLtMatmulAlgoCapAttributes_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgoconfigattributes-t">3.3.7. cublasLtMatmulAlgoConfigAttributes_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldesc-t">3.3.8. cublasLtMatmulDesc_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldescattributes-t">3.3.9. cublasLtMatmulDescAttributes_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulheuristicresult-t">3.3.10. cublasLtMatmulHeuristicResult_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulinnershape-t">3.3.11. cublasLtMatmulInnerShape_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreference-t">3.3.12. cublasLtMatmulPreference_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferenceattributes-t">3.3.13. cublasLtMatmulPreferenceAttributes_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulsearch-t">3.3.14. cublasLtMatmulSearch_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmultile-t">3.3.15. cublasLtMatmulTile_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulstages-t">3.3.16. cublasLtMatmulStages_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltnumericalimplflags-t">3.3.17. cublasLtNumericalImplFlags_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayout-t">3.3.18. cublasLtMatrixLayout_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutattribute-t">3.3.19. cublasLtMatrixLayoutAttribute_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdesc-t">3.3.20. cublasLtMatrixTransformDesc_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdescattributes-t">3.3.21. cublasLtMatrixTransformDescAttributes_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltorder-t">3.3.22. cublasLtOrder_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltpointermode-t">3.3.23. cublasLtPointerMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltpointermodemask-t">3.3.24. cublasLtPointerModeMask_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltreductionscheme-t">3.3.25. cublasLtReductionScheme_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublaslt-api-reference">3.4. cuBLASLt API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltcreate">3.4.1. cublasLtCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltdestroy">3.4.2. cublasLtDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltdisablecpuinstructionssetmask">3.4.3. cublasLtDisableCpuInstructionsSetMask()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltgetcudartversion">3.4.4. cublasLtGetCudartVersion()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltgetproperty">3.4.5. cublasLtGetProperty()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltgetstatusname">3.4.6. cublasLtGetStatusName()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltgetstatusstring">3.4.7. cublasLtGetStatusString()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltheuristicscachegetcapacity">3.4.8. cublasLtHeuristicsCacheGetCapacity()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltheuristicscachesetcapacity">3.4.9. cublasLtHeuristicsCacheSetCapacity()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltgetversion">3.4.10. cublasLtGetVersion()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggersetcallback">3.4.11. cublasLtLoggerSetCallback()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggersetfile">3.4.12. cublasLtLoggerSetFile()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggeropenfile">3.4.13. cublasLtLoggerOpenFile()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggersetlevel">3.4.14. cublasLtLoggerSetLevel()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggersetmask">3.4.15. cublasLtLoggerSetMask()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltloggerforcedisable">3.4.16. cublasLtLoggerForceDisable()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmul">3.4.17. cublasLtMatmul()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgocapgetattribute">3.4.18. cublasLtMatmulAlgoCapGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgocheck">3.4.19. cublasLtMatmulAlgoCheck()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgoconfiggetattribute">3.4.20. cublasLtMatmulAlgoConfigGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgoconfigsetattribute">3.4.21. cublasLtMatmulAlgoConfigSetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgogetheuristic">3.4.22. cublasLtMatmulAlgoGetHeuristic()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgogetids">3.4.23. cublasLtMatmulAlgoGetIds()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulalgoinit">3.4.24. cublasLtMatmulAlgoInit()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldesccreate">3.4.25. cublasLtMatmulDescCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldescinit">3.4.26. cublasLtMatmulDescInit()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldescdestroy">3.4.27. cublasLtMatmulDescDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldescgetattribute">3.4.28. cublasLtMatmulDescGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmuldescsetattribute">3.4.29. cublasLtMatmulDescSetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferencecreate">3.4.30. cublasLtMatmulPreferenceCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferenceinit">3.4.31. cublasLtMatmulPreferenceInit()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferencedestroy">3.4.32. cublasLtMatmulPreferenceDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferencegetattribute">3.4.33. cublasLtMatmulPreferenceGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatmulpreferencesetattribute">3.4.34. cublasLtMatmulPreferenceSetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutcreate">3.4.35. cublasLtMatrixLayoutCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutinit">3.4.36. cublasLtMatrixLayoutInit()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutdestroy">3.4.37. cublasLtMatrixLayoutDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutgetattribute">3.4.38. cublasLtMatrixLayoutGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixlayoutsetattribute">3.4.39. cublasLtMatrixLayoutSetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransform">3.4.40. cublasLtMatrixTransform()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdesccreate">3.4.41. cublasLtMatrixTransformDescCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdescinit">3.4.42. cublasLtMatrixTransformDescInit()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdescdestroy">3.4.43. cublasLtMatrixTransformDescDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdescgetattribute">3.4.44. cublasLtMatrixTransformDescGetAttribute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasltmatrixtransformdescsetattribute">3.4.45. cublasLtMatrixTransformDescSetAttribute()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cublasxt-api">4. Using the cuBLASXt API</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#id93">4.1. General description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tiling-design-approach">4.1.1. Tiling design approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#hybrid-cpu-gpu-computation">4.1.2. Hybrid CPU-GPU computation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id95">4.1.3. Results reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublasxt-api-datatypes-reference">4.2. cuBLASXt API Datatypes Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxthandle-t">4.2.1. cublasXtHandle_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtoptype-t">4.2.2. cublasXtOpType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtblasop-t">4.2.3. cublasXtBlasOp_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtpinningmemmode-t">4.2.4. cublasXtPinningMemMode_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublasxt-api-helper-function-reference">4.3. cuBLASXt API Helper Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtcreate">4.3.1. cublasXtCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtdestroy">4.3.2. cublasXtDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtdeviceselect">4.3.3. cublasXtDeviceSelect()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtsetblockdim">4.3.4. cublasXtSetBlockDim()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtgetblockdim">4.3.5. cublasXtGetBlockDim()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtsetcpuroutine">4.3.6. cublasXtSetCpuRoutine()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtsetcpuratio">4.3.7. cublasXtSetCpuRatio()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtsetpinningmemmode">4.3.8. cublasXtSetPinningMemMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxtgetpinningmemmode">4.3.9. cublasXtGetPinningMemMode()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cublasxt-api-math-functions-reference">4.4. cuBLASXt API Math Functions Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id96">4.4.1. cublasXt&lt;t&gt;gemm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-hemm">4.4.2. cublasXt&lt;t&gt;hemm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-symm">4.4.3. cublasXt&lt;t&gt;symm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-syrk">4.4.4. cublasXt&lt;t&gt;syrk()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-syr2k">4.4.5. cublasXt&lt;t&gt;syr2k()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-syrkx">4.4.6. cublasXt&lt;t&gt;syrkx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-herk">4.4.7. cublasXt&lt;t&gt;herk()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-her2k">4.4.8. cublasXt&lt;t&gt;her2k()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-herkx">4.4.9. cublasXt&lt;t&gt;herkx()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-trsm">4.4.10. cublasXt&lt;t&gt;trsm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-trmm">4.4.11. cublasXt&lt;t&gt;trmm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cublasxt-t-spmm">4.4.12. cublasXt&lt;t&gt;spmm()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cublasdx-api">5. Using the cuBLASDx API</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cublas-legacy-api">6. Using the cuBLAS Legacy API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id99">6.1. Error Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#initialization-and-shutdown">6.2. Initialization and Shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id100">6.3. Thread Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-management">6.4. Memory Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id101">6.5. Scalar Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#helper-functions">6.6. Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#level-1-2-3-functions">6.7. Level-1,2,3 Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#converting-legacy-to-the-cublas-api">6.8. Converting Legacy to the cuBLAS API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#examples">6.9. Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cublas-fortran-bindings">7. cuBLAS Fortran Bindings</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#interaction-with-other-libraries-and-tools">8. Interaction with Other Libraries and Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvprune">8.1. nvprune</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">9. Acknowledgements</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">10. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">10.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">10.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">10.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2012-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

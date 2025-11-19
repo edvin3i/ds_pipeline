@@ -1,0 +1,804 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us" xml:lang="en-us">
+   <head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="copyright" content="(C) Copyright 2005">
+      <meta name="DC.rights.owner" content="(C) Copyright 2005">
+      <meta name="DC.Type" content="cppModule">
+      <meta name="DC.Title" content="Multicast Object Management">
+      <meta name="abstract" content="">
+      <meta name="description" content="">
+      <meta name="DC.Format" content="XHTML">
+      <meta name="DC.Identifier" content="group__CUDA__MULTICAST">
+      <link rel="stylesheet" type="text/css" href="../common/formatting/commonltr.css">
+      <link rel="stylesheet" type="text/css" href="../common/formatting/site.css">
+      <title>CUDA Driver API :: CUDA Toolkit Documentation</title>
+      <!--[if lt IE 9]>
+      <script src="../common/formatting/html5shiv-printshiv.min.js"></script>
+      <![endif]-->
+      <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-svg.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="../common/formatting/jquery.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="../common/formatting/jquery.ba-hashchange.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="../common/formatting/jquery.scrollintoview.min.js"></script>
+      <script type="text/javascript" charset="utf-8" src="../common/scripts/geoip/geoip.js"></script>
+      <script type="text/javascript" src="../search/htmlFileList.js"></script>
+      <script type="text/javascript" src="../search/htmlFileInfoList.js"></script>
+      <script type="text/javascript" src="../search/nwSearchFnt.min.js"></script>
+      <script type="text/javascript" src="../search/stemmers/en_stemmer.min.js"></script>
+      <script type="text/javascript" src="../search/index-1.js"></script>
+      <script type="text/javascript" src="../search/index-2.js"></script>
+      <script type="text/javascript" src="../search/index-3.js"></script>
+      <link rel="canonical" href="https://docs.nvidia.com/cuda/cuda-driver-api/index.html">
+      <link rel="stylesheet" type="text/css" href="../common/formatting/qwcode.highlight.css">
+   <link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+   <body>
+      
+      <header id="header"><span id="company">NVIDIA</span><span id="site-title">CUDA Toolkit Documentation</span><form id="search" method="get" action="https://docs.nvidia.com/cuda/archive/12.6.0/cuda-driver-api/search">
+            <input type="text" name="search-text"><fieldset id="search-location">
+               <legend>Search In:</legend>
+               <label><input type="radio" name="search-type" value="site">Entire Site</label>
+               <label><input type="radio" name="search-type" value="document">Just This Document</label>
+</fieldset>
+            <button type="reset">clear search</button>
+            <button id="submit" type="submit">search</button>
+</form>
+      </header>
+      <div id="site-content">
+         <nav id="site-nav">
+            <div class="category closed"><a href="../index.html" title="The root of the site.">CUDA Toolkit 
+                  
+                  
+                  v12.6.0</a></div>
+            <div class="category"><a href="index.html" title="CUDA Driver API">CUDA Driver API</a></div>
+            <ul>
+               <li>
+                  <div class="section-link"><a href="driver-vs-runtime-api.html#driver-vs-runtime-api">1. Difference between the driver and runtime APIs </a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="api-sync-behavior.html#api-sync-behavior">2. API synchronization behavior </a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="stream-sync-behavior.html#stream-sync-behavior">3. Stream synchronization behavior</a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="graphs-thread-safety.html#graphs-thread-safety">4. Graph object thread safety</a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="version-mixing-rules.html#version-mixing-rules">5. Rules for version mixing </a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="modules.html#modules">6. Modules</a></div>
+                  <ul>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES">6.1. Data types used by CUDA driver</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__ERROR.html#group__CUDA__ERROR">6.2. Error Handling</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__INITIALIZE.html#group__CUDA__INITIALIZE">6.3. Initialization</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__VERSION.html#group__CUDA__VERSION">6.4. Version Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__DEVICE.html#group__CUDA__DEVICE">6.5. Device Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__DEVICE__DEPRECATED.html#group__CUDA__DEVICE__DEPRECATED">6.6. Device Management [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__PRIMARY__CTX.html#group__CUDA__PRIMARY__CTX">6.7. Primary Context Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__CTX.html#group__CUDA__CTX">6.8. Context Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__CTX__DEPRECATED.html#group__CUDA__CTX__DEPRECATED">6.9. Context Management [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MODULE.html#group__CUDA__MODULE">6.10. Module Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MODULE__DEPRECATED.html#group__CUDA__MODULE__DEPRECATED">6.11. Module Management [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__LIBRARY.html#group__CUDA__LIBRARY">6.12. Library Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MEM.html#group__CUDA__MEM">6.13. Memory Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__VA.html#group__CUDA__VA">6.14. Virtual Memory Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MALLOC__ASYNC.html#group__CUDA__MALLOC__ASYNC">6.15. Stream Ordered Memory Allocator</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST">6.16. Multicast Object Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__UNIFIED.html#group__CUDA__UNIFIED">6.17. Unified Addressing</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__STREAM.html#group__CUDA__STREAM">6.18. Stream Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__EVENT.html#group__CUDA__EVENT">6.19. Event Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__EXTRES__INTEROP.html#group__CUDA__EXTRES__INTEROP">6.20. External Resource Interoperability</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__MEMOP.html#group__CUDA__MEMOP">6.21. Stream Memory Operations</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__EXEC.html#group__CUDA__EXEC">6.22. Execution Control</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__EXEC__DEPRECATED.html#group__CUDA__EXEC__DEPRECATED">6.23. Execution Control [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__GRAPH.html#group__CUDA__GRAPH">6.24. Graph Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__OCCUPANCY.html#group__CUDA__OCCUPANCY">6.25. Occupancy</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__TEXREF__DEPRECATED.html#group__CUDA__TEXREF__DEPRECATED">6.26. Texture Reference Management [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__SURFREF__DEPRECATED.html#group__CUDA__SURFREF__DEPRECATED">6.27. Surface Reference Management [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__TEXOBJECT.html#group__CUDA__TEXOBJECT">6.28. Texture Object Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__SURFOBJECT.html#group__CUDA__SURFOBJECT">6.29. Surface Object Management</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__TENSOR__MEMORY.html#group__CUDA__TENSOR__MEMORY">6.30. Tensor Map Object Managment</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__PEER__ACCESS.html#group__CUDA__PEER__ACCESS">6.31. Peer Context Memory Access</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__GRAPHICS.html#group__CUDA__GRAPHICS">6.32. Graphics Interoperability</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__DRIVER__ENTRY__POINT.html#group__CUDA__DRIVER__ENTRY__POINT">6.33. Driver Entry Point Access</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__COREDUMP.html#group__CUDA__COREDUMP">6.34. Coredump Attributes Control API</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__GREEN__CONTEXTS.html#group__CUDA__GREEN__CONTEXTS">6.35. Green Contexts</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__PROFILER__DEPRECATED.html#group__CUDA__PROFILER__DEPRECATED">6.36. Profiler Control [DEPRECATED]</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__PROFILER.html#group__CUDA__PROFILER">6.37. Profiler Control</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__GL.html#group__CUDA__GL">6.38. OpenGL Interoperability</a></div>
+                        <ul>
+                           <li>
+                              <div class="section-link"><a href="group__CUDA__GL__DEPRECATED.html#group__CUDA__GL__DEPRECATED">6.38.1. OpenGL Interoperability [DEPRECATED]</a></div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__D3D9.html#group__CUDA__D3D9">6.39. Direct3D 9 Interoperability</a></div>
+                        <ul>
+                           <li>
+                              <div class="section-link"><a href="group__CUDA__D3D9__DEPRECATED.html#group__CUDA__D3D9__DEPRECATED">6.39.1. Direct3D 9 Interoperability [DEPRECATED]</a></div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__D3D10.html#group__CUDA__D3D10">6.40. Direct3D 10 Interoperability</a></div>
+                        <ul>
+                           <li>
+                              <div class="section-link"><a href="group__CUDA__D3D10__DEPRECATED.html#group__CUDA__D3D10__DEPRECATED">6.40.1. Direct3D 10 Interoperability [DEPRECATED]</a></div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__D3D11.html#group__CUDA__D3D11">6.41. Direct3D 11 Interoperability</a></div>
+                        <ul>
+                           <li>
+                              <div class="section-link"><a href="group__CUDA__D3D11__DEPRECATED.html#group__CUDA__D3D11__DEPRECATED">6.41.1. Direct3D 11 Interoperability [DEPRECATED]</a></div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__VDPAU.html#group__CUDA__VDPAU">6.42. VDPAU Interoperability</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="group__CUDA__EGL.html#group__CUDA__EGL">6.43. EGL Interoperability</a></div>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <div class="section-link"><a href="annotated.html#annotated">7. Data Structures</a></div>
+                  <ul>
+                     <li>
+                        <div class="section-link"><a href="structCUaccessPolicyWindow__v1.html#structCUaccessPolicyWindow__v1">7.1. CUaccessPolicyWindow_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUarrayMapInfo__v1.html#structCUarrayMapInfo__v1">7.2. CUarrayMapInfo_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUasyncNotificationInfo.html#structCUasyncNotificationInfo">7.3. CUasyncNotificationInfo</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUctxCigParam.html#structCUctxCigParam">7.4. CUctxCigParam</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUctxCreateParams.html#structCUctxCreateParams">7.5. CUctxCreateParams</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__ARRAY3D__DESCRIPTOR__v2.html#structCUDA__ARRAY3D__DESCRIPTOR__v2">7.6. CUDA_ARRAY3D_DESCRIPTOR_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__ARRAY__DESCRIPTOR__v2.html#structCUDA__ARRAY__DESCRIPTOR__v2">7.7. CUDA_ARRAY_DESCRIPTOR_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__ARRAY__MEMORY__REQUIREMENTS__v1.html#structCUDA__ARRAY__MEMORY__REQUIREMENTS__v1">7.8. CUDA_ARRAY_MEMORY_REQUIREMENTS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__ARRAY__SPARSE__PROPERTIES__v1.html#structCUDA__ARRAY__SPARSE__PROPERTIES__v1">7.9. CUDA_ARRAY_SPARSE_PROPERTIES_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="https://docs.nvidia.com/cuda/archive/12.6.0/cuda-driver-api/structCUDA__BATCH__MEM__OP__NODE__PARAMS__v2.html">7.10. </a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__CHILD__GRAPH__NODE__PARAMS.html#structCUDA__CHILD__GRAPH__NODE__PARAMS">7.11. CUDA_CHILD_GRAPH_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__CONDITIONAL__NODE__PARAMS.html#structCUDA__CONDITIONAL__NODE__PARAMS">7.12. CUDA_CONDITIONAL_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EVENT__RECORD__NODE__PARAMS.html#structCUDA__EVENT__RECORD__NODE__PARAMS">7.13. CUDA_EVENT_RECORD_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EVENT__WAIT__NODE__PARAMS.html#structCUDA__EVENT__WAIT__NODE__PARAMS">7.14. CUDA_EVENT_WAIT_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXT__SEM__SIGNAL__NODE__PARAMS__v1.html#structCUDA__EXT__SEM__SIGNAL__NODE__PARAMS__v1">7.15. CUDA_EXT_SEM_SIGNAL_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXT__SEM__SIGNAL__NODE__PARAMS__v2.html#structCUDA__EXT__SEM__SIGNAL__NODE__PARAMS__v2">7.16. CUDA_EXT_SEM_SIGNAL_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXT__SEM__WAIT__NODE__PARAMS__v1.html#structCUDA__EXT__SEM__WAIT__NODE__PARAMS__v1">7.17. CUDA_EXT_SEM_WAIT_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXT__SEM__WAIT__NODE__PARAMS__v2.html#structCUDA__EXT__SEM__WAIT__NODE__PARAMS__v2">7.18. CUDA_EXT_SEM_WAIT_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__MEMORY__BUFFER__DESC__v1.html#structCUDA__EXTERNAL__MEMORY__BUFFER__DESC__v1">7.19. CUDA_EXTERNAL_MEMORY_BUFFER_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__MEMORY__HANDLE__DESC__v1.html#structCUDA__EXTERNAL__MEMORY__HANDLE__DESC__v1">7.20. CUDA_EXTERNAL_MEMORY_HANDLE_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__MEMORY__MIPMAPPED__ARRAY__DESC__v1.html#structCUDA__EXTERNAL__MEMORY__MIPMAPPED__ARRAY__DESC__v1">7.21. CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__SEMAPHORE__HANDLE__DESC__v1.html#structCUDA__EXTERNAL__SEMAPHORE__HANDLE__DESC__v1">7.22. CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__SEMAPHORE__SIGNAL__PARAMS__v1.html#structCUDA__EXTERNAL__SEMAPHORE__SIGNAL__PARAMS__v1">7.23. CUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__EXTERNAL__SEMAPHORE__WAIT__PARAMS__v1.html#structCUDA__EXTERNAL__SEMAPHORE__WAIT__PARAMS__v1">7.24. CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__GRAPH__INSTANTIATE__PARAMS.html#structCUDA__GRAPH__INSTANTIATE__PARAMS">7.25. CUDA_GRAPH_INSTANTIATE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__HOST__NODE__PARAMS__v1.html#structCUDA__HOST__NODE__PARAMS__v1">7.26. CUDA_HOST_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__HOST__NODE__PARAMS__v2.html#structCUDA__HOST__NODE__PARAMS__v2">7.27. CUDA_HOST_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__KERNEL__NODE__PARAMS__v1.html#structCUDA__KERNEL__NODE__PARAMS__v1">7.28. CUDA_KERNEL_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__KERNEL__NODE__PARAMS__v2.html#structCUDA__KERNEL__NODE__PARAMS__v2">7.29. CUDA_KERNEL_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__KERNEL__NODE__PARAMS__v3.html#structCUDA__KERNEL__NODE__PARAMS__v3">7.30. CUDA_KERNEL_NODE_PARAMS_v3</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__LAUNCH__PARAMS__v1.html#structCUDA__LAUNCH__PARAMS__v1">7.31. CUDA_LAUNCH_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEM__ALLOC__NODE__PARAMS__v1.html#structCUDA__MEM__ALLOC__NODE__PARAMS__v1">7.32. CUDA_MEM_ALLOC_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEM__ALLOC__NODE__PARAMS__v2.html#structCUDA__MEM__ALLOC__NODE__PARAMS__v2">7.33. CUDA_MEM_ALLOC_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEM__FREE__NODE__PARAMS.html#structCUDA__MEM__FREE__NODE__PARAMS">7.34. CUDA_MEM_FREE_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMCPY2D__v2.html#structCUDA__MEMCPY2D__v2">7.35. CUDA_MEMCPY2D_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMCPY3D__PEER__v1.html#structCUDA__MEMCPY3D__PEER__v1">7.36. CUDA_MEMCPY3D_PEER_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMCPY3D__v2.html#structCUDA__MEMCPY3D__v2">7.37. CUDA_MEMCPY3D_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMCPY__NODE__PARAMS.html#structCUDA__MEMCPY__NODE__PARAMS">7.38. CUDA_MEMCPY_NODE_PARAMS</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMSET__NODE__PARAMS__v1.html#structCUDA__MEMSET__NODE__PARAMS__v1">7.39. CUDA_MEMSET_NODE_PARAMS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__MEMSET__NODE__PARAMS__v2.html#structCUDA__MEMSET__NODE__PARAMS__v2">7.40. CUDA_MEMSET_NODE_PARAMS_v2</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__POINTER__ATTRIBUTE__P2P__TOKENS__v1.html#structCUDA__POINTER__ATTRIBUTE__P2P__TOKENS__v1">7.41. CUDA_POINTER_ATTRIBUTE_P2P_TOKENS_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__RESOURCE__DESC__v1.html#structCUDA__RESOURCE__DESC__v1">7.42. CUDA_RESOURCE_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__RESOURCE__VIEW__DESC__v1.html#structCUDA__RESOURCE__VIEW__DESC__v1">7.43. CUDA_RESOURCE_VIEW_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUDA__TEXTURE__DESC__v1.html#structCUDA__TEXTURE__DESC__v1">7.44. CUDA_TEXTURE_DESC_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUdevprop__v1.html#structCUdevprop__v1">7.45. CUdevprop_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUdevResource.html#structCUdevResource">7.46. CUdevResource</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUdevSmResource.html#structCUdevSmResource">7.47. CUdevSmResource</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUeglFrame__v1.html#structCUeglFrame__v1">7.48. CUeglFrame_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUexecAffinityParam__v1.html#structCUexecAffinityParam__v1">7.49. CUexecAffinityParam_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUexecAffinitySmCount__v1.html#structCUexecAffinitySmCount__v1">7.50. CUexecAffinitySmCount_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUgraphEdgeData.html#structCUgraphEdgeData">7.51. CUgraphEdgeData</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUgraphExecUpdateResultInfo__v1.html#structCUgraphExecUpdateResultInfo__v1">7.52. CUgraphExecUpdateResultInfo_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUgraphNodeParams.html#structCUgraphNodeParams">7.53. CUgraphNodeParams</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUipcEventHandle__v1.html#structCUipcEventHandle__v1">7.54. CUipcEventHandle_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUipcMemHandle__v1.html#structCUipcMemHandle__v1">7.55. CUipcMemHandle_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUlaunchAttribute.html#structCUlaunchAttribute">7.56. CUlaunchAttribute</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="unionCUlaunchAttributeValue.html#unionCUlaunchAttributeValue">7.57. CUlaunchAttributeValue</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUlaunchConfig.html#structCUlaunchConfig">7.58. CUlaunchConfig</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUlaunchMemSyncDomainMap.html#structCUlaunchMemSyncDomainMap">7.59. CUlaunchMemSyncDomainMap</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemAccessDesc__v1.html#structCUmemAccessDesc__v1">7.60. CUmemAccessDesc_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemAllocationProp__v1.html#structCUmemAllocationProp__v1">7.61. CUmemAllocationProp_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemFabricHandle__v1.html#structCUmemFabricHandle__v1">7.62. CUmemFabricHandle_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemLocation__v1.html#structCUmemLocation__v1">7.63. CUmemLocation_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemPoolProps__v1.html#structCUmemPoolProps__v1">7.64. CUmemPoolProps_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmemPoolPtrExportData__v1.html#structCUmemPoolPtrExportData__v1">7.65. CUmemPoolPtrExportData_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1">7.66. CUmulticastObjectProp_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="unionCUstreamBatchMemOpParams__v1.html#unionCUstreamBatchMemOpParams__v1">7.67. CUstreamBatchMemOpParams_v1</a></div>
+                     </li>
+                     <li>
+                        <div class="section-link"><a href="structCUtensorMap.html#structCUtensorMap">7.68. CUtensorMap</a></div>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <div class="section-link"><a href="functions.html#functions">8. Data Fields</a></div>
+               </li>
+               <li>
+                  <div class="section-link"><a href="deprecated.html#deprecated">9. Deprecated List</a></div>
+               </li>
+            </ul>
+         </nav>
+         <div id="resize-nav"></div>
+         <nav id="search-results">
+            <h2>Search Results</h2>
+            <ol></ol>
+         </nav>
+         
+         <div id="contents-container">
+            <div id="breadcrumbs-container">
+               <div id="breadcrumbs">
+<a href="group__CUDA__MALLOC__ASYNC.html" shape="rect">&lt; Previous</a> | <a href="group__CUDA__UNIFIED.html" shape="rect">Next &gt;</a>
+</div>
+               <div id="release-info">CUDA Driver API
+                  (<a href="../pdf/CUDA_Driver_API.pdf">PDF</a>)
+                  -
+                   
+                  
+                  
+                  v12.6.0
+                  (<a href="https://developer.nvidia.com/cuda-toolkit-archive">older</a>)
+                  -
+                  Last updated August 1, 2024
+                  -
+                  <a href="mailto:CUDAIssues@nvidia.com?subject=CUDA%20Toolkit%20Documentation%20Feedback:%20CUDA%20Driver%20API">Send Feedback</a>
+</div>
+            </div>
+            <article id="contents">
+               <div class="topic reference apiRef apiPackage cppModule" id="group__CUDA__MULTICAST">
+<a name="group__CUDA__MULTICAST" shape="rect">
+                     <!-- --></a><h2 class="topictitle2 cppModule">6.16. Multicast Object Management</h2>
+                  <div class="section">
+                     <p>This section describes the CUDA multicast object operations exposed by the low-level CUDA driver application programming interface.</p>
+                     <p class="p apiDesc_subtitle"><strong class="ph b">overview</strong></p>
+                     <p class="p">A multicast object created via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a> enables certain memory operations to be broadcast to a team of devices. Devices can be added to a multicast object via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>. Memory can be bound on each participating device via either <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a> or <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a>. Multicast objects can be mapped into a device's virtual address space using the virtual memmory management APIs (see <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1gff1d395423af5c5c75375516959dae56" title="Maps an allocation handle to a reserved virtual address range." shape="rect">cuMemMap</a> and <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g1b6b12b10e8324bf462ecab4e7ef30e1" title="Set the access flags for each location specified in desc for the given virtual address range." shape="rect">cuMemSetAccess</a>).
+                     </p>
+                     <p class="p apiDesc_subtitle"><strong class="ph b">Supported Platforms</strong></p>
+                     <p class="p">Support for multicast on a specific device can be queried using the device attribute <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gge12b8a782bebe21b1ac0091bf9f4e2a3ce470c9ff9166a3a8740bef623f5d299" shape="rect">CU_DEVICE_ATTRIBUTE_MULTICAST_SUPPORTED</a></p>
+                  </div>
+                  <h3 class="fake_sectiontitle member_header">Functions</h3>
+                  <dl class="members">
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" shape="rect">cuMulticastAddDevice</a> (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g41ca2a24a242b36ef2ca77330b5fb72a" title="" shape="rect">CUdevice</a><span> </span><span class="keyword keyword apiItemName">dev</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Associate a device to a multicast object. </span>
+</dd>
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" shape="rect">cuMulticastBindAddr</a> (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g183f7b0d8ad008ea2a5fd552537ace4e" title="" shape="rect">CUdeviceptr</a><span> </span><span class="keyword keyword apiItemName">memptr</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span>, unsigned long long<span> </span><span class="keyword keyword apiItemName">flags</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Bind a memory allocation represented by a virtual address to a multicast object. </span>
+</dd>
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" shape="rect">cuMulticastBindMem</a> (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">memHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">memOffset</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span>, unsigned long long<span> </span><span class="keyword keyword apiItemName">flags</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Bind a memory allocation represented by a handle to a multicast object. </span>
+</dd>
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" shape="rect">cuMulticastCreate</a> (  CUmemGenericAllocationHandle*<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, const <a href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1" title="" shape="rect">CUmulticastObjectProp</a>*<span> </span><span class="keyword keyword apiItemName">prop</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Create a generic allocation handle representing a multicast object described by the given properties. </span>
+</dd>
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" shape="rect">cuMulticastGetGranularity</a> (  size_t*<span> </span><span class="keyword keyword apiItemName">granularity</span>, const <a href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1" title="" shape="rect">CUmulticastObjectProp</a>*<span> </span><span class="keyword keyword apiItemName">prop</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gcdeff171670a788001418262a0f88378" title="" shape="rect">CUmulticastGranularity_flags</a><span> </span><span class="keyword keyword apiItemName">option</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Calculates either the minimal or recommended granularity for multicast object. </span>
+</dd>
+                     <dt>
+<span class="member_type"><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> </span><span class="member_name"><a href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" shape="rect">cuMulticastUnbind</a> (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g41ca2a24a242b36ef2ca77330b5fb72a" title="" shape="rect">CUdevice</a><span> </span><span class="keyword keyword apiItemName">dev</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span> ) </span>
+</dt>
+                     <dd class="shortdesc">
+<span></span><span class="desc">Unbind any memory allocations bound to a multicast object at a given offset and upto a given size. </span>
+</dd>
+                  </dl>
+                  <div class="description">
+                     <h3 class="sectiontitle">Functions</h3>
+                     <dl class="description">
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" id="group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastAddDevice (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g41ca2a24a242b36ef2ca77330b5fb72a" title="" shape="rect">CUdevice</a><span> </span><span class="keyword keyword apiItemName">dev</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Associate a device to a multicast object. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcHandle</span></tt></dt>
+                                 <dd>Handle representing a multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">dev</span></tt></dt>
+                                 <dd>Device that will be associated to the multicast object.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9264c50688ed110e8476b591befe60c02" shape="rect">CUDA_ERROR_OUT_OF_MEMORY</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e96f047e7215788ca96c81af92a04bfb6c" shape="rect">CUDA_ERROR_INVALID_DEVICE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>Associates a device to a multicast object. The added device will be a part of the multicast team of size specified by <a class="xref" href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1_1e5d44c9262847a6c74e4ae37acdc7478" shape="rect">CUmulticastObjectProp::numDevices</a> during <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>. The association of the device to the multicast object is permanent during the life time of the multicast object. All devices
+                                 must be added to the multicast team before any memory can be bound to any device in the team. Any calls to <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a> or <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a> will block until all devices have been added. Similarly all devices must be added to the multicast team before a virtual
+                                 address range can be mapped to the multicast object. A call to <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1gff1d395423af5c5c75375516959dae56" title="Maps an allocation handle to a reserved virtual address range." shape="rect">cuMemMap</a> will block until all devices have been added.
+                              </p>
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" id="group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastBindAddr (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g183f7b0d8ad008ea2a5fd552537ace4e" title="" shape="rect">CUdeviceptr</a><span> </span><span class="keyword keyword apiItemName">memptr</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span>, unsigned long long<span> </span><span class="keyword keyword apiItemName">flags</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Bind a memory allocation represented by a virtual address to a multicast object. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcHandle</span></tt></dt>
+                                 <dd>Handle representing a multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcOffset</span></tt></dt>
+                                 <dd>Offset into multicast va range for attachment. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">memptr</span></tt></dt>
+                                 <dd>Virtual address of the memory allocation. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">size</span></tt></dt>
+                                 <dd>Size of memory that will be bound to the multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">flags</span></tt></dt>
+                                 <dd>Flags for future use, must be zero now.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e96f047e7215788ca96c81af92a04bfb6c" shape="rect">CUDA_ERROR_INVALID_DEVICE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9264c50688ed110e8476b591befe60c02" shape="rect">CUDA_ERROR_OUT_OF_MEMORY</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9659c7730ee79fae8262043448f2ce1e3" shape="rect">CUDA_ERROR_SYSTEM_NOT_READY</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>Binds a memory allocation specified by its mapped address <tt class="ph tt code">memptr</tt> to a multicast object represented by <tt class="ph tt code">mcHandle</tt>. The memory must have been allocated via <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g899d69a862bba36449789c64b430dc7c" title="Create a CUDA memory handle representing a memory allocation of a given size described by the given properties." shape="rect">cuMemCreate</a> or <a class="xref" href="../cuda-runtime-api/group__CUDART__HIGHLEVEL.html#group__CUDART__HIGHLEVEL_1ga31efcffc48981621feddd98d71a0feb" target="_blank" shape="rect">cudaMallocAsync</a>. The intended <tt class="ph tt code">size</tt> of the bind, the offset in the multicast range <tt class="ph tt code">mcOffset</tt> and <tt class="ph tt code">memptr</tt> must be a multiple of the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378790ecc4b1f2c2f6e2c9bc21b230872a9" shape="rect">CU_MULTICAST_GRANULARITY_MINIMUM</a>. For best performance however, <tt class="ph tt code">size</tt>, <tt class="ph tt code">mcOffset</tt> and <tt class="ph tt code">memptr</tt> should be aligned to the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378dfff741c8fa1dd2f96e584939b0c53ce" shape="rect">CU_MULTICAST_GRANULARITY_RECOMMENDED</a>.
+                              </p>
+                              <p class="p">The <tt class="ph tt code">size</tt> cannot be larger than the size of the allocated memory. Similarly the <tt class="ph tt code">size</tt> + <tt class="ph tt code">mcOffset</tt> cannot be larger than the total size of the multicast object. The memory allocation must have beeen created on one of the
+                                 devices that was added to the multicast team via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>. Externally shareable as well as imported multicast objects can be bound only to externally shareable memory. Note that this
+                                 call will return CUDA_ERROR_OUT_OF_MEMORY if there are insufficient resources required to perform the bind. This call may
+                                 also return CUDA_ERROR_SYSTEM_NOT_READY if the necessary system software is not initialized or running.
+                              </p>
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>, <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g899d69a862bba36449789c64b430dc7c" title="Create a CUDA memory handle representing a memory allocation of a given size described by the given properties." shape="rect">cuMemCreate</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" id="group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastBindMem (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">memHandle</span>, size_t<span> </span><span class="keyword keyword apiItemName">memOffset</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span>, unsigned long long<span> </span><span class="keyword keyword apiItemName">flags</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Bind a memory allocation represented by a handle to a multicast object. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcHandle</span></tt></dt>
+                                 <dd>Handle representing a multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcOffset</span></tt></dt>
+                                 <dd>Offset into the multicast object for attachment. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">memHandle</span></tt></dt>
+                                 <dd>Handle representing a memory allocation. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">memOffset</span></tt></dt>
+                                 <dd>Offset into the memory for attachment. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">size</span></tt></dt>
+                                 <dd>Size of the memory that will be bound to the multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">flags</span></tt></dt>
+                                 <dd>Flags for future use, must be zero for now.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e96f047e7215788ca96c81af92a04bfb6c" shape="rect">CUDA_ERROR_INVALID_DEVICE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9264c50688ed110e8476b591befe60c02" shape="rect">CUDA_ERROR_OUT_OF_MEMORY</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9659c7730ee79fae8262043448f2ce1e3" shape="rect">CUDA_ERROR_SYSTEM_NOT_READY</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>Binds a memory allocation specified by <tt class="ph tt code">memHandle</tt> and created via <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g899d69a862bba36449789c64b430dc7c" title="Create a CUDA memory handle representing a memory allocation of a given size described by the given properties." shape="rect">cuMemCreate</a> to a multicast object represented by <tt class="ph tt code">mcHandle</tt> and created via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>. The intended <tt class="ph tt code">size</tt> of the bind, the offset in the multicast range <tt class="ph tt code">mcOffset</tt> as well as the offset in the memory <tt class="ph tt code">memOffset</tt> must be a multiple of the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378790ecc4b1f2c2f6e2c9bc21b230872a9" shape="rect">CU_MULTICAST_GRANULARITY_MINIMUM</a>. For best performance however, <tt class="ph tt code">size</tt>, <tt class="ph tt code">mcOffset</tt> and <tt class="ph tt code">memOffset</tt> should be aligned to the granularity of the memory allocation(see ::cuMemGetAllocationGranularity) or to the value returned
+                                 by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378dfff741c8fa1dd2f96e584939b0c53ce" shape="rect">CU_MULTICAST_GRANULARITY_RECOMMENDED</a>.
+                              </p>
+                              <p class="p">The <tt class="ph tt code">size</tt> + <tt class="ph tt code">memOffset</tt> cannot be larger than the size of the allocated memory. Similarly the <tt class="ph tt code">size</tt> + <tt class="ph tt code">mcOffset</tt> cannot be larger than the size of the multicast object. The memory allocation must have beeen created on one of the devices
+                                 that was added to the multicast team via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>. Externally shareable as well as imported multicast objects can be bound only to externally shareable memory. Note that this
+                                 call will return CUDA_ERROR_OUT_OF_MEMORY if there are insufficient resources required to perform the bind. This call may
+                                 also return CUDA_ERROR_SYSTEM_NOT_READY if the necessary system software is not initialized or running.
+                              </p>
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>, <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g899d69a862bba36449789c64b430dc7c" title="Create a CUDA memory handle representing a memory allocation of a given size described by the given properties." shape="rect">cuMemCreate</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" id="group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastCreate (  CUmemGenericAllocationHandle*<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, const <a href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1" title="" shape="rect">CUmulticastObjectProp</a>*<span> </span><span class="keyword keyword apiItemName">prop</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Create a generic allocation handle representing a multicast object described by the given properties. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcHandle</span></tt></dt>
+                                 <dd>Value of handle returned. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">prop</span></tt></dt>
+                                 <dd>Properties of the multicast object to create.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9264c50688ed110e8476b591befe60c02" shape="rect">CUDA_ERROR_OUT_OF_MEMORY</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e96f047e7215788ca96c81af92a04bfb6c" shape="rect">CUDA_ERROR_INVALID_DEVICE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>This creates a multicast object as described by <tt class="ph tt code">prop</tt>. The number of participating devices is specified by <a class="xref" href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1_1e5d44c9262847a6c74e4ae37acdc7478" shape="rect">CUmulticastObjectProp::numDevices</a>. Devices can be added to the multicast object via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>. All participating devices must be added to the multicast object before memory can be bound to it. Memory is bound to the
+                                 multicast object via either <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a> or <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a>, and can be unbound via <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" title="Unbind any memory allocations bound to a multicast object at a given offset and upto a given size." shape="rect">cuMulticastUnbind</a>. The total amount of memory that can be bound per device is specified by :<a class="xref" href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1_1a45dfd715e2e442fcc7e43f5ce2f8a46" shape="rect">CUmulticastObjectProp::size</a>. This size must be a multiple of the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378790ecc4b1f2c2f6e2c9bc21b230872a9" shape="rect">CU_MULTICAST_GRANULARITY_MINIMUM</a>. For best performance however, the size should be aligned to the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> with the flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378dfff741c8fa1dd2f96e584939b0c53ce" shape="rect">CU_MULTICAST_GRANULARITY_RECOMMENDED</a>.
+                              </p>
+                              <p class="p">After all participating devices have been added, multicast objects can also be mapped to a device's virtual address space
+                                 using the virtual memory management APIs (see <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1gff1d395423af5c5c75375516959dae56" title="Maps an allocation handle to a reserved virtual address range." shape="rect">cuMemMap</a> and <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g1b6b12b10e8324bf462ecab4e7ef30e1" title="Set the access flags for each location specified in desc for the given virtual address range." shape="rect">cuMemSetAccess</a>). Multicast objects can also be shared with other processes by requesting a shareable handle via <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g633f273b155815f23c1d70e7d9384c56" title="Exports an allocation to a requested shareable handle type." shape="rect">cuMemExportToShareableHandle</a>. Note that the desired types of shareable handles must be specified in the bitmask <a class="xref" href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1_1705cc17eda91d960e96982f2fda52d55" shape="rect">CUmulticastObjectProp::handleTypes</a>. Multicast objects can be released using the virtual memory management API <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g3014f0759f43a8d82db951b8e4b91d68" title="Release a memory handle representing a memory allocation which was previously allocated through cuMemCreate." shape="rect">cuMemRelease</a>.
+                              </p>
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g2df07b38ff506c519e9f799c5ddf7e5d" title="Associate a device to a multicast object." shape="rect">cuMulticastAddDevice</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" title="Unbind any memory allocations bound to a multicast object at a given offset and upto a given size." shape="rect">cuMulticastUnbind</a></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g899d69a862bba36449789c64b430dc7c" title="Create a CUDA memory handle representing a memory allocation of a given size described by the given properties." shape="rect">cuMemCreate</a>, <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g3014f0759f43a8d82db951b8e4b91d68" title="Release a memory handle representing a memory allocation which was previously allocated through cuMemCreate." shape="rect">cuMemRelease</a>, <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g633f273b155815f23c1d70e7d9384c56" title="Exports an allocation to a requested shareable handle type." shape="rect">cuMemExportToShareableHandle</a>, <a class="xref" href="group__CUDA__VA.html#group__CUDA__VA_1g1577822cc83ea896b4892f2d69630463" title="Imports an allocation from a requested shareable handle type." shape="rect">cuMemImportFromShareableHandle</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" id="group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastGetGranularity (  size_t*<span> </span><span class="keyword keyword apiItemName">granularity</span>, const <a href="structCUmulticastObjectProp__v1.html#structCUmulticastObjectProp__v1" title="" shape="rect">CUmulticastObjectProp</a>*<span> </span><span class="keyword keyword apiItemName">prop</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gcdeff171670a788001418262a0f88378" title="" shape="rect">CUmulticastGranularity_flags</a><span> </span><span class="keyword keyword apiItemName">option</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Calculates either the minimal or recommended granularity for multicast object. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">granularity</span></tt></dt>
+                                 <dd>Returned granularity. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">prop</span></tt></dt>
+                                 <dd>Properties of the multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">option</span></tt></dt>
+                                 <dd>Determines which granularity to return.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>Calculates either the minimal or recommended granularity for a given set of multicast object properties and returns it in
+                                 granularity. This granularity can be used as a multiple for size, bind offsets and address mappings of the multicast object.
+                              </p>
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gd4413361f466d4ed86a93d8c309c0242" title="Create a generic allocation handle representing a multicast object described by the given properties." shape="rect">cuMulticastCreate</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" title="Unbind any memory allocations bound to a multicast object at a given offset and upto a given size." shape="rect">cuMulticastUnbind</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                        <dt class="description">
+<a name="group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" id="group__CUDA__MULTICAST_1g424b4563760cc5dab52ee9a8d28656ac" shape="rect">
+                              <!-- --></a><span><a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1gc6c391505e117393cc2558fff6bfc2e9" title="" shape="rect">CUresult</a> cuMulticastUnbind (  CUmemGenericAllocationHandle<span> </span><span class="keyword keyword apiItemName">mcHandle</span>, <a href="group__CUDA__TYPES.html#group__CUDA__TYPES_1g41ca2a24a242b36ef2ca77330b5fb72a" title="" shape="rect">CUdevice</a><span> </span><span class="keyword keyword apiItemName">dev</span>, size_t<span> </span><span class="keyword keyword apiItemName">mcOffset</span>, size_t<span> </span><span class="keyword keyword apiItemName">size</span> ) </span>
+</dt>
+                        <dd class="description">
+                           <div class="section">Unbind any memory allocations bound to a multicast object at a given offset and upto a given size. </div>
+                           <div class="section">
+                              <h6 class="parameter_header">
+                                 Parameters
+                                 
+                              </h6>
+                              <dl class="table-display-params">
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcHandle</span></tt></dt>
+                                 <dd>Handle representing a multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">dev</span></tt></dt>
+                                 <dd>Device that hosts the memory allocation. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">mcOffset</span></tt></dt>
+                                 <dd>Offset into the multicast object. </dd>
+                                 <dt><tt class="code"><span class="keyword keyword apiItemName">size</span></tt></dt>
+                                 <dd>Desired size to unbind.</dd>
+                              </dl>
+                           </div>
+                           <div class="section">
+                              <h6 class="return_header">Returns</h6>
+                              <p class="return"><a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9a0eed720f8a87cd1c5fd1c453bc7a03d" shape="rect">CUDA_SUCCESS</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e990696c86fcee1f536a1ec7d25867feeb" shape="rect">CUDA_ERROR_INVALID_VALUE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e96f047e7215788ca96c81af92a04bfb6c" shape="rect">CUDA_ERROR_INVALID_DEVICE</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e98feb999f0af99b4a25ab26b3866f4df8" shape="rect">CUDA_ERROR_NOT_INITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9acf52f132faf29b473cdda6061f0f44a" shape="rect">CUDA_ERROR_DEINITIALIZED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e9e23d0197c490ec332a43e55b167968a3" shape="rect">CUDA_ERROR_NOT_PERMITTED</a>, <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggc6c391505e117393cc2558fff6bfc2e954756ae7ade0dfd09faeccb513dd831b" shape="rect">CUDA_ERROR_NOT_SUPPORTED</a></p>
+                           </div>
+                           <div class="section">
+                              <h6 class="description_header">Description</h6>
+                              <p>Unbinds any memory allocations hosted on <tt class="ph tt code">dev</tt> and bound to a multicast object at <tt class="ph tt code">mcOffset</tt> and upto a given <tt class="ph tt code">size</tt>. The intended <tt class="ph tt code">size</tt> of the unbind and the offset in the multicast range ( <tt class="ph tt code">mcOffset</tt> ) must be a multiple of the value returned by <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g067a02ad98f4e01f149011f523fec547" title="Calculates either the minimal or recommended granularity for multicast object." shape="rect">cuMulticastGetGranularity</a> flag <a class="xref" href="group__CUDA__TYPES.html#group__CUDA__TYPES_1ggcdeff171670a788001418262a0f88378790ecc4b1f2c2f6e2c9bc21b230872a9" shape="rect">CU_MULTICAST_GRANULARITY_MINIMUM</a>. The <tt class="ph tt code">size</tt> + <tt class="ph tt code">mcOffset</tt> cannot be larger than the total size of the multicast object.
+                              </p>
+                              <p class="p">
+                                 </p>
+<div class="note note">
+<span class="notetitle">Note:</span><p class="p">Warning: The <tt class="ph tt code">mcOffset</tt> and the <tt class="ph tt code">size</tt> must match the corresponding values specified during the bind call. Any other values may result in undefined behavior.
+                                    </p>
+                                 </div>
+                              
+                              <p class="p"></p>
+                              <p class="p"></p>
+                              <p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>
+                              <p class="p see_subsection"><a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1gcadf88b616a3f766f6279288e435a4bb" title="Bind a memory allocation represented by a handle to a multicast object." shape="rect">cuMulticastBindMem</a>, <a class="xref" href="group__CUDA__MULTICAST.html#group__CUDA__MULTICAST_1g07c8cf1d3bf1d04a2d1867f09647b03f" title="Bind a memory allocation represented by a virtual address to a multicast object." shape="rect">cuMulticastBindAddr</a></p>
+                              <p class="p"></p>
+                           </div>
+                        </dd>
+                     </dl>
+                  </div>
+               </div>
+               
+               
+            </article>
+            <footer id="footer"><img src="../common/formatting/NVIDIA-LogoBlack.svg"><div>
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a> |
+                  <a href="https://www.nvidia.com/en-us/privacy-center/" target="_blank">Manage My Privacy</a> |
+                  <a href="https://www.nvidia.com/en-us/preferences/email-preferences/" target="_blank">Do Not Sell or Share My Data</a> |
+                  <a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a> |
+                  <a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a> |
+                  <a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a> |
+                  <a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a> |
+                  <a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</div>
+               <div class="copyright">Copyright ©2007-2024 NVIDIA Corporation</div>
+            </footer>
+         </div>
+      </div>
+      <script language="JavaScript" type="text/javascript" charset="utf-8" src="../common/formatting/common.min.js"></script>
+      <script language="JavaScript" type="text/javascript" charset="utf-8" src="../common/scripts/google-analytics/google-analytics-write.js"></script>
+      <script language="JavaScript" type="text/javascript" charset="utf-8" src="../common/scripts/google-analytics/google-analytics-tracker.js"></script>
+      <script type="text/javascript">var switchTo5x=true;</script><script type="text/javascript">stLight.options({publisher: "998dc202-a267-4d8e-bce9-14debadb8d92", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script><script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

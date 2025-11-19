@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — Profiler 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Preparing An Application For Profiling" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Preparing An Application For Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#visual-profiler">2. ​Visual Profiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#nvprof">3. ​nvprof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#remote-profiling">4. Remote Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#nvidia-tools-extension">5. NVIDIA Tools Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#mpi-profiling">6. MPI Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#mps-profiling">7. MPS Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id1">8. Dependency Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#metrics-reference">9. Metrics Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#warp-state">10. Warp State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#migrating-to-nsight-tools-from-visual-profiler-and-nvprof">11. Migrating to Nsight Tools from Visual Profiler and nvprof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#profiler-known-issues">12. Profiler Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#changelog">13. Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">14. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">Profiler</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_Profiler_Users_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Preparing An Application For Profiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#focused-profiling">1.1. Focused Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#marking-regions-of-cpu-activity">1.2. Marking Regions of CPU Activity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#naming-cpu-and-cuda-resources">1.3. Naming CPU and CUDA Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#flush-profile-data">1.4. Flush Profile Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#profiling-cuda-fortran-applications">1.5. Profiling CUDA Fortran Applications</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#visual-profiler">2. ​Visual Profiler</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#getting-started">2.1. Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#setting-up-java-runtime-environment">2.1.1. Setting up Java Runtime Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#installing-jre">2.1.2. Installing JRE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#modify-your-application-for-profiling">2.1.3. Modify Your Application For Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#creating-a-session">2.1.4. Creating a Session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#analyzing-your-application">2.1.5. Analyzing Your Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#exploring-the-timeline">2.1.6. Exploring the Timeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#looking-at-the-details">2.1.7. Looking at the Details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#improve-loading-of-large-profiles">2.1.8. Improve Loading of Large Profiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#sessions">2.2. Sessions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#executable-session">2.2.1. Executable Session</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#import-session">2.2.2. Import Session</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#import-single-process-nvprof-session">2.2.2.1. Import Single-Process <code class="docutils literal notranslate"><span class="pre">nvprof</span></code> Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#import-multi-process-nvprof-session">2.2.2.2. Import Multi-Process <code class="docutils literal notranslate"><span class="pre">nvprof</span></code> Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#import-command-line-profiler-session">2.2.2.3. Import Command-Line Profiler Session</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#application-requirements">2.3. Application Requirements</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#visual-profiler-views">2.4. Visual Profiler Views</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#timeline-view">2.4.1. Timeline View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#timeline-controls">2.4.1.1. Timeline Controls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#navigating-the-timeline">2.4.1.2. Navigating the Timeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#timeline-refreshing">2.4.1.3. Timeline Refreshing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#dependency-analysis-controls">2.4.1.4. Dependency Analysis Controls</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#analysis-view">2.4.2. Analysis View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#guided-application-analysis">2.4.2.1. Guided Application Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#unguided-application-analysis">2.4.2.2. Unguided Application Analysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#pc-sampling-view">2.4.2.3. PC Sampling View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memory-statistics">2.4.2.4. Memory Statistics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#nvlink-view">2.4.2.5. NVLink view</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#source-disassembly-view">2.4.3. Source-Disassembly View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#gpu-details-view">2.4.4. GPU Details View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cpu-details-view">2.4.5. CPU Details View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#openacc-details-view">2.4.6. OpenACC Details View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#openmp-details-view">2.4.7. OpenMP Details View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#properties-view">2.4.8. Properties View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#console-view">2.4.9. Console View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#settings-view">2.4.10. Settings View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cpu-source-view">2.4.11. CPU Source View</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#customizing-the-profiler">2.5. Customizing the Profiler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#resizing-a-view">2.5.1. Resizing a View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#reordering-a-view">2.5.2. Reordering a View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#moving-a-view">2.5.3. Moving a View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#undocking-a-view">2.5.4. Undocking a View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#opening-and-closing-a-view">2.5.5. Opening and Closing a View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#command-line-arguments">2.6. Command Line Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#nvprof">3. ​nvprof</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#command-line-options">3.1. Command Line Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-profiling-options">3.1.1. CUDA Profiling Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cpu-profiling-options">3.1.2. CPU Profiling Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#print-options">3.1.3. Print Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#io-options">3.1.4. IO Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#profiling-modes">3.2. Profiling Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#summary-mode">3.2.1. Summary Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#gpu-trace-and-api-trace-modes">3.2.2. GPU-Trace and API-Trace Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#event-metric-summary-mode">3.2.3. Event/metric Summary Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#event-metric-trace-mode">3.2.4. Event/metric Trace Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#profiling-controls">3.3. Profiling Controls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#timeout">3.3.1. Timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#concurrent-kernels">3.3.2. Concurrent Kernels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#profiling-scope">3.3.3. Profiling Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multiprocess-profiling">3.3.4. Multiprocess Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#system-profiling">3.3.5. System Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unified-memory-profiling">3.3.6. Unified Memory Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cpu-thread-tracing">3.3.7. CPU Thread Tracing</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#output">3.4. Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#adjust-units">3.4.1. Adjust Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#csv">3.4.2. CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#export-import">3.4.3. Export/Import</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#demangling">3.4.4. Demangling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#redirecting-output">3.4.5. Redirecting Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dependency-analysis">3.4.6. Dependency Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cpu-sampling">3.5. CPU Sampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cpu-sampling-limitations">3.5.1. CPU Sampling Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#openacc">3.6. OpenACC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#openacc-options">3.6.1. OpenACC Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#openacc-summary-modes">3.6.2. OpenACC Summary Modes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#openmp">3.7. OpenMP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#openmp-options">3.7.1. OpenMP Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#remote-profiling">4. Remote Profiling</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#remote-profiling-with-visual-profiler">4.1. Remote Profiling With Visual Profiler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#one-hop-remote-profiling">4.1.1. One-hop remote profiling</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#remote-profiling-with-nvprof">4.2. Remote Profiling With <code class="docutils literal notranslate"><span class="pre">nvprof</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#collect-data-on-remote-system">4.2.1. Collect Data On Remote System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#view-and-analyze-data">4.2.2. View And Analyze Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#nvidia-tools-extension">5. NVIDIA Tools Extension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvtx-api-overview">5.1. NVTX API Overview</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#nvtx-api-events">5.2. NVTX API Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvtx-markers">5.2.1. NVTX Markers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvtx-range-start-stop">5.2.2. NVTX Range Start/Stop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvtx-range-push-pop">5.2.3. NVTX Range Push/Pop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#event-attributes-structure">5.2.4. Event Attributes Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvtx-synchronization-markers">5.2.5. NVTX Synchronization Markers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvtx-domains">5.3. NVTX Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvtx-resource-naming">5.4. NVTX Resource Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvtx-string-registration">5.5. NVTX String Registration</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#mpi-profiling">6. MPI Profiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#automatic-mpi-annotation-with-nvtx">6.1. Automatic MPI Annotation with NVTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#manual-mpi-profiling">6.2. Manual MPI Profiling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-reading">6.3. Further Reading</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#mps-profiling">7. MPS Profiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mps-profiling-with-visual-profiler">7.1. MPS profiling with Visual Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mps-profiling-with-nvprof">7.2. MPS profiling with nvprof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#viewing-nvprof-mps-timeline-in-visual-profiler">7.3. Viewing nvprof MPS timeline in Visual Profiler</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#id1">8. Dependency Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#background">8.1. Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#metrics">8.2. Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#support">8.3. Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#limitations">8.4. Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#metrics-reference">9. Metrics Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#metrics-for-capability-5-x">9.1. Metrics for Capability 5.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#metrics-for-capability-6-x">9.2. Metrics for Capability 6.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#metrics-for-capability-7-x">9.3. Metrics for Capability 7.x</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#warp-state">10. Warp State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#migrating-to-nsight-tools-from-visual-profiler-and-nvprof">11. Migrating to Nsight Tools from Visual Profiler and nvprof</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#profiler-known-issues">12. Profiler Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#changelog">13. Changelog</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">14. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">14.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">14.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">14.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

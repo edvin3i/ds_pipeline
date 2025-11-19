@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The User guide to nvFatbin library" name="description">
+<meta content="nvFatbin" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nvFatbin</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-started">2. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#system-requirements">2.1. System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">2.2. Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#user-interface">3. User Interface</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#error-codes">3.1. Error codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#enumerations">3.1.1. Enumerations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#functions">3.1.2. Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#fatbinary-creation">3.2. Fatbinary Creation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id1">3.2.1. Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#typedefs">3.2.2. Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supported-options">3.3. Supported Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#basic-usage">4. Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#compatibility">5. Compatibility</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#example-runtime-fatbin-creation">6. Example: Runtime fatbin creation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#code-online-cpp">6.1. Code (online.cpp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#build-instructions">6.2. Build Instructions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#notices">6.3. Notices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#notice">6.3.1. Notice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#opencl">6.3.2. OpenCL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#trademarks">6.3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">nvFatbin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">nvFatbin</p>
+<p>The User guide to nvFatbin library.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>The Fatbin Creator APIs are a set of APIs which can be used at runtime to combine multiple CUDA objects into one CUDA fat binary (fatbin).</p>
+<p>The APIs accept inputs in multiple formats, either device cubins, PTX, or LTO-IR.
+The output is a fatbin that can be loaded by <code class="docutils literal notranslate"><span class="pre">cuModuleLoadData</span></code> of the CUDA Driver API.</p>
+<p>The functionality in this library is similar to the <code class="docutils literal notranslate"><span class="pre">fatbinary</span></code> offline tool in the CUDA toolkit, with the following advantages:</p>
+<ul class="simple">
+<li><p>Support for runtime fatbin creation.</p></li>
+<li><p>The clients get fine grain control over the input process.</p></li>
+<li><p>Supports direct input from memory, rather than requiring inputs be written to files.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h1>
+<span class="section-number">2. </span>Getting Started<a class="headerlink" href="index.html#getting-started" title="Permalink to this headline"></a>
+</h1>
+<section id="system-requirements">
+<h2>
+<span class="section-number">2.1. </span>System Requirements<a class="headerlink" href="index.html#system-requirements" title="Permalink to this headline"></a>
+</h2>
+<p>The Fatbin Creator library requires no special system configuration. It does not require a GPU.</p>
+</section>
+<section id="installation">
+<h2>
+<span class="section-number">2.2. </span>Installation<a class="headerlink" href="index.html#installation" title="Permalink to this headline"></a>
+</h2>
+<p>The Fatbin Creator library is part of the CUDA Toolkit release and the components are organized as follows in the CUDA toolkit installation directory:</p>
+<ul class="simple">
+<li>
+<p>On Windows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include\nvFatbin.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib\x64\nvFatbin.dll</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib\x64\nvFatbin_static.lib</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc\pdf\nvFatbin_User_Guide.pdf</span></code></p></li>
+</ul>
+</li>
+<li>
+<p>On Linux:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">include/nvFatbin.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib64/libnvfatbin.so</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib64/libnvfatbin_static.a</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">doc/pdf/nvFatbin_User_Guide.pdf</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="user-interface">
+<h1>
+<span class="section-number">3. </span>User Interface<a class="headerlink" href="index.html#user-interface" title="Permalink to this headline"></a>
+</h1>
+<p>This chapter presents the Fatbin Creator APIs. Basic usage of the API is explained in <a class="reference external" href="index.html#basic-usage">Basic Usage</a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="index.html#error-codes">Error codes</a></p></li>
+<li><p><a class="reference external" href="index.html#fatbinary-creation">Creation</a></p></li>
+<li><p><a class="reference external" href="index.html#supported-options">Supported Options</a></p></li>
+</ul>
+<section id="error-codes">
+<h2>
+<span class="section-number">3.1. </span>Error codes<a class="headerlink" href="index.html#error-codes" title="Permalink to this headline"></a>
+</h2>
+<p class="rubric-h2 rubric" id="group__error">Enumerations</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">nvFatbinResult</span></a></dt>
+<dd>
+<p>The enumerated type nvFatbinResult defines API call result codes.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">const char *</span> <a class="reference internal" href="index.html#group__error_1gaf7ab701548c5dcfaf9808a66770265ee"><span class="std std-ref">nvFatbinGetErrorString</span></a>(nvFatbinResult result)</dt>
+<dd>
+<p>nvFatbinGetErrorString returns an error description string for each error code.</p>
+</dd>
+</dl>
+</div>
+<section id="enumerations">
+<h3>
+<span class="section-number">3.1.1. </span>Enumerations<a class="headerlink" href="index.html#enumerations" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv414nvFatbinResult">
+<span id="_CPPv314nvFatbinResult"></span><span id="_CPPv214nvFatbinResult"></span><span class="target" id="group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinResult</span></span></span><a class="headerlink" href="index.html#_CPPv414nvFatbinResult" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>The enumerated type nvFatbinResult defines API call result codes. </p>
+<p>nvFatbin APIs return nvFatbinResult codes to indicate the result. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult16NVFATBIN_SUCCESSE">
+<span id="_CPPv3N14nvFatbinResult16NVFATBIN_SUCCESSE"></span><span id="_CPPv2N14nvFatbinResult16NVFATBIN_SUCCESSE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a1299e0237a7bdbb57a8d9f5d8f31cdb9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_SUCCESS</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult16NVFATBIN_SUCCESSE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult23NVFATBIN_ERROR_INTERNALE">
+<span id="_CPPv3N14nvFatbinResult23NVFATBIN_ERROR_INTERNALE"></span><span id="_CPPv2N14nvFatbinResult23NVFATBIN_ERROR_INTERNALE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34ae9c2cc5e5b4a45d7b81110016527bb44"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_INTERNAL</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult23NVFATBIN_ERROR_INTERNALE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_ELF_ARCH_MISMATCHE">
+<span id="_CPPv3N14nvFatbinResult32NVFATBIN_ERROR_ELF_ARCH_MISMATCHE"></span><span id="_CPPv2N14nvFatbinResult32NVFATBIN_ERROR_ELF_ARCH_MISMATCHE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a85d976ee58aed0b69d7b866885dfcfdf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_ELF_ARCH_MISMATCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_ELF_ARCH_MISMATCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_ELF_SIZE_MISMATCHE">
+<span id="_CPPv3N14nvFatbinResult32NVFATBIN_ERROR_ELF_SIZE_MISMATCHE"></span><span id="_CPPv2N14nvFatbinResult32NVFATBIN_ERROR_ELF_SIZE_MISMATCHE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a04eafcf668a7eb166fd599919657a555"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_ELF_SIZE_MISMATCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_ELF_SIZE_MISMATCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_MISSING_PTX_VERSIONE">
+<span id="_CPPv3N14nvFatbinResult34NVFATBIN_ERROR_MISSING_PTX_VERSIONE"></span><span id="_CPPv2N14nvFatbinResult34NVFATBIN_ERROR_MISSING_PTX_VERSIONE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a8cead1ff5af5071c83b1931b8f060f88"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_MISSING_PTX_VERSION</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_MISSING_PTX_VERSIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_NULL_POINTERE">
+<span id="_CPPv3N14nvFatbinResult27NVFATBIN_ERROR_NULL_POINTERE"></span><span id="_CPPv2N14nvFatbinResult27NVFATBIN_ERROR_NULL_POINTERE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a34814100a7ea3c5ad38c2b639180b201"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_NULL_POINTER</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_NULL_POINTERE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult33NVFATBIN_ERROR_COMPRESSION_FAILEDE">
+<span id="_CPPv3N14nvFatbinResult33NVFATBIN_ERROR_COMPRESSION_FAILEDE"></span><span id="_CPPv2N14nvFatbinResult33NVFATBIN_ERROR_COMPRESSION_FAILEDE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a069f24ec648ac500eca2acc9e60f6200"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_COMPRESSION_FAILED</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult33NVFATBIN_ERROR_COMPRESSION_FAILEDE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult39NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDEDE">
+<span id="_CPPv3N14nvFatbinResult39NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDEDE"></span><span id="_CPPv2N14nvFatbinResult39NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDEDE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34aef2fe1d9755943b3c180d1ca5391b071"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult39NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDEDE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_UNRECOGNIZED_OPTIONE">
+<span id="_CPPv3N14nvFatbinResult34NVFATBIN_ERROR_UNRECOGNIZED_OPTIONE"></span><span id="_CPPv2N14nvFatbinResult34NVFATBIN_ERROR_UNRECOGNIZED_OPTIONE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34aaaa5e52987d72b43d666a3972cbef54b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_UNRECOGNIZED_OPTION</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_UNRECOGNIZED_OPTIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_INVALID_ARCHE">
+<span id="_CPPv3N14nvFatbinResult27NVFATBIN_ERROR_INVALID_ARCHE"></span><span id="_CPPv2N14nvFatbinResult27NVFATBIN_ERROR_INVALID_ARCHE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34aaa4af0dd540da56e10c840c28f093007"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_INVALID_ARCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_INVALID_ARCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_INVALID_NVVME">
+<span id="_CPPv3N14nvFatbinResult27NVFATBIN_ERROR_INVALID_NVVME"></span><span id="_CPPv2N14nvFatbinResult27NVFATBIN_ERROR_INVALID_NVVME"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a52234198f916bd76fff7547e394c60a5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_INVALID_NVVM</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult27NVFATBIN_ERROR_INVALID_NVVME" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult26NVFATBIN_ERROR_EMPTY_INPUTE">
+<span id="_CPPv3N14nvFatbinResult26NVFATBIN_ERROR_EMPTY_INPUTE"></span><span id="_CPPv2N14nvFatbinResult26NVFATBIN_ERROR_EMPTY_INPUTE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34aa62c0660b434ab256bf2c4c5e2a79714"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_EMPTY_INPUT</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult26NVFATBIN_ERROR_EMPTY_INPUTE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult31NVFATBIN_ERROR_MISSING_PTX_ARCHE">
+<span id="_CPPv3N14nvFatbinResult31NVFATBIN_ERROR_MISSING_PTX_ARCHE"></span><span id="_CPPv2N14nvFatbinResult31NVFATBIN_ERROR_MISSING_PTX_ARCHE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34af1c2d1e50b7498f6b000f15e5ea5ca77"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_MISSING_PTX_ARCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult31NVFATBIN_ERROR_MISSING_PTX_ARCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_PTX_ARCH_MISMATCHE">
+<span id="_CPPv3N14nvFatbinResult32NVFATBIN_ERROR_PTX_ARCH_MISMATCHE"></span><span id="_CPPv2N14nvFatbinResult32NVFATBIN_ERROR_PTX_ARCH_MISMATCHE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a902e0780c1f3777b49ffd8f30759ffd1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_PTX_ARCH_MISMATCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult32NVFATBIN_ERROR_PTX_ARCH_MISMATCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult29NVFATBIN_ERROR_MISSING_FATBINE">
+<span id="_CPPv3N14nvFatbinResult29NVFATBIN_ERROR_MISSING_FATBINE"></span><span id="_CPPv2N14nvFatbinResult29NVFATBIN_ERROR_MISSING_FATBINE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34af6b368b1f07340d7fe6bb4408b553c3d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_MISSING_FATBIN</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult29NVFATBIN_ERROR_MISSING_FATBINE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult28NVFATBIN_ERROR_INVALID_INDEXE">
+<span id="_CPPv3N14nvFatbinResult28NVFATBIN_ERROR_INVALID_INDEXE"></span><span id="_CPPv2N14nvFatbinResult28NVFATBIN_ERROR_INVALID_INDEXE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a7a163ebb5c81c2060f3449a7f73d82e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_INVALID_INDEX</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult28NVFATBIN_ERROR_INVALID_INDEXE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult31NVFATBIN_ERROR_IDENTIFIER_REUSEE">
+<span id="_CPPv3N14nvFatbinResult31NVFATBIN_ERROR_IDENTIFIER_REUSEE"></span><span id="_CPPv2N14nvFatbinResult31NVFATBIN_ERROR_IDENTIFIER_REUSEE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34a0f31764a49808cbef47bf6eecb94f65b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_IDENTIFIER_REUSE</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult31NVFATBIN_ERROR_IDENTIFIER_REUSEE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_INTERNAL_PTX_OPTIONE">
+<span id="_CPPv3N14nvFatbinResult34NVFATBIN_ERROR_INTERNAL_PTX_OPTIONE"></span><span id="_CPPv2N14nvFatbinResult34NVFATBIN_ERROR_INTERNAL_PTX_OPTIONE"></span><span class="target" id="group__error_1gga3684fe3591bb9b6ce168d8e48883fb34ac3ca30c75b1ad33a13c1cf1e47e1c5eb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVFATBIN_ERROR_INTERNAL_PTX_OPTION</span></span></span><a class="headerlink" href="index.html#_CPPv4N14nvFatbinResult34NVFATBIN_ERROR_INTERNAL_PTX_OPTIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+</dd>
+</dl>
+
+</section>
+<section id="functions">
+<h3>
+<span class="section-number">3.1.2. </span>Functions<a class="headerlink" href="index.html#functions" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422nvFatbinGetErrorString14nvFatbinResult">
+<span id="_CPPv322nvFatbinGetErrorString14nvFatbinResult"></span><span id="_CPPv222nvFatbinGetErrorString14nvFatbinResult"></span><span id="nvFatbinGetErrorString__nvFatbinResult"></span><span class="target" id="group__error_1gaf7ab701548c5dcfaf9808a66770265ee"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinGetErrorString</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">result</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv422nvFatbinGetErrorString14nvFatbinResult" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinGetErrorString returns an error description string for each error code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>result</strong> – <strong>[in]</strong> error code </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p>nullptr, if result is NVFATBIN_SUCCESS</p></li>
+<li><p>a string, if result is not NVFATBIN_SUCCESS </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="fatbinary-creation">
+<h2>
+<span class="section-number">3.2. </span>Fatbinary Creation<a class="headerlink" href="index.html#fatbinary-creation" title="Permalink to this headline"></a>
+</h2>
+<p class="rubric-h2 rubric" id="group__creation">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1ga0b924dee60a8598e37a46b428eaaf656"><span class="std std-ref">nvFatbinAddCubin</span></a>(nvFatbinHandle handle, const void *code, size_t size, const char *arch, const char *identifier)</dt>
+<dd>
+<p>nvFatbinAddCubin adds a CUDA binary to the fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1ga3daf8c9e606b40e70d056c8936767411"><span class="std std-ref">nvFatbinAddIndex</span></a>(nvFatbinHandle handle, const void *code, size_t size, const char *identifier)</dt>
+<dd>
+<p>nvFatbinAddIndex adds an index file to the fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1ga0fa2e39b30033a449eb67da4d3c74861"><span class="std std-ref">nvFatbinAddLTOIR</span></a>(nvFatbinHandle handle, const void *code, size_t size, const char *arch, const char *identifier, const char *optionsCmdLine)</dt>
+<dd>
+<p>nvFatbinAddLTOIR adds LTOIR to the fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gad8a824776549ba0a0b42b6de2ff93c40"><span class="std std-ref">nvFatbinAddPTX</span></a>(nvFatbinHandle handle, const char *code, size_t size, const char *arch, const char *identifier, const char *optionsCmdLine)</dt>
+<dd>
+<p>nvFatbinAddPTX adds PTX to the fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gaa325f2088eba9fce18763ffefa027817"><span class="std std-ref">nvFatbinAddReloc</span></a>(nvFatbinHandle handle, const void *code, size_t size)</dt>
+<dd>
+<p>nvFatbinAddReloc adds relocatable PTX entries from a host object to the fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1ga1778c540f98a6a0ac222dc58773d3577"><span class="std std-ref">nvFatbinCreate</span></a>(nvFatbinHandle *handle_indirect, const char **options, size_t optionsCount)</dt>
+<dd>
+<p>nvFatbinCreate creates a new handle</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gacea09629df06283cc15c7024508575bc"><span class="std std-ref">nvFatbinDestroy</span></a>(nvFatbinHandle *handle_indirect)</dt>
+<dd>
+<p>nvFatbinDestroy destroys the handle.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gad4c5cfbac5f644ffd504f09278767755"><span class="std std-ref">nvFatbinGet</span></a>(nvFatbinHandle handle, void *buffer)</dt>
+<dd>
+<p>nvFatbinGet returns the completed fatbinary.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gabfcc71733f0776c9553db0c596d06dc5"><span class="std std-ref">nvFatbinSize</span></a>(nvFatbinHandle handle, size_t *size)</dt>
+<dd>
+<p>nvFatbinSize returns the fatbinary's size.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvFatbinResult</span> <a class="reference internal" href="index.html#group__creation_1gafda592094a7ddd66feae93848ad511af"><span class="std std-ref">nvFatbinVersion</span></a>(unsigned int *major, unsigned int *minor)</dt>
+<dd>
+<p>nvFatbinVersion returns the current version of nvFatbin</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Typedefs</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__creation_1ga8ff95a5c8cd1bac24c656fd34d657bb0"><span class="std std-ref">nvFatbinHandle</span></a></dt>
+<dd>
+<p>nvFatbinHandle is the unit of fatbin creation, and an opaque handle for a program.</p>
+</dd>
+</dl>
+</div>
+<section id="id1">
+<h3>
+<span class="section-number">3.2.1. </span>Functions<a class="headerlink" href="index.html#id1" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvFatbinAddCubin14nvFatbinHandlePKv6size_tPKcPKc">
+<span id="_CPPv316nvFatbinAddCubin14nvFatbinHandlePKv6size_tPKcPKc"></span><span id="_CPPv216nvFatbinAddCubin14nvFatbinHandlePKv6size_tPKcPKc"></span><span id="nvFatbinAddCubin__nvFatbinHandle.voidCP.s.cCP.cCP"></span><span class="target" id="group__creation_1ga0b924dee60a8598e37a46b428eaaf656"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinAddCubin</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">arch</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">identifier</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvFatbinAddCubin14nvFatbinHandlePKv6size_tPKcPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinAddCubin adds a CUDA binary to the fatbinary. </p>
+<p>
+User is responsible for making sure all strings are well-formed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>code</strong> – <strong>[in]</strong> The cubin. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> The size of the cubin. </p></li>
+<li><p><strong>arch</strong> – <strong>[in]</strong> The architecture that this cubin is for. </p></li>
+<li><p><strong>identifier</strong> – <strong>[in]</strong> Name of the cubin, useful when extracting the fatbin with tools like cuobjdump.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INVALID_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_ELF_ARCH_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_ELF_SIZE_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSION_FAILED, </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_EMPTY_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvFatbinAddIndex14nvFatbinHandlePKv6size_tPKc">
+<span id="_CPPv316nvFatbinAddIndex14nvFatbinHandlePKv6size_tPKc"></span><span id="_CPPv216nvFatbinAddIndex14nvFatbinHandlePKv6size_tPKc"></span><span id="nvFatbinAddIndex__nvFatbinHandle.voidCP.s.cCP"></span><span class="target" id="group__creation_1ga3daf8c9e606b40e70d056c8936767411"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinAddIndex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">identifier</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvFatbinAddIndex14nvFatbinHandlePKv6size_tPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinAddIndex adds an index file to the fatbinary. </p>
+<p>
+User is responsible for making sure all strings are well-formed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>code</strong> – <strong>[in]</strong> The index. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> The size of the index. </p></li>
+<li><p><strong>identifier</strong> – <strong>[in]</strong> Name of the index, useful when extracting the fatbin with tools like cuobjdump.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INVALID_INDEX </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSION_FAILED, </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_EMPTY_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvFatbinAddLTOIR14nvFatbinHandlePKv6size_tPKcPKcPKc">
+<span id="_CPPv316nvFatbinAddLTOIR14nvFatbinHandlePKv6size_tPKcPKcPKc"></span><span id="_CPPv216nvFatbinAddLTOIR14nvFatbinHandlePKv6size_tPKcPKcPKc"></span><span id="nvFatbinAddLTOIR__nvFatbinHandle.voidCP.s.cCP.cCP.cCP"></span><span class="target" id="group__creation_1ga0fa2e39b30033a449eb67da4d3c74861"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinAddLTOIR</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">arch</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">identifier</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">optionsCmdLine</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvFatbinAddLTOIR14nvFatbinHandlePKv6size_tPKcPKcPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinAddLTOIR adds LTOIR to the fatbinary. </p>
+<p>
+User is responsible for making sure all strings are well-formed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>code</strong> – <strong>[in]</strong> The LTOIR code. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> The size of the LTOIR code. </p></li>
+<li><p><strong>arch</strong> – <strong>[in]</strong> The architecture that this LTOIR is for. </p></li>
+<li><p><strong>identifier</strong> – <strong>[in]</strong> Name of the LTOIR, useful when extracting the fatbin with tools like cuobjdump. </p></li>
+<li><p><strong>optionsCmdLine</strong> – <strong>[in]</strong> Options used during JIT compilation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INVALID_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSION_FAILED, </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_EMPTY_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414nvFatbinAddPTX14nvFatbinHandlePKc6size_tPKcPKcPKc">
+<span id="_CPPv314nvFatbinAddPTX14nvFatbinHandlePKc6size_tPKcPKcPKc"></span><span id="_CPPv214nvFatbinAddPTX14nvFatbinHandlePKc6size_tPKcPKcPKc"></span><span id="nvFatbinAddPTX__nvFatbinHandle.cCP.s.cCP.cCP.cCP"></span><span class="target" id="group__creation_1gad8a824776549ba0a0b42b6de2ff93c40"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinAddPTX</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">arch</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">identifier</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">optionsCmdLine</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv414nvFatbinAddPTX14nvFatbinHandlePKc6size_tPKcPKcPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinAddPTX adds PTX to the fatbinary. </p>
+<p>
+User is responsible for making sure all string are well-formed. The size should be inclusive of the terminating null character (‘\0’). If the final character is not ‘\0’, one will be added automatically, but in doing so, the code will be copied if it hasn’t already been copied. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>code</strong> – <strong>[in]</strong> The PTX code. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> The size of the PTX code. </p></li>
+<li><p><strong>arch</strong> – <strong>[in]</strong> The architecture that this PTX is for. </p></li>
+<li><p><strong>identifier</strong> – <strong>[in]</strong> Name of the PTX, useful when extracting the fatbin with tools like cuobjdump. </p></li>
+<li><p><strong>optionsCmdLine</strong> – <strong>[in]</strong> Options used during JIT compilation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INVALID_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_PTX_ARCH_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSION_FAILED, </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_EMPTY_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_MISSING_PTX_VERSION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_MISSING_PTX_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416nvFatbinAddReloc14nvFatbinHandlePKv6size_t">
+<span id="_CPPv316nvFatbinAddReloc14nvFatbinHandlePKv6size_t"></span><span id="_CPPv216nvFatbinAddReloc14nvFatbinHandlePKv6size_t"></span><span id="nvFatbinAddReloc__nvFatbinHandle.voidCP.s"></span><span class="target" id="group__creation_1gaa325f2088eba9fce18763ffefa027817"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinAddReloc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv416nvFatbinAddReloc14nvFatbinHandlePKv6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinAddReloc adds relocatable PTX entries from a host object to the fatbinary. </p>
+<p>
+Note that each relocatable ptx source must have a unique identifier (the identifiers are taken from the object’s entries). This is enforced as only one entry per sm of each unique identifier. Note also that handle options are ignored for this operation. Instead, the host object’s options are copied over from each of its entries. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>code</strong> – <strong>[in]</strong> The host object image. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> The size of the host object image code.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INVALID_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_PTX_ARCH_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSION_FAILED, </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_COMPRESSED_SIZE_EXCEEDED </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_EMPTY_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_MISSING_PTX_VERSION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_MISSING_PTX_ARCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_IDENTIFIER_REUSE </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414nvFatbinCreateP14nvFatbinHandlePPKc6size_t">
+<span id="_CPPv314nvFatbinCreateP14nvFatbinHandlePPKc6size_t"></span><span id="_CPPv214nvFatbinCreateP14nvFatbinHandlePPKc6size_t"></span><span id="nvFatbinCreate__nvFatbinHandleP.cCPP.s"></span><span class="target" id="group__creation_1ga1778c540f98a6a0ac222dc58773d3577"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinCreate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">handle_indirect</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">optionsCount</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv414nvFatbinCreateP14nvFatbinHandlePPKc6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinCreate creates a new handle </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle_indirect</strong> – <strong>[out]</strong> Address of nvFatbin handle </p></li>
+<li><p><strong>options</strong> – <strong>[in]</strong> An array of strings, each containing a single option. </p></li>
+<li><p><strong>optionsCount</strong> – <strong>[in]</strong> Number of options. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_UNRECOGNIZED_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415nvFatbinDestroyP14nvFatbinHandle">
+<span id="_CPPv315nvFatbinDestroyP14nvFatbinHandle"></span><span id="_CPPv215nvFatbinDestroyP14nvFatbinHandle"></span><span id="nvFatbinDestroy__nvFatbinHandleP"></span><span class="target" id="group__creation_1gacea09629df06283cc15c7024508575bc"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinDestroy</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">handle_indirect</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv415nvFatbinDestroyP14nvFatbinHandle" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinDestroy destroys the handle. </p>
+<p>
+Use of any other pointers to the handle after calling this will result in undefined behavior. The passed in handle will be set to nullptr. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>handle_indirect</strong> – <strong>[in]</strong> Pointer to the handle. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411nvFatbinGet14nvFatbinHandlePv">
+<span id="_CPPv311nvFatbinGet14nvFatbinHandlePv"></span><span id="_CPPv211nvFatbinGet14nvFatbinHandlePv"></span><span id="nvFatbinGet__nvFatbinHandle.voidP"></span><span class="target" id="group__creation_1gad4c5cfbac5f644ffd504f09278767755"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinGet</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv411nvFatbinGet14nvFatbinHandlePv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinGet returns the completed fatbinary. </p>
+<p>
+User is responsible for making sure the buffer is appropriately sized for the <code class="docutils literal notranslate"><span class="pre">fatbinary</span></code>. You must call nvFatbinSize before using this, otherwise, it will return an error. </p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="index.html#group__creation_1gabfcc71733f0776c9553db0c596d06dc5"><span class="std std-ref">nvFatbinSize</span></a> </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>buffer</strong> – <strong>[out]</strong> memory to store fatbinary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412nvFatbinSize14nvFatbinHandleP6size_t">
+<span id="_CPPv312nvFatbinSize14nvFatbinHandleP6size_t"></span><span id="_CPPv212nvFatbinSize14nvFatbinHandleP6size_t"></span><span id="nvFatbinSize__nvFatbinHandle.sP"></span><span class="target" id="group__creation_1gabfcc71733f0776c9553db0c596d06dc5"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv414nvFatbinHandle" title="nvFatbinHandle"><span class="n"><span class="pre">nvFatbinHandle</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">handle</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv412nvFatbinSize14nvFatbinHandleP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinSize returns the fatbinary’s size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>handle</strong> – <strong>[in]</strong> nvFatbin handle. </p></li>
+<li><p><strong>size</strong> – <strong>[out]</strong> The fatbinary’s size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415nvFatbinVersionPjPj">
+<span id="_CPPv315nvFatbinVersionPjPj"></span><span id="_CPPv215nvFatbinVersionPjPj"></span><span id="nvFatbinVersion__unsigned-iP.unsigned-iP"></span><span class="target" id="group__creation_1gafda592094a7ddd66feae93848ad511af"></span><a class="reference internal" href="index.html#_CPPv414nvFatbinResult" title="nvFatbinResult"><span class="n"><span class="pre">nvFatbinResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinVersion</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv415nvFatbinVersionPjPj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinVersion returns the current version of nvFatbin </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>major</strong> – <strong>[out]</strong> The major version. </p></li>
+<li><p><strong>minor</strong> – <strong>[out]</strong> The minor version. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_NULL_POINTER </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1ga3684fe3591bb9b6ce168d8e48883fb34"><span class="std std-ref">NVFATBIN_ERROR_INTERNAL </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+<section id="typedefs">
+<h3>
+<span class="section-number">3.2.2. </span>Typedefs<a class="headerlink" href="index.html#typedefs" title="Permalink to this headline"></a>
+</h3>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv414nvFatbinHandle">
+<span id="_CPPv314nvFatbinHandle"></span><span id="_CPPv214nvFatbinHandle"></span><span id="nvFatbinHandle"></span><span class="target" id="group__creation_1ga8ff95a5c8cd1bac24c656fd34d657bb0"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">_nvFatbinHandle</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nvFatbinHandle</span></span></span><a class="headerlink" href="index.html#_CPPv414nvFatbinHandle" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>nvFatbinHandle is the unit of fatbin creation, and an opaque handle for a program. </p>
+<p>To create a fatbin, an instance of nvFatbinHandle must be created first with <a class="reference internal" href="index.html#group__creation_1ga1778c540f98a6a0ac222dc58773d3577"><span class="std std-ref">nvFatbinCreate()</span></a>. </p>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="supported-options">
+<h2>
+<span class="section-number">3.3. </span>Supported Options<a class="headerlink" href="index.html#supported-options" title="Permalink to this headline"></a>
+</h2>
+<p id="group__options">nvFatbin supports the options below. </p>
+<p>Option names are prefixed with a single dash (<code class="docutils literal notranslate"><span class="pre">-</span></code>). Options that take a value have an assignment operator (<code class="docutils literal notranslate"><span class="pre">=</span></code>) followed by the option value, with no spaces, e.g. <code class="docutils literal notranslate"><span class="pre">"-host=windows"</span></code>.</p>
+<p>The supported options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-32</span></code> 
+ Make entries 32 bit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-64</span></code> 
+ Make entries 64 bit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code> 
+ Has no effect. (Deprecated, will be removed in the next major release. Didn’t do anything from the start.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-compress=&lt;bool&gt;</span></code> 
+ Enable (true) / disable (false) compression (default: true).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-compress-all</span></code> 
+ Compress everything in the fatbin, even if it’s small.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-cuda</span></code> 
+ Specify CUDA (rather than OpenCL).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span></code> 
+ Generate debug information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-host=&lt;name&gt;</span></code> 
+ Specify host operating system. Valid options are “linux”, “windows”, and “mac” (deprecated).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-opencl</span></code> 
+ Specify OpenCL (rather than CUDA). </p></li>
+</ul>
+
+</section>
+</section>
+<section id="basic-usage">
+<h1>
+<span class="section-number">4. </span>Basic Usage<a class="headerlink" href="index.html#basic-usage" title="Permalink to this headline"></a>
+</h1>
+<p>This section of the document uses a simple example to explain how to use the Fatbin Creator APIs to link a program. For brevity and readability, error checks on the API return values are not shown.</p>
+<p>This example assumes we want to create a fatbin with a CUBIN for sm_52, PTX for sm_61, and LTOIR for sm_70. We can create an instance of the fatbin creator and obtain an api handle to it as shown in <a class="reference external" href="index.html#basic-usage-fatbin-creation">Figure 1</a>.</p>
+<p id="basic-usage-fatbin-creation">Figure 1. Fatbin Creator creation and initialization of a program</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvFatbinHandle</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="n">nvFatbinCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Assume that we already have three inputs stored in <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> ‘s (CUBIN, PTX, and LTOIR), which could be from code created with <code class="docutils literal notranslate"><span class="pre">nvrtc</span></code> and stored into vectors. (They do not have to be in vectors, this merely illustrates that both the data itself and its size are needed.) We can add the inputs as shown in <a class="reference external" href="index.html#basic-usage-fatbin-inputs">Figure 2</a>.</p>
+<p id="basic-usage-fatbin-inputs">Figure 2. Inputs to the fatbin creator</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvFatbinAddCubin</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">cubin</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">cubin</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="s">"52"</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">);</span><span class="w"></span>
+<span class="n">nvFatbinAddPTX</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">ptx</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">ptx</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="s">"61"</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">);</span><span class="w"></span>
+<span class="n">nvFatbinAddLTOIR</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">ltoir</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">ltoir</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="s">"70"</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The fatbin can now be obtained. To obtain this we first allocate memory for it. And to allocate memory, we need to query the size of the fatbin which is done as shown in <a class="reference external" href="index.html#basic-usage-query-fatbin-size">Figure 3</a>.</p>
+<p id="basic-usage-query-fatbin-size">Figure 3. Query size of the created fatbin</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvFatbinSize</span><span class="p">(</span><span class="n">linker</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fatbinSize</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The fatbin can now be queried as shown in <a class="reference external" href="index.html#basic-usage-query-fatbin">Figure 4</a>. This fatbin can then be executed on the GPU by passing this to the CUDA Driver APIs.</p>
+<p id="basic-usage-query-fatbin">Figure 4. Query the created fatbin</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">fatbin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">fatbinSize</span><span class="p">);</span><span class="w"></span>
+<span class="n">nvFatbinGet</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">fatbin</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>When the fatbin creator is not needed anymore, it can be destroyed as shown in <a class="reference external" href="index.html#basic-usage-destroy-creator">Figure 5</a>.</p>
+<p id="basic-usage-destroy-creator">Figure 5. Destroy the fatbin creator</p>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="n">nvFatbinDestroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="compatibility">
+<h1>
+<span class="section-number">5. </span>Compatibility<a class="headerlink" href="index.html#compatibility" title="Permalink to this headline"></a>
+</h1>
+<p>The nvFatbin library is compatible across releases. The library major version itself must be &gt;= the maximum major version of the inputs.</p>
+<p>For example, you can create a fatbin from a cubin created with 11.8 and one with 12.4 if your nvFatbin library is at least version 12.x.</p>
+</section>
+<section id="example-runtime-fatbin-creation">
+<h1>
+<span class="section-number">6. </span>Example: Runtime fatbin creation<a class="headerlink" href="index.html#example-runtime-fatbin-creation" title="Permalink to this headline"></a>
+</h1>
+<p>This section demonstrates runtime fatbin creation. There are two cubins. The cubins are generated online using NVRTC.</p>
+<p>These two cubins are then passed to <code class="docutils literal notranslate"><span class="pre">nvFatbin*</span></code> API functions, which put the cubins into a fatbin.</p>
+<p>Note that this example requires a compatible GPU with drivers and NVRTC to work, even though the library doesn’t require either.</p>
+<section id="code-online-cpp">
+<h2>
+<span class="section-number">6.1. </span>Code (online.cpp)<a class="headerlink" href="index.html#code-online-cpp" title="Permalink to this headline"></a>
+</h2>
+<div class="highlight-c notranslate">
+<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvrtc.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cuda.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvFatbin.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nvrtc.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="cp">#define NUM_THREADS 128</span>
+<span class="cp">#define NUM_BLOCKS 32</span>
+
+<span class="cp">#define NVRTC_SAFE_CALL(x)                                        \</span>
+<span class="cp">do {                                                              \</span>
+<span class="cp">   nvrtcResult result = x;                                        \</span>
+<span class="cp">   if (result != NVRTC_SUCCESS) {                                 \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "           \</span>
+<span class="cp">               &lt;&lt; nvrtcGetErrorString(result) &lt;&lt; '\n';            \</span>
+<span class="cp">      exit(1);                                                    \</span>
+<span class="cp">   }                                                              \</span>
+<span class="cp">} while(0)</span>
+
+<span class="cp">#define CUDA_SAFE_CALL(x)                                         \</span>
+<span class="cp">do {                                                              \</span>
+<span class="cp">   CUresult result = x;                                           \</span>
+<span class="cp">   if (result != CUDA_SUCCESS) {                                  \</span>
+<span class="cp">      const char *msg;                                            \</span>
+<span class="cp">      cuGetErrorName(result, &amp;msg);                               \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "           \</span>
+<span class="cp">               &lt;&lt; msg &lt;&lt; '\n';                                    \</span>
+<span class="cp">      exit(1);                                                    \</span>
+<span class="cp">   }                                                              \</span>
+<span class="cp">} while(0)</span>
+
+<span class="cp">#define NVFATBIN_SAFE_CALL(x)                            \</span>
+<span class="cp">do                                                       \</span>
+<span class="cp">{                                                        \</span>
+<span class="cp">   nvFatbinResult result = x;                            \</span>
+<span class="cp">   if (result != NVFATBIN_SUCCESS)                       \</span>
+<span class="cp">   {                                                     \</span>
+<span class="cp">      std::cerr &lt;&lt; "\nerror: " #x " failed with error "  \</span>
+<span class="cp">               &lt;&lt; nvFatbinGetErrorString(result) &lt;&lt; '\n';\</span>
+<span class="cp">      exit(1);                                           \</span>
+<span class="cp">   }                                                     \</span>
+<span class="cp">} while (0)</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">fatbin_saxpy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"                                  </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">__device__  float compute(float a, float x, float y) {        </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">return a * x + y;                                             </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">}                                                             </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">                                                              </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">extern </span><span class="se">\"</span><span class="s">C</span><span class="se">\"</span><span class="s"> __global__                                       </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">void saxpy(float a, float *x, float *y, float *out, size_t n) </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">{                                                             </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">size_t tid = blockIdx.x * blockDim.x + threadIdx.x;           </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">if (tid &lt; n) {                                                </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">   out[tid] = compute(a, x[tid], y[tid]);                     </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">}                                                             </span><span class="se">\n</span><span class="s">\</span>
+<span class="s">}                                                             </span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">input_name</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">**</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">arch</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="c1">// Create an instance of nvrtcProgram with the code string.</span>
+<span class="n">nvrtcProgram</span><span class="w"> </span><span class="n">prog</span><span class="p">;</span><span class="w"></span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="w"></span>
+<span class="n">nvrtcCreateProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prog</span><span class="p">,</span><span class="w">         </span><span class="c1">// prog</span>
+<span class="w">      </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w">                       </span><span class="c1">// buffer</span>
+<span class="w">      </span><span class="n">input_name</span><span class="p">,</span><span class="w">                  </span><span class="c1">// name</span>
+<span class="w">      </span><span class="mi">0</span><span class="p">,</span><span class="w">                           </span><span class="c1">// numHeaders</span>
+<span class="w">      </span><span class="nb">NULL</span><span class="p">,</span><span class="w">                        </span><span class="c1">// headers</span>
+<span class="w">      </span><span class="nb">NULL</span><span class="p">));</span><span class="w">                      </span><span class="c1">// includeNames</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">opts</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="n">opts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arch</span><span class="p">;</span><span class="w"></span>
+<span class="n">nvrtcResult</span><span class="w"> </span><span class="n">compileResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvrtcCompileProgram</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w">  </span><span class="c1">// prog</span>
+<span class="w">               </span><span class="mi">1</span><span class="p">,</span><span class="w">     </span><span class="c1">// numOptions</span>
+<span class="w">               </span><span class="n">opts</span><span class="p">);</span><span class="w"> </span><span class="c1">// options</span>
+<span class="c1">// Obtain compilation log from the program.</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">logSize</span><span class="p">;</span><span class="w"></span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetProgramLogSize</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">logSize</span><span class="p">));</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">logSize</span><span class="p">];</span><span class="w"></span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetProgramLog</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="p">));</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">log</span><span class="p">;</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">compileResult</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NVRTC_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="c1">// Obtain generated CUBIN from the program.</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">CUBINSize</span><span class="p">;</span><span class="w"></span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetCUBINSize</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">CUBINSize</span><span class="p">));</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">CUBIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">CUBINSize</span><span class="p">];</span><span class="w"></span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcGetCUBIN</span><span class="p">(</span><span class="n">prog</span><span class="p">,</span><span class="w"> </span><span class="n">CUBIN</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// Destroy the program.</span>
+<span class="n">NVRTC_SAFE_CALL</span><span class="p">(</span><span class="n">nvrtcDestroyProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">prog</span><span class="p">));</span><span class="w"></span>
+<span class="o">*</span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">CUBIN</span><span class="p">;</span><span class="w"></span>
+<span class="k">return</span><span class="w"> </span><span class="n">CUBINSize</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">known</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">known_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="p">(</span><span class="n">fatbin_saxpy</span><span class="p">,</span><span class="w"> </span><span class="s">"fatbin_saxpy.cu"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">known</span><span class="p">,</span><span class="w"> </span><span class="s">"-arch=sm_52"</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CUdevice</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUcontext</span><span class="w"> </span><span class="n">context</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUmodule</span><span class="w"> </span><span class="n">module</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUfunction</span><span class="w"> </span><span class="n">kernel</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuInit</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cuDevice</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+
+<span class="c1">// Dynamically determine the arch to make one of the entries of the fatbin with</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">minor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGetAttribute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">major</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MAJOR</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuDeviceGetAttribute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">minor</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR</span><span class="p">,</span><span class="w"> </span><span class="n">cuDevice</span><span class="p">));</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">major</span><span class="o">*</span><span class="mi">10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">minor</span><span class="p">;</span><span class="w"></span>
+<span class="kt">char</span><span class="w"> </span><span class="n">smbuf</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span><span class="w"></span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">smbuf</span><span class="p">,</span><span class="w"> </span><span class="s">"-arch=sm_%d"</span><span class="p">,</span><span class="w"> </span><span class="n">arch</span><span class="p">);</span><span class="w"></span>
+
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">dynamic_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="p">(</span><span class="n">fatbin_saxpy</span><span class="p">,</span><span class="w"> </span><span class="s">"fatbin_saxpy.cu"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dynamic</span><span class="p">,</span><span class="w"> </span><span class="n">smbuf</span><span class="p">);</span><span class="w"></span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">smbuf</span><span class="p">,</span><span class="w"> </span><span class="s">"%d"</span><span class="p">,</span><span class="w"> </span><span class="n">arch</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// Load the dynamic CUBIN and the statically known arch CUBIN</span>
+<span class="c1">// and put them in a fatbin together.</span>
+<span class="n">nvFatbinHandle</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">fatbin_options</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"-cuda"</span><span class="p">};</span><span class="w"></span>
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinCreate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">fatbin_options</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
+
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinAddCubin</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">dynamic</span><span class="p">,</span><span class="w"> </span><span class="n">dynamic_size</span><span class="p">,</span><span class="w"> </span><span class="n">smbuf</span><span class="p">,</span><span class="w"> </span><span class="s">"dynamic"</span><span class="p">));</span><span class="w"></span>
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinAddCubin</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">known</span><span class="p">,</span><span class="w"> </span><span class="n">known_size</span><span class="p">,</span><span class="w"> </span><span class="s">"52"</span><span class="p">,</span><span class="w"> </span><span class="s">"known"</span><span class="p">));</span><span class="w"></span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="n">fatbinSize</span><span class="p">;</span><span class="w"></span>
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinSize</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fatbinSize</span><span class="p">));</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">fatbin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">fatbinSize</span><span class="p">);</span><span class="w"></span>
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinGet</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">fatbin</span><span class="p">));</span><span class="w"></span>
+<span class="n">NVFATBIN_SAFE_CALL</span><span class="p">(</span><span class="n">nvFatbinDestroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">));</span><span class="w"></span>
+
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleLoadData</span><span class="p">(</span><span class="o">&amp;</span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="n">fatbin</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleGetFunction</span><span class="p">(</span><span class="o">&amp;</span><span class="n">kernel</span><span class="p">,</span><span class="w"> </span><span class="n">module</span><span class="p">,</span><span class="w"> </span><span class="s">"saxpy"</span><span class="p">));</span><span class="w"></span>
+
+<span class="c1">// Generate input for execution, and create output buffers.</span>
+<span class="cp">#define NUM_THREADS 128</span>
+<span class="cp">#define NUM_BLOCKS 32</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NUM_THREADS</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">NUM_BLOCKS</span><span class="p">;</span><span class="w"></span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">bufferSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.1f</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">hX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">hY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">],</span><span class="w"> </span><span class="o">*</span><span class="n">hOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">hX</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">hY</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="n">CUdeviceptr</span><span class="w"> </span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">dOut</span><span class="p">;</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemAlloc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyHtoD</span><span class="p">(</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="n">hX</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyHtoD</span><span class="p">(</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="n">hY</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+<span class="c1">// Execute SAXPY.</span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dX</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dY</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">n</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="w"></span>
+<span class="w">   </span><span class="n">cuLaunchKernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span><span class="w"></span>
+<span class="w">                  </span><span class="n">NUM_BLOCKS</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">    </span><span class="c1">// grid dim</span>
+<span class="w">                  </span><span class="n">NUM_THREADS</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">   </span><span class="c1">// block dim</span>
+<span class="w">                  </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w">             </span><span class="c1">// shared mem and stream</span>
+<span class="w">                  </span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span><span class="w">           </span><span class="c1">// arguments</span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxSynchronize</span><span class="p">());</span><span class="w"></span>
+<span class="c1">// Retrieve and print output.</span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemcpyDtoH</span><span class="p">(</span><span class="n">hOut</span><span class="p">,</span><span class="w"> </span><span class="n">dOut</span><span class="p">,</span><span class="w"> </span><span class="n">bufferSize</span><span class="p">));</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" * "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hX</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" + "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hY</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"></span>
+<span class="w">             </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hOut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="c1">// Release resources.</span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dX</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dY</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuMemFree</span><span class="p">(</span><span class="n">dOut</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuModuleUnload</span><span class="p">(</span><span class="n">module</span><span class="p">));</span><span class="w"></span>
+<span class="n">CUDA_SAFE_CALL</span><span class="p">(</span><span class="n">cuCtxDestroy</span><span class="p">(</span><span class="n">context</span><span class="p">));</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hX</span><span class="p">;</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hY</span><span class="p">;</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">hOut</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// Release resources.</span>
+<span class="n">free</span><span class="p">(</span><span class="n">fatbin</span><span class="p">);</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">known</span><span class="p">);</span><span class="w"></span>
+<span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dynamic</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="build-instructions">
+<h2>
+<span class="section-number">6.2. </span>Build Instructions<a class="headerlink" href="index.html#build-instructions" title="Permalink to this headline"></a>
+</h2>
+<p>Assuming the environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code> points to CUDA Toolkit installation directory, build this example as:</p>
+<ul>
+<li>
+<p>With nvFatbin shared library (note that if the test didn’t use nvrtc or run the code then it would not need to link with nvrtc or the CUDA driver API):</p>
+<ul>
+<li>
+<p>Windows:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>cl.exe online.cpp /Feonline ^
+      /I "%CUDA_PATH%\include" ^
+      "%CUDA_PATH%"\lib\x64\nvrtc.lib ^
+      "%CUDA_PATH%"\lib\x64\nvfatbin.lib ^
+      "%CUDA_PATH%"\lib\x64\cuda.lib
+</pre></div>
+</div>
+</li>
+<li>
+<p>Linux:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>g++ online.cpp -o online \
+      -I $CUDA_PATH/include \
+      -L $CUDA_PATH/lib64 \
+      -lnvrtc -lnvfatbin -lcuda \
+      -Wl,-rpath,$CUDA_PATH/lib64
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>With nvFatbin static library:</p>
+<ul>
+<li>
+<p>Windows:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>cl.exe online.cpp /Feonline  ^
+      /I "%CUDA_PATH%"\include ^
+      "%CUDA_PATH%"\lib\x64\nvrtc_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvrtc-builtins_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvfatbin_static.lib ^
+      "%CUDA_PATH%"\lib\x64\nvptxcompiler_static.lib ^
+      "%CUDA_PATH%"\lib\x64\cuda.lib user32.lib Ws2_32.lib
+</pre></div>
+</div>
+</li>
+<li>
+<p>Linux:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>g++ online.cpp -o online \
+      -I $CUDA_PATH/include \
+      -L $CUDA_PATH/lib64 \
+      -lnvrtc_static -lnvrtc-builtins_static -lnvfatbin_static -lnvptxcompiler_static -lcuda \
+      -lpthread
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="notices">
+<h2>
+<span class="section-number">6.3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h2>
+<section id="notice">
+<h3>
+<span class="section-number">6.3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h3>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h3>
+<span class="section-number">6.3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h3>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h3>
+<span class="section-number">6.3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h3>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+<p>© 2023 NVIDIA Corporation &amp; affiliates. All rights reserved.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2023-2024, NVIDIA Corporation &amp; Affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

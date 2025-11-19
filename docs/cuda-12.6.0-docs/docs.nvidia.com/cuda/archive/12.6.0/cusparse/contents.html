@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — cuSPARSE 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. <strong>Introduction</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cusparse-api">2. <strong>Using the cuSPARSE API</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cusparse-storage-formats">3. <strong>cuSPARSE Storage Formats</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cusparse-basic-apis">4. <strong>cuSPARSE Basic APIs</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cusparse-legacy-apis">5. <strong>cuSPARSE Legacy APIs</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cusparse-generic-apis">6. <strong>cuSPARSE Generic APIs</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cusparse-fortran-bindings">7. <strong>cuSPARSE Fortran Bindings</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">8. Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#bibliography">9. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">10. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">cuSPARSE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUSPARSE_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<p>The contents of the programming guide to the CUDA model and interface.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. <strong>Introduction</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#library-organization-and-features">1.1. Library Organization and Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#static-library-support">1.2. Static Library Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#library-dependencies">1.3. Library Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cusparse-api">2. <strong>Using the cuSPARSE API</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#apis-usage-notes">2.1. APIs Usage Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#deprecated-apis">2.2. Deprecated APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-safety">2.3. Thread Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#result-reproducibility">2.4. Result Reproducibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nan-and-inf-propagation">2.5. NaN and Inf Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parallelism-with-streams">2.6. Parallelism with Streams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compatibility-and-versioning">2.7. Compatibility and Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#optimization-notes">2.8. Optimization Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cusparse-storage-formats">3. <strong>cuSPARSE Storage Formats</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#index-base">3.1. Index Base</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#vector-formats">3.2. Vector Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dense-vector-format">3.2.1. Dense Vector Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sparse-vector-format">3.2.2. Sparse Vector Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#matrix-formats">3.3. Matrix Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dense-matrix-format">3.3.1. Dense Matrix Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#coordinate-coo">3.3.2. Coordinate (COO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compressed-sparse-row-csr">3.3.3. Compressed Sparse Row (CSR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compressed-sparse-column-csc">3.3.4. Compressed Sparse Column (CSC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sliced-ellpack-sell">3.3.5. Sliced Ellpack (SELL)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#block-sparse-row-bsr">3.3.6. Block Sparse Row (BSR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#blocked-ellpack-blocked-ell">3.3.7. Blocked Ellpack (BLOCKED-ELL)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#extended-bsr-format-bsrx-deprecated">3.3.8. Extended BSR Format (BSRX) [DEPRECATED]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cusparse-basic-apis">4. <strong>cuSPARSE Basic APIs</strong></a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-types-reference">4.1. cuSPARSE Types Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudadatatype-t">4.1.1. cudaDataType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsestatus-t">4.1.2. cusparseStatus_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsehandle-t">4.1.3. cusparseHandle_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsepointermode-t">4.1.4. cusparsePointerMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseoperation-t">4.1.5. cusparseOperation_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsediagtype-t">4.1.6. cusparseDiagType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsefillmode-t">4.1.7. cusparseFillMode_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseindexbase-t">4.1.8. cusparseIndexBase_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedirection-t">4.1.9. cusparseDirection_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-management-api">4.2. cuSPARSE Management API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreate">4.2.1. cusparseCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroy">4.2.2. cusparseDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegeterrorname">4.2.3. cusparseGetErrorName()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegeterrorstring">4.2.4. cusparseGetErrorString()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetproperty">4.2.5. cusparseGetProperty()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetversion">4.2.6. cusparseGetVersion()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetpointermode">4.2.7. cusparseGetPointerMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetpointermode">4.2.8. cusparseSetPointerMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetstream">4.2.9. cusparseGetStream()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetstream">4.2.10. cusparseSetStream()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-logging-api">4.3. cuSPARSE Logging API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseloggersetcallback">4.3.1. cusparseLoggerSetCallback()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseloggersetfile">4.3.2. cusparseLoggerSetFile()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseloggeropenfile">4.3.3. cusparseLoggerOpenFile()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseloggersetlevel">4.3.4. cusparseLoggerSetLevel()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseloggersetmask">4.3.5. cusparseLoggerSetMask()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cusparse-legacy-apis">5. <strong>cuSPARSE Legacy APIs</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#naming-conventions">5.1. Naming Conventions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-legacy-types-reference">5.2. cuSPARSE Legacy Types Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseaction-t">5.2.1. cusparseAction_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsematdescr-t">5.2.2. cusparseMatDescr_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsematrixtype-t">5.2.3. cusparseMatrixType_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecolorinfo-t-deprecated">5.2.4. cusparseColorInfo_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesolvepolicy-t-deprecated">5.2.5. cusparseSolvePolicy_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bsric02info-t-deprecated">5.2.6. bsric02Info_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bsrilu02info-t-deprecated">5.2.7. bsrilu02Info_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bsrsm2info-t-deprecated">5.2.8. bsrsm2Info_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bsrsv2info-t-deprecated">5.2.9. bsrsv2Info_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#csric02info-t-deprecated">5.2.10. csric02Info_t [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#csrilu02info-t-deprecated">5.2.11. csrilu02Info_t [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-helper-function-reference">5.3. cuSPARSE Helper Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatecolorinfo-deprecated">5.3.1. cusparseCreateColorInfo() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatematdescr">5.3.2. cusparseCreateMatDescr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroycolorinfo-deprecated">5.3.3. cusparseDestroyColorInfo() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroymatdescr">5.3.4. cusparseDestroyMatDescr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetmatdiagtype">5.3.5. cusparseGetMatDiagType()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetmatfillmode">5.3.6. cusparseGetMatFillMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetmatindexbase">5.3.7. cusparseGetMatIndexBase()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegetmattype">5.3.8. cusparseGetMatType()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetmatdiagtype">5.3.9. cusparseSetMatDiagType()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetmatfillmode">5.3.10. cusparseSetMatFillMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetmatindexbase">5.3.11. cusparseSetMatIndexBase()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesetmattype">5.3.12. cusparseSetMatType()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatecsric02info-deprecated">5.3.13. cusparseCreateCsric02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroycsric02info-deprecated">5.3.14. cusparseDestroyCsric02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatecsrilu02info-deprecated">5.3.15. cusparseCreateCsrilu02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroycsrilu02info-deprecated">5.3.16. cusparseDestroyCsrilu02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatebsrsv2info-deprecated">5.3.17. cusparseCreateBsrsv2Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroybsrsv2info-deprecated">5.3.18. cusparseDestroyBsrsv2Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatebsrsm2info-deprecated">5.3.19. cusparseCreateBsrsm2Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroybsrsm2info-deprecated">5.3.20. cusparseDestroyBsrsm2Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatebsric02info-deprecated">5.3.21. cusparseCreateBsric02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroybsric02info-deprecated">5.3.22. cusparseDestroyBsric02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatebsrilu02info-deprecated">5.3.23. cusparseCreateBsrilu02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroybsrilu02info-deprecated">5.3.24. cusparseDestroyBsrilu02Info() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatepruneinfo-deprecated">5.3.25. cusparseCreatePruneInfo() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroypruneinfo-deprecated">5.3.26. cusparseDestroyPruneInfo() [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-level-2-function-reference">5.4. cuSPARSE Level 2 Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrmv">5.4.1. cusparse&lt;t&gt;bsrmv()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrxmv-deprecated">5.4.2. cusparse&lt;t&gt;bsrxmv() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsv2-buffersize-deprecated">5.4.3. cusparse&lt;t&gt;bsrsv2_bufferSize() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsv2-analysis-deprecated">5.4.4. cusparse&lt;t&gt;bsrsv2_analysis() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsv2-solve-deprecated">5.4.5. cusparse&lt;t&gt;bsrsv2_solve() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexbsrsv2-zeropivot-deprecated">5.4.6. cusparseXbsrsv2_zeroPivot() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-gemvi">5.4.7. cusparse&lt;t&gt;gemvi()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-level-3-function-reference">5.5. cuSPARSE Level 3 Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrmm">5.5.1. cusparse&lt;t&gt;bsrmm()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsm2-buffersize-deprecated">5.5.2. cusparse&lt;t&gt;bsrsm2_bufferSize() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsm2-analysis-deprecated">5.5.3. cusparse&lt;t&gt;bsrsm2_analysis() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsrsm2-solve-deprecated">5.5.4. cusparse&lt;t&gt;bsrsm2_solve() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexbsrsm2-zeropivot-deprecated">5.5.5. cusparseXbsrsm2_zeroPivot() [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-extra-function-reference">5.6. cuSPARSE Extra Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-csrgeam2">5.6.1. cusparse&lt;t&gt;csrgeam2()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-preconditioners-reference">5.7. cuSPARSE Preconditioners Reference</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#incomplete-cholesky-factorization-level-0-deprecated">5.7.1. Incomplete Cholesky Factorization: level 0 [DEPRECATED]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csric02-buffersize-deprecated">5.7.1.1. cusparse&lt;t&gt;csric02_bufferSize() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csric02-analysis-deprecated">5.7.1.2. cusparse&lt;t&gt;csric02_analysis() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csric02-deprecated">5.7.1.3. cusparse&lt;t&gt;csric02() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsexcsric02-zeropivot-deprecated">5.7.1.4. cusparseXcsric02_zeroPivot()  [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsric02-buffersize-deprecated">5.7.1.5. cusparse&lt;t&gt;bsric02_bufferSize()  [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsric02-analysis-deprecated">5.7.1.6. cusparse&lt;t&gt;bsric02_analysis()  [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsric02-deprecated">5.7.1.7. cusparse&lt;t&gt;bsric02()  [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsexbsric02-zeropivot-deprecated">5.7.1.8. cusparseXbsric02_zeroPivot()  [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#incomplete-lu-factorization-level-0-deprecated">5.7.2. Incomplete LU Factorization: level 0 [DEPRECATED]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csrilu02-numericboost-deprecated">5.7.2.1. cusparse&lt;t&gt;csrilu02_numericBoost() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csrilu02-buffersize-deprecated">5.7.2.2. cusparse&lt;t&gt;csrilu02_bufferSize() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csrilu02-analysis-deprecated">5.7.2.3. cusparse&lt;t&gt;csrilu02_analysis() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-csrilu02-deprecated">5.7.2.4. cusparse&lt;t&gt;csrilu02() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsexcsrilu02-zeropivot-deprecated">5.7.2.5. cusparseXcsrilu02_zeroPivot() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsrilu02-numericboost-deprecated">5.7.2.6. cusparse&lt;t&gt;bsrilu02_numericBoost() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsrilu02-buffersize-deprecated">5.7.2.7. cusparse&lt;t&gt;bsrilu02_bufferSize() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsrilu02-analysis-deprecated">5.7.2.8. cusparse&lt;t&gt;bsrilu02_analysis() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-bsrilu02-deprecated">5.7.2.9. cusparse&lt;t&gt;bsrilu02() [DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsexbsrilu02-zeropivot-deprecated">5.7.2.10. cusparseXbsrilu02_zeroPivot() [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#tridiagonal-solve">5.7.3. Tridiagonal Solve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2-buffsizeext">5.7.3.1. cusparse&lt;t&gt;gtsv2_buffSizeExt()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2">5.7.3.2. cusparse&lt;t&gt;gtsv2()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2-nopivot-buffersizeext">5.7.3.3. cusparse&lt;t&gt;gtsv2_nopivot_bufferSizeExt()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2-nopivot">5.7.3.4. cusparse&lt;t&gt;gtsv2_nopivot()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#batched-tridiagonal-solve">5.7.4. Batched Tridiagonal Solve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2stridedbatch-buffersizeext">5.7.4.1. cusparse&lt;t&gt;gtsv2StridedBatch_bufferSizeExt()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsv2stridedbatch">5.7.4.2. cusparse&lt;t&gt;gtsv2StridedBatch()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gtsvinterleavedbatch">5.7.4.3. cusparse&lt;t&gt;gtsvInterleavedBatch()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#batched-pentadiagonal-solve">5.7.5. Batched Pentadiagonal Solve</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparse-t-gpsvinterleavedbatch">5.7.5.1. cusparse&lt;t&gt;gpsvInterleavedBatch()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-reorderings-reference">5.8. cuSPARSE Reorderings Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-csrcolor-deprecated">5.8.1. cusparse&lt;t&gt;csrcolor() [DEPRECATED]</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusparse-format-conversion-reference">5.9. cuSPARSE Format Conversion Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-bsr2csr">5.9.1. cusparse&lt;t&gt;bsr2csr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-gebsr2gebsc">5.9.2. cusparse&lt;t&gt;gebsr2gebsc()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-gebsr2gebsr">5.9.3. cusparse&lt;t&gt;gebsr2gebsr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-gebsr2csr">5.9.4. cusparse&lt;t&gt;gebsr2csr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-csr2gebsr">5.9.5. cusparse&lt;t&gt;csr2gebsr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-coo2csr">5.9.6. cusparse&lt;t&gt;coo2csr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-csr2coo">5.9.7. cusparse&lt;t&gt;csr2coo()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecsr2cscex2">5.9.8. cusparseCsr2cscEx2()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-nnz">5.9.9. cusparse&lt;t&gt;nnz()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreateidentitypermutation-deprecated">5.9.10. cusparseCreateIdentityPermutation() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexcoosort">5.9.11. cusparseXcoosort()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexcsrsort">5.9.12. cusparseXcsrsort()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexcscsort">5.9.13. cusparseXcscsort()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexcsru2csr-deprecated">5.9.14. cusparseXcsru2csr() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexprunedense2csr-deprecated">5.9.15. cusparseXpruneDense2csr() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexprunecsr2csr-deprecated">5.9.16. cusparseXpruneCsr2csr()  [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexprunedense2csrpercentage-deprecated">5.9.17. cusparseXpruneDense2csrPercentage()  [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsexprunecsr2csrbypercentage-deprecated">5.9.18. cusparseXpruneCsr2csrByPercentage() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparse-t-nnz-compress-deprecated">5.9.19. cusparse&lt;t&gt;nnz_compress()  [DEPRECATED]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cusparse-generic-apis">6. <strong>cuSPARSE Generic APIs</strong></a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#generic-types-reference">6.1. Generic Types Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseformat-t">6.1.1. cusparseFormat_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseorder-t">6.1.2. cusparseOrder_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseindextype-t">6.1.3. cusparseIndexType_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dense-vector-apis">6.2. Dense Vector APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatednvec">6.2.1. cusparseCreateDnVec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroydnvec">6.2.2. cusparseDestroyDnVec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednvecget">6.2.3. cusparseDnVecGet()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednvecgetvalues">6.2.4. cusparseDnVecGetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednvecsetvalues">6.2.5. cusparseDnVecSetValues()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#sparse-vector-apis">6.3. Sparse Vector APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatespvec">6.3.1. cusparseCreateSpVec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroyspvec">6.3.2. cusparseDestroySpVec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespvecget">6.3.3. cusparseSpVecGet()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespvecgetindexbase">6.3.4. cusparseSpVecGetIndexBase()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespvecgetvalues">6.3.5. cusparseSpVecGetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespvecsetvalues">6.3.6. cusparseSpVecSetValues()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dense-matrix-apis">6.4. Dense Matrix APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsecreatednmat">6.4.1. cusparseCreateDnMat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedestroydnmat">6.4.2. cusparseDestroyDnMat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednmatget">6.4.3. cusparseDnMatGet()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednmatgetvalues">6.4.4. cusparseDnMatGetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednmatsetvalues">6.4.5. cusparseDnMatSetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednmatgetstridedbatch">6.4.6. cusparseDnMatGetStridedBatch()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsednmatsetstridedbatch">6.4.7. cusparseDnMatSetStridedBatch()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#sparse-matrix-apis">6.5. Sparse Matrix APIs</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id1">6.5.1. Coordinate (COO)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreatecoo">6.5.1.1. cusparseCreateCoo()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecooget">6.5.1.2. cusparseCooGet()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecoosetpointers">6.5.1.3. cusparseCooSetPointers()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecoosetstridedbatch">6.5.1.4. cusparseCooSetStridedBatch()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id2">6.5.2. Compressed Sparse Row (CSR)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreatecsr">6.5.2.1. cusparseCreateCsr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecsrget">6.5.2.2. cusparseCsrGet()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecsrsetpointers">6.5.2.3. cusparseCsrSetPointers()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecsrsetstridedbatch">6.5.2.4. cusparseCsrSetStridedBatch()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id3">6.5.3. Compressed Sparse Column (CSC)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreatecsc">6.5.3.1. cusparseCreateCsc()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecscget">6.5.3.2. cusparseCscGet()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecscsetpointers">6.5.3.3. cusparseCscSetPointers()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id4">6.5.4. Blocked-Ellpack (Blocked-ELL)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreateblockedell">6.5.4.1. cusparseCreateBlockedEll()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparseblockedellget">6.5.4.2. cusparseBlockedEllGet()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id5">6.5.5. Sliced-Ellpack (SELL)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreateslicedell">6.5.5.1. cusparseCreateSlicedEll()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#id6">6.5.6. Block Sparse Row (BSR)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsecreatebsr">6.5.6.1. cusparseCreateBsr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsebsrsetstridedbatch">6.5.6.2. cusparseBsrSetStridedBatch()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#all-sparse-formats">6.5.7. All Sparse Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsedestroyspmat">6.5.7.1. cusparseDestroySpMat()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetsize">6.5.7.2. cusparseSpMatGetSize()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetformat">6.5.7.3. cusparseSpMatGetFormat()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetindexbase">6.5.7.4. cusparseSpMatGetIndexBase()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetvalues">6.5.7.5. cusparseSpMatGetValues()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatsetvalues">6.5.7.6. cusparseSpMatSetValues()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetstridedbatch">6.5.7.7. cusparseSpMatGetStridedBatch()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatgetattribute">6.5.7.8. cusparseSpMatGetAttribute()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsespmatsetattribute">6.5.7.9. cusparseSpMatSetAttribute()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#generic-api-functions">6.6. Generic API Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparseaxpby">6.6.1. cusparseAxpby()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsegather">6.6.2. cusparseGather()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsescatter">6.6.3. cusparseScatter()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparserot-deprecated">6.6.4. cusparseRot() [DEPRECATED]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespvv">6.6.5. cusparseSpVV()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespmv">6.6.6. cusparseSpMV()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespsv">6.6.7. cusparseSpSV()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespmm">6.6.8. cusparseSpMM()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespmmop">6.6.9. cusparseSpMMOp()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespsm">6.6.10. cusparseSpSM()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesddmm">6.6.11. cusparseSDDMM()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespgemm">6.6.12. cusparseSpGEMM()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsespgemmreuse">6.6.13. cusparseSpGEMMreuse()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsesparsetodense">6.6.14. cusparseSparseToDense()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusparsedensetosparse">6.6.15. cusparseDenseToSparse()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cusparse-fortran-bindings">7. <strong>cuSPARSE Fortran Bindings</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fortran-application">7.1. Fortran Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">8. Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#bibliography">9. Bibliography</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">10. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">10.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">10.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">10.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

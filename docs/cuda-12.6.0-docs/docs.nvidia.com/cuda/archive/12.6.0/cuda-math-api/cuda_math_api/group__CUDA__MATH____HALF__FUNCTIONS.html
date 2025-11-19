@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.4. Half Math Functions — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="2.5. Half Precision Conversion and Data Movement" href="group__CUDA__MATH____HALF__MISC.html">
+    <link rel="prev" title="2.3. Half Comparison Functions" href="group__CUDA__MATH____HALF__COMPARISON.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF__CONSTANTS.html">2.1. Half Arithmetic Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html">2.2. Half Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__COMPARISON.html">2.3. Half Comparison Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#">2.4. Half Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html">2.5. Half Precision Conversion and Data Movement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__ARITHMETIC.html">2.6. Half2 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__COMPARISON.html">2.7. Half2 Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__FUNCTIONS.html">2.8. Half2 Math Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="group__CUDA__MATH__INTRINSIC__HALF.html"><span class="section-number">2. </span>Half Precision Intrinsics</a> »</li>
+<li>
+<span class="section-number">2.4. </span>Half Math Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="half-math-functions">
+<h1>
+<span class="section-number">2.4. </span>Half Math Functions<a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#half-math-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math____half__functions">To use these functions, include the header file <code class="docutils literal notranslate"><span class="pre">cuda_fp16.h</span></code> in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga71645e62825165483767fb959ade5b75"><span class="std std-ref">hceil</span></a>(const __half h)</dt>
+<dd>
+<p>Calculate ceiling of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1gaa65dce71ebc0dd7d12d0834e0ab6b253"><span class="std std-ref">hcos</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> cosine in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga2a3dc15a7d48a5a0dee8b12bc875e522"><span class="std std-ref">hexp</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga9795592d7a0b36eb25ed2c57b89c5020"><span class="std std-ref">hexp10</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga715e831f5588ef02ef2ee6a94cb07013"><span class="std std-ref">hexp2</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary exponential function in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga5302f4e70c2918f6737d3c159335d681"><span class="std std-ref">hfloor</span></a>(const __half h)</dt>
+<dd>
+<p>Calculate the largest integer less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga74f361f9c89fe0430d18cf1136c3a799"><span class="std std-ref">hlog</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga5a41dfac808cbd159c1c4ea4b738c0ae"><span class="std std-ref">hlog10</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga3d788d8a6fdf25890f769c147056e8b4"><span class="std std-ref">hlog2</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary logarithm in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga3d221a53cabf43e2457ad8ddba3a1278"><span class="std std-ref">hrcp</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1gabbf7a989130edcbdbfbb4730f61c79b1"><span class="std std-ref">hrint</span></a>(const __half h)</dt>
+<dd>
+<p>Round input to nearest integer value in half-precision floating-point number.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga57710803b15f471625469a3f43b82970"><span class="std std-ref">hrsqrt</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal square root in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga648019bc27fc250f350f90dc688f8430"><span class="std std-ref">hsin</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> sine in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1ga67b9bbe48e510b6dc1c666bf34aa99a6"><span class="std std-ref">hsqrt</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> square root in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html#group__cuda__math____half__functions_1gaee5be0d01b1f9a44a56aa2110eab5047"><span class="std std-ref">htrunc</span></a>(const __half h)</dt>
+<dd>
+<p>Truncate input argument to the integral part.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">2.4.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45hceilK6__half">
+<span id="_CPPv35hceilK6__half"></span><span id="_CPPv25hceilK6__half"></span><span id="hceil____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga71645e62825165483767fb959ade5b75"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hceil</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv45hceilK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate ceiling of the input argument. </p>
+<p>Compute the smallest integer value not less than <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The smallest integer value not less than <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></li>
+<li><p>hceil( <span class="math notranslate nohighlight">\( \pm 0 \)</span> ) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>hceil( <span class="math notranslate nohighlight">\( \pm \infty \)</span> ) returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>hceil(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv44hcosK6__half">
+<span id="_CPPv34hcosK6__half"></span><span id="_CPPv24hcosK6__half"></span><span id="hcos____halfC"></span><span class="target" id="group__cuda__math____half__functions_1gaa65dce71ebc0dd7d12d0834e0ab6b253"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hcos</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv44hcosK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> cosine in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> cosine of input <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The cosine of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hcos <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns 1.</p></li>
+<li><p>hcos <span class="math notranslate nohighlight">\( (\pm \infty)\)</span> returns NaN.</p></li>
+<li><p>hcos(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv44hexpK6__half">
+<span id="_CPPv34hexpK6__half"></span><span id="_CPPv24hexpK6__half"></span><span id="hexp____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga2a3dc15a7d48a5a0dee8b12bc875e522"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hexp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv44hexpK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural exponential function of input: <span class="math notranslate nohighlight">\( e^{a}\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The natural exponential function on <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hexp <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns 1.</p></li>
+<li><p>hexp <span class="math notranslate nohighlight">\( (-\infty)\)</span> returns +0.</p></li>
+<li><p>hexp <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hexp(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46hexp10K6__half">
+<span id="_CPPv36hexp10K6__half"></span><span id="_CPPv26hexp10K6__half"></span><span id="hexp10____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga9795592d7a0b36eb25ed2c57b89c5020"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hexp10</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv46hexp10K6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal exponential function of input: <span class="math notranslate nohighlight">\( 10^{a}\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The decimal exponential function on <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hexp10 <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns 1.</p></li>
+<li><p>hexp10 <span class="math notranslate nohighlight">\( (-\infty)\)</span> returns +0.</p></li>
+<li><p>hexp10 <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hexp10(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45hexp2K6__half">
+<span id="_CPPv35hexp2K6__half"></span><span id="_CPPv25hexp2K6__half"></span><span id="hexp2____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga715e831f5588ef02ef2ee6a94cb07013"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hexp2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv45hexp2K6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary exponential function in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary exponential function of input: <span class="math notranslate nohighlight">\( 2^{a}\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The binary exponential function on <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hexp2 <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns 1.</p></li>
+<li><p>hexp2 <span class="math notranslate nohighlight">\( (-\infty)\)</span> returns +0.</p></li>
+<li><p>hexp2 <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hexp2(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46hfloorK6__half">
+<span id="_CPPv36hfloorK6__half"></span><span id="_CPPv26hfloorK6__half"></span><span id="hfloor____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga5302f4e70c2918f6737d3c159335d681"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hfloor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv46hfloorK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the largest integer less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<p>Calculate the largest integer value which is less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The largest integer value which is less than or equal to <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></li>
+<li><p>hfloor( <span class="math notranslate nohighlight">\( \pm 0 \)</span> ) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>hfloor( <span class="math notranslate nohighlight">\( \pm \infty \)</span> ) returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>hfloor(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv44hlogK6__half">
+<span id="_CPPv34hlogK6__half"></span><span id="_CPPv24hlogK6__half"></span><span id="hlog____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga74f361f9c89fe0430d18cf1136c3a799"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hlog</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv44hlogK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> natural logarithm of input: <span class="math notranslate nohighlight">\( \ln(a)\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The natural logarithm of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hlog <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>hlog(1) returns +0.</p></li>
+<li><p>hlog(x), x &lt; 0 returns NaN.</p></li>
+<li><p>hlog <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hlog(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46hlog10K6__half">
+<span id="_CPPv36hlog10K6__half"></span><span id="_CPPv26hlog10K6__half"></span><span id="hlog10____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga5a41dfac808cbd159c1c4ea4b738c0ae"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hlog10</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv46hlog10K6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> decimal logarithm of input: <span class="math notranslate nohighlight">\( \log_{10}(a)\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The decimal logarithm of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hlog10 <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>hlog10(1) returns +0.</p></li>
+<li><p>hlog10(x), x &lt; 0 returns NaN.</p></li>
+<li><p>hlog10 <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hlog10(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45hlog2K6__half">
+<span id="_CPPv35hlog2K6__half"></span><span id="_CPPv25hlog2K6__half"></span><span id="hlog2____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga3d788d8a6fdf25890f769c147056e8b4"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hlog2</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv45hlog2K6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary logarithm in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> binary logarithm of input: <span class="math notranslate nohighlight">\( \log_{2}(a)\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The binary logarithm of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hlog2 <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>hlog2(1) returns +0.</p></li>
+<li><p>hlog2(x), x &lt; 0 returns NaN.</p></li>
+<li><p>hlog2 <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hlog2(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv44hrcpK6__half">
+<span id="_CPPv34hrcpK6__half"></span><span id="_CPPv24hrcpK6__half"></span><span id="hrcp____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga3d221a53cabf43e2457ad8ddba3a1278"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hrcp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv44hrcpK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal of input: <span class="math notranslate nohighlight">\( \frac{1}{a}\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The reciprocal of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hrcp <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>hrcp <span class="math notranslate nohighlight">\( (\pm \infty)\)</span> returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>hrcp(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45hrintK6__half">
+<span id="_CPPv35hrintK6__half"></span><span id="_CPPv25hrintK6__half"></span><span id="hrint____halfC"></span><span class="target" id="group__cuda__math____half__functions_1gabbf7a989130edcbdbfbb4730f61c79b1"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hrint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv45hrintK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Round input to nearest integer value in half-precision floating-point number. </p>
+<p>Round <code class="docutils literal notranslate"><span class="pre">h</span></code> to the nearest integer value in half-precision floating-point format, with halfway cases rounded to the nearest even integer value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The nearest integer to <code class="docutils literal notranslate"><span class="pre">h</span></code>.</p></li>
+<li><p>hrint( <span class="math notranslate nohighlight">\( \pm 0 \)</span> ) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>hrint( <span class="math notranslate nohighlight">\( \pm \infty \)</span> ) returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>hrint(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46hrsqrtK6__half">
+<span id="_CPPv36hrsqrtK6__half"></span><span id="_CPPv26hrsqrtK6__half"></span><span id="hrsqrt____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga57710803b15f471625469a3f43b82970"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hrsqrt</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv46hrsqrtK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal square root in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> reciprocal square root of input: <span class="math notranslate nohighlight">\( \frac{1}{\sqrt{a}}\)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The reciprocal square root of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hrsqrt <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>hrsqrt <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns +0.</p></li>
+<li><p>hrsqrt <span class="math notranslate nohighlight">\( (x), x &lt; 0.0\)</span> returns NaN.</p></li>
+<li><p>hrsqrt(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv44hsinK6__half">
+<span id="_CPPv34hsinK6__half"></span><span id="_CPPv24hsinK6__half"></span><span id="hsin____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga648019bc27fc250f350f90dc688f8430"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hsin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv44hsinK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> sine in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> sine of input <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The sine of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hsin <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( (\pm 0)\)</span>.</p></li>
+<li><p>hsin <span class="math notranslate nohighlight">\( (\pm \infty)\)</span> returns NaN.</p></li>
+<li><p>hsin(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45hsqrtK6__half">
+<span id="_CPPv35hsqrtK6__half"></span><span id="_CPPv25hsqrtK6__half"></span><span id="hsqrt____halfC"></span><span class="target" id="group__cuda__math____half__functions_1ga67b9bbe48e510b6dc1c666bf34aa99a6"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hsqrt</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv45hsqrtK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> square root in round-to-nearest-even mode. </p>
+<p>Calculates <code class="docutils literal notranslate"><span class="pre">half</span></code> square root of input: <span class="math notranslate nohighlight">\( \sqrt{a} \)</span> in round-to-nearest-even mode. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The square root of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>hsqrt <span class="math notranslate nohighlight">\( (+\infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>hsqrt <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>hsqrt <span class="math notranslate nohighlight">\( (x), x &lt; 0.0\)</span> returns NaN.</p></li>
+<li><p>hsqrt(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46htruncK6__half">
+<span id="_CPPv36htruncK6__half"></span><span id="_CPPv26htruncK6__half"></span><span id="htrunc____halfC"></span><span class="target" id="group__cuda__math____half__functions_1gaee5be0d01b1f9a44a56aa2110eab5047"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">htrunc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__FUNCTIONS.html#_CPPv46htruncK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Truncate input argument to the integral part. </p>
+<p>Round <code class="docutils literal notranslate"><span class="pre">h</span></code> to the largest integer value that does not exceed <code class="docutils literal notranslate"><span class="pre">h</span></code> in magnitude. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>h</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The truncated value.</p></li>
+<li><p>htrunc( <span class="math notranslate nohighlight">\( \pm 0 \)</span> ) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>htrunc( <span class="math notranslate nohighlight">\( \pm \infty \)</span> ) returns <span class="math notranslate nohighlight">\( \pm \infty \)</span>.</p></li>
+<li><p>htrunc(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

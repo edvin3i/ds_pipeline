@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — CUDA-GDB 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#release-notes">2. Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#getting-started">3. Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-gdb-extensions">4. CUDA-GDB Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#kernel-focus">5. Kernel Focus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#program-execution">6. Program Execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#breakpoints-and-watchpoints">7. Breakpoints and Watchpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#inspecting-program-state">8. Inspecting Program State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#event-notifications">9. Event Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#automatic-error-checking">10. Automatic Error Checking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#walk-through-examples">11. Walk-Through Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#tips-and-tricks">12. Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#supported-platforms">13. Supported Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#common-issues-on-supported-operating-systems">14. Common Issues on Supported Operating Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#known-issues">15. Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">16. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">CUDA-GDB</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/cuda-gdb.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-is-cuda-gdb">1.1. What is CUDA-GDB?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supported-features">1.2. Supported Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#about-this-document">1.3. About This Document</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#release-notes">2. Release Notes</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-started">3. Getting Started</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#setting-up-the-debugger-environment">3.1. Setting Up the Debugger Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#temporary-directory">3.1.1. Temporary Directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#using-the-cuda-gdb-debugger-on-jetson-and-drive-tegra-devices">3.1.2. Using the CUDA-GDB debugger on Jetson and Drive Tegra devices</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compiling-the-application">3.2. Compiling the Application</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debug-compilation">3.2.1. Debug Compilation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compilation-with-linenumber-information">3.2.2. Compilation With Linenumber Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compiling-for-specific-gpu-architectures">3.2.3. Compiling For Specific GPU architectures</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#using-the-debugger">3.3. Using the Debugger</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#single-gpu-debugging-with-the-desktop-manager-running">3.3.1. Single-GPU Debugging with the Desktop Manager Running</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multi-gpu-debugging">3.3.2. Multi-GPU Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#remote-debugging">3.3.3. Remote Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multiple-debuggers">3.3.4. Multiple Debuggers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#attaching-detaching">3.3.5. Attaching/Detaching</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cuda-gdb-extensions">4. CUDA-GDB Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#command-naming-convention">4.1. Command Naming Convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-help">4.2. Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#initialization-file">4.3. Initialization File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#gui-integration">4.4. GUI Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#gpu-core-dump-support">4.5. GPU core dump support</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#kernel-focus">5. Kernel Focus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#software-coordinates-vs-hardware-coordinates">5.1. Software Coordinates vs. Hardware Coordinates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#current-focus">5.2. Current Focus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#switching-focus">5.3. Switching Focus</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#program-execution">6. Program Execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#interrupting-the-application">6.1. Interrupting the Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#single-stepping">6.2. Single Stepping</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#breakpoints-and-watchpoints">7. Breakpoints and Watchpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#symbolic-breakpoints">7.1. Symbolic Breakpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#line-breakpoints">7.2. Line Breakpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#address-breakpoints">7.3. Address Breakpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#kernel-entry-breakpoints">7.4. Kernel Entry Breakpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conditional-breakpoints">7.5. Conditional Breakpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#watchpoints">7.6. Watchpoints</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#inspecting-program-state">8. Inspecting Program State</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-and-variables">8.1. Memory and Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#variable-storage-and-accessibility">8.2. Variable Storage and Accessibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#info-cuda-commands">8.3. Info CUDA Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-devices">8.3.1. info cuda devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-sms">8.3.2. info cuda sms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-warps">8.3.3. info cuda warps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-lanes">8.3.4. info cuda lanes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-kernels">8.3.5. info cuda kernels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-blocks">8.3.6. info cuda blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-threads">8.3.7. info cuda threads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-launch-trace">8.3.8. info cuda launch trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-launch-children">8.3.9. info cuda launch children</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-contexts">8.3.10. info cuda contexts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#info-cuda-managed">8.3.11. info cuda managed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#disassembly">8.4. Disassembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#registers">8.5. Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#const-banks">8.6. Const banks</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#event-notifications">9. Event Notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#context-events">9.1. Context Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#kernel-events">9.2. Kernel Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#automatic-error-checking">10. Automatic Error Checking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#checking-api-errors">10.1. Checking API Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#gpu-error-reporting">10.2. GPU Error Reporting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#autostep">10.3. Autostep</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#walk-through-examples">11. Walk-Through Examples</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#example-bitreverse">11.1. Example: bitreverse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#walking-through-the-code">11.1.1. Walking through the Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#example-autostep">11.2. Example: autostep</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-with-autosteps">11.2.1. Debugging with Autosteps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#example-mpi-cuda-application">11.3. Example: MPI CUDA Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#tips-and-tricks">12. Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-break-on-launch">12.1. set cuda break_on_launch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-launch-blocking">12.2. set cuda launch_blocking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-notify">12.3. set cuda notify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-ptx-cache">12.4. set cuda ptx_cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-single-stepping-optimizations">12.5. set cuda single_stepping_optimizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-thread-selection">12.6. set cuda thread_selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#set-cuda-value-extrapolation">12.7. set cuda value_extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#debugging-docker-containers">12.8. Debugging Docker Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#switching-to-classic-debugger-backend">12.9. Switching to Classic Debugger Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-block-clusters">12.10. Thread Block Clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#debugging-optix-rtcore-applications">12.11. Debugging OptiX/RTCore applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#debugging-on-windows-subsystem-for-linux">12.12. Debugging on Windows Subsystem for Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#supported-platforms">13. Supported Platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#common-issues-on-supported-operating-systems">14. Common Issues on Supported Operating Systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#known-issues">15. Known Issues</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">16. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">16.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">16.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">16.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2012-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Jul 30, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

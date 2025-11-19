@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10. Integer Intrinsics — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="11. SIMD Intrinsics" href="group__CUDA__MATH__INTRINSIC__SIMD.html">
+    <link rel="prev" title="9. Integer Mathematical Functions" href="group__CUDA__MATH__INT.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">10. </span>Integer Intrinsics</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="integer-intrinsics">
+<h1>
+<span class="section-number">10. </span>Integer Intrinsics<a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#integer-intrinsics" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math__intrinsic__int">This section describes integer intrinsic functions that are only supported in device code. </p>
+<p>To use these functions you do not need to include any additional header files in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gac84ef1115946870edbcebddc0d539c5a"><span class="std std-ref">__brev</span></a>(unsigned int x)</dt>
+<dd>
+<p>Reverse the bit order of a 32-bit unsigned integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned long long int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga554354459699a11acfb072cf536974cd"><span class="std std-ref">__brevll</span></a>(unsigned long long int x)</dt>
+<dd>
+<p>Reverse the bit order of a 64-bit unsigned integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga0b8b8156fe619205bf8d65acd8f29131"><span class="std std-ref">__byte_perm</span></a>(unsigned int x, unsigned int y, unsigned int s)</dt>
+<dd>
+<p>Return selected bytes from two 32-bit unsigned integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gad45548f57952ed410fa5d824984f16d0"><span class="std std-ref">__clz</span></a>(int x)</dt>
+<dd>
+<p>Return the number of consecutive high-order zero bits in a 32-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga88ff76484edc65cafbef80e71a1daa53"><span class="std std-ref">__clzll</span></a>(long long int x)</dt>
+<dd>
+<p>Count the number of consecutive high-order zero bits in a 64-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga00191d5b570bdfe73fb2e303d7d512ec"><span class="std std-ref">__dp2a_hi</span></a>(int srcA, int srcB, int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga0cd92b14a229973cb1447322e3027dce"><span class="std std-ref">__dp2a_hi</span></a>(unsigned int srcA, unsigned int srcB, unsigned int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga906765cd4ccd9a17d31d5dbcc9c65bff"><span class="std std-ref">__dp2a_hi</span></a>(ushort2 srcA, uchar4 srcB, unsigned int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaebad383283dfdaea5748fcc39f85757e"><span class="std std-ref">__dp2a_hi</span></a>(short2 srcA, char4 srcB, int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga321b0e1408f8d24571a673c324fed41a"><span class="std std-ref">__dp2a_lo</span></a>(ushort2 srcA, uchar4 srcB, unsigned int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga32df0ce9fb758b7103671563694644a7"><span class="std std-ref">__dp2a_lo</span></a>(short2 srcA, char4 srcB, int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga74105ec4bb95f6124231adeaf44bee27"><span class="std std-ref">__dp2a_lo</span></a>(unsigned int srcA, unsigned int srcB, unsigned int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaa239a450d1919fe98fd29d8619dc9273"><span class="std std-ref">__dp2a_lo</span></a>(int srcA, int srcB, int c)</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga5a028e13382462fec36e03a8cbd0ce2b"><span class="std std-ref">__dp4a</span></a>(uchar4 srcA, uchar4 srcB, unsigned int c)</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga5a68396e517a994093daf7f7a1090191"><span class="std std-ref">__dp4a</span></a>(unsigned int srcA, unsigned int srcB, unsigned int c)</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code>  <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga933213059df6da2de206771f145ac2f8"><span class="std std-ref">__dp4a</span></a>(int srcA, int srcB, int c)</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga9fe10d2bf9fb3886ed8de73ebd00ef3a"><span class="std std-ref">__dp4a</span></a>(char4 srcA, char4 srcB, int c)</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">signed</span></code>  <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaaf1eb22243e29e0b7222adee8ae7d4e4"><span class="std std-ref">__ffs</span></a>(int x)</dt>
+<dd>
+<p>Find the position of the least significant bit set to 1 in a 32-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gac42b0f1b68e9db038015d40a18d305df"><span class="std std-ref">__ffsll</span></a>(long long int x)</dt>
+<dd>
+<p>Find the position of the least significant bit set to 1 in a 64-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga2fc8e909eb9a959dcc3262e54365bfc5"><span class="std std-ref">__fns</span></a>(unsigned mask, unsigned base, int offset)</dt>
+<dd>
+<p>Find the position of the n-th set to 1 bit in a 32-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaf939c350eafa2f13d64e278549d3a8aa"><span class="std std-ref">__funnelshift_l</span></a>(unsigned int lo, unsigned int hi, unsigned int shift)</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code> , shift left by <code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31 bits, return the most significant 32 bits.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga6afcc1126ca2bf68f74c34812cbde57d"><span class="std std-ref">__funnelshift_lc</span></a>(unsigned int lo, unsigned int hi, unsigned int shift)</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code> , shift left by min( <code class="docutils literal notranslate"><span class="pre">shift</span></code> , 32) bits, return the most significant 32 bits.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga125eeef4993d16dc8d679b239460fc34"><span class="std std-ref">__funnelshift_r</span></a>(unsigned int lo, unsigned int hi, unsigned int shift)</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code> , shift right by <code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31 bits, return the least significant 32 bits.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga66b72e69ee8799b49365b218051b1e4d"><span class="std std-ref">__funnelshift_rc</span></a>(unsigned int lo, unsigned int hi, unsigned int shift)</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code> , shift right by min( <code class="docutils literal notranslate"><span class="pre">shift</span></code> , 32) bits, return the least significant 32 bits.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gac030c6e3e8d0117a0d081e7397ba40dd"><span class="std std-ref">__hadd</span></a>(int x, int y)</dt>
+<dd>
+<p>Compute average of signed input arguments, avoiding overflow in the intermediate sum.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaffff4cfc8958ec96329c11a797146573"><span class="std std-ref">__mul24</span></a>(int x, int y)</dt>
+<dd>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of two integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ long long int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga29b1d773d9393278aae147362827403b"><span class="std std-ref">__mul64hi</span></a>(long long int x, long long int y)</dt>
+<dd>
+<p>Calculate the most significant 64 bits of the product of the two 64-bit integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gac3afa952add7894d6dda0931476d4882"><span class="std std-ref">__mulhi</span></a>(int x, int y)</dt>
+<dd>
+<p>Calculate the most significant 32 bits of the product of the two 32-bit integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga43c9c7d2b9ebf202ff1ef5769989be46"><span class="std std-ref">__popc</span></a>(unsigned int x)</dt>
+<dd>
+<p>Count the number of bits that are set to 1 in a 32-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga6bb2f1cc3495f3f2ebe1df6ec52b3aec"><span class="std std-ref">__popcll</span></a>(unsigned long long int x)</dt>
+<dd>
+<p>Count the number of bits that are set to 1 in a 64-bit integer.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga92bcad377730dc44cb65ab2c36ca6e43"><span class="std std-ref">__rhadd</span></a>(int x, int y)</dt>
+<dd>
+<p>Compute rounded average of signed input arguments, avoiding overflow in the intermediate sum.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gae955ffc59084b5600dd5d223fb26beb0"><span class="std std-ref">__sad</span></a>(int x, int y, unsigned int z)</dt>
+<dd>
+<p>Calculate <span class="math notranslate nohighlight">\(|x - y| + z\)</span> , the sum of absolute difference.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gae84cd786a304ddbecfc2bcdb10b06099"><span class="std std-ref">__uhadd</span></a>(unsigned int x, unsigned int y)</dt>
+<dd>
+<p>Compute average of unsigned input arguments, avoiding overflow in the intermediate sum.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga2b1446551e854d164e3d4aae25f94a3f"><span class="std std-ref">__umul24</span></a>(unsigned int x, unsigned int y)</dt>
+<dd>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of two unsigned integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned long long int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1gaefaf2a1bb2ad8986b2c248b74461e12e"><span class="std std-ref">__umul64hi</span></a>(unsigned long long int x, unsigned long long int y)</dt>
+<dd>
+<p>Calculate the most significant 64 bits of the product of the two 64 unsigned bit integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga2ea43def3122a1bfb3eb8271a59f4470"><span class="std std-ref">__umulhi</span></a>(unsigned int x, unsigned int y)</dt>
+<dd>
+<p>Calculate the most significant 32 bits of the product of the two 32-bit unsigned integers.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga6f364981d9731158e400bae169490b20"><span class="std std-ref">__urhadd</span></a>(unsigned int x, unsigned int y)</dt>
+<dd>
+<p>Compute rounded average of unsigned input arguments, avoiding overflow in the intermediate sum.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ unsigned int</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html#group__cuda__math__intrinsic__int_1ga58e819af40fc4a3e9e9c3a4c13cbd0e2"><span class="std std-ref">__usad</span></a>(unsigned int x, unsigned int y, unsigned int z)</dt>
+<dd>
+<p>Calculate <span class="math notranslate nohighlight">\(|x - y| + z\)</span> , the sum of absolute difference.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">10.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__brevj">
+<span id="_CPPv36__brevj"></span><span id="_CPPv26__brevj"></span><span id="__brev__unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gac84ef1115946870edbcebddc0d539c5a"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__brev</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__brevj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Reverse the bit order of a 32-bit unsigned integer. </p>
+<p>Reverses the bit order of the 32-bit unsigned integer <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the bit-reversed value of <code class="docutils literal notranslate"><span class="pre">x</span></code>. i.e. bit N of the return value corresponds to bit 31-N of <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__brevlly">
+<span id="_CPPv38__brevlly"></span><span id="_CPPv28__brevlly"></span><span id="__brevll__unsigned-l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga554354459699a11acfb072cf536974cd"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__brevll</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv48__brevlly" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Reverse the bit order of a 64-bit unsigned integer. </p>
+<p>Reverses the bit order of the 64-bit unsigned integer <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the bit-reversed value of <code class="docutils literal notranslate"><span class="pre">x</span></code>. i.e. bit N of the return value corresponds to bit 63-N of <code class="docutils literal notranslate"><span class="pre">x</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__byte_permjjj">
+<span id="_CPPv311__byte_permjjj"></span><span id="_CPPv211__byte_permjjj"></span><span id="__byte_perm__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga0b8b8156fe619205bf8d65acd8f29131"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__byte_perm</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv411__byte_permjjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Return selected bytes from two 32-bit unsigned integers. </p>
+<p>
+Create 8-byte source</p>
+<ul class="simple">
+<li><p>uint64_t <code class="docutils literal notranslate"><span class="pre">tmp64</span></code> = ((uint64_t)<code class="docutils literal notranslate"><span class="pre">y</span></code> &lt;&lt; 32) | <code class="docutils literal notranslate"><span class="pre">x</span></code>;</p></li>
+</ul>
+
+<p>Extract selector bits</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">selector0</span></code> = (<code class="docutils literal notranslate"><span class="pre">s</span></code> &gt;&gt; 0) &amp; 0x7;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selector1</span></code> = (<code class="docutils literal notranslate"><span class="pre">s</span></code> &gt;&gt; 4) &amp; 0x7;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selector2</span></code> = (<code class="docutils literal notranslate"><span class="pre">s</span></code> &gt;&gt; 8) &amp; 0x7;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selector3</span></code> = (<code class="docutils literal notranslate"><span class="pre">s</span></code> &gt;&gt; 12) &amp; 0x7;</p></li>
+</ul>
+
+<p>Return 4 selected bytes from 8-byte source:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>[07:00] = <code class="docutils literal notranslate"><span class="pre">tmp64</span></code>[<code class="docutils literal notranslate"><span class="pre">selector0</span></code>];</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>[15:08] = <code class="docutils literal notranslate"><span class="pre">tmp64</span></code>[<code class="docutils literal notranslate"><span class="pre">selector1</span></code>];</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>[23:16] = <code class="docutils literal notranslate"><span class="pre">tmp64</span></code>[<code class="docutils literal notranslate"><span class="pre">selector2</span></code>];</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">res</span></code>[31:24] = <code class="docutils literal notranslate"><span class="pre">tmp64</span></code>[<code class="docutils literal notranslate"><span class="pre">selector3</span></code>]; </p></li>
+</ul>
+
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a 32-bit integer consisting of four bytes from eight input bytes provided in the two input integers <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, as specified by a selector, <code class="docutils literal notranslate"><span class="pre">s</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45__clzi">
+<span id="_CPPv35__clzi"></span><span id="_CPPv25__clzi"></span><span id="__clz__i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gad45548f57952ed410fa5d824984f16d0"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__clz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv45__clzi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Return the number of consecutive high-order zero bits in a 32-bit integer. </p>
+<p>Count the number of consecutive leading zero bits, starting at the most significant bit (bit 31) of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 32 inclusive representing the number of zero bits. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__clzllx">
+<span id="_CPPv37__clzllx"></span><span id="_CPPv27__clzllx"></span><span id="__clzll__l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga88ff76484edc65cafbef80e71a1daa53"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__clzll</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__clzllx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Count the number of consecutive high-order zero bits in a 64-bit integer. </p>
+<p>Count the number of consecutive leading zero bits, starting at the most significant bit (bit 63) of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 64 inclusive representing the number of zero bits. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_hiiii">
+<span id="_CPPv39__dp2a_hiiii"></span><span id="_CPPv29__dp2a_hiiii"></span><span id="__dp2a_hi__i.i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga00191d5b570bdfe73fb2e303d7d512ec"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_hi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_hiiii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input. </p>
+<p>Extracts two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and two packed 8-bit integers from the upper 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates two pairwise 8x16 products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_hijjj">
+<span id="_CPPv39__dp2a_hijjj"></span><span id="_CPPv29__dp2a_hijjj"></span><span id="__dp2a_hi__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga0cd92b14a229973cb1447322e3027dce"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_hi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_hijjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input. </p>
+<p>Extracts two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and two packed 8-bit integers from the upper 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates two pairwise 8x16 products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_hi7ushort26uchar4j">
+<span id="_CPPv39__dp2a_hi7ushort26uchar4j"></span><span id="_CPPv29__dp2a_hi7ushort26uchar4j"></span><span id="__dp2a_hi__ushort2.uchar4.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga906765cd4ccd9a17d31d5dbcc9c65bff"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_hi</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ushort2</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">uchar4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_hi7ushort26uchar4j" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input. </p>
+<p>Takes two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> vector and two packed 8-bit integers from the upper 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vector, then creates two pairwise 8x16 products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_hi6short25char4i">
+<span id="_CPPv39__dp2a_hi6short25char4i"></span><span id="_CPPv29__dp2a_hi6short25char4i"></span><span id="__dp2a_hi__short2.char4.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaebad383283dfdaea5748fcc39f85757e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_hi</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">short2</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">char4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_hi6short25char4i" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the upper half of the second input. </p>
+<p>Takes two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> vector and two packed 8-bit integers from the upper 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vector, then creates two pairwise 8x16 products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_lo7ushort26uchar4j">
+<span id="_CPPv39__dp2a_lo7ushort26uchar4j"></span><span id="_CPPv29__dp2a_lo7ushort26uchar4j"></span><span id="__dp2a_lo__ushort2.uchar4.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga321b0e1408f8d24571a673c324fed41a"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_lo</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ushort2</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">uchar4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_lo7ushort26uchar4j" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input. </p>
+<p>Takes two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> vector and two packed 8-bit integers from the lower 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vector, then creates two pairwise 8x16 products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_lo6short25char4i">
+<span id="_CPPv39__dp2a_lo6short25char4i"></span><span id="_CPPv29__dp2a_lo6short25char4i"></span><span id="__dp2a_lo__short2.char4.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga32df0ce9fb758b7103671563694644a7"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_lo</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">short2</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">char4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_lo6short25char4i" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input. </p>
+<p>Takes two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> vector and two packed 8-bit integers from the lower 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vector, then creates two pairwise 8x16 products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_lojjj">
+<span id="_CPPv39__dp2a_lojjj"></span><span id="_CPPv29__dp2a_lojjj"></span><span id="__dp2a_lo__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga74105ec4bb95f6124231adeaf44bee27"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_lo</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_lojjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input. </p>
+<p>Extracts two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and two packed 8-bit integers from the lower 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates two pairwise 8x16 products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__dp2a_loiii">
+<span id="_CPPv39__dp2a_loiii"></span><span id="_CPPv29__dp2a_loiii"></span><span id="__dp2a_lo__i.i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaa239a450d1919fe98fd29d8619dc9273"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp2a_lo</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__dp2a_loiii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Two-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int16</span></code> by <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate, taking the lower half of the second input. </p>
+<p>Extracts two packed 16-bit integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and two packed 8-bit integers from the lower 16 bits of <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates two pairwise 8x16 products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__dp4a6uchar46uchar4j">
+<span id="_CPPv36__dp4a6uchar46uchar4j"></span><span id="_CPPv26__dp4a6uchar46uchar4j"></span><span id="__dp4a__uchar4.uchar4.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga5a028e13382462fec36e03a8cbd0ce2b"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp4a</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uchar4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">uchar4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__dp4a6uchar46uchar4j" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate. </p>
+<p>Takes four pairs of packed byte-sized integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vectors, then creates four pairwise products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__dp4ajjj">
+<span id="_CPPv36__dp4ajjj"></span><span id="_CPPv26__dp4ajjj"></span><span id="__dp4a__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga5a68396e517a994093daf7f7a1090191"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp4a</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__dp4ajjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate. </p>
+<p>Extracts four pairs of packed byte-sized integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates four pairwise products and adds them together to an unsigned 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__dp4aiii">
+<span id="_CPPv36__dp4aiii"></span><span id="_CPPv26__dp4aiii"></span><span id="__dp4a__i.i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga933213059df6da2de206771f145ac2f8"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp4a</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__dp4aiii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate. </p>
+<p>Extracts four pairs of packed byte-sized integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and <code class="docutils literal notranslate"><span class="pre">srcB</span></code>, then creates four pairwise products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__dp4a5char45char4i">
+<span id="_CPPv36__dp4a5char45char4i"></span><span id="_CPPv26__dp4a5char45char4i"></span><span id="__dp4a__char4.char4.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga9fe10d2bf9fb3886ed8de73ebd00ef3a"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__dp4a</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">char4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcA</span></span>, <span class="n"><span class="pre">char4</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">srcB</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__dp4a5char45char4i" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Four-way <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">int8</span></code> dot product with <code class="docutils literal notranslate"><span class="pre">int32</span></code> accumulate. </p>
+<p>Takes four pairs of packed byte-sized integers from <code class="docutils literal notranslate"><span class="pre">scrA</span></code> and <code class="docutils literal notranslate"><span class="pre">srcB</span></code> vectors, then creates four pairwise products and adds them together to a signed 32-bit integer <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45__ffsi">
+<span id="_CPPv35__ffsi"></span><span id="_CPPv25__ffsi"></span><span id="__ffs__i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaaf1eb22243e29e0b7222adee8ae7d4e4"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__ffs</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv45__ffsi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Find the position of the least significant bit set to 1 in a 32-bit integer. </p>
+<p>Find the position of the first (least significant) bit set to 1 in <code class="docutils literal notranslate"><span class="pre">x</span></code>, where the least significant bit position is 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 32 inclusive representing the position of the first bit set.</p>
+<ul class="simple">
+<li><p>__ffs(0) returns 0. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__ffsllx">
+<span id="_CPPv37__ffsllx"></span><span id="_CPPv27__ffsllx"></span><span id="__ffsll__l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gac42b0f1b68e9db038015d40a18d305df"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__ffsll</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__ffsllx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Find the position of the least significant bit set to 1 in a 64-bit integer. </p>
+<p>Find the position of the first (least significant) bit set to 1 in <code class="docutils literal notranslate"><span class="pre">x</span></code>, where the least significant bit position is 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 64 inclusive representing the position of the first bit set.</p>
+<ul class="simple">
+<li><p>__ffsll(0) returns 0. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45__fnsjji">
+<span id="_CPPv35__fnsjji"></span><span id="_CPPv25__fnsjji"></span><span id="__fns__unsigned.unsigned.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga2fc8e909eb9a959dcc3262e54365bfc5"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fns</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mask</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">base</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv45__fnsjji" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Find the position of the n-th set to 1 bit in a 32-bit integer. </p>
+<p>Given a 32-bit value <code class="docutils literal notranslate"><span class="pre">mask</span></code> and an integer value <code class="docutils literal notranslate"><span class="pre">base</span></code> (between 0 and 31), find the n-th (given by <code class="docutils literal notranslate"><span class="pre">offset</span></code>) set bit in <code class="docutils literal notranslate"><span class="pre">mask</span></code> from the <code class="docutils literal notranslate"><span class="pre">base</span></code> bit. If not found, return 0xFFFFFFFF.</p>
+<p>See also <a class="reference external" href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#integer-arithmetic-instructions-fns">https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#integer-arithmetic-instructions-fns</a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 32 inclusive representing the position of the n-th set bit.</p>
+<ul class="simple">
+<li><p>parameter <code class="docutils literal notranslate"><span class="pre">base</span></code> must be &lt;=31, otherwise behavior is undefined. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415__funnelshift_ljjj">
+<span id="_CPPv315__funnelshift_ljjj"></span><span id="_CPPv215__funnelshift_ljjj"></span><span id="__funnelshift_l__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaf939c350eafa2f13d64e278549d3a8aa"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__funnelshift_l</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lo</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hi</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shift</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv415__funnelshift_ljjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code>, shift left by <code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31 bits, return the most significant 32 bits. </p>
+<p>Shift the 64-bit value formed by concatenating argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> and <code class="docutils literal notranslate"><span class="pre">hi</span></code> left by the amount specified by the argument <code class="docutils literal notranslate"><span class="pre">shift</span></code>. Argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> holds bits 31:0 and argument <code class="docutils literal notranslate"><span class="pre">hi</span></code> holds bits 63:32 of the 64-bit source value. The source is shifted left by the wrapped value of <code class="docutils literal notranslate"><span class="pre">shift</span></code> (<code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31). The most significant 32-bits of the result are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 32 bits of the shifted 64-bit value. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416__funnelshift_lcjjj">
+<span id="_CPPv316__funnelshift_lcjjj"></span><span id="_CPPv216__funnelshift_lcjjj"></span><span id="__funnelshift_lc__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga6afcc1126ca2bf68f74c34812cbde57d"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__funnelshift_lc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lo</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hi</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shift</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv416__funnelshift_lcjjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code>, shift left by min(<code class="docutils literal notranslate"><span class="pre">shift</span></code>, 32) bits, return the most significant 32 bits. </p>
+<p>Shift the 64-bit value formed by concatenating argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> and <code class="docutils literal notranslate"><span class="pre">hi</span></code> left by the amount specified by the argument <code class="docutils literal notranslate"><span class="pre">shift</span></code>. Argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> holds bits 31:0 and argument <code class="docutils literal notranslate"><span class="pre">hi</span></code> holds bits 63:32 of the 64-bit source value. The source is shifted left by the clamped value of <code class="docutils literal notranslate"><span class="pre">shift</span></code> (min(<code class="docutils literal notranslate"><span class="pre">shift</span></code>, 32)). The most significant 32-bits of the result are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 32 bits of the shifted 64-bit value. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415__funnelshift_rjjj">
+<span id="_CPPv315__funnelshift_rjjj"></span><span id="_CPPv215__funnelshift_rjjj"></span><span id="__funnelshift_r__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga125eeef4993d16dc8d679b239460fc34"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__funnelshift_r</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lo</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hi</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shift</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv415__funnelshift_rjjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code>, shift right by <code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31 bits, return the least significant 32 bits. </p>
+<p>Shift the 64-bit value formed by concatenating argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> and <code class="docutils literal notranslate"><span class="pre">hi</span></code> right by the amount specified by the argument <code class="docutils literal notranslate"><span class="pre">shift</span></code>. Argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> holds bits 31:0 and argument <code class="docutils literal notranslate"><span class="pre">hi</span></code> holds bits 63:32 of the 64-bit source value. The source is shifted right by the wrapped value of <code class="docutils literal notranslate"><span class="pre">shift</span></code> (<code class="docutils literal notranslate"><span class="pre">shift</span></code> &amp; 31). The least significant 32-bits of the result are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the least significant 32 bits of the shifted 64-bit value. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416__funnelshift_rcjjj">
+<span id="_CPPv316__funnelshift_rcjjj"></span><span id="_CPPv216__funnelshift_rcjjj"></span><span id="__funnelshift_rc__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga66b72e69ee8799b49365b218051b1e4d"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__funnelshift_rc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lo</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hi</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">shift</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv416__funnelshift_rcjjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Concatenate <code class="docutils literal notranslate"><span class="pre">hi</span></code> : <code class="docutils literal notranslate"><span class="pre">lo</span></code>, shift right by min(<code class="docutils literal notranslate"><span class="pre">shift</span></code>, 32) bits, return the least significant 32 bits. </p>
+<p>Shift the 64-bit value formed by concatenating argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> and <code class="docutils literal notranslate"><span class="pre">hi</span></code> right by the amount specified by the argument <code class="docutils literal notranslate"><span class="pre">shift</span></code>. Argument <code class="docutils literal notranslate"><span class="pre">lo</span></code> holds bits 31:0 and argument <code class="docutils literal notranslate"><span class="pre">hi</span></code> holds bits 63:32 of the 64-bit source value. The source is shifted right by the clamped value of <code class="docutils literal notranslate"><span class="pre">shift</span></code> (min(<code class="docutils literal notranslate"><span class="pre">shift</span></code>, 32)). The least significant 32-bits of the result are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the least significant 32 bits of the shifted 64-bit value. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__haddii">
+<span id="_CPPv36__haddii"></span><span id="_CPPv26__haddii"></span><span id="__hadd__i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gac030c6e3e8d0117a0d081e7397ba40dd"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__haddii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute average of signed input arguments, avoiding overflow in the intermediate sum. </p>
+<p>Compute average of signed input arguments <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as ( <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code> ) &gt;&gt; 1, avoiding overflow in the intermediate sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a signed integer value representing the signed average value of the two inputs. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__mul24ii">
+<span id="_CPPv37__mul24ii"></span><span id="_CPPv27__mul24ii"></span><span id="__mul24__i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaffff4cfc8958ec96329c11a797146573"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__mul24</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__mul24ii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of two integers. </p>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. The high order 8 bits of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the least significant 32 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__mul64hixx">
+<span id="_CPPv39__mul64hixx"></span><span id="_CPPv29__mul64hixx"></span><span id="__mul64hi__l-l-i.l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga29b1d773d9393278aae147362827403b"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__mul64hi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv49__mul64hixx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the most significant 64 bits of the product of the two 64-bit integers. </p>
+<p>Calculate the most significant 64 bits of the 128-bit product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are 64-bit integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 64 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__mulhiii">
+<span id="_CPPv37__mulhiii"></span><span id="_CPPv27__mulhiii"></span><span id="__mulhi__i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gac3afa952add7894d6dda0931476d4882"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__mulhi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__mulhiii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the most significant 32 bits of the product of the two 32-bit integers. </p>
+<p>Calculate the most significant 32 bits of the 64-bit product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are 32-bit integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 32 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__popcj">
+<span id="_CPPv36__popcj"></span><span id="_CPPv26__popcj"></span><span id="__popc__unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga43c9c7d2b9ebf202ff1ef5769989be46"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__popc</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__popcj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Count the number of bits that are set to 1 in a 32-bit integer. </p>
+<p>Count the number of bits that are set to 1 in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 32 inclusive representing the number of set bits. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__popclly">
+<span id="_CPPv38__popclly"></span><span id="_CPPv28__popclly"></span><span id="__popcll__unsigned-l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga6bb2f1cc3495f3f2ebe1df6ec52b3aec"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__popcll</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv48__popclly" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Count the number of bits that are set to 1 in a 64-bit integer. </p>
+<p>Count the number of bits that are set to 1 in <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a value between 0 and 64 inclusive representing the number of set bits. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__rhaddii">
+<span id="_CPPv37__rhaddii"></span><span id="_CPPv27__rhaddii"></span><span id="__rhadd__i.i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga92bcad377730dc44cb65ab2c36ca6e43"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__rhadd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__rhaddii" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute rounded average of signed input arguments, avoiding overflow in the intermediate sum. </p>
+<p>Compute average of signed input arguments <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as ( <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code> + 1 ) &gt;&gt; 1, avoiding overflow in the intermediate sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns a signed integer value representing the signed rounded average value of the two inputs. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv45__sadiij">
+<span id="_CPPv35__sadiij"></span><span id="_CPPv25__sadiij"></span><span id="__sad__i.i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gae955ffc59084b5600dd5d223fb26beb0"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__sad</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv45__sadiij" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate <span class="math notranslate nohighlight">\( |x - y| + z \)</span> , the sum of absolute difference. </p>
+<p>Calculate <span class="math notranslate nohighlight">\( |x - y| + z \)</span> , the 32-bit sum of the third argument <code class="docutils literal notranslate"><span class="pre">z</span></code> plus and the absolute value of the difference between the first argument, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and second argument, <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>Inputs <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are signed 32-bit integers, input <code class="docutils literal notranslate"><span class="pre">z</span></code> is a 32-bit unsigned integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( |x - y| + z \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__uhaddjj">
+<span id="_CPPv37__uhaddjj"></span><span id="_CPPv27__uhaddjj"></span><span id="__uhadd__unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gae84cd786a304ddbecfc2bcdb10b06099"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__uhadd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv47__uhaddjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute average of unsigned input arguments, avoiding overflow in the intermediate sum. </p>
+<p>Compute average of unsigned input arguments <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as ( <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code> ) &gt;&gt; 1, avoiding overflow in the intermediate sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an unsigned integer value representing the unsigned average value of the two inputs. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__umul24jj">
+<span id="_CPPv38__umul24jj"></span><span id="_CPPv28__umul24jj"></span><span id="__umul24__unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga2b1446551e854d164e3d4aae25f94a3f"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__umul24</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv48__umul24jj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of two unsigned integers. </p>
+<p>Calculate the least significant 32 bits of the product of the least significant 24 bits of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>. The high order 8 bits of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the least significant 32 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__umul64hiyy">
+<span id="_CPPv310__umul64hiyy"></span><span id="_CPPv210__umul64hiyy"></span><span id="__umul64hi__unsigned-l-l-i.unsigned-l-l-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1gaefaf2a1bb2ad8986b2c248b74461e12e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__umul64hi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv410__umul64hiyy" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the most significant 64 bits of the product of the two 64 unsigned bit integers. </p>
+<p>Calculate the most significant 64 bits of the 128-bit product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are 64-bit unsigned integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 64 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__umulhijj">
+<span id="_CPPv38__umulhijj"></span><span id="_CPPv28__umulhijj"></span><span id="__umulhi__unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga2ea43def3122a1bfb3eb8271a59f4470"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__umulhi</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv48__umulhijj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the most significant 32 bits of the product of the two 32-bit unsigned integers. </p>
+<p>Calculate the most significant 32 bits of the 64-bit product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are 32-bit unsigned integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the most significant 32 bits of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__urhaddjj">
+<span id="_CPPv38__urhaddjj"></span><span id="_CPPv28__urhaddjj"></span><span id="__urhadd__unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga6f364981d9731158e400bae169490b20"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__urhadd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv48__urhaddjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute rounded average of unsigned input arguments, avoiding overflow in the intermediate sum. </p>
+<p>Compute average of unsigned input arguments <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> as ( <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code> + 1 ) &gt;&gt; 1, avoiding overflow in the intermediate sum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an unsigned integer value representing the unsigned rounded average value of the two inputs. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__usadjjj">
+<span id="_CPPv36__usadjjj"></span><span id="_CPPv26__usadjjj"></span><span id="__usad__unsigned-i.unsigned-i.unsigned-i"></span><span class="target" id="group__cuda__math__intrinsic__int_1ga58e819af40fc4a3e9e9c3a4c13cbd0e2"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__usad</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__INT.html#_CPPv46__usadjjj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate <span class="math notranslate nohighlight">\( |x - y| + z \)</span> , the sum of absolute difference. </p>
+<p>Calculate <span class="math notranslate nohighlight">\( |x - y| + z \)</span> , the 32-bit sum of the third argument <code class="docutils literal notranslate"><span class="pre">z</span></code> plus and the absolute value of the difference between the first argument, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and second argument, <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>Inputs <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code> are unsigned 32-bit integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( |x - y| + z \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>
