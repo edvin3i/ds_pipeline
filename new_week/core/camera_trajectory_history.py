@@ -95,26 +95,54 @@ class CameraTrajectoryHistory:
                 # Get last ball position
                 last_ball_pos = self.camera_trajectory[ts1]
 
-                # Interpolate player positions across gap
-                num_fill_points = max(2, int(gap * 15))  # 15 points per second
-                for j in range(1, num_fill_points):
-                    ts_fill = ts1 + (j / num_fill_points) * gap
+                # Get next ball position (after gap)
+                next_ball_pos = self.camera_trajectory[ts2]
 
-                    # Get player center at this time
-                    player_com = players_history.calculate_center_of_mass(ts_fill)
+                # Algorithm: Fill gap with player center-of-mass positions
+                # 1. Start at ts1 (last ball position)
+                # 2. Add player positions every ~2 seconds
+                # 3. Continue until within 2 seconds of ts2 (next ball position)
+                # 4. Then interpolate smoothly to next ball position
+
+                current_ts = ts1
+                fill_step = 2.0  # Add player positions every 2 seconds
+
+                while current_ts + fill_step < ts2 - 2.0:
+                    # Move to next fill point
+                    current_ts += fill_step
+
+                    # Get player center of mass at this timestamp
+                    player_com = players_history.calculate_center_of_mass(current_ts)
 
                     if player_com:
-                        # Smooth transition from ball to player position
-                        alpha = j / num_fill_points  # 0→1
-                        x = (1 - alpha) * last_ball_pos['x'] + alpha * player_com[0]
-                        y = (1 - alpha) * last_ball_pos['y'] + alpha * player_com[1]
+                        times_to_add[float(current_ts)] = {
+                            'x': float(player_com[0]),
+                            'y': float(player_com[1]),
+                            'timestamp': float(current_ts),
+                            'source_type': 'player',
+                            'confidence': 0.35
+                        }
+                        logger.debug(f"  Added player COM at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
 
-                        times_to_add[float(ts_fill)] = {
+                # After adding player positions every 2 seconds, smooth interpolate to next ball position
+                # This ensures we're at the next ball position exactly at ts2
+                if current_ts < ts2 - 0.1:
+                    # Add intermediate interpolated point to smooth transition
+                    transition_ts = current_ts + (ts2 - current_ts) * 0.5
+                    player_com = players_history.calculate_center_of_mass(transition_ts)
+
+                    if player_com:
+                        # Blend between last player position and next ball position
+                        alpha = 0.5  # 50% to next ball position
+                        x = (1 - alpha) * player_com[0] + alpha * next_ball_pos['x']
+                        y = (1 - alpha) * player_com[1] + alpha * next_ball_pos['y']
+
+                        times_to_add[float(transition_ts)] = {
                             'x': x,
                             'y': y,
-                            'timestamp': float(ts_fill),
+                            'timestamp': float(transition_ts),
                             'source_type': 'player',
-                            'confidence': 0.4
+                            'confidence': 0.3
                         }
 
         # Add filled points

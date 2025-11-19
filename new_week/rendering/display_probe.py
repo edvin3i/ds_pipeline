@@ -464,6 +464,37 @@ class DisplayProbeHandler:
                                     logger.warning(f"Reached rect_params limit at index {rect_idx}: {e}")
                                     break
 
+                        # For camera trajectory draw as usual
+                        elif class_name == 'camera_trajectory':
+                            for d in detections_list:
+                                # Check limit
+                                if rect_idx >= max_boxes or rect_idx >= display_meta.num_rects:
+                                    break
+
+                                try:
+                                    cx = d['x']
+                                    cy = d['y']
+                                    w = d['width']
+                                    h = d['height']
+
+                                    left = int(cx - w / 2)
+                                    top = int(cy - h / 2)
+
+                                    rect = display_meta.rect_params[rect_idx]
+                                    rect.left = max(0, left)
+                                    rect.top = max(0, top)
+                                    rect.width = int(max(2, w))
+                                    rect.height = int(max(2, h))
+                                    rect.border_width = class_widths[class_name]
+                                    rect.border_color.set(*color)  # Cyan
+                                    rect.has_bg_color = 0
+
+                                    rect_idx += 1
+                                    total_drawn += 1
+                                except (IndexError, Exception) as e:
+                                    logger.warning(f"Reached rect_params limit at index {rect_idx}: {e}")
+                                    break
+
                         # If limit reached, break outer loop
                         if rect_idx >= max_boxes or rect_idx >= display_meta.num_rects:
                             break
