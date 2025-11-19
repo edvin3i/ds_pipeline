@@ -890,22 +890,140 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
     stitch->kernel_config.output_width = output_surface->surfaceList[0].width;
     stitch->kernel_config.output_height = output_surface->surfaceList[0].height;
     stitch->kernel_config.output_pitch = output_surface->surfaceList[0].planeParams.pitch[0];
-    
-    // Цветокоррекция БЕЗ синхронизации
-    if (stitch->current_frame_number % 30 == 0) {
-        update_color_correction_simple(
-            (const unsigned char*)frames[0].frame.pPitch[0],
-            (const unsigned char*)frames[1].frame.pPitch[0],
-            stitch->weight_left_gpu,
-            stitch->weight_right_gpu,
-            output_surface->surfaceList[0].width,
-            output_surface->surfaceList[0].height,
-            output_surface->surfaceList[0].planeParams.pitch[0],
-            stitch->cuda_stream
-        );
-        // НЕ ЖДЁМ результат!
-        LOG_DEBUG(stitch, "EGL: Color correction update launched at frame %lu", 
-                  stitch->current_frame_number);
+
+    // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6 - EGL path) ==========
+    // Hardware-sync-aware color correction with gamma adjustment
+    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+
+        // Step 1: Check if previous analysis completed (non-blocking)
+        if (stitch->color_analysis_pending) {
+            cudaError_t query_err = cudaEventQuery(stitch->color_analysis_event);
+
+            if (query_err == cudaSuccess) {
+                // Analysis completed! Process results
+                LOG_DEBUG(stitch, "Color analysis completed, processing results...");
+
+                // Copy results from device to host (9 floats)
+                float h_accumulated_sums[9];
+                cudaError_t copy_err = cudaMemcpy(
+                    h_accumulated_sums,
+                    stitch->d_color_analysis_buffer,
+                    9 * sizeof(float),
+                    cudaMemcpyDeviceToHost
+                );
+
+                if (copy_err == cudaSuccess) {
+                    // Finalize factors on CPU
+                    ColorCorrectionFactors new_factors;
+                    finalize_color_correction_factors(
+                        h_accumulated_sums,
+                        &new_factors,
+                        stitch->enable_gamma
+                    );
+
+                    // Apply temporal smoothing to prevent flicker
+                    // formula: smooth = α * new + (1 - α) * old
+                    float alpha = stitch->color_smoothing_factor;
+                    stitch->pending_factors.left_r = alpha * new_factors.left_r +
+                                                     (1.0f - alpha) * stitch->current_factors.left_r;
+                    stitch->pending_factors.left_g = alpha * new_factors.left_g +
+                                                     (1.0f - alpha) * stitch->current_factors.left_g;
+                    stitch->pending_factors.left_b = alpha * new_factors.left_b +
+                                                     (1.0f - alpha) * stitch->current_factors.left_b;
+                    stitch->pending_factors.left_gamma = alpha * new_factors.left_gamma +
+                                                         (1.0f - alpha) * stitch->current_factors.left_gamma;
+
+                    stitch->pending_factors.right_r = alpha * new_factors.right_r +
+                                                      (1.0f - alpha) * stitch->current_factors.right_r;
+                    stitch->pending_factors.right_g = alpha * new_factors.right_g +
+                                                      (1.0f - alpha) * stitch->current_factors.right_g;
+                    stitch->pending_factors.right_b = alpha * new_factors.right_b +
+                                                      (1.0f - alpha) * stitch->current_factors.right_b;
+                    stitch->pending_factors.right_gamma = alpha * new_factors.right_gamma +
+                                                          (1.0f - alpha) * stitch->current_factors.right_gamma;
+
+                    // Update device constant memory with smoothed factors
+                    cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
+                    if (update_err == cudaSuccess) {
+                        // Success! Update current factors
+                        stitch->current_factors = stitch->pending_factors;
+                        LOG_INFO(stitch, "Color correction updated (frame %lu): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
+                                 stitch->current_frame_number,
+                                 stitch->current_factors.left_r, stitch->current_factors.left_g,
+                                 stitch->current_factors.left_b, stitch->current_factors.left_gamma,
+                                 stitch->current_factors.right_r, stitch->current_factors.right_g,
+                                 stitch->current_factors.right_b, stitch->current_factors.right_gamma);
+                    } else {
+                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
+                                    cudaGetErrorString(update_err));
+                    }
+                } else {
+                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                                cudaGetErrorString(copy_err));
+                }
+
+                // Clear pending flag
+                stitch->color_analysis_pending = FALSE;
+
+            } else if (query_err != cudaErrorNotReady) {
+                // Error occurred (not just "not ready")
+                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                            cudaGetErrorString(query_err));
+                stitch->color_analysis_pending = FALSE;
+            }
+            // If cudaErrorNotReady: analysis still running, check next frame
+        }
+
+        // Step 2: Trigger new analysis if interval elapsed and no analysis pending
+        if (!stitch->color_analysis_pending &&
+            (stitch->current_frame_number - stitch->last_color_frame) >= stitch->color_update_interval) {
+
+            // Calculate overlap parameters from property
+            float overlap_center_x = 0.5f;  // Center of panorama (50%)
+            float overlap_width = stitch->overlap_size / 360.0f;  // Convert degrees to normalized [0,1]
+
+            // Get pitch values for EGL frames
+            guint left_pitch = stitch->intermediate_left_surf->surfaceList[0].planeParams.pitch[0];
+            guint right_pitch = stitch->intermediate_right_surf->surfaceList[0].planeParams.pitch[0];
+
+            // Launch async analysis on low-priority stream (EGL pointers)
+            cudaError_t launch_err = analyze_color_correction_async(
+                (const unsigned char*)frames[0].frame.pPitch[0],  // EGL left frame
+                (const unsigned char*)frames[1].frame.pPitch[0],  // EGL right frame
+                left_pitch,
+                right_pitch,
+                output_surface->surfaceList[0].width,
+                output_surface->surfaceList[0].height,
+                stitch->warp_left_x_gpu,
+                stitch->warp_left_y_gpu,
+                stitch->warp_right_x_gpu,
+                stitch->warp_right_y_gpu,
+                stitch->weight_left_gpu,
+                stitch->weight_right_gpu,
+                overlap_center_x,
+                overlap_width,
+                stitch->spatial_falloff,
+                stitch->d_color_analysis_buffer,
+                stitch->color_analysis_stream
+            );
+
+            if (launch_err == cudaSuccess) {
+                // Record event to track completion
+                cudaError_t event_err = cudaEventRecord(stitch->color_analysis_event,
+                                                        stitch->color_analysis_stream);
+                if (event_err == cudaSuccess) {
+                    stitch->color_analysis_pending = TRUE;
+                    stitch->last_color_frame = stitch->current_frame_number;
+                    LOG_DEBUG(stitch, "Color analysis launched (EGL frame %lu)", stitch->current_frame_number);
+                } else {
+                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                                cudaGetErrorString(event_err));
+                }
+            } else {
+                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
+                            cudaGetErrorString(launch_err));
+            }
+        }
     }
 
     // Запускаем kernel (с VIC оптимизацией для буферов)
