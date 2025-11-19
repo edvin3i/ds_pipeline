@@ -2,22 +2,25 @@
 
 This directory contains local copies of NVIDIA CUDA 12.6.0 documentation for offline reference.
 
-## Required Documentation
+## ✅ **Documentation Available**
 
 ### 1. CUDA C++ Programming Guide
-- **Filename**: `cuda-c-programming-guide.html` or `cuda-c-programming-guide.pdf`
+- **Local Path**: `docs.nvidia.com/cuda/archive/12.6.0/cuda-c-programming-guide/index.html`
 - **Online URL**: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html
 - **Purpose**: Core CUDA programming concepts, architecture, API reference
+- **Status**: ✅ Downloaded
 
 ### 2. CUDA C++ Best Practices Guide
-- **Filename**: `cuda-c-best-practices-guide.html` or `cuda-c-best-practices-guide.pdf`
+- **Local Path**: `docs.nvidia.com/cuda/archive/12.6.0/cuda-c-best-practices-guide/index.html`
 - **Online URL**: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html
 - **Purpose**: Performance optimization, best practices, common pitfalls
+- **Status**: ✅ Downloaded
 
 ### 3. CUDA for Tegra
-- **Filename**: `cuda-for-tegra.html` or `cuda-for-tegra.pdf`
+- **Local Path**: `docs.nvidia.com/cuda/archive/12.6.0/cuda-for-tegra-appnote/index.html`
 - **Online URL**: https://docs.nvidia.com/cuda/cuda-for-tegra-appnote/index.html
 - **Purpose**: Jetson-specific optimizations and constraints
+- **Status**: ✅ Downloaded
 
 ## How to Download
 

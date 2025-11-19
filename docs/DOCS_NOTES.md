@@ -840,15 +840,14 @@ sudo jetson_clocks  # Lock clocks to max (for benchmarking)
 ---
 
 **References:**
-- NVIDIA CUDA C++ Best Practices Guide (Local: docs/cuda-12.6.0-docs/cuda-c-best-practices-guide.html)
-- NVIDIA CUDA C++ Programming Guide (Local: docs/cuda-12.6.0-docs/cuda-c-programming-guide.html)
+- NVIDIA CUDA C++ Best Practices Guide (Local: docs/cuda-12.6.0-docs/docs.nvidia.com/cuda/archive/12.6.0/cuda-c-best-practices-guide/index.html)
+- NVIDIA CUDA C++ Programming Guide (Local: docs/cuda-12.6.0-docs/docs.nvidia.com/cuda/archive/12.6.0/cuda-c-programming-guide/index.html)
 - Jetson Orin Developer Guide (Local: docs/hw_arch/nvidia_jetson_orin_nx_16GB_super_arch.pdf)
-- "CUDA for Tegra" Documentation (Local: docs/cuda-12.6.0-docs/cuda-for-tegra.html)
-- Online: https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html
-- Online: https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html
+- CUDA for Tegra Documentation (Local: docs/cuda-12.6.0-docs/docs.nvidia.com/cuda/archive/12.6.0/cuda-for-tegra-appnote/index.html)
+- Online (fallback): https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html
+- Online (fallback): https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html
 
 **Last Updated:** 2025-11-19
-**Note:** Download CUDA 12.6.0 documentation to docs/cuda-12.6.0-docs/ for offline reference
 
 ---
 
