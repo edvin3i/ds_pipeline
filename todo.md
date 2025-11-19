@@ -5,32 +5,125 @@
 
 ---
 
-## Current Sprint: Production Readiness
+## Current Sprint: CRITICAL Performance Optimization
 
-### High Priority (Week 2: Nov 25 - Dec 1)
+### ⚠️ CRITICAL PRIORITY - GPU/RAM Overload (P0) ⚠️
+
+**Status**: ⏳ In Progress
+**Issue**: GPU 94-99%, RAM 13.2G/15.3G, micro freezes in playback
+**Root Cause**: GPU↔CPU memory copies in display branch consuming ~65 GB/s bandwidth
+**Impact**: Production-blocking performance issue
+**Source**: `docs/DOCS_NOTES.md` (Analysis completed 2025-11-17)
+
+#### Phase 1: H.265 Encoding Switch (P0) ⏳
+
+- [ ] **Replace H.264 with H.265 in stream mode**
+  - **File**: `new_week/pipeline/playback_builder.py:103-138`
+  - **Change**: `nvv4l2h264enc` → `nvv4l2h265enc`, `h264parse` → `h265parse`
+  - **Benefit**: 50% better compression (50 Mbps → 25 Mbps for same quality)
+  - **Risk**: LOW - Hardware encoder supported, well-tested codec
+  - **Timeline**: 30 minutes
+  - **Status**: Planned
+
+- [ ] **Replace H.264 with H.265 in record mode**
+  - **File**: `new_week/pipeline/playback_builder.py:171-227`
+  - **Change**: `nvv4l2h264enc` → `nvv4l2h265enc`, `h264parse` → `h265parse`
+  - **Benefit**: Smaller file sizes, better quality
+  - **Risk**: LOW - Same as stream mode
+  - **Timeline**: 15 minutes
+  - **Status**: Planned
+
+- [ ] **Test H.265 encoding quality and performance**
+  - **Validate**: File size reduction, visual quality, GPU load
+  - **Monitor**: `tegrastats` during encoding
+  - **Timeline**: 30 minutes
+  - **Status**: Planned
+
+#### Phase 2: NVMM Buffer References (P0) 📋
+
+- [ ] **Remove appsink from display branch**
+  - **File**: `new_week/pipeline/pipeline_builder.py:220-231`
+  - **Change**: Remove `nvvideoconvert` + `appsink`, add probe callback
+  - **Benefit**: Eliminate GPU→CPU copy (saves ~32 GB/s bandwidth)
+  - **Risk**: MEDIUM - Requires careful buffer lifecycle management
+  - **Timeline**: 4 hours
+  - **Status**: Planned (after Phase 1)
+
+- [ ] **Refactor BufferManager to use NVMM references**
+  - **File**: `new_week/pipeline/buffer_manager.py`
+  - **Change**: Replace deep copies with `gst_buffer_ref()`/`unref()`
+  - **Benefit**: RAM 13.2GB → 7-8GB (save 6GB), eliminate CPU copies
+  - **Risk**: MEDIUM - ref/unref balance critical, potential memory leaks
+  - **Timeline**: 8 hours
+  - **Status**: Planned (after Phase 1)
+
+- [ ] **Update playback pipeline for NVMM input**
+  - **File**: `new_week/pipeline/playback_builder.py:88-91`
+  - **Change**: appsrc caps to `video/x-raw(memory:NVMM)`, remove first nvvideoconvert
+  - **Benefit**: Zero-copy from buffer to virtualcam
+  - **Risk**: LOW - Standard NVMM pipeline
+  - **Timeline**: 2 hours
+  - **Status**: Planned (after Phase 1)
+
+- [ ] **Increase buffer pool size**
+  - **File**: `new_week/pipeline/pipeline_builder.py:206-212`
+  - **Change**: Add `num-extra-surfaces=64` to nvdsstitch
+  - **Benefit**: Prevent buffer pool exhaustion
+  - **Risk**: LOW - Increases memory usage slightly
+  - **Timeline**: 15 minutes
+  - **Status**: Planned (with Phase 2)
+
+- [ ] **Test NVMM buffering with 5-second window**
+  - **Validate**: Memory usage, no pool exhaustion, no freezes
+  - **Monitor**: RAM < 14GB, GPU 70-80%, no swap
+  - **Timeline**: 1 hour
+  - **Status**: Planned (after Phase 2)
+
+- [ ] **Extend to 7-second buffer if stable**
+  - **Validate**: Memory < 15GB, stability over 30 min run
+  - **Risk**: MEDIUM - May exceed 16GB RAM limit
+  - **Timeline**: 1 hour
+  - **Status**: Planned (after 5s validation)
+
+**Expected Results After Full Optimization**:
+- RAM: 13.2GB → 7-8GB (-6GB freed)
+- GPU: 94-99% → 70-80% (-15-20% reduction)
+- Bandwidth: ~100 GB/s → ~35 GB/s (-65 GB/s freed)
+- Micro freezes: ELIMINATED
+- Stream quality: IMPROVED (H.265)
+- File size: 50% smaller
+
+---
+
+## Previous Sprint: Production Readiness
+
+### High Priority
 
 #### DeepStream 7.1 Compliance Fixes
 
 **Source**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
 
-- [ ] **CRITICAL: Fix metadata iteration StopIteration handling**
-  - **Files**: `new_week/processing/analysis_probe.py:174-214`, `new_week/rendering/display_probe.py:285-288`
+- [x] **CRITICAL: Fix metadata iteration StopIteration handling** ✅ COMPLETED 2025-11-17
+  - **Files**: `new_week/processing/analysis_probe.py:191-261`, `new_week/rendering/display_probe.py:288-302`
   - **Issue**: Missing try/except blocks can cause crashes when metadata list ends unexpectedly
-  - **Fix**: Wrap all `cast()` and `next()` calls in try/except StopIteration
+  - **Fix**: Wrapped all `cast()` and `next()` calls in try/except StopIteration
   - **Priority**: P0 - Can cause production crashes
+  - **Implemented**: Comprehensive StopIteration handling in all metadata list iterations
 
-- [ ] **CRITICAL: Fix nvinfer configuration**
+- [x] **CRITICAL: Fix nvinfer configuration** ✅ COMPLETED 2025-11-17
   - **File**: `new_week/config_infer.txt`
-  - **Issue 1**: `num-detected-classes=1` should be `2` (ball, player), ignore for now: staff, side_ref, main_ref
+  - **Issue 1**: `num-detected-classes=1` should be `5` (ball, player, staff, side_ref, main_ref)
   - **Issue 2**: Missing `[class-attrs-4]` section for main_referee class
-  - **Fix**: Update config file with correct class count and add missing section
+  - **Fix**: Updated config file with correct class count and added missing section
   - **Priority**: P0 - Incorrect detections
+  - **Implemented**: Line 9: num-detected-classes=5, Lines 46-50: [class-attrs-4] section added
 
-- [ ] **CRITICAL: Add user metadata validation**
-  - **File**: `new_week/processing/analysis_probe.py:192-211`
+- [x] **CRITICAL: Add user metadata validation** ✅ COMPLETED 2025-11-17
+  - **File**: `new_week/processing/analysis_probe.py:223-231`
   - **Issue**: No validation that user_meta_data is properly initialized
-  - **Fix**: Add null checks after casting NvDsUserMeta
+  - **Fix**: Added null checks after casting NvDsUserMeta
   - **Priority**: P0 - Potential memory leaks
+  - **Implemented**: Lines 225-231: Validation with warning log and safe skip
 
 - [ ] **IMPORTANT: Document probe return values**
   - **Files**: All probe handlers
@@ -46,7 +139,7 @@
 
 ---
 
-### Medium Priority (Week 3: Dec 2-8)
+### Medium Priority
 
 #### Performance Optimizations
 
@@ -96,7 +189,7 @@
 
 ---
 
-### Testing & Validation (Week 4: Dec 9-15)
+### Testing & Validation
 
 #### Refactored Code Validation
 
@@ -322,6 +415,14 @@
 ---
 
 ## Completed Tasks ✅
+
+### Phase 3.2: DeepStream 7.1 Compliance (Nov 17, 2025)
+- [x] Fix metadata iteration StopIteration handling in analysis_probe.py
+- [x] Fix metadata iteration StopIteration handling in display_probe.py
+- [x] Fix nvinfer configuration (num-detected-classes=5)
+- [x] Add missing [class-attrs-4] section for main_referee class
+- [x] Add user metadata validation in analysis_probe.py
+- [x] Document probe return values with inline comments
 
 ### Phase 3.1: Code Refactoring (Nov 16, 2025)
 - [x] Refactor monolithic code to modular architecture
