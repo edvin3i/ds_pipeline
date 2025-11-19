@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Initialization Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="Signal Statistical Functions" href="signal_statistical_functions.html">
+    <link rel="prev" title="Signal Filtering Functions" href="signal_filtering_functions.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1 current">
+<a class="current reference internal" href="signal_initialization.html#">Signal Initialization Functions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-set">Signal Set</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__set_1signal_set">Set</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-zero">Signal Zero</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__zero_1signal_zero">Zero</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="signal_initialization.html#signal-copy">Signal Copy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="signal_initialization.html#group__signal__copy_1signal_copy">Copy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Signal Initialization Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="signal-initialization-functions">
+<span id="signal_initialization"></span><h1>Signal Initialization Functions<a class="headerlink" href="signal_initialization.html#signal-initialization-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__signal__initialization">Functions that provide functionality of initialization signal like: set, zero or copy other signal. </p>
+<section id="signal-set">
+<h2>Signal Set<a class="headerlink" href="signal_initialization.html#signal-set" title="Permalink to this headline"></a>
+</h2>
+<section id="group__signal__set_1signal_set">
+<span id="group__signal__set"></span><h3>Set<a class="headerlink" href="signal_initialization.html#group__signal__set_1signal_set" title="Permalink to this headline"></a>
+</h3>
+<p id="group__signal__set_1signal_set">The set of set initialization operations available in the library. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-set">Set</p>
+<p>Set methods for 1D vectors of various types.</p>
+<p>The copy methods operate on vector data given as a pointer to the underlying data-type (e.g. 8-bit vectors would be passed as pointers to Npp8u type) and length of the vectors, i.e. the number of items. </p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_8u_Ctx">
+<span class="target" id="group__signal__set_1gae68a3605fd4fbd381486a20fb0a3b0ae"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_8u_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_8u_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_8u">
+<span class="target" id="group__signal__set_1ga6c703dbb3f37b7cfd7ebd17e05b5cec1"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_8u</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_8u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_8s_Ctx">
+<span class="target" id="group__signal__set_1gae0c5c4157c05bf591ffeaa9a8434ca86"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_8s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8s" title="Npp8s"><span class="n"><span class="pre">Npp8s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8s" title="Npp8s"><span class="n"><span class="pre">Npp8s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_8s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit signed char, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_8s">
+<span class="target" id="group__signal__set_1ga78a3c381db2cc464b4ea1775d66047d8"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_8s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8s" title="Npp8s"><span class="n"><span class="pre">Npp8s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8s" title="Npp8s"><span class="n"><span class="pre">Npp8s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_8s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit signed char, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16u_Ctx">
+<span class="target" id="group__signal__set_1gad7b71674964cdd95a8eff32d6ff06d5d"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16u_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16u_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit unsigned integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16u">
+<span class="target" id="group__signal__set_1ga590f61818dbba66f1227adee06e11a47"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16u</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit unsigned integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16s_Ctx">
+<span class="target" id="group__signal__set_1ga173bf2f5e794ab6e79dfcb7e278775a1"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signed integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16s">
+<span class="target" id="group__signal__set_1gada21f633d999804dd20413c9bdd75388"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signed integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16sc_Ctx">
+<span class="target" id="group__signal__set_1ga708ac2863a07a69d0604a59b7d61702a"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_16sc">
+<span class="target" id="group__signal__set_1ga6661738ab464c7d9079a92153165d0ce"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_16sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_16sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32u_Ctx">
+<span class="target" id="group__signal__set_1ga02a2d003459a8aded2fa9d201218186b"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32u_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32u_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit unsigned integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32u">
+<span class="target" id="group__signal__set_1ga8d7f9b986cf7573b09278858749f8fdd"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32u</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit unsigned integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32s_Ctx">
+<span class="target" id="group__signal__set_1ga0ed8e03bbf28ae47f971e49dc46a38b8"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit signed integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32s">
+<span class="target" id="group__signal__set_1ga728e7646b7be79d0c45eee2b2df95476"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit signed integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32sc_Ctx">
+<span class="target" id="group__signal__set_1gafc3d67943949eb3044c8832a51a6f639"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32sc">
+<span class="target" id="group__signal__set_1ga2da96b2ab939dad9a833edf6165e5fbc"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32f_Ctx">
+<span class="target" id="group__signal__set_1gac1cfcc718bbe60d8f9d210b3200aba42"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32f">
+<span class="target" id="group__signal__set_1ga4af3205638fd8a4991b472892da8208d"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32f</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32fc_Ctx">
+<span class="target" id="group__signal__set_1ga0ae96e2b9de46adffceee07a59fea4f0"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32fc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_32fc">
+<span class="target" id="group__signal__set_1gac761e433504b3f4c091691d73656594a"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_32fc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_32fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64s_Ctx">
+<span class="target" id="group__signal__set_1gabc009b2512ac49e3fbe0ba9e03ff0ca5"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64s">
+<span class="target" id="group__signal__set_1gaf6c8ddca30b73e49af3e8faac92cff28"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64sc_Ctx">
+<span class="target" id="group__signal__set_1gaf60776dfddd4609cad8e8edacb7cd7eb"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64sc">
+<span class="target" id="group__signal__set_1ga0f518535523164b51d4e424100151bbe"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64f_Ctx">
+<span class="target" id="group__signal__set_1gafc65b39a28334fc4a00161b48b906f96"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64f">
+<span class="target" id="group__signal__set_1gae5791fa167d117be084f2d2716d72ec5"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64f</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64fc_Ctx">
+<span class="target" id="group__signal__set_1ga6980adc49fe1591fb7389549a2588377"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64fc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsSet_64fc">
+<span class="target" id="group__signal__set_1ga0db63ec0cc104ddb0158d3032f70e1cb"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsSet_64fc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="n"><span class="pre">nValue</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsSet_64fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double complex, vector set method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nValue</strong> – Value used to initialize the vector pDst. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+<section id="signal-zero">
+<h2>Signal Zero<a class="headerlink" href="signal_initialization.html#signal-zero" title="Permalink to this headline"></a>
+</h2>
+<section id="group__signal__zero_1signal_zero">
+<span id="group__signal__zero"></span><h3>Zero<a class="headerlink" href="signal_initialization.html#group__signal__zero_1signal_zero" title="Permalink to this headline"></a>
+</h3>
+<p id="group__signal__zero_1signal_zero">The set of zero initialization operations available in the library. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-zero">Zero</p>
+<p>Set signals to zero. </p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_8u_Ctx">
+<span class="target" id="group__signal__zero_1ga429043cd39f91459a2f42edf9570af01"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_8u_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_8u_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_8u">
+<span class="target" id="group__signal__zero_1ga711decf1c978b96570e4cda85d56a070"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_8u</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_8u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_16s_Ctx">
+<span class="target" id="group__signal__zero_1ga7c987a05dbab9b65fd884fe83f4ac43c"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_16s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_16s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_16s">
+<span class="target" id="group__signal__zero_1gad729589aba4b58e35571099049003f75"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_16s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_16s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_16sc_Ctx">
+<span class="target" id="group__signal__zero_1gaad769c8bda3ccb7ee0dfdc23987e3b49"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_16sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_16sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_16sc">
+<span class="target" id="group__signal__zero_1ga90eea68fa63327b3e2111d980a3cb62f"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_16sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_16sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32s_Ctx">
+<span class="target" id="group__signal__zero_1gab3ef02ce4923a164582b420f88c99dd9"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32s">
+<span class="target" id="group__signal__zero_1ga992bd884dc44f60b2c646200144ea315"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32sc_Ctx">
+<span class="target" id="group__signal__zero_1ga9ac34083e324ce284fae8b9554a4ee38"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32sc">
+<span class="target" id="group__signal__zero_1ga7794ba905457b2a935021748fdcb9df9"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32f_Ctx">
+<span class="target" id="group__signal__zero_1gad0710440617c4e0d881fed54bca1c377"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32f">
+<span class="target" id="group__signal__zero_1gab1ea84547c191ca397f76b17409b4646"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32f</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32fc_Ctx">
+<span class="target" id="group__signal__zero_1gadd3df7c8187228a28d71586b37f1cb8c"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32fc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_32fc">
+<span class="target" id="group__signal__zero_1ga37e1a1c5f8e927e3e41458ad5f69143b"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_32fc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_32fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64s_Ctx">
+<span class="target" id="group__signal__zero_1gaa23fd84483a40344e95d1e1ccb6dc9a3"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64s_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64s">
+<span class="target" id="group__signal__zero_1gad99c7625e81db6f13fa8e6ff5e7c7ad4"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64s</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64sc_Ctx">
+<span class="target" id="group__signal__zero_1ga29bf5009877908e1e24f8016a8a18b89"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64sc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64sc">
+<span class="target" id="group__signal__zero_1ga300c808f6b2701e098b26569ca4017a8"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64sc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long long integer complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64f_Ctx">
+<span class="target" id="group__signal__zero_1ga1f20e0471561327fff6e63183b17ded6"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64f_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64f">
+<span class="target" id="group__signal__zero_1ga4882d852e6d725afa3b3d9360bcc9c0d"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64f</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64fc_Ctx">
+<span class="target" id="group__signal__zero_1ga445ac7579bbae818efa5712b1a549742"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64fc_Ctx</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsZero_64fc">
+<span class="target" id="group__signal__zero_1gac0033c0b674d1a9a39dc0dac65192fd7"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsZero_64fc</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsZero_64fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit double complex, vector zero method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+<section id="signal-copy">
+<h2>Signal Copy<a class="headerlink" href="signal_initialization.html#signal-copy" title="Permalink to this headline"></a>
+</h2>
+<section id="group__signal__copy_1signal_copy">
+<span id="group__signal__copy"></span><h3>Copy<a class="headerlink" href="signal_initialization.html#group__signal__copy_1signal_copy" title="Permalink to this headline"></a>
+</h3>
+<p id="group__signal__copy_1signal_copy">The set of copy initialization operations available in the library. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-copy">Copy</p>
+<p>Copy methods for various type signals.</p>
+<p>Copy methods operate on signal data given as a pointer to the underlying data-type (e.g. 8-bit vectors would be passed as pointers to Npp8u type) and length of the vectors, i.e. the number of items. </p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_8u_Ctx">
+<span class="target" id="group__signal__copy_1gadab2230e8e805b2cfe37ceddbd5aa6c7"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_8u_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_8u_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector copy method </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_8u">
+<span class="target" id="group__signal__copy_1gaba5ec8124a3715ed33d190f61e47094b"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_8u</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_8u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned char, vector copy method </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_16s_Ctx">
+<span class="target" id="group__signal__copy_1ga343d2956d736db1fed20aedab52f512f"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_16s_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_16s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signed short, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_16s">
+<span class="target" id="group__signal__copy_1ga76e20b5baf685b251cbc4b4700421acc"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_16s</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_16s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signed short, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32s_Ctx">
+<span class="target" id="group__signal__copy_1gadda6ff18987539da6c5d1a50df9bf2ef"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32s_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32s">
+<span class="target" id="group__signal__copy_1gafb122cb974f887ddacf81208f715fd1a"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32s</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32f_Ctx">
+<span class="target" id="group__signal__copy_1gaf2e98edc34dea3f35c9b101de7f816be"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32f_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32f_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32f">
+<span class="target" id="group__signal__copy_1ga47995d54e6fba80f3fc60b4e03493d41"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32f</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64s_Ctx">
+<span class="target" id="group__signal__copy_1ga663dc3376fc60ffa4dfe2129164cc41d"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64s_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64s">
+<span class="target" id="group__signal__copy_1gaa3a811ac3eac1a6a58a317ab8f7f5294"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64s</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_16sc_Ctx">
+<span class="target" id="group__signal__copy_1ga7a074c47120486b3b0a16055d7b11c60"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_16sc_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_16sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit complex short, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_16sc">
+<span class="target" id="group__signal__copy_1gae0e86ff42df23be952f8bd276a40dce1"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_16sc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_16sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit complex short, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32sc_Ctx">
+<span class="target" id="group__signal__copy_1ga8cd7a6631c5fd893da2591f6be2fd5e6"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32sc_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32sc">
+<span class="target" id="group__signal__copy_1ga155b5a7d184efe0e21939d14c71105c6"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32sc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32fc_Ctx">
+<span class="target" id="group__signal__copy_1ga9964864371fd133108ed67b7f3735c15"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32fc_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex float, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_32fc">
+<span class="target" id="group__signal__copy_1ga06dd8dd9b6d571ee89c0acb9fa7fcdc6"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_32fc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_32fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex float, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64sc_Ctx">
+<span class="target" id="group__signal__copy_1ga2eaca0ebd4945ac7b21ec8864953c2bf"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64sc_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64sc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64sc">
+<span class="target" id="group__signal__copy_1ga4e9d038ca6745ed1d3da8d97cfb59722"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64sc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex signed integer, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64fc_Ctx">
+<span class="target" id="group__signal__copy_1ga192e599d8a7c5d2d31c223adfda53ee8"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64fc_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64fc_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex double, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsCopy_64fc">
+<span class="target" id="group__signal__copy_1gaf066e809c07df93fdaf0108c0353b470"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsCopy_64fc</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_initialization.html#c.nppsCopy_64fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex double, vector copy method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1destination_signal_pointer"><span class="std std-ref">Destination Signal Pointer</span></a>. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The guide for using NVIDIA CUDA on Windows Subsystem for Linux." name="description">
+<meta content="CUDA WSL User Guide, WSL, Microsoft Windows" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA on WSL</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. NVIDIA GPU Accelerated Computing on WSL 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvidia-compute-software-support-on-wsl-2">1.1. NVIDIA Compute Software Support on WSL 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#getting-started-with-cuda-on-wsl-2">2. Getting Started with CUDA on WSL 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-1-install-nvidia-driver-for-gpu-support">2.1. Step 1: Install NVIDIA Driver for GPU Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-2-install-wsl-2">2.2. Step 2: Install WSL 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#step-3-set-up-a-linux-development-environment">2.3. Step 3: Set Up a Linux Development Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-support-for-wsl-2">3. CUDA Support for WSL 2</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#wsl-2-support-constraints">4. WSL 2 Support Constraints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#known-limitations-for-linux-cuda-applications">4.1. Known Limitations for Linux CUDA Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#features-not-yet-supported">4.2. Features Not Yet Supported</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#appendix">5. Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#windows-insider-preview-and-windows-10-support">5.1. Windows Insider Preview and Windows 10 Support</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#troubleshooting">5.2. Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#container-runtime-initialization-errors">5.2.1. Container Runtime Initialization Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#checking-wsl-kernel-version">5.2.2. Checking WSL Kernel Version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#traditional-virtual-machines-vs-wsl-2">5.3. Traditional Virtual Machines vs WSL 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#containers-vs-wsl-2">5.4. Containers vs WSL 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">6. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">6.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">6.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">6.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">CUDA on WSL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>NVIDIA GPU Accelerated Computing on WSL 2</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_on_WSL_User_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">CUDA on WSL User Guide</p>
+<p>The guide for using NVIDIA CUDA on Windows Subsystem for Linux.</p>
+<section id="nvidia-gpu-accelerated-computing-on-wsl-2">
+<h1>
+<span class="section-number">1. </span>NVIDIA GPU Accelerated Computing on WSL 2<a class="headerlink" href="index.html#nvidia-gpu-accelerated-computing-on-wsl-2" title="Permalink to this headline"></a>
+</h1>
+<p>WSL or Windows Subsystem for Linux is a Windows feature that enables users to run native Linux applications, containers and command-line tools directly on Windows 11 and later OS builds. CUDA support in this user guide is specifically for WSL 2, which is the second generation of WSL that offers the following benefits</p>
+<ul class="simple">
+<li><p>Linux applications can run as is in WSL 2. WSL 2 is characteristically a VM with a Linux WSL Kernel in it that provides full compatibility with mainstream Linux kernel allowing support for native Linux applications including popular Linux distros.</p></li>
+<li><p>Faster file system support and that’s more performant.</p></li>
+<li><p>WSL 2 is tightly integrated with the Microsoft Windows operating system, which allows it to run Linux applications alongside and even interop with other Windows desktop and modern store apps.</p></li>
+</ul>
+<p>For the rest of this user guide, WSL and WSL 2 may be used interchangeably.</p>
+<p>Typically, developers working across both Linux and Windows environments have a very disruptive workflow. They either have to:</p>
+<ul class="simple">
+<li><p>Use different systems for Linux and Windows, or</p></li>
+<li><p>Dual Boot i.e. install Linux and Windows in separate partitions on the same or different hard disks on the system and boot to the OS of choice.</p></li>
+</ul>
+<p>In both cases, developers have to stop all the work and then switch the system or reboot. Also this has historically restricted the development of seamless, well integrated tools and software systems across two dominant ecosystems.</p>
+<p>WSL enables users to have a seamless transition across the two environments without the need for a resource intensive traditional virtual machine and to improve productivity and develop using tools and integrate their workflow. More importantly WSL 2 enables applications that were hitherto only available on Linux to be available on Windows. WSL 2 support for GPU allows for these applications to benefit from GPU accelerated computing and expands the domain of applications that can be developed on WSL 2.</p>
+<p>With NVIDIA CUDA support for WSL 2, developers can leverage NVIDIA GPU accelerated computing technology for data science, machine learning and inference on Windows through WSL. GPU acceleration also serves to bring down the performance overhead of running an application inside a WSL like environment close to near-native by being able to pipeline more parallel work on the GPU with less CPU intervention.</p>
+<p>NVIDIA driver support for WSL 2 includes not only CUDA but also DirectX and Direct ML support. For some helpful examples, see <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/direct3d12/gpu-tensorflow-wsl">https://docs.microsoft.com/en-us/windows/win32/direct3d12/gpu-tensorflow-wsl</a>.</p>
+<p>WSL 2 is a key enabler in making GPU acceleration to be seamlessly shared between Windows and Linux applications on the same system a reality. This offers flexibility and versatility while also serving to open up GPU accelerated computing by making it more accessible.</p>
+<figure class="align-center" id="gpu-accelerated-computing-cuda-wsl-stack">
+<a class="reference internal image-reference" href="_images/wsl-launch-upt-0625-rz.png"><img alt="Illustration of the possibilities with NVIDIA CUDA software stack on WSL 2" src="_images/wsl-launch-upt-0625-rz.png" style="width: 480px;"></a>
+<figcaption>
+<p><span class="caption-text">Figure 1. Illustration of the possibilities with NVIDIA CUDA software stack on WSL 2</span><a class="headerlink" href="index.html#gpu-accelerated-computing-cuda-wsl-stack" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>This document describes a workflow for getting started with running CUDA applications or containers in a WSL 2 environment.</p>
+<section id="nvidia-compute-software-support-on-wsl-2">
+<h2>
+<span class="section-number">1.1. </span>NVIDIA Compute Software Support on WSL 2<a class="headerlink" href="index.html#nvidia-compute-software-support-on-wsl-2" title="Permalink to this headline"></a>
+</h2>
+<p>This table captures the readiness and suggested software versions for NVIDIA software stack for WSL 2.</p>
+<table class="table-no-stripes colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Package</p></th>
+<th class="head"><p>Suggested Versions</p></th>
+<th class="head"><p>Installation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>NVIDIA Windows Driver x86</p></td>
+<td>
+<p>Use the latest Windows x86 production driver. R495 and later windows will have CUDA support for WSL 2.
+NVIDIA-SMI will have a Limited Feature Set on WSL 2.</p>
+<p>Legacy CUDA IPC APIs are support from R510.</p>
+</td>
+<td><p>Windows x86 drivers can be directly downloaded from <a class="reference external" href="https://www.nvidia.com/Download/index.aspx">https://www.nvidia.com/Download/index.aspx</a> for WSL 2 support on Pascal or later GPUs.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Docker support</p></td>
+<td>
+<p>Supported.</p>
+<p>NVIDIA Container Toolkit - Minimum versions - v2.6.0 with libnvidia-container - 1.5.1+</p>
+<p>CLI and Docker Desktop Supported.</p>
+</td>
+<td><p>Refer to <a class="reference external" href="https://docs.nvidia.com/ai-enterprise/deployment-guide-vmware/0.1.0/docker.html">https://docs.nvidia.com/ai-enterprise/deployment-guide-vmware/0.1.0/docker.html</a>.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>CUDA Toolkit and CUDA Developer Tools</p></td>
+<td>
+<p>Preview Support</p>
+<p>Compute Sanitizer - Pascal and later</p>
+<p>Nsight Systems CLI, and CUPTI (Trace) - Volta and later</p>
+<p>Developer tools - Debuggers - Pascal and later (Using driver r535+)</p>
+<p>Developer tools - Profilers - Volta and later (Using Windows 10 OS build 19044+ with driver r545+ or
+using Windows 11 with driver r525+ )</p>
+</td>
+<td><p>Latest Linux CUDA toolkit package - WSL-Ubuntu from 12.x releases can be downloaded from <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>RAPIDS</p></td>
+<td><p>22.04 or later 1.10 - Experimental Support for single GPU.</p></td>
+<td><p><a class="reference external" href="https://docs.rapids.ai/notices/rgn0024/">https://docs.rapids.ai/notices/rgn0024/</a></p></td>
+</tr>
+<tr class="row-even">
+<td><p>NCCL</p></td>
+<td><p>2.12 or later 1.4+</p></td>
+<td><p>Refer to the <a class="reference external" href="https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#down">NCCL Installation guide for Linux x86</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="getting-started-with-cuda-on-wsl-2">
+<h1>
+<span class="section-number">2. </span>Getting Started with CUDA on WSL 2<a class="headerlink" href="index.html#getting-started-with-cuda-on-wsl-2" title="Permalink to this headline"></a>
+</h1>
+<p>To get started with running CUDA on WSL, complete these steps in order:</p>
+<section id="step-1-install-nvidia-driver-for-gpu-support">
+<h2>
+<span class="section-number">2.1. </span>Step 1: Install NVIDIA Driver for GPU Support<a class="headerlink" href="index.html#step-1-install-nvidia-driver-for-gpu-support" title="Permalink to this headline"></a>
+</h2>
+<ul class="simple">
+<li><p>Install NVIDIA GeForce Game Ready or NVIDIA RTX Quadro Windows 11 display driver on your system with a compatible GeForce or NVIDIA RTX/Quadro card from <a class="reference external" href="https://www.nvidia.com/Download/index.aspx">https://www.nvidia.com/Download/index.aspx</a>. Refer to the system requirements in the Appendix.)</p></li>
+</ul>
+<blockquote>
+<div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>This is the only driver you need to install. Do not install any Linux display driver in WSL.</strong></p>
+</div>
+</div>
+</blockquote>
+</section>
+<section id="step-2-install-wsl-2">
+<h2>
+<span class="section-number">2.2. </span>Step 2: Install WSL 2<a class="headerlink" href="index.html#step-2-install-wsl-2" title="Permalink to this headline"></a>
+</h2>
+<ol class="arabic">
+<li>
+<p>Launch your preferred Windows Terminal / Command Prompt / Powershell and install WSL:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>wsl.exe --install
+</pre></div>
+</div>
+</li>
+<li>
+<p>Ensure you have the latest WSL kernel:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>wsl.exe --update
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="step-3-set-up-a-linux-development-environment">
+<h2>
+<span class="section-number">2.3. </span>Step 3: Set Up a Linux Development Environment<a class="headerlink" href="index.html#step-3-set-up-a-linux-development-environment" title="Permalink to this headline"></a>
+</h2>
+<p>From a Windows terminal, enter WSL:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>C:\&gt; wsl.exe
+</pre></div>
+</div>
+<p>The default distro is Ubuntu. To update the distro to your favorite distro from the command line and to review other WSL commands, refer to the following resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/install">https://docs.microsoft.com/en-us/windows/wsl/install</a></p></li>
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/basic-commands">https://docs.microsoft.com/en-us/windows/wsl/basic-commands</a></p></li>
+</ul>
+<p>From this point you should be able to run any existing Linux application which requires CUDA. Do not install any driver within the WSL environment. For building a CUDA application, you will need CUDA Toolkit. Read the next section for further information.</p>
+</section>
+</section>
+<section id="cuda-support-for-wsl-2">
+<h1>
+<span class="section-number">3. </span>CUDA Support for WSL 2<a class="headerlink" href="index.html#cuda-support-for-wsl-2" title="Permalink to this headline"></a>
+</h1>
+<p>The <a class="reference external" href="https://www.nvidia.com/Download/index.aspx?lang=en-us">latest NVIDIA Windows GPU Driver</a> will fully support WSL 2. With CUDA support in the driver, existing applications (compiled elsewhere on a Linux system for the same target GPU) can run unmodified within the WSL environment.</p>
+<p>To compile new CUDA applications, a CUDA Toolkit for Linux x86 is needed. CUDA Toolkit support for WSL is still in preview stage as developer tools such as profilers are not available yet. However, CUDA application development is fully supported in the WSL2 environment, as a result, users should be able to compile new CUDA Linux applications with the latest CUDA Toolkit for x86 Linux.</p>
+<p>Once a Windows NVIDIA GPU driver is installed on the system, CUDA becomes available within WSL 2. The CUDA driver installed on Windows host will be stubbed inside the WSL 2 as <code class="docutils literal notranslate"><span class="pre">libcuda.so</span></code>, therefore <strong>users must not install any NVIDIA GPU Linux driver within WSL 2</strong>. One has to be very careful here as the default CUDA Toolkit comes packaged with a driver, and it is easy to overwrite the WSL 2 NVIDIA driver with the default installation. We recommend developers to use a separate CUDA Toolkit for WSL 2 (Ubuntu) available from the <a class="reference external" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=WSL-Ubuntu&amp;target_version=2.0">CUDA Toolkit Downloads</a> page to avoid this overwriting. This WSL-Ubuntu CUDA toolkit installer will not overwrite the NVIDIA driver that was already mapped into the WSL 2 environment. To learn how to compile CUDA applications, please read the CUDA documentation for Linux.</p>
+<p>First, remove the old GPG key:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo apt-key del 7fa2af80
+</pre></div>
+</div>
+<p><strong>Option 1: Installation of Linux x86 CUDA Toolkit using WSL-Ubuntu Package - Recommended</strong></p>
+<p>The CUDA WSL-Ubuntu local installer does not contain the NVIDIA Linux GPU driver, so by following the steps on the CUDA <a class="reference external" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=WSL-Ubuntu&amp;target_version=2.0&amp;target_type=deb_local">download page for WSL-Ubuntu</a>, you will be able to get just the CUDA toolkit installed on WSL.</p>
+<p><strong>Option 2: Installation of Linux x86 CUDA Toolkit using Meta Package</strong></p>
+<p>If you installed the toolkit using the WSL-Ubuntu package, please skip this section. Meta packages do not contain the driver, so by following the steps on the download page for <a class="reference external" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=Ubuntu&amp;target_version=20.04&amp;target_type=deb_local">Ubuntu</a>, you will be able to get just the CUDA toolkit installed on WSL.</p>
+<p>The installation instructions for the CUDA Toolkit can be found in the CUDA Toolkit download page for each installer. But DO NOT choose the “<code class="docutils literal notranslate"><span class="pre">cuda</span></code>”, “<code class="docutils literal notranslate"><span class="pre">cuda-12-x</span></code>”, or “<code class="docutils literal notranslate"><span class="pre">cuda-drivers</span></code>” meta-packages under WSL 2 as these packages will result in an attempt to install the Linux NVIDIA driver under WSL 2. Install the <code class="docutils literal notranslate"><span class="pre">cuda-toolkit-12-x</span></code> metapackage only.</p>
+<p>You can also install other components of the toolkit by choosing the right <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-metas">meta-package</a>.</p>
+</section>
+<section id="wsl-2-support-constraints">
+<h1>
+<span class="section-number">4. </span>WSL 2 Support Constraints<a class="headerlink" href="index.html#wsl-2-support-constraints" title="Permalink to this headline"></a>
+</h1>
+<ul class="simple">
+<li><p>WSL 2 GPU acceleration will be available on Pascal and later GPU architecture on both GeForce and Quadro product SKUs in WDDM mode. It will not be available on Quadro GPUs in TCC mode or Tesla GPUs yet.</p></li>
+<li><p>Ensure you are on the latest WSL Kernel or at least 4.19.121+. We recommend 5.10.16.3 or later for better performance and functional fixes.</p></li>
+<li><p>If you are on Windows 11, you no longer need to be on Windows Insider Program to use WSL. Refer to Windows11 <a class="reference external" href="https://blogs.windows.com/windows-insider/2021/06/28/update-on-windows-11-minimum-system-requirements/">system requirements in the Microsoft Blog</a>.</p></li>
+<li><p>If you are continuing to use Windows 10, see <a class="reference external" href="index.html#installing-insider-preview-builds">Windows Insider Preview and Windows 10 Support</a>.</p></li>
+</ul>
+<section id="known-limitations-for-linux-cuda-applications">
+<h2>
+<span class="section-number">4.1. </span>Known Limitations for Linux CUDA Applications<a class="headerlink" href="index.html#known-limitations-for-linux-cuda-applications" title="Permalink to this headline"></a>
+</h2>
+<p>The following table lists the known limitations on WSL 2 that may affect CUDA applications that use some of these features that are fully supported on Linux.</p>
+<table class="table-no-stripes colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Limitations</p></th>
+<th class="head"><p>Impact</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Maxwell GPU is not supported.</p></td>
+<td><p>Maxwell GPUs are not officially supported in WSL 2, but it may still work. Pascal and later GPU is recommended.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Unified Memory - Full Managed Memory Support is not available on Windows native and therefore WSL 2 will not support it for the foreseeable future.</p></td>
+<td>
+<p>UVM full features will not be available and therefore applications relying on UVM full features may not work.</p>
+<p>If your application is using Managed Memory, your application could see reduced performance and high system memory usage.</p>
+<p>Concurrent CPU/GPU access is not supported. CUDA queries will say whether it is supported or not and applications are expected to check this.</p>
+</td>
+</tr>
+<tr class="row-even">
+<td><p>Pinned system memory (example: System memory that an application makes resident for GPU accesses) availability for applications is limited.</p></td>
+<td><p>For example, some deep learning training workloads, depending on the framework, model and dataset size used, can exceed this limit and may not work.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Root user on bare metal (not containers) will not find nvidia-smi at the expected location.</p></td>
+<td><p>Use <code class="docutils literal notranslate"><span class="pre">/usr/lib/wsl/lib/nvidia-smi</span></code> or manually add <code class="docutils literal notranslate"><span class="pre">/usr/lib/wsl/lib/</span></code> to the PATH).</p></td>
+</tr>
+<tr class="row-even">
+<td><p>With the NVIDIA Container Toolkit for Docker 19.03, only <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> is supported.</p></td>
+<td><p>On multi-GPU systems it is not possible to filter for specific GPU devices by using specific index numbers to enumerate GPUs.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="features-not-yet-supported">
+<h2>
+<span class="section-number">4.2. </span>Features Not Yet Supported<a class="headerlink" href="index.html#features-not-yet-supported" title="Permalink to this headline"></a>
+</h2>
+<p>The following table lists the set of features that are currently not supported.</p>
+<table class="table-no-stripes colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Limitations</p></th>
+<th class="head"><p>Impact</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>NVML (nvidia-smi) does not support all the queries yet.</p></td>
+<td><p>GPU utilization, active compute process are some queries that are not yet supported. Modifiable state features (ECC, Compute mode, Persistence mode) will not be supported.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>OpenGL-CUDA Interop is not yet supported.</p></td>
+<td><p>Applications relying on OpenGL will not work.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="appendix">
+<h1>
+<span class="section-number">5. </span>Appendix<a class="headerlink" href="index.html#appendix" title="Permalink to this headline"></a>
+</h1>
+<section id="windows-insider-preview-and-windows-10-support">
+<h2>
+<span class="section-number">5.1. </span>Windows Insider Preview and Windows 10 Support<a class="headerlink" href="index.html#windows-insider-preview-and-windows-10-support" title="Permalink to this headline"></a>
+</h2>
+<ul class="simple">
+<li><p>If you are on Windows 11 please skip this section. Windows 11 is generally available to the public and therefore does not require special registration. All the instructions at the beginning of this user guide were mainly focused toward Windows 11 users.</p></li>
+<li><p>If you are looking to use WSL 2 on Windows 10 or to be on the bleeding edge of WSL 2 development, you may want to register for the <a class="reference external" href="https://insider.windows.com/en-us/getting-started/#register">Windows Insider Program</a> and choose the appropriate <a class="reference external" href="https://docs.microsoft.com/en-us/windows-insider/flighting#switching-between-channels">flighting channel</a> (previously fast rings) and get the latest build for your needs.</p></li>
+<li><p>Learn more on <a class="reference external" href="https://blogs.windows.com/windows-insider/2021/09/23/releasing-windows-10-build-19043-1263-21h1-to-release-preview-channel/">Releasing Windows 10 Build 19043.1263 (21H1) to Release Preview Channel</a>.</p></li>
+<li><p>You can check your build version number by running <code class="docutils literal notranslate"><span class="pre">winver</span></code> via the Run command.</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>
+<span class="section-number">5.2. </span>Troubleshooting<a class="headerlink" href="index.html#troubleshooting" title="Permalink to this headline"></a>
+</h2>
+<section id="container-runtime-initialization-errors">
+<h3>
+<span class="section-number">5.2.1. </span>Container Runtime Initialization Errors<a class="headerlink" href="index.html#container-runtime-initialization-errors" title="Permalink to this headline"></a>
+</h3>
+<p>In some cases, when running a Docker container, you may encounter <code class="docutils literal notranslate"><span class="pre">nvidia-container-cli</span> <span class="pre">:</span> <span class="pre">initialization</span> <span class="pre">error</span></code>:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$ sudo docker run --gpus all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:349: starting container process caused "process_linux.go:449: container init caused \"process_linux.go:432: running prestart hook 0 caused \\\"error running hook: exit status 1, stdout: , stderr: nvidia-container-cli: initialization error: driver error: failed to process request\\\\n\\\"\"": unknown.
+ERRO[0000] error waiting for container: context canceled
+</pre></div>
+</div>
+<p>This usually indicates that the right Windows OS build or Microsoft Windows Insider Preview Builds (Windows 10 only), WSL 2, NVIDIA drivers and NVIDIA Container Toolkit may not be installed correctly. Review the known issues and changelog sections to ensure the right versions of the driver and container toolkit are installed.</p>
+<p>Ensure you have followed through the steps listed under Setup under Running CUDA containers; especially ensure that the <code class="docutils literal notranslate"><span class="pre">docker</span></code> daemon is still running.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$ sudo service docker stop
+$ sudo service docker start
+</pre></div>
+</div>
+<p>Or start the daemon directly and see if that resolves the issue:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$ sudo dockerd
+</pre></div>
+</div>
+<p>If you are still running into this issue, use the <code class="docutils literal notranslate"><span class="pre">dxdiag</span></code> tools from the Run dialog and provide the diagnostic logs to NVIDIA by posting in the <a class="reference external" href="https://forums.developer.nvidia.com/c/accelerated-computing/cuda/cuda-on-windows-subsystem-for-linux/303">Developer Forums</a> or by filing a <a class="reference external" href="https://forums.developer.nvidia.com/t/how-to-report-a-bug/">report</a>.</p>
+<p>You can also use the CUDA on WSL 2 <a class="reference external" href="https://forums.developer.nvidia.com/c/accelerated-computing/cuda/cuda-on-windows-subsystem-for-linux/303">Developer Forums</a> to get in touch with NVIDIA product and engineering teams for help.</p>
+</section>
+<section id="checking-wsl-kernel-version">
+<h3>
+<span class="section-number">5.2.2. </span>Checking WSL Kernel Version<a class="headerlink" href="index.html#checking-wsl-kernel-version" title="Permalink to this headline"></a>
+</h3>
+<ol class="arabic">
+<li>
+<p>Ensure you have the latest kernel by running the following command in PowerShell:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$ wsl cat /proc/version
+
+Linux version 5.10.16.3-microsoft-standard-WSL2
+(x86_64-msft-linux-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Fri Apr 2 22:23:49 UTC 2021
+</pre></div>
+</div>
+</li>
+<li>
+<p>If you don’t have the latest WSL kernel, you will see the following blocking warning upon trying to launch a Linux distribution within the WSL 2 container:</p>
+<img alt="_images/wsl2-ubuntu-lts.png" class="align-center" src="_images/wsl2-ubuntu-lts.png">
+</li>
+</ol>
+</section>
+</section>
+<section id="traditional-virtual-machines-vs-wsl-2">
+<h2>
+<span class="section-number">5.3. </span>Traditional Virtual Machines vs WSL 2<a class="headerlink" href="index.html#traditional-virtual-machines-vs-wsl-2" title="Permalink to this headline"></a>
+</h2>
+<p>Whether to efficiently use hardware resources or to improve productivity, virtualization is a more widely used solution in both consumer and enterprise space. There are different types of virtualizations, and it is beyond the scope of this document to delve into the specifics. But traditional virtualization solutions require installation and setup of a virtualization management software to manage the guest virtual machines.</p>
+<p>Although WSL 2 is itself a Virtual Machine, unlike traditional VMs it is easy to setup as it is provided by the host operating system provider and is quite lightweight. Applications running within WSL see less overhead compared to traditional VMs especially if they require access to the hardware or perform privileged operations compared to when run directly on the system. This is especially important for GPU accelerated workload. While VMs allow applications to be run unmodified, due to constraints from setup and performance overhead, they are not the best option in many situations.</p>
+</section>
+<section id="containers-vs-wsl-2">
+<h2>
+<span class="section-number">5.4. </span>Containers vs WSL 2<a class="headerlink" href="index.html#containers-vs-wsl-2" title="Permalink to this headline"></a>
+</h2>
+<p>While a VM provides a secure self-contained, execution environment with a complete user space for the application, containers enable application composability without the overhead of VMs. Containers compose all the dependencies of the applications such as libraries, files etc., to be bundled together for development and easy and predictable deployment. Containers run on the operating system that is installed on the system directly and therefore do not provide full isolation from other containers like a VM does, but keeps overhead negligible as a result.</p>
+<p>To learn more about differences between VMs and containers, refer to <a class="reference external" href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/containers-vs-vm">https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/containers-vs-vm</a>.</p>
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">6. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">6.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">6.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">6.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2020-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

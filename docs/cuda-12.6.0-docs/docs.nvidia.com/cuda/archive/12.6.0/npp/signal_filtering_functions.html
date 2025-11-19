@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Filtering Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="Signal Initialization Functions" href="signal_initialization.html">
+    <link rel="prev" title="Signal Conversion Functions" href="signal_conversion_functions.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1 current">
+<a class="current reference internal" href="signal_filtering_functions.html#">Signal Filtering Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signal_filtering_functions.html#group__signal__integral_1signal_integral">Integral</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Signal Filtering Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="signal-filtering-functions">
+<span id="signal_filtering_functions"></span><h1>Signal Filtering Functions<a class="headerlink" href="signal_filtering_functions.html#signal-filtering-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__signal__filtering__functions">Functions that provide functionality of generating output signal based on the input signal like signal integral, etc. </p>
+<section id="group__signal__integral_1signal_integral">
+<span id="group__signal__integral"></span><h2>Integral<a class="headerlink" href="signal_filtering_functions.html#group__signal__integral_1signal_integral" title="Permalink to this headline"></a>
+</h2>
+<p id="group__signal__integral_1signal_integral">Compute the indefinite integral of a given signal. The i-th element is computed to be  </p>
+<div class="math notranslate nohighlight">
+\[
+     s'_i = \sum_0^i s_j
+\]</div>
+ 
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsIntegralGetBufferSize_32s">
+<span class="target" id="group__signal__integral_1gad168773e1a5eafb6164717bf8ebc3293"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsIntegralGetBufferSize_32s</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">hpBufferSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_filtering_functions.html#c.nppsIntegralGetBufferSize_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Device scratch buffer size (in bytes) for 32s nppsIntegral. </p>
+<p>This primitive provides the correct buffer size for nppsIntegral_32s. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>hpBufferSize</strong> – Required buffer size. Important: hpBufferSize is a <em>host pointer.</em> <a class="reference internal" href="introduction.html#general_conventions_lb_1general_scratch_buffer"><span class="std std-ref">Scratch Buffer and Host Pointer</span></a>. </p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsIntegral_32s_Ctx">
+<span class="target" id="group__signal__integral_1ga25bc76b2c6143f271178ac7c20d61f18"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsIntegral_32s_Ctx</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDeviceBuffer</span></span>, <a class="reference internal" href="nppdefs.html#c.NppStreamContext" title="NppStreamContext"><span class="n"><span class="pre">NppStreamContext</span></span></a><span class="w"> </span><span class="n"><span class="pre">nppStreamCtx</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_filtering_functions.html#c.nppsIntegral_32s_Ctx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute cumulative sum of 32-bit signed integer signal. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – Pointer to the output result. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>pDeviceBuffer</strong> – Pointer to the required device memory allocation. </p></li>
+<li><p><strong>nppStreamCtx</strong> – <a class="reference internal" href="nppdefs.html#structnppstreamcontext_1application_managed_stream_context"><span class="std std-ref">Application Managed Stream Context</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsIntegral_32s">
+<span class="target" id="group__signal__integral_1ga7257639c52dd35f17c8f04e530846b79"></span><a class="reference internal" href="nppdefs.html#c.NppStatus" title="NppStatus"><span class="n"><span class="pre">NppStatus</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsIntegral_32s</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pSrc</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDst</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nLength</span></span>, <a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pDeviceBuffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_filtering_functions.html#c.nppsIntegral_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute cumulative sum of 32-bit signed integer signal. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pSrc</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1source_signal_pointer"><span class="std std-ref">Source Signal Pointer</span></a>. </p></li>
+<li><p><strong>pDst</strong> – Pointer to the output result. </p></li>
+<li><p><strong>nLength</strong> – <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_specification"><span class="std std-ref">Signal Length</span></a>. </p></li>
+<li><p><strong>pDeviceBuffer</strong> – Pointer to the required device memory allocation. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p><a class="reference internal" href="introduction.html#npps_conventions_lb_1signal_data_error_codes"><span class="std std-ref">Signal Data Related Error Codes</span></a>, <a class="reference internal" href="introduction.html#npps_conventions_lb_1length_error_codes"><span class="std std-ref">Length Related Error Codes</span></a>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

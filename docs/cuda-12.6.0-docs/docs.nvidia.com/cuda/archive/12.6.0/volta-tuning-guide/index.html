@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Volta Architecture." name="description">
+<meta content="CUDA Volta, CUDA Volta tuning, CUDA Volta best practices, CUDA Volta performance" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volta Tuning Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. Volta Tuning Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvidia-volta-compute-architecture">1.1. NVIDIA Volta Compute Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-best-practices">1.2. CUDA Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#application-compatibility">1.3. Application Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#volta-tuning">1.4. Volta Tuning</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#streaming-multiprocessor">1.4.1. Streaming Multiprocessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#instruction-scheduling">1.4.1.1. Instruction Scheduling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#independent-thread-scheduling">1.4.1.2. Independent Thread Scheduling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#occupancy">1.4.1.3. Occupancy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic">1.4.1.4. Integer Arithmetic</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-core-operations">1.4.2. Tensor Core Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-throughput">1.4.3. Memory Throughput</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#high-bandwidth-memory">1.4.3.1. High Bandwidth Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#unified-shared-memory-l1-texture-cache">1.4.3.2. Unified Shared Memory/L1/Texture Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cooperative-groups">1.4.4. Cooperative Groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multi-process-service">1.4.5. Multi-Process Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvlink-interconnect">1.4.6. NVLink Interconnect</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">2. Revision History</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">3. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">3.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">3.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Volta Tuning Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Volta Tuning Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/Volta_Tuning_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">Tuning CUDA Applications for Volta</p>
+<p>The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Volta Architecture.</p>
+<section id="volta-tuning-guide">
+<h1>
+<span class="section-number">1. </span>Volta Tuning Guide<a class="headerlink" href="index.html#volta-tuning-guide" title="Permalink to this headline"></a>
+</h1>
+<section id="nvidia-volta-compute-architecture">
+<h2>
+<span class="section-number">1.1. </span>NVIDIA Volta Compute Architecture<a class="headerlink" href="index.html#nvidia-volta-compute-architecture" title="Permalink to this headline"></a>
+</h2>
+<p>Volta is NVIDIA’s latest architecture for CUDA compute applications. Volta retains and extends the same CUDA programming model provided by previous NVIDIA architectures such as Maxwell and Pascal, and applications that follow the best practices for those architectures should typically see speedups on the Volta architecture without any code changes. This guide summarizes the ways that an application can be fine-tuned to gain additional speedups by leveraging Volta architectural features.<a class="footnote-reference brackets" href="index.html#fn1" id="id1">1</a></p>
+<p>Volta architecture comprises a single variant: GV100. A detailed overview of the major improvements in GV100 over earlier NVIDIA architectures is provided in a white paper entitled <a class="reference external" href="http://www.nvidia.com/object/volta-architecture-whitepaper.html">NVIDIA Tesla V100 GPU Architecture: The World’s Most Advanced Datacenter GPU</a>.</p>
+<p>For further details on the programming features discussed in this guide, please refer to the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a>.</p>
+</section>
+<section id="cuda-best-practices">
+<h2>
+<span class="section-number">1.2. </span>CUDA Best Practices<a class="headerlink" href="index.html#cuda-best-practices" title="Permalink to this headline"></a>
+</h2>
+<p>The performance guidelines and best practices described in the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a> and the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a> apply to all CUDA-capable GPU architectures. Programmers must primarily focus on following those recommendations to achieve the best performance.</p>
+<p>The high-priority recommendations from those guides are as follows:</p>
+<ul class="simple">
+<li><p>Find ways to parallelize sequential code,</p></li>
+<li><p>Minimize data transfers between the host and the device,</p></li>
+<li><p>Adjust kernel launch configuration to maximize device utilization,</p></li>
+<li><p>Ensure global memory accesses are coalesced,</p></li>
+<li><p>Minimize redundant accesses to global memory whenever possible,</p></li>
+<li><p>Avoid long sequences of diverged execution by threads within the same warp.</p></li>
+</ul>
+</section>
+<section id="application-compatibility">
+<h2>
+<span class="section-number">1.3. </span>Application Compatibility<a class="headerlink" href="index.html#application-compatibility" title="Permalink to this headline"></a>
+</h2>
+<p>Before addressing specific performance tuning issues covered in this guide, refer to the <a class="reference external" href="http://docs.nvidia.com/cuda/volta-compatibility-guide/">Volta Compatibility Guide for CUDA Applications</a> to ensure that your application is compiled in a way that is compatible with Volta.</p>
+</section>
+<section id="volta-tuning">
+<h2>
+<span class="section-number">1.4. </span>Volta Tuning<a class="headerlink" href="index.html#volta-tuning" title="Permalink to this headline"></a>
+</h2>
+<section id="streaming-multiprocessor">
+<h3>
+<span class="section-number">1.4.1. </span>Streaming Multiprocessor<a class="headerlink" href="index.html#streaming-multiprocessor" title="Permalink to this headline"></a>
+</h3>
+<p>The Volta Streaming Multiprocessor (SM) provides the following improvements over Pascal.</p>
+<section id="instruction-scheduling">
+<h4>
+<span class="section-number">1.4.1.1. </span>Instruction Scheduling<a class="headerlink" href="index.html#instruction-scheduling" title="Permalink to this headline"></a>
+</h4>
+<p>Each Volta SM includes 4 warp-scheduler units. Each scheduler handles a static set of warps and issues to a dedicated set of arithmetic instruction units. Instructions are performed over two cycles, and the schedulers can issue independent instructions every cycle. Dependent instruction issue latency for core FMA math operations are reduced to four clock cycles, compared to six cycles on Pascal. As a result, execution latencies of core math operations can be hidden by as few as 4 warps per SM, assuming 4-way instruction-level parallelism <em>ILP</em> per warp. Many more warps are, of course, recommended to cover the much greater latency of memory transactions and control-flow operations.</p>
+<p>Similar to GP100, the GV100 SM provides 64 FP32 cores and 32 FP64 cores. The GV100 SM additionally includes 64 INT32 cores and 8 mixed-precision Tensor Cores. GV100 provides up to 84 SMs.</p>
+</section>
+<section id="independent-thread-scheduling">
+<h4>
+<span class="section-number">1.4.1.2. </span>Independent Thread Scheduling<a class="headerlink" href="index.html#independent-thread-scheduling" title="Permalink to this headline"></a>
+</h4>
+<p>The Volta architecture introduces <em>Independent Thread Scheduling</em> among threads in a warp. This feature enables intra-warp synchronization patterns previously unavailable and simplifies code changes when porting CPU code. However, Independent Thread Scheduling can also lead to a rather different set of threads participating in the executed code than intended if the developer made assumptions about warp-synchronicity<a class="footnote-reference brackets" href="index.html#fn2" id="id2">2</a> of previous hardware architectures.</p>
+<p>When porting existing codes to Volta, the following three code patterns need careful attention. For more details see the <em>CUDA C++ Programming Guide</em>.</p>
+<ul class="simple">
+<li><p>To avoid data corruption, applications using warp intrinsics (<code class="docutils literal notranslate"><span class="pre">__shfl*</span></code>, <code class="docutils literal notranslate"><span class="pre">__any</span></code>, <code class="docutils literal notranslate"><span class="pre">__all</span></code>, and <code class="docutils literal notranslate"><span class="pre">__ballot</span></code>) should transition to the new, safe, synchronizing counterparts, with the <code class="docutils literal notranslate"><span class="pre">*_sync</span></code> suffix. The new warp intrinsics take in a mask of threads that explicitly define which lanes (threads of a warp) must participate in the warp intrinsic.</p></li>
+<li><p>Applications that assume reads and writes are implicitly visible to other threads in the same warp need to insert the new <code class="docutils literal notranslate"><span class="pre">__syncwarp()</span></code> warp-wide barrier synchronization instruction between steps where data is exchanged between threads via global or shared memory. Assumptions that code is executed in lockstep or that reads/writes from separate threads are visible across a warp without synchronization are invalid.</p></li>
+<li><p>Applications using <code class="docutils literal notranslate"><span class="pre">__syncthreads()</span></code> or the PTX <code class="docutils literal notranslate"><span class="pre">bar.sync</span></code> (and their derivatives) in such a way that a barrier will not be reached by some non-exited thread in the thread block must be modified to ensure that all non-exited threads reach the barrier.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">racecheck</span></code> and <code class="docutils literal notranslate"><span class="pre">synccheck</span></code> tools provided by <code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code> can help with locating violations.</p>
+</section>
+<section id="occupancy">
+<h4>
+<span class="section-number">1.4.1.3. </span>Occupancy<a class="headerlink" href="index.html#occupancy" title="Permalink to this headline"></a>
+</h4>
+<p>The maximum number of concurrent warps per SM remains the same as in Pascal (i.e., 64), and other <a class="reference external" href="http://developer.download.nvidia.com/compute/cuda/CUDA_Occupancy_calculator.xls">factors influencing warp occupancy</a> remain similar as well:</p>
+<ul class="simple">
+<li><p>The register file size is 64k 32-bit registers per SM.</p></li>
+<li><p>The maximum registers per thread is 255.</p></li>
+<li><p>The maximum number of thread blocks per SM is 32.</p></li>
+<li><p>Shared memory capacity per SM is 96KB, similar to GP104, and a 50% increase compared to GP100.</p></li>
+</ul>
+<p>Overall, developers can expect similar occupancy as on Pascal without changes to their application.</p>
+</section>
+<section id="integer-arithmetic">
+<h4>
+<span class="section-number">1.4.1.4. </span>Integer Arithmetic<a class="headerlink" href="index.html#integer-arithmetic" title="Permalink to this headline"></a>
+</h4>
+<p>Unlike Pascal GPUs, the GV100 SM includes dedicated FP32 and INT32 cores. This enables simultaneous execution of FP32 and INT32 operations. Applications can now interleave pointer arithmetic with floating-point computations. For example, each iteration of a pipelined loop could update addresses and load data for the next iteration while simultaneously processing the current iteration at full FP32 throughput.</p>
+</section>
+</section>
+<section id="tensor-core-operations">
+<h3>
+<span class="section-number">1.4.2. </span>Tensor Core Operations<a class="headerlink" href="index.html#tensor-core-operations" title="Permalink to this headline"></a>
+</h3>
+<p>Each Tensor Core performs the following operation: D = AxB + C, where A, B, C, and D are 4x4 matrices. The matrix multiply inputs A and B are FP16 matrices, while the accumulation matrices C and D may be FP16 or FP32 matrices.</p>
+<p>When accumulating in FP32, the FP16 multiply results in a full precision product that is then accumulated using FP32 addition with the other intermediate products for a 4x4x4 matrix multiply. In practice, Tensor Cores are used to perform much larger 2D or higher dimensional matrix operations, built up from these smaller elements.</p>
+<p>The Volta tensor cores are exposed as Warp-Level Matrix Operations in the CUDA 9 C++ API. The API exposes specialized matrix load, matrix multiply and accumulate, and matrix store operations to efficiently use Tensor Cores from a CUDA-C++ program. At the CUDA level, the warp-level interface assumes 16x16 size matrices spanning all 32 threads of the warp. See the <em>CUDA C++ Programming Guide</em> for more information.</p>
+</section>
+<section id="memory-throughput">
+<h3>
+<span class="section-number">1.4.3. </span>Memory Throughput<a class="headerlink" href="index.html#memory-throughput" title="Permalink to this headline"></a>
+</h3>
+<section id="high-bandwidth-memory">
+<h4>
+<span class="section-number">1.4.3.1. </span>High Bandwidth Memory<a class="headerlink" href="index.html#high-bandwidth-memory" title="Permalink to this headline"></a>
+</h4>
+<p>GV100 uses up to eight memory dies per HBM2 stack and four stacks, with a maximum of 32 GB of GPU memory. A faster and more efficient HBM2 implementation delivers up to 900 GB/s of peak memory bandwidth, compared to 732 GB/s for GP100. This combination of a new generation HBM2 memory, and a new generation memory controller, in Volta provides 1.5x delivered memory bandwidth, compared to Pascal GP100—and a greater than 95% memory bandwidth efficiency running many workloads.</p>
+<p>In order to hide the DRAM latencies at full HBM2 bandwidth more memory accesses must be kept in flight, compared to GPUs equipped with traditional GDDR5. This is accomplished by the large complement of SMs in GV100, which typically boost the number of concurrent threads, and thus the reads-in-flight, compared to previous architectures. Resource-constrained kernels that are limited to low occupancy may benefit from increasing the number of concurrent memory accesses per thread.</p>
+</section>
+<section id="unified-shared-memory-l1-texture-cache">
+<h4>
+<span class="section-number">1.4.3.2. </span>Unified Shared Memory/L1/Texture Cache<a class="headerlink" href="index.html#unified-shared-memory-l1-texture-cache" title="Permalink to this headline"></a>
+</h4>
+<p>In Volta the L1 cache, texture cache, and shared memory are backed by a combined 128 KB data cache. As in previous architectures, the portion of the cache dedicated to shared memory (known as the <em>carveout</em>) can be selected at runtime using <code class="docutils literal notranslate"><span class="pre">cudaFuncSetAttribute()</span></code> with the attribute <code class="docutils literal notranslate"><span class="pre">cudaFuncAttributePreferredSharedMemoryCarveout</span></code>. Volta supports shared memory capacities of 0, 8, 16, 32, 64, or 96 KB per SM.</p>
+<p>A new feature, Volta enables a single thread block to address the full 96 KB of shared memory. To maintain architectural compatibility, static shared memory allocations remain limited to 48 KB, and an explicit opt-in is also required to enable dynamic allocations above this limit. See the <em>CUDA C++ Programming Guide</em> for details.</p>
+<p>Like Pascal, Volta combines the functionality of the L1 and texture caches into a unified L1/Texture cache which acts as a coalescing buffer for memory accesses, gathering up the data requested by the threads of a warp prior to delivery of that data to the warp.</p>
+<p>Volta increases the maximum capacity of the L1 cache to 128 KB, more than 7x larger than the GP100 L1. Another benefit of its union with shared memory, the Volta L1 improves in terms of both latency and bandwidth compared to Pascal. The result is that for many applications Volta narrows the performance gap between explicitly managed shared memory and direct access to device memory. Also, the cost of register spills is lowered compared to Pascal, and the balance of occupancy versus spilling should be re-evaluated to ensure best performance.</p>
+</section>
+</section>
+<section id="cooperative-groups">
+<h3>
+<span class="section-number">1.4.4. </span>Cooperative Groups<a class="headerlink" href="index.html#cooperative-groups" title="Permalink to this headline"></a>
+</h3>
+<p>The Volta architecture introduced Independent Thread Scheduling, which enables intra-warp synchronization patterns that were previously not possible. To efficiently express these new patterns, CUDA 9 introduces Cooperative Groups. This is an extension to the CUDA programming model for organizing groups of communicating threads. Cooperative Groups allows developers to express the granularity at which threads are communicating, helping them to express richer, more efficient parallel decompositions. See the <em>CUDA C++ Programming Guide</em> for more information.</p>
+</section>
+<section id="multi-process-service">
+<h3>
+<span class="section-number">1.4.5. </span>Multi-Process Service<a class="headerlink" href="index.html#multi-process-service" title="Permalink to this headline"></a>
+</h3>
+<p>The Volta Multi-Process Service is significantly improved compared to previous architecutres, both in terms of performance and robustness. Intermediary software schedulers, used for MPS with previous architectures, have been replaced by hardware accelerated units within the GPU. MPS clients now submit tasks directly to the GPU work queues, significantly decreasing submission latency and increasing aggregate throughput. The limit on the number of MPS clients has also been increased by 3x to 48. Volta MPS also provides each client with an isolated address space,<a class="footnote-reference brackets" href="index.html#fn3" id="id3">3</a> and extends Unified Memory support for MPS applications.</p>
+<p>Volta MPS also provides control for clients to restrict each client to a fraction of the GPU execution resources. Developers can use this feature to reduce or eliminate head-of-line blocking where work from one MPS client overwhelms GPU execution resources and prevents other clients from making progress, and thus improve average latency and jitter accross the system.</p>
+</section>
+<section id="nvlink-interconnect">
+<h3>
+<span class="section-number">1.4.6. </span>NVLink Interconnect<a class="headerlink" href="index.html#nvlink-interconnect" title="Permalink to this headline"></a>
+</h3>
+<p>NVLink is NVIDIA’s high-speed data interconnect. NVLink can be used to significantly increase performance for both GPU-to-GPU communication and for GPU access to system memory. GV100 supports up to six NVLink connections with each connection carrying up to 50 GB/s of bi-directional bandwidth.</p>
+<p>NVLink operates transparently within the existing CUDA model. Transfers between NVLink-connected endpoints are automatically routed through NVLink, rather than PCIe. The <code class="docutils literal notranslate"><span class="pre">cudaDeviceEnablePeerAccess()</span></code> API call remains necessary to enable direct transfers (over either PCIe or NVLink) between GPUs. The <code class="docutils literal notranslate"><span class="pre">cudaDeviceCanAccessPeer()</span></code> can be used to determine if peer access is possible between any pair of GPUs.</p>
+</section>
+</section>
+</section>
+<section id="revision-history">
+<h1>
+<span class="section-number">2. </span>Revision History<a class="headerlink" href="index.html#revision-history" title="Permalink to this headline"></a>
+</h1>
+<p><strong>Version 1.0</strong></p>
+<ul class="simple">
+<li><p>Initial Public Release</p></li>
+</ul>
+<p><strong>Version 1.1</strong></p>
+<ul class="simple">
+<li><p>Added Cooperative Groups section.</p></li>
+<li><p>Updated references to the <em>CUDA C++ Programming Guide</em> and <em>CUDA C++ Best Practices Guide</em>.</p></li>
+</ul>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+<dl class="footnote brackets">
+<dt class="label" id="fn1"><span class="brackets"><a class="fn-backref" href="index.html#id1">1</a></span></dt>
+<dd>
+<p>Throughout this guide, <em>Maxwell</em> refers to devices of compute capability 5.x, <em>Pascal</em> refers to device of compute capability 6.x, and <em>Volta</em> refers to devices of compute capability 7.x.</p>
+</dd>
+<dt class="label" id="fn2"><span class="brackets"><a class="fn-backref" href="index.html#id2">2</a></span></dt>
+<dd>
+<p>The term warp-synchronous refers to code that implicitly assumes threads in the same warp are synchronized at every instruction.</p>
+</dd>
+<dt class="label" id="fn3"><span class="brackets"><a class="fn-backref" href="index.html#id3">3</a></span></dt>
+<dd>
+<p>As with previous architectures, MPS does not provide fatal fault isolation between clients.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2017-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

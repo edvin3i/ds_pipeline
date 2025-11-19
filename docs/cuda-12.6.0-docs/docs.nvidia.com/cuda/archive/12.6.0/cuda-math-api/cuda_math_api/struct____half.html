@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12.1. __half — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="12.2. __half2" href="struct____half2.html">
+    <link rel="prev" title="12. Structs" href="structs.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="structs.html">12. Structs</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="struct____half.html#">12.1. __half</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half2.html">12.2. __half2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half2__raw.html">12.3. __half2_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half__raw.html">12.4. __half_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat16.html">12.5. __nv_bfloat16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat162.html">12.6. __nv_bfloat162</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat162__raw.html">12.7. __nv_bfloat162_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat16__raw.html">12.8. __nv_bfloat16_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8__e4m3.html">12.9. __nv_fp8_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8__e5m2.html">12.10. __nv_fp8_e5m2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x2__e4m3.html">12.11. __nv_fp8x2_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x2__e5m2.html">12.12. __nv_fp8x2_e5m2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x4__e4m3.html">12.13. __nv_fp8x4_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x4__e5m2.html">12.14. __nv_fp8x4_e5m2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="structs.html"><span class="section-number">12. </span>Structs</a> »</li>
+<li>
+<span class="section-number">12.1. </span>__half</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="half">
+<h1>
+<span class="section-number">12.1. </span>__half<a class="headerlink" href="struct____half.html#half" title="Permalink to this headline"></a>
+</h1>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv46__half">
+<span id="_CPPv36__half"></span><span id="_CPPv26__half"></span><span id="__half"></span><span class="target" id="struct____half"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><a class="headerlink" href="struct____half.html#_CPPv46__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref">__half</span></a> data type </p>
+<p>This structure implements the datatype for storing half-precision floating-point numbers. The structure implements assignment, arithmetic and comparison operators, and type conversions. 16 bits are being used in total: 1 sign bit, 5 bits for the exponent, and the significand is being stored in 10 bits. The total precision is 11 bits. There are 15361 representable numbers within the interval [0.0, 1.0], endpoints included. On average we have log10(2**11) ~ 3.311 decimal digits.</p>
+<p>The objective here is to provide IEEE754-compliant implementation of <code class="docutils literal notranslate"><span class="pre">binary16</span></code> type and arithmetic with limitations due to device HW not supporting floating-point exceptions. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEv">
+<span id="_CPPv3N6__half6__halfEv"></span><span id="_CPPv2N6__half6__halfEv"></span><span id="__half::__half"></span><span class="target" id="group__cuda__math____half__misc_1gad08a6054f69cb4a7d8f85cd4c110bcad"></span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor by default. </p>
+<p>Emtpy default constructor, result is uninitialized. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfERK10__half_raw">
+<span id="_CPPv3N6__half6__halfERK10__half_raw"></span><span id="_CPPv2N6__half6__halfERK10__half_raw"></span><span id="__half::__half____half_rawCRCE"></span><span class="target" id="group__cuda__math____half__misc_1ga027d39c6120bde3bed6dc508afb8daf0"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">hr</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfERK10__half_raw" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEK13__nv_bfloat16">
+<span id="_CPPv3N6__half6__halfEK13__nv_bfloat16"></span><span id="_CPPv2N6__half6__halfEK13__nv_bfloat16"></span><span id="__half::__half____nv_bfloat16C"></span><span class="target" id="group__cuda__math____half__misc_1gaf6fc3ab14f78f3e332c256fec384c947"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat16.html#_CPPv413__nv_bfloat16" title="__nv_bfloat16"><span class="n"><span class="pre">__nv_bfloat16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEK13__nv_bfloat16" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><a class="reference internal" href="struct____nv__bfloat16.html#struct____nv__bfloat16"><span class="std std-ref"><span class="pre">__nv_bfloat16</span></span></a></code> input using default round-to-nearest-even rounding mode. </p>
+<p>Need to include the header file <code class="docutils literal notranslate"><span class="pre">cuda_bf16.h</span></code> </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKd">
+<span id="_CPPv3N6__half6__halfEKd"></span><span id="_CPPv2N6__half6__halfEKd"></span><span id="__half::__half__doubleC"></span><span class="target" id="group__cuda__math____half__misc_1ga60b903741b1e680939fd470cb4766df1"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKd" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">double</span></code> input using default round-to-nearest-even rounding mode. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gad9d1945a39d5305f8e8a9c4bee0443e6"><span class="std std-ref">__double2half(double)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKf">
+<span id="_CPPv3N6__half6__halfEKf"></span><span id="_CPPv2N6__half6__halfEKf"></span><span id="__half::__half__floatC"></span><span class="target" id="group__cuda__math____half__misc_1ga9ec66b3e681b55b80148ebf6cb0f6d03"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">float</span></code> input using default round-to-nearest-even rounding mode. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga9f330c6a82c3c502821d7a104bfbfae1"><span class="std std-ref">__float2half(float)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKi">
+<span id="_CPPv3N6__half6__halfEKi"></span><span id="_CPPv2N6__half6__halfEKi"></span><span id="__half::__half__iC"></span><span class="target" id="group__cuda__math____half__misc_1gab51f27e6325333b1c7adaf98dc43e0ae"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">int</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKx">
+<span id="_CPPv3N6__half6__halfEKx"></span><span id="_CPPv2N6__half6__halfEKx"></span><span id="__half::__half__l-lC"></span><span class="target" id="group__cuda__math____half__misc_1gacb9f229be50705eb8b92beae48e63709"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKl">
+<span id="_CPPv3N6__half6__halfEKl"></span><span id="_CPPv2N6__half6__halfEKl"></span><span id="__half::__half__lC"></span><span class="target" id="group__cuda__math____half__misc_1gac938b409776b5f2abd0a2a3c48d93596"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKl" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">long</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKs">
+<span id="_CPPv3N6__half6__halfEKs"></span><span id="_CPPv2N6__half6__halfEKs"></span><span id="__half::__half__shortC"></span><span class="target" id="group__cuda__math____half__misc_1ga48254a976a49e794e264ab08ecb47a5e"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKs" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">short</span></code> integer input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKj">
+<span id="_CPPv3N6__half6__halfEKj"></span><span id="_CPPv2N6__half6__halfEKj"></span><span id="__half::__half__unsigned-iC"></span><span class="target" id="group__cuda__math____half__misc_1ga32578feeb19091205fabd2b238670822"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKy">
+<span id="_CPPv3N6__half6__halfEKy"></span><span id="_CPPv2N6__half6__halfEKy"></span><span id="__half::__half__unsigned-l-lC"></span><span class="target" id="group__cuda__math____half__misc_1gafb54fb1f8f8173f8269896d35fa67be9"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKy" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKm">
+<span id="_CPPv3N6__half6__halfEKm"></span><span id="_CPPv2N6__half6__halfEKm"></span><span id="__half::__half__unsigned-lC"></span><span class="target" id="group__cuda__math____half__misc_1ga96aad23a90d1b8a65410cf6253914311"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKm" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__half6__halfEKt">
+<span id="_CPPv3N6__half6__halfEKt"></span><span id="_CPPv2N6__half6__halfEKt"></span><span id="__half::__half__unsigned-shortC"></span><span class="target" id="group__cuda__math____half__misc_1ga1b6435222b9cc4c6aa3e847c17a6d61c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__half</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__half6__halfEKt" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Construct <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">short</span></code> integer input using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcv10__half_rawEv">
+<span id="_CPPv3NK6__halfcv10__half_rawEv"></span><span id="_CPPv2NK6__halfcv10__half_rawEv"></span><span id="__half::castto-__half_raw-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1gafe098b3b608700a32fdb08a8ec10f326"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcv10__half_rawEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast to <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code> operator. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NVK6__halfcv10__half_rawEv">
+<span id="_CPPv3NVK6__halfcv10__half_rawEv"></span><span id="_CPPv2NVK6__halfcv10__half_rawEv"></span><span id="__half::castto-__half_raw-operatorVC"></span><span class="target" id="group__cuda__math____half__misc_1ga6c86a0446e7655766aa92848e6e4ce19"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NVK6__halfcv10__half_rawEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast to <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code> operator with <code class="docutils literal notranslate"><span class="pre">volatile</span></code> input. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvbEv">
+<span id="_CPPv3NK6__halfcvbEv"></span><span id="_CPPv2NK6__halfcvbEv"></span><span id="__half::castto-b-operatorCCE"></span><span class="target" id="group__cuda__math____half__misc_1gad84acd500a62a8a41c155baeab43268c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvbEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">bool</span></code> data type. </p>
+<p>+0 and -0 inputs convert to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Non-zero inputs convert to <code class="docutils literal notranslate"><span class="pre">true</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvcEv">
+<span id="_CPPv3NK6__halfcvcEv"></span><span id="_CPPv2NK6__halfcvcEv"></span><span id="__half::castto-c-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga73ef2cff058294f851d23ee3e630c2a3"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvcEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to an implementation defined <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p>Detects signedness of the <code class="docutils literal notranslate"><span class="pre">char</span></code> type and proceeds accordingly, see further details in <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gad41c290e438e74d1fde1692def5a2f0a"><span class="std std-ref">__half2char_rz(__half)</span></a> and <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga55278ae2d765b6856ba63332d16f84b8"><span class="std std-ref">__half2uchar_rz(__half)</span></a>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvfEv">
+<span id="_CPPv3NK6__halfcvfEv"></span><span id="_CPPv2NK6__halfcvfEv"></span><span id="__half::castto-float-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga6cc370f28cda0fdbc75962258ea31409"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvfEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast to <code class="docutils literal notranslate"><span class="pre">float</span></code> operator. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcviEv">
+<span id="_CPPv3NK6__halfcviEv"></span><span id="_CPPv2NK6__halfcviEv"></span><span id="__half::castto-i-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga4bf087ea150bdced2940476aee6c30dd"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcviEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gabfe1639ba87b2b214097d27431cd0c2a"><span class="std std-ref">__half2int_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvlEv">
+<span id="_CPPv3NK6__halfcvlEv"></span><span id="_CPPv2NK6__halfcvlEv"></span><span id="__half::castto-l-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga1a405dc468bcf47849ceae30e690541e"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvlEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">long</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p>Detects size of the <code class="docutils literal notranslate"><span class="pre">long</span></code> type and proceeds accordingly, see further details in <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gabfe1639ba87b2b214097d27431cd0c2a"><span class="std std-ref">__half2int_rz(__half)</span></a> and <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga2be06e577b2a00596243cc4303043ef6"><span class="std std-ref">__half2ll_rz(__half)</span></a>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvxEv">
+<span id="_CPPv3NK6__halfcvxEv"></span><span id="_CPPv2NK6__halfcvxEv"></span><span id="__half::castto-l-l-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga0aec094de29166c44eac2652b48db62b"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvxEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga2be06e577b2a00596243cc4303043ef6"><span class="std std-ref">__half2ll_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvsEv">
+<span id="_CPPv3NK6__halfcvsEv"></span><span id="_CPPv2NK6__halfcvsEv"></span><span id="__half::castto-short-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga4841cd33f1e2f69624b6e1ca37e06791"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvsEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">short</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga8b8141b0e8ec0875a0a10a0d92b919e1"><span class="std std-ref">__half2short_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvaEv">
+<span id="_CPPv3NK6__halfcvaEv"></span><span id="_CPPv2NK6__halfcvaEv"></span><span id="__half::castto-signed-c-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1gaaec4c28bd439ff99edf29447b101e65e"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">signed</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvaEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gad41c290e438e74d1fde1692def5a2f0a"><span class="std std-ref">__half2char_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvhEv">
+<span id="_CPPv3NK6__halfcvhEv"></span><span id="_CPPv2NK6__halfcvhEv"></span><span id="__half::castto-unsigned-c-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga69eafe1fc8d7070b006dc97bc3508b35"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvhEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga55278ae2d765b6856ba63332d16f84b8"><span class="std std-ref">__half2uchar_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvjEv">
+<span id="_CPPv3NK6__halfcvjEv"></span><span id="_CPPv2NK6__halfcvjEv"></span><span id="__half::castto-unsigned-i-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga91c54650b3f3ff8b944ac2c15321e343"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvjEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga64f4a837c37dfab363377f998a0a69d1"><span class="std std-ref">__half2uint_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvmEv">
+<span id="_CPPv3NK6__halfcvmEv"></span><span id="_CPPv2NK6__halfcvmEv"></span><span id="__half::castto-unsigned-l-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga1e020441ec045a38c1135f190cf66d83"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvmEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p>Detects size of the <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> type and proceeds accordingly, see further details in <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga64f4a837c37dfab363377f998a0a69d1"><span class="std std-ref">__half2uint_rz(__half)</span></a> and <a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gae1e5edfd49571ccfb14470f014e01330"><span class="std std-ref">__half2ull_rz(__half)</span></a>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvyEv">
+<span id="_CPPv3NK6__halfcvyEv"></span><span id="_CPPv2NK6__halfcvyEv"></span><span id="__half::castto-unsigned-l-l-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1gaabe03d75245e5a287237170667dd6632"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvyEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gae1e5edfd49571ccfb14470f014e01330"><span class="std std-ref">__half2ull_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6__halfcvtEv">
+<span id="_CPPv3NK6__halfcvtEv"></span><span id="_CPPv2NK6__halfcvtEv"></span><span id="__half::castto-unsigned-short-operatorC"></span><span class="target" id="group__cuda__math____half__misc_1ga9189c26211ac57472598ec7df155bcbd"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____half.html#_CPPv4NK6__halfcvtEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">short</span></code> data type. </p>
+<p>Using round-toward-zero rounding mode.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga1ae18eed0c27acab22a2b4b544e24a4f"><span class="std std-ref">__half2ushort_rz(__half)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSERK10__half_raw">
+<span id="_CPPv3N6__halfaSERK10__half_raw"></span><span id="_CPPv2N6__halfaSERK10__half_raw"></span><span id="__half::assign-operator____half_rawCR"></span><span class="target" id="group__cuda__math____half__misc_1gac3638d78aac2aef9da217ecbe64596fc"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">hr</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSERK10__half_raw" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Assignment operator from <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NV6__halfaSERK10__half_raw">
+<span id="_CPPv3NV6__halfaSERK10__half_raw"></span><span id="_CPPv2NV6__halfaSERK10__half_raw"></span><span id="__half::assign-operator____half_rawCRV"></span><span class="target" id="group__cuda__math____half__misc_1ga295199d35218653185e3ecff37478080"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">hr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">volatile</span></span><a class="headerlink" href="struct____half.html#_CPPv4NV6__halfaSERK10__half_raw" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Assignment operator from <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code> to <code class="docutils literal notranslate"><span class="pre">volatile</span></code> <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKd">
+<span id="_CPPv3N6__halfaSEKd"></span><span id="_CPPv2N6__halfaSEKd"></span><span id="__half::assign-operator__doubleC"></span><span class="target" id="group__cuda__math____half__misc_1ga8f3d390e3dc233f757c8d0e79bbbbe6c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKd" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast to <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> assignment operator from <code class="docutils literal notranslate"><span class="pre">double</span></code> input using default round-to-nearest-even rounding mode. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1gad9d1945a39d5305f8e8a9c4bee0443e6"><span class="std std-ref">__double2half(double)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKf">
+<span id="_CPPv3N6__halfaSEKf"></span><span id="_CPPv2N6__halfaSEKf"></span><span id="__half::assign-operator__floatC"></span><span class="target" id="group__cuda__math____half__misc_1ga0335ee5672838bc904d8718c6b4e98b5"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast to <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> assignment operator from <code class="docutils literal notranslate"><span class="pre">float</span></code> input using default round-to-nearest-even rounding mode. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html#group__cuda__math____half__misc_1ga9f330c6a82c3c502821d7a104bfbfae1"><span class="std std-ref">__float2half(float)</span></a> for further details. </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKi">
+<span id="_CPPv3N6__halfaSEKi"></span><span id="_CPPv2N6__halfaSEKi"></span><span id="__half::assign-operator__iC"></span><span class="target" id="group__cuda__math____half__misc_1gafa1c4a4c859754fe3453160bb41ae569"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">int</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKx">
+<span id="_CPPv3N6__halfaSEKx"></span><span id="_CPPv2N6__halfaSEKx"></span><span id="__half::assign-operator__l-lC"></span><span class="target" id="group__cuda__math____half__misc_1ga244e14b662568d1296ee1062b1539d05"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKs">
+<span id="_CPPv3N6__halfaSEKs"></span><span id="_CPPv2N6__halfaSEKs"></span><span id="__half::assign-operator__shortC"></span><span class="target" id="group__cuda__math____half__misc_1ga8e053e033d1bb8cc5b9a6365cc2ad745"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKs" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">short</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKj">
+<span id="_CPPv3N6__halfaSEKj"></span><span id="_CPPv2N6__halfaSEKj"></span><span id="__half::assign-operator__unsigned-iC"></span><span class="target" id="group__cuda__math____half__misc_1ga38124217a8c41f5f14aad8355f8e8e04"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKy">
+<span id="_CPPv3N6__halfaSEKy"></span><span id="_CPPv2N6__halfaSEKy"></span><span id="__half::assign-operator__unsigned-l-lC"></span><span class="target" id="group__cuda__math____half__misc_1gac83099550bd24d5134451ad529558866"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKy" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6__halfaSEKt">
+<span id="_CPPv3N6__halfaSEKt"></span><span id="_CPPv2N6__halfaSEKt"></span><span id="__half::assign-operator__unsigned-shortC"></span><span class="target" id="group__cuda__math____half__misc_1ga4c5fa6cb76a42602361eaa893e3ede0f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____half.html#_CPPv4N6__halfaSEKt" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Type cast from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">short</span></code> assignment operator, using default round-to-nearest-even rounding mode. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NV6__halfaSERVK10__half_raw">
+<span id="_CPPv3NV6__halfaSERVK10__half_raw"></span><span id="_CPPv2NV6__halfaSERVK10__half_raw"></span><span id="__half::assign-operator____half_rawVCRV"></span><span class="target" id="group__cuda__math____half__misc_1ga0f95f3194e83bd0cf0d2e356ca810557"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">volatile</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half__raw.html#_CPPv410__half_raw" title="__half_raw"><span class="n"><span class="pre">__half_raw</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">hr</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">volatile</span></span><a class="headerlink" href="struct____half.html#_CPPv4NV6__halfaSERVK10__half_raw" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Assignment operator from <code class="docutils literal notranslate"><span class="pre">volatile</span></code> <code class="docutils literal notranslate"><a class="reference internal" href="struct____half__raw.html#struct____half__raw"><span class="std std-ref"><span class="pre">__half_raw</span></span></a></code> to <code class="docutils literal notranslate"><span class="pre">volatile</span></code> <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code>. </p>
+</dd>
+</dl>
+
+</div>
+</dd>
+</dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

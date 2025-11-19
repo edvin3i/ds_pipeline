@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12.9. __nv_fp8_e4m3 — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="12.10. __nv_fp8_e5m2" href="struct____nv__fp8__e5m2.html">
+    <link rel="prev" title="12.8. __nv_bfloat16_raw" href="struct____nv__bfloat16__raw.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="structs.html">12. Structs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="struct____half.html">12.1. __half</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half2.html">12.2. __half2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half2__raw.html">12.3. __half2_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____half__raw.html">12.4. __half_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat16.html">12.5. __nv_bfloat16</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat162.html">12.6. __nv_bfloat162</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat162__raw.html">12.7. __nv_bfloat162_raw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__bfloat16__raw.html">12.8. __nv_bfloat16_raw</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="struct____nv__fp8__e4m3.html#">12.9. __nv_fp8_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8__e5m2.html">12.10. __nv_fp8_e5m2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x2__e4m3.html">12.11. __nv_fp8x2_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x2__e5m2.html">12.12. __nv_fp8x2_e5m2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x4__e4m3.html">12.13. __nv_fp8x4_e4m3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct____nv__fp8x4__e5m2.html">12.14. __nv_fp8x4_e5m2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="structs.html"><span class="section-number">12. </span>Structs</a> »</li>
+<li>
+<span class="section-number">12.9. </span>__nv_fp8_e4m3</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nv-fp8-e4m3">
+<h1>
+<span class="section-number">12.9. </span>__nv_fp8_e4m3<a class="headerlink" href="struct____nv__fp8__e4m3.html#nv-fp8-e4m3" title="Permalink to this headline"></a>
+</h1>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv413__nv_fp8_e4m3">
+<span id="_CPPv313__nv_fp8_e4m3"></span><span id="_CPPv213__nv_fp8_e4m3"></span><span id="__nv_fp8_e4m3"></span><span class="target" id="struct____nv__fp8__e4m3"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv413__nv_fp8_e4m3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p><a class="reference internal" href="struct____nv__fp8__e4m3.html#struct____nv__fp8__e4m3"><span class="std std-ref">__nv_fp8_e4m3</span></a> datatype </p>
+<p>This structure implements the datatype for storing <code class="docutils literal notranslate"><span class="pre">fp8</span></code> floating-point numbers of <code class="docutils literal notranslate"><span class="pre">e4m3</span></code> kind: with 1 sign, 4 exponent, 1 implicit and 3 explicit mantissa bits. The encoding doesn’t support Infinity. NaNs are limited to 0x7F and 0xFF values.</p>
+<p>The structure implements converting constructors and operators. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3Ev">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3Ev"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3Ev"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3"></span><span class="target" id="group__cuda__math__fp8__misc_1ga914fc500b98bb65f654ad11964388ea3"></span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3Ev" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor by default. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EK6__half">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EK6__half"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EK6__half"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3____halfC"></span><span class="target" id="group__cuda__math__fp8__misc_1gaaaf1299152b838c4b0fd1f4a679c38fa"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EK13__nv_bfloat16">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EK13__nv_bfloat16"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EK13__nv_bfloat16"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3____nv_bfloat16C"></span><span class="target" id="group__cuda__math__fp8__misc_1ga45024efd5cbb859ba810ea3ce70367a6"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat16.html#_CPPv413__nv_bfloat16" title="__nv_bfloat16"><span class="n"><span class="pre">__nv_bfloat16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EK13__nv_bfloat16" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><a class="reference internal" href="struct____nv__bfloat16.html#struct____nv__bfloat16"><span class="std std-ref"><span class="pre">__nv_bfloat16</span></span></a></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKd">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKd"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKd"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__doubleC"></span><span class="target" id="group__cuda__math__fp8__misc_1gac28d3e2a18c88f354d7b4a2e5f60a480"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKd" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">double</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKf">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKf"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKf"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__floatC"></span><span class="target" id="group__cuda__math__fp8__misc_1gaa099d2486927db2f5a57e9704b015f27"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">f</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">float</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKi">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKi"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKi"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__iC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga2b3e22e46d14c8cacf59a708c809ec32"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKl">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKl"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKl"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__l-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga4aeadbe5b5289d49ba12ce755e8675b2"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKl" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKx">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKx"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKx"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__l-l-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga80a0204477207a09257a3f8a994c2a29"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKx" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKs">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKs"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKs"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__short-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1gaf1a7b95f7f435b054065a34d81ba7476"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKs" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">short</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKj">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKj"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKj"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__unsigned-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1gaf5c9a72d2d9ab566c0e85ec2fe7e21ad"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKj" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKm">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKm"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKm"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__unsigned-l-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1gab0888f5bb11711fc0c03cf1d0687cc95"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKm" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKy">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKy"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKy"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__unsigned-l-l-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga35ad28ec13de4876e786fe9b8bb9cedb"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKy" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKt">
+<span id="_CPPv3N13__nv_fp8_e4m313__nv_fp8_e4m3EKt"></span><span id="_CPPv2N13__nv_fp8_e4m313__nv_fp8_e4m3EKt"></span><span id="__nv_fp8_e4m3::__nv_fp8_e4m3__unsigned-short-iC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga9774592687510ec90016b381917e0b73"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__nv_fp8_e4m3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m313__nv_fp8_e4m3EKt" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Constructor from <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">short</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type, relies on <code class="docutils literal notranslate"><span class="pre">__NV_SATFINITE</span></code> behavior for out-of-range values. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cv6__halfEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cv6__halfEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cv6__halfEv"></span><span id="__nv_fp8_e4m3::castto-__half-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gab8ad8eec1093146681069014bc9e025f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cv6__halfEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><a class="reference internal" href="struct____half.html#struct____half"><span class="std std-ref"><span class="pre">__half</span></span></a></code> data type. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cv13__nv_bfloat16Ev">
+<span id="_CPPv3NK13__nv_fp8_e4m3cv13__nv_bfloat16Ev"></span><span id="_CPPv2NK13__nv_fp8_e4m3cv13__nv_bfloat16Ev"></span><span id="__nv_fp8_e4m3::castto-__nv_bfloat16-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga432837cabcbec7b5d3f8ec269b518658"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><a class="reference internal" href="struct____nv__bfloat16.html#_CPPv413__nv_bfloat16" title="__nv_bfloat16"><span class="n"><span class="pre">__nv_bfloat16</span></span></a></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cv13__nv_bfloat16Ev" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><a class="reference internal" href="struct____nv__bfloat16.html#struct____nv__bfloat16"><span class="std std-ref"><span class="pre">__nv_bfloat16</span></span></a></code> data type. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvbEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvbEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvbEv"></span><span id="__nv_fp8_e4m3::castto-b-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga41fb807c51e9ab27e3c81eebb0fc7f55"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvbEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">bool</span></code> data type. </p>
+<p>+0 and -0 inputs convert to <code class="docutils literal notranslate"><span class="pre">false</span></code>. Non-zero inputs convert to <code class="docutils literal notranslate"><span class="pre">true</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvcEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvcEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvcEv"></span><span id="__nv_fp8_e4m3::castto-c-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga6e1e7716f66d9979255b9f3232c5f2d6"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvcEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to an implementation defined <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Detects signedness of the <code class="docutils literal notranslate"><span class="pre">char</span></code> type and proceeds accordingly, see further details in signed and unsigned char operators.</p>
+<p>Clamps inputs to the output range. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvdEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvdEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvdEv"></span><span id="__nv_fp8_e4m3::castto-double-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga7160e65b9f2053dcb808785b185acb3c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvdEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">double</span></code> data type. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvfEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvfEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvfEv"></span><span id="__nv_fp8_e4m3::castto-float-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gab963e1f3f3d9dd33c71bad130bdd30a9"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvfEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">float</span></code> data type. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cviEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cviEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cviEv"></span><span id="__nv_fp8_e4m3::castto-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga661d320faf81f468a4a7f98cc5523ba9"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cviEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvlEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvlEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvlEv"></span><span id="__nv_fp8_e4m3::castto-l-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga3b1f36e452b3cce1268509eada087482"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvlEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Clamps too large inputs to the output range. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code> if output type is 32-bit. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">0x8000000000000000ULL</span></code> if output type is 64-bit. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvxEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvxEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvxEv"></span><span id="__nv_fp8_e4m3::castto-l-l-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gabfcf635f234ec03ffe168fb8fc85e791"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvxEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">0x8000000000000000LL</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvsEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvsEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvsEv"></span><span id="__nv_fp8_e4m3::castto-short-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga7419262c8fc96185d32c4ee4764c0a10"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvsEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">short</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvaEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvaEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvaEv"></span><span id="__nv_fp8_e4m3::castto-signed-c-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gafd7d9608c07808abe4489ecb292f535e"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">signed</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvaEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">signed</span></code> <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Clamps too large inputs to the output range. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvhEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvhEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvhEv"></span><span id="__nv_fp8_e4m3::castto-unsigned-c-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gad2dcb3aaa6ef83feeead60a2b973ed5c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvhEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">char</span></code> data type. </p>
+<p>Clamps negative and too large inputs to the output range. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvjEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvjEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvjEv"></span><span id="__nv_fp8_e4m3::castto-unsigned-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1gaf6bb0a1fcd2a2a839d43f41ef37972a1"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvjEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Clamps negative inputs to zero. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvmEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvmEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvmEv"></span><span id="__nv_fp8_e4m3::castto-unsigned-l-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga8d415259728e40dac3d89619ad208603"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvmEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Clamps negative and too large inputs to the output range. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code> if output type is 32-bit. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">0x8000000000000000ULL</span></code> if output type is 64-bit. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvyEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvyEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvyEv"></span><span id="__nv_fp8_e4m3::castto-unsigned-l-l-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga6bcd2dd40bdd6a87704c5c5be120c70f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvyEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">long</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Clamps negative inputs to zero. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">0x8000000000000000ULL</span></code>. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK13__nv_fp8_e4m3cvtEv">
+<span id="_CPPv3NK13__nv_fp8_e4m3cvtEv"></span><span id="_CPPv2NK13__nv_fp8_e4m3cvtEv"></span><span id="__nv_fp8_e4m3::castto-unsigned-short-i-operatorC"></span><span class="target" id="group__cuda__math__fp8__misc_1ga6db733065f9c76ae7d3023a815a82ab7"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="w"> </span><span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">short</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4NK13__nv_fp8_e4m3cvtEv" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Conversion operator to <code class="docutils literal notranslate"><span class="pre">unsigned</span></code> <code class="docutils literal notranslate"><span class="pre">short</span></code> <code class="docutils literal notranslate"><span class="pre">int</span></code> data type. </p>
+<p>Clamps negative inputs to zero. <code class="docutils literal notranslate"><span class="pre">NaN</span></code> inputs convert to <code class="docutils literal notranslate"><span class="pre">zero</span></code>. </p>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13__nv_fp8_e4m33__xE">
+<span id="_CPPv3N13__nv_fp8_e4m33__xE"></span><span id="_CPPv2N13__nv_fp8_e4m33__xE"></span><span id="__nv_fp8_e4m3::__x____nv_fp8_storage_t"></span><span class="target" id="group__cuda__math__fp8__e4m3__struct_1ga1b3fa64ae07d254eedc1a8eef8e051ce"></span><a class="reference internal" href="group__CUDA__MATH__FP8__MISC.html#_CPPv418__nv_fp8_storage_t" title="__nv_fp8_storage_t"><span class="n"><span class="pre">__nv_fp8_storage_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__x</span></span></span><a class="headerlink" href="struct____nv__fp8__e4m3.html#_CPPv4N13__nv_fp8_e4m33__xE" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Storage variable contains the <code class="docutils literal notranslate"><span class="pre">fp8</span></code> floating-point data. </p>
+</dd>
+</dl>
+
+</div>
+</dd>
+</dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Maxwell Architecture." name="description">
+<meta content="CUDA Maxwell, CUDA Maxwell tuning, CUDA Maxwell best practices, CUDA Maxwell performance" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maxwell Tuning Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. Maxwell Tuning Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvidia-maxwell-compute-architecture">1.1. NVIDIA Maxwell Compute Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-best-practices">1.2. CUDA Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#application-compatibility">1.3. Application Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#maxwell-tuning">1.4. Maxwell Tuning</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#smm">1.4.1. SMM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#occupancy">1.4.1.1. Occupancy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#instruction-scheduling">1.4.1.2. Instruction Scheduling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#instruction-latencies">1.4.1.3. Instruction Latencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#instruction-throughput">1.4.1.4. Instruction Throughput</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-throughput">1.4.2. Memory Throughput</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#unified-l1-texture-cache">1.4.2.1. Unified L1/Texture Cache</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#shared-memory">1.4.3. Shared Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#shared-memory-capacity">1.4.3.1. Shared Memory Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#shared-memory-bandwidth">1.4.3.2. Shared Memory Bandwidth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#fast-shared-memory-atomics">1.4.3.3. Fast Shared Memory Atomics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dynamic-parallelism">1.4.4. Dynamic Parallelism</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">2. Revision History</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">3. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">3.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">3.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Maxwell Tuning Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Maxwell Tuning Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/Maxwell_Tuning_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric" id="maxwell-tuning-guide"><a class="reference external" href="index.html#abstract">Tuning CUDA Applications for Maxwell</a></p>
+<p>The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Maxwell Architecture.</p>
+<section id="id1">
+<h1>
+<span class="section-number">1. </span>Maxwell Tuning Guide<a class="headerlink" href="index.html#id1" title="Permalink to this headline"></a>
+</h1>
+<section id="nvidia-maxwell-compute-architecture">
+<h2>
+<span class="section-number">1.1. </span>NVIDIA Maxwell Compute Architecture<a class="headerlink" href="index.html#nvidia-maxwell-compute-architecture" title="Permalink to this headline"></a>
+</h2>
+<p>Maxwell is NVIDIA’s next-generation architecture for CUDA compute applications. Maxwell retains and extends the same CUDA programming model as in previous NVIDIA architectures such as Fermi and Kepler, and applications that follow the best practices for those architectures should typically see speedups on the Maxwell architecture without any code changes. This guide summarizes the ways that an application can be fine-tuned to gain additional speedups by leveraging Maxwell architectural features.<a class="footnote-reference brackets" href="index.html#fn1" id="id2">1</a></p>
+<p>Maxwell introduces an all-new design for the Streaming Multiprocessor (<em>SM</em>) that dramatically improves energy efficiency. Although the Kepler SMX design was extremely efficient for its generation, through its development, NVIDIA’s GPU architects saw an opportunity for another big leap forward in architectural efficiency; the Maxwell SM is the realization of that vision. Improvements to control logic partitioning, workload balancing, clock-gating granularity, compiler-based scheduling, number of instructions issued per clock cycle, and many other enhancements allow the Maxwell SM (also called <em>SMM</em>) to far exceed Kepler SMX efficiency.</p>
+<p>The first Maxwell-based GPU is codenamed <em>GM107</em> and is designed for use in power-limited environments like notebooks and small form factor (SFF) PCs. GM107 is described in a whitepaper entitled <a class="reference external" href="http://international.download.nvidia.com/geforce-com/international/pdfs/GeForce-GTX-750-Ti-Whitepaper.pdf">NVIDIA GeForce GTX 750 Ti: Featuring First-Generation Maxwell GPU Technology, Designed for Extreme Performance per Watt</a>.<a class="footnote-reference brackets" href="index.html#fn2" id="id3">2</a></p>
+<p>The first GPU using the second-generation Maxwell architecture is codenamed <em>GM204</em>. Second-generation Maxwell GPUs retain the power efficiency of the earlier generation while delivering significantly higher performance. GM204 is described in a whitepaper entitled <a class="reference external" href="http://international.download.nvidia.com/geforce-com/international/pdfs/GeForce_GTX_980_Whitepaper_FINAL.PDF">NVIDIA GeForce GTX 980: Featuring Maxwell, The Most Advanced GPU Ever Made</a>.</p>
+<p>Compute programming features of GM204 are similar to those of GM107, except where explicitly noted in this guide. For details on the programming features discussed in this guide, please refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a>.</p>
+</section>
+<section id="cuda-best-practices">
+<h2>
+<span class="section-number">1.2. </span>CUDA Best Practices<a class="headerlink" href="index.html#cuda-best-practices" title="Permalink to this headline"></a>
+</h2>
+<p>The performance guidelines and best practices described in the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a> and the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a> apply to all CUDA-capable GPU architectures. Programmers must primarily focus on following those recommendations to achieve the best performance.</p>
+<p>The high-priority recommendations from those guides are as follows:</p>
+<ul class="simple">
+<li><p>Find ways to parallelize sequential code,</p></li>
+<li><p>Minimize data transfers between the host and the device,</p></li>
+<li><p>Adjust kernel launch configuration to maximize device utilization,</p></li>
+<li><p>Ensure global memory accesses are coalesced,</p></li>
+<li><p>Minimize redundant accesses to global memory whenever possible,</p></li>
+<li><p>Avoid long sequences of diverged execution by threads within the same warp.</p></li>
+</ul>
+</section>
+<section id="application-compatibility">
+<h2>
+<span class="section-number">1.3. </span>Application Compatibility<a class="headerlink" href="index.html#application-compatibility" title="Permalink to this headline"></a>
+</h2>
+<p>Before addressing specific performance tuning issues covered in this guide, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/maxwell-compatibility-guide/">Maxwell Compatibility Guide for CUDA Applications</a> to ensure that your application is compiled in a way that is compatible with Maxwell.</p>
+</section>
+<section id="maxwell-tuning">
+<h2>
+<span class="section-number">1.4. </span>Maxwell Tuning<a class="headerlink" href="index.html#maxwell-tuning" title="Permalink to this headline"></a>
+</h2>
+<section id="smm">
+<h3>
+<span class="section-number">1.4.1. </span>SMM<a class="headerlink" href="index.html#smm" title="Permalink to this headline"></a>
+</h3>
+<p>The Maxwell Streaming Multiprocessor, SMM, is similar in many respects to the Kepler architecture’s SMX. The key enhancements of SMM over SMX are geared toward improving efficiency without requiring significant increases in available parallelism per SM from the application.</p>
+<section id="occupancy">
+<h4>
+<span class="section-number">1.4.1.1. </span>Occupancy<a class="headerlink" href="index.html#occupancy" title="Permalink to this headline"></a>
+</h4>
+<p>The maximum number of concurrent warps per SMM remains the same as in SMX (i.e., 64), and <a class="reference external" href="https://developer.download.nvidia.com/compute/cuda/CUDA_Occupancy_calculator.xls">factors influencing warp occupancy</a> remain similar or improved over SMX:</p>
+<ul class="simple">
+<li><p>The register file size (64k 32-bit registers) is the same as that of SMX.</p></li>
+<li><p>The maximum registers per thread, 255, matches that of Kepler GK110. As with Kepler, experimentation should be used to determine the optimum balance of register spilling vs. occupancy, however.</p></li>
+<li><p>The maximum number of thread blocks per SM has been increased from 16 to 32. This should result in an automatic occupancy improvement for kernels with small thread blocks of 64 or fewer threads (shared memory and register file resource requirements permitting). Such kernels would have tended to under-utilize SMX, but less so SMM.</p></li>
+<li><p>Shared memory capacity is increased (see <a class="reference external" href="index.html#shared-memory-capacity">Shared Memory Capacity</a>).</p></li>
+</ul>
+<p>As such, developers can expect similar or improved occupancy on SMM without changes to their application. At the same time, warp occupancy requirements (i.e., available parallelism) for maximum device utilization are similar to or less than those of SMX (see <a class="reference external" href="index.html#smm-latencies">Instruction Latencies</a>).</p>
+</section>
+<section id="instruction-scheduling">
+<h4>
+<span class="section-number">1.4.1.2. </span>Instruction Scheduling<a class="headerlink" href="index.html#instruction-scheduling" title="Permalink to this headline"></a>
+</h4>
+<p>The number of CUDA Cores per SM has been reduced to a power of two, however with Maxwell’s improved execution efficiency, performance per SM is usually within 10% of Kepler performance, and the improved area efficiency of SMM means CUDA Cores per GPU will be substantially higher vs. comparable Fermi or Kepler chips. SMM retains the same number of instruction issue slots per clock and reduces arithmetic latencies compared to the Kepler design.</p>
+<p>As with SMX, each SMM has four warp schedulers. Unlike SMX, however, all SMM core functional units are assigned to a particular scheduler, with no shared units. Along with the selection of a power-of-two number of CUDA Cores per SM, which simplifies scheduling and reduces stall cycles, this partitioning of SM computational resources in SMM is a major component of the streamlined efficiency of SMM.</p>
+<p>The power-of-two number of CUDA Cores per partition simplifies scheduling, as each of SMM’s warp schedulers issue to a dedicated set of CUDA Cores equal to the warp width. Each warp scheduler still has the flexibility to dual-issue (such as issuing a math operation to a CUDA Core in the same cycle as a memory operation to a load/store unit), but single-issue is now sufficient to fully utilize all CUDA Cores.</p>
+</section>
+<section id="instruction-latencies">
+<h4>
+<span class="section-number">1.4.1.3. </span>Instruction Latencies<a class="headerlink" href="index.html#instruction-latencies" title="Permalink to this headline"></a>
+</h4>
+<p>Another major improvement of SMM is that dependent math latencies have been significantly reduced; a consequence of this is a further reduction of stall cycles, as the available warp-level parallelism (i.e., occupancy) on SMM should be equal to or greater than that of SMX (see <a class="reference external" href="index.html#smm-occupancy">Occupancy</a>), while at the same time each math operation takes <em>less</em> time to complete, improving utilization and throughput.</p>
+</section>
+<section id="instruction-throughput">
+<h4>
+<span class="section-number">1.4.1.4. </span>Instruction Throughput<a class="headerlink" href="index.html#instruction-throughput" title="Permalink to this headline"></a>
+</h4>
+<p>The most significant changes to peak instruction throughputs in SMM are as follows:</p>
+<ul class="simple">
+<li><p>The change in <a class="reference external" href="index.html#smm-scheduling">number of CUDA Cores per SM</a> brings with it a corresponding change in peak single-precision floating point operations per clock per SM. However, since the number of SMs is typically increased, the result is an increase in aggregate peak throughput; furthermore, the scheduling and latency improvements also discussed above make this peak easier to approach.</p></li>
+<li><p>The throughput of many integer operations including multiply, logical operations and shift is improved. In addition, there are now specialized integer instructions that can accelerate pointer arithmetic. These instructions are most efficient when data structures are a power of two in size.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As was already the recommended best practice, signed arithmetic should be preferred over unsigned arithmetic wherever possible for best throughput on SMM. The C language standard places more restrictions on overflow behavior for unsigned math, limiting compiler optimization opportunities.</p>
+</div>
+</section>
+</section>
+<section id="memory-throughput">
+<h3>
+<span class="section-number">1.4.2. </span>Memory Throughput<a class="headerlink" href="index.html#memory-throughput" title="Permalink to this headline"></a>
+</h3>
+<section id="unified-l1-texture-cache">
+<h4>
+<span class="section-number">1.4.2.1. </span>Unified L1/Texture Cache<a class="headerlink" href="index.html#unified-l1-texture-cache" title="Permalink to this headline"></a>
+</h4>
+<p>Maxwell combines the functionality of the L1 and texture caches into a single unit.</p>
+<p>As with Kepler, global loads in Maxwell are cached in L2 only, unless using the <em>LDG</em> read-only data cache mechanism introduced in Kepler.</p>
+<p>In a manner similar to Kepler GK110B, GM204 retains this behavior by default but also allows applications to opt-in to caching of global loads in its unified L1/Texture cache. The opt-in mechanism is the same as with GK110B: pass the <code class="docutils literal notranslate"><span class="pre">-Xptxas</span> <span class="pre">-dlcm=ca</span></code> flag to <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> at compile time.</p>
+<p>Local loads also are cached in L2 only, which could increase the cost of register spilling if L1 local load hit rates were high with Kepler. The balance of occupancy versus spilling should therefore be reevaluated to ensure best performance. Especially given the improvements to arithmetic latencies, code built for Maxwell may benefit from somewhat lower occupancy (due to increased registers per thread) in exchange for lower spilling.</p>
+<p>The unified L1/texture cache acts as a coalescing buffer for memory accesses, gathering up the data requested by the threads of a warp prior to delivery of that data to the warp. This function previously was served by the separate L1 cache in Fermi and Kepler.</p>
+<p>Two new device attributes were added in CUDA Toolkit 6.0: <code class="docutils literal notranslate"><span class="pre">globalL1CacheSupported</span></code> and <code class="docutils literal notranslate"><span class="pre">localL1CacheSupported</span></code>. Developers who wish to have separately-tuned paths for various architecture generations can use these fields to simplify the path selection process.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Enabling caching of globals in GM204 can affect occupancy. If per-thread-block SM resource usage would result in zero occupancy with caching enabled, the CUDA driver will override the caching selection to allow the kernel launch to succeed. This situation is reported by the profiler.</p>
+</div>
+</section>
+</section>
+<section id="shared-memory">
+<h3>
+<span class="section-number">1.4.3. </span>Shared Memory<a class="headerlink" href="index.html#shared-memory" title="Permalink to this headline"></a>
+</h3>
+<section id="shared-memory-capacity">
+<h4>
+<span class="section-number">1.4.3.1. </span>Shared Memory Capacity<a class="headerlink" href="index.html#shared-memory-capacity" title="Permalink to this headline"></a>
+</h4>
+<p>With Fermi and Kepler, shared memory and the L1 cache shared the same on-chip storage. Maxwell, by contrast, provides dedicated space to the shared memory of each SMM, since the functionality of the L1 and texture caches have been merged in SMM. This increases the shared memory space available per SMM as compared to SMX: GM107 provides 64 KB shared memory per SMM, and GM204 further increases this to 96 KB shared memory per SMM.</p>
+<p>This presents several benefits to application developers:</p>
+<ul class="simple">
+<li><p>Algorithms with significant shared memory capacity requirements (e.g., radix sort) see an automatic 33% to 100% boost in capacity per SM on top of the aggregate boost from higher SM count.</p></li>
+<li><p>Applications no longer need to select a preference of the L1/shared split for optimal performance. For purposes of backward compatibility with Fermi and Kepler, applications may optionally continue to specify such a preference, but the preference will be ignored on Maxwell, with the full 64 KB per SMM always going to shared memory.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the per-SM shared memory capacity is increased in SMM, the per-thread-block limit remains 48 KB. For maximum flexibility on possible future GPUs, NVIDIA recommends that applications use at most 32 KB of shared memory in any one thread block, which would for example allow at least two such thread blocks to fit per SMM.</p>
+</div>
+</section>
+<section id="shared-memory-bandwidth">
+<h4>
+<span class="section-number">1.4.3.2. </span>Shared Memory Bandwidth<a class="headerlink" href="index.html#shared-memory-bandwidth" title="Permalink to this headline"></a>
+</h4>
+<p>Kepler SMX introduced an optional 8-byte shared memory banking mode, which had the potential to increase shared memory bandwidth per SM over Fermi for shared memory accesses of 8 or 16 bytes. However, applications could only benefit from this when storing these larger elements in shared memory (i.e., integers and fp32 values saw no benefit), and only when the developer explicitly opted into the 8-byte bank mode via the API.</p>
+<p>To simplify this, Maxwell returns to the Fermi style of shared memory banking, where banks are always four bytes wide. Aggregate shared memory bandwidth across the chip remains comparable to that of corresponding Kepler chips, given increased SM count. In this way, all applications using shared memory can now benefit from the higher bandwidth, even when storing only four-byte items into shared memory and without specifying any particular preference via the API.</p>
+</section>
+<section id="fast-shared-memory-atomics">
+<h4>
+<span class="section-number">1.4.3.3. </span>Fast Shared Memory Atomics<a class="headerlink" href="index.html#fast-shared-memory-atomics" title="Permalink to this headline"></a>
+</h4>
+<p>Kepler introduced a dramatically higher throughput for atomic operations to <em>global</em> memory as compared to Fermi. However, atomic operations to <em>shared</em> memory remained essentially unchanged: both architectures implemented shared memory atomics using a lock/update/unlock pattern that could be expensive in the case of high contention for updates to particular locations in shared memory.</p>
+<p>Maxwell improves upon this by implementing native shared memory atomic operations for 32-bit integers and native shared memory 32-bit and 64-bit compare-and-swap (CAS), which can be used to implement other atomic functions with reduced overhead compared to the Fermi and Kepler methods.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a> for an example implementation of an fp64 <code class="docutils literal notranslate"><span class="pre">atomicAdd()</span></code> using <code class="docutils literal notranslate"><span class="pre">atomicCAS()</span></code>.</p>
+</div>
+</section>
+</section>
+<section id="dynamic-parallelism">
+<h3>
+<span class="section-number">1.4.4. </span>Dynamic Parallelism<a class="headerlink" href="index.html#dynamic-parallelism" title="Permalink to this headline"></a>
+</h3>
+<p>GK110 introduced a new architectural feature called Dynamic Parallelism, which allows the GPU to create additional work for itself. A programming model enhancement leveraging this feature was introduced in CUDA 5.0 to enable kernels running on GK110 to launch additional kernels onto the same GPU.</p>
+<p>SMM brings Dynamic Parallelism into the mainstream by supporting it across the product line, even in lower-power chips such as GM107. This will benefit developers, as it means that applications will no longer need special-case algorithm implementations for high-end GPUs that differ from those usable in more power-constrained environments.</p>
+</section>
+</section>
+</section>
+<section id="revision-history">
+<h1>
+<span class="section-number">2. </span>Revision History<a class="headerlink" href="index.html#revision-history" title="Permalink to this headline"></a>
+</h1>
+<p><strong>Version 1.0</strong></p>
+<ul class="simple">
+<li><p>Initial Public Release</p></li>
+</ul>
+<p><strong>Version 1.1</strong></p>
+<ul class="simple">
+<li><p>Updated for second-generation Maxwell (compute capability 5.2).</p></li>
+</ul>
+<p><strong>Version 1.2</strong></p>
+<ul class="simple">
+<li><p>Updated references to the CUDA C++ Programming Guide and CUDA C++ Best Practices Guide.</p></li>
+</ul>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+<dl class="footnote brackets">
+<dt class="label" id="fn1"><span class="brackets"><a class="fn-backref" href="index.html#id2">1</a></span></dt>
+<dd>
+<p>Throughout this guide, <em>Fermi</em> refers to devices of compute capability 2.x, <em>Kepler</em> refers to devices of compute capability 3.x, and <em>Maxwell</em> refers to devices of compute capability 5.x.</p>
+</dd>
+<dt class="label" id="fn2"><span class="brackets"><a class="fn-backref" href="index.html#id3">2</a></span></dt>
+<dd>
+<p>The features of GM108 are similar to those of GM107.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2018-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

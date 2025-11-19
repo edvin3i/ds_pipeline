@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5. Single Precision Intrinsics — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="6. Double Precision Mathematical Functions" href="group__CUDA__MATH__DOUBLE.html">
+    <link rel="prev" title="4. Single Precision Mathematical Functions" href="group__CUDA__MATH__SINGLE.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">5. </span>Single Precision Intrinsics</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="single-precision-intrinsics">
+<h1>
+<span class="section-number">5. </span>Single Precision Intrinsics<a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#single-precision-intrinsics" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math__intrinsic__single">This section describes single precision intrinsic functions that are only supported in device code. </p>
+<p>To use these functions you do not need to include any additional header files in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga129ff4afc615da9a5886c77713094c32"><span class="std std-ref">__cosf</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate cosine of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga35e0d360ac27e6eb9cf1065b847d46af"><span class="std std-ref">__exp10f</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate base 10 exponential of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga1beeb3ae544cfdde4a0a724ace025aed"><span class="std std-ref">__expf</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\(e\)</span> exponential of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaa8255ea2b671a8488813d9d3527e661a"><span class="std std-ref">__fadd_rd</span></a>(float x, float y)</dt>
+<dd>
+<p>Add two floating-point values in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga34f8d82135041b06099d7709ff0bbe4e"><span class="std std-ref">__fadd_rn</span></a>(float x, float y)</dt>
+<dd>
+<p>Add two floating-point values in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga3ba9e088a1f798c2542fe7d69736ac7e"><span class="std std-ref">__fadd_ru</span></a>(float x, float y)</dt>
+<dd>
+<p>Add two floating-point values in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga8d108dee04b1aa0681fcdfb8f661dc9e"><span class="std std-ref">__fadd_rz</span></a>(float x, float y)</dt>
+<dd>
+<p>Add two floating-point values in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaa548a4045aee3b2dce24bccb26f90f82"><span class="std std-ref">__fdiv_rd</span></a>(float x, float y)</dt>
+<dd>
+<p>Divide two floating-point values in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga1bd038de4c10eec819e00991fb5acf7e"><span class="std std-ref">__fdiv_rn</span></a>(float x, float y)</dt>
+<dd>
+<p>Divide two floating-point values in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga8089bb061fd076bdb5b08566b4d0e0c2"><span class="std std-ref">__fdiv_ru</span></a>(float x, float y)</dt>
+<dd>
+<p>Divide two floating-point values in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gab1465a09b2a88d1c2048d0b0f612fb5c"><span class="std std-ref">__fdiv_rz</span></a>(float x, float y)</dt>
+<dd>
+<p>Divide two floating-point values in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gac996beec34f94f6376d0674a6860e107"><span class="std std-ref">__fdividef</span></a>(float x, float y)</dt>
+<dd>
+<p>Calculate the fast approximate division of the input arguments.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga5ec4876d85bf5331ac63fa98f3fb57b4"><span class="std std-ref">__fmaf_ieee_rd</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-down mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga6535eebe86aba96a47c3ff4632640d99"><span class="std std-ref">__fmaf_ieee_rn</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-to-nearest-even mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga6c50feff625ea8d50ccf7fcfa30383eb"><span class="std std-ref">__fmaf_ieee_ru</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-up mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gac39a4b9e57049f913213edcb0d855138"><span class="std std-ref">__fmaf_ieee_rz</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-towards-zero mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga5b12d5103d17eed423f1db706a9c80be"><span class="std std-ref">__fmaf_rd</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(x \times y + z\)</span> as a single operation, in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga77b36635a8fbdc96a7e08e201d589316"><span class="std std-ref">__fmaf_rn</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(x \times y + z\)</span> as a single operation, in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafe855a453ea92a580b79ad8a7e72bc49"><span class="std std-ref">__fmaf_ru</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(x \times y + z\)</span> as a single operation, in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga42a5f6c99064834ad50b2bfa7aa77731"><span class="std std-ref">__fmaf_rz</span></a>(float x, float y, float z)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(x \times y + z\)</span> as a single operation, in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga28d56d8747ca7960860cd9c67cd3fed6"><span class="std std-ref">__fmul_rd</span></a>(float x, float y)</dt>
+<dd>
+<p>Multiply two floating-point values in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga4b9d2d5cb295c1442b00e6eff5248b97"><span class="std std-ref">__fmul_rn</span></a>(float x, float y)</dt>
+<dd>
+<p>Multiply two floating-point values in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gacd2f8b720306266f6e814345d4cf1b93"><span class="std std-ref">__fmul_ru</span></a>(float x, float y)</dt>
+<dd>
+<p>Multiply two floating-point values in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaff448e40e1e71eb620159a40e5e62705"><span class="std std-ref">__fmul_rz</span></a>(float x, float y)</dt>
+<dd>
+<p>Multiply two floating-point values in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga4f51ca3e41e5f9369bed0bf0c5f42971"><span class="std std-ref">__frcp_rd</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\frac{1}{x}\)</span> in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaba455801af8ac9af405a5d37ef2f077b"><span class="std std-ref">__frcp_rn</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\frac{1}{x}\)</span> in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gad5b3289e40e510c2067c8f7a426aa884"><span class="std std-ref">__frcp_ru</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\frac{1}{x}\)</span> in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga64032913321c328ae72111161af32268"><span class="std std-ref">__frcp_rz</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\frac{1}{x}\)</span> in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga71ee45580cbeeea206297f0112aff42c"><span class="std std-ref">__frsqrt_rn</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(1/\sqrt{x}\)</span> in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga59566bdd0638a5b249dbda757f2bb06b"><span class="std std-ref">__fsqrt_rd</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\sqrt{x}\)</span> in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaf021e85b5e9de141a0fc2ff6fbe85875"><span class="std std-ref">__fsqrt_rn</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\sqrt{x}\)</span> in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gab429e39b1790b4dfae0d0c4926f53fe2"><span class="std std-ref">__fsqrt_ru</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\sqrt{x}\)</span> in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga094bf489bf492287424b1080569189f1"><span class="std std-ref">__fsqrt_rz</span></a>(float x)</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\(\sqrt{x}\)</span> in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga78502e666a0e6e7690230e118403df54"><span class="std std-ref">__fsub_rd</span></a>(float x, float y)</dt>
+<dd>
+<p>Subtract two floating-point values in round-down mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gae75e42e6637c178cd3c86a6e3774f7cb"><span class="std std-ref">__fsub_rn</span></a>(float x, float y)</dt>
+<dd>
+<p>Subtract two floating-point values in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga4adc718465695ee57990318d5a650b1c"><span class="std std-ref">__fsub_ru</span></a>(float x, float y)</dt>
+<dd>
+<p>Subtract two floating-point values in round-up mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gac900725c2921068c2ad4f53039b6bacf"><span class="std std-ref">__fsub_rz</span></a>(float x, float y)</dt>
+<dd>
+<p>Subtract two floating-point values in round-towards-zero mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga2b7358a27b8231b592da81ff3143b9a8"><span class="std std-ref">__log10f</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate base 10 logarithm of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafcc053f9040d50975aab00e44e7c6093"><span class="std std-ref">__log2f</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate base 2 logarithm of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gaed5cef656578096892f104a27d5287c4"><span class="std std-ref">__logf</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\(e\)</span> logarithm of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga2c2b295816185f6ce2423471df529974"><span class="std std-ref">__powf</span></a>(float x, float y)</dt>
+<dd>
+<p>Calculate the fast approximate of <span class="math notranslate nohighlight">\(x^y\)</span> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga2c84f08e0db7117a14509d21c3aec04e"><span class="std std-ref">__saturatef</span></a>(float x)</dt>
+<dd>
+<p>Clamp the input argument to [+0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ void</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga96089d6195f9befde96e14afafd931fb"><span class="std std-ref">__sincosf</span></a>(float x, float *sptr, float *cptr)</dt>
+<dd>
+<p>Calculate the fast approximate of sine and cosine of the first input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafa0ea4b2cee94521792ead0deb03addb"><span class="std std-ref">__sinf</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate sine of the input argument.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ float</span> <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga4fc8b7c67526a0195b9cb47287b5c121"><span class="std std-ref">__tanf</span></a>(float x)</dt>
+<dd>
+<p>Calculate the fast approximate tangent of the input argument.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">5.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__cosff">
+<span id="_CPPv36__cosff"></span><span id="_CPPv26__cosff"></span><span id="__cosf__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga129ff4afc615da9a5886c77713094c32"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__cosf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__cosff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate cosine of the input argument. </p>
+<p>Calculate the fast approximate cosine of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>, measured in radians.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga20858ddd8f75a2c8332bdecd536057bf"><span class="std std-ref">cosf()</span></a> for further special case behavior specification. </p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the approximate cosine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__exp10ff">
+<span id="_CPPv38__exp10ff"></span><span id="_CPPv28__exp10ff"></span><span id="__exp10f__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga35e0d360ac27e6eb9cf1065b847d46af"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__exp10f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv48__exp10ff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate base 10 exponential of the input argument. </p>
+<p>Calculate the fast approximate base 10 exponential of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( 10^x \)</span>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga60f1de4fe78a907d915a52be29a799e7"><span class="std std-ref">exp10f()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( 10^x \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__expff">
+<span id="_CPPv36__expff"></span><span id="_CPPv26__expff"></span><span id="__expf__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga1beeb3ae544cfdde4a0a724ace025aed"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__expf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__expff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\( e \)</span> exponential of the input argument. </p>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\( e \)</span> exponential of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( e^x \)</span>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1gae2d7656fe00f9e750c6f3bde8cc0dca6"><span class="std std-ref">expf()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( e^x \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fadd_rdff">
+<span id="_CPPv39__fadd_rdff"></span><span id="_CPPv29__fadd_rdff"></span><span id="__fadd_rd__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaa8255ea2b671a8488813d9d3527e661a"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fadd_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fadd_rdff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add two floating-point values in round-down mode. </p>
+<p>Compute the sum of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fadd_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fadd_rd(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fadd_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fadd_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fadd_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns NaN.</p></li>
+<li><p>__fadd_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fadd_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">-x</span></code>) returns <span class="math notranslate nohighlight">\( -0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fadd_rnff">
+<span id="_CPPv39__fadd_rnff"></span><span id="_CPPv29__fadd_rnff"></span><span id="__fadd_rn__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga34f8d82135041b06099d7709ff0bbe4e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fadd_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fadd_rnff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add two floating-point values in round-to-nearest-even mode. </p>
+<p>Compute the sum of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-to-nearest-even rounding mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fadd_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fadd_rn(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fadd_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fadd_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fadd_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns NaN.</p></li>
+<li><p>__fadd_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fadd_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">-x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fadd_ruff">
+<span id="_CPPv39__fadd_ruff"></span><span id="_CPPv29__fadd_ruff"></span><span id="__fadd_ru__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga3ba9e088a1f798c2542fe7d69736ac7e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fadd_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fadd_ruff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add two floating-point values in round-up mode. </p>
+<p>Compute the sum of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fadd_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fadd_ru(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fadd_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fadd_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fadd_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns NaN.</p></li>
+<li><p>__fadd_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fadd_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">-x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fadd_rzff">
+<span id="_CPPv39__fadd_rzff"></span><span id="_CPPv29__fadd_rzff"></span><span id="__fadd_rz__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga8d108dee04b1aa0681fcdfb8f661dc9e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fadd_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fadd_rzff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add two floating-point values in round-towards-zero mode. </p>
+<p>Compute the sum of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> + <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fadd_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fadd_rz(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fadd_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fadd_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fadd_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns NaN.</p></li>
+<li><p>__fadd_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fadd_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">-x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fdiv_rdff">
+<span id="_CPPv39__fdiv_rdff"></span><span id="_CPPv29__fdiv_rdff"></span><span id="__fdiv_rd__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaa548a4045aee3b2dce24bccb26f90f82"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fdiv_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fdiv_rdff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Divide two floating-point values in round-down mode. </p>
+<p>Divide two floating-point values <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the quotient <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fdiv_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fdiv_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fdiv_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fdiv_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">y</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fdiv_rnff">
+<span id="_CPPv39__fdiv_rnff"></span><span id="_CPPv29__fdiv_rnff"></span><span id="__fdiv_rn__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga1bd038de4c10eec819e00991fb5acf7e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fdiv_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fdiv_rnff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Divide two floating-point values in round-to-nearest-even mode. </p>
+<p>Divide two floating-point values <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the quotient <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fdiv_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fdiv_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fdiv_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fdiv_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">y</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fdiv_ruff">
+<span id="_CPPv39__fdiv_ruff"></span><span id="_CPPv29__fdiv_ruff"></span><span id="__fdiv_ru__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga8089bb061fd076bdb5b08566b4d0e0c2"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fdiv_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fdiv_ruff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Divide two floating-point values in round-up mode. </p>
+<p>Divide two floating-point values <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the quotient <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fdiv_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fdiv_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fdiv_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fdiv_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">y</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fdiv_rzff">
+<span id="_CPPv39__fdiv_rzff"></span><span id="_CPPv29__fdiv_rzff"></span><span id="__fdiv_rz__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gab1465a09b2a88d1c2048d0b0f612fb5c"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fdiv_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fdiv_rzff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Divide two floating-point values in round-towards-zero mode. </p>
+<p>Divide two floating-point values <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the quotient <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fdiv_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fdiv_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fdiv_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fdiv_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fdiv_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">y</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__fdividefff">
+<span id="_CPPv310__fdividefff"></span><span id="_CPPv210__fdividefff"></span><span id="__fdividef__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gac996beec34f94f6376d0674a6860e107"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fdividef</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv410__fdividefff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate division of the input arguments. </p>
+<p>Calculate the fast approximate division of <code class="docutils literal notranslate"><span class="pre">x</span></code> by <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga1bd038de4c10eec819e00991fb5acf7e"><span class="std std-ref">__fdiv_rn()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fdividef( <span class="math notranslate nohighlight">\( \infty \)</span> , <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns NaN for <span class="math notranslate nohighlight">\( 2^{126} &lt; |y| &lt; 2^{128} \)</span>.</p></li>
+<li><p>__fdividef(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns 0 for <span class="math notranslate nohighlight">\( 2^{126} &lt; |y| &lt; 2^{128} \)</span> and finite <span class="math notranslate nohighlight">\( x \)</span>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414__fmaf_ieee_rdfff">
+<span id="_CPPv314__fmaf_ieee_rdfff"></span><span id="_CPPv214__fmaf_ieee_rdfff"></span><span id="__fmaf_ieee_rd__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga5ec4876d85bf5331ac63fa98f3fb57b4"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_ieee_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv414__fmaf_ieee_rdfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-down mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag. </p>
+<p>Behavior is the same as <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga5b12d5103d17eed423f1db706a9c80be"><span class="std std-ref">__fmaf_rd</span></a>(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>), the difference is in handling denormalized inputs and outputs: <code class="docutils literal notranslate"><span class="pre">-ftz</span></code> compiler flag has no effect. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414__fmaf_ieee_rnfff">
+<span id="_CPPv314__fmaf_ieee_rnfff"></span><span id="_CPPv214__fmaf_ieee_rnfff"></span><span id="__fmaf_ieee_rn__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga6535eebe86aba96a47c3ff4632640d99"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_ieee_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv414__fmaf_ieee_rnfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-to-nearest-even mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag. </p>
+<p>Behavior is the same as <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga77b36635a8fbdc96a7e08e201d589316"><span class="std std-ref">__fmaf_rn</span></a>(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>), the difference is in handling denormalized inputs and outputs: <code class="docutils literal notranslate"><span class="pre">-ftz</span></code> compiler flag has no effect. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414__fmaf_ieee_rufff">
+<span id="_CPPv314__fmaf_ieee_rufff"></span><span id="_CPPv214__fmaf_ieee_rufff"></span><span id="__fmaf_ieee_ru__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga6c50feff625ea8d50ccf7fcfa30383eb"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_ieee_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv414__fmaf_ieee_rufff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-up mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag. </p>
+<p>Behavior is the same as <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafe855a453ea92a580b79ad8a7e72bc49"><span class="std std-ref">__fmaf_ru</span></a>(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>), the difference is in handling denormalized inputs and outputs: <code class="docutils literal notranslate"><span class="pre">-ftz</span></code> compiler flag has no effect. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414__fmaf_ieee_rzfff">
+<span id="_CPPv314__fmaf_ieee_rzfff"></span><span id="_CPPv214__fmaf_ieee_rzfff"></span><span id="__fmaf_ieee_rz__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gac39a4b9e57049f913213edcb0d855138"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_ieee_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv414__fmaf_ieee_rzfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute fused multiply-add operation in round-towards-zero mode, ignore <code class="docutils literal notranslate"><span class="pre">-ftz=true</span></code> compiler flag. </p>
+<p>Behavior is the same as <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga42a5f6c99064834ad50b2bfa7aa77731"><span class="std std-ref">__fmaf_rz</span></a>(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>), the difference is in handling denormalized inputs and outputs: <code class="docutils literal notranslate"><span class="pre">-ftz</span></code> compiler flag has no effect. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmaf_rdfff">
+<span id="_CPPv39__fmaf_rdfff"></span><span id="_CPPv29__fmaf_rdfff"></span><span id="__fmaf_rd__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga5b12d5103d17eed423f1db706a9c80be"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmaf_rdfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation, in round-down mode. </p>
+<p>Computes the value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single ternary operation, rounding the result once in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the rounded value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation.</p>
+<ul class="simple">
+<li><p>__fmaf_rd( <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( -\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fmaf_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( +\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>__fmaf_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( -0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns <span class="math notranslate nohighlight">\( -0 \)</span> if <span class="math notranslate nohighlight">\( x \times y + z \)</span> is exactly zero and <span class="math notranslate nohighlight">\( z \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmaf_rnfff">
+<span id="_CPPv39__fmaf_rnfff"></span><span id="_CPPv29__fmaf_rnfff"></span><span id="__fmaf_rn__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga77b36635a8fbdc96a7e08e201d589316"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmaf_rnfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation, in round-to-nearest-even mode. </p>
+<p>Computes the value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single ternary operation, rounding the result once in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the rounded value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation.</p>
+<ul class="simple">
+<li><p>__fmaf_rn( <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( -\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fmaf_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( +\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>__fmaf_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y + z \)</span> is exactly zero and <span class="math notranslate nohighlight">\( z \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmaf_rufff">
+<span id="_CPPv39__fmaf_rufff"></span><span id="_CPPv29__fmaf_rufff"></span><span id="__fmaf_ru__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gafe855a453ea92a580b79ad8a7e72bc49"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmaf_rufff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation, in round-up mode. </p>
+<p>Computes the value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single ternary operation, rounding the result once in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the rounded value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation.</p>
+<ul class="simple">
+<li><p>__fmaf_ru( <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( -\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fmaf_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( +\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>__fmaf_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y + z \)</span> is exactly zero and <span class="math notranslate nohighlight">\( z \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmaf_rzfff">
+<span id="_CPPv39__fmaf_rzfff"></span><span id="_CPPv29__fmaf_rzfff"></span><span id="__fmaf_rz__float.float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga42a5f6c99064834ad50b2bfa7aa77731"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmaf_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">z</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmaf_rzfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation, in round-towards-zero mode. </p>
+<p>Computes the value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single ternary operation, rounding the result once in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the rounded value of <span class="math notranslate nohighlight">\( x \times y + z \)</span> as a single operation.</p>
+<ul class="simple">
+<li><p>__fmaf_rz( <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span> , <span class="math notranslate nohighlight">\( \pm \infty \)</span> , <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns NaN.</p></li>
+<li><p>__fmaf_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( -\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fmaf_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( +\infty \)</span> ) returns NaN if <span class="math notranslate nohighlight">\( x \times y \)</span> is an exact <span class="math notranslate nohighlight">\( -\infty \)</span>.</p></li>
+<li><p>__fmaf_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y \)</span> is exact <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fmaf_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> if <span class="math notranslate nohighlight">\( x \times y + z \)</span> is exactly zero and <span class="math notranslate nohighlight">\( z \neq 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmul_rdff">
+<span id="_CPPv39__fmul_rdff"></span><span id="_CPPv29__fmul_rdff"></span><span id="__fmul_rd__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga28d56d8747ca7960860cd9c67cd3fed6"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmul_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmul_rdff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Multiply two floating-point values in round-down mode. </p>
+<p>Compute the product of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fmul_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fmul_rd(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fmul_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fmul_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fmul_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmul_rnff">
+<span id="_CPPv39__fmul_rnff"></span><span id="_CPPv29__fmul_rnff"></span><span id="__fmul_rn__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga4b9d2d5cb295c1442b00e6eff5248b97"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmul_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmul_rnff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Multiply two floating-point values in round-to-nearest-even mode. </p>
+<p>Compute the product of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fmul_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fmul_rn(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fmul_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fmul_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fmul_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmul_ruff">
+<span id="_CPPv39__fmul_ruff"></span><span id="_CPPv29__fmul_ruff"></span><span id="__fmul_ru__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gacd2f8b720306266f6e814345d4cf1b93"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmul_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmul_ruff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Multiply two floating-point values in round-up mode. </p>
+<p>Compute the product of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fmul_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fmul_ru(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fmul_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fmul_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fmul_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fmul_rzff">
+<span id="_CPPv39__fmul_rzff"></span><span id="_CPPv29__fmul_rzff"></span><span id="__fmul_rz__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaff448e40e1e71eb620159a40e5e62705"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fmul_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fmul_rzff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Multiply two floating-point values in round-towards-zero mode. </p>
+<p>Compute the product of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>sign of the product <code class="docutils literal notranslate"><span class="pre">x</span></code> * <code class="docutils literal notranslate"><span class="pre">y</span></code> is XOR of the signs of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> when neither inputs nor result are NaN.</p></li>
+<li><p>__fmul_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) is equivalent to __fmul_rz(<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>).</p></li>
+<li><p>__fmul_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \infty \)</span> of appropriate sign for <code class="docutils literal notranslate"><span class="pre">x</span></code> <span class="math notranslate nohighlight">\( \neq 0 \)</span>.</p></li>
+<li><p>__fmul_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fmul_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( 0 \)</span> of appropriate sign for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__frcp_rdf">
+<span id="_CPPv39__frcp_rdf"></span><span id="_CPPv29__frcp_rdf"></span><span id="__frcp_rd__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga4f51ca3e41e5f9369bed0bf0c5f42971"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__frcp_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__frcp_rdf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span> in round-down mode. </p>
+<p>Compute the reciprocal of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__frcp_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__frcp_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__frcp_rd(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__frcp_rnf">
+<span id="_CPPv39__frcp_rnf"></span><span id="_CPPv29__frcp_rnf"></span><span id="__frcp_rn__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaba455801af8ac9af405a5d37ef2f077b"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__frcp_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__frcp_rnf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span> in round-to-nearest-even mode. </p>
+<p>Compute the reciprocal of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__frcp_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__frcp_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__frcp_rn(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__frcp_ruf">
+<span id="_CPPv39__frcp_ruf"></span><span id="_CPPv29__frcp_ruf"></span><span id="__frcp_ru__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gad5b3289e40e510c2067c8f7a426aa884"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__frcp_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__frcp_ruf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span> in round-up mode. </p>
+<p>Compute the reciprocal of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__frcp_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__frcp_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__frcp_ru(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__frcp_rzf">
+<span id="_CPPv39__frcp_rzf"></span><span id="_CPPv29__frcp_rzf"></span><span id="__frcp_rz__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga64032913321c328ae72111161af32268"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__frcp_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__frcp_rzf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span> in round-towards-zero mode. </p>
+<p>Compute the reciprocal of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \frac{1}{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__frcp_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__frcp_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__frcp_rz(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__frsqrt_rnf">
+<span id="_CPPv311__frsqrt_rnf"></span><span id="_CPPv211__frsqrt_rnf"></span><span id="__frsqrt_rn__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga71ee45580cbeeea206297f0112aff42c"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__frsqrt_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv411__frsqrt_rnf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( 1/\sqrt{x} \)</span> in round-to-nearest-even mode. </p>
+<p>Compute the reciprocal square root of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( 1/\sqrt{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__frsqrt_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__frsqrt_rn( <span class="math notranslate nohighlight">\( +\infty \)</span>) returns <span class="math notranslate nohighlight">\( +0 \)</span>.</p></li>
+<li><p>__frsqrt_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns NaN for <code class="docutils literal notranslate"><span class="pre">x</span></code> &lt; 0.</p></li>
+<li><p>__frsqrt_rn(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__fsqrt_rdf">
+<span id="_CPPv310__fsqrt_rdf"></span><span id="_CPPv210__fsqrt_rdf"></span><span id="__fsqrt_rd__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga59566bdd0638a5b249dbda757f2bb06b"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsqrt_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv410__fsqrt_rdf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \sqrt{x} \)</span> in round-down mode. </p>
+<p>Compute the square root of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \sqrt{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__fsqrt_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsqrt_rd( <span class="math notranslate nohighlight">\( +\infty \)</span>) returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fsqrt_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns NaN for <code class="docutils literal notranslate"><span class="pre">x</span></code> &lt; 0.</p></li>
+<li><p>__fsqrt_rd(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__fsqrt_rnf">
+<span id="_CPPv310__fsqrt_rnf"></span><span id="_CPPv210__fsqrt_rnf"></span><span id="__fsqrt_rn__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaf021e85b5e9de141a0fc2ff6fbe85875"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsqrt_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv410__fsqrt_rnf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \sqrt{x} \)</span> in round-to-nearest-even mode. </p>
+<p>Compute the square root of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-to-nearest-even mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \sqrt{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__fsqrt_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsqrt_rn( <span class="math notranslate nohighlight">\( +\infty \)</span>) returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fsqrt_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns NaN for <code class="docutils literal notranslate"><span class="pre">x</span></code> &lt; 0.</p></li>
+<li><p>__fsqrt_rn(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__fsqrt_ruf">
+<span id="_CPPv310__fsqrt_ruf"></span><span id="_CPPv210__fsqrt_ruf"></span><span id="__fsqrt_ru__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gab429e39b1790b4dfae0d0c4926f53fe2"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsqrt_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv410__fsqrt_ruf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \sqrt{x} \)</span> in round-up mode. </p>
+<p>Compute the square root of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \sqrt{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__fsqrt_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsqrt_ru( <span class="math notranslate nohighlight">\( +\infty \)</span>) returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fsqrt_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns NaN for <code class="docutils literal notranslate"><span class="pre">x</span></code> &lt; 0.</p></li>
+<li><p>__fsqrt_ru(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__fsqrt_rzf">
+<span id="_CPPv310__fsqrt_rzf"></span><span id="_CPPv210__fsqrt_rzf"></span><span id="__fsqrt_rz__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga094bf489bf492287424b1080569189f1"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsqrt_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv410__fsqrt_rzf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compute <span class="math notranslate nohighlight">\( \sqrt{x} \)</span> in round-towards-zero mode. </p>
+<p>Compute the square root of <code class="docutils literal notranslate"><span class="pre">x</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <span class="math notranslate nohighlight">\( \sqrt{x} \)</span>.</p>
+<ul class="simple">
+<li><p>__fsqrt_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsqrt_rz( <span class="math notranslate nohighlight">\( +\infty \)</span>) returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__fsqrt_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns NaN for <code class="docutils literal notranslate"><span class="pre">x</span></code> &lt; 0.</p></li>
+<li><p>__fsqrt_rz(NaN) returns NaN.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fsub_rdff">
+<span id="_CPPv39__fsub_rdff"></span><span id="_CPPv29__fsub_rdff"></span><span id="__fsub_rd__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga78502e666a0e6e7690230e118403df54"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsub_rd</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fsub_rdff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Subtract two floating-point values in round-down mode. </p>
+<p>Compute the difference of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-down (to negative infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> - <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fsub_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fsub_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \mp\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fsub_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fsub_rd( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fsub_rd( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsub_rd(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>) returns <span class="math notranslate nohighlight">\( -0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fsub_rnff">
+<span id="_CPPv39__fsub_rnff"></span><span id="_CPPv29__fsub_rnff"></span><span id="__fsub_rn__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gae75e42e6637c178cd3c86a6e3774f7cb"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsub_rn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fsub_rnff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Subtract two floating-point values in round-to-nearest-even mode. </p>
+<p>Compute the difference of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-to-nearest-even rounding mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> - <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fsub_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fsub_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \mp\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fsub_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fsub_rn( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fsub_rn( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsub_rn(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fsub_ruff">
+<span id="_CPPv39__fsub_ruff"></span><span id="_CPPv29__fsub_ruff"></span><span id="__fsub_ru__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga4adc718465695ee57990318d5a650b1c"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsub_ru</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fsub_ruff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Subtract two floating-point values in round-up mode. </p>
+<p>Compute the difference of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-up (to positive infinity) mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> - <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fsub_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fsub_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \mp\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fsub_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fsub_ru( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fsub_ru( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsub_ru(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__fsub_rzff">
+<span id="_CPPv39__fsub_rzff"></span><span id="_CPPv29__fsub_rzff"></span><span id="__fsub_rz__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gac900725c2921068c2ad4f53039b6bacf"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__fsub_rz</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__fsub_rzff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Subtract two floating-point values in round-towards-zero mode. </p>
+<p>Compute the difference of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> in round-towards-zero mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation will never be merged into a single multiply-add instruction. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns <code class="docutils literal notranslate"><span class="pre">x</span></code> - <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<ul class="simple">
+<li><p>__fsub_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <code class="docutils literal notranslate"><span class="pre">y</span></code>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p></li>
+<li><p>__fsub_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns <span class="math notranslate nohighlight">\( \mp\infty \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>__fsub_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \pm\infty \)</span>) returns NaN.</p></li>
+<li><p>__fsub_rz( <span class="math notranslate nohighlight">\( \pm\infty \)</span>, <span class="math notranslate nohighlight">\( \mp\infty \)</span>) returns <span class="math notranslate nohighlight">\( \pm\infty \)</span>.</p></li>
+<li><p>__fsub_rz( <span class="math notranslate nohighlight">\( \pm 0 \)</span>, <span class="math notranslate nohighlight">\( \mp 0 \)</span>) returns <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>__fsub_rz(<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>) returns <span class="math notranslate nohighlight">\( +0 \)</span> for finite <code class="docutils literal notranslate"><span class="pre">x</span></code>, including <span class="math notranslate nohighlight">\( \pm 0 \)</span>.</p></li>
+<li><p>If either argument is NaN, NaN is returned.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48__log10ff">
+<span id="_CPPv38__log10ff"></span><span id="_CPPv28__log10ff"></span><span id="__log10f__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga2b7358a27b8231b592da81ff3143b9a8"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__log10f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv48__log10ff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate base 10 logarithm of the input argument. </p>
+<p>Calculate the fast approximate base 10 logarithm of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1gab49e218cf742a0eb08e5516dd5160585"><span class="std std-ref">log10f()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( \log_{10}(x) \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47__log2ff">
+<span id="_CPPv37__log2ff"></span><span id="_CPPv27__log2ff"></span><span id="__log2f__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gafcc053f9040d50975aab00e44e7c6093"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__log2f</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv47__log2ff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate base 2 logarithm of the input argument. </p>
+<p>Calculate the fast approximate base 2 logarithm of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1gafc9ae1bd4ebb4cd9533a50f1bf486f08"><span class="std std-ref">log2f()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( \log_2(x) \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__logff">
+<span id="_CPPv36__logff"></span><span id="_CPPv26__logff"></span><span id="__logf__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gaed5cef656578096892f104a27d5287c4"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__logf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__logff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\( e \)</span> logarithm of the input argument. </p>
+<p>Calculate the fast approximate base <span class="math notranslate nohighlight">\( e \)</span> logarithm of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1gacdaf041c4071f63cba0e51658b89ffa4"><span class="std std-ref">logf()</span></a> for further special case behavior specification.</p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( \log_e(x) \)</span>. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__powfff">
+<span id="_CPPv36__powfff"></span><span id="_CPPv26__powfff"></span><span id="__powf__float.float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga2c2b295816185f6ce2423471df529974"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__powf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__powfff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate of <span class="math notranslate nohighlight">\( x^y \)</span>. </p>
+<p>Calculate the fast approximate of <code class="docutils literal notranslate"><span class="pre">x</span></code>, the first input argument, raised to the power of <code class="docutils literal notranslate"><span class="pre">y</span></code>, the second input argument, <span class="math notranslate nohighlight">\( x^y \)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns an approximation to <span class="math notranslate nohighlight">\( x^y \)</span>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__saturateff">
+<span id="_CPPv311__saturateff"></span><span id="_CPPv211__saturateff"></span><span id="__saturatef__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga2c84f08e0db7117a14509d21c3aec04e"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__saturatef</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv411__saturateff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Clamp the input argument to [+0.0, 1.0]. </p>
+<p>Clamp the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code> to be within the interval [+0.0, 1.0]. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p></p>
+<ul class="simple">
+<li><p>__saturatef(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns +0 if <span class="math notranslate nohighlight">\( x \le 0 \)</span>.</p></li>
+<li><p>__saturatef(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns 1 if <span class="math notranslate nohighlight">\( x \ge 1 \)</span>.</p></li>
+<li><p>__saturatef(<code class="docutils literal notranslate"><span class="pre">x</span></code>) returns <code class="docutils literal notranslate"><span class="pre">x</span></code> if <span class="math notranslate nohighlight">\( 0 &lt; x &lt; 1 \)</span>.</p></li>
+<li><p>__saturatef(NaN) returns +0. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__sincosffPfPf">
+<span id="_CPPv39__sincosffPfPf"></span><span id="_CPPv29__sincosffPfPf"></span><span id="__sincosf__float.floatP.floatP"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga96089d6195f9befde96e14afafd931fb"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__sincosf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sptr</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">cptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv49__sincosffPfPf" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate of sine and cosine of the first input argument. </p>
+<p>Calculate the fast approximate of sine and cosine of the first input argument <code class="docutils literal notranslate"><span class="pre">x</span></code> (measured in radians). The results for sine and cosine are written into the second argument, <code class="docutils literal notranslate"><span class="pre">sptr</span></code>, and, respectively, third argument, <code class="docutils literal notranslate"><span class="pre">cptr</span></code>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafa0ea4b2cee94521792ead0deb03addb"><span class="std std-ref">__sinf()</span></a> and <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga129ff4afc615da9a5886c77713094c32"><span class="std std-ref">__cosf()</span></a>. </p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Denorm input/output is flushed to sign preserving 0.0. </p>
+</div>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__sinff">
+<span id="_CPPv36__sinff"></span><span id="_CPPv26__sinff"></span><span id="__sinf__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1gafa0ea4b2cee94521792ead0deb03addb"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__sinf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__sinff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate sine of the input argument. </p>
+<p>Calculate the fast approximate sine of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>, measured in radians.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH__SINGLE.html#group__cuda__math__single_1ga4677d53159664972c54bb697b9c1bace"><span class="std std-ref">sinf()</span></a> for further special case behavior specification. </p>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Output in the denormal range is flushed to sign preserving 0.0. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the approximate sine of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__tanff">
+<span id="_CPPv36__tanff"></span><span id="_CPPv26__tanff"></span><span id="__tanf__float"></span><span class="target" id="group__cuda__math__intrinsic__single_1ga4fc8b7c67526a0195b9cb47287b5c121"></span><span class="pre">__device__</span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__tanf</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#_CPPv46__tanff" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculate the fast approximate tangent of the input argument. </p>
+<p>Calculate the fast approximate tangent of the input argument <code class="docutils literal notranslate"><span class="pre">x</span></code>, measured in radians.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For accuracy information see the CUDA C++ Programming Guide, Mathematical Functions Appendix, Intrinsic Functions section. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The result is computed as the fast divide of <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1gafa0ea4b2cee94521792ead0deb03addb"><span class="std std-ref">__sinf()</span></a> by <a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html#group__cuda__math__intrinsic__single_1ga129ff4afc615da9a5886c77713094c32"><span class="std std-ref">__cosf()</span></a>. Denormal output is flushed to sign-preserving 0.0. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd">
+<p>Returns the approximate tangent of <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

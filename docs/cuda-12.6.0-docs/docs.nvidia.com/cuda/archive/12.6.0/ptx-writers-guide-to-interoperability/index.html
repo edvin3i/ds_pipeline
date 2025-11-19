@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The guide to writing ABI-compliant PTX." name="description">
+<meta content="CUDA PTX, CUDA PTX interoperability, CUDA PTX ABI, CUDA PTX calling sequence, CUDA ABI" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PTX Interoperability</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#data-representation">2. Data Representation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fundamental-types">2.1. Fundamental Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#aggregates-and-unions">2.2. Aggregates and Unions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bit-fields">2.3. Bit Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#texture-sampler-and-surface-types">2.4. Texture, Sampler, and Surface Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#function-calling-sequence">3. Function Calling Sequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#registers">3.1. Registers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#stack-frame">3.2. Stack Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parameter-passing">3.3. Parameter Passing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#system-calls">4. System Calls</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#debug-information">5. Debug Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#generation-of-debug-information">5.1. Generation of Debug Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-specific-dwarf-definitions">5.2. CUDA-Specific DWARF Definitions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#example">6. Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#c">7. C++</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">8. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">8.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">8.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">8.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">PTX Interoperability</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/PTX_Writers_Guide_To_Interoperability.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">PTX Writer’s Guide to Interoperability</p>
+<p>The guide to writing ABI-compliant PTX.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>This document defines the Application Binary Interface (ABI) for the CUDA<sup>®</sup> architecture when generating PTX. By following the ABI, external developers can generate compliant PTX code that can be linked with other code.</p>
+<p>PTX is a low-level parallel-thread-execution virtual machine and ISA (Instruction Set Architecture). PTX can be output from multiple tools or written directly by developers. PTX is meant to be GPU-architecture independent, so that the same code can be reused for different GPU architectures. For more information on PTX, refer to the latest version of the <a class="reference external" href="https://docs.nvidia.com/cuda/parallel-thread-execution/index.html">PTX ISA reference document</a>.</p>
+<p>There are multiple CUDA architecture families, each with their own ISA; e.g. SM 5.x is the Maxwell family, SM 6.x is the Pascal family. This document describes the high-level ABI for all architectures. Programs conforming to an ABI are expected to be executed on the appropriate architecture GPU, and can assume that instructions from that ISA are available.</p>
+</section>
+<section id="data-representation">
+<h1>
+<span class="section-number">2. </span>Data Representation<a class="headerlink" href="index.html#data-representation" title="Permalink to this headline"></a>
+</h1>
+<section id="fundamental-types">
+<h2>
+<span class="section-number">2.1. </span>Fundamental Types<a class="headerlink" href="index.html#fundamental-types" title="Permalink to this headline"></a>
+</h2>
+<p>The below table shows the native scalar PTX types that are supported. Any PTX producer must use these sizes and alignments in order for its PTX to be compatible with PTX generated by other producers. PTX also supports native vector types, which are discussed in <a class="reference external" href="index.html#aggregates-unions">Aggregates and Unions</a>.</p>
+<p>The sizes of types are defined by the host. For example, pointer size and long int size are dictated by the hosts ABI. PTX has an .address_size directive that specifies the address size used throughout the PTX code. The size of pointers is 32 bits on a 32-bit host or 64 bits on a 64-bit host. However, addresses of the local and shared memory spaces are always 32 bits in size.</p>
+<p>During separate compilation we store info about the host platform in each object file. The linker will fail to link object files generated for incompatible host platforms.</p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 20%">
+<col style="width: 21%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>PTX Type</p></th>
+<th class="head"><p>Size (bytes)</p></th>
+<th class="head"><p>Align (bytes)</p></th>
+<th class="head"><p>Hardware Representation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>.b8</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>untyped byte</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.b16</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>untyped halfword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.b32</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>untyped word</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.b64</p></td>
+<td><p>8</p></td>
+<td><p>8</p></td>
+<td><p>untyped doubleword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.s8</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>signed integral byte</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.s16</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>signed integral halfword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.s32</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>signed integral word</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.s64</p></td>
+<td><p>8</p></td>
+<td><p>8</p></td>
+<td><p>signed integral doubleword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.u8</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>unsigned integral byte</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.u16</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>unsigned integral halfword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.u32</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>unsigned integral word</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.u64</p></td>
+<td><p>8</p></td>
+<td><p>8</p></td>
+<td><p>unsigned integral doubleword</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.f16</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>IEEE half precision</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>.f32</p></td>
+<td><p>4</p></td>
+<td><p>4</p></td>
+<td><p>IEEE single precision</p></td>
+</tr>
+<tr class="row-even">
+<td><p>.f64</p></td>
+<td><p>8</p></td>
+<td><p>8</p></td>
+<td><p>IEEE double precision</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="aggregates-and-unions">
+<h2>
+<span class="section-number">2.2. </span>Aggregates and Unions<a class="headerlink" href="index.html#aggregates-and-unions" title="Permalink to this headline"></a>
+</h2>
+<p>Beyond the scalar types, PTX also supports native-vector types of these scalar types, with both its vector syntax and its byte-array syntax. For scalar types with a size no greater than four bytes, vector types with 1, 2, 3, and 4 elements exist; for all other types, only 1 and 2 element vector types exist.</p>
+<p>All aggregates and unions can be supported in PTX with its byte-array syntax.</p>
+<p>The following are the size-and-alignment rules for all aggregates and unions.</p>
+<ul class="simple">
+<li><p>For a non-native-vector type, an entire aggregate or union is aligned on the same boundary as its most strictly aligned member. This rule is not followed if the alignments are defined by the input language. For example, in OpenCL built-in vector data types have their alignment set to the size of the built-in data type in bytes.</p></li>
+<li>
+<p>For a native vector type – discussed at the start of this section – the alignment is defined as follows. (For the definitions below, the native vector has n elements and has an element type t.)</p>
+<ul>
+<li><p>For a vector with an odd number of elements, its alignment is the same as its member: alignof(t).</p></li>
+<li><p>For a vector with an even number of elements, its alignment is set to number of elements times the alignment of its member: n*alignof(t).</p></li>
+</ul>
+</li>
+<li><p>Each member is assigned to the lowest available offset with the appropriate alignment. This may require internal padding, depending on the previous member.</p></li>
+<li><p>The size of an aggregate or union, if necessary, is increased to make it a multiple of the alignment of the aggregate or union. This may require tail padding, depending on the last member.</p></li>
+</ul>
+</section>
+<section id="bit-fields">
+<h2>
+<span class="section-number">2.3. </span>Bit Fields<a class="headerlink" href="index.html#bit-fields" title="Permalink to this headline"></a>
+</h2>
+<p>C structure and union definitions may have bit fields that define integral objects with a specified number of bits.</p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 12%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Bit Field Type</p></th>
+<th class="head"><p>Width w</p></th>
+<th class="head"><p>Range</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>signed char</p></td>
+<td><p>1 to 8</p></td>
+<td><p>-2<sup>w-1</sup> to 2<sup>w-1</sup> - 1</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>unsigned char</p></td>
+<td><p>1 to 8</p></td>
+<td><p>0 to 2<sup>w</sup> - 1</p></td>
+</tr>
+<tr class="row-even">
+<td><p>signed short</p></td>
+<td><p>1 to 16</p></td>
+<td><p>-2<sup>w-1</sup> to 2<sup>w-1</sup> - 1</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>unsigned short</p></td>
+<td><p>1 to 16</p></td>
+<td><p>0 to 2<sup>w</sup> - 1</p></td>
+</tr>
+<tr class="row-even">
+<td><p>signed int</p></td>
+<td><p>1 to 32</p></td>
+<td><p>-2<sup>w-1</sup> to 2<sup>w-1</sup> - 1</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>unsigned int</p></td>
+<td><p>1 to 32</p></td>
+<td><p>0 to 2<sup>w</sup> - 1</p></td>
+</tr>
+<tr class="row-even">
+<td><p>signed long long</p></td>
+<td><p>1 to 64</p></td>
+<td><p>-2<sup>w-1</sup> to 2<sup>w-1</sup> - 1</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>unsigned long long</p></td>
+<td><p>1 to 64</p></td>
+<td><p>0 to 2<sup>w</sup> - 1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Current GPUs only support little-endian memory, so the below assumes little-endian layout.</p>
+<p>The following are rules that apply to bit fields.</p>
+<ul class="simple">
+<li><p>Plain bit fields (neither signed nor unsigned is specified) are treated as signed.</p></li>
+<li><p>When no type is provided (e.g., signed : 6 is specified), the type defaults to int.</p></li>
+</ul>
+<p>Bit fields obey the same size and alignment rules as other structure and union members, with the following modifications.</p>
+<ul class="simple">
+<li><p>Bit fields are allocated in memory from right to left (least to more significant) for little endian.</p></li>
+<li><p>A bit field must entirely reside in a storage unit appropriate for its declared type. A bit field should never cross its unit boundary.</p></li>
+<li><p>Bit fields may share a storage unit with other structure and union members, including members that are not bit fields, as long as there is enough space within the storage unit.</p></li>
+<li><p>Unnamed bit fields do not affect the alignment of a structure or union.</p></li>
+<li><p>Zero-length bit fields force the alignment of the following member of a structure to the next alignment boundary corresponding to the bit-field type. An unnamed, zero-length bit field will not force the external alignment of the structure to that boundary. If an unnamed, zero-length bit field has a stricter alignment than the external alignment, there is no guarantee that the stricter alignment will be maintained when the structure or union gets allocated to memory.</p></li>
+</ul>
+<p>The following figures contain examples of bit fields. Figure 1 shows the byte offsets (upper corners) and the bit numbers (lower corners) that are used in the examples. The remaining figures show different bit-field examples.</p>
+<figure class="align-center" id="bit-fields-bitfields1">
+<img alt="Bit Numbering" src="_images/bitfields1.png">
+<figcaption>
+<p><span class="caption-text">Bit Numbering</span><a class="headerlink" href="index.html#bit-fields-bitfields1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="bit-fields-bitfields2">
+<img alt="Bit-field Allocation" src="_images/bitfields2.png">
+<figcaption>
+<p><span class="caption-text">Bit-field Allocation</span><a class="headerlink" href="index.html#bit-fields-bitfields2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="bit-fields-bitfields3">
+<img alt="Boundary Alignment" src="_images/bitfields3.png">
+<figcaption>
+<p><span class="caption-text">Boundary Alignment</span><a class="headerlink" href="index.html#bit-fields-bitfields3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="bit-fields-bitfields4">
+<img alt="Storage Unit Sharing" src="_images/bitfields4.png">
+<figcaption>
+<p><span class="caption-text">Storage Unit Sharing</span><a class="headerlink" href="index.html#bit-fields-bitfields4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="bit-fields-bitfields5">
+<img alt="Union Allocation" src="_images/bitfields5.png">
+<figcaption>
+<p><span class="caption-text">Union Allocation</span><a class="headerlink" href="index.html#bit-fields-bitfields5" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="bit-fields-bitfields6">
+<img alt="Unnamed Bit Fields" src="_images/bitfields6.png">
+<figcaption>
+<p><span class="caption-text">Unnamed Bit Fields</span><a class="headerlink" href="index.html#bit-fields-bitfields6" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="texture-sampler-and-surface-types">
+<h2>
+<span class="section-number">2.4. </span>Texture, Sampler, and Surface Types<a class="headerlink" href="index.html#texture-sampler-and-surface-types" title="Permalink to this headline"></a>
+</h2>
+<p>Texture, sampler and surface types are used to define references to texture and surface memory. The CUDA architecture provides hardware and instructions to efficiently read data from texture or surface memory as opposed to global memory.</p>
+<p>References to textures are bound through runtime functions to device read-only regions of memory, called a texture memory, before they can be used by a kernel. A texture reference has several attributes e.g. normalized mode, addressing mode, and texture filtering etc. A sampler reference can be used to sample a texture when read in a kernel. A surface reference is used to read or write data from and to the surface memory. It also has various attributes similar to a texture.</p>
+<p>At the PTX level objects that access texture or surface memory are referred to as opaque objects. Textures are expressed by either a .texref or .samplerref type and surfaces are expressed by the .surfref type. The data of opaque objects can be accessed by specific instructions (TEX for .texref/.samplerref and SULD/SUST for .surfref). The attributes of opaque objects are implemented by allocating a descriptor in memory which is populated by the driver. PTX TXQ/SUQ instructions get translated into memory reads of fields of the descriptor. The internal format of the descriptor varies with each architecture and should not be relied on by the user. The data and the attributes of an opaque object may be accessed directly if the texture or surface reference is known at compile time or indirectly. If the reference is not known during compile time all information required to read data and attributes is contained in a .b64 value called the handle. The handle can be used to pass and return oqaque object references to and from functions as well as to reference external textures, samplers and surfaces.</p>
+</section>
+</section>
+<section id="function-calling-sequence">
+<h1>
+<span class="section-number">3. </span>Function Calling Sequence<a class="headerlink" href="index.html#function-calling-sequence" title="Permalink to this headline"></a>
+</h1>
+<p>This section describes the PTX-level function calling sequence, including register usage, stack-frame layout, and parameter passing. The PTX-level function calling sequence describes what gets represented in PTX to enable function calls. There is an abstraction at this level. Most of the details associated with the function calling sequence are handled at the SASS level.</p>
+<p>PTX versions earlier than 2.0 do not conform to the ABI defined in this document, and cannot perform ABI compatible function calls. For the calling convention to work PTX version 2.0 or greater must be used.</p>
+<section id="registers">
+<h2>
+<span class="section-number">3.1. </span>Registers<a class="headerlink" href="index.html#registers" title="Permalink to this headline"></a>
+</h2>
+<p>At the PTX level, the registers that are specified are virtual. Register allocation occurs during PTX-to-SASS translation. The PTX-to-SASS translation also converts parameters and return values to physical registers or stack locations.</p>
+</section>
+<section id="stack-frame">
+<h2>
+<span class="section-number">3.2. </span>Stack Frame<a class="headerlink" href="index.html#stack-frame" title="Permalink to this headline"></a>
+</h2>
+<p>The PTX level has no concept of the software stack. Manipulation of the stack is completely defined at the SASS level, and gets allocated during the PTX-to-SASS translation process.</p>
+</section>
+<section id="parameter-passing">
+<h2>
+<span class="section-number">3.3. </span>Parameter Passing<a class="headerlink" href="index.html#parameter-passing" title="Permalink to this headline"></a>
+</h2>
+<p>At the PTX level, all parameters and return values present in a device function use the parameter state space (.param). The below table contains the rules for handling parameters and return values that are defined at the source level. For each source-level type, the corresponding PTX-level type that should be used is provided.</p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Source Type</p></th>
+<th class="head"><p>Size in Bits</p></th>
+<th class="head"><p>PTX Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Integral types</p></td>
+<td><p>8 to 32 (A)</p></td>
+<td><p>.u32 (if unsigned) or .s32 (if signed)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Integral types</p></td>
+<td><p>64</p></td>
+<td><p>.u64 (if unsigned) or .s64 (if signed)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>Pointers (B)</p></td>
+<td><p>32</p></td>
+<td><p>.u32</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Pointers (B)</p></td>
+<td><p>64</p></td>
+<td><p>.u64</p></td>
+</tr>
+<tr class="row-even">
+<td><p>Floating-point types (C)</p></td>
+<td><p>32</p></td>
+<td><p>.f32</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Floating-point types (C)</p></td>
+<td><p>64</p></td>
+<td><p>.f64</p></td>
+</tr>
+<tr class="row-even">
+<td><p>Aggregates or unions</p></td>
+<td><p>Any size</p></td>
+<td>
+<p>.align <code class="docutils literal notranslate"><span class="pre">align</span></code> .b8 <code class="docutils literal notranslate"><span class="pre">name</span></code>[<code class="docutils literal notranslate"><span class="pre">size</span></code>]</p>
+<p>Where <code class="docutils literal notranslate"><span class="pre">align</span></code> is overall aggregate-or-union alignment in bytes (D), <code class="docutils literal notranslate"><span class="pre">name</span></code> is variable name associated with aggregate or union, and <code class="docutils literal notranslate"><span class="pre">size</span></code> is the aggregate-or-union size in bytes.</p>
+</td>
+</tr>
+<tr class="row-odd">
+<td><p>Handles (E)</p></td>
+<td><p>64</p></td>
+<td><p>.b64 (assigned from .texref, .sampleref, .surfref)</p></td>
+</tr>
+</tbody>
+</table>
+<p>NOTES:</p>
+<ol class="upperalpha simple">
+<li><p>Values shorter than 32-bits are sign extended or zero extended, depending on whether they are signed or unsigned types.</p></li>
+<li><p>Unless the memory type is specified in the function declaration, all pointers passed at the PTX level must use a generic address.</p></li>
+<li><p>16-bit floating-point types are only used for storage. Therefore, they cannot be used for parameters or return values.</p></li>
+<li><p>The alignment must be 1, 2, 4, 8, 16, 32, 64, or 128 bytes.</p></li>
+<li><p>The PTX built-in opaque types such as texture, sampler, and surface types are can be passed into functions as parameters and be returned by them through 64-bit handles. The handle contains the necessary information to access the actual data from the texture or surface memory as well as the attributes of the object stored in its type descriptor. See section <a class="reference external" href="index.html#textures-surfaces-samplers">Texture, Sampler, and Surface Types</a> for more information on handles.</p></li>
+</ol>
+</section>
+</section>
+<section id="system-calls">
+<h1>
+<span class="section-number">4. </span>System Calls<a class="headerlink" href="index.html#system-calls" title="Permalink to this headline"></a>
+</h1>
+<p>System calls are calls into the driver operating system code. In PTX they look like regular calls, but the function definition is not given. A prototype must be provided in the PTX file, but the implementation of the function is provided by the driver.</p>
+<p>The prototype for the vprintf system call is:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">extern</span><span class="w"> </span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">s32</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="n">vprintf</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="n">valist</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The following are the definitions for the vprintf parameters and return value.</p>
+<ul class="simple">
+<li><p>status : The status value that is returned by vprintf.</p></li>
+<li><p>format : A pointer to the format specifier input. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+<li><p>valist : A pointer to the valist input. For 32-bit addresses, type t2 is .b32. For 64-bit addresses, type t2 is .b64.</p></li>
+</ul>
+<p>A call to vprintf using 32-bit addresses looks like:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">cvta</span><span class="p">.</span><span class="n">global</span><span class="p">.</span><span class="n">b32</span><span class="w">    </span><span class="o">%</span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="n">_fmt</span><span class="p">;</span><span class="w"></span>
+<span class="n">st</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">  </span><span class="p">[</span><span class="n">param0</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r2</span><span class="p">;</span><span class="w"></span>
+<span class="n">cvta</span><span class="p">.</span><span class="n">local</span><span class="p">.</span><span class="n">b32</span><span class="w">  </span><span class="o">%</span><span class="n">r3</span><span class="p">,</span><span class="w"> </span><span class="n">_valist_array</span><span class="p">;</span><span class="w"></span>
+<span class="n">st</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">  </span><span class="p">[</span><span class="n">param1</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r3</span><span class="p">;</span><span class="w"></span>
+<span class="n">call</span><span class="p">.</span><span class="n">uni</span><span class="w"> </span><span class="p">(</span><span class="n">_</span><span class="p">),</span><span class="w"> </span><span class="n">vprintf</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">param0</span><span class="p">,</span><span class="w"> </span><span class="n">param1</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>For this code, _fmt is the format string in global memory, and _valist_array is the valist of arguments. Note that any pointers must be converted to generic space. The vprintf syscall is emitted as part of the printf function defined in “stdio.h”.</p>
+<p>The prototype for the malloc system call is:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">extern</span><span class="w"> </span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The following are the definitions for the malloc parameters and return value.</p>
+<ul class="simple">
+<li><p>ptr : The pointer to the memory that was allocated by malloc. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+<li><p>size : The size of memory needed from malloc. This size is defined by the type size_t. When size_t is 32 bits, type t2 is .b32. When size_t is 64 bits, type t2 is .b64.</p></li>
+</ul>
+<p>The prototype for the free system call is:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">extern</span><span class="w"> </span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="n">free</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The following is the definition for the free parameter.</p>
+<ul class="simple">
+<li><p>ptr : The pointer to the memory that should be freed. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+</ul>
+<p>The malloc and free system calls are emitted as part of the malloc and free functions defined in “malloc.h”.</p>
+<p>In order to support assert, the PTX function call __assertfail is used whenever the assert expression produces a false value. The prototype for the __assertfail system call is:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="k">extern</span><span class="w"> </span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="n">__assertfail</span><span class="w"> </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="n">charSize</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The following are the definitions for the __assertfail parameters.</p>
+<ul class="simple">
+<li><p>message : The pointer to the string that should be output. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+<li><p>file : The pointer to the file name string associated with the assert. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+<li><p>line : The line number associated with the assert.</p></li>
+<li><p>function : The pointer to the function name string associated with the assert. For 32-bit addresses, type t1 is .b32. For 64-bit addresses, type t1 is .b64.</p></li>
+<li><p>charSize : The size in bytes of the characters contained in the __assertfail parameter strings. The only supported character size is 1. The character size is defined by the type size_t. When size_t is 32 bits, type t2 is .b32. When size_t is 64 bits, type t2 is .b64.</p></li>
+</ul>
+<p>The __assertfail system call is emitted as part of the assert macro defined in “assert.h”.</p>
+</section>
+<section id="debug-information">
+<h1>
+<span class="section-number">5. </span>Debug Information<a class="headerlink" href="index.html#debug-information" title="Permalink to this headline"></a>
+</h1>
+<p>Debug information is encoded in DWARF (Debug With Arbitrary Record Format).</p>
+<section id="generation-of-debug-information">
+<h2>
+<span class="section-number">5.1. </span>Generation of Debug Information<a class="headerlink" href="index.html#generation-of-debug-information" title="Permalink to this headline"></a>
+</h2>
+<p>The responsibility for generating debug information is split between the PTX producer and the PTX-to-SASS backend. The PTX producer is responsible for emitting binary DWARF into the PTX file, using the .section and .b8-.b16-.b32-and-.b64 directives in PTX. This should contain the .debug_info and .debug_abbrev sections, and possibly optional sections .debug_pubnames and .debug_aranges. These sections are standard DWARF2 sections that refer to labels and registers in the PTX.</p>
+<p>The PTX-to-SASS backend is responsible for generating the .debug_line section from the .file and .loc directives in the PTX file. This section maps source lines to SASS addresses. The backend also generates the .debug_frame section.</p>
+</section>
+<section id="cuda-specific-dwarf-definitions">
+<h2>
+<span class="section-number">5.2. </span>CUDA-Specific DWARF Definitions<a class="headerlink" href="index.html#cuda-specific-dwarf-definitions" title="Permalink to this headline"></a>
+</h2>
+<p>In order to support debugging of multiple memory segments, address class codes are defined to reflect the memory space of variables. The address-class values are emitted as the DW_AT_address_class attribute for all variable and parameter Debugging Information Entries. The address class codes are defined in the below table.</p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 10%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Code</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>ADDR_code_space</p></td>
+<td><p>1</p></td>
+<td><p>Code storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_reg_space</p></td>
+<td><p>2</p></td>
+<td><p>Register storage</p></td>
+</tr>
+<tr class="row-even">
+<td><p>ADDR_sreg_space</p></td>
+<td><p>3</p></td>
+<td><p>Special register storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_const_space</p></td>
+<td><p>4</p></td>
+<td><p>Constant storage</p></td>
+</tr>
+<tr class="row-even">
+<td><p>ADDR_global_space</p></td>
+<td><p>5</p></td>
+<td><p>Global storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_local_space</p></td>
+<td><p>6</p></td>
+<td><p>Local storage</p></td>
+</tr>
+<tr class="row-even">
+<td><p>ADDR_param_space</p></td>
+<td><p>7</p></td>
+<td><p>Parameter storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_shared_space</p></td>
+<td><p>8</p></td>
+<td><p>Shared storage</p></td>
+</tr>
+<tr class="row-even">
+<td><p>ADDR_surf_space</p></td>
+<td><p>9</p></td>
+<td><p>Surface storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_tex_space</p></td>
+<td><p>10</p></td>
+<td><p>Texture storage</p></td>
+</tr>
+<tr class="row-even">
+<td><p>ADDR_tex_sampler_space</p></td>
+<td><p>11</p></td>
+<td><p>Texture sampler storage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>ADDR_generic_space</p></td>
+<td><p>12</p></td>
+<td><p>Generic-address storage</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example">
+<h1>
+<span class="section-number">6. </span>Example<a class="headerlink" href="index.html#example" title="Permalink to this headline"></a>
+</h1>
+<p>The following is example PTX with debug information for implementing the following program that makes a call:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">__device__</span><span class="w"> </span><span class="n">__noinline__</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The resulting PTX would be something like:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">version</span><span class="w"> </span><span class="mf">4.2</span><span class="w"></span>
+<span class="p">.</span><span class="n">target</span><span class="w"> </span><span class="n">sm_20</span><span class="p">,</span><span class="w"> </span><span class="n">debug</span><span class="w"></span>
+<span class="p">.</span><span class="n">address_size</span><span class="w"> </span><span class="mi">64</span><span class="w"></span>
+
+<span class="w"> </span><span class="p">.</span><span class="n">file</span><span class="w">   </span><span class="mi">1</span><span class="w"> </span><span class="s">"call_example.cu"</span><span class="w"></span>
+
+<span class="p">.</span><span class="n">visible</span><span class="w"> </span><span class="p">.</span><span class="n">func</span><span class="w">  </span><span class="p">(.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">func_retval0</span><span class="p">)</span><span class="w"> </span><span class="c1">// return value</span>
+<span class="n">_Z3fooii</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">_Z3fooii_param_0</span><span class="p">,</span><span class="w"> </span><span class="c1">// parameter "i"</span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">_Z3fooii_param_1</span><span class="p">)</span><span class="w"> </span><span class="c1">// parameter "j"</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">reg</span><span class="w"> </span><span class="p">.</span><span class="n">s32</span><span class="w">       </span><span class="o">%</span><span class="n">r</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">loc</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w">      </span><span class="c1">// following instructions are for line 1</span>
+
+<span class="nl">func_begin0</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">ld</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">u32</span><span class="w">    </span><span class="o">%</span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">_Z3fooii_param_0</span><span class="p">];</span><span class="w"> </span><span class="c1">// load 1st param</span>
+<span class="w">        </span><span class="n">ld</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">u32</span><span class="w">    </span><span class="o">%</span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">_Z3fooii_param_1</span><span class="p">];</span><span class="w"> </span><span class="c1">// load 2nd param</span>
+<span class="w">        </span><span class="p">.</span><span class="n">loc</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">// following instructions are for line 3</span>
+<span class="w">        </span><span class="n">add</span><span class="p">.</span><span class="n">s32</span><span class="w">         </span><span class="o">%</span><span class="n">r3</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="n">r2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">st</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">    </span><span class="p">[</span><span class="n">func_retval0</span><span class="o">+</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r3</span><span class="p">;</span><span class="w"> </span><span class="c1">// store return value</span>
+<span class="w">        </span><span class="n">ret</span><span class="p">;</span><span class="w"></span>
+<span class="nl">func_end0</span><span class="p">:</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="p">.</span><span class="n">visible</span><span class="w"> </span><span class="p">.</span><span class="n">entry</span><span class="w"> </span><span class="n">_Z4testPi</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">u64</span><span class="w"> </span><span class="n">_Z4testPi_param_0</span><span class="p">)</span><span class="w"> </span><span class="c1">// parameter *p</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">reg</span><span class="w"> </span><span class="p">.</span><span class="n">s32</span><span class="w">       </span><span class="o">%</span><span class="n">r</span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">reg</span><span class="w"> </span><span class="p">.</span><span class="n">s64</span><span class="w">       </span><span class="o">%</span><span class="n">rd</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">loc</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="nl">func_begin1</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">ld</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">u64</span><span class="w">    </span><span class="o">%</span><span class="n">rd1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">_Z4testPi_param_0</span><span class="p">];</span><span class="w"> </span><span class="c1">// load *p</span>
+<span class="w">        </span><span class="n">mov</span><span class="p">.</span><span class="n">u32</span><span class="w">         </span><span class="o">%</span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">mov</span><span class="p">.</span><span class="n">u32</span><span class="w">         </span><span class="o">%</span><span class="n">r2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">loc</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">9</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">param0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">st</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">    </span><span class="p">[</span><span class="n">param0</span><span class="o">+</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r1</span><span class="p">;</span><span class="w"> </span><span class="c1">// store 1</span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">param1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">st</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">    </span><span class="p">[</span><span class="n">param1</span><span class="o">+</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r2</span><span class="p">;</span><span class="w"> </span><span class="c1">// store 2</span>
+<span class="w">        </span><span class="p">.</span><span class="n">param</span><span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="n">retval0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">call</span><span class="p">.</span><span class="n">uni</span><span class="w"> </span><span class="p">(</span><span class="n">retval0</span><span class="p">),</span><span class="w"> </span><span class="n">_Z3fooii</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">param0</span><span class="p">,</span><span class="w"> </span><span class="n">param1</span><span class="p">);</span><span class="w"> </span><span class="c1">// call foo</span>
+<span class="w">        </span><span class="n">ld</span><span class="p">.</span><span class="n">param</span><span class="p">.</span><span class="n">b32</span><span class="w">    </span><span class="o">%</span><span class="n">r3</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">retval0</span><span class="o">+</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// get return value</span>
+<span class="w">        </span><span class="n">st</span><span class="p">.</span><span class="n">u32</span><span class="w">  </span><span class="p">[</span><span class="o">%</span><span class="n">rd1</span><span class="p">],</span><span class="w"> </span><span class="o">%</span><span class="n">r3</span><span class="p">;</span><span class="w">              </span><span class="c1">// *p = return value</span>
+<span class="w">        </span><span class="p">.</span><span class="n">loc</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="w">        </span><span class="n">ret</span><span class="p">;</span><span class="w"></span>
+<span class="nl">func_end1</span><span class="p">:</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">section</span><span class="w"> </span><span class="p">.</span><span class="n">debug_info</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">262</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="p">.</span><span class="n">debug_abbrev</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">108</span><span class="p">,</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">69</span><span class="p">,</span><span class="w"> </span><span class="mi">68</span><span class="p">,</span><span class="w"> </span><span class="mi">71</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> </span><span class="mi">57</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w"> </span><span class="mi">97</span><span class="p">,</span><span class="w"> </span><span class="mi">108</span><span class="p">,</span><span class="w"> </span><span class="mi">108</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="p">,</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w"> </span><span class="mi">117</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="p">.</span><span class="n">debug_line</span><span class="w"> </span><span class="c1">// the .debug_line section will be created by ptxas from the .loc</span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">109</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span><span class="w"> </span><span class="mi">109</span><span class="p">,</span><span class="w"> </span><span class="mi">109</span><span class="p">,</span><span class="w"> </span><span class="mi">117</span><span class="p">,</span><span class="w"> </span><span class="mi">114</span><span class="p">,</span><span class="w"> </span><span class="mi">112</span><span class="p">,</span><span class="w"> </span><span class="mi">104</span><span class="p">,</span><span class="w"> </span><span class="mi">121</span><span class="p">,</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">115</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">164</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="n">func_begin0</span><span class="w"> </span><span class="c1">// start and end location of foo</span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="n">func_end0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">156</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">164</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">144</span><span class="p">,</span><span class="w"> </span><span class="mi">177</span><span class="p">,</span><span class="w"> </span><span class="mi">228</span><span class="p">,</span><span class="w"> </span><span class="mi">149</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">106</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">164</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">144</span><span class="p">,</span><span class="w"> </span><span class="mi">178</span><span class="p">,</span><span class="w"> </span><span class="mi">228</span><span class="p">,</span><span class="w"> </span><span class="mi">149</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">115</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">115</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">253</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="n">func_begin1</span><span class="w"> </span><span class="c1">// start and end location of test</span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="n">func_end1</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">156</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">112</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">259</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b64</span><span class="w"> </span><span class="n">_Z4testPi_param_0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">118</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">164</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="n">section</span><span class="w"> </span><span class="p">.</span><span class="n">debug_abbrev</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">135</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">73</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">63</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">58</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">73</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">62</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">73</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="n">section</span><span class="w"> </span><span class="p">.</span><span class="n">debug_pubnames</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">41</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="p">.</span><span class="n">debug_info</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">262</span><span class="p">,</span><span class="w"> </span><span class="mi">69</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">111</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">174</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b8</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mi">115</span><span class="p">,</span><span class="w"> </span><span class="mi">116</span><span class="p">,</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">105</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w"> </span><span class="p">.</span><span class="n">b32</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="c">
+<h1>
+<span class="section-number">7. </span>C++<a class="headerlink" href="index.html#c" title="Permalink to this headline"></a>
+</h1>
+<p>The C++ implementation for device functions follows the Itanium C++ ABI. However, not everything in C++ is supported. In particular, the following are not supported in device code.</p>
+<ul class="simple">
+<li><p>Exceptions and try/catch blocks</p></li>
+<li><p>RTTI</p></li>
+<li><p>STL library</p></li>
+<li><p>Global constructors and destructors</p></li>
+<li><p>Virtual functions and classes across host and device (i.e., vtables cannot be used across host and device)</p></li>
+</ul>
+<p>There are also a few C features that are not currently supported:</p>
+<ul class="simple">
+<li><p>stdio other than printf</p></li>
+</ul>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">8. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">8.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">8.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">8.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

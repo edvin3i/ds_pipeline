@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="Minimal first-steps instructions to get CUDA running on a standard system." name="description">
+<meta content="CUDA Quick Start, CUDA Installation" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA Quick Start Guide 12.6</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#windows">2. Windows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#network-installer">2.1. Network Installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#local-installer">2.2. Local Installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pip-wheels-windows">2.3. Pip Wheels - Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conda">2.4. Conda</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#linux">3. Linux</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#linux-x86-64">3.1. Linux x86_64</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#redhat-centos">3.1.1. Redhat / CentOS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#rpm-installer">3.1.1.1. RPM Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#runfile-installer">3.1.1.2. Runfile Installer</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#fedora">3.1.2. Fedora</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#fedora-x86-64-rpm">3.1.2.1. RPM Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#fedora-x86-64-run">3.1.2.2. Runfile Installer</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#suse-linux-enterprise-server">3.1.3. SUSE Linux Enterprise Server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#sles-x86-64-rpm">3.1.3.1. RPM Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#sles-x86-64-run">3.1.3.2. Runfile Installer</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#opensuse">3.1.4. OpenSUSE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#suse-x86-64-rpm">3.1.4.1. RPM Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#suse-x86-64-run">3.1.4.2. Runfile Installer</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#amazon-linux-2023">3.1.5. Amazon Linux 2023</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#prepare-amazon-linux-2023">3.1.5.1. Prepare Amazon Linux 2023</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#local-repo-installation-for-amazon-linux">3.1.5.2. Local Repo Installation for Amazon Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#network-repo-installation-for-amazon-linux">3.1.5.3. Network Repo Installation for Amazon Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#common-installation-instructions-for-amazon-linux">3.1.5.4. Common Installation Instructions for Amazon Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#pip-wheels-linux">3.1.6. Pip Wheels - Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#x86-64-conda">3.1.7. Conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wsl">3.1.8. WSL</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#ubuntu">3.1.9. Ubuntu</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#debian-installer">3.1.9.1. Debian Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#ubuntu-x86-64-run">3.1.9.2. Runfile Installer</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#debian">3.1.10. Debian</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#debian-x86-64-deb">3.1.10.1. Debian Installer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#debian-x86-64-run">3.1.10.2. Runfile Installer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">4. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">4.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">4.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">4.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Quick Start Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_Quick_Start_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">CUDA Quick Start Guide</p>
+<p>Minimal first-steps instructions to get CUDA running on a standard system.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>This guide covers the basic instructions needed to install CUDA and verify that a CUDA application can run on each supported platform.</p>
+<p>These instructions are intended to be used on a clean installation of a supported platform. For questions which are not answered in this document, please refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/">Windows Installation Guide</a> and <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<p>The CUDA installation packages can be found on the <a class="reference external" href="https://developer.nvidia.com/cuda-downloads/">CUDA Downloads Page</a>.</p>
+</section>
+<section id="windows">
+<h1>
+<span class="section-number">2. </span>Windows<a class="headerlink" href="index.html#windows" title="Permalink to this headline"></a>
+</h1>
+<p>When installing CUDA on Windows, you can choose between the Network Installer and the Local Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/">Windows Installation Guide</a>.</p>
+<section id="network-installer">
+<h2>
+<span class="section-number">2.1. </span>Network Installer<a class="headerlink" href="index.html#network-installer" title="Permalink to this headline"></a>
+</h2>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li><p>Launch the downloaded installer package.</p></li>
+<li><p>Read and accept the EULA.</p></li>
+<li><p>Select <strong>next</strong> to download and install all components.</p></li>
+<li><p>Once the download completes, the installation will begin automatically.</p></li>
+<li><p>Once the installation completes, click “next” to acknowledge the Nsight Visual Studio Edition installation summary.</p></li>
+<li><p>Click <strong>close</strong> to close the installer.</p></li>
+<li><p>Navigate to the Samples’ <code class="docutils literal notranslate"><span class="pre">nbody</span></code> directory in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p></li>
+<li>
+<p>Open the <code class="docutils literal notranslate"><span class="pre">nbody</span></code> Visual Studio solution file for the version of Visual Studio you have installed, for example, <code class="docutils literal notranslate"><span class="pre">nbody_vs2019.sln</span></code>.</p>
+<img alt="_images/navigate_nbody.png" class="image imageleft" src="_images/navigate_nbody.png">
+</li>
+<li>
+<p>Open the <strong>Build</strong> menu within Visual Studio and click <strong>Build Solution</strong>.</p>
+<img alt="_images/nbody_build.png" class="image imageleft" src="_images/nbody_build.png">
+</li>
+<li>
+<p>Navigate to the CUDA Samples build directory and run the nbody sample.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="local-installer">
+<h2>
+<span class="section-number">2.2. </span>Local Installer<a class="headerlink" href="index.html#local-installer" title="Permalink to this headline"></a>
+</h2>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li><p>Launch the downloaded installer package.</p></li>
+<li><p>Read and accept the EULA.</p></li>
+<li><p>Select <strong>next</strong> to install all components.</p></li>
+<li><p>Once the installation completes, click <strong>next</strong> to acknowledge the Nsight Visual Studio Edition installation summary.</p></li>
+<li><p>Click <strong>close</strong> to close the installer.</p></li>
+<li><p>Navigate to the Samples’ <code class="docutils literal notranslate"><span class="pre">nbody</span></code> directory in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p></li>
+<li>
+<p>Open the nbody Visual Studio solution file for the version of Visual Studio you have installed.</p>
+<img alt="_images/navigate_nbody.png" class="image imageleft" src="_images/navigate_nbody.png">
+</li>
+<li>
+<p>Open the <strong>Build</strong> menu within Visual Studio and click <strong>Build Solution</strong>.</p>
+<img alt="_images/nbody_build.png" class="image imageleft" src="_images/nbody_build.png">
+</li>
+<li>
+<p>Navigate to the CUDA Samples build directory and run the nbody sample.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="pip-wheels-windows">
+<span id="pip-wheels-installation-windows"></span><h2>
+<span class="section-number">2.3. </span>Pip Wheels - Windows<a class="headerlink" href="index.html#pip-wheels-windows" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA provides Python Wheels for installing CUDA through pip, primarily for using CUDA with Python. These packages are intended for runtime use and do not currently include developer tools (these can be installed separately).</p>
+<p>Please note that with this installation method, CUDA installation environment is managed via pip and additional care must be taken to set up your host environment to use CUDA outside the pip environment.</p>
+<p><strong>Prerequisites</strong></p>
+<p>To install Wheels, you must first install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package, which is required in order to set up your pip installation to fetch additional Python modules from the NVIDIA NGC PyPI repo. If your pip and setuptools Python modules are not up-to-date, then use the following command to upgrade these Python modules. If these Python modules are out-of-date then the commands which follow later in this section may fail.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install --upgrade setuptools pip wheel
+</pre></div>
+</div>
+<p>You should now be able to install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> module.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-pyindex
+</pre></div>
+</div>
+<p>If your project is using a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file, then you can add the following line to your <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file as an alternative to installing the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>--extra-index-url https://pypi.ngc.nvidia.com
+</pre></div>
+</div>
+<p><strong>Procedure</strong></p>
+<p>Install the CUDA runtime package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-cuda-runtime-cu12
+</pre></div>
+</div>
+<p>Optionally, install additional packages as listed below using the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-&lt;library&gt;
+</pre></div>
+</div>
+<p><strong>Metapackages</strong></p>
+<p>The following metapackages will install the latest version of the named component on Windows for the indicated CUDA version. “cu12” should be read as “cuda12”.</p>
+<ul class="simple">
+<li><p>nvidia-cuda-runtime-cu12</p></li>
+<li><p>nvidia-cuda-cupti-cu12</p></li>
+<li><p>nvidia-cuda-nvcc-cu12</p></li>
+<li><p>nvidia-nvml-dev-cu12</p></li>
+<li><p>nvidia-cuda-nvrtc-cu12</p></li>
+<li><p>nvidia-nvtx-cu12</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu12</p></li>
+<li><p>nvidia-cublas-cu12</p></li>
+<li><p>nvidia-cufft-cu12</p></li>
+<li><p>nvidia-curand-cu12</p></li>
+<li><p>nvidia-cusolver-cu12</p></li>
+<li><p>nvidia-cusparse-cu12</p></li>
+<li><p>nvidia-npp-cu12</p></li>
+<li><p>nvidia-nvjpeg-cu12</p></li>
+</ul>
+<p>These metapackages install the following packages:</p>
+<ul class="simple">
+<li><p>nvidia-nvml-dev-cu126</p></li>
+<li><p>nvidia-cuda-nvcc-cu126</p></li>
+<li><p>nvidia-cuda-runtime-cu126</p></li>
+<li><p>nvidia-cuda-cupti-cu126</p></li>
+<li><p>nvidia-cublas-cu126</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu126</p></li>
+<li><p>nvidia-nvtx-cu126</p></li>
+<li><p>nvidia-cuda-nvrtc-cu126</p></li>
+<li><p>nvidia-npp-cu126</p></li>
+<li><p>nvidia-cusparse-cu126</p></li>
+<li><p>nvidia-cusolver-cu126</p></li>
+<li><p>nvidia-curand-cu126</p></li>
+<li><p>nvidia-cufft-cu126</p></li>
+<li><p>nvidia-nvjpeg-cu126</p></li>
+</ul>
+</section>
+<section id="conda">
+<h2>
+<span class="section-number">2.4. </span>Conda<a class="headerlink" href="index.html#conda" title="Permalink to this headline"></a>
+</h2>
+<p>The Conda packages are available at <a class="reference external" href="https://anaconda.org/nvidia">https://anaconda.org/nvidia</a>.</p>
+<p><strong>Installation</strong></p>
+<p>To perform a basic install of all CUDA Toolkit components using Conda, run the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>conda install cuda -c nvidia
+</pre></div>
+</div>
+<p><strong>Uninstallation</strong></p>
+<p>To uninstall the CUDA Toolkit using Conda, run the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>conda remove cuda
+</pre></div>
+</div>
+</section>
+</section>
+<section id="linux">
+<h1>
+<span class="section-number">3. </span>Linux<a class="headerlink" href="index.html#linux" title="Permalink to this headline"></a>
+</h1>
+<p>CUDA on Linux can be installed using an RPM, Debian, Runfile, or Conda package, depending on the platform being installed on.</p>
+<section id="linux-x86-64">
+<h2>
+<span class="section-number">3.1. </span>Linux x86_64<a class="headerlink" href="index.html#linux-x86-64" title="Permalink to this headline"></a>
+</h2>
+<p>For development on the x86_64 architecture. In some cases, x86_64 systems may act as host platforms targeting other architectures. See the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a> for more details.</p>
+<section id="redhat-centos">
+<h3>
+<span class="section-number">3.1.1. </span>Redhat / CentOS<a class="headerlink" href="index.html#redhat-centos" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on Redhat or CentOS, you can choose between the Runfile Installer and the RPM Installer. The Runfile Installer is only available as a Local Installer. The RPM Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. In the case of the RPM installers, the instructions for the Local and Network variants are the same. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="rpm-installer">
+<h4>
+<span class="section-number">3.1.1.1. </span>RPM Installer<a class="headerlink" href="index.html#rpm-installer" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li><p>Install EPEL to satisfy the DKMS dependency by following the instructions at <a class="reference external" href="https://fedoraproject.org/wiki/EPEL">EPEL’s website</a>.</p></li>
+<li>
+<p><strong>Enable optional repos</strong>:</p>
+<p>On <strong>RHEL 8 Linux</strong> only, execute the following steps to enable optional repositories.</p>
+<ul>
+<li>
+<p><strong>On x86_64 workstation:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms
+subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms
+subscription-manager repos --enable=codeready-builder-for-rhel-8-x86_64-rpms
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>Install the repository meta-data, clean the yum cache, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo rpm --install cuda-repo-&lt;distro&gt;-&lt;version&gt;.&lt;architecture&gt;.rpm
+sudo rpm --erase gpg-pubkey-7fa2af80*
+sudo yum clean expire-cache
+sudo yum install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="runfile-installer">
+<h4>
+<span class="section-number">3.1.1.2. </span>Runfile Installer<a class="headerlink" href="index.html#runfile-installer" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Disable the Nouveau drivers:</p>
+<ol class="loweralpha">
+<li>
+<p>Create a file at <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/blacklist-nouveau.conf</span></code> with the following contents:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>blacklist nouveau
+options nouveau modeset=0
+</pre></div>
+</div>
+</li>
+<li>
+<p>Regenerate the kernel initramfs:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dracut --force
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an xorg.conf file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the graphical interface:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="fedora">
+<span id="fedora-x86-64"></span><h3>
+<span class="section-number">3.1.2. </span>Fedora<a class="headerlink" href="index.html#fedora" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on Fedora, you can choose between the Runfile Installer and the RPM Installer. The Runfile Installer is only available as a Local Installer. The RPM Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. In the case of the RPM installers, the instructions for the Local and Network variants are the same. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="fedora-x86-64-rpm">
+<span id="id1"></span><h4>
+<span class="section-number">3.1.2.1. </span>RPM Installer<a class="headerlink" href="index.html#fedora-x86-64-rpm" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Install the RPMFusion free repository to satisfy the Akmods dependency:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>su -c 'dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm'
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install the repository meta-data, clean the dnf cache, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo rpm --install cuda-repo-&lt;distro&gt;-&lt;version&gt;.&lt;architecture&gt;.rpm
+sudo rpm --erase gpg-pubkey-7fa2af80*
+sudo dnf clean expire-cache
+sudo dnf install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="fedora-x86-64-run">
+<span id="id2"></span><h4>
+<span class="section-number">3.1.2.2. </span>Runfile Installer<a class="headerlink" href="index.html#fedora-x86-64-run" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Disable the Nouveau drivers:</p>
+<ol class="loweralpha">
+<li>
+<p>Create a file at <code class="docutils literal notranslate"><span class="pre">/usr/lib/modprobe.d/blacklist-nouveau.conf</span></code> with the following contents:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>blacklist nouveau
+options nouveau modeset=0
+</pre></div>
+</div>
+</li>
+<li>
+<p>Regenerate the kernel initramfs:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dracut --force
+</pre></div>
+</div>
+</li>
+<li>
+<p>Run the below command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an xorg.conf file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li><p>Reboot the system to load the graphical interface.</p></li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="suse-linux-enterprise-server">
+<span id="sles-x86-64"></span><h3>
+<span class="section-number">3.1.3. </span>SUSE Linux Enterprise Server<a class="headerlink" href="index.html#suse-linux-enterprise-server" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on SUSE Linux Enterprise Server, you can choose between the Runfile Installer and the RPM Installer. The Runfile Installer is only available as a Local Installer. The RPM Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. In the case of the RPM installers, the instructions for the Local and Network variants are the same. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="sles-x86-64-rpm">
+<span id="id3"></span><h4>
+<span class="section-number">3.1.3.1. </span>RPM Installer<a class="headerlink" href="index.html#sles-x86-64-rpm" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Install the repository meta-data, refresh the Zypper cache, update the GPG key, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo rpm --install cuda-repo-&lt;distro&gt;-&lt;version&gt;.&lt;architecture&gt;.rpm
+sudo SUSEConnect --product PackageHub/15/x86_64
+sudo zypper refresh
+sudo rpm --erase gpg-pubkey-7fa2af80*
+sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-$distro.repo
+sudo zypper install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Add the user to the video group:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo usermod -a -G video &lt;username&gt;
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the vectorAdd sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/vectorAdd">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/vectorAdd</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="sles-x86-64-run">
+<span id="id4"></span><h4>
+<span class="section-number">3.1.3.2. </span>Runfile Installer<a class="headerlink" href="index.html#sles-x86-64-run" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an xorg.conf file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the graphical interface:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the vectorAdd sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/vectorAdd">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/0_Introduction/vectorAdd</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="opensuse">
+<span id="suse-x86-64"></span><h3>
+<span class="section-number">3.1.4. </span>OpenSUSE<a class="headerlink" href="index.html#opensuse" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on OpenSUSE, you can choose between the Runfile Installer and the RPM Installer. The Runfile Installer is only available as a Local Installer. The RPM Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. In the case of the RPM installers, the instructions for the Local and Network variants are the same. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="suse-x86-64-rpm">
+<span id="id5"></span><h4>
+<span class="section-number">3.1.4.1. </span>RPM Installer<a class="headerlink" href="index.html#suse-x86-64-rpm" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Install the repository meta-data, refresh the Zypper cache, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo rpm --install cuda-repo-&lt;distro&gt;-&lt;version&gt;.&lt;architecture&gt;.rpm
+sudo rpm --erase gpg-pubkey-7fa2af80*
+sudo zypper refresh
+sudo zypper install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Add the user to the video group:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo usermod -a -G video &lt;username&gt;
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="suse-x86-64-run">
+<span id="id6"></span><h4>
+<span class="section-number">3.1.4.2. </span>Runfile Installer<a class="headerlink" href="index.html#suse-x86-64-run" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Disable the Nouveau drivers:</p>
+<ol class="loweralpha">
+<li>
+<p>Create a file at <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/blacklist-nouveau.conf</span></code> with the following contents:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>blacklist nouveau
+options nouveau modeset=0
+</pre></div>
+</div>
+</li>
+<li>
+<p>Regenerate the kernel initrd:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo /sbin/mkinitrd
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an xorg.conf file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the graphical interface:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                    ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="amazon-linux-2023">
+<h3>
+<span class="section-number">3.1.5. </span>Amazon Linux 2023<a class="headerlink" href="index.html#amazon-linux-2023" title="Permalink to this headline"></a>
+</h3>
+<section id="prepare-amazon-linux-2023">
+<h4>
+<span class="section-number">3.1.5.1. </span>Prepare Amazon Linux 2023<a class="headerlink" href="index.html#prepare-amazon-linux-2023" title="Permalink to this headline"></a>
+</h4>
+<ol class="arabic">
+<li><p>Perform the <a class="reference external" href="index.html#pre-installation-actions">pre-installation actions.</a></p></li>
+<li>
+<p>The kernel headers and development packages for the currently running kernel can be installed with:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dnf install kernel-devel-$(uname -r) kernel-headers-$(uname -r) kernel-modules-extra-$(uname -r)
+</pre></div>
+</div>
+</li>
+<li><p>Choose an installation method: <a class="reference external" href="index.html#local-repo-installation-for-amazon">local repo</a> or <a class="reference external" href="index.html#network-repo-installation-for-amazon">network repo</a>.</p></li>
+</ol>
+</section>
+<section id="local-repo-installation-for-amazon-linux">
+<h4>
+<span class="section-number">3.1.5.2. </span>Local Repo Installation for Amazon Linux<a class="headerlink" href="index.html#local-repo-installation-for-amazon-linux" title="Permalink to this headline"></a>
+</h4>
+<ol class="arabic">
+<li>
+<p><strong>Install local repository on file system:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo rpm --install cuda-repo-amzn2023-X-Y-local-&lt;version&gt;*.x86_64.rpm
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="network-repo-installation-for-amazon-linux">
+<h4>
+<span class="section-number">3.1.5.3. </span>Network Repo Installation for Amazon Linux<a class="headerlink" href="index.html#network-repo-installation-for-amazon-linux" title="Permalink to this headline"></a>
+</h4>
+<ol class="arabic">
+<li>
+<p><strong>Enable the network repository and clean the DN cache:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/cuda-amzn2023.repo
+sudo dnf clean expire-cache
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="common-installation-instructions-for-amazon-linux">
+<h4>
+<span class="section-number">3.1.5.4. </span>Common Installation Instructions for Amazon Linux<a class="headerlink" href="index.html#common-installation-instructions-for-amazon-linux" title="Permalink to this headline"></a>
+</h4>
+<p>These instructions apply to both local and network installation for Amazon Linux.</p>
+<ol class="arabic">
+<li>
+<p><strong>Install CUDA SDK:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dnf module install nvidia-driver:latest-dkms
+sudo dnf install cuda-toolkit
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Install GPUDirect Filesystem:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dnf install nvidia-gds
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Add libcuda.so symbolic link, if necessary:</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">libcuda.so</span></code> library is installed in the <code class="docutils literal notranslate"><span class="pre">/usr/lib{,64}/nvidia</span></code> directory. For pre-existing projects which use <code class="docutils literal notranslate"><span class="pre">libcuda.so</span></code>, it may be useful to add a symbolic link from <code class="docutils literal notranslate"><span class="pre">libcuda.so</span></code> in the <code class="docutils literal notranslate"><span class="pre">/usr/lib{,64}</span></code> directory.</p>
+</li>
+<li>
+<p><strong>Reboot the system:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li><p>Perform the <a class="reference external" href="index.html#post-installation-actions">post-installation actions.</a></p></li>
+</ol>
+</section>
+</section>
+<section id="pip-wheels-linux">
+<span id="pip-wheels-installation-linux"></span><h3>
+<span class="section-number">3.1.6. </span>Pip Wheels - Linux<a class="headerlink" href="index.html#pip-wheels-linux" title="Permalink to this headline"></a>
+</h3>
+<p>NVIDIA provides Python Wheels for installing CUDA through pip, primarily for using CUDA with Python. These packages are intended for runtime use and do not currently include developer tools (these can be installed separately).</p>
+<p>Please note that with this installation method, CUDA installation environment is managed via pip and additional care must be taken to set up your host environment to use CUDA outside the pip environment.</p>
+<p><strong>Prerequisites</strong></p>
+<p>To install Wheels, you must first install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package, which is required in order to set up your pip installation to fetch additional Python modules from the NVIDIA NGC PyPI repo. If your pip and setuptools Python modules are not up-to-date, then use the following command to upgrade these Python modules. If these Python modules are out-of-date then the commands which follow later in this section may fail.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>python3 -m pip install --upgrade setuptools pip wheel
+</pre></div>
+</div>
+<p>You should now be able to install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> module.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>python3 -m pip install nvidia-pyindex
+</pre></div>
+</div>
+<p>If your project is using a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file, then you can add the following line to your <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file as an alternative to installing the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>--extra-index-url https://pypi.ngc.nvidia.com
+</pre></div>
+</div>
+<p><strong>Procedure</strong></p>
+<p>Install the CUDA runtime package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>python3 -m pip install nvidia-cuda-runtime-cu12
+</pre></div>
+</div>
+<p>Optionally, install additional packages as listed below using the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>python3 -m pip install nvidia-&lt;library&gt;
+</pre></div>
+</div>
+<p><strong>Metapackages</strong></p>
+<p>The following metapackages will install the latest version of the named component on Linux for the indicated CUDA version. “cu12” should be read as “cuda12”.</p>
+<ul class="simple">
+<li><p>nvidia-cuda-runtime-cu12</p></li>
+<li><p>nvidia-cuda-cupti-cu12</p></li>
+<li><p>nvidia-cuda-nvcc-cu12</p></li>
+<li><p>nvidia-nvml-dev-cu12</p></li>
+<li><p>nvidia-cuda-nvrtc-cu12</p></li>
+<li><p>nvidia-nvtx-cu12</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu12</p></li>
+<li><p>nvidia-cublas-cu12</p></li>
+<li><p>nvidia-cufft-cu12</p></li>
+<li><p>nvidia-curand-cu12</p></li>
+<li><p>nvidia-cusolver-cu12</p></li>
+<li><p>nvidia-cusparse-cu12</p></li>
+<li><p>nvidia-npp-cu12</p></li>
+<li><p>nvidia-nvjpeg-cu12</p></li>
+<li><p>nvidia-opencl-cu12</p></li>
+<li><p>nvidia-nvjitlink-cu12</p></li>
+</ul>
+<p>These metapackages install the following packages:</p>
+<ul class="simple">
+<li><p>nvidia-nvml-dev-cu125</p></li>
+<li><p>nvidia-cuda-nvcc-cu125</p></li>
+<li><p>nvidia-cuda-runtime-cu125</p></li>
+<li><p>nvidia-cuda-cupti-cu125</p></li>
+<li><p>nvidia-cublas-cu125</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu125</p></li>
+<li><p>nvidia-nvtx-cu125</p></li>
+<li><p>nvidia-cuda-nvrtc-cu125</p></li>
+<li><p>nvidia-npp-cu125</p></li>
+<li><p>nvidia-cusparse-cu125</p></li>
+<li><p>nvidia-cusolver-cu125</p></li>
+<li><p>nvidia-curand-cu125</p></li>
+<li><p>nvidia-cufft-cu125</p></li>
+<li><p>nvidia-nvjpeg-cu125</p></li>
+<li><p>nvidia-opencl-cu125</p></li>
+<li><p>nvidia-nvjitlink-cu125</p></li>
+</ul>
+</section>
+<section id="x86-64-conda">
+<span id="id7"></span><h3>
+<span class="section-number">3.1.7. </span>Conda<a class="headerlink" href="index.html#x86-64-conda" title="Permalink to this headline"></a>
+</h3>
+<p>The Conda packages are available at <a class="reference external" href="https://anaconda.org/nvidia">https://anaconda.org/nvidia</a>.</p>
+<p><strong>Installation</strong></p>
+<p>To perform a basic install of all CUDA Toolkit components using Conda, run the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>conda install cuda -c nvidia
+</pre></div>
+</div>
+<p><strong>Uninstallation</strong></p>
+<p>To uninstall the CUDA Toolkit using Conda, run the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>conda remove cuda
+</pre></div>
+</div>
+</section>
+<section id="wsl">
+<span id="wsl-x86-64-rpm"></span><h3>
+<span class="section-number">3.1.8. </span>WSL<a class="headerlink" href="index.html#wsl" title="Permalink to this headline"></a>
+</h3>
+<p>These instructions must be used if you are installing in a WSL environment. Do not use the Ubuntu instructions in this case.</p>
+<ol class="arabic simple">
+<li><p><strong>Install repository meta-data</strong></p></li>
+</ol>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dpkg -i cuda-repo-&lt;distro&gt;_&lt;version&gt;_&lt;architecture&gt;.deb
+</pre></div>
+</div>
+<ol class="arabic">
+<li>
+<p><strong>Update the CUDA public GPG key</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo apt-key del 7fa2af80
+</pre></div>
+</div>
+<p>When installing using the local repo:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo cp /var/cuda-repo-ubuntu2004-12-0-local/cuda-*-keyring.gpg /usr/share/keyrings/
+</pre></div>
+</div>
+<p>When installing using the network repo:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>wget https://developer.download.nvidia.com/compute/cuda/repos/&lt;distro&gt;/&lt;arch&gt;/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+</pre></div>
+</div>
+<p>Pin file to prioritize CUDA repository:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>wget https://developer.download.nvidia.com/compute/cuda/repos/&lt;distro&gt;/&lt;architecture&gt;/cuda-&lt;distro&gt;.pin
+sudo mv cuda-&lt;distro&gt;.pin /etc/apt/preferences.d/cuda-repository-pin-600
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Update the Apt repository cache and install CUDA</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo apt-get update
+sudo apt-get install cuda
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="ubuntu">
+<span id="ubuntu-x86-64"></span><h3>
+<span class="section-number">3.1.9. </span>Ubuntu<a class="headerlink" href="index.html#ubuntu" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on Ubuntu, you can choose between the Runfile Installer and the Debian Installer. The Runfile Installer is only available as a Local Installer. The Debian Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. In the case of the Debian installers, the instructions for the Local and Network variants are the same. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="debian-installer">
+<span id="ubuntu-x86-64-deb"></span><h4>
+<span class="section-number">3.1.9.1. </span>Debian Installer<a class="headerlink" href="index.html#debian-installer" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Install the repository meta-data, update the GPG key, update the apt-get cache, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dpkg --install cuda-repo-&lt;distro&gt;-&lt;version&gt;.&lt;architecture&gt;.deb
+sudo apt-key del 7fa2af80
+wget https://developer.download.nvidia.com/compute/cuda/repos/&lt;distro&gt;/&lt;arch&gt;/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo add-apt-repository contrib
+sudo apt-get update
+sudo apt-get -y install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="ubuntu-x86-64-run">
+<span id="id8"></span><h4>
+<span class="section-number">3.1.9.2. </span>Runfile Installer<a class="headerlink" href="index.html#ubuntu-x86-64-run" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Disable the Nouveau drivers:</p>
+<ol class="loweralpha">
+<li>
+<p>Create a file at <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/blacklist-nouveau.conf</span></code> with the following contents:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>blacklist nouveau
+options nouveau modeset=0
+</pre></div>
+</div>
+</li>
+<li>
+<p>Regenerate the kernel initramfs:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo update-initramfs -u
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an <code class="docutils literal notranslate"><span class="pre">xorg.conf</span></code> file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the graphical interface:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="debian">
+<span id="debian-x86-64"></span><h3>
+<span class="section-number">3.1.10. </span>Debian<a class="headerlink" href="index.html#debian" title="Permalink to this headline"></a>
+</h3>
+<p>When installing CUDA on Debian 10, you can choose between the Runfile Installer and the Debian Installer. The Runfile Installer is only available as a Local Installer. The Debian Installer is available as both a Local Installer and a Network Installer. The Network Installer allows you to download only the files you need. The Local Installer is a stand-alone installer with a large initial download. For more details, refer to the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/">Linux Installation Guide</a>.</p>
+<section id="debian-x86-64-deb">
+<span id="id9"></span><h4>
+<span class="section-number">3.1.10.1. </span>Debian Installer<a class="headerlink" href="index.html#debian-x86-64-deb" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Install the repository meta-data, remove old GPG key, install GPG key, update the apt-get cache, and install CUDA:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo dpkg -i cuda-repo-&lt;distro&gt;_&lt;version&gt;_&lt;architecture&gt;.deb
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/debian10/x86_64/7fa2af80.pub
+sudo apt-key del 7fa2af80
+wget https://developer.download.nvidia.com/compute/cuda/repos/&lt;distro&gt;/&lt;arch&gt;/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo add-apt-repository contrib
+sudo apt-get update
+sudo apt-get -y install cuda
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the NVIDIA drivers:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="debian-x86-64-run">
+<span id="id10"></span><h4>
+<span class="section-number">3.1.10.2. </span>Runfile Installer<a class="headerlink" href="index.html#debian-x86-64-run" title="Permalink to this headline"></a>
+</h4>
+<p>Perform the following steps to install CUDA and verify the installation.</p>
+<ol class="arabic">
+<li>
+<p>Disable the Nouveau drivers:</p>
+<ol class="loweralpha">
+<li>
+<p>Create a file at <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/blacklist-nouveau.conf</span></code> with the following contents:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>blacklist nouveau
+options nouveau modeset=0
+</pre></div>
+</div>
+</li>
+<li>
+<p>Regenerate the kernel initramfs:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo update-initramfs -u
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Reboot into runlevel 3 by temporarily adding the number “3” and the word “nomodeset” to the end of the system’s kernel boot parameters.</p></li>
+<li>
+<p>Run the installer silently to install with the default selections (implies acceptance of the EULA):</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo sh cuda_&lt;version&gt;_linux.run --silent
+</pre></div>
+</div>
+</li>
+<li>
+<p>Create an xorg.conf file to use the NVIDIA GPU for display:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo nvidia-xconfig
+</pre></div>
+</div>
+</li>
+<li>
+<p>Reboot the system to load the graphical interface:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</li>
+<li>
+<p>Set up the development environment by modifying the PATH and LD_LIBRARY_PATH variables:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64\
+                         ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+</pre></div>
+</div>
+</li>
+<li>
+<p>Install a writable copy of the samples from <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>, then build and run the nbody sample using the Linux instructions in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/5_Domain_Specific/nbody</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run samples by navigating to the executable’s location, otherwise it will fail to locate dependent resources.</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">4. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">4.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">4.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">4.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2015-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

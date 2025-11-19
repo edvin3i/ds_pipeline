@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA Installation Guide - Microsoft Windows</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#system-requirements">1.1. System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#about-this-document">1.2. About This Document</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#installing-cuda-development-tools">2. Installing CUDA Development Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#verify-you-have-a-cuda-capable-gpu">2.1. Verify You Have a CUDA-Capable GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#download-the-nvidia-cuda-toolkit">2.2. Download the NVIDIA CUDA Toolkit</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#install-the-cuda-software">2.3. Install the CUDA Software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#uninstalling-the-cuda-software">2.3.1. Uninstalling the CUDA Software</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#using-conda-to-install-the-cuda-software">2.4. Using Conda to Install the CUDA Software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#conda-overview">2.4.1. Conda Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#installation">2.4.2. Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#uninstallation">2.4.3. Uninstallation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#installing-previous-cuda-releases">2.4.4. Installing Previous CUDA Releases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#use-a-suitable-driver-model">2.5. Use a Suitable Driver Model</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#verify-the-installation">2.6. Verify the Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#running-the-compiled-examples">2.6.1. Running the Compiled Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#pip-wheels">3. Pip Wheels</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#compiling-cuda-programs">4. Compiling CUDA Programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compiling-sample-projects">4.1. Compiling Sample Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#sample-projects">4.2. Sample Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#build-customizations-for-new-projects">4.3. Build Customizations for New Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#build-customizations-for-existing-projects">4.4. Build Customizations for Existing Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#additional-considerations">5. Additional Considerations</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">6. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">6.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">6.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">6.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Installation Guide Windows</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_Installation_Guide_Windows.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">CUDA Installation Guide for Microsoft Windows</p>
+<p>The installation instructions for the CUDA Toolkit on Microsoft Windows systems.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>CUDA<sup>®</sup> is a parallel computing platform and programming model invented by NVIDIA. It enables dramatic increases in computing performance by harnessing the power of the graphics processing unit (GPU).</p>
+<p>CUDA was developed with several design goals in mind:</p>
+<ul class="simple">
+<li><p>Provide a small set of extensions to standard programming languages, like C, that enable a straightforward implementation of parallel algorithms. With CUDA C/C++, programmers can focus on the task of parallelization of the algorithms rather than spending time on their implementation.</p></li>
+<li><p>Support heterogeneous computation where applications use both the CPU and GPU. Serial portions of applications are run on the CPU, and parallel portions are offloaded to the GPU. As such, CUDA can be incrementally applied to existing applications. The CPU and GPU are treated as separate devices that have their own memory spaces. This configuration also allows simultaneous computation on the CPU and GPU without contention for memory resources.</p></li>
+</ul>
+<p>CUDA-capable GPUs have hundreds of cores that can collectively run thousands of computing threads. These cores have shared resources including a register file and a shared memory. The on-chip shared memory allows parallel tasks running on these cores to share data without sending it over the system memory bus.</p>
+<p>This guide will show you how to install and check the correct operation of the CUDA development tools.</p>
+<section id="system-requirements">
+<h2>
+<span class="section-number">1.1. </span>System Requirements<a class="headerlink" href="index.html#system-requirements" title="Permalink to this headline"></a>
+</h2>
+<p>To use CUDA on your system, you will need the following installed:</p>
+<ul class="simple">
+<li><p>A CUDA-capable GPU</p></li>
+<li><p>A supported version of Linux with a gcc compiler and toolchain</p></li>
+<li><p>NVIDIA CUDA Toolkit (available at <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>)</p></li>
+</ul>
+<p>Supported Microsoft Windows<sup>®</sup> operating systems:</p>
+<ul class="simple">
+<li><p>Microsoft Windows 11 21H2</p></li>
+<li><p>Microsoft Windows 11 22H2-SV2</p></li>
+<li><p>Microsoft Windows 11 23H2</p></li>
+<li><p>Microsoft Windows 10 22H2</p></li>
+<li><p>Microsoft Windows Server 2022</p></li>
+</ul>
+<table class="table-no-stripes docutils align-default" id="id2">
+<caption>
+<span class="caption-number">Table 1 </span><span class="caption-text">Windows Compiler Support in CUDA 12.6</span><a class="headerlink" href="index.html#id2" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 31%">
+<col style="width: 10%">
+<col style="width: 25%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Compiler*</p></th>
+<th class="head"><p>IDE</p></th>
+<th class="head"><p>Native x86_64</p></th>
+<th class="head"><p>Cross-compilation (32-bit on 64-bit)</p></th>
+<th class="head"><p>C++ Dialect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>MSVC Version 193x</p></td>
+<td><p>Visual Studio 2022 17.x</p></td>
+<td><p>YES</p></td>
+<td rowspan="3"><p>Not supported</p></td>
+<td><p>C++14 (default), C++17, C++20</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>MSVC Version 192x</p></td>
+<td><p>Visual Studio 2019 16.x</p></td>
+<td><p>YES</p></td>
+<td><p>C++14 (default), C++17</p></td>
+</tr>
+<tr class="row-even">
+<td><p>MSVC Version 191x</p></td>
+<td><p>Visual Studio 2017 15.x (RTW and all updates)</p></td>
+<td><p>YES</p></td>
+<td><p>C++14 (default), C++17</p></td>
+</tr>
+</tbody>
+</table>
+<p>* Support for Visual Studio 2015 is deprecated in release 11.1; support for Visual Studio 2017 is deprecated in release 12.5.</p>
+<p>32-bit compilation native and cross-compilation is removed from CUDA 12.0 and later Toolkit. Use the CUDA Toolkit from earlier releases for 32-bit compilation. CUDA Driver will continue to support running 32-bit application binaries  on  GeForce GPUs until Ada. Ada will be the last architecture with driver support for 32-bit applications. Hopper does not support 32-bit applications.</p>
+<p>Support for running x86 32-bit applications on x86_64 Windows is limited to use with:</p>
+<ul class="simple">
+<li><p>CUDA Driver</p></li>
+<li><p>CUDA Runtime (cudart)</p></li>
+<li><p>CUDA Math Library (math.h)</p></li>
+</ul>
+</section>
+<section id="about-this-document">
+<h2>
+<span class="section-number">1.2. </span>About This Document<a class="headerlink" href="index.html#about-this-document" title="Permalink to this headline"></a>
+</h2>
+<p>This document is intended for readers familiar with Microsoft Windows operating systems and the Microsoft Visual Studio environment. You do not need previous experience with CUDA or experience with parallel computation.</p>
+</section>
+</section>
+<section id="installing-cuda-development-tools">
+<h1>
+<span class="section-number">2. </span>Installing CUDA Development Tools<a class="headerlink" href="index.html#installing-cuda-development-tools" title="Permalink to this headline"></a>
+</h1>
+<p>Basic instructions can be found in the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html#windows">Quick Start Guide</a>. Read on for more detailed instructions.</p>
+<p>The setup of CUDA development tools on a system running the appropriate version of Windows consists of a few simple steps:</p>
+<ul class="simple">
+<li><p>Verify the system has a CUDA-capable GPU.</p></li>
+<li><p>Download the NVIDIA CUDA Toolkit.</p></li>
+<li><p>Install the NVIDIA CUDA Toolkit.</p></li>
+<li><p>Test that the installed software runs correctly and communicates with the hardware.</p></li>
+</ul>
+<section id="verify-you-have-a-cuda-capable-gpu">
+<span id="verify-you-have-cuda-enabled-system"></span><h2>
+<span class="section-number">2.1. </span>Verify You Have a CUDA-Capable GPU<a class="headerlink" href="index.html#verify-you-have-a-cuda-capable-gpu" title="Permalink to this headline"></a>
+</h2>
+<p>You can verify that you have a CUDA-capable GPU through the <strong>Display Adapters</strong> section in the <strong>Windows Device Manager</strong>. Here you will find the vendor name and model of your graphics card(s). If you have an NVIDIA card that is listed in <a class="reference external" href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a>, that GPU is CUDA-capable. The Release Notes for the CUDA Toolkit also contain a list of supported products.</p>
+<p>The <strong>Windows Device Manager</strong> can be opened via the following steps:</p>
+<ol class="arabic">
+<li><p>Open a run window from the Start Menu</p></li>
+<li>
+<p>Run:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>control /name Microsoft.DeviceManager
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="download-the-nvidia-cuda-toolkit">
+<span id="download-cuda-software"></span><h2>
+<span class="section-number">2.2. </span>Download the NVIDIA CUDA Toolkit<a class="headerlink" href="index.html#download-the-nvidia-cuda-toolkit" title="Permalink to this headline"></a>
+</h2>
+<p>The NVIDIA CUDA Toolkit is available at <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a>. Choose the platform you are using and one of the following installer formats:</p>
+<ol class="arabic simple">
+<li><p>Network Installer: A minimal installer which later downloads packages required for installation. Only the packages selected during the selection phase of the installer are downloaded. This installer is useful for users who want to minimize download time.</p></li>
+<li><p>Full Installer: An installer which contains all the components of the CUDA Toolkit and does not require any further download. This installer is useful for systems which lack network access and for enterprise deployment.</p></li>
+</ol>
+<p>The CUDA Toolkit installs the CUDA driver and tools needed to create, build and run a CUDA application as well as libraries, header files, and other resources.</p>
+<p><strong>Download Verification</strong></p>
+<p>The download can be verified by comparing the MD5 checksum posted at <a class="reference external" href="https://developer.download.nvidia.com/compute/cuda/12.6.0/docs/sidebar/md5sum.txt">https://developer.download.nvidia.com/compute/cuda/12.6.0/docs/sidebar/md5sum.txt</a> with that of the downloaded file. If either of the checksums differ, the downloaded file is corrupt and needs to be downloaded again.</p>
+</section>
+<section id="install-the-cuda-software">
+<h2>
+<span class="section-number">2.3. </span>Install the CUDA Software<a class="headerlink" href="index.html#install-the-cuda-software" title="Permalink to this headline"></a>
+</h2>
+<p>Before installing the toolkit, you should read the Release Notes, as they provide details on installation and software functionality.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The driver and toolkit must be installed for CUDA to function. If you have not installed a stand-alone driver, install the driver from the NVIDIA CUDA Toolkit.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The installation may fail if Windows Update starts after the installation has begun. Wait until Windows Update is complete and then try the installation again.</p>
+</div>
+<p><strong>Graphical Installation</strong></p>
+<p>Install the CUDA Software by executing the CUDA installer and following the on-screen prompts.</p>
+<p><strong>Silent Installation</strong></p>
+<p>The installer can be executed in silent mode by executing the package with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag. Additional parameters can be passed which will install specific subpackages instead of all packages. See the table below for a list of all the subpackage names.</p>
+<table class="table-no-stripes docutils align-default" id="id3">
+<caption>
+<span class="caption-number">Table 2 </span><span class="caption-text">Possible Subpackage Names</span><a class="headerlink" href="index.html#id3" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Subpackage Name</p></th>
+<th class="head"><p>Subpackage Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td colspan="2"><p>Toolkit Subpackages (defaults to C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.6)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>cuda_profiler_api_12.6</p></td>
+<td><p>CUDA Profiler API.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>cudart_12.6</p></td>
+<td><p>CUDA Runtime libraries.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>cuobjdump_12.6</p></td>
+<td><p>Extracts information from cubin files.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>cupti_12.6</p></td>
+<td><p>The CUDA Profiling Tools Interface for creating profiling and tracing tools that target CUDA applications.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>cuxxfilt_12.6</p></td>
+<td><p>The CUDA cu++ filt demangler tool.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>demo_suite_12.6</p></td>
+<td><p>Prebuilt demo applications using CUDA.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>documentation_12.6</p></td>
+<td><p>CUDA HTML and PDF documentation files including the CUDA C++ Programming Guide, CUDA C++ Best Practices Guide, CUDA library documentation, etc.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>nvcc_12.6</p></td>
+<td><p>CUDA compiler.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>nvdisasm_12.6</p></td>
+<td><p>Extracts information from standalone cubin files.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>nvfatbin_12.6</p></td>
+<td><p>Library for creating fatbinaries at runtime.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>nvjitlink_12.6</p></td>
+<td><p>nvJitLink library.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>nvml_dev_12.6</p></td>
+<td><p>NVML development libraries and headers.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>nvprof_12.6</p></td>
+<td><p>Tool for collecting and viewing CUDA application profiling data from the command-line.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>nvprune_12.6</p></td>
+<td><p>Prunes host object files and libraries to only contain device code for the specified targets.</p></td>
+</tr>
+<tr class="row-odd">
+<td rowspan="2">
+<p>nvrtc_12.6</p>
+<p>nvrtc_dev_12.6</p>
+</td>
+<td rowspan="2"><p>NVRTC runtime libraries.</p></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd">
+<td><p>nvtx_12.6</p></td>
+<td><p>NVTX on Windows.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>opencl_12.6</p></td>
+<td><p>OpenCL library.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>visual_profiler_12.6</p></td>
+<td><p>Visual Profiler.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>sanitizer_12.6</p></td>
+<td><p>Compute Sanitizer API.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>thrust_12.6</p></td>
+<td><p>CUDA Thrust.</p></td>
+</tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>cublas_12.6</p>
+<p>cublas_dev_12.6</p>
+</td>
+<td rowspan="2"><p>cuBLAS runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>cufft_12.6</p>
+<p>cufft_dev_12.6</p>
+</td>
+<td rowspan="2"><p>cuFFT runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>curand_12.6</p>
+<p>curand_dev_12.6</p>
+</td>
+<td rowspan="2"><p>cuRAND runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>cusolver_12.6</p>
+<p>cusolver_dev_12.6</p>
+</td>
+<td rowspan="2"><p>cuSOLVER runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>cusparse_12.6</p>
+<p>cusparse_dev_12.6</p>
+</td>
+<td rowspan="2"><p>cuSPARSE runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>npp_12.6</p>
+<p>npp_dev_12.6</p>
+</td>
+<td rowspan="2"><p>NPP runtime libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td rowspan="2">
+<p>nvjpeg_12.6</p>
+<p>nvjpeg_dev_12.6</p>
+</td>
+<td rowspan="2"><p>nvJPEG libraries.</p></td>
+</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even">
+<td><p>nsight_compute_12.6</p></td>
+<td><p>Nsight Compute.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>nsight_systems_12.6</p></td>
+<td><p>Nsight Systems.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>nsight_vse_12.6</p></td>
+<td><p>Installs the Nsight Visual Studio Edition plugin in all VS.</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>occupancy_calculator_12.6</p></td>
+<td><p>Installs the CUDA_Occupancy_Calculator.xls tool.</p></td>
+</tr>
+<tr class="row-even">
+<td><p>visual_studio_integration_12.6</p></td>
+<td><p>Installs CUDA project wizard and builds customization files in VS.</p></td>
+</tr>
+<tr class="row-odd">
+<td colspan="2"><p>Driver Subpackages</p></td>
+</tr>
+<tr class="row-even">
+<td><p>Display.Driver</p></td>
+<td><p>The NVIDIA Display Driver. Required to run CUDA applications.</p></td>
+</tr>
+</tbody>
+</table>
+<p>For example, to install only the compiler and driver components:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>&lt;PackageName&gt;.exe -s nvcc_12.1 Display.Driver
+</pre></div>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option if you do not want to reboot automatically after install or uninstall, even if reboot is required.</p>
+<p><strong>Extracting and Inspecting the Files Manually</strong></p>
+<p>Sometimes it may be desirable to extract or inspect the installable files directly, such as in enterprise deployment, or to browse the files before installation. The full installation package can be extracted using a decompression tool which supports the LZMA compression method, such as <a class="reference external" href="http://www.7-zip.org/">7-zip</a> or <a class="reference external" href="http://www.winzip.com/">WinZip</a>.</p>
+<p>Once extracted, the CUDA Toolkit files will be in the <code class="docutils literal notranslate"><span class="pre">CUDAToolkit</span></code> folder, and similarily for CUDA Visual Studio Integration. Within each directory is a .dll and .nvi file that can be ignored as they are not part of the installable files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Accessing the files in this manner does not set up any environment settings, such as variables or Visual Studio integration. This is intended for enterprise-level deployment.</p>
+</div>
+<section id="uninstalling-the-cuda-software">
+<h3>
+<span class="section-number">2.3.1. </span>Uninstalling the CUDA Software<a class="headerlink" href="index.html#uninstalling-the-cuda-software" title="Permalink to this headline"></a>
+</h3>
+<p>All subpackages can be uninstalled through the Windows Control Panel by using the Programs and Features widget.</p>
+</section>
+</section>
+<section id="using-conda-to-install-the-cuda-software">
+<h2>
+<span class="section-number">2.4. </span>Using Conda to Install the CUDA Software<a class="headerlink" href="index.html#using-conda-to-install-the-cuda-software" title="Permalink to this headline"></a>
+</h2>
+<p>This section describes the installation and configuration of CUDA when using the Conda installer. The Conda packages are available at <a class="reference external" href="https://anaconda.org/nvidia">https://anaconda.org/nvidia</a>.</p>
+<section id="conda-overview">
+<span id="id1"></span><h3>
+<span class="section-number">2.4.1. </span>Conda Overview<a class="headerlink" href="index.html#conda-overview" title="Permalink to this headline"></a>
+</h3>
+<p>The Conda installation installs the CUDA Toolkit. The installation steps are listed below.</p>
+</section>
+<section id="installation">
+<span id="conda-installation"></span><h3>
+<span class="section-number">2.4.2. </span>Installation<a class="headerlink" href="index.html#installation" title="Permalink to this headline"></a>
+</h3>
+<p>To perform a basic install of all CUDA Toolkit components using Conda, run the following command:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cuda</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="uninstallation">
+<span id="conda-uninstallation"></span><h3>
+<span class="section-number">2.4.3. </span>Uninstallation<a class="headerlink" href="index.html#uninstallation" title="Permalink to this headline"></a>
+</h3>
+<p>To uninstall the CUDA Toolkit using Conda, run the following command:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">remove</span><span class="w"> </span><span class="n">cuda</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="installing-previous-cuda-releases">
+<span id="conda-installing-previous"></span><h3>
+<span class="section-number">2.4.4. </span>Installing Previous CUDA Releases<a class="headerlink" href="index.html#installing-previous-cuda-releases" title="Permalink to this headline"></a>
+</h3>
+<p>All Conda packages released under a specific CUDA version are labeled with that release version. To install a previous version, include that label in the <code class="docutils literal notranslate"><span class="pre">install</span></code> command such as:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cuda</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">cuda</span><span class="mf">-11.3.0</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some CUDA releases do not move to new versions of all installable components. When this is the case these components will be moved to the new label, and you may need to modify the install command to include both labels such as:</p>
+<div class="highlight-c++ notranslate">
+<div class="highlight"><pre><span></span><span class="n">conda</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">cuda</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">cuda</span><span class="mf">-11.3.0</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="n">nvidia</span><span class="o">/</span><span class="n">label</span><span class="o">/</span><span class="n">cuda</span><span class="mf">-11.3.1</span><span class="w"></span>
+</pre></div>
+</div>
+<p>This example will install all packages released as part of CUDA 11.3.1.</p>
+</div>
+</section>
+</section>
+<section id="use-a-suitable-driver-model">
+<h2>
+<span class="section-number">2.5. </span>Use a Suitable Driver Model<a class="headerlink" href="index.html#use-a-suitable-driver-model" title="Permalink to this headline"></a>
+</h2>
+<p>On Windows 10 and later, the operating system provides two driver models under which the NVIDIA Driver may operate:</p>
+<ul class="simple">
+<li><p>The WDDM driver model is used for display devices.</p></li>
+<li><p>The <a class="reference external" href="https://www.nvidia.com/object/software-for-tesla-products.html">Tesla Compute Cluster (TCC)</a> mode of the NVIDIA Driver is available for non-display devices such as NVIDIA Tesla GPUs and the GeForce GTX Titan GPUs; it uses the Windows WDM driver model.</p></li>
+</ul>
+<p>TCC is enabled by default on most recent NVIDIA Tesla GPUs. To check which driver mode is in use and/or to switch driver modes, use the <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> tool that is included with the NVIDIA Driver installation (see <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span> <span class="pre">-h</span></code> for details).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep in mind that when TCC mode is enabled for a particular GPU, that GPU <em>cannot</em> be used as a display device.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA GeForce GPUs (excluding GeForce GTX Titan GPUs) do not support TCC mode.</p>
+</div>
+</section>
+<section id="verify-the-installation">
+<h2>
+<span class="section-number">2.6. </span>Verify the Installation<a class="headerlink" href="index.html#verify-the-installation" title="Permalink to this headline"></a>
+</h2>
+<p>Before continuing, it is important to verify that the CUDA toolkit can find and communicate correctly with the CUDA-capable hardware. To do this, you need to compile and run some of the included sample programs.</p>
+<section id="running-the-compiled-examples">
+<h3>
+<span class="section-number">2.6.1. </span>Running the Compiled Examples<a class="headerlink" href="index.html#running-the-compiled-examples" title="Permalink to this headline"></a>
+</h3>
+<p>The version of the CUDA Toolkit can be checked by running <code class="docutils literal notranslate"><span class="pre">nvcc</span> <span class="pre">-V</span></code> in a Command Prompt window. You can display a Command Prompt window by going to:</p>
+<p><strong>Start &gt; All Programs &gt; Accessories &gt; Command Prompt</strong></p>
+<p>CUDA Samples are located in <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a>. To use the samples, clone the project, build the samples, and run them using the instructions on the Github page.</p>
+<p>To verify a correct configuration of the hardware and software, it is highly recommended that you build and run the <code class="docutils literal notranslate"><span class="pre">deviceQuery</span></code> sample program. The sample can be built using the provided VS solution files in the <code class="docutils literal notranslate"><span class="pre">deviceQuery</span></code> folder.</p>
+<p>This assumes that you used the default installation directory structure. If CUDA is installed and configured correctly, the output should look similar to <a class="reference external" href="index.html#compiling-examples__valid-results-from-sample-cuda-devicequery-program">Figure 1</a>.</p>
+<figure class="align-center" id="compiling-examples-valid-results-from-sample-cuda-devicequery-program">
+<a class="reference internal image-reference" href="_images/valid-results-from-sample-cuda-devicequery-program.png"><img alt="Valid Results from deviceQuery CUDA Sample" src="_images/valid-results-from-sample-cuda-devicequery-program.png" style="width: 550px;"></a>
+<figcaption>
+<p><span class="caption-number">Figure 1 </span><span class="caption-text">Valid Results from deviceQuery CUDA Sample</span><a class="headerlink" href="index.html#compiling-examples-valid-results-from-sample-cuda-devicequery-program" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The exact appearance and the output lines might be different on your system. The important outcomes are that a device was found, that the device(s) match what is installed in your system, and that the test passed.</p>
+<p>If a CUDA-capable device and the CUDA Driver are installed but <code class="docutils literal notranslate"><span class="pre">deviceQuery</span></code> reports that no CUDA-capable devices are present, ensure the deivce and driver are properly installed.</p>
+<p>Running the <code class="docutils literal notranslate"><span class="pre">bandwidthTest</span></code> program, located in the same directory as <code class="docutils literal notranslate"><span class="pre">deviceQuery</span></code> above, ensures that the system and the CUDA-capable device are able to communicate correctly. The output should resemble <a class="reference external" href="index.html#compiling-examples__valid-results-from-sample-cuda-bandwidthtest-program">Figure 2</a>.</p>
+<figure class="align-center" id="compiling-examples-valid-results-from-sample-cuda-bandwidthtest-program">
+<a class="reference internal image-reference" href="_images/valid-results-from-sample-cuda-bandwidthtest-program.png"><img alt="Valid Results from bandwidthTest CUDA Sample" src="_images/valid-results-from-sample-cuda-bandwidthtest-program.png" style="width: 550px;"></a>
+<figcaption>
+<p><span class="caption-number">Figure 2 </span><span class="caption-text">Valid Results from bandwidthTest CUDA Sample</span><a class="headerlink" href="index.html#compiling-examples-valid-results-from-sample-cuda-bandwidthtest-program" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The device name (second line) and the bandwidth numbers vary from system to system. The important items are the second line, which confirms a CUDA device was found, and the second-to-last line, which confirms that all necessary tests passed.</p>
+<p>If the tests do not pass, make sure you do have a CUDA-capable NVIDIA GPU on your system and make sure it is properly installed.</p>
+<p>To see a graphical representation of what CUDA can do, run the <code class="docutils literal notranslate"><span class="pre">particles</span></code> sample at</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>https://github.com/NVIDIA/cuda-samples/tree/master/Samples/2_Concepts_and_Techniques/particles
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="pip-wheels">
+<span id="pip-wheels-installation-windows"></span><h1>
+<span class="section-number">3. </span>Pip Wheels<a class="headerlink" href="index.html#pip-wheels" title="Permalink to this headline"></a>
+</h1>
+<p>NVIDIA provides Python Wheels for installing CUDA through pip, primarily for using CUDA with Python. These packages are intended for runtime use and do not currently include developer tools (these can be installed separately).</p>
+<p>Please note that with this installation method, CUDA installation environment is managed via pip and additional care must be taken to set up your host environment to use CUDA outside the pip environment.</p>
+<p><strong>Prerequisites</strong></p>
+<p>To install Wheels, you must first install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package, which is required in order to set up your pip installation to fetch additional Python modules from the NVIDIA NGC PyPI repo. If your pip and setuptools Python modules are not up-to-date, then use the following command to upgrade these Python modules. If these Python modules are out-of-date then the commands which follow later in this section may fail.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install --upgrade setuptools pip wheel
+</pre></div>
+</div>
+<p>You should now be able to install the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> module.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-pyindex
+</pre></div>
+</div>
+<p>If your project is using a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file, then you can add the following line to your <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file as an alternative to installing the <code class="docutils literal notranslate"><span class="pre">nvidia-pyindex</span></code> package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>--extra-index-url https://pypi.ngc.nvidia.com
+</pre></div>
+</div>
+<p><strong>Procedure</strong></p>
+<p>Install the CUDA runtime package:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-cuda-runtime-cu12
+</pre></div>
+</div>
+<p>Optionally, install additional packages as listed below using the following command:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>py -m pip install nvidia-&lt;library&gt;
+</pre></div>
+</div>
+<p><strong>Metapackages</strong></p>
+<p>The following metapackages will install the latest version of the named component on Windows for the indicated CUDA version. “cu12” should be read as “cuda12”.</p>
+<ul class="simple">
+<li><p>nvidia-cublas-cu12</p></li>
+<li><p>nvidia-cuda-runtime-cu12</p></li>
+<li><p>nvidia-cuda-cupti-cu12</p></li>
+<li><p>nvidia-cuda-nvcc-cu12</p></li>
+<li><p>nvidia-cuda-nvrtc-cu12</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu12</p></li>
+<li><p>nvidia-cufft-cu12</p></li>
+<li><p>nvidia-curand-cu12</p></li>
+<li><p>nvidia-cusolver-cu12</p></li>
+<li><p>nvidia-cusparse-cu12</p></li>
+<li><p>nvidia-npp-cu12</p></li>
+<li><p>nvidia-nvfatbin-cu12</p></li>
+<li><p>nvidia-nvjitlink-cu12</p></li>
+<li><p>nvidia-nvjpeg-cu12</p></li>
+<li><p>nvidia-nvml-dev-cu12</p></li>
+<li><p>nvidia-nvtx-cu12</p></li>
+<li><p>nvidia-opencl-cu12</p></li>
+</ul>
+<p>These metapackages install the following packages:</p>
+<ul class="simple">
+<li><p>nvidia-cublas-cu126</p></li>
+<li><p>nvidia-cuda-runtime-cu126</p></li>
+<li><p>nvidia-cuda-cupti-cu126</p></li>
+<li><p>nvidia-cuda-nvcc-cu126</p></li>
+<li><p>nvidia-cuda-nvrtc-cu126</p></li>
+<li><p>nvidia-cuda-sanitizer-api-cu126</p></li>
+<li><p>nvidia-cufft-cu126</p></li>
+<li><p>nvidia-curand-cu126</p></li>
+<li><p>nvidia-cusolver-cu126</p></li>
+<li><p>nvidia-cusparse-cu126</p></li>
+<li><p>nvidia-npp-cu126</p></li>
+<li><p>nvidia-nvfatbin-cu126</p></li>
+<li><p>nvidia-nvjitlink-cu126</p></li>
+<li><p>nvidia-nvjpeg-cu126</p></li>
+<li><p>nvidia-nvml-dev-cu126</p></li>
+<li><p>nvidia-nvtx-cu126</p></li>
+<li><p>nvidia-opencl-cu126</p></li>
+</ul>
+</section>
+<section id="compiling-cuda-programs">
+<h1>
+<span class="section-number">4. </span>Compiling CUDA Programs<a class="headerlink" href="index.html#compiling-cuda-programs" title="Permalink to this headline"></a>
+</h1>
+<p>The project files in the CUDA Samples have been designed to provide simple, one-click builds of the programs that include all source code. To build the Windows projects (for release or debug mode), use the provided <code class="docutils literal notranslate"><span class="pre">*.sln</span></code> solution files for Microsoft Visual Studio 2015 (deprecated in CUDA 11.1), 2017, 2019, or 2022. You can use either the solution files located in each of the examples directories in <a class="reference external" href="https://github.com/nvidia/cuda-samples">https://github.com/nvidia/cuda-samples</a></p>
+<section id="compiling-sample-projects">
+<h2>
+<span class="section-number">4.1. </span>Compiling Sample Projects<a class="headerlink" href="index.html#compiling-sample-projects" title="Permalink to this headline"></a>
+</h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">bandwidthTest</span></code> project is a good sample project to build and run. It is located in <a class="reference external" href="https://github.com/NVIDIA/cuda-samples/tree/master/Samples/1_Utilities/bandwidthTest">https://github.com/NVIDIA/cuda-samples/tree/master/Samples/1_Utilities/bandwidthTest</a>.</p>
+<p>If you elected to use the default installation location, the output is placed in <code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">Samples\v12.6\bin\win64\Release</span></code>. Build the program using the appropriate solution file and run the executable. If all works correctly, the output should be similar to <a class="reference external" href="index.html#compiling-examples__valid-results-from-sample-cuda-bandwidthtest-program">Figure 2</a>.</p>
+</section>
+<section id="sample-projects">
+<h2>
+<span class="section-number">4.2. </span>Sample Projects<a class="headerlink" href="index.html#sample-projects" title="Permalink to this headline"></a>
+</h2>
+<p>The sample projects come in two configurations: debug and release (where release contains no debugging information) and different Visual Studio projects.</p>
+<p>A few of the example projects require some additional setup.</p>
+<p>These sample projects also make use of the <code class="docutils literal notranslate"><span class="pre">$CUDA_PATH</span></code> environment variable to locate where the CUDA Toolkit and the associated <code class="docutils literal notranslate"><span class="pre">.props</span></code> files are.</p>
+<p>The environment variable is set automatically using the Build Customization <code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">12.6.props</span></code> file, and is installed automatically as part of the CUDA Toolkit installation process.</p>
+<table class="table-no-stripes docutils align-default" id="id4">
+<caption>
+<span class="caption-number">Table 3 </span><span class="caption-text">CUDA Visual Studio .props locations</span><a class="headerlink" href="index.html#id4" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 21%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Visual Studio</p></th>
+<th class="head"><p>CUDA 12.6 .props file Install Directory</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Visual Studio 2017</p></td>
+<td><p>&lt;Visual Studio Install Dir&gt;\Common7\IDE\VC\VCTargets\BuildCustomizations</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>Visual Studio 2019</p></td>
+<td><p>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\BuildCustomizations</p></td>
+</tr>
+<tr class="row-even">
+<td><p>Visual Studio 2022</p></td>
+<td><p>C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\BuildCustomizations</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can reference this <code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">12.6.props</span></code> file when building your own CUDA applications.</p>
+</section>
+<section id="build-customizations-for-new-projects">
+<h2>
+<span class="section-number">4.3. </span>Build Customizations for New Projects<a class="headerlink" href="index.html#build-customizations-for-new-projects" title="Permalink to this headline"></a>
+</h2>
+<p>When creating a new CUDA application, the Visual Studio project file must be configured to include CUDA build customizations. To accomplish this, click File-&gt; New | Project… NVIDIA-&gt; CUDA-&gt;, then select a template for your CUDA Toolkit version. For example, selecting the “CUDA 12.6 Runtime” template will configure your project for use with the CUDA 12.6 Toolkit. The new project is technically a C++ project (.vcxproj) that is preconfigured to use NVIDIA’s Build Customizations. All standard capabilities of Visual Studio C++ projects will be available.</p>
+<p>To specify a custom CUDA Toolkit location, under <strong>CUDA C/C++</strong>, select <strong>Common</strong>, and set the <strong>CUDA Toolkit Custom Dir</strong> field as desired. Note that the selected toolkit must match the version of the Build Customizations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A supported version of MSVC must be installed to use this feature.</p>
+</div>
+</section>
+<section id="build-customizations-for-existing-projects">
+<h2>
+<span class="section-number">4.4. </span>Build Customizations for Existing Projects<a class="headerlink" href="index.html#build-customizations-for-existing-projects" title="Permalink to this headline"></a>
+</h2>
+<p>When adding CUDA acceleration to existing applications, the relevant Visual Studio project files must be updated to include CUDA build customizations. This can be done using one of the following two methods:</p>
+<ol class="arabic simple">
+<li><p>Open the Visual Studio project, right click on the project name, and select <strong>Build Dependencies &gt; Build Customizations…</strong>, then select the CUDA Toolkit version you would like to target.</p></li>
+<li><p>Alternatively, you can configure your project always to build with the most recently installed version of the CUDA Toolkit. First add a CUDA build customization to your project as above. Then, right click on the project name and select <strong>Properties</strong>. Under <strong>CUDA C/C++</strong>, select <strong>Common</strong>, and set the <strong>CUDA Toolkit Custom Dir</strong> field to <code class="docutils literal notranslate"><span class="pre">$(CUDA_PATH)</span></code> . Note that the <code class="docutils literal notranslate"><span class="pre">$(CUDA_PATH)</span></code> environment variable is set by the installer.</p></li>
+</ol>
+<p>While Option 2 will allow your project to automatically use any new CUDA Toolkit version you may install in the future, selecting the toolkit version explicitly as in Option 1 is often better in practice, because if there are new CUDA configuration options added to the build customization rules accompanying the newer toolkit, you would not see those new options using Option 2.</p>
+<p>If you use the <code class="docutils literal notranslate"><span class="pre">$(CUDA_PATH)</span></code> environment variable to target a version of the CUDA Toolkit for building, and you perform an installation or uninstallation of any version of the CUDA Toolkit, you should validate that the <code class="docutils literal notranslate"><span class="pre">$(CUDA_PATH)</span></code> environment variable points to the correct installation directory of the CUDA Toolkit for your purposes. You can access the value of the <code class="docutils literal notranslate"><span class="pre">$(CUDA_PATH)</span></code> environment variable via the following steps:</p>
+<ol class="arabic">
+<li><p>Open a run window from the Start Menu.</p></li>
+<li>
+<p>Run:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>control sysdm.cpl
+</pre></div>
+</div>
+</li>
+<li><p>Select the <strong>Advanced</strong> tab at the top of the window.</p></li>
+<li><p>Click <strong>Environment Variables</strong> at the bottom of the window.</p></li>
+</ol>
+<p>Files which contain CUDA code must be marked as a <code class="docutils literal notranslate"><span class="pre">CUDA</span> <span class="pre">C/C++</span></code> file. This can done when adding the file by right clicking the project you wish to add the file to, selecting <strong>Add New Item</strong>, selecting <strong>NVIDIA CUDA 12.6\CodeCUDA C/C++ File</strong>, and then selecting the file you wish to add.</p>
+<p>For advanced users, if you wish to try building your project against a newer CUDA Toolkit without making changes to any of your project files, go to the Visual Studio command prompt, change the current directory to the location of your project, and execute a command such as the following:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>msbuild &lt;projectname.extension&gt; /t:Rebuild /p:CudaToolkitDir="drive:/path/to/new/toolkit/"
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-considerations">
+<h1>
+<span class="section-number">5. </span>Additional Considerations<a class="headerlink" href="index.html#additional-considerations" title="Permalink to this headline"></a>
+</h1>
+<p>Now that you have CUDA-capable hardware and the NVIDIA CUDA Toolkit installed, you can examine and enjoy the numerous included programs. To begin using CUDA to accelerate the performance of your own applications, consult the CUDA C Programming Guide, located in the CUDA Toolkit documentation directory.</p>
+<p>A number of helpful development tools are included in the CUDA Toolkit or are available for download from the NVIDIA Developer Zone to assist you as you develop your CUDA programs, such as NVIDIA<sup>®</sup> Nsight™ Visual Studio Edition, and NVIDIA Visual Profiler.</p>
+<p>For technical support on programming questions, consult and participate in the developer forums at <a class="reference external" href="https://developer.nvidia.com/cuda/">https://developer.nvidia.com/cuda/</a>.</p>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">6. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">6.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">6.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">6.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

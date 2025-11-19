@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Memory Management Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Signal Statistical Functions" href="signal_statistical_functions.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_memory_management.html">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1 current">
+<a class="current reference internal" href="signal_memory_management.html#">Signal Memory Management Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signal_memory_management.html#group__signal__malloc_1signal_malloc">Malloc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_memory_management.html#group__signal__free_1signal_free">Free</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Signal Memory Management Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="signal-memory-management-functions">
+<span id="signal_memory_management"></span><h1>Signal Memory Management Functions<a class="headerlink" href="signal_memory_management.html#signal-memory-management-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__signal__memory__management">Functions that provide memory management functionality like malloc and free. </p>
+<section id="group__signal__malloc_1signal_malloc">
+<span id="group__signal__malloc"></span><h2>Malloc<a class="headerlink" href="signal_memory_management.html#group__signal__malloc_1signal_malloc" title="Permalink to this headline"></a>
+</h2>
+<p id="group__signal__malloc_1signal_malloc">Signal-allocator methods for allocating 1D arrays of data in device memory. All allocators have size parameters to specify the size of the signal (1D array) being allocated.</p>
+<p>The allocator methods return a pointer to the newly allocated memory of appropriate type. If device-memory allocation is not possible due to resource constaints the allocators return 0 (i.e. NULL pointer).</p>
+<p>All signal allocators allocate memory aligned such that it is beneficial to the performance of the majority of the signal-processing primitives. It is no mandatory however to use these allocators. Any valid CUDA device-memory pointers can be passed to NPP primitives. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_8u">
+<span class="target" id="group__signal__malloc_1ga6bcc2d838e3d349dd5fc9d31dff6d82e"></span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_8u</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_8u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of unsigned chars in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_8s">
+<span class="target" id="group__signal__malloc_1gad0fbf9d370c1548c03e8c78825b71946"></span><a class="reference internal" href="nppdefs.html#c.Npp8s" title="Npp8s"><span class="n"><span class="pre">Npp8s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_8s</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_8s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit signed signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of (signed) chars in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_16u">
+<span class="target" id="group__signal__malloc_1ga471e90437fce035de8118cc76ec076cb"></span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_16u</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_16u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit unsigned signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of unsigned shorts in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_16s">
+<span class="target" id="group__signal__malloc_1ga0c8e4a590f64e511e2aee4f976dff30f"></span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_16s</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_16s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of shorts in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_16sc">
+<span class="target" id="group__signal__malloc_1gae1e92d541f42c7f1505a1deb1e395c95"></span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_16sc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_16sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit complex-value signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of 16-bit complex numbers in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_32u">
+<span class="target" id="group__signal__malloc_1ga62b1c51491cd5bcaf5eb97dc2dc161f7"></span><a class="reference internal" href="nppdefs.html#c.Npp32u" title="Npp32u"><span class="n"><span class="pre">Npp32u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_32u</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_32u" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit unsigned signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of unsigned ints in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_32s">
+<span class="target" id="group__signal__malloc_1ga61cfc958b1825442a810a9eb20c973a9"></span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_32s</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_32s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of ints in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_32sc">
+<span class="target" id="group__signal__malloc_1ga20ce5da911184b6959e01d7416b78363"></span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_32sc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_32sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex integer signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of complex integner values in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_32f">
+<span class="target" id="group__signal__malloc_1gaec192d08af566040426d40b3477bd51d"></span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_32f</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_32f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of floats in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_32fc">
+<span class="target" id="group__signal__malloc_1ga1a910ec8323ed56028a7f63f7f3ee04b"></span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_32fc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_32fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit complex float signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of complex float values in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_64s">
+<span class="target" id="group__signal__malloc_1ga78a12dd0960ab99df5d0b40085b3fd5b"></span><a class="reference internal" href="nppdefs.html#c.Npp64s" title="Npp64s"><span class="n"><span class="pre">Npp64s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_64s</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_64s" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit long integer signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of long ints in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_64sc">
+<span class="target" id="group__signal__malloc_1gaa22aaa6559b91a11e8600d84403ddb59"></span><a class="reference internal" href="nppdefs.html#c.Npp64sc" title="Npp64sc"><span class="n"><span class="pre">Npp64sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_64sc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_64sc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex long integer signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of complex long int values in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_64f">
+<span class="target" id="group__signal__malloc_1ga2a9febe64996cf36ea00d5de6fa964bd"></span><a class="reference internal" href="nppdefs.html#c.Npp64f" title="Npp64f"><span class="n"><span class="pre">Npp64f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_64f</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_64f" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit float (double) signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of doubles in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsMalloc_64fc">
+<span class="target" id="group__signal__malloc_1gac2f7d4125c3c8507cb296b04d6704eb7"></span><a class="reference internal" href="nppdefs.html#c.Npp64fc" title="Npp64fc"><span class="n"><span class="pre">Npp64fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppsMalloc_64fc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">nSize</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsMalloc_64fc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>64-bit complex complex signal allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nSize</strong> – Number of complex double valuess in the new signal. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>A pointer to the new signal. 0 (NULL-pointer) indicates that an error occurred during allocation. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<section id="group__signal__free_1signal_free">
+<span id="group__signal__free"></span><h2>Free<a class="headerlink" href="signal_memory_management.html#group__signal__free_1signal_free" title="Permalink to this headline"></a>
+</h2>
+<p id="group__signal__free_1signal_free">Free signal memory. </p>
+</section>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppsFree">
+<span class="target" id="group__signal__free_1gad063d2620526b087ffcb7e6ae0c892ca"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppsFree</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pValues</span></span><span class="sig-paren">)</span><a class="headerlink" href="signal_memory_management.html#c.nppsFree" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Free method for any signal memory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pValues</strong> – A pointer to memory allocated using nppiMalloc_&lt;modifier&gt;. </p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

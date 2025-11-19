@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — cuFFT 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cufft-api">2. Using the cuFFT API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cufft-api-reference">3. cuFFT API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cufft-code-examples">4. cuFFT Code Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#multiple-gpu-data-organization">5. Multiple GPU Data Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#fftw-conversion-guide">6. FFTW Conversion Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#fftw-interface-to-cufft">7. FFTW Interface to cuFFT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#deprecated-functionality">8. Deprecated Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">9. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">cuFFT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUFFT_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cufft-api">2. Using the cuFFT API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#accessing-cufft">2.1. Accessing cuFFT</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#fourier-transform-setup">2.2. Fourier Transform Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#free-memory-requirement">2.2.1. Free Memory Requirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#plan-initialization-time">2.2.2. Plan Initialization Time</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#fourier-transform-types">2.3. Fourier Transform Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#half-precision-cufft-transforms">2.3.1. Half-precision cuFFT Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bfloat16-precision-cufft-transforms">2.3.2. Bfloat16-precision cuFFT Transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#data-layout">2.4. Data Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multidimensional-transforms">2.5. Multidimensional Transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#advanced-data-layout">2.6. Advanced Data Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#streamed-cufft-transforms">2.7. Streamed cuFFT Transforms</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#multiple-gpu-cufft-transforms">2.8. Multiple GPU cuFFT Transforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#plan-specification-and-work-areas">2.8.1. Plan Specification and Work Areas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#helper-functions">2.8.2. Helper Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multiple-gpu-2d-and-3d-transforms-on-permuted-input">2.8.3. Multiple GPU 2D and 3D Transforms on Permuted Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#supported-functionality">2.8.4. Supported Functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-callback-routines">2.9. cuFFT Callback Routines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#overview-of-the-cufft-callback-routine-feature">2.9.1. Overview of the cuFFT Callback Routine Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#specifying-load-and-store-callback-routines">2.9.2. Specifying Load and Store Callback Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#callback-routine-function-details">2.9.3. Callback Routine Function Details</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#coding-considerations-for-the-cufft-callback-routine-feature">2.9.4. Coding Considerations for the cuFFT Callback Routine Feature</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#no-ordering-guarantees-within-a-kernel">2.9.4.1. No Ordering Guarantees Within a Kernel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-safety">2.10. Thread Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-graphs-support">2.11. CUDA Graphs Support</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#static-library-and-callback-support">2.12. Static Library and Callback Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#static-library-without-callback-support">2.12.1. Static library without callback support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#accuracy-and-performance">2.13. Accuracy and Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#caller-allocated-work-area-support">2.14. Caller Allocated Work Area Support</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-link-time-optimized-kernels">2.15. cuFFT Link-Time Optimized Kernels</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id1">2.15.1. Overview of the cuFFT Callback Routine Feature</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cufft-api-reference">3. cuFFT API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#return-value-cufftresult">3.1. Return value cufftResult</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-basic-plans">3.2. cuFFT Basic Plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftplan1d">3.2.1. cufftPlan1d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftplan2d">3.2.2. cufftPlan2d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftplan3d">3.2.3. cufftPlan3d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftplanmany">3.2.4. cufftPlanMany()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-extensible-plans">3.3. cuFFT Extensible Plans</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftcreate">3.3.1. cufftCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftdestroy">3.3.2. cufftDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftmakeplan1d">3.3.3. cufftMakePlan1d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftmakeplan2d">3.3.4. cufftMakePlan2d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftmakeplan3d">3.3.5. cufftMakePlan3d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftmakeplanmany">3.3.6. cufftMakePlanMany()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftmakeplanmany64">3.3.7. cufftMakePlanMany64()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtmakeplanmany">3.3.8. cufftXtMakePlanMany()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-plan-properties">3.4. cuFFT Plan Properties</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftsetplanpropertyint64">3.4.1. cufftSetPlanPropertyInt64()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetplanpropertyint64">3.4.2. cufftGetPlanPropertyInt64()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftresetplanproperty">3.4.3. cufftResetPlanProperty()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-estimated-size-of-work-area">3.5. cuFFT Estimated Size of Work Area</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftestimate1d">3.5.1. cufftEstimate1d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftestimate2d">3.5.2. cufftEstimate2d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftestimate3d">3.5.3. cufftEstimate3d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftestimatemany">3.5.4. cufftEstimateMany()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-refined-estimated-size-of-work-area">3.6. cuFFT Refined Estimated Size of Work Area</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetsize1d">3.6.1. cufftGetSize1d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetsize2d">3.6.2. cufftGetSize2d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetsize3d">3.6.3. cufftGetSize3d()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetsizemany">3.6.4. cufftGetSizeMany()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftgetsizemany64">3.6.5. cufftGetSizeMany64()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtgetsizemany">3.6.6. cufftXtGetSizeMany()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cufftgetsize">3.7. cufftGetSize()</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-caller-allocated-work-area-support">3.8. cuFFT Caller Allocated Work Area Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftsetautoallocation">3.8.1. cufftSetAutoAllocation()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftsetworkarea">3.8.2. cufftSetWorkArea()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtsetworkareapolicy">3.8.3. cufftXtSetWorkAreaPolicy()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-execution">3.9. cuFFT Execution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftexecc2c-and-cufftexecz2z">3.9.1. cufftExecC2C() and cufftExecZ2Z()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftexecr2c-and-cufftexecd2z">3.9.2. cufftExecR2C() and cufftExecD2Z()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftexecc2r-and-cufftexecz2d">3.9.3. cufftExecC2R() and cufftExecZ2D()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtexec">3.9.4. cufftXtExec()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtexecdescriptor">3.9.5. cufftXtExecDescriptor()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-and-multiple-gpus">3.10. cuFFT and Multiple GPUs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtsetgpus">3.10.1. cufftXtSetGPUs()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtsetworkarea">3.10.2. cufftXtSetWorkArea()</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cufft-multiple-gpu-execution">3.10.3. cuFFT Multiple GPU Execution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftxtexecdescriptorc2c-and-cufftxtexecdescriptorz2z">3.10.3.1. cufftXtExecDescriptorC2C() and cufftXtExecDescriptorZ2Z()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftxtexecdescriptorr2c-and-cufftxtexecdescriptord2z">3.10.3.2. cufftXtExecDescriptorR2C() and cufftXtExecDescriptorD2Z()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftxtexecdescriptorc2r-and-cufftxtexecdescriptorz2d">3.10.3.3. cufftXtExecDescriptorC2R() and cufftXtExecDescriptorZ2D()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-allocation-and-data-movement-functions">3.10.4. Memory Allocation and Data Movement Functions</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#cufftxtmalloc">3.10.4.1. cufftXtMalloc()</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parameter-cufftxtsubformat">3.10.4.1.1. Parameter cufftXtSubFormat</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftxtfree">3.10.4.2. cufftXtFree()</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#cufftxtmemcpy">3.10.4.3. cufftXtMemcpy()</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parameter-cufftxtcopytype">3.10.4.3.1. Parameter cufftXtCopyType</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#general-multiple-gpu-descriptor-types">3.10.5. General Multiple GPU Descriptor Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cudaxtdesc">3.10.5.1. cudaXtDesc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cudalibxtdesc">3.10.5.2. cudaLibXtDesc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-callbacks">3.11. cuFFT Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtsetcallback">3.11.1. cufftXtSetCallback()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtclearcallback">3.11.2. cufftXtClearCallback()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cufftxtsetcallbacksharedsize">3.11.3. cufftXtSetCallbackSharedSize()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cufftsetstream">3.12. cufftSetStream()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cufftgetversion">3.13. cufftGetVersion()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cufftgetproperty">3.14. cufftGetProperty()</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cufft-types">3.15. cuFFT Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parameter-cuffttype">3.15.1. Parameter cufftType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parameters-for-transform-direction">3.15.2. Parameters for Transform Direction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#type-definitions-for-callbacks">3.15.3. Type definitions for callbacks</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#other-cufft-types">3.15.4. Other cuFFT Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cuffthandle">3.15.4.1. cufftHandle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftreal">3.15.4.2. cufftReal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftdoublereal">3.15.4.3. cufftDoubleReal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftcomplex">3.15.4.4. cufftComplex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cufftdoublecomplex">3.15.4.5. cufftDoubleComplex</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#common-types">3.16. Common types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudadatatype">3.16.1. cudaDataType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#librarypropertytype">3.16.2. libraryPropertyType</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cufft-code-examples">4. cuFFT Code Examples</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#multiple-gpu-data-organization">5. Multiple GPU Data Organization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multiple-gpu-data-organization-for-batched-transforms">5.1. Multiple GPU Data Organization for Batched Transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multiple-gpu-data-organization-for-single-2d-and-3d-transforms">5.2. Multiple GPU Data Organization for Single 2D and 3D Transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multiple-gpu-data-organization-for-single-1d-transforms">5.3. Multiple-GPU Data Organization for Single 1D Transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#fftw-conversion-guide">6. FFTW Conversion Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#fftw-interface-to-cufft">7. FFTW Interface to cuFFT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#deprecated-functionality">8. Deprecated Functionality</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">9. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">9.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">9.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">9.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

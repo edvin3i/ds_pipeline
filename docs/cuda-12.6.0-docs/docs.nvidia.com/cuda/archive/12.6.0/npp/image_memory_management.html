@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Memory Management Functions — npp 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="Signal Arithmetic And Logical Operations" href="signal_arithmetic_and_logical_operations.html">
+    <link rel="prev" title="Image Threshold And Compare Operations" href="image_threshold_and_compare_operations.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="index.html">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">What is NPP ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#general-conventions">General Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#image-processing-conventions">Image Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#signal-processing-conventions">Signal Processing Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppdefs.html">Data Types, Structs, Enums, and Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_npp.html">Core NPP Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_arithmetic_and_logical_operations.html">Image Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_color_conversion.html">Image Color Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_exchange_and_initialization.html">Image Data Exchange And Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_filtering_functions.html">Image Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_geometry_transforms.html">Image Geometry Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_linear_transforms.html">Image Linear Transforms Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_morphological_operations.html">Image Morphological Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_statistics_functions.html">Image Statistics Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_threshold_and_compare_operations.html">Image Threshold And Compare Operations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="image_memory_management.html#">Image Memory Management Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_arithmetic_and_logical_operations.html">Signal Arithmetic And Logical Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_conversion_functions.html">Signal Conversion Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_filtering_functions.html">Signal Filtering Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_initialization.html">Signal Initialization Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_statistical_functions.html">Signal Statistical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_memory_management.html">Signal Memory Management Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">npp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Image Memory Management Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v23.05 |</span>
+
+
+
+  <a href="../pdf/NPP_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <blockquote>
+<div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</blockquote>
+<section id="image-memory-management-functions">
+<span id="image_memory_management"></span><h1>Image Memory Management Functions<a class="headerlink" href="image_memory_management.html#image-memory-management-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__image__memory__management">Routines for allocating and deallocating pitched image storage. </p>
+<p>These methods are provided for convenience. They allocate memory that may contain additional padding bytes at the end of each line of pixels. Though padding is not necessary for any of the NPP image-processing primitives to work correctly, its absense may cause sever performance degradation compared to properly padded images.</p>
+<p>These functions can be found in the nppisu library. Linking to only the sub-libraries that you use can significantly save link time, application load time, and CUDA runtime startup time when using dynamic libraries. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-image-memory-allocation">Image Memory Allocation</p>
+<p>ImageAllocator methods for 2D arrays of data.</p>
+<p>The allocators have width and height parameters to specify the size of the image data being allocated. They return a pointer to the newly created memory and return the numbers of bytes between successive lines.</p>
+<p>If the memory allocation failed due to lack of free device memory or device memory fragmentation the routine returns 0.</p>
+<p>All allocators return memory with line strides that are beneficial for performance. It is not mandatory to use these allocators. Any valid CUDA device-memory pointers can be used by the NPP primitives and there are no restrictions on line strides. </p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_8u_C1">
+<span class="target" id="group__image__memory__management_1ga345f6e1c8d3baacfa8fe72b76dba4413"></span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_8u_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_8u_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>8-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_8u_C2">
+<span class="target" id="group__image__memory__management_1ga46666f28a3cb03f5c158ac7c8e791f3c"></span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_8u_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_8u_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 8-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_8u_C3">
+<span class="target" id="group__image__memory__management_1ga19019c8feed1873dea7721479c60b8b4"></span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_8u_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_8u_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 8-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_8u_C4">
+<span class="target" id="group__image__memory__management_1gadbae0d7a99aa28da3f19d4769d3bcbf9"></span><a class="reference internal" href="nppdefs.html#c.Npp8u" title="Npp8u"><span class="n"><span class="pre">Npp8u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_8u_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_8u_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 8-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16u_C1">
+<span class="target" id="group__image__memory__management_1ga981d13a695545e5d8131d60ddf383c4b"></span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16u_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16u_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16u_C2">
+<span class="target" id="group__image__memory__management_1ga002b62b86545dc10b8ccec7b8d1bbee0"></span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16u_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16u_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 16-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16u_C3">
+<span class="target" id="group__image__memory__management_1gae5c6c830caa49753ea6f443a8b98960a"></span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16u_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16u_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 16-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16u_C4">
+<span class="target" id="group__image__memory__management_1ga46a5fc9f95b831dc7f9d67f1a2350833"></span><a class="reference internal" href="nppdefs.html#c.Npp16u" title="Npp16u"><span class="n"><span class="pre">Npp16u</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16u_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16u_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 16-bit unsigned image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16s_C1">
+<span class="target" id="group__image__memory__management_1ga12ad255ac1c1950a22c8a52e725f1e27"></span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16s_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16s_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>16-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16s_C2">
+<span class="target" id="group__image__memory__management_1gac7cd14d315ed6acda6754a0f599ddaca"></span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16s_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16s_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 16-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16s_C4">
+<span class="target" id="group__image__memory__management_1ga9fc9e7506e3a788a642e314e4391caa0"></span><a class="reference internal" href="nppdefs.html#c.Npp16s" title="Npp16s"><span class="n"><span class="pre">Npp16s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16s_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16s_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 16-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16sc_C1">
+<span class="target" id="group__image__memory__management_1ga19225b222aeb2ffcdf058393594a1090"></span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16sc_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16sc_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>1 channel 16-bit signed complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16sc_C2">
+<span class="target" id="group__image__memory__management_1ga1626baacd537f42b8a635dbe2bcbefb7"></span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16sc_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16sc_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 16-bit signed complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16sc_C3">
+<span class="target" id="group__image__memory__management_1gaa4f65209f7b0b9cdd912554f651f6c21"></span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16sc_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16sc_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 16-bit signed complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_16sc_C4">
+<span class="target" id="group__image__memory__management_1ga90cdee7bb21275d14ef0fc49b6c5acbe"></span><a class="reference internal" href="nppdefs.html#c.Npp16sc" title="Npp16sc"><span class="n"><span class="pre">Npp16sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_16sc_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_16sc_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 16-bit signed complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32s_C1">
+<span class="target" id="group__image__memory__management_1gab6dae25ac5374f67ecf473d3298bbec1"></span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32s_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32s_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32s_C3">
+<span class="target" id="group__image__memory__management_1ga5dcf92abb20e20c4ff03b2e38ab57e1b"></span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32s_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32s_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 32-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32s_C4">
+<span class="target" id="group__image__memory__management_1gab590ed3fb97303737ed67d485c5bed88"></span><a class="reference internal" href="nppdefs.html#c.Npp32s" title="Npp32s"><span class="n"><span class="pre">Npp32s</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32s_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32s_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 32-bit signed image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32sc_C1">
+<span class="target" id="group__image__memory__management_1ga69aee50d2599aa5ef2c483422772262f"></span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32sc_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32sc_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit integer complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32sc_C2">
+<span class="target" id="group__image__memory__management_1ga35abb761fb004bd48797aecc6e17fcc3"></span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32sc_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32sc_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 32-bit integer complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32sc_C3">
+<span class="target" id="group__image__memory__management_1ga62e13d767ad99488faa59782b2211222"></span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32sc_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32sc_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 32-bit integer complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32sc_C4">
+<span class="target" id="group__image__memory__management_1ga867faf355b318cbd58f6ee3ab0c971c3"></span><a class="reference internal" href="nppdefs.html#c.Npp32sc" title="Npp32sc"><span class="n"><span class="pre">Npp32sc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32sc_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32sc_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 32-bit integer complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32f_C1">
+<span class="target" id="group__image__memory__management_1ga79a049ca38f9abfd1790cf2965b9c9f6"></span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32f_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32f_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit floating point image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32f_C2">
+<span class="target" id="group__image__memory__management_1ga0302d76d2e73132b161e5f8edd7aff27"></span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32f_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32f_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 32-bit floating point image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32f_C3">
+<span class="target" id="group__image__memory__management_1gad27dfeededfd4a24d6c83fee526ffa4f"></span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32f_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32f_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 32-bit floating point image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32f_C4">
+<span class="target" id="group__image__memory__management_1ga7c8c6d0fb660c6cf997fb15be724fae9"></span><a class="reference internal" href="nppdefs.html#c.Npp32f" title="Npp32f"><span class="n"><span class="pre">Npp32f</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32f_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32f_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 32-bit floating point image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32fc_C1">
+<span class="target" id="group__image__memory__management_1ga7ea8015c63ebeb7aebb955e22575c7f9"></span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32fc_C1</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32fc_C1" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>32-bit float complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32fc_C2">
+<span class="target" id="group__image__memory__management_1ga695f1c35ddc7f6c8f3ffd343048c6a09"></span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32fc_C2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32fc_C2" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>2 channel 32-bit float complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32fc_C3">
+<span class="target" id="group__image__memory__management_1gadcd390eb2ccc68e4b1f5085b8569f443"></span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32fc_C3</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32fc_C3" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>3 channel 32-bit float complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiMalloc_32fc_C4">
+<span class="target" id="group__image__memory__management_1gaa8be70c37433a2d289189d2c222e84f5"></span><a class="reference internal" href="nppdefs.html#c.Npp32fc" title="Npp32fc"><span class="n"><span class="pre">Npp32fc</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nppiMalloc_32fc_C4</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nWidthPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">nHeightPixels</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pStepBytes</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiMalloc_32fc_C4" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>4 channel 32-bit float complex image memory allocator. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>nWidthPixels</strong> – Image width. </p></li>
+<li><p><strong>nHeightPixels</strong> – Image height. </p></li>
+<li><p><strong>pStepBytes</strong> – <a class="reference internal" href="introduction.html#nppi_conventions_lb_1line_step"><span class="std std-ref">Line Step</span></a>. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Pointer to new image data. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric-h3 rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.nppiFree">
+<span class="target" id="group__image__memory__management_1ga17a99cff59195e54a0afdbae54b541b4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nppiFree</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">pData</span></span><span class="sig-paren">)</span><a class="headerlink" href="image_memory_management.html#c.nppiFree" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Free method for any 2D allocated memory. </p>
+<p>This method should be used to free memory allocated with any of the nppiMalloc_&lt;modifier&gt; methods. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>pData</strong> – A pointer to memory allocated using nppiMalloc_&lt;modifier&gt;. </p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2009-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

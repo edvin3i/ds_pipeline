@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Turing Architecture." name="description">
+<meta content="CUDA Turing, CUDA Turing tuning, CUDA Turing best practices, CUDA Turing performance" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turing Tuning Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. Turing Tuning Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nvidia-turing-compute-architecture">1.1. NVIDIA Turing Compute Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-best-practices">1.2. CUDA Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#application-compatibility">1.3. Application Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#turing-tuning">1.4. Turing Tuning</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#streaming-multiprocessor">1.4.1. Streaming Multiprocessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#instruction-scheduling">1.4.1.1. Instruction Scheduling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#independent-thread-scheduling">1.4.1.2. Independent Thread Scheduling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#occupancy">1.4.1.3. Occupancy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic">1.4.1.4. Integer Arithmetic</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-core-operations">1.4.2. Tensor Core Operations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-throughput">1.4.3. Memory Throughput</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#unified-shared-memory-l1-texture-cache">1.4.3.1. Unified Shared Memory/L1/Texture Cache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">2. Revision History</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">3. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">3.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">3.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Turing Tuning Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Turing Tuning Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/Turing_Tuning_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">Tuning CUDA Applications for Turing</p>
+<p>The programming guide to tuning CUDA Applications for GPUs based on the NVIDIA Turing Architecture.</p>
+<section id="turing-tuning-guide">
+<h1>
+<span class="section-number">1. </span>Turing Tuning Guide<a class="headerlink" href="index.html#turing-tuning-guide" title="Permalink to this headline"></a>
+</h1>
+<section id="nvidia-turing-compute-architecture">
+<h2>
+<span class="section-number">1.1. </span>NVIDIA Turing Compute Architecture<a class="headerlink" href="index.html#nvidia-turing-compute-architecture" title="Permalink to this headline"></a>
+</h2>
+<p>Turing is NVIDIA’s latest architecture for CUDA compute applications. Turing retains and extends the same CUDA programming model provided by previous NVIDIA architectures such as Pascal and Volta, and applications that follow the best practices for those architectures should typically see speedups on the Turing architecture without any code changes. This guide summarizes the ways that an application can be fine-tuned to gain additional speedups by leveraging Turing architectural features.<a class="footnote-reference brackets" href="index.html#fn1" id="id1">1</a></p>
+<p>For further details on the programming features discussed in this guide, please refer to the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a>.</p>
+</section>
+<section id="cuda-best-practices">
+<h2>
+<span class="section-number">1.2. </span>CUDA Best Practices<a class="headerlink" href="index.html#cuda-best-practices" title="Permalink to this headline"></a>
+</h2>
+<p>The performance guidelines and best practices described in the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/">CUDA C++ Programming Guide</a> and the <a class="reference external" href="http://docs.nvidia.com/cuda/cuda-c-best-practices-guide/">CUDA C++ Best Practices Guide</a> apply to all CUDA-capable GPU architectures. Programmers must primarily focus on following those recommendations to achieve the best performance.</p>
+<p>The high-priority recommendations from those guides are as follows:</p>
+<ul class="simple">
+<li><p>Find ways to parallelize sequential code,</p></li>
+<li><p>Minimize data transfers between the host and the device,</p></li>
+<li><p>Adjust kernel launch configuration to maximize device utilization,</p></li>
+<li><p>Ensure global memory accesses are coalesced,</p></li>
+<li><p>Minimize redundant accesses to global memory whenever possible,</p></li>
+<li><p>Avoid long sequences of diverged execution by threads within the same warp.</p></li>
+</ul>
+</section>
+<section id="application-compatibility">
+<h2>
+<span class="section-number">1.3. </span>Application Compatibility<a class="headerlink" href="index.html#application-compatibility" title="Permalink to this headline"></a>
+</h2>
+<p>Before addressing specific performance tuning issues covered in this guide, refer to the <a class="reference external" href="http://docs.nvidia.com/cuda/turing-compatibility-guide/">Turing Compatibility Guide for CUDA Applications</a> to ensure that your application is compiled in a way that is compatible with Turing.</p>
+</section>
+<section id="turing-tuning">
+<h2>
+<span class="section-number">1.4. </span>Turing Tuning<a class="headerlink" href="index.html#turing-tuning" title="Permalink to this headline"></a>
+</h2>
+<section id="streaming-multiprocessor">
+<h3>
+<span class="section-number">1.4.1. </span>Streaming Multiprocessor<a class="headerlink" href="index.html#streaming-multiprocessor" title="Permalink to this headline"></a>
+</h3>
+<p>The Turing Streaming Multiprocessor (SM) is based on the same major architecture (7.x) as Volta, and provides similar improvements over Pascal.</p>
+<blockquote>
+<div></div>
+</blockquote>
+<section id="instruction-scheduling">
+<h4>
+<span class="section-number">1.4.1.1. </span>Instruction Scheduling<a class="headerlink" href="index.html#instruction-scheduling" title="Permalink to this headline"></a>
+</h4>
+<p>Each Turing SM includes 4 warp-scheduler units. Each scheduler handles a static set of warps and issues to a dedicated set of arithmetic instruction units. Instructions are performed over two cycles, and the schedulers can issue independent instructions every cycle. Dependent instruction issue latency for core FMA math operations is four clock cycles, like Volta, compared to six cycles on Pascal. As a result, execution latencies of core math operations can be hidden by as few as 4 warps per SM, assuming 4-way instruction-level parallelism <em>ILP</em> per warp, or by 16 warps per SM without any instuction-level parallelism.</p>
+<p>Like Volta, the Turing SM provides 64 FP32 cores, 64 INT32 cores and 8 improved mixed-precision Tensor Cores. Turing has a lower double precision throughput than Volta with only 2 FP64 cores.</p>
+</section>
+<section id="independent-thread-scheduling">
+<h4>
+<span class="section-number">1.4.1.2. </span>Independent Thread Scheduling<a class="headerlink" href="index.html#independent-thread-scheduling" title="Permalink to this headline"></a>
+</h4>
+<p>The Turing architecture features the same <em>Independent Thread Scheduling</em> introduced with Volta. This enables intra-warp synchronization patterns previously unavailable and simplifies code changes when porting CPU code. However, Independent Thread Scheduling can also lead to a rather different set of threads participating in the executed code than intended if the developer made assumptions about warp-synchronicity<a class="footnote-reference brackets" href="index.html#fn2" id="id2">2</a> of previous hardware architectures.</p>
+<p>When porting existing codes to Volta or Turing, the following three code patterns need careful attention. For more details see the <em>CUDA C++ Programming Guide</em>.</p>
+<ul class="simple">
+<li><p>To avoid data corruption, applications using warp intrinsics (<code class="docutils literal notranslate"><span class="pre">__shfl*</span></code>, <code class="docutils literal notranslate"><span class="pre">__any</span></code>, <code class="docutils literal notranslate"><span class="pre">__all</span></code>, and <code class="docutils literal notranslate"><span class="pre">__ballot</span></code>) should transition to the new, safe, synchronizing counterparts, with the <code class="docutils literal notranslate"><span class="pre">*_sync</span></code> suffix. The new warp intrinsics take in a mask of threads that explicitly define which lanes (threads of a warp) must participate in the warp intrinsic.</p></li>
+<li><p>Applications that assume reads and writes are implicitly visible to other threads in the same warp need to insert the new <code class="docutils literal notranslate"><span class="pre">__syncwarp()</span></code> warp-wide barrier synchronization instruction between steps where data is exchanged between threads via global or shared memory. Assumptions that code is executed in lockstep or that reads/writes from separate threads are visible across a warp without synchronization are invalid.</p></li>
+<li><p>Applications using <code class="docutils literal notranslate"><span class="pre">__syncthreads()</span></code> or the PTX <code class="docutils literal notranslate"><span class="pre">bar.sync</span></code> (and their derivatives) in such a way that a barrier will not be reached by some non-exited thread in the thread block must be modified to ensure that all non-exited threads reach the barrier.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">racecheck</span></code> and <code class="docutils literal notranslate"><span class="pre">synccheck</span></code> tools provided by <code class="docutils literal notranslate"><span class="pre">compute-sanitizer</span></code> can help with locating violations.</p>
+</section>
+<section id="occupancy">
+<h4>
+<span class="section-number">1.4.1.3. </span>Occupancy<a class="headerlink" href="index.html#occupancy" title="Permalink to this headline"></a>
+</h4>
+<p>The maximum number of concurrent warps per SM is 32 on Turing (versus 64 on Volta). Other <a class="reference external" href="http://developer.download.nvidia.com/compute/cuda/CUDA_Occupancy_calculator.xls">factors influencing warp occupancy</a> remain otherwise similar:</p>
+<ul class="simple">
+<li><p>The register file size is 64k 32-bit registers per SM.</p></li>
+<li><p>The maximum registers per thread is 255.</p></li>
+<li><p>The maximum number of thread blocks per SM is 16.</p></li>
+<li><p>Shared memory capacity per SM is 64KB.</p></li>
+</ul>
+<p>Overall, developers can expect similar occupancy as on Pascal or Volta without changes to their application.</p>
+</section>
+<section id="integer-arithmetic">
+<h4>
+<span class="section-number">1.4.1.4. </span>Integer Arithmetic<a class="headerlink" href="index.html#integer-arithmetic" title="Permalink to this headline"></a>
+</h4>
+<p>Similar to Volta, the Turing SM includes dedicated FP32 and INT32 cores. This enables simultaneous execution of FP32 and INT32 operations. Applications can interleave pointer arithmetic with floating-point computations. For example, each iteration of a pipelined loop could update addresses and load data for the next iteration while simultaneously processing the current iteration at full FP32 throughput.</p>
+</section>
+</section>
+<section id="tensor-core-operations">
+<h3>
+<span class="section-number">1.4.2. </span>Tensor Core Operations<a class="headerlink" href="index.html#tensor-core-operations" title="Permalink to this headline"></a>
+</h3>
+<p>Volta introduced Tensor Cores to accelerate matrix multiply operations on mixed precision floating point data. Turing adds acceleration for integer matrix multiply operations. The tensor cores are exposed as Warp-Level Matrix Operations in the CUDA 10 C++ API. The API provides specialized matrix load, matrix multiply and accumulate, and matrix store operations, where each warp processes a small matrix fragment, allowing to efficiently use Tensor Cores from a CUDA-C++ program. In practice, Tensor Cores are used to perform much larger 2D or higher dimensional matrix operations, built up from these smaller matrix fragments.</p>
+<p>Each Tensor Core performs the matrix multiply-accumulate: D = A x B + C. The Tensor Cores support half precision matrix multiplication, where the matrix multiply inputs A and B are FP16 matrices, while the accumulation matrices C and D may be either FP16 or FP32 matrices. When accumulating in FP32, the FP16 multiply results in a full precision product that is then accumulated using FP32 addition. CUDA 10 supports several fragment sizes, 16x16x16, 32x8x16, and 8x32x16 to use the Tensor Cores on Volta or Turing with FP16 inputs.</p>
+<p>Any binary compiled for Volta will run on Turing, but Volta binaries using Tensor Cores will only be able to reach half of Turing’s Tensor Core peak performance. Recompiling the binary specifically for Turing would allow it to reach the peak performance. See the Turing Compatibility Guide for more information.</p>
+<p>Turing’s Tensor Core supports integer matrix multiply operations, which can operate on 8-bit, 4-bit and 1-bit integer inputs, with 32-bit integer accumulation. When operating on 8-bit inputs, CUDA exposes fragment sizes of 16x16x16, 32x8x16, and 8x32x16. For sub-byte operations the fragment sizes available are 8x8x32 for 4-bit inputs, or 8x8x128 for 1-bit inputs.</p>
+<p>See the <em>CUDA C++ Programming Guide</em> for more information.</p>
+</section>
+<section id="memory-throughput">
+<h3>
+<span class="section-number">1.4.3. </span>Memory Throughput<a class="headerlink" href="index.html#memory-throughput" title="Permalink to this headline"></a>
+</h3>
+<section id="unified-shared-memory-l1-texture-cache">
+<h4>
+<span class="section-number">1.4.3.1. </span>Unified Shared Memory/L1/Texture Cache<a class="headerlink" href="index.html#unified-shared-memory-l1-texture-cache" title="Permalink to this headline"></a>
+</h4>
+<p>Turing features a unified L1 / Shared Memory cache similar to the one introduced in Volta, but with a smaller size. The total size of the unified L1 / Shared Memory cache in Turing is 96 KB. The portion of the cache dedicated to shared memory or L1 (known as the <em>carveout</em>) can be changed at runtime, either automatically by the driver, or manually using the <code class="docutils literal notranslate"><span class="pre">cudaFuncSetAttribute()</span></code> with the attribute <code class="docutils literal notranslate"><span class="pre">cudaFuncAttributePreferredSharedMemoryCarveout</span></code>. Turing supports two carveout configurations, either with 64 KB of shared memory and 32 KB of L1, or with 32 KB of shared memory and 64 KB of L1.</p>
+<p>Turing allows a single thread block to address the full 64 KB of shared memory. To maintain architectural compatibility, static shared memory allocations remain limited to 48 KB, and an explicit opt-in is also required to enable dynamic allocations above this limit. See the <em>CUDA C++ Programming Guide</em> for details.</p>
+<p>Like Pascal and Volta, Turing combines the functionality of the L1 and texture caches into a unified L1/Texture cache which acts as a coalescing buffer for memory accesses, gathering up the data requested by the threads of a warp prior to delivery of that data to the warp.</p>
+<p>The state-of-the-art L1 cache in Volta and Turing offers lower latency, higher bandwidth, and higher capacity compared to the earlier architectures. Like Volta, Turing’s L1 can cache write operations (write-through). The result is that for many applications Volta and Turing narrow the performance gap between explicitly managed shared memory and direct access to device memory. Also, the cost of register spills is lowered compared to Pascal, and the balance of occupancy versus spilling should be re-evaluated to ensure best performance.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="revision-history">
+<h1>
+<span class="section-number">2. </span>Revision History<a class="headerlink" href="index.html#revision-history" title="Permalink to this headline"></a>
+</h1>
+<p><strong>Version 1.0</strong></p>
+<ul class="simple">
+<li><p>Initial Public Release</p></li>
+</ul>
+<p><strong>Version 1.1</strong></p>
+<ul class="simple">
+<li><p>Updated references to the <em>CUDA C++ Programming Guide</em> and <em>CUDA C++ Best Practices Guide</em>.</p></li>
+</ul>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+<dl class="footnote brackets">
+<dt class="label" id="fn1"><span class="brackets"><a class="fn-backref" href="index.html#id1">1</a></span></dt>
+<dd>
+<p>Throughout this guide, <em>Kepler</em> refers to devices of compute capability 3.x, <em>Maxwell</em> refers to devices of compute capability 5.x, <em>Pascal</em> refers to devices of compute capability 6.x, <em>Volta</em> refers to devices of compute capability 7.0, and <em>Turing</em> refers to devices of compute capability 7.5.</p>
+</dd>
+<dt class="label" id="fn2"><span class="brackets"><a class="fn-backref" href="index.html#id2">2</a></span></dt>
+<dd>
+<p>The term warp-synchronous refers to code that implicitly assumes threads in the same warp are synchronized at every instruction.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2018-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

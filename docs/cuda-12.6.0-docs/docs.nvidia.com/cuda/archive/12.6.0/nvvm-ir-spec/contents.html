@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — NVVM IR Specification 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#identifiers">2. Identifiers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#high-level-structure">3. High Level Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#type-system">4. Type System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#constants">5. Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#other-values">6. Other Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#metadata">7. Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#thinlto-summary">8. ThinLTO Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#intrinsic-global-variables">9. Intrinsic Global Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#instructions">10. Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#intrinsic-functions">11. Intrinsic Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#address-space">12. Address Space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#global-property-annotation">13. Global Property Annotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#texture-and-surface">14. Texture and Surface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#nvvm-specific-intrinsic-functions">15. NVVM Specific Intrinsic Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#source-level-debugging-support">16. Source Level Debugging Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#nvvm-abi-for-ptx">17. NVVM ABI for PTX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">18. Revision History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">19. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">NVVM IR Specification</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/NVVM_IR_Spec.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#identifiers">2. Identifiers</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#high-level-structure">3. High Level Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#linkage-types">3.1. Linkage Types</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#calling-conventions">3.2. Calling Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rules-and-restrictions">3.2.1. Rules and Restrictions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#visibility-styles">3.3. Visibility Styles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#dll-storage-classes">3.4. DLL Storage Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-local-storage-models">3.5. Thread Local Storage Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#runtime-preemption-specifiers">3.6. Runtime Preemption Specifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#structure-types">3.7. Structure Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#non-integral-pointer-type">3.8. Non-Integral Pointer Type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comdats">3.9. Comdats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#source-filename">3.10. source_filename</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#global-variables">3.11. Global Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#functions">3.12. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#aliases">3.13. Aliases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ifuncs">3.14. Ifuncs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#named-metadata">3.15. Named Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parameter-attributes">3.16. Parameter Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#garbage-collector-strategy-names">3.17. Garbage Collector Strategy Names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#prefix-data">3.18. Prefix Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#prologue-data">3.19. Prologue Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#attribute-groups">3.20. Attribute Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#function-attributes">3.21. Function Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#global-attributes">3.22. Global Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#operand-bundles">3.23. Operand Bundles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module-level-inline-assembly">3.24. Module-Level Inline Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#data-layout">3.25. Data Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#target-triple">3.26. Target Triple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pointer-aliasing-rules">3.27. Pointer Aliasing Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#volatile-memory-access">3.28. Volatile Memory Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-model-for-concurrent-operations">3.29. Memory Model for Concurrent Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#atomic-memory-ordering-constraints">3.30. Atomic Memory Ordering Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fast-math-flags">3.31. Fast-Math Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#use-list-order-directives">3.32. Use-list Order Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#type-system">4. Type System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#constants">5. Constants</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#other-values">6. Other Values</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#inline-assembler-expressions">6.1. Inline Assembler Expressions</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#metadata">7. Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#metadata-nodes-and-metadata-strings">7.1. Metadata Nodes and Metadata Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#thinlto-summary">8. ThinLTO Summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#intrinsic-global-variables">9. Intrinsic Global Variables</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#instructions">10. Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#terminator-instructions">10.1. Terminator Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#binary-operations">10.2. Binary Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bitwise-binary-operations">10.3. Bitwise Binary Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#vector-operations">10.4. Vector Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#aggregate-operations">10.5. Aggregate Operations</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#memory-access-and-addressing-operations">10.6. Memory Access and Addressing Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#alloca-instruction">10.6.1. alloca Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#load-instruction">10.6.2. load Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#store-instruction">10.6.3. store Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#fence-instruction">10.6.4. fence Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cmpxchg-instruction">10.6.5. cmpxchg Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#atomicrmw-instruction">10.6.6. atomicrmw Instruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#getelementptr-instruction">10.6.7. getelementptr Instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conversion-operations">10.7. Conversion Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#other-operations">10.8. Other Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#intrinsic-functions">11. Intrinsic Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#variable-argument-handling-intrinsics">11.1. Variable Argument Handling Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#accurate-garbage-collection-intrinsics">11.2. Accurate Garbage Collection Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#code-generator-intrinsics">11.3. Code Generator Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#standard-c-library-intrinsics">11.4. Standard C Library Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bit-manipulations-intrinsics">11.5. Bit Manipulations Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#specialised-arithmetic-intrinsics">11.6. Specialised Arithmetic Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#arithmetic-with-overflow-intrinsics">11.7. Arithmetic with Overflow Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#half-precision-floating-point-intrinsics">11.8. Half Precision Floating Point Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#debugger-intrinsics">11.9. Debugger Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#exception-handling-intrinsics">11.10. Exception Handling Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trampoline-intrinsics">11.11. Trampoline Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#masked-vector-load-and-store-intrinsics">11.12. Masked Vector Load and Store Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#masked-vector-expanding-load-and-compressing-store-intrinsics">11.13. Masked Vector Expanding Load and Compressing Store Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#experimental-vector-reduction-intrinsics">11.14. Experimental Vector Reduction Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#constrained-floating-point-intrinsics">11.15. Constrained Floating Point Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#constrained-libm-equivalent-intrinsics">11.16. Constrained libm-equivalent Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#masked-vector-gather-and-scatter-intrinsics">11.17. Masked Vector Gather and Scatter Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-use-markers">11.18. Memory Use Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#general-intrinsics">11.19. General Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#element-wise-atomic-memory-intrinsics">11.20. Element Wise Atomic Memory Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#stack-map-intrinsics">11.21. Stack Map Intrinsics</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#address-space">12. Address Space</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#address-spaces">12.1. Address Spaces</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#generic-pointers-and-non-generic-pointers">12.2. Generic Pointers and Non-Generic Pointers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generic-pointers-vs-non-generic-pointers">12.2.1. Generic Pointers vs. Non-generic Pointers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#conversion">12.2.2. Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#no-aliasing-between-two-different-specific-address-spaces">12.2.3. No Aliasing between Two Different Specific Address Spaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-alloca-instruction">12.3. The alloca Instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#global-property-annotation">13. Global Property Annotation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#overview">13.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#representation-of-properties">13.2. Representation of Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#supported-properties">13.3. Supported Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#texture-and-surface">14. Texture and Surface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#texture-variable-and-surface-variable">14.1. Texture Variable and Surface Variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#accessing-texture-memory-or-surface-memory">14.2. Accessing Texture Memory or Surface Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#nvvm-specific-intrinsic-functions">15. NVVM Specific Intrinsic Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#atomic">15.1. Atomic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#barrier-and-memory-fence">15.2. Barrier and Memory Fence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#address-space-conversion">15.3. Address space conversion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers">15.4. Special Registers</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#texture-surface-access">15.5. Texture/Surface Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#texture-reads">15.5.1. Texture Reads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#surface-loads">15.5.2. Surface Loads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#surface-stores">15.5.3. Surface Stores</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#warp-level-operations">15.6. Warp-level Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#barrier-synchronization">15.6.1. Barrier Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#data-movement">15.6.2. Data Movement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#vote">15.6.3. Vote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#match">15.6.4. Match</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#matrix-operation">15.6.5. Matrix Operation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#load-fragments">15.6.5.1. Load Fragments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#store-fragments">15.6.5.2. Store Fragments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#matrix-multiply-and-accumulate">15.6.5.3. Matrix Multiply-and-Accumulate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#source-level-debugging-support">16. Source Level Debugging Support</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#nvvm-abi-for-ptx">17. NVVM ABI for PTX</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">17.1. Linkage Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#parameter-passing-and-return">17.2. Parameter Passing and Return</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">18. Revision History</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">19. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">19.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">19.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">19.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2012-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

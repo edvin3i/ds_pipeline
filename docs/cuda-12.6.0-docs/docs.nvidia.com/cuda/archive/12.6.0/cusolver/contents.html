@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — cuSOLVER 12.6 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cusolver-api">2. Using the CUSOLVER API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#using-the-cusolvermg-api">3. Using the CUSOLVERMG API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">4. Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#bibliography">5. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">6. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">cuSOLVER</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUSOLVER_Library.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cusolverdn-dense-lapack">1.1. cuSolverDN: Dense LAPACK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cusolversp-sparse-lapack">1.2. cuSolverSP: Sparse LAPACK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cusolverrf-refactorization">1.3. cuSolverRF: Refactorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#naming-conventions">1.4. Naming Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#asynchronous-execution">1.5. Asynchronous Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#library-property">1.6. Library Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#high-precision-package">1.7. High Precision Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cusolver-api">2. Using the CUSOLVER API</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#general-description">2.1. General Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#thread-safety">2.1.1. Thread Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#scalar-parameters">2.1.2. Scalar Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parallelism-with-streams">2.1.3. Parallelism with Streams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#how-to-link-cusolver-library">2.1.4. How to Link cusolver Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#link-third-party-lapack-library">2.1.5. Link Third-party LAPACK Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#convention-of-info">2.1.6. Convention of info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#usage-of-buffersize">2.1.7. Usage of _bufferSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverdn-logging">2.1.8. cuSOLVERDn Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#deterministic-results">2.1.9. Deterministic Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolver-types-reference">2.2. cuSolver Types Reference</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cusolverdn-types">2.2.1. cuSolverDN Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnhandle-t">2.2.1.1. cusolverDnHandle_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cublasfillmode-t">2.2.1.2. cublasFillMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cublasoperation-t">2.2.1.3. cublasOperation_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolvereigtype-t">2.2.1.4. cusolverEigType_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolvereigmode-t">2.2.1.5. cusolverEigMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverirsrefinement-t">2.2.1.6. cusolverIRSRefinement_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparams-t">2.2.1.7. cusolverDnIRSParams_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfos-t">2.2.1.8. cusolverDnIRSInfos_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnfunction-t">2.2.1.9. cusolverDnFunction_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolveralgmode-t">2.2.1.10. cusolverAlgMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverstatus-t">2.2.1.11. cusolverStatus_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggercallback-t">2.2.1.12. cusolverDnLoggerCallback_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdeterministicmode-t">2.2.1.13. cusolverDeterministicMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverstorevmode-t">2.2.1.14. cusolverStorevMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdirectmode-t">2.2.1.15. cusolverDirectMode_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cusolversp-types">2.2.2. cuSolverSP Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversphandle-t">2.2.2.1. cusolverSpHandle_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusparsematdescr-t">2.2.2.2. cusparseMatDescr_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#id5">2.2.2.3. cusolverStatus_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cusolverrf-types">2.2.3. cuSolverRF Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrfhandle-t">2.2.3.1. cusolverRfHandle_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrfmatrixformat-t">2.2.3.2. cusolverRfMatrixFormat_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrfnumericboostreport-t">2.2.3.3. cusolverRfNumericBoostReport_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrfresetvaluesfastmode-t">2.2.3.4. cusolverRfResetValuesFastMode_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrffactorization-t">2.2.3.5. cusolverRfFactorization_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrftriangularsolve-t">2.2.3.6. cusolverRfTriangularSolve_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverrfunitdiagonal-t">2.2.3.7. cusolverRfUnitDiagonal_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#id7">2.2.3.8. cusolverStatus_t</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolver-formats-reference">2.3. cuSolver Formats Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#index-base-format">2.3.1. Index Base Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#vector-dense-format">2.3.2. Vector (Dense) Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#matrix-dense-format">2.3.3. Matrix (Dense) Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#matrix-csr-format">2.3.4. Matrix (CSR) Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#matrix-csc-format">2.3.5. Matrix (CSC) Format</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolverdn-dense-lapack-function-reference">2.4. cuSolverDN: dense LAPACK Function Reference</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cusolverdn-helper-function-reference">2.4.1. cuSolverDN Helper Function Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdncreate">2.4.1.1. cusolverDnCreate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdndestroy">2.4.1.2. cusolverDnDestroy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnsetstream">2.4.1.3. cusolverDnSetStream()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngetstream">2.4.1.4. cusolverDnGetStream()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggersetcallback">2.4.1.5. cusolverDnLoggerSetCallback()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggersetfile">2.4.1.6. cusolverDnLoggerSetFile()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggeropenfile">2.4.1.7. cusolverDnLoggerOpenFile()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggersetlevel">2.4.1.8. cusolverDnLoggerSetLevel()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggersetmask">2.4.1.9. cusolverDnLoggerSetMask()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnloggerforcedisable">2.4.1.10. cusolverDnLoggerForceDisable()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnsetdeterministicmode">2.4.1.11. cusolverDnSetDeterministicMode()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngetdeterministicmode">2.4.1.12. cusolverDnGetDeterministicMode()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdncreatesyevjinfo">2.4.1.13. cusolverDnCreateSyevjInfo()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdndestroysyevjinfo">2.4.1.14. cusolverDnDestroySyevjInfo()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevjsettolerance">2.4.1.15. cusolverDnXsyevjSetTolerance()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevjsetmaxsweeps">2.4.1.16. cusolverDnXsyevjSetMaxSweeps()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevjsetsorteig">2.4.1.17. cusolverDnXsyevjSetSortEig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevjgetresidual">2.4.1.18. cusolverDnXsyevjGetResidual()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevjgetsweeps">2.4.1.19. cusolverDnXsyevjGetSweeps()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdncreategesvdjinfo">2.4.1.20. cusolverDnCreateGesvdjInfo()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdndestroygesvdjinfo">2.4.1.21. cusolverDnDestroyGesvdjInfo()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdjsettolerance">2.4.1.22. cusolverDnXgesvdjSetTolerance()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdjsetmaxsweeps">2.4.1.23. cusolverDnXgesvdjSetMaxSweeps()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdjsetsorteig">2.4.1.24. cusolverDnXgesvdjSetSortEig()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdjgetresidual">2.4.1.25. cusolverDnXgesvdjGetResidual()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdjgetsweeps">2.4.1.26. cusolverDnXgesvdjGetSweeps()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamscreate">2.4.1.27. cusolverDnIRSParamsCreate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamsdestroy">2.4.1.28. cusolverDnIRSParamsDestroy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetsolverprecisions">2.4.1.29. cusolverDnIRSParamsSetSolverPrecisions()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetsolvermainprecision">2.4.1.30. cusolverDnIRSParamsSetSolverMainPrecision()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetsolverlowestprecision">2.4.1.31. cusolverDnIRSParamsSetSolverLowestPrecision()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetrefinementsolver">2.4.1.32. cusolverDnIRSParamsSetRefinementSolver()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssettol">2.4.1.33. cusolverDnIRSParamsSetTol()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssettolinner">2.4.1.34. cusolverDnIRSParamsSetTolInner()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetmaxiters">2.4.1.35. cusolverDnIRSParamsSetMaxIters()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamssetmaxitersinner">2.4.1.36. cusolverDnIRSParamsSetMaxItersInner()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamsenablefallback">2.4.1.37. cusolverDnIRSParamsEnableFallback()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamsdisablefallback">2.4.1.38. cusolverDnIRSParamsDisableFallback()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsparamsgetmaxiters">2.4.1.39. cusolverDnIRSParamsGetMaxIters()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfoscreate">2.4.1.40. cusolverDnIRSInfosCreate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosdestroy">2.4.1.41. cusolverDnIRSInfosDestroy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosgetmaxiters">2.4.1.42. cusolverDnIRSInfosGetMaxIters()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosgetniters">2.4.1.43. cusolverDnIRSInfosGetNiters()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosgetouterniters">2.4.1.44. cusolverDnIRSInfosGetOuterNiters()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosrequestresidual">2.4.1.45. cusolverDnIRSInfosRequestResidual()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsinfosgetresidualhistory">2.4.1.46. cusolverDnIRSInfosGetResidualHistory()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdncreateparams">2.4.1.47. cusolverDnCreateParams()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdndestroyparams">2.4.1.48. cusolverDnDestroyParams()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnsetadvoptions">2.4.1.49. cusolverDnSetAdvOptions()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#dense-linear-solver-reference-legacy">2.4.2. Dense Linear Solver Reference (legacy)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-potrf">2.4.2.1. cusolverDn&lt;t&gt;potrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnpotrf-deprecated">2.4.2.2. cusolverDnPotrf()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-potrs">2.4.2.3. cusolverDn&lt;t&gt;potrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnpotrs-deprecated">2.4.2.4. cusolverDnPotrs()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-potri">2.4.2.5. cusolverDn&lt;t&gt;potri()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-getrf">2.4.2.6. cusolverDn&lt;t&gt;getrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngetrf-deprecated">2.4.2.7. cusolverDnGetrf()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-getrs">2.4.2.8. cusolverDn&lt;t&gt;getrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngetrs-deprecated">2.4.2.9. cusolverDnGetrs()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t1-t2-gesv">2.4.2.10. cusolverDn&lt;t1&gt;&lt;t2&gt;gesv()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsxgesv">2.4.2.11. cusolverDnIRSXgesv()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-geqrf">2.4.2.12. cusolverDn&lt;t&gt;geqrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngeqrf-deprecated">2.4.2.13. cusolverDnGeqrf()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t1-t2-gels">2.4.2.14. cusolverDn&lt;t1&gt;&lt;t2&gt;gels()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnirsxgels">2.4.2.15. cusolverDnIRSXgels()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-ormqr">2.4.2.16. cusolverDn&lt;t&gt;ormqr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-orgqr">2.4.2.17. cusolverDn&lt;t&gt;orgqr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-sytrf">2.4.2.18. cusolverDn&lt;t&gt;sytrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-potrfbatched">2.4.2.19. cusolverDn&lt;t&gt;potrfBatched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-potrsbatched">2.4.2.20. cusolverDn&lt;t&gt;potrsBatched()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#dense-eigenvalue-solver-reference-legacy">2.4.3. Dense Eigenvalue Solver Reference (legacy)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-gebrd">2.4.3.1. cusolverDn&lt;t&gt;gebrd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-orgbr">2.4.3.2. cusolverDn&lt;t&gt;orgbr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-sytrd">2.4.3.3. cusolverDn&lt;t&gt;sytrd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-ormtr">2.4.3.4. cusolverDn&lt;t&gt;ormtr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-orgtr">2.4.3.5. cusolverDn&lt;t&gt;orgtr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-gesvd">2.4.3.6. cusolverDn&lt;t&gt;gesvd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdngesvd-deprecated">2.4.3.7. cusolverDnGesvd()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-gesvdj">2.4.3.8. cusolverDn&lt;t&gt;gesvdj()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-gesvdjbatched">2.4.3.9. cusolverDn&lt;t&gt;gesvdjBatched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-gesvdastridedbatched">2.4.3.10. cusolverDn&lt;t&gt;gesvdaStridedBatched()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-syevd">2.4.3.11. cusolverDn&lt;t&gt;syevd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnsyevd-deprecated">2.4.3.12. cusolverDnSyevd()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-syevdx">2.4.3.13. cusolverDn&lt;t&gt;syevdx()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnsyevdx-deprecated">2.4.3.14. cusolverDnSyevdx()[DEPRECATED]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-sygvd">2.4.3.15. cusolverDn&lt;t&gt;sygvd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-sygvdx">2.4.3.16. cusolverDn&lt;t&gt;sygvdx()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-syevj">2.4.3.17. cusolverDn&lt;t&gt;syevj()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-sygvj">2.4.3.18. cusolverDn&lt;t&gt;sygvj()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdn-t-syevjbatched">2.4.3.19. cusolverDn&lt;t&gt;syevjBatched()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#dense-linear-solver-reference-64-bit-api">2.4.4. Dense Linear Solver Reference (64-bit API)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxpotrf">2.4.4.1. cusolverDnXpotrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxpotrs">2.4.4.2. cusolverDnXpotrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgetrf">2.4.4.3. cusolverDnXgetrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgetrs">2.4.4.4. cusolverDnXgetrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgeqrf">2.4.4.5. cusolverDnXgeqrf()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsytrs">2.4.4.6. cusolverDnXsytrs()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxtrtri">2.4.4.7. cusolverDnXtrtri()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxlarft">2.4.4.8. cusolverDnXlarft()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#dense-eigenvalue-solver-reference-64-bit-api">2.4.5. Dense Eigenvalue Solver Reference (64-bit API)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvd">2.4.5.1. cusolverDnXgesvd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdp">2.4.5.2. cusolverDnXgesvdp()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxgesvdr">2.4.5.3. cusolverDnXgesvdr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevd">2.4.5.4. cusolverDnXsyevd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverdnxsyevdx">2.4.5.5. cusolverDnXsyevdx()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolversp-sparse-lapack-function-reference">2.5. cuSolverSP: sparse LAPACK Function Reference</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#helper-function-reference">2.5.1. Helper Function Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspcreate">2.5.1.1. cusolverSpCreate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspdestroy">2.5.1.2. cusolverSpDestroy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspsetstream">2.5.1.3. cusolverSpSetStream()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrissym">2.5.1.4. cusolverSpXcsrissym()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#high-level-function-reference">2.5.2. High Level Function Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csrlsvlu">2.5.2.1. cusolverSp&lt;t&gt;csrlsvlu()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csrlsvqr">2.5.2.2. cusolverSp&lt;t&gt;csrlsvqr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csrlsvchol">2.5.2.3. cusolverSp&lt;t&gt;csrlsvchol()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csrlsqvqr">2.5.2.4. cusolverSp&lt;t&gt;csrlsqvqr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csreigvsi">2.5.2.5. cusolverSp&lt;t&gt;csreigvsi()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolversp-t-csreigs">2.5.2.6. cusolverSp&lt;t&gt;csreigs()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#low-level-function-reference">2.5.3. Low Level Function Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrsymrcm">2.5.3.1. cusolverSpXcsrsymrcm()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrsymmdq">2.5.3.2. cusolverSpXcsrsymmdq()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrsymamd">2.5.3.3. cusolverSpXcsrsymamd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrmetisnd">2.5.3.4. cusolverSpXcsrmetisnd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrzfd">2.5.3.5. cusolverSpXcsrzfd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrperm">2.5.3.6. cusolverSpXcsrperm()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cusolverspxcsrqrbatched">2.5.3.7. cusolverSpXcsrqrBatched()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolverrf-refactorization-reference">2.6. cuSolverRF: Refactorization Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfaccessbundledfactors">2.6.1. cusolverRfAccessBundledFactors()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfanalyze">2.6.2. cusolverRfAnalyze()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetupdevice">2.6.3. cusolverRfSetupDevice()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetuphost">2.6.4. cusolverRfSetupHost()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfcreate">2.6.5. cusolverRfCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfextractbundledfactorshost">2.6.6. cusolverRfExtractBundledFactorsHost()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfextractsplitfactorshost">2.6.7. cusolverRfExtractSplitFactorsHost()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfdestroy">2.6.8. cusolverRfDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfgetmatrixformat">2.6.9. cusolverRfGetMatrixFormat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfgetnumericproperties">2.6.10. cusolverRfGetNumericProperties()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfgetnumericboostreport">2.6.11. cusolverRfGetNumericBoostReport()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfgetresetvaluesfastmode">2.6.12. cusolverRfGetResetValuesFastMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfget-algs">2.6.13. cusolverRfGet_Algs()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfrefactor">2.6.14. cusolverRfRefactor()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfresetvalues">2.6.15. cusolverRfResetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetmatrixformat">2.6.16. cusolverRfSetMatrixFormat()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetnumericproperties">2.6.17. cusolverRfSetNumericProperties()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetresetvaluesfastmode">2.6.18. cusolverRfSetResetValuesFastMode()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsetalgs">2.6.19. cusolverRfSetAlgs()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfsolve">2.6.20. cusolverRfSolve()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchsetuphost">2.6.21. cusolverRfBatchSetupHost()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchanalyze">2.6.22. cusolverRfBatchAnalyze()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchresetvalues">2.6.23. cusolverRfBatchResetValues()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchrefactor">2.6.24. cusolverRfBatchRefactor()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchsolve">2.6.25. cusolverRfBatchSolve()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolverrfbatchzeropivot">2.6.26. cusolverRfBatchZeroPivot()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#using-the-cusolvermg-api">3. Using the CUSOLVERMG API</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#id17">3.1. General Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id18">3.1.1. Thread Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#determinism">3.1.2. Determinism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tile-strategy">3.1.3. Tile Strategy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-matrix-versus-local-matrix">3.1.4. Global Matrix Versus Local Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id19">3.1.5. Usage of _bufferSize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#synchronization">3.1.6. Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#context-switch">3.1.7. Context Switch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nvlink">3.1.8. NVLINK</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cusolvermg-types-reference">3.2. cuSolverMG Types Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermg-types">3.2.1. cuSolverMG Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermghandle-t">3.2.2. cusolverMgHandle_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermggridmapping-t">3.2.3. cusolverMgGridMapping_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudalibmggrid-t">3.2.4. cudaLibMgGrid_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudalibmgmatrixdesc-t">3.2.5. cudaLibMgMatrixDesc_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#id20">3.3. Helper Function Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgcreate">3.3.1. cusolverMgCreate()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgdestroy">3.3.2. cusolverMgDestroy()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgdeviceselect">3.3.3. cusolverMgDeviceSelect()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgcreatedevicegrid">3.3.4. cusolverMgCreateDeviceGrid()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgdestroygrid">3.3.5. cusolverMgDestroyGrid()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgcreatematdescr">3.3.6. cusolverMgCreateMatDescr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgdestroymatrixdesc">3.3.7. cusolverMgDestroyMatrixDesc()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dense-linear-solver-reference">3.4. Dense Linear Solver Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgpotrf">3.4.1. cusolverMgPotrf()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgpotrs">3.4.2. cusolverMgPotrs()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgpotri">3.4.3. cusolverMgPotri()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermggetrf">3.4.4. cusolverMgGetrf()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermggetrs">3.4.5. cusolverMgGetrs()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dense-eigenvalue-solver-reference">3.5. Dense Eigenvalue Solver Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cusolvermgsyevd">3.5.1. cusolverMgSyevd()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#acknowledgements">4. Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#bibliography">5. Bibliography</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">6. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">6.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">6.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">6.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2014-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

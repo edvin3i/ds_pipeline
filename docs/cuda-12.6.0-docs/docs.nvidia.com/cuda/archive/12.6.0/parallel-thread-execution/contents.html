@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — PTX ISA 8.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html#">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#programming-model">2. Programming Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#ptx-machine-model">3. PTX Machine Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#syntax">4. Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#state-spaces-types-and-variables">5. State Spaces, Types, and Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#instruction-operands">6. Instruction Operands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#abstracting-the-abi">7. Abstracting the ABI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#memory-consistency-model">8. Memory Consistency Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#instruction-set">9. Instruction Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#special-registers">10. Special Registers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#directives">11. Directives</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#release-notes">12. Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#descriptions-of-pragma-strings">14. Descriptions of .pragma Strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">15. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">PTX ISA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v8.5 |</span>
+
+
+
+  <a href="../pdf/ptx_isa_8.5.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#scalable-data-parallel-computing-using-gpus">1.1. Scalable Data-Parallel Computing using GPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#goals-of-ptx">1.2. Goals of PTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ptx-isa-version-8-5">1.3. PTX ISA Version 8.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-structure">1.4. Document Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#programming-model">2. Programming Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-highly-multithreaded-coprocessor">2.1. A Highly Multithreaded Coprocessor</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#thread-hierarchy">2.2. Thread Hierarchy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cooperative-thread-arrays">2.2.1. Cooperative Thread Arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cluster-of-cooperative-thread-arrays">2.2.2. Cluster of Cooperative Thread Arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#grid-of-clusters">2.2.3. Grid of Clusters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-hierarchy">2.3. Memory Hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#ptx-machine-model">3. PTX Machine Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-set-of-simt-multiprocessors">3.1. A Set of SIMT Multiprocessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#independent-thread-scheduling">3.2. Independent Thread Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#on-chip-shared-memory">3.3. On-chip Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#syntax">4. Syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#source-format">4.1. Source Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comments">4.2. Comments</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#statements">4.3. Statements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#directive-statements">4.3.1. Directive Statements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#instruction-statements">4.3.2. Instruction Statements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#identifiers">4.4. Identifiers</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#constants">4.5. Constants</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#integer-constants">4.5.1. Integer Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#floating-point-constants">4.5.2. Floating-Point Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#predicate-constants">4.5.3. Predicate Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#constant-expressions">4.5.4. Constant Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#integer-constant-expression-evaluation">4.5.5. Integer Constant Expression Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#summary-of-constant-expression-evaluation-rules">4.5.6. Summary of Constant Expression Evaluation Rules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#state-spaces-types-and-variables">5. State Spaces, Types, and Variables</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#state-spaces">5.1. State Spaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#register-state-space">5.1.1. Register State Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#special-register-state-space">5.1.2. Special Register State Space</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#constant-state-space">5.1.3. Constant State Space</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#banked-constant-state-space-deprecated">5.1.3.1. Banked Constant State Space (deprecated)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-state-space">5.1.4. Global State Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#local-state-space">5.1.5. Local State Space</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#parameter-state-space">5.1.6. Parameter State Space</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#kernel-function-parameters">5.1.6.1. Kernel Function Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#kernel-function-parameter-attributes">5.1.6.2. Kernel Function Parameter Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#kernel-parameter-attribute-ptr">5.1.6.3. Kernel Parameter Attribute: .ptr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-function-parameters">5.1.6.4. Device Function Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-state-space">5.1.7. Shared State Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#texture-state-space-deprecated">5.1.8. Texture State Space (deprecated)</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#types">5.2. Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#fundamental-types">5.2.1. Fundamental Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#restricted-use-of-sub-word-sizes">5.2.2. Restricted Use of Sub-Word Sizes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#alternate-floating-point-data-formats">5.2.3. Alternate Floating-Point Data Formats</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#packed-data-types">5.2.4. Packed Data Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#packed-floating-point-data-types">5.2.4.1. Packed Floating Point Data Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#packed-integer-data-types">5.2.4.2. Packed Integer Data Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#texture-sampler-and-surface-types">5.3. Texture Sampler and Surface Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#texture-and-surface-properties">5.3.1. Texture and Surface Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sampler-properties">5.3.2. Sampler Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#channel-data-type-and-channel-order-fields">5.3.3. Channel Data Type and Channel Order Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#variables">5.4. Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#variable-declarations">5.4.1. Variable Declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#vectors">5.4.2. Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#array-declarations">5.4.3. Array Declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#initializers">5.4.4. Initializers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#alignment">5.4.5. Alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#parameterized-variable-names">5.4.6. Parameterized Variable Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#variable-attributes">5.4.7. Variable Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#variable-and-function-attribute-directive-attribute">5.4.8. Variable and Function Attribute Directive: .attribute</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#tensors">5.5. Tensors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-dimension-size-and-format">5.5.1. Tensor Dimension, size and format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-access-modes">5.5.2. Tensor Access Modes</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#tiled-mode">5.5.3. Tiled Mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#bounding-box">5.5.3.1. Bounding Box</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#traversal-stride">5.5.3.2. Traversal-Stride</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#out-of-boundary-access">5.5.3.3. Out of Boundary Access</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#im2col-mode">5.5.4. Im2col mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tensor-im2col-mode-bounding-box">5.5.4.1. Bounding Box</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tensor-im2col-mode-traversal-stride">5.5.4.2. Traversal Stride</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tensor-im2col-mode-oob-access">5.5.4.3. Out of Boundary Access</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#interleave-layout">5.5.5. Interleave layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#swizzling-modes">5.5.6. Swizzling Modes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tensor-map">5.5.7. Tensor-map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#instruction-operands">6. Instruction Operands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#operand-type-information">6.1. Operand Type Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#source-operands">6.2. Source Operands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#destination-operands">6.3. Destination Operands</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#using-addresses-arrays-and-vectors">6.4. Using Addresses, Arrays, and Vectors</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#addresses-as-operands">6.4.1. Addresses as Operands</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#generic-addressing">6.4.1.1. Generic Addressing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#arrays-as-operands">6.4.2. Arrays as Operands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#vectors-as-operands">6.4.3. Vectors as Operands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#labels-and-function-names-as-operands">6.4.4. Labels and Function Names as Operands</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#type-conversion">6.5. Type Conversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#scalar-conversions">6.5.1. Scalar Conversions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rounding-modifiers">6.5.2. Rounding Modifiers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#operand-costs">6.6. Operand Costs</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#abstracting-the-abi">7. Abstracting the ABI</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#function-declarations-and-definitions">7.1. Function Declarations and Definitions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#changes-from-ptx-isa-version-1-x">7.1.1. Changes from PTX ISA Version 1.x</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#variadic-functions">7.2. Variadic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#alloca">7.3. Alloca</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#memory-consistency-model">8. Memory Consistency Model</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#scope-and-applicability-of-the-model">8.1. Scope and applicability of the model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#limitations-on-atomicity-at-system-scope">8.1.1. Limitations on atomicity at system scope</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#memory-operations">8.2. Memory operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#overlap">8.2.1. Overlap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#aliases">8.2.2. Aliases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multimem-addresses">8.2.3. Multimem Addresses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#memory-operations-on-vector-data-types">8.2.4. Memory Operations on Vector Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#memory-operations-on-packed-data-types">8.2.5. Memory Operations on Packed Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#initialization">8.2.6. Initialization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-consistency-state-spaces">8.3. State spaces</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#operation-types">8.4. Operation types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mmio-operation">8.4.1. mmio Operation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#scope">8.5. Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proxies">8.6. Proxies</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#morally-strong-operations">8.7. Morally strong operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#conflict-and-data-races">8.7.1. Conflict and Data-races</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#limitations-on-mixed-size-data-races">8.7.2. Limitations on Mixed-size Data-races</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#release-and-acquire-patterns">8.8. Release and Acquire Patterns</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#ordering-of-memory-operations">8.9. Ordering of memory operations</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#program-order">8.9.1. Program Order</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#asynchronous-operations">8.9.1.1. Asynchronous Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#observation-order">8.9.2. Observation Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#fence-sc-order">8.9.3. Fence-SC Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#memory-synchronization">8.9.4. Memory synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#causality-order">8.9.5. Causality Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#coherence-order">8.9.6. Coherence Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#communication-order">8.9.7. Communication Order</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#axioms">8.10. Axioms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#coherence">8.10.1. Coherence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#fence-sc">8.10.2. Fence-SC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#atomicity">8.10.3. Atomicity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#no-thin-air">8.10.4. No Thin Air</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sequential-consistency-per-location">8.10.5. Sequential Consistency Per Location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#causality">8.10.6. Causality</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#instruction-set">9. Instruction Set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#format-and-semantics-of-instruction-descriptions">9.1. Format and Semantics of Instruction Descriptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ptx-instructions">9.2. PTX Instructions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#predicated-execution">9.3. Predicated Execution</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#comparisons">9.3.1. Comparisons</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-and-bit-size-comparisons">9.3.1.1. Integer and Bit-Size Comparisons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-comparisons">9.3.1.2. Floating Point Comparisons</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#manipulating-predicates">9.3.2. Manipulating Predicates</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#type-information-for-instructions-and-operands">9.4. Type Information for Instructions and Operands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#operand-size-exceeding-instruction-type-size">9.4.1. Operand Size Exceeding Instruction-Type Size</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#divergence-of-threads-in-control-constructs">9.5. Divergence of Threads in Control Constructs</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#semantics">9.6. Semantics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#machine-specific-semantics-of-16-bit-code">9.6.1. Machine-Specific Semantics of 16-bit Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#instructions">9.7. Instructions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#integer-arithmetic-instructions">9.7.1. Integer Arithmetic Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-add">9.7.1.1. Integer Arithmetic Instructions: add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-sub">9.7.1.2. Integer Arithmetic Instructions: sub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-mul">9.7.1.3. Integer Arithmetic Instructions: mul</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-mad">9.7.1.4. Integer Arithmetic Instructions: mad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-mul24">9.7.1.5. Integer Arithmetic Instructions: mul24</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-mad24">9.7.1.6. Integer Arithmetic Instructions: mad24</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-sad">9.7.1.7. Integer Arithmetic Instructions: sad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-div">9.7.1.8. Integer Arithmetic Instructions: div</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-rem">9.7.1.9. Integer Arithmetic Instructions: rem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-abs">9.7.1.10. Integer Arithmetic Instructions: abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-neg">9.7.1.11. Integer Arithmetic Instructions: neg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-min">9.7.1.12. Integer Arithmetic Instructions: min</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-max">9.7.1.13. Integer Arithmetic Instructions: max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-popc">9.7.1.14. Integer Arithmetic Instructions: popc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-clz">9.7.1.15. Integer Arithmetic Instructions: clz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-bfind">9.7.1.16. Integer Arithmetic Instructions: bfind</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-fns">9.7.1.17. Integer Arithmetic Instructions: fns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-brev">9.7.1.18. Integer Arithmetic Instructions: brev</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-bfe">9.7.1.19. Integer Arithmetic Instructions: bfe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-bfi">9.7.1.20. Integer Arithmetic Instructions: bfi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-szext">9.7.1.21. Integer Arithmetic Instructions: szext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-bmsk">9.7.1.22. Integer Arithmetic Instructions: bmsk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-dp4a">9.7.1.23. Integer Arithmetic Instructions: dp4a</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#integer-arithmetic-instructions-dp2a">9.7.1.24. Integer Arithmetic Instructions: dp2a</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#extended-precision-integer-arithmetic-instructions">9.7.2. Extended-Precision Integer Arithmetic Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-add-cc">9.7.2.1. Extended-Precision Arithmetic Instructions: add.cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-addc">9.7.2.2. Extended-Precision Arithmetic Instructions: addc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-sub-cc">9.7.2.3. Extended-Precision Arithmetic Instructions: sub.cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-subc">9.7.2.4. Extended-Precision Arithmetic Instructions: subc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-mad-cc">9.7.2.5. Extended-Precision Arithmetic Instructions: mad.cc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#extended-precision-arithmetic-instructions-madc">9.7.2.6. Extended-Precision Arithmetic Instructions: madc</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#floating-point-instructions">9.7.3. Floating-Point Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-testp">9.7.3.1. Floating Point Instructions: testp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-copysign">9.7.3.2. Floating Point Instructions: copysign</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-add">9.7.3.3. Floating Point Instructions: add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-sub">9.7.3.4. Floating Point Instructions: sub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-mul">9.7.3.5. Floating Point Instructions: mul</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-fma">9.7.3.6. Floating Point Instructions: fma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-mad">9.7.3.7. Floating Point Instructions: mad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-div">9.7.3.8. Floating Point Instructions: div</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-abs">9.7.3.9. Floating Point Instructions: abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-neg">9.7.3.10. Floating Point Instructions: neg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-min">9.7.3.11. Floating Point Instructions: min</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-max">9.7.3.12. Floating Point Instructions: max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-rcp">9.7.3.13. Floating Point Instructions: rcp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-rcp-approx-ftz-f64">9.7.3.14. Floating Point Instructions: rcp.approx.ftz.f64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-sqrt">9.7.3.15. Floating Point Instructions: sqrt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-rsqrt">9.7.3.16. Floating Point Instructions: rsqrt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-rsqrt-approx-ftz-f64">9.7.3.17. Floating Point Instructions: rsqrt.approx.ftz.f64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-sin">9.7.3.18. Floating Point Instructions: sin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-cos">9.7.3.19. Floating Point Instructions: cos</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-lg2">9.7.3.20. Floating Point Instructions: lg2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-ex2">9.7.3.21. Floating Point Instructions: ex2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#floating-point-instructions-tanh">9.7.3.22. Floating Point Instructions: tanh</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#half-precision-floating-point-instructions">9.7.4. Half Precision Floating-Point Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-add">9.7.4.1. Half Precision Floating Point Instructions: add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-sub">9.7.4.2. Half Precision Floating Point Instructions: sub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-mul">9.7.4.3. Half Precision Floating Point Instructions: mul</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-fma">9.7.4.4. Half Precision Floating Point Instructions: fma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-neg">9.7.4.5. Half Precision Floating Point Instructions: neg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-abs">9.7.4.6. Half Precision Floating Point Instructions: abs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-min">9.7.4.7. Half Precision Floating Point Instructions: min</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-max">9.7.4.8. Half Precision Floating Point Instructions: max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-tanh">9.7.4.9. Half Precision Floating Point Instructions: tanh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-floating-point-instructions-ex2">9.7.4.10. Half Precision Floating Point Instructions: ex2</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#comparison-and-selection-instructions">9.7.7. Comparison and Selection Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#comparison-and-selection-instructions-set">9.7.7.1. Comparison and Selection Instructions: set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#comparison-and-selection-instructions-setp">9.7.7.2. Comparison and Selection Instructions: setp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#comparison-and-selection-instructions-selp">9.7.7.3. Comparison and Selection Instructions: selp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#comparison-and-selection-instructions-slct">9.7.7.4. Comparison and Selection Instructions: slct</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#half-precision-comparison-instructions">9.7.8. Half Precision Comparison Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-comparison-instructions-set">9.7.8.1. Half Precision Comparison Instructions: set</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#half-precision-comparison-instructions-setp">9.7.8.2. Half Precision Comparison Instructions: setp</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#logic-and-shift-instructions">9.7.9. Logic and Shift Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-and">9.7.9.1. Logic and Shift Instructions: and</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-or">9.7.9.2. Logic and Shift Instructions: or</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-xor">9.7.9.3. Logic and Shift Instructions: xor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-not">9.7.9.4. Logic and Shift Instructions: not</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-cnot">9.7.9.5. Logic and Shift Instructions: cnot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-lop3">9.7.9.6. Logic and Shift Instructions: lop3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-shf">9.7.9.7. Logic and Shift Instructions: shf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-shl">9.7.9.8. Logic and Shift Instructions: shl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#logic-and-shift-instructions-shr">9.7.9.9. Logic and Shift Instructions: shr</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#data-movement-and-conversion-instructions">9.7.10. Data Movement and Conversion Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cache-operators">9.7.10.1. Cache Operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cache-eviction-priority-hints">9.7.10.2. Cache Eviction Priority Hints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-mov">9.7.10.3. Data Movement and Conversion Instructions: mov</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-mov-2">9.7.10.4. Data Movement and Conversion Instructions: mov</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-shfl-deprecated">9.7.10.5. Data Movement and Conversion Instructions: shfl (deprecated)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-shfl-sync">9.7.10.6. Data Movement and Conversion Instructions: shfl.sync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-prmt">9.7.10.7. Data Movement and Conversion Instructions: prmt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-ld">9.7.10.8. Data Movement and Conversion Instructions: ld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-ld-global-nc">9.7.10.9. Data Movement and Conversion Instructions: ld.global.nc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-ldu">9.7.10.10. Data Movement and Conversion Instructions: ldu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-st">9.7.10.11. Data Movement and Conversion Instructions: st</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-st-async">9.7.10.12. Data Movement and Conversion Instructions: st.async</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-multimem-ld-reduce-multimem-st-multimem-red">9.7.10.13. Data Movement and Conversion Instructions: multimem.ld_reduce, multimem.st, multimem.red</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-prefetch-prefetchu">9.7.10.14. Data Movement and Conversion Instructions: prefetch, prefetchu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-applypriority">9.7.10.15. Data Movement and Conversion Instructions: applypriority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-discard">9.7.10.16. Data Movement and Conversion Instructions: discard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-createpolicy">9.7.10.17. Data Movement and Conversion Instructions: createpolicy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-isspacep">9.7.10.18. Data Movement and Conversion Instructions: isspacep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cvta">9.7.10.19. Data Movement and Conversion Instructions: cvta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cvt">9.7.10.20. Data Movement and Conversion Instructions: cvt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cvt-pack">9.7.10.21. Data Movement and Conversion Instructions: cvt.pack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-mapa">9.7.10.22. Data Movement and Conversion Instructions: mapa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-getctarank">9.7.10.23. Data Movement and Conversion Instructions: getctarank</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#data-movement-and-conversion-instructions-asynchronous-copy">9.7.10.24. Data Movement and Conversion Instructions: Asynchronous copy</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#completion-mechanisms-for-asynchronous-copy-operations">9.7.10.24.1. Completion Mechanisms for Asynchronous Copy Operations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#async-proxy">9.7.10.24.2. Async Proxy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async">9.7.10.24.3. Data Movement and Conversion Instructions: cp.async</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-commit-group">9.7.10.24.4. Data Movement and Conversion Instructions: cp.async.commit_group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-wait-group-cp-async-wait-all">9.7.10.24.5. Data Movement and Conversion Instructions: cp.async.wait_group / cp.async.wait_all</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk">9.7.10.24.6. Data Movement and Conversion Instructions: cp.async.bulk</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-reduce-async-bulk">9.7.10.24.7. Data Movement and Conversion Instructions: cp.reduce.async.bulk</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk-prefetch">9.7.10.24.8. Data Movement and Conversion Instructions: cp.async.bulk.prefetch</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk-tensor">9.7.10.24.9. Data Movement and Conversion Instructions: cp.async.bulk.tensor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-reduce-async-bulk-tensor">9.7.10.24.10. Data Movement and Conversion Instructions: cp.reduce.async.bulk.tensor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk-prefetch-tensor">9.7.10.24.11. Data Movement and Conversion Instructions: cp.async.bulk.prefetch.tensor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk-commit-group">9.7.10.24.12. Data Movement and Conversion Instructions: cp.async.bulk.commit_group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-cp-async-bulk-wait-group">9.7.10.24.13. Data Movement and Conversion Instructions: cp.async.bulk.wait_group</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-movement-and-conversion-instructions-tensormap-replace">9.7.10.25. Data Movement and Conversion Instructions: tensormap.replace</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#texture-instructions">9.7.11. Texture Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texturing-modes">9.7.11.1. Texturing Modes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#mipmaps">9.7.11.2. Mipmaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texture-instructions-tex">9.7.11.3. Texture Instructions: tex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texture-instructions-tld4">9.7.11.4. Texture Instructions: tld4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texture-instructions-txq">9.7.11.5. Texture Instructions: txq</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texture-instructions-istypep">9.7.11.6. Texture Instructions: istypep</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#surface-instructions">9.7.12. Surface Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surface-instructions-suld">9.7.12.1. Surface Instructions: suld</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surface-instructions-sust">9.7.12.2. Surface Instructions: sust</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surface-instructions-sured">9.7.12.3. Surface Instructions: sured</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surface-instructions-suq">9.7.12.4. Surface Instructions: suq</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#control-flow-instructions">9.7.13. Control Flow Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-curly-braces">9.7.13.1. Control Flow Instructions: {}</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-at">9.7.13.2. Control Flow Instructions: @</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-bra">9.7.13.3. Control Flow Instructions: bra</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-brx-idx">9.7.13.4. Control Flow Instructions: brx.idx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-call">9.7.13.5. Control Flow Instructions: call</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-ret">9.7.13.6. Control Flow Instructions: ret</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-flow-instructions-exit">9.7.13.7. Control Flow Instructions: exit</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions">9.7.14. Parallel Synchronization and Communication Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-bar-barrier">9.7.14.1. Parallel Synchronization and Communication Instructions: bar, barrier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-bar-warp-sync">9.7.14.2. Parallel Synchronization and Communication Instructions: bar.warp.sync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-barrier-cluster">9.7.14.3. Parallel Synchronization and Communication Instructions: barrier.cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-membar-fence">9.7.14.4. Parallel Synchronization and Communication Instructions: membar/fence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-atom">9.7.14.5. Parallel Synchronization and Communication Instructions: atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-red">9.7.14.6. Parallel Synchronization and Communication Instructions: red</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-red-async">9.7.14.7. Parallel Synchronization and Communication Instructions: red.async</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-vote-deprecated">9.7.14.8. Parallel Synchronization and Communication Instructions: vote (deprecated)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-vote-sync">9.7.14.9. Parallel Synchronization and Communication Instructions: vote.sync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-match-sync">9.7.14.10. Parallel Synchronization and Communication Instructions: match.sync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-activemask">9.7.14.11. Parallel Synchronization and Communication Instructions: activemask</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-redux-sync">9.7.14.12. Parallel Synchronization and Communication Instructions: redux.sync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-griddepcontrol">9.7.14.13. Parallel Synchronization and Communication Instructions: griddepcontrol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-elect-sync">9.7.14.14. Parallel Synchronization and Communication Instructions: elect.sync</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier">9.7.14.15. Parallel Synchronization and Communication Instructions: mbarrier</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#size-and-alignment-of-mbarrier-object">9.7.14.15.1. Size and alignment of mbarrier object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#contents-of-the-mbarrier-object">9.7.14.15.2. Contents of the mbarrier object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#lifecycle-of-the-mbarrier-object">9.7.14.15.3. Lifecycle of the mbarrier object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#phase-of-the-mbarrier-object">9.7.14.15.4. Phase of the mbarrier object</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#tracking-asynchronous-operations-by-the-mbarrier-object">9.7.14.15.5. Tracking asynchronous operations by the mbarrier object</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#expect-tx-operation">9.7.14.15.5.1. expect-tx operation</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#complete-tx-operation">9.7.14.15.5.2. complete-tx operation</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#phase-completion-of-the-mbarrier-object">9.7.14.15.6. Phase Completion of the mbarrier object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#arrive-on-operation-on-mbarrier-object">9.7.14.15.7. Arrive-on operation on mbarrier object</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mbarrier-support-with-shared-memory">9.7.14.15.8. mbarrier support with shared memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-init">9.7.14.15.9. Parallel Synchronization and Communication Instructions: mbarrier.init</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-inval">9.7.14.15.10. Parallel Synchronization and Communication Instructions: mbarrier.inval</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-expect-tx">9.7.14.15.11. Parallel Synchronization and Communication Instructions: mbarrier.expect_tx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-complete-tx">9.7.14.15.12. Parallel Synchronization and Communication Instructions: mbarrier.complete_tx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-arrive">9.7.14.15.13. Parallel Synchronization and Communication Instructions: mbarrier.arrive</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-arrive-drop">9.7.14.15.14. Parallel Synchronization and Communication Instructions: mbarrier.arrive_drop</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-cp-async-mbarrier-arrive">9.7.14.15.15. Parallel Synchronization and Communication Instructions: cp.async.mbarrier.arrive</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-test-wait-mbarrier-try-wait">9.7.14.15.16. Parallel Synchronization and Communication Instructions: mbarrier.test_wait/mbarrier.try_wait</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-mbarrier-pending-count">9.7.14.15.17. Parallel Synchronization and Communication Instructions: mbarrier.pending_count</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parallel-synchronization-and-communication-instructions-tensormap-cp-fenceproxy">9.7.14.16. Parallel Synchronization and Communication Instructions: tensormap.cp_fenceproxy</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#warp-level-matrix-multiply-accumulate-instructions">9.7.15. Warp Level Matrix Multiply-Accumulate Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#matrix-shape">9.7.15.1. Matrix Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#matrix-data-types">9.7.15.2. Matrix Data-types</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#matrix-multiply-accumulate-operation-using-wmma-instructions">9.7.15.3. Matrix multiply-accumulate operation using wmma instructions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-wmma">9.7.15.3.1. Matrix Fragments for WMMA</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-storage-for-wmma">9.7.15.3.2. Matrix Storage for WMMA</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-load-instruction-wmma-load">9.7.15.3.3. Warp-level Matrix Load Instruction: wmma.load</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-store-instruction-wmma-store">9.7.15.3.4. Warp-level Matrix Store Instruction: wmma.store</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-multiply-and-accumulate-instruction-wmma-mma">9.7.15.3.5. Warp-level Matrix Multiply-and-Accumulate Instruction: wmma.mma</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#matrix-multiply-accumulate-operation-using-mma-instruction">9.7.15.4. Matrix multiply-accumulate operation using mma instruction</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m8n8k4-with-f16-floating-point-type">9.7.15.4.1. Matrix Fragments for mma.m8n8k4 with .f16 floating point type</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m8n8k4-with-f64-floating-point-type">9.7.15.4.2. Matrix Fragments for mma.m8n8k4 with .f64 floating point type</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m8n8k16">9.7.15.4.3. Matrix Fragments for mma.m8n8k16</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m8n8k32">9.7.15.4.4. Matrix Fragments for mma.m8n8k32</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m8n8k128">9.7.15.4.5. Matrix Fragments for mma.m8n8k128</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k4">9.7.15.4.6. Matrix Fragments for mma.m16n8k4</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k8">9.7.15.4.7. Matrix Fragments for mma.m16n8k8</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k16-with-floating-point-type">9.7.15.4.8. Matrix Fragments for mma.m16n8k16 with floating point type</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k16-with-integer-type">9.7.15.4.9. Matrix Fragments for mma.m16n8k16 with integer type</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k32">9.7.15.4.10. Matrix Fragments for mma.m16n8k32</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k64">9.7.15.4.11. Matrix Fragments for mma.m16n8k64</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k128">9.7.15.4.12. Matrix Fragments for mma.m16n8k128</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matrix-fragments-for-mma-m16n8k256">9.7.15.4.13. Matrix Fragments for mma.m16n8k256</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#multiply-and-accumulate-instruction-mma">9.7.15.4.14. Multiply-and-Accumulate Instruction: mma</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-load-instruction-ldmatrix">9.7.15.4.15. Warp-level matrix load instruction: ldmatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-store-instruction-stmatrix">9.7.15.4.16. Warp-level matrix store instruction: stmatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-level-matrix-transpose-instruction-movmatrix">9.7.15.4.17. Warp-level matrix transpose instruction: movmatrix</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#matrix-multiply-accumulate-operation-using-mma-sp-instruction-with-sparse-matrix-a">9.7.15.5. Matrix multiply-accumulate operation using mma.sp instruction with sparse matrix A</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#sparse-matrix-storage">9.7.15.5.1. Sparse matrix storage</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#matrix-fragments-for-multiply-accumulate-operation-with-sparse-matrix-a">9.7.15.5.2. Matrix fragments for multiply-accumulate operation with sparse matrix A</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k16-with-f16-and-bf16-types">9.7.15.5.2.1. Matrix Fragments for sparse mma.m16n8k16 with .f16 and .bf16 types</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k32-with-f16-and-bf16-types">9.7.15.5.2.2. Matrix Fragments for sparse mma.m16n8k32 with .f16 and .bf16 types</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k16-with-tf32-floating-point-type">9.7.15.5.2.3. Matrix Fragments for sparse mma.m16n8k16 with .tf32 floating point type</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k8-with-tf32-floating-point-type">9.7.15.5.2.4. Matrix Fragments for sparse mma.m16n8k8 with .tf32 floating point type</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k32-with-u8-s8-integer-type">9.7.15.5.2.5. Matrix Fragments for sparse mma.m16n8k32 with .u8/.s8 integer type</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k64-with-u8-s8-e4m3-e5m2-type">9.7.15.5.2.6. Matrix Fragments for sparse mma.m16n8k64 with .u8/.s8/.e4m3/.e5m2 type</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k64-with-u4-s4-integer-type">9.7.15.5.2.7. Matrix Fragments for sparse mma.m16n8k64 with .u4/.s4 integer type</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-mma-m16n8k128-with-u4-s4-integer-type">9.7.15.5.2.8. Matrix Fragments for sparse mma.m16n8k128 with .u4/.s4 integer type</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#multiply-and-accumulate-instruction-mma-sp-mma-sp-ordered-metadata">9.7.15.5.3. Multiply-and-Accumulate Instruction: mma.sp/mma.sp::ordered_metadata</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-multiply-accumulate-instructions">9.7.16. Asynchronous Warpgroup Level Matrix Multiply-Accumulate Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#warpgroup">9.7.16.1. Warpgroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-shape">9.7.16.2. Matrix Shape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-data-types">9.7.16.3. Matrix Data-types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-async-proxy">9.7.16.4. Async Proxy</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-multiply-accumulate-operation-using-wgmma-mma-async-instruction">9.7.16.5. Asynchronous Warpgroup Level Matrix Multiply-Accumulate Operation using wgmma.mma_async instruction</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#register-fragments-and-shared-memory-matrix-layouts">9.7.16.5.1. Register Fragments and Shared Memory Matrix Layouts</a><ul>
+<li class="toctree-l6">
+<a class="reference internal" href="index.html#register-fragments">9.7.16.5.1.1. Register Fragments</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="index.html#matrix-fragments-for-wgmma-mma-async-m64nnk16">9.7.16.5.1.1.1. Matrix Fragments for wgmma.mma_async.m64nNk16</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#matrix-fragments-for-wgmma-mma-async-m64nnk8">9.7.16.5.1.1.2. Matrix Fragments for wgmma.mma_async.m64nNk8</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#matrix-fragments-for-wgmma-mma-async-m64nnk32">9.7.16.5.1.1.3. Matrix Fragments for wgmma.mma_async.m64nNk32</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#matrix-fragments-for-wgmma-mma-async-m64nnk256">9.7.16.5.1.1.4. Matrix Fragments for wgmma.mma_async.m64nNk256</a></li>
+</ul>
+</li>
+<li class="toctree-l6">
+<a class="reference internal" href="index.html#shared-memory-matrix-layout">9.7.16.5.1.2. Shared Memory Matrix Layout</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-m64nnk16">9.7.16.5.1.2.1. Shared Memory Layout for wgmma.mma_async.m64nNk16</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-m64nnk8">9.7.16.5.1.2.2. Shared Memory Layout for wgmma.mma_async.m64nNk8</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-m64nnk32">9.7.16.5.1.2.3. Shared Memory Layout for wgmma.mma_async.m64nNk32</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-m64nnk256">9.7.16.5.1.2.4. Shared Memory Layout for wgmma.mma_async.m64nNk256</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#strides">9.7.16.5.1.2.5. Strides</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#asynchronous-warpgroup-level-matrix-shared-memory-layout-swizzling-modes">9.7.16.5.1.2.6. Swizzling Modes</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#matrix-descriptor-format">9.7.16.5.1.2.7. Matrix Descriptor Format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-multiply-and-accumulate-instruction-wgmma-mma-async">9.7.16.5.2. Asynchronous Multiply-and-Accumulate Instruction: wgmma.mma_async</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#asynchronous-warpgroup-level-multiply-and-accumulate-operation-using-wgmma-mma-async-sp-instruction">9.7.16.6. Asynchronous Warpgroup Level Multiply-and-Accumulate Operation using wgmma.mma_async.sp instruction</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-warpgroup-level-sparse-matrix-storage">9.7.16.6.1. Sparse matrix storage</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#matrix-fragments-for-warpgroup-level-multiply-accumulate-operation-with-sparse-matrix-a">9.7.16.6.2. Matrix fragments for warpgroup-level multiply-accumulate operation with sparse matrix A</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-wgmma-mma-async-m64nnk32">9.7.16.6.2.1. Matrix Fragments for sparse wgmma.mma_async.m64nNk32</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-wgmma-mma-async-m64nnk16">9.7.16.6.2.2. Matrix Fragments for sparse wgmma.mma_async.m64nNk16</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#matrix-fragments-for-sparse-wgmma-mma-async-m64nnk64">9.7.16.6.2.3. Matrix Fragments for sparse wgmma.mma_async.m64nNk64</a></li>
+</ul>
+</li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#asynchronous-warpgroup-level-shared-memory-layout-for-sparse-wgmma">9.7.16.6.3. Shared Memory Matrix Layout</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-sp-m64nnk32">9.7.16.6.3.1. Shared Memory Layout for wgmma.mma_async.sp.m64nNk32</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-sp-m64nnk16">9.7.16.6.3.2. Shared Memory Layout for wgmma.mma_async.sp.m64nNk16</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#shared-memory-layout-for-wgmma-mma-async-sp-m64nnk64">9.7.16.6.3.3. Shared Memory Layout for wgmma.mma_async.sp.m64nNk64</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-multiply-and-accumulate-instruction-wgmma-mma-async-sp">9.7.16.6.4. Asynchronous Multiply-and-Accumulate Instruction: wgmma.mma_async.sp</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#asynchronous-wgmma-proxy-operations">9.7.16.7. Asynchronous wgmma Proxy Operations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-multiply-and-accumulate-instruction-wgmma-fence">9.7.16.7.1. Asynchronous Multiply-and-Accumulate Instruction: wgmma.fence</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-multiply-and-accumulate-instruction-wgmma-commit-group">9.7.16.7.2. Asynchronous Multiply-and-Accumulate Instruction: wgmma.commit_group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#asynchronous-multiply-and-accumulate-instruction-wgmma-wait-group">9.7.16.7.3. Asynchronous Multiply-and-Accumulate Instruction: wgmma.wait_group</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#stack-manipulation-instructions">9.7.17. Stack Manipulation Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#stack-manipulation-instructions-stacksave">9.7.17.1. Stack Manipulation Instructions: stacksave</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#stack-manipulation-instructions-stackrestore">9.7.17.2. Stack Manipulation Instructions: stackrestore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#stack-manipulation-instructions-alloca">9.7.17.3. Stack Manipulation Instructions: alloca</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#video-instructions">9.7.18. Video Instructions</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#scalar-video-instructions">9.7.18.1. Scalar Video Instructions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#scalar-video-instructions-vadd-vsub-vabsdiff-vmin-vmax">9.7.18.1.1. Scalar Video Instructions: vadd, vsub, vabsdiff, vmin, vmax</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#scalar-video-instructions-vshl-vshr">9.7.18.1.2. Scalar Video Instructions: vshl, vshr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#scalar-video-instructions-vmad">9.7.18.1.3. Scalar Video Instructions: vmad</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#scalar-video-instructions-vset">9.7.18.1.4. Scalar Video Instructions: vset</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#simd-video-instructions">9.7.18.2. SIMD Video Instructions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#simd-video-instructions-vadd2-vsub2-vavrg2-vabsdiff2-vmin2-vmax2">9.7.18.2.1. SIMD Video Instructions: vadd2, vsub2, vavrg2, vabsdiff2, vmin2, vmax2</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#simd-video-instructions-vset2">9.7.18.2.2. SIMD Video Instructions: vset2</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#simd-video-instructions-vadd4-vsub4-vavrg4-vabsdiff4-vmin4-vmax4">9.7.18.2.3. SIMD Video Instructions: vadd4, vsub4, vavrg4, vabsdiff4, vmin4, vmax4</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#simd-video-instructions-vset4">9.7.18.2.4. SIMD Video Instructions: vset4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#miscellaneous-instructions">9.7.19. Miscellaneous Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#miscellaneous-instructions-brkpt">9.7.19.1. Miscellaneous Instructions: brkpt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#miscellaneous-instructions-nanosleep">9.7.19.2. Miscellaneous Instructions: nanosleep</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#miscellaneous-instructions-pmevent">9.7.19.3. Miscellaneous Instructions: pmevent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#miscellaneous-instructions-trap">9.7.19.4. Miscellaneous Instructions: trap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#miscellaneous-instructions-setmaxnreg">9.7.19.5. Miscellaneous Instructions: setmaxnreg</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#special-registers">10. Special Registers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-tid">10.1. Special Registers: %tid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-ntid">10.2. Special Registers: %ntid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-laneid">10.3. Special Registers: %laneid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-warpid">10.4. Special Registers: %warpid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-nwarpid">10.5. Special Registers: %nwarpid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-ctaid">10.6. Special Registers: %ctaid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-nctaid">10.7. Special Registers: %nctaid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-smid">10.8. Special Registers: %smid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-nsmid">10.9. Special Registers: %nsmid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-gridid">10.10. Special Registers: %gridid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-is-explicit-cluster">10.11. Special Registers: %is_explicit_cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-clusterid">10.12. Special Registers: %clusterid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-nclusterid">10.13. Special Registers: %nclusterid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-cluster-ctaid">10.14. Special Registers: %cluster_ctaid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-cluster-nctaid">10.15. Special Registers: %cluster_nctaid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-cluster-ctarank">10.16. Special Registers: %cluster_ctarank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-cluster-nctarank">10.17. Special Registers: %cluster_nctarank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-lanemask-eq">10.18. Special Registers: %lanemask_eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-lanemask-le">10.19. Special Registers: %lanemask_le</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-lanemask-lt">10.20. Special Registers: %lanemask_lt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-lanemask-ge">10.21. Special Registers: %lanemask_ge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-lanemask-gt">10.22. Special Registers: %lanemask_gt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-clock-clock-hi">10.23. Special Registers: %clock, %clock_hi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-clock64">10.24. Special Registers: %clock64</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-pm0-pm7">10.25. Special Registers: %pm0..%pm7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-pm0-64-pm7-64">10.26. Special Registers: %pm0_64..%pm7_64</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-envreg-32">10.27. Special Registers: %envreg&lt;32&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-globaltimer-globaltimer-lo-globaltimer-hi">10.28. Special Registers: %globaltimer, %globaltimer_lo, %globaltimer_hi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-reserved-smem-offset-begin-reserved-smem-offset-end-reserved-smem-offset-cap-reserved-smem-offset-2">10.29. Special Registers: %reserved_smem_offset_begin, %reserved_smem_offset_end, %reserved_smem_offset_cap, %reserved_smem_offset_&lt;2&gt;</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-total-smem-size">10.30. Special Registers: %total_smem_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-aggr-smem-size">10.31. Special Registers: %aggr_smem_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-dynamic-smem-size">10.32. Special Registers: %dynamic_smem_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#special-registers-current-graph-exec">10.33. Special Registers: %current_graph_exec</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#directives">11. Directives</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#ptx-module-directives">11.1. PTX Module Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ptx-module-directives-version">11.1.1. PTX Module Directives: .version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ptx-module-directives-target">11.1.2. PTX Module Directives: .target</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ptx-module-directives-address-size">11.1.3. PTX Module Directives: .address_size</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#specifying-kernel-entry-points-and-functions">11.2. Specifying Kernel Entry Points and Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#kernel-and-function-directives-entry">11.2.1. Kernel and Function Directives: .entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#kernel-and-function-directives-func">11.2.2. Kernel and Function Directives: .func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#kernel-and-function-directives-alias">11.2.3. Kernel and Function Directives: .alias</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#control-flow-directives">11.3. Control Flow Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-flow-directives-branchtargets">11.3.1. Control Flow Directives: .branchtargets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-flow-directives-calltargets">11.3.2. Control Flow Directives: .calltargets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-flow-directives-callprototype">11.3.3. Control Flow Directives: .callprototype</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#performance-tuning-directives">11.4. Performance-Tuning Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-maxnreg">11.4.1. Performance-Tuning Directives: .maxnreg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-maxntid">11.4.2. Performance-Tuning Directives: .maxntid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-reqntid">11.4.3. Performance-Tuning Directives: .reqntid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-minnctapersm">11.4.4. Performance-Tuning Directives: .minnctapersm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-maxnctapersm-deprecated">11.4.5. Performance-Tuning Directives: .maxnctapersm (deprecated)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-noreturn">11.4.6. Performance-Tuning Directives: .noreturn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#performance-tuning-directives-pragma">11.4.7. Performance-Tuning Directives: .pragma</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#debugging-directives">11.5. Debugging Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-directives-dwarf">11.5.1. Debugging Directives: @@dwarf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-directives-section">11.5.2. Debugging Directives: .section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-directives-file">11.5.3. Debugging Directives: .file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#debugging-directives-loc">11.5.4. Debugging Directives: .loc</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#linking-directives">11.6. Linking Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linking-directives-extern">11.6.1. Linking Directives: .extern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linking-directives-visible">11.6.2. Linking Directives: .visible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linking-directives-weak">11.6.3. Linking Directives: .weak</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#linking-directives-common">11.6.4. Linking Directives: .common</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cluster-dimension-directives">11.7. Cluster Dimension Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cluster-dimension-directives-reqnctapercluster">11.7.1. Cluster Dimension Directives: .reqnctapercluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cluster-dimension-directives-explicitcluster">11.7.2. Cluster Dimension Directives: .explicitcluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cluster-dimension-directives-maxclusterrank">11.7.3. Cluster Dimension Directives: .maxclusterrank</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#release-notes">12. Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-5">12.1. Changes in PTX ISA Version 8.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-4">12.2. Changes in PTX ISA Version 8.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-3">12.3. Changes in PTX ISA Version 8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-2">12.4. Changes in PTX ISA Version 8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-1">12.5. Changes in PTX ISA Version 8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-8-0">12.6. Changes in PTX ISA Version 8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-8">12.7. Changes in PTX ISA Version 7.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-7">12.8. Changes in PTX ISA Version 7.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-6">12.9. Changes in PTX ISA Version 7.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-5">12.10. Changes in PTX ISA Version 7.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-4">12.11. Changes in PTX ISA Version 7.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-3">12.12. Changes in PTX ISA Version 7.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-2">12.13. Changes in PTX ISA Version 7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-1">12.14. Changes in PTX ISA Version 7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-7-0">12.15. Changes in PTX ISA Version 7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-5">12.16. Changes in PTX ISA Version 6.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-4">12.17. Changes in PTX ISA Version 6.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-3">12.18. Changes in PTX ISA Version 6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-2">12.19. Changes in PTX ISA Version 6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-1">12.20. Changes in PTX ISA Version 6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-6-0">12.21. Changes in PTX ISA Version 6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-5-0">12.22. Changes in PTX ISA Version 5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-4-3">12.23. Changes in PTX ISA Version 4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-4-2">12.24. Changes in PTX ISA Version 4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-4-1">12.25. Changes in PTX ISA Version 4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-4-0">12.26. Changes in PTX ISA Version 4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-3-2">12.27. Changes in PTX ISA Version 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-3-1">12.28. Changes in PTX ISA Version 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-3-0">12.29. Changes in PTX ISA Version 3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-2-3">12.30. Changes in PTX ISA Version 2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-2-2">12.31. Changes in PTX ISA Version 2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-2-1">12.32. Changes in PTX ISA Version 2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#changes-in-ptx-isa-version-2-0">12.33. Changes in PTX ISA Version 2.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#descriptions-of-pragma-strings">14. Descriptions of .pragma Strings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pragma-strings-nounroll">14.1. Pragma Strings: “nounroll”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pragma-strings-used-bytes-mask">14.2. Pragma Strings: “used_bytes_mask”</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">15. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">15.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">15.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">15.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.2. Half Arithmetic Functions — CUDA Math API Reference Manual 12.6 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html">
+    <link rel="search" title="Search" href="../search.html">
+    <link rel="next" title="2.3. Half Comparison Functions" href="group__CUDA__MATH____HALF__COMPARISON.html">
+    <link rel="prev" title="2.1. Half Arithmetic Constants" href="group__CUDA__MATH__INTRINSIC__HALF__CONSTANTS.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../../common-libs/common.css">
+<script src="../../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="../index.html">
+  <img src="../../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__FP8.html">1. FP8 Intrinsics</a></li>
+<li class="toctree-l1 current">
+<a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF.html">2. Half Precision Intrinsics</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__HALF__CONSTANTS.html">2.1. Half Arithmetic Constants</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#">2.2. Half Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__COMPARISON.html">2.3. Half Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__FUNCTIONS.html">2.4. Half Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF__MISC.html">2.5. Half Precision Conversion and Data Movement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__ARITHMETIC.html">2.6. Half2 Arithmetic Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__COMPARISON.html">2.7. Half2 Comparison Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group__CUDA__MATH____HALF2__FUNCTIONS.html">2.8. Half2 Math Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__BFLOAT16.html">3. Bfloat16 Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__SINGLE.html">4. Single Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SINGLE.html">5. Single Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__DOUBLE.html">6. Double Precision Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__DOUBLE.html">7. Double Precision Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__CAST.html">8. Type Casting Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INT.html">9. Integer Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__INT.html">10. Integer Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group__CUDA__MATH__INTRINSIC__SIMD.html">11. SIMD Intrinsics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structs.html">12. Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notices.html">13. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CUDA Math API Reference Manual</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../../index.html" class="icon icon-home"></a> »</li>
+  
+    <li>
+<a href="group__CUDA__MATH__INTRINSIC__HALF.html"><span class="section-number">2. </span>Half Precision Intrinsics</a> »</li>
+<li>
+<span class="section-number">2.2. </span>Half Arithmetic Functions</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+
+
+  <a href="../../pdf/CUDA_Math_API.pdf" class="reference external">PDF</a>
+
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="half-arithmetic-functions">
+<h1>
+<span class="section-number">2.2. </span>Half Arithmetic Functions<a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#half-arithmetic-functions" title="Permalink to this headline"></a>
+</h1>
+<p id="group__cuda__math____half__arithmetic">To use these functions, include the header file <code class="docutils literal notranslate"><span class="pre">cuda_fp16.h</span></code> in your program. </p>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaa94b88edb4312b81bbf20ef79188a5af"><span class="std std-ref">__habs</span></a>(const __half a)</dt>
+<dd>
+<p>Calculates the absolute value of input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"><span class="std std-ref">__hadd</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf990eca90848b72eb5c043736e7d2850"><span class="std std-ref">__hadd_rn</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gae709839c7f730542c5ef10a3233003eb"><span class="std std-ref">__hadd_sat</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gab79c0dcc7022baf5108af6170cd876ae"><span class="std std-ref">__hdiv</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> division in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaaec96bd410157b5813c940ee320175f2"><span class="std std-ref">__hfma</span></a>(const __half a, const __half b, const __half c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga91fe61c3e7a3eedc61074ae8489e1f30"><span class="std std-ref">__hfma_relu</span></a>(const __half a, const __half b, const __half c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode with relu saturation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga096f8ab8715837bf96457d1aedc513dc"><span class="std std-ref">__hfma_sat</span></a>(const __half a, const __half b, const __half c)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga864da184fc3f0cd0bf3860980857f18c"><span class="std std-ref">__hmul</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gab8c8d28f1f326c0ea7bad63f3d8686e5"><span class="std std-ref">__hmul_rn</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga4531b88bf14554b2585de7c716340b1c"><span class="std std-ref">__hmul_sat</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga45cf5bd8bf8708d0bd5f890a20ce9cc1"><span class="std std-ref">__hneg</span></a>(const __half a)</dt>
+<dd>
+<p>Negates input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"><span class="std std-ref">__hsub</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaee5cced4f89e19c66eaaff0dd25ae4b6"><span class="std std-ref">__hsub_rn</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga3a59fd362b7ec9cdb83a216573dcdc29"><span class="std std-ref">__hsub_sat</span></a>(const __half a, const __half b)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode, with saturation to [0.0, 1.0].</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaee40693f73e030c0f48a4f72b9e71222"><span class="std std-ref">atomicAdd</span></a>(__half *const address, const __half val)</dt>
+<dd>
+<p>Adds <code class="docutils literal notranslate"><span class="pre">val</span></code> to the value stored at <code class="docutils literal notranslate"><span class="pre">address</span></code> in global or shared memory, and writes this value back to <code class="docutils literal notranslate"><span class="pre">address</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gab9e8c164d19d5350e099f3e60517c6bb"><span class="std std-ref">operator*</span></a>(const __half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga449e8ee15b346d2b09274d05de01dda0"><span class="std std-ref">operator*=</span></a>(__half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with multiplication operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga456239db6b1312d65308acbed8f3ec40"><span class="std std-ref">operator+</span></a>(const __half &amp;h)</dt>
+<dd>
+<p>Implements <code class="docutils literal notranslate"><span class="pre">half</span></code> unary plus operator, returns input value.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga461b50f198811520825035145431a368"><span class="std std-ref">operator+</span></a>(const __half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaa34c2440c571d0e41ccf968627c7f3af"><span class="std std-ref">operator++</span></a>(__half &amp;h)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> prefix increment operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaac625b6cdad81827d519626d1b68d42f"><span class="std std-ref">operator++</span></a>(__half &amp;h, const int ignored)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> postfix increment operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga6841e092282e9a4b82636d7000eae087"><span class="std std-ref">operator+=</span></a>(__half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with addition operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga18d4f91b923dfeadfe67860d5ed6741a"><span class="std std-ref">operator-</span></a>(const __half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga7c173e56f50c807d31f42e88a530da0f"><span class="std std-ref">operator-</span></a>(const __half &amp;h)</dt>
+<dd>
+<p>Implements <code class="docutils literal notranslate"><span class="pre">half</span></code> unary minus operator.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gad3929c2a016cf6c59d3d5975f0f9bdc6"><span class="std std-ref">operator–</span></a>(__half &amp;h, const int ignored)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> postfix decrement operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaeb306da8dd49634862909712623c1a39"><span class="std std-ref">operator–</span></a>(__half &amp;h)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> prefix decrement operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga22acbd44ff93ed121ee26e46af8b07cb"><span class="std std-ref">operator-=</span></a>(__half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with subtraction operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaef924bf7928f119880c284718061d428"><span class="std std-ref">operator/</span></a>(const __half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> division operation.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">__host__ __device__ __half &amp;</span> <a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gae8bda0d779da333cdc4310af6e355a3a"><span class="std std-ref">operator/=</span></a>(__half &amp;lh, const __half &amp;rh)</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with division operation.</p>
+</dd>
+</dl>
+</div>
+<section id="functions">
+<h2>
+<span class="section-number">2.2.1. </span>Functions<a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__habsK6__half">
+<span id="_CPPv36__habsK6__half"></span><span id="_CPPv26__habsK6__half"></span><span id="__habs____halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaa94b88edb4312b81bbf20ef79188a5af"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__habs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__habsK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Calculates the absolute value of input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result. </p>
+<p>Calculates the absolute value of input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The absolute value of <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>__habs <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns +0.</p></li>
+<li><p>__habs <span class="math notranslate nohighlight">\( (\pm \infty)\)</span> returns <span class="math notranslate nohighlight">\( +\infty \)</span>.</p></li>
+<li><p>__habs(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__haddK6__halfK6__half">
+<span id="_CPPv36__haddK6__halfK6__half"></span><span id="_CPPv26__haddK6__halfK6__half"></span><span id="__hadd____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__haddK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The sum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__hadd_rnK6__halfK6__half">
+<span id="_CPPv39__hadd_rnK6__halfK6__half"></span><span id="_CPPv29__hadd_rnK6__halfK6__half"></span><span id="__hadd_rn____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaf990eca90848b72eb5c043736e7d2850"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv49__hadd_rnK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode. Prevents floating-point contractions of mul+add into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The sum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hadd_satK6__halfK6__half">
+<span id="_CPPv310__hadd_satK6__halfK6__half"></span><span id="_CPPv210__hadd_satK6__halfK6__half"></span><span id="__hadd_sat____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gae709839c7f730542c5ef10a3233003eb"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hadd_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv410__hadd_satK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> add of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode, and clamps the result to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The sum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__hdivK6__halfK6__half">
+<span id="_CPPv36__hdivK6__halfK6__half"></span><span id="_CPPv26__hdivK6__halfK6__half"></span><span id="__hdiv____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gab79c0dcc7022baf5108af6170cd876ae"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hdiv</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__hdivK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> division in round-to-nearest-even mode. </p>
+<p>Divides <code class="docutils literal notranslate"><span class="pre">half</span></code> input <code class="docutils literal notranslate"><span class="pre">a</span></code> by input <code class="docutils literal notranslate"><span class="pre">b</span></code> in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of dividing <code class="docutils literal notranslate"><span class="pre">a</span></code> by <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__hfmaK6__halfK6__halfK6__half">
+<span id="_CPPv36__hfmaK6__halfK6__halfK6__half"></span><span id="_CPPv26__hfmaK6__halfK6__halfK6__half"></span><span id="__hfma____halfC.__halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaaec96bd410157b5813c940ee320175f2"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__hfmaK6__halfK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">half</span></code> add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of fused multiply-add operation on <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411__hfma_reluK6__halfK6__halfK6__half">
+<span id="_CPPv311__hfma_reluK6__halfK6__halfK6__half"></span><span id="_CPPv211__hfma_reluK6__halfK6__halfK6__half"></span><span id="__hfma_relu____halfC.__halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga91fe61c3e7a3eedc61074ae8489e1f30"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma_relu</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv411__hfma_reluK6__halfK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode with relu saturation. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">half</span></code> add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode. Then negative result is clamped to 0. NaN result is converted to canonical NaN. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of fused multiply-add operation on <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> with relu saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hfma_satK6__halfK6__halfK6__half">
+<span id="_CPPv310__hfma_satK6__halfK6__halfK6__half"></span><span id="_CPPv210__hfma_satK6__halfK6__halfK6__half"></span><span id="__hfma_sat____halfC.__halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga096f8ab8715837bf96457d1aedc513dc"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hfma_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">c</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv410__hfma_satK6__halfK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> fused multiply-add in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiply on inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, then performs a <code class="docutils literal notranslate"><span class="pre">half</span></code> add of the result with <code class="docutils literal notranslate"><span class="pre">c</span></code>, rounding the result once in round-to-nearest-even mode, and clamps the result to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>c</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of fused multiply-add operation on <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__hmulK6__halfK6__half">
+<span id="_CPPv36__hmulK6__halfK6__half"></span><span id="_CPPv26__hmulK6__halfK6__half"></span><span id="__hmul____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga864da184fc3f0cd0bf3860980857f18c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__hmulK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of multiplying <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__hmul_rnK6__halfK6__half">
+<span id="_CPPv39__hmul_rnK6__halfK6__half"></span><span id="_CPPv29__hmul_rnK6__halfK6__half"></span><span id="__hmul_rn____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gab8c8d28f1f326c0ea7bad63f3d8686e5"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv49__hmul_rnK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode. Prevents floating-point contractions of mul+add or sub into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of multiplying <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hmul_satK6__halfK6__half">
+<span id="_CPPv310__hmul_satK6__halfK6__half"></span><span id="_CPPv210__hmul_satK6__halfK6__half"></span><span id="__hmul_sat____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga4531b88bf14554b2585de7c716340b1c"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hmul_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv410__hmul_satK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication of inputs <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, in round-to-nearest-even mode, and clamps the result to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of multiplying <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__hnegK6__half">
+<span id="_CPPv36__hnegK6__half"></span><span id="_CPPv26__hnegK6__half"></span><span id="__hneg____halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga45cf5bd8bf8708d0bd5f890a20ce9cc1"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hneg</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__hnegK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Negates input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result. </p>
+<p>Negates input <code class="docutils literal notranslate"><span class="pre">half</span></code> number and returns the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>Negated input <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></li>
+<li><p>__hneg <span class="math notranslate nohighlight">\( (\pm 0)\)</span> returns <span class="math notranslate nohighlight">\( \mp 0 \)</span>.</p></li>
+<li><p>__hneg <span class="math notranslate nohighlight">\( (\pm \infty)\)</span> returns <span class="math notranslate nohighlight">\( \mp \infty \)</span>.</p></li>
+<li><p>__hneg(NaN) returns NaN. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv46__hsubK6__halfK6__half">
+<span id="_CPPv36__hsubK6__halfK6__half"></span><span id="_CPPv26__hsubK6__halfK6__half"></span><span id="__hsub____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv46__hsubK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">half</span></code> input <code class="docutils literal notranslate"><span class="pre">b</span></code> from input <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of subtracting <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49__hsub_rnK6__halfK6__half">
+<span id="_CPPv39__hsub_rnK6__halfK6__half"></span><span id="_CPPv29__hsub_rnK6__halfK6__half"></span><span id="__hsub_rn____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaee5cced4f89e19c66eaaff0dd25ae4b6"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub_rn</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv49__hsub_rnK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">half</span></code> input <code class="docutils literal notranslate"><span class="pre">b</span></code> from input <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode. Prevents floating-point contractions of mul+sub into fma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of subtracting <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410__hsub_satK6__halfK6__half">
+<span id="_CPPv310__hsub_satK6__halfK6__half"></span><span id="_CPPv210__hsub_satK6__halfK6__half"></span><span id="__hsub_sat____halfC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga3a59fd362b7ec9cdb83a216573dcdc29"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__hsub_sat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv410__hsub_satK6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction in round-to-nearest-even mode, with saturation to [0.0, 1.0]. </p>
+<p>Subtracts <code class="docutils literal notranslate"><span class="pre">half</span></code> input <code class="docutils literal notranslate"><span class="pre">b</span></code> from input <code class="docutils literal notranslate"><span class="pre">a</span></code> in round-to-nearest-even mode, and clamps the result to range [0.0, 1.0]. NaN results are flushed to +0.0. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>a</strong> – <strong>[in]</strong> - half. Is only being read. </p></li>
+<li><p><strong>b</strong> – <strong>[in]</strong> - half. Is only being read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The result of subtraction of <code class="docutils literal notranslate"><span class="pre">b</span></code> from <code class="docutils literal notranslate"><span class="pre">a</span></code>, with respect to saturation. </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49atomicAddPC6__halfK6__half">
+<span id="_CPPv39atomicAddPC6__halfK6__half"></span><span id="_CPPv29atomicAddPC6__halfK6__half"></span><span id="atomicAdd____halfPC.__halfC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaee40693f73e030c0f48a4f72b9e71222"></span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">atomicAdd</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">address</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv49atomicAddPC6__halfK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Adds <code class="docutils literal notranslate"><span class="pre">val</span></code> to the value stored at <code class="docutils literal notranslate"><span class="pre">address</span></code> in global or shared memory, and writes this value back to <code class="docutils literal notranslate"><span class="pre">address</span></code>. </p>
+<p>This operation is performed in one atomic operation.</p>
+<p>The location of <code class="docutils literal notranslate"><span class="pre">address</span></code> must be in global or shared memory. This operation has undefined behavior otherwise. This operation is only supported by devices of compute capability 7.x and higher.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more details for this function see the Atomic Functions section in the CUDA C++ Programming Guide. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>address</strong> – <strong>[in]</strong> - half*. An address in global or shared memory. </p></li>
+<li><p><strong>val</strong> – <strong>[in]</strong> - half. The value to be added.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>half</p>
+<ul class="simple">
+<li><p>The old value read from <code class="docutils literal notranslate"><span class="pre">address</span></code>.</p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mlRK6__halfRK6__half">
+<span id="_CPPv3mlRK6__halfRK6__half"></span><span id="_CPPv2mlRK6__halfRK6__half"></span><span id="mul-operator____halfCR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1gab9e8c164d19d5350e099f3e60517c6bb"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4mlRK6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> multiplication operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga864da184fc3f0cd0bf3860980857f18c"><span class="std std-ref">__hmul(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mLR6__halfRK6__half">
+<span id="_CPPv3mLR6__halfRK6__half"></span><span id="_CPPv2mLR6__halfRK6__half"></span><span id="mul-assign-operator____halfR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga449e8ee15b346d2b09274d05de01dda0"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4mLR6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with multiplication operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga864da184fc3f0cd0bf3860980857f18c"><span class="std std-ref">__hmul(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4plRK6__half">
+<span id="_CPPv3plRK6__half"></span><span id="_CPPv2plRK6__half"></span><span id="add-operator____halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga456239db6b1312d65308acbed8f3ec40"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4plRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Implements <code class="docutils literal notranslate"><span class="pre">half</span></code> unary plus operator, returns input value. </p>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4plRK6__halfRK6__half">
+<span id="_CPPv3plRK6__halfRK6__half"></span><span id="_CPPv2plRK6__halfRK6__half"></span><span id="add-operator____halfCR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga461b50f198811520825035145431a368"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4plRK6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> addition operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"><span class="std std-ref">__hadd(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4ppR6__half">
+<span id="_CPPv3ppR6__half"></span><span id="_CPPv2ppR6__half"></span><span id="inc-operator____halfR"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaa34c2440c571d0e41ccf968627c7f3af"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4ppR6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> prefix increment operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"><span class="std std-ref">__hadd(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4ppR6__halfKi">
+<span id="_CPPv3ppR6__halfKi"></span><span id="_CPPv2ppR6__halfKi"></span><span id="inc-operator____halfR.iC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaac625b6cdad81827d519626d1b68d42f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">++</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignored</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4ppR6__halfKi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> postfix increment operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"><span class="std std-ref">__hadd(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4pLR6__halfRK6__half">
+<span id="_CPPv3pLR6__halfRK6__half"></span><span id="_CPPv2pLR6__halfRK6__half"></span><span id="add-assign-operator____halfR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga6841e092282e9a4b82636d7000eae087"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4pLR6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with addition operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gaf76717e58f638dadcf5add1350a57fca"><span class="std std-ref">__hadd(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4miRK6__halfRK6__half">
+<span id="_CPPv3miRK6__halfRK6__half"></span><span id="_CPPv2miRK6__halfRK6__half"></span><span id="sub-operator____halfCR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga18d4f91b923dfeadfe67860d5ed6741a"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4miRK6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> subtraction operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"><span class="std std-ref">__hsub(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4miRK6__half">
+<span id="_CPPv3miRK6__half"></span><span id="_CPPv2miRK6__half"></span><span id="sub-operator____halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga7c173e56f50c807d31f42e88a530da0f"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4miRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Implements <code class="docutils literal notranslate"><span class="pre">half</span></code> unary minus operator. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga45cf5bd8bf8708d0bd5f890a20ce9cc1"><span class="std std-ref">__hneg(__half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mmR6__halfKi">
+<span id="_CPPv3mmR6__halfKi"></span><span id="_CPPv2mmR6__halfKi"></span><span id="dec-operator____halfR.iC"></span><span class="target" id="group__cuda__math____half__arithmetic_1gad3929c2a016cf6c59d3d5975f0f9bdc6"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignored</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4mmR6__halfKi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> postfix decrement operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"><span class="std std-ref">__hsub(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mmR6__half">
+<span id="_CPPv3mmR6__half"></span><span id="_CPPv2mmR6__half"></span><span id="dec-operator____halfR"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaeb306da8dd49634862909712623c1a39"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">--</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">h</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4mmR6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> prefix decrement operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"><span class="std std-ref">__hsub(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4mIR6__halfRK6__half">
+<span id="_CPPv3mIR6__halfRK6__half"></span><span id="_CPPv2mIR6__halfRK6__half"></span><span id="sub-assign-operator____halfR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1ga22acbd44ff93ed121ee26e46af8b07cb"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4mIR6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with subtraction operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1ga2aa8eb550a85a12a249ae9112ba31664"><span class="std std-ref">__hsub(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4dvRK6__halfRK6__half">
+<span id="_CPPv3dvRK6__halfRK6__half"></span><span id="_CPPv2dvRK6__halfRK6__half"></span><span id="div-operator____halfCR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1gaef924bf7928f119880c284718061d428"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">/</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4dvRK6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> division operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gab79c0dcc7022baf5108af6170cd876ae"><span class="std std-ref">__hdiv(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4dVR6__halfRK6__half">
+<span id="_CPPv3dVR6__halfRK6__half"></span><span id="_CPPv2dVR6__halfRK6__half"></span><span id="div-assign-operator____halfR.__halfCR"></span><span class="target" id="group__cuda__math____half__arithmetic_1gae8bda0d779da333cdc4310af6e355a3a"></span><span class="pre">__host__</span><span class="w"> </span><span class="pre">__device__</span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">/=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lh</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="struct____half.html#_CPPv46__half" title="__half"><span class="n"><span class="pre">__half</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rh</span></span><span class="sig-paren">)</span><a class="headerlink" href="group__CUDA__MATH____HALF__ARITHMETIC.html#_CPPv4dVR6__halfRK6__half" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Performs <code class="docutils literal notranslate"><span class="pre">half</span></code> compound assignment with division operation. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="group__CUDA__MATH____HALF__ARITHMETIC.html#group__cuda__math____half__arithmetic_1gab79c0dcc7022baf5108af6170cd876ae"><span class="std std-ref">__hdiv(__half, __half)</span></a> </p>
+</div>
+
+</dd>
+</dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

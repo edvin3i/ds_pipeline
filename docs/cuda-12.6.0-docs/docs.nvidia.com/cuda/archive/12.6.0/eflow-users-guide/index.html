@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="Details how CUDA and NVIDIA GPU accelerated cloud native applications can be deployed on EFLOW enabled Windows devices." name="description">
+<meta content="CUDA on EFLOW" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EFLOW User’s Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. EFLOW User’s Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">1.1. Introduction</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#setup-and-installation">1.2. Setup and Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#driver-installation">1.2.1. Driver Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#installation-of-eflow">1.2.2. Installation of EFLOW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#prerequisites-for-cuda-support">1.2.3. Prerequisites for CUDA Support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#connecting-to-the-eflow-vm">1.3. Connecting to the EFLOW VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#running-nvidia-smi">1.4. Running nvidia-smi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#running-gpu-accelerated-containers">1.5. Running GPU-accelerated Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#troubleshooting">1.6. Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">2. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">2.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">2.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">2.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">EFLOW User's Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>EFLOW User’s Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/eflow-users-guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">EFLOW User’s Guide</p>
+<p>Describes how CUDA and NVIDIA GPU accelerated cloud native applications can be deployed on EFLOW enabled Windows devices.</p>
+<section id="eflow-user-s-guide">
+<h1>
+<span class="section-number">1. </span>EFLOW User’s Guide<a class="headerlink" href="index.html#eflow-user-s-guide" title="Permalink to this headline"></a>
+</h1>
+<section id="introduction">
+<h2>
+<span class="section-number">1.1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h2>
+<p>Azure IoT Edge For Linux on Windows, otherwise referred to as EFLOW, is a Microsoft Technology for the deployment of Linux AI containers on Windows Edge devices. This document details how NVIDIA® CUDA® and NVIDIA GPU accelerated cloud native applications can be deployed on such EFLOW-enabled Windows devices.</p>
+<p>EFLOW has the following components:</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li><p>The Windows host OS with virtualization enabled</p></li>
+<li><p>A Linux virtual machine</p></li>
+<li><p>IoT Edge Runtime</p></li>
+<li><p>IoT Edge Modules, or otherwise any docker-compatible containerized application (runs on moby/containerd)</p></li>
+</ul>
+</div>
+</blockquote>
+<p>GPU-accelerated IoT Edge Modules support for GeForce RTX GPUs is based on the GPU Paravirtualization that was foundational to CUDA on Windows Subsystem on Linux. So CUDA and compute support for EFLOW comes by virtue of existing CUDA support on WSL 2.</p>
+<p>CUDA on WSL 2 boosted the productivity of CUDA developers by enabling them to build, develop, and containerize GPU accelerated NVIDIA AI/ML Linux applications on Windows desktop computers before deployment on Linux instances on the cloud. But EFLOW is aimed at deployment for AI at the edge. A containerized NVIDIA GPU accelerated Linux application that is either hosted on Azure IoT Hub or NGC registry can be seamlessly deployed at the edge such as a retail service center or hospitals. These edge deployments are typically IT managed devices entrenched with Windows devices for manageability but the advent of AI/ML use cases in this space seek the convergence for Linux and Windows applications not only to coexist but also seamlessly communicate on the same device.</p>
+<p>Because CUDA support on EFLOW is predominantly based on WSL 2, refer to the Software Support, Limitations and Known Issues sections in the CUDA on WSL 2 document to stay abreast of the scope of NVIDIA software support available on EFLOW as well. Any additional prerequisites for EFLOW are covered in this document.</p>
+<p>The following sections details installation of EFLOW, prerequisites for out-of-the-box CUDA support, followed by sample instructions for running an existing GPU accelerated container on EFLOW.</p>
+</section>
+<section id="setup-and-installation">
+<h2>
+<span class="section-number">1.2. </span>Setup and Installation<a class="headerlink" href="index.html#setup-and-installation" title="Permalink to this headline"></a>
+</h2>
+<p>Follow the Microsoft EFLOW documentation page for various installation options suiting your needs:</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li><p>For up-to-date installation instructions, visit <a class="reference external" href="http://aka.ms/AzEFLOW-install">http://aka.ms/AzEFLOW-install</a>.</p></li>
+<li><p>For details on the EFLOW PowerShell API, visit <a class="reference external" href="http://aka.ms/AzEFLOW-PowerShell">http://aka.ms/AzEFLOW-PowerShell</a>.</p></li>
+</ul>
+</div>
+</blockquote>
+<p>For quick setup, we have included the steps for installation through Powershell in the following sections.</p>
+<section id="driver-installation">
+<h3>
+<span class="section-number">1.2.1. </span>Driver Installation<a class="headerlink" href="index.html#driver-installation" title="Permalink to this headline"></a>
+</h3>
+<p>On the target Windows device, first install an NVIDIA GeForce or NVIDIA RTX GPU Windows driver that is compatible with the NVIDIA GPU on your device. EFLOW VM supports deploying containerized CUDA applications and hence only the driver must be installed on the host system. CUDA Toolkit cannot be installed directly within EFLOW.</p>
+<p>NVIDIA-provided CUDA containers from the NGC registry can be deployed directly. If you are preparing a CUDA docker container, ensure that the necessary toolchains are installed.</p>
+<p>Because EFLOW is based on WSL, the restrictions of the software stack for a hybrid Linux on Windows environment apply, and not all of the NVIDIA software stack is supported. Refer to the user’s guide of the SDK that you are interested in to determine support.</p>
+</section>
+<section id="installation-of-eflow">
+<h3>
+<span class="section-number">1.2.2. </span>Installation of EFLOW<a class="headerlink" href="index.html#installation-of-eflow" title="Permalink to this headline"></a>
+</h3>
+<p>In an elevated powershell prompt perform the following:</p>
+<ol class="arabic">
+<li>
+<p><strong>Enable HyperV.</strong>
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>Path          :
+Online        : True
+RestartNeeded : False
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Set execution policy and verify.</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>Set-ExecutionPolicy -ExecutionPolicy AllSigned -Force
+
+Get-ExecutionPolicy
+AllSigned
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Download and install EFLOW.</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>$msiPath = $([io.Path]::Combine($env:TEMP, 'AzureIoTEdge.msi'))
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest "https://aka.ms/AzEFLOWMSI_1_4_LTS_X64" -OutFile $msiPath
+
+Start-Process -Wait msiexec -ArgumentList "/i","$([io.Path]::Combine($env:TEMP, 'AzureIoTEdge.msi'))","/qn"
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Determine host OS configuration.</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>&gt;Get-EflowHostConfiguration | format-list
+
+FreePhysicalMemoryInMB    : 35502
+NumberOfLogicalProcessors : {64, 64}
+DiskInfo                  : @{Drive=C:; FreeSizeInGB=798}
+GpuInfo                   : @{Count=1; SupportedPassthroughTypes=System.Object[]; Name=NVIDIA RTX A2000}
+</pre></div>
+</div>
+</li>
+<li>
+<p><strong>Deploy EFLOW.</strong></p>
+<p>Deploying EFLOW will set up the EFLOW runtime and virtual machine.</p>
+<p>By default, EFLOW only reserves 1024MB of system memory for use for the workloads and that is insufficient to support GPU accelerated configurations. For GPU acceleration, you will have to reserve system memory explicitly at EFLOW deployment; otherwise there will not be sufficient system memory for your containerized applications to run. In order to prevent out of memory errors, reserve memory explicitly as required; see example below. (Refer to command line argument options available for deploying EFLOW in the official documentation for more details).</p>
+</li>
+</ol>
+</section>
+<section id="prerequisites-for-cuda-support">
+<h3>
+<span class="section-number">1.2.3. </span>Prerequisites for CUDA Support<a class="headerlink" href="index.html#prerequisites-for-cuda-support" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>x86 64-bit support only.</p></li>
+<li><p>GeForce RTX GPU products.</p></li>
+<li><p>Windows 10/11 (Pro, Enterprise, IoT Enterprise) - Windows 10 users must use the November 2021 update build 19044.1620 or higher.</p></li>
+<li><p>Deploy-Eflow only allocates 1024 MB memory by default, set it to a larger value to prevent OOM issue, check MS documents for more details at <a class="reference external" href="https://learn.microsoft.com/en-us/azure/iot-edge/reference-iot-edge-for-linux-on-windows-functions#deploy-eflow">https://learn.microsoft.com/en-us/azure/iot-edge/reference-iot-edge-for-linux-on-windows-functions#deploy-eflow</a>.</p></li>
+</ul>
+<p>Other prerequisites specific to the platform also apply. Refer to <a class="reference external" href="https://learn.microsoft.com/en-us/azure/iot-edge/gpu-acceleration?view=iotedge-1.4">https://learn.microsoft.com/en-us/azure/iot-edge/gpu-acceleration?view=iotedge-1.4</a>.</p>
+</section>
+</section>
+<section id="connecting-to-the-eflow-vm">
+<h2>
+<span class="section-number">1.3. </span>Connecting to the EFLOW VM<a class="headerlink" href="index.html#connecting-to-the-eflow-vm" title="Permalink to this headline"></a>
+</h2>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>Get-EflowVmAddr
+
+[10/13/2022 11:41:16] Querying IP and MAC addresses from virtual machine (IPP1-1490-EFLOW)
+
+ - Virtual machine MAC: 00:15:5d:b2:40:c7
+ - Virtual machine IP : 172.24.14.242 retrieved directly from virtual machine
+00:15:5d:b2:40:c7
+172.24.14.242
+
+Connect-EflowVm
+</pre></div>
+</div>
+</section>
+<section id="running-nvidia-smi">
+<h2>
+<span class="section-number">1.4. </span>Running nvidia-smi<a class="headerlink" href="index.html#running-nvidia-smi" title="Permalink to this headline"></a>
+</h2>
+<a class="reference internal image-reference" href="_images/nvidia-smi.png"><img alt="nvidia-smi" src="_images/nvidia-smi.png" style="width: 600px;"></a>
+</section>
+<section id="running-gpu-accelerated-containers">
+<h2>
+<span class="section-number">1.5. </span>Running GPU-accelerated Containers<a class="headerlink" href="index.html#running-gpu-accelerated-containers" title="Permalink to this headline"></a>
+</h2>
+<p>Let us run an N-body simulation containerized CUDA sample from NGC, but this time inside EFLOW.</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>iotedge-user@IPP1-1490-EFLOW [ ~ ]$ sudo docker run --gpus all --env NVIDIA_DISABLE_REQUIRE=1 nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
+
+Unable to find image 'nvcr.io/nvidia/k8s/cuda-sample:nbody' locally
+nbody: Pulling from nvidia/k8s/cuda-sample
+22c5ef60a68e: Pull complete
+1939e4248814: Pull complete
+548afb82c856: Pull complete
+a424d45fd86f: Pull complete
+207b64ab7ce6: Pull complete
+f65423f1b49b: Pull complete
+2b60900a3ea5: Pull complete
+e9bff09d04df: Pull complete
+edc14edf1b04: Pull complete
+1f37f461c076: Pull complete
+9026fb14bf88: Pull complete
+Digest: sha256:59261e419d6d48a772aad5bb213f9f1588fcdb042b115ceb7166c89a51f03363
+Status: Downloaded newer image for nvcr.io/nvidia/k8s/cuda-sample:nbody
+Run "nbody -benchmark [-numbodies=&lt;numBodies&gt;]" to measure performance.
+        -fullscreen       (run n-body simulation in fullscreen mode)
+        -fp64             (use double precision floating point values for simulation)
+        -hostmem          (stores simulation data in host memory)
+        -benchmark        (run benchmark to measure performance)
+        -numbodies=&lt;N&gt;    (number of bodies (&gt;= 1) to run in simulation)
+        -device=&lt;d&gt;       (where d=0,1,2.... for the CUDA device to use)
+        -numdevices=&lt;i&gt;   (where i=(number of CUDA devices &gt; 0) to use for simulation)
+        -compare          (compares simulation results running once on the default GPU and once on the CPU)
+        -cpu              (run n-body simulation on the CPU)
+        -tipsy=&lt;file.bin&gt; (load a tipsy model file for simulation)
+
+NOTE: The CUDA Samples are not meant for performance measurements. Results may vary when GPU Boost is enabled.
+
+&gt; Windowed mode
+&gt; Simulation data stored in video memory
+&gt; Single precision floating point simulation
+&gt; 1 Devices used for simulation
+GPU Device 0: "Ampere" with compute capability 8.6
+
+&gt; Compute 8.6 CUDA device: [NVIDIA RTX A2000]
+26624 bodies, total time for 10 iterations: 31.984 ms
+= 221.625 billion interactions per second
+= 4432.503 single-precision GFLOP/s at 20 flops per interaction
+iotedge-user@IPP1-1490-EFLOW [ ~ ]$
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>
+<span class="section-number">1.6. </span>Troubleshooting<a class="headerlink" href="index.html#troubleshooting" title="Permalink to this headline"></a>
+</h2>
+<p><strong>nvidia-container-cli: requirement error: unsatisfied condition: cuda&gt;=11.7”, need add “–env NVIDIA_DISABLE_REQUIRE=1”</strong></p>
+<p>The CUDA version cannot be determined correctly from the driver on the host when launching the container.</p>
+<p><strong>Out of memory</strong></p>
+<p>In case of out of memory errors, increase the system memory reserved by EFLOW. Refer to <a class="reference external" href="https://learn.microsoft.com/en-us/azure/iot-edge/reference-iot-edge-for-linux-on-windows-functions#deploy-eflow">https://learn.microsoft.com/en-us/azure/iot-edge/reference-iot-edge-for-linux-on-windows-functions#deploy-eflow</a>.</p>
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">2. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">2.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">2.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">2.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2022-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

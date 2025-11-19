@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The reference guide for the CUDA Demo Suite." name="description">
+<meta content="CUDA Demos, CUDA deviceQuery, CUDA randomFog, CUDA busGrind, CUDA oceanFFT" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA Demo Suite</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="index.html#">1. Introduction</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#demos">2. Demos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#devicequery">2.1. deviceQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#vectoradd">2.2. vectorAdd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#bandwidthtest">2.3. bandwidthTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#busgrind">2.4. busGrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nbody">2.5. nbody</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#oceanfft">2.6. oceanFFT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#randomfog">2.7. randomFog</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">3. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">3.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">3.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">CUDA Demo Suite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Introduction</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/Demo_Suite.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">CUDA Demo Suite</p>
+<p>The reference guide for the CUDA Demo Suite.</p>
+<section id="introduction">
+<h1>
+<span class="section-number">1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h1>
+<p>The CUDA Demo Suite contains pre-built applications which use CUDA. These applications demonstrate the capabilities and details of NVIDIA GPUs.</p>
+</section>
+<section id="demos">
+<h1>
+<span class="section-number">2. </span>Demos<a class="headerlink" href="index.html#demos" title="Permalink to this headline"></a>
+</h1>
+<p>Below are the demos within the demo suite.</p>
+<section id="devicequery">
+<h2>
+<span class="section-number">2.1. </span>deviceQuery<a class="headerlink" href="index.html#devicequery" title="Permalink to this headline"></a>
+</h2>
+<p>This application enumerates the properties of the CUDA devices present in the system and displays them in a human readable format.</p>
+</section>
+<section id="vectoradd">
+<h2>
+<span class="section-number">2.2. </span>vectorAdd<a class="headerlink" href="index.html#vectoradd" title="Permalink to this headline"></a>
+</h2>
+<p>This application is a very basic demo that implements element by element vector addition.</p>
+</section>
+<section id="bandwidthtest">
+<h2>
+<span class="section-number">2.3. </span>bandwidthTest<a class="headerlink" href="index.html#bandwidthtest" title="Permalink to this headline"></a>
+</h2>
+<p>This application provides the memcopy bandwidth of the GPU and memcpy bandwidth across PCI‑e. This application is capable of measuring device to device copy bandwidth, host to device copy bandwidth for pageable and page-locked memory, and device to host copy bandwidth for pageable and page-locked memory.</p>
+<p><strong>Arguments:</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>Usage:  bandwidthTest [OPTION]...
+Test the bandwidth for device to host, host to device, and device to device transfers
+
+Example:  measure the bandwidth of device to host pinned memory copies in the range 1024 Bytes to 102400 Bytes in 1024 Byte increments
+./bandwidthTest --memory=pinned --mode=range --start=1024 --end=102400 --increment=1024 --dtoh
+</pre></div>
+</div>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 61%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>–help</p></td>
+<td><p>Display this help menu</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>–csv</p></td>
+<td><p>Print results as a CSV</p></td>
+</tr>
+<tr class="row-even">
+<td>
+<p>–device=[deviceno]</p>
+<p>all</p>
+<p>0,1,2,…,n</p>
+</td>
+<td>
+<p>Specify the device device to be used</p>
+<p>compute cumulative bandwidth on all the devices</p>
+<p>Specify any particular device to be used</p>
+</td>
+</tr>
+<tr class="row-odd">
+<td>
+<p>–memory=[MEMMODE]</p>
+<p>pageable</p>
+<p>pinned</p>
+</td>
+<td>
+<p>Specify which memory mode to use</p>
+<p>pageable memory</p>
+<p>non-pageable system memory</p>
+</td>
+</tr>
+<tr class="row-even">
+<td>
+<p>–mode=[MODE]</p>
+<p>quick</p>
+<p>range</p>
+<p>shmoo</p>
+</td>
+<td>
+<p>Specify the mode to use</p>
+<p>performs a quick measurement</p>
+<p>measures a user-specified range of values</p>
+<p>performs an intense shmoo of a large range of values</p>
+</td>
+</tr>
+<tr class="row-odd">
+<td><p>–htod</p></td>
+<td><p>Measure host to device transfers</p></td>
+</tr>
+<tr class="row-even">
+<td><p>–dtoh</p></td>
+<td><p>Measure device to host transfers</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>–dtod</p></td>
+<td><p>Measure device to device transfers</p></td>
+</tr>
+<tr class="row-even">
+<td><p>–wc</p></td>
+<td><p>Allocate pinned memory as write-combined</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>–cputiming</p></td>
+<td><p>Force CPU-based timing always</p></td>
+</tr>
+<tr class="row-even">
+<td>
+<p>Range Mode options</p>
+<p>–start=[SIZE]</p>
+<p>–end=[SIZE]</p>
+<p>–increment=[SIZE]]</p>
+</td>
+<td>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<p>Starting transfer size in bytes</p>
+<p>Ending transfer size in bytes</p>
+<p>Increment size in bytes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="busgrind">
+<h2>
+<span class="section-number">2.4. </span>busGrind<a class="headerlink" href="index.html#busgrind" title="Permalink to this headline"></a>
+</h2>
+<p>Provides detailed statistics about peer-to-peer memory bandwidth amongst GPUs present in the system as well as pinned, unpinned memory bandwidth.</p>
+<p><strong>Arguments:</strong></p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>-h</p></td>
+<td><p>print usage</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-p [0,1]</p></td>
+<td><p>enable or disable pinned memory tests (default on)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-u [0,1]</p></td>
+<td><p>enable or disable unpinned memory tests (default off)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-e [0,1]</p></td>
+<td><p>enable or disable p2p enabled memory tests (default off)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-d [0,1]</p></td>
+<td><p>enable or disable p2p disabled memory tests (default off)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-a</p></td>
+<td><p>enable all tests</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-n</p></td>
+<td><p>disable all tests</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>Order of parameters matters.
+Examples:
+    ./BusGrind -n -p 1 -e 1   Run all pinned and P2P tests
+    ./BusGrind -n -u 1        Runs only unpinned tests
+    ./BusGrind -a             Runs all tests (pinned, unpinned, p2p enabled, p2p disabled)
+</pre></div>
+</div>
+</section>
+<section id="nbody">
+<h2>
+<span class="section-number">2.5. </span>nbody<a class="headerlink" href="index.html#nbody" title="Permalink to this headline"></a>
+</h2>
+<p>This demo does an efficient all-pairs simulation of a gravitational n-body simulation in CUDA. It scales the n-body simulation across multiple GPUs in a single PC if available. Adding “-numbodies=num_of_bodies” to the command line will allow users to set # of bodies for simulation. Adding “-numdevices=N” to the command line option will cause the sample to use N devices (if available) for simulation. In this mode, the position and velocity data for all bodies are read from system memory using “zero copy” rather than from device memory. For a small number of devices (4 or fewer) and a large enough number of bodies, bandwidth is not a bottleneck so we can achieve strong scaling across these devices.</p>
+<p><strong>Arguments:</strong></p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>-fullscreen</p></td>
+<td><p>run n-body simulation in fullscreen mode</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-fp64</p></td>
+<td><p>use double precision floating point values for simulation</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-hostmem</p></td>
+<td><p>stores simulation data in host memory</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-benchmark</p></td>
+<td><p>run benchmark to measure performance</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-numbodies=N</p></td>
+<td><p>number of bodies (&gt;= 1) to run in simulation</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-device=d</p></td>
+<td><p>where d=0,1,2…. for the CUDA device to use</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-numdevices=i</p></td>
+<td><p>where i=(number of CUDA devices &gt; 0) to use for simulation</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-compare</p></td>
+<td><p>compares simulation results running once on the default GPU and once on the CPU</p></td>
+</tr>
+<tr class="row-even">
+<td><p>-cpu</p></td>
+<td><p>run n-body simulation on the CPU</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>-tipsy=file.bin</p></td>
+<td><p>load a tipsy model file for simulation</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="oceanfft">
+<h2>
+<span class="section-number">2.6. </span>oceanFFT<a class="headerlink" href="index.html#oceanfft" title="Permalink to this headline"></a>
+</h2>
+<p>This is a graphical demo which simulates an ocean height field using the CUFFT library, and renders the result using OpenGL.</p>
+<p><strong>The following keys can be used to control the output:</strong></p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Keys</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>w</p></td>
+<td><p>Toggle wireframe</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="randomfog">
+<h2>
+<span class="section-number">2.7. </span>randomFog<a class="headerlink" href="index.html#randomfog" title="Permalink to this headline"></a>
+</h2>
+<p>This is a graphical demo which does pseudo- and quasi- random numbers visualization produced by CURAND. On creation, randomFog generates 200,000 random coordinates in spherical coordinate space (radius, angle rho, angle theta) with curand’s XORWOW algorithm. The coordinates are normalized for a uniform distribution through the sphere. The X axis is drawn with blue in the negative direction and yellow positive. The Y axis is drawn with green in the negative direction and magenta positive. The Z axis is drawn with red in the negative direction and cyan positive.</p>
+<p><strong>The following keys can be used to control the output:</strong></p>
+<table class="table-no-stripes docutils align-default">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Keys</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>s</p></td>
+<td><p>Generate new set of random nos and display as spherical coordinates (Sphere)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>e</p></td>
+<td><p>Generate new set of random nos and display on a spherical surface (shEll)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>b</p></td>
+<td><p>Generate new set of random nos and display as cartesian coordinates (cuBe/Box)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>p</p></td>
+<td><p>Generate new set of random nos and display on a cartesian plane (Plane)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>i, l, j</p></td>
+<td><p>Rotate the negative Z-axis up, right, down and left respectively</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>a</p></td>
+<td><p>Toggle auto-rotation</p></td>
+</tr>
+<tr class="row-even">
+<td><p>t</p></td>
+<td><p>Toggle 10x zoom</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>z</p></td>
+<td><p>Toggle axes display</p></td>
+</tr>
+<tr class="row-even">
+<td><p>x</p></td>
+<td><p>Select XORWOW generator (default)</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>c</p></td>
+<td><p>Select Sobol’ generator</p></td>
+</tr>
+<tr class="row-even">
+<td><p>v</p></td>
+<td><p>Select scrambled Sobol’ generator</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>r</p></td>
+<td><p>Reset XORWOW (i.e. reset to initial seed) and regenerate</p></td>
+</tr>
+<tr class="row-even">
+<td><p>]</p></td>
+<td><p>Increment the number of Sobol’ dimensions and regenerate</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>[</p></td>
+<td><p>Reset the number of Sobol’ dimensions to 1 and regenerate</p></td>
+</tr>
+<tr class="row-even">
+<td>
+<ul class="simple">
+<li>
+</ul>
+</td>
+<td><p>Increment the number of displayed points by 8,000 (max. 200,000)</p></td>
+</tr>
+<tr class="row-odd">
+<td>
+<ul class="simple">
+<li>
+</ul>
+</td>
+<td><p>Decrement the number of displayed points by 8,000 (down to min. 8000)</p></td>
+</tr>
+<tr class="row-even">
+<td><p>q/[ESC]</p></td>
+<td><p>Quit the application.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2016-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

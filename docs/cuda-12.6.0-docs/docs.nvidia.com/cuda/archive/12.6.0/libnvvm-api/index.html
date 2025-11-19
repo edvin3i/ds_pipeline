@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="libNVVM API" name="description">
+<meta content="libnvvm" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>libNVVM API v4.0</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. libNVVM API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">1.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#thread-safety">1.2. Thread Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module">1.3. Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#error-handling">2. Error Handling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#enumerations">2.1. Enumerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#functions">2.2. Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#general-information-query">3. General Information Query</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">3.1. Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#compilation">4. Compilation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">4.1. Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#typedefs">4.2. Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">5. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">5.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">5.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">5.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">libNVVM API v4.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>libNVVM API</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">libNVVM API</p>
+<p>libNVVM API v4.0 Reference Manual</p>
+<section id="libnvvm-api">
+<h1>
+<span class="section-number">1. </span>libNVVM API<a class="headerlink" href="index.html#libnvvm-api" title="Permalink to this headline"></a>
+</h1>
+<section id="introduction">
+<h2>
+<span class="section-number">1.1. </span>Introduction<a class="headerlink" href="index.html#introduction" title="Permalink to this headline"></a>
+</h2>
+<p>libNVVM API provides an interface for generating PTX code from both binary
+and text NVVM IR inputs. Compatible input can be generated by tools and
+libraries that produce LLVM 7.0 IR and bitcode. Support for reading the text
+NVVM IR representation is deprecated and may be removed in a later release.</p>
+</section>
+<section id="thread-safety">
+<h2>
+<span class="section-number">1.2. </span>Thread Safety<a class="headerlink" href="index.html#thread-safety" title="Permalink to this headline"></a>
+</h2>
+<p>libNVVM API provides a thread-safe interface to libNVVM. Clients can take
+advantage of improved compilation speeds by spawning multiple compilation
+threads concurrently.</p>
+</section>
+<section id="module">
+<h2>
+<span class="section-number">1.3. </span>Module<a class="headerlink" href="index.html#module" title="Permalink to this headline"></a>
+</h2>
+<p>This chapter presents the API of the libNVVM library.
+Here is a list of all modules:</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#error-handling">Error Handling</a></p></li>
+<li><p><a class="reference internal" href="index.html#general-information-query">General Information Query</a></p></li>
+<li><p><a class="reference internal" href="index.html#compilation">Compilation</a></p></li>
+</ul>
+</div>
+</blockquote>
+</section>
+</section>
+<section id="error-handling">
+<h1>
+<span class="section-number">2. </span>Error Handling<a class="headerlink" href="index.html#error-handling" title="Permalink to this headline"></a>
+</h1>
+<p class="rubric-h2 rubric" id="group__error">Enumerations</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">nvvmResult</span></a></dt>
+<dd>
+<p>NVVM API call result code.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">const char *</span> <a class="reference internal" href="index.html#group__error_1ga93f81ec6a9f957b30524dba42c9ce9d0"><span class="std std-ref">nvvmGetErrorString</span></a>(nvvmResult result)</dt>
+<dd>
+<p>Get the message string for the given <a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">nvvmResult</span></a> code.</p>
+</dd>
+</dl>
+</div>
+<section id="enumerations">
+<h2>
+<span class="section-number">2.1. </span>Enumerations<a class="headerlink" href="index.html#enumerations" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv410nvvmResult">
+<span id="_CPPv310nvvmResult"></span><span id="_CPPv210nvvmResult"></span><span class="target" id="group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmResult</span></span></span><a class="headerlink" href="index.html#_CPPv410nvvmResult" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>NVVM API call result code. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult12NVVM_SUCCESSE">
+<span id="_CPPv3N10nvvmResult12NVVM_SUCCESSE"></span><span id="_CPPv2N10nvvmResult12NVVM_SUCCESSE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1aa08240c4152a9453a80ff4060aabaf28"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_SUCCESS</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult12NVVM_SUCCESSE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult24NVVM_ERROR_OUT_OF_MEMORYE">
+<span id="_CPPv3N10nvvmResult24NVVM_ERROR_OUT_OF_MEMORYE"></span><span id="_CPPv2N10nvvmResult24NVVM_ERROR_OUT_OF_MEMORYE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a3df553a148137fe43c2fe0b89b4730ca"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_OUT_OF_MEMORY</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult24NVVM_ERROR_OUT_OF_MEMORYE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult35NVVM_ERROR_PROGRAM_CREATION_FAILUREE">
+<span id="_CPPv3N10nvvmResult35NVVM_ERROR_PROGRAM_CREATION_FAILUREE"></span><span id="_CPPv2N10nvvmResult35NVVM_ERROR_PROGRAM_CREATION_FAILUREE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a9d94bc45eb66ec2e2812726b403919b3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_PROGRAM_CREATION_FAILURE</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult35NVVM_ERROR_PROGRAM_CREATION_FAILUREE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult30NVVM_ERROR_IR_VERSION_MISMATCHE">
+<span id="_CPPv3N10nvvmResult30NVVM_ERROR_IR_VERSION_MISMATCHE"></span><span id="_CPPv2N10nvvmResult30NVVM_ERROR_IR_VERSION_MISMATCHE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1ae584fb64c9088d6f2ae31b1bed44febe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_IR_VERSION_MISMATCH</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult30NVVM_ERROR_IR_VERSION_MISMATCHE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult24NVVM_ERROR_INVALID_INPUTE">
+<span id="_CPPv3N10nvvmResult24NVVM_ERROR_INVALID_INPUTE"></span><span id="_CPPv2N10nvvmResult24NVVM_ERROR_INVALID_INPUTE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a6c0b2d0a1dbfe37e946108ab6e9007a1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_INVALID_INPUT</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult24NVVM_ERROR_INVALID_INPUTE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult26NVVM_ERROR_INVALID_PROGRAME">
+<span id="_CPPv3N10nvvmResult26NVVM_ERROR_INVALID_PROGRAME"></span><span id="_CPPv2N10nvvmResult26NVVM_ERROR_INVALID_PROGRAME"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a64700ffdd444e67437a9ccf16f40456e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_INVALID_PROGRAM</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult26NVVM_ERROR_INVALID_PROGRAME" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult21NVVM_ERROR_INVALID_IRE">
+<span id="_CPPv3N10nvvmResult21NVVM_ERROR_INVALID_IRE"></span><span id="_CPPv2N10nvvmResult21NVVM_ERROR_INVALID_IRE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a69977d864f9024841fcc7d7efb9b09ac"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_INVALID_IR</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult21NVVM_ERROR_INVALID_IRE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult25NVVM_ERROR_INVALID_OPTIONE">
+<span id="_CPPv3N10nvvmResult25NVVM_ERROR_INVALID_OPTIONE"></span><span id="_CPPv2N10nvvmResult25NVVM_ERROR_INVALID_OPTIONE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a001ec38497978d819819668deb97a2b7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_INVALID_OPTION</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult25NVVM_ERROR_INVALID_OPTIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult31NVVM_ERROR_NO_MODULE_IN_PROGRAME">
+<span id="_CPPv3N10nvvmResult31NVVM_ERROR_NO_MODULE_IN_PROGRAME"></span><span id="_CPPv2N10nvvmResult31NVVM_ERROR_NO_MODULE_IN_PROGRAME"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1a21664586b797b2162f56d98006a0b69f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_NO_MODULE_IN_PROGRAM</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult31NVVM_ERROR_NO_MODULE_IN_PROGRAME" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10nvvmResult22NVVM_ERROR_COMPILATIONE">
+<span id="_CPPv3N10nvvmResult22NVVM_ERROR_COMPILATIONE"></span><span id="_CPPv2N10nvvmResult22NVVM_ERROR_COMPILATIONE"></span><span class="target" id="group__error_1ggaf2c5dc3a2ff02166a0c39f4bf4ece2a1ad4829509989b396488a28478b5bdbea6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NVVM_ERROR_COMPILATION</span></span></span><a class="headerlink" href="index.html#_CPPv4N10nvvmResult22NVVM_ERROR_COMPILATIONE" title="Permalink to this definition"></a><br>
+</dt>
+<dd></dd>
+</dl>
+
+</dd>
+</dl>
+
+</section>
+<section id="functions">
+<h2>
+<span class="section-number">2.2. </span>Functions<a class="headerlink" href="index.html#functions" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418nvvmGetErrorString10nvvmResult">
+<span id="_CPPv318nvvmGetErrorString10nvvmResult"></span><span id="_CPPv218nvvmGetErrorString10nvvmResult"></span><span id="nvvmGetErrorString__nvvmResult"></span><span class="target" id="group__error_1ga93f81ec6a9f957b30524dba42c9ce9d0"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nvvmGetErrorString</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">result</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv418nvvmGetErrorString10nvvmResult" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the message string for the given <a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">nvvmResult</span></a> code. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>result</strong> – <strong>[in]</strong> NVVM API result code. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p>Message string for the given <a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">nvvmResult</span></a> code. </p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="general-information-query">
+<h1>
+<span class="section-number">3. </span>General Information Query<a class="headerlink" href="index.html#general-information-query" title="Permalink to this headline"></a>
+</h1>
+<p class="rubric-h2 rubric" id="group__query">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__query_1ga0894677934db095b3c40d4f8e2578cc5"><span class="std std-ref">nvvmIRVersion</span></a>(int *majorIR, int *minorIR, int *majorDbg, int *minorDbg)</dt>
+<dd>
+<p>Get the NVVM IR version.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__query_1gacdd062f26078d20ded68f1017e999246"><span class="std std-ref">nvvmVersion</span></a>(int *major, int *minor)</dt>
+<dd>
+<p>Get the NVVM version.</p>
+</dd>
+</dl>
+</div>
+<section id="id1">
+<h2>
+<span class="section-number">3.1. </span>Functions<a class="headerlink" href="index.html#id1" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413nvvmIRVersionPiPiPiPi">
+<span id="_CPPv313nvvmIRVersionPiPiPiPi"></span><span id="_CPPv213nvvmIRVersionPiPiPiPi"></span><span id="nvvmIRVersion__iP.iP.iP.iP"></span><span class="target" id="group__query_1ga0894677934db095b3c40d4f8e2578cc5"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmIRVersion</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">majorIR</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minorIR</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">majorDbg</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minorDbg</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv413nvvmIRVersionPiPiPiPi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the NVVM IR version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>majorIR</strong> – <strong>[out]</strong> NVVM IR major version number. </p></li>
+<li><p><strong>minorIR</strong> – <strong>[out]</strong> NVVM IR minor version number. </p></li>
+<li><p><strong>majorDbg</strong> – <strong>[out]</strong> NVVM IR debug metadata major version number. </p></li>
+<li><p><strong>minorDbg</strong> – <strong>[out]</strong> NVVM IR debug metadata minor version number. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411nvvmVersionPiPi">
+<span id="_CPPv311nvvmVersionPiPi"></span><span id="_CPPv211nvvmVersionPiPi"></span><span id="nvvmVersion__iP.iP"></span><span class="target" id="group__query_1gacdd062f26078d20ded68f1017e999246"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmVersion</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">major</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">minor</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv411nvvmVersionPiPi" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the NVVM version. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>major</strong> – <strong>[out]</strong> NVVM major version number. </p></li>
+<li><p><strong>minor</strong> – <strong>[out]</strong> NVVM minor version number. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="compilation">
+<h1>
+<span class="section-number">4. </span>Compilation<a class="headerlink" href="index.html#compilation" title="Permalink to this headline"></a>
+</h1>
+<p class="rubric-h2 rubric" id="group__compilation">Functions</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga0c22d2b9be033c165bc37b16f3ed75c6"><span class="std std-ref">nvvmAddModuleToProgram</span></a>(nvvmProgram prog, const char *buffer, size_t size, const char *name)</dt>
+<dd>
+<p>Add a module level NVVM IR to a program.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga76ac1e23f5d0e2240e78be0e63450346"><span class="std std-ref">nvvmCompileProgram</span></a>(nvvmProgram prog, int numOptions, const char **options)</dt>
+<dd>
+<p>Compile the NVVM program.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga46a0ab04a063cba28bfbb41a1939e3f4"><span class="std std-ref">nvvmCreateProgram</span></a>(nvvmProgram *prog)</dt>
+<dd>
+<p>Create a program, and set the value of its handle to <code class="docutils literal notranslate"><span class="pre">*prog</span></code> .</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1gafba94cab1224c0152841b80690d366aa"><span class="std std-ref">nvvmDestroyProgram</span></a>(nvvmProgram *prog)</dt>
+<dd>
+<p>Destroy a program.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1gaff56fc783d0c4fb0759bfaa00f414072"><span class="std std-ref">nvvmGetCompiledResult</span></a>(nvvmProgram prog, char *buffer)</dt>
+<dd>
+<p>Get the compiled result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga837cfc3c852c82ecef14cda6c6702c9f"><span class="std std-ref">nvvmGetCompiledResultSize</span></a>(nvvmProgram prog, size_t *bufferSizeRet)</dt>
+<dd>
+<p>Get the size of the compiled result.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga2691e391b700f29457b7362cf5603b76"><span class="std std-ref">nvvmGetProgramLog</span></a>(nvvmProgram prog, char *buffer)</dt>
+<dd>
+<p>Get the Compiler/Verifier Message.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga74c5e0f33b20c1168ed79669a72a7467"><span class="std std-ref">nvvmGetProgramLogSize</span></a>(nvvmProgram prog, size_t *bufferSizeRet)</dt>
+<dd>
+<p>Get the Size of Compiler/Verifier Message.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga5356ce5063db232cd4330b666c62219b"><span class="std std-ref">nvvmLazyAddModuleToProgram</span></a>(nvvmProgram prog, const char *buffer, size_t size, const char *name)</dt>
+<dd>
+<p>Add a module level NVVM IR to a program.</p>
+</dd>
+<dt>
+<span class="tag-as-table-cell">nvvmResult</span> <a class="reference internal" href="index.html#group__compilation_1ga77a96a407f9c6785f47ec1ea13f9cf9f"><span class="std std-ref">nvvmVerifyProgram</span></a>(nvvmProgram prog, int numOptions, const char **options)</dt>
+<dd>
+<p>Verify the NVVM program.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric-h2 rubric">Typedefs</p>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="index.html#group__compilation_1gad4334e62c0b6ddd8d32ef3da5c204162"><span class="std std-ref">nvvmProgram</span></a></dt>
+<dd>
+<p>NVVM Program.</p>
+</dd>
+</dl>
+</div>
+<section id="id2">
+<h2>
+<span class="section-number">4.1. </span>Functions<a class="headerlink" href="index.html#id2" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422nvvmAddModuleToProgram11nvvmProgramPKc6size_tPKc">
+<span id="_CPPv322nvvmAddModuleToProgram11nvvmProgramPKc6size_tPKc"></span><span id="_CPPv222nvvmAddModuleToProgram11nvvmProgramPKc6size_tPKc"></span><span id="nvvmAddModuleToProgram__nvvmProgram.cCP.s.cCP"></span><span class="target" id="group__compilation_1ga0c22d2b9be033c165bc37b16f3ed75c6"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmAddModuleToProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv422nvvmAddModuleToProgram11nvvmProgramPKc6size_tPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add a module level NVVM IR to a program. </p>
+<p>The <code class="docutils literal notranslate"><span class="pre">buffer</span></code> should contain an NVVM IR module. The module should have NVVM IR either in the LLVM 7.0.1 bitcode representation or in the LLVM 7.0.1 text representation. Support for reading the text representation of NVVM IR is deprecated and may be removed in a later version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>buffer</strong> – <strong>[in]</strong> NVVM IR module in the bitcode or text representation. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> Size of the NVVM IR module. </p></li>
+<li><p><strong>name</strong> – <strong>[in]</strong> Name of the NVVM IR module. If NULL, “&lt;unnamed&gt;” is used as the name. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_OUT_OF_MEMORY </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418nvvmCompileProgram11nvvmProgramiPPKc">
+<span id="_CPPv318nvvmCompileProgram11nvvmProgramiPPKc"></span><span id="_CPPv218nvvmCompileProgram11nvvmProgramiPPKc"></span><span id="nvvmCompileProgram__nvvmProgram.i.cCPP"></span><span class="target" id="group__compilation_1ga76ac1e23f5d0e2240e78be0e63450346"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmCompileProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numOptions</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">options</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv418nvvmCompileProgram11nvvmProgramiPPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Compile the NVVM program. </p>
+<p>The NVVM IR modules in the program will be linked at the IR level. The linked IR program is compiled to PTX.</p>
+<p>The target datalayout in the linked IR program is used to determine the address size (32bit vs 64bit).</p>
+<p>The valid compiler options are:</p>
+<p></p>
+<ul class="simple">
+<li><p>-g (enable generation of full debugging information). Full debug support is only valid with ‘-opt=0’. Debug support requires the input module to utilize NVVM IR Debug Metadata. Line number (line info) only generation is also enabled via NVVM IR Debug Metadata, there is no specific libNVVM API flag for that case.</p></li>
+<li>
+<p>-opt=</p>
+<ul>
+<li><p>0 (disable optimizations)</p></li>
+<li><p>3 (default, enable optimizations)</p></li>
+</ul>
+</li>
+<li>
+<p>-arch=</p>
+<ul>
+<li><p>compute_50</p></li>
+<li><p>compute_52 (default)</p></li>
+<li><p>compute_53</p></li>
+<li><p>compute_60</p></li>
+<li><p>compute_61</p></li>
+<li><p>compute_62</p></li>
+<li><p>compute_70</p></li>
+<li><p>compute_72</p></li>
+<li><p>compute_75</p></li>
+<li><p>compute_80</p></li>
+<li><p>compute_87</p></li>
+<li><p>compute_89</p></li>
+<li><p>compute_90</p></li>
+</ul>
+</li>
+<li>
+<p>-ftz=</p>
+<ul>
+<li><p>0 (default, preserve denormal values, when performing single-precision floating-point operations)</p></li>
+<li><p>1 (flush denormal values to zero, when performing single-precision floating-point operations)</p></li>
+</ul>
+</li>
+<li>
+<p>-prec-sqrt=</p>
+<ul>
+<li><p>0 (use a faster approximation for single-precision floating-point square root)</p></li>
+<li><p>1 (default, use IEEE round-to-nearest mode for single-precision floating-point square root)</p></li>
+</ul>
+</li>
+<li>
+<p>-prec-div=</p>
+<ul>
+<li><p>0 (use a faster approximation for single-precision floating-point division and reciprocals)</p></li>
+<li><p>1 (default, use IEEE round-to-nearest mode for single-precision floating-point division and reciprocals)</p></li>
+</ul>
+</li>
+<li>
+<p>-fma=</p>
+<ul>
+<li><p>0 (disable FMA contraction)</p></li>
+<li><p>1 (default, enable FMA contraction)</p></li>
+</ul>
+</li>
+<li><p>-jump-table-density=[0-101] Specify the case density percentage in switch statements, and use it as a minimal threshold to determine whether jump table(brx.idx instruction) will be used to implement a switch statement. Default value is 101. The percentage ranges from 0 to 101 inclusively.</p></li>
+<li><p>-gen-lto (Generate LTO IR instead of PTX).</p></li>
+</ul>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>numOptions</strong> – <strong>[in]</strong> Number of compiler <code class="docutils literal notranslate"><span class="pre">options</span></code> passed. </p></li>
+<li><p><strong>options</strong> – <strong>[in]</strong> Compiler options in the form of C string array. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_OUT_OF_MEMORY </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_IR_VERSION_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_NO_MODULE_IN_PROGRAM </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_COMPILATION </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417nvvmCreateProgramP11nvvmProgram">
+<span id="_CPPv317nvvmCreateProgramP11nvvmProgram"></span><span id="_CPPv217nvvmCreateProgramP11nvvmProgram"></span><span id="nvvmCreateProgram__nvvmProgramP"></span><span class="target" id="group__compilation_1ga46a0ab04a063cba28bfbb41a1939e3f4"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmCreateProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">prog</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv417nvvmCreateProgramP11nvvmProgram" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Create a program, and set the value of its handle to <code class="docutils literal notranslate"><span class="pre">*prog</span></code>. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="index.html#group__compilation_1gafba94cab1224c0152841b80690d366aa"><span class="std std-ref">nvvmDestroyProgram()</span></a> </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_OUT_OF_MEMORY </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418nvvmDestroyProgramP11nvvmProgram">
+<span id="_CPPv318nvvmDestroyProgramP11nvvmProgram"></span><span id="_CPPv218nvvmDestroyProgramP11nvvmProgram"></span><span id="nvvmDestroyProgram__nvvmProgramP"></span><span class="target" id="group__compilation_1gafba94cab1224c0152841b80690d366aa"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmDestroyProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">prog</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv418nvvmDestroyProgramP11nvvmProgram" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Destroy a program. </p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="index.html#group__compilation_1ga46a0ab04a063cba28bfbb41a1939e3f4"><span class="std std-ref">nvvmCreateProgram()</span></a> </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421nvvmGetCompiledResult11nvvmProgramPc">
+<span id="_CPPv321nvvmGetCompiledResult11nvvmProgramPc"></span><span id="_CPPv221nvvmGetCompiledResult11nvvmProgramPc"></span><span id="nvvmGetCompiledResult__nvvmProgram.cP"></span><span class="target" id="group__compilation_1gaff56fc783d0c4fb0759bfaa00f414072"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmGetCompiledResult</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv421nvvmGetCompiledResult11nvvmProgramPc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the compiled result. </p>
+<p>The result is stored in the memory pointed to by <code class="docutils literal notranslate"><span class="pre">buffer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>buffer</strong> – <strong>[out]</strong> Compiled result. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425nvvmGetCompiledResultSize11nvvmProgramP6size_t">
+<span id="_CPPv325nvvmGetCompiledResultSize11nvvmProgramP6size_t"></span><span id="_CPPv225nvvmGetCompiledResultSize11nvvmProgramP6size_t"></span><span id="nvvmGetCompiledResultSize__nvvmProgram.sP"></span><span class="target" id="group__compilation_1ga837cfc3c852c82ecef14cda6c6702c9f"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmGetCompiledResultSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bufferSizeRet</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv425nvvmGetCompiledResultSize11nvvmProgramP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the size of the compiled result. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>bufferSizeRet</strong> – <strong>[out]</strong> Size of the compiled result (including the trailing NULL). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417nvvmGetProgramLog11nvvmProgramPc">
+<span id="_CPPv317nvvmGetProgramLog11nvvmProgramPc"></span><span id="_CPPv217nvvmGetProgramLog11nvvmProgramPc"></span><span id="nvvmGetProgramLog__nvvmProgram.cP"></span><span class="target" id="group__compilation_1ga2691e391b700f29457b7362cf5603b76"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmGetProgramLog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv417nvvmGetProgramLog11nvvmProgramPc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the Compiler/Verifier Message. </p>
+<p>The NULL terminated message string is stored in the memory pointed to by <code class="docutils literal notranslate"><span class="pre">buffer</span></code> when the return value is NVVM_SUCCESS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>buffer</strong> – <strong>[out]</strong> Compilation/Verification log. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421nvvmGetProgramLogSize11nvvmProgramP6size_t">
+<span id="_CPPv321nvvmGetProgramLogSize11nvvmProgramP6size_t"></span><span id="_CPPv221nvvmGetProgramLogSize11nvvmProgramP6size_t"></span><span id="nvvmGetProgramLogSize__nvvmProgram.sP"></span><span class="target" id="group__compilation_1ga74c5e0f33b20c1168ed79669a72a7467"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmGetProgramLogSize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">bufferSizeRet</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv421nvvmGetProgramLogSize11nvvmProgramP6size_t" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Get the Size of Compiler/Verifier Message. </p>
+<p>The size of the message string (including the trailing NULL) is stored into <code class="docutils literal notranslate"><span class="pre">bufferSizeRet</span></code> when the return value is NVVM_SUCCESS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>bufferSizeRet</strong> – <strong>[out]</strong> Size of the compilation/verification log (including the trailing NULL). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426nvvmLazyAddModuleToProgram11nvvmProgramPKc6size_tPKc">
+<span id="_CPPv326nvvmLazyAddModuleToProgram11nvvmProgramPKc6size_tPKc"></span><span id="_CPPv226nvvmLazyAddModuleToProgram11nvvmProgramPKc6size_tPKc"></span><span id="nvvmLazyAddModuleToProgram__nvvmProgram.cCP.s.cCP"></span><span class="target" id="group__compilation_1ga5356ce5063db232cd4330b666c62219b"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmLazyAddModuleToProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buffer</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv426nvvmLazyAddModuleToProgram11nvvmProgramPKc6size_tPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Add a module level NVVM IR to a program. </p>
+<p>The <code class="docutils literal notranslate"><span class="pre">buffer</span></code> should contain an NVVM IR module. The module should have NVVM IR in the LLVM 7.0.1 bitcode representation.</p>
+<p>A module added using this API is lazily loaded - the only symbols loaded are those that are required by module(s) loaded using nvvmAddModuleToProgram. It is an error for a program to have all modules loaded using this API. Compiler may also optimize entities in this module by making them internal to the linked NVVM IR module, making them eligible for other optimizations. Due to these optimizations, this API to load a module is more efficient and should be used where possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>buffer</strong> – <strong>[in]</strong> NVVM IR module in the bitcode representation. </p></li>
+<li><p><strong>size</strong> – <strong>[in]</strong> Size of the NVVM IR module. </p></li>
+<li><p><strong>name</strong> – <strong>[in]</strong> Name of the NVVM IR module. If NULL, “&lt;unnamed&gt;” is used as the name. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_OUT_OF_MEMORY </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_INPUT </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a> </p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417nvvmVerifyProgram11nvvmProgramiPPKc">
+<span id="_CPPv317nvvmVerifyProgram11nvvmProgramiPPKc"></span><span id="_CPPv217nvvmVerifyProgram11nvvmProgramiPPKc"></span><span id="nvvmVerifyProgram__nvvmProgram.i.cCPP"></span><span class="target" id="group__compilation_1ga77a96a407f9c6785f47ec1ea13f9cf9f"></span><a class="reference internal" href="index.html#_CPPv410nvvmResult" title="nvvmResult"><span class="n"><span class="pre">nvvmResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nvvmVerifyProgram</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="index.html#_CPPv411nvvmProgram" title="nvvmProgram"><span class="n"><span class="pre">nvvmProgram</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">prog</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numOptions</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">options</span></span><span class="sig-paren">)</span><a class="headerlink" href="index.html#_CPPv417nvvmVerifyProgram11nvvmProgramiPPKc" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>Verify the NVVM program. </p>
+<p>The valid compiler options are:</p>
+<p>Same as for <a class="reference internal" href="index.html#group__compilation_1ga76ac1e23f5d0e2240e78be0e63450346"><span class="std std-ref">nvvmCompileProgram()</span></a>.</p>
+<p></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="index.html#group__compilation_1ga76ac1e23f5d0e2240e78be0e63450346"><span class="std std-ref">nvvmCompileProgram()</span></a> </p>
+</div>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd">
+<ul class="simple">
+<li><p><strong>prog</strong> – <strong>[in]</strong> NVVM program. </p></li>
+<li><p><strong>numOptions</strong> – <strong>[in]</strong> Number of compiler <code class="docutils literal notranslate"><span class="pre">options</span></code> passed. </p></li>
+<li><p><strong>options</strong> – <strong>[in]</strong> Compiler options in the form of C string array. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even">
+<p></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_SUCCESS </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_OUT_OF_MEMORY </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_IR_VERSION_MISMATCH </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_PROGRAM </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_IR </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_INVALID_OPTION </span></a></p></li>
+<li><p><a class="reference internal" href="index.html#group__error_1gaf2c5dc3a2ff02166a0c39f4bf4ece2a1"><span class="std std-ref">NVVM_ERROR_NO_MODULE_IN_PROGRAM </span></a></p></li>
+</ul>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</section>
+<section id="typedefs">
+<h2>
+<span class="section-number">4.2. </span>Typedefs<a class="headerlink" href="index.html#typedefs" title="Permalink to this headline"></a>
+</h2>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv411nvvmProgram">
+<span id="_CPPv311nvvmProgram"></span><span id="_CPPv211nvvmProgram"></span><span id="nvvmProgram"></span><span class="target" id="group__compilation_1gad4334e62c0b6ddd8d32ef3da5c204162"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">_nvvmProgram</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">nvvmProgram</span></span></span><a class="headerlink" href="index.html#_CPPv411nvvmProgram" title="Permalink to this definition"></a><br>
+</dt>
+<dd>
+<p>NVVM Program. </p>
+<p>An opaque handle for a program. </p>
+</dd>
+</dl>
+
+</section>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">5. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">5.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">5.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">5.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2022-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contents — CUDA C++ Programming Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+      <link rel="stylesheet" href="../_static/tables.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="next" title="1. Introduction" href="index.html">
+ 
+
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+<a href="contents.html#">
+  <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#programming-model">2. Programming Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#programming-interface">3. Programming Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#hardware-implementation">4. Hardware Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#performance-guidelines">5. Performance Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-enabled-gpus">6. CUDA-Enabled GPUs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#c-language-extensions">7. C++ Language Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cooperative-groups">8. Cooperative Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-dynamic-parallelism">9. CUDA Dynamic Parallelism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#virtual-memory-management">10. Virtual Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#stream-ordered-memory-allocator">11. Stream Ordered Memory Allocator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#graph-memory-nodes">12. Graph Memory Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#mathematical-functions-appendix">13. Mathematical Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#c-language-support">14. C++ Language Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#texture-fetching">15. Texture Fetching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#compute-capabilities">16. Compute Capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#driver-api">17. Driver API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-environment-variables">18. CUDA Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#unified-memory-programming">19. Unified Memory Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#lazy-loading">20. Lazy Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#notices">21. Notices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html#">CUDA C++ Programming Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>Contents</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/CUDA_C_Programming_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contents">
+<h1>Contents<a class="headerlink" href="contents.html#contents" title="Permalink to this headline"></a>
+</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html">1. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#the-benefits-of-using-gpus">1.1. The Benefits of Using GPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cuda-a-general-purpose-parallel-computing-platform-and-programming-model">1.2. CUDA®: A General-Purpose Parallel Computing Platform and Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-scalable-programming-model">1.3. A Scalable Programming Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#document-structure">1.4. Document Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#programming-model">2. Programming Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#kernels">2.1. Kernels</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#thread-hierarchy">2.2. Thread Hierarchy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#thread-block-clusters">2.2.1. Thread Block Clusters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-hierarchy">2.3. Memory Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#heterogeneous-programming">2.4. Heterogeneous Programming</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#asynchronous-simt-programming-model">2.5. Asynchronous SIMT Programming Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#asynchronous-operations">2.5.1. Asynchronous Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compute-capability">2.6. Compute Capability</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#programming-interface">3. Programming Interface</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compilation-with-nvcc">3.1. Compilation with NVCC</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#compilation-workflow">3.1.1. Compilation Workflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#offline-compilation">3.1.1.1. Offline Compilation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#just-in-time-compilation">3.1.1.2. Just-in-Time Compilation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#binary-compatibility">3.1.2. Binary Compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ptx-compatibility">3.1.3. PTX Compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#application-compatibility">3.1.4. Application Compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#c-compatibility">3.1.5. C++ Compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bit-compatibility">3.1.6. 64-Bit Compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cuda-runtime">3.2. CUDA Runtime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#initialization">3.2.1. Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-memory">3.2.2. Device Memory</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#device-memory-l2-access-management">3.2.3. Device Memory L2 Access Management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#l2-cache-set-aside-for-persisting-accesses">3.2.3.1. L2 cache Set-Aside for Persisting Accesses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#l2-policy-for-persisting-accesses">3.2.3.2. L2 Policy for Persisting Accesses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#l2-access-properties">3.2.3.3. L2 Access Properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#l2-persistence-example">3.2.3.4. L2 Persistence Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#reset-l2-access-to-normal">3.2.3.5. Reset L2 Access to Normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#manage-utilization-of-l2-set-aside-cache">3.2.3.6. Manage Utilization of L2 set-aside cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#query-l2-cache-properties">3.2.3.7. Query L2 cache Properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#control-l2-cache-set-aside-size-for-persisting-memory-access">3.2.3.8. Control L2 Cache Set-Aside Size for Persisting Memory Access</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory">3.2.4. Shared Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#distributed-shared-memory">3.2.5. Distributed Shared Memory</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#page-locked-host-memory">3.2.6. Page-Locked Host Memory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#portable-memory">3.2.6.1. Portable Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#write-combining-memory">3.2.6.2. Write-Combining Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#mapped-memory">3.2.6.3. Mapped Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-synchronization-domains">3.2.7. Memory Synchronization Domains</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memory-fence-interference">3.2.7.1. Memory Fence Interference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#isolating-traffic-with-domains">3.2.7.2. Isolating Traffic with Domains</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#using-domains-in-cuda">3.2.7.3. Using Domains in CUDA</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#asynchronous-concurrent-execution">3.2.8. Asynchronous Concurrent Execution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#concurrent-execution-between-host-and-device">3.2.8.1. Concurrent Execution between Host and Device</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#concurrent-kernel-execution">3.2.8.2. Concurrent Kernel Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#overlap-of-data-transfer-and-kernel-execution">3.2.8.3. Overlap of Data Transfer and Kernel Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#concurrent-data-transfers">3.2.8.4. Concurrent Data Transfers</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#streams">3.2.8.5. Streams</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#creation-and-destruction-of-streams">3.2.8.5.1. Creation and Destruction of Streams</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#default-stream">3.2.8.5.2. Default Stream</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#explicit-synchronization">3.2.8.5.3. Explicit Synchronization</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#implicit-synchronization">3.2.8.5.4. Implicit Synchronization</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#overlapping-behavior">3.2.8.5.5. Overlapping Behavior</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#host-functions-callbacks">3.2.8.5.6. Host Functions (Callbacks)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#stream-priorities">3.2.8.5.7. Stream Priorities</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#programmatic-dependent-launch-and-synchronization">3.2.8.6. Programmatic Dependent Launch and Synchronization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#background">3.2.8.6.1. Background</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#api-description">3.2.8.6.2. API Description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#use-in-cuda-graphs">3.2.8.6.3. Use in CUDA Graphs</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#cuda-graphs">3.2.8.7. CUDA Graphs</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#graph-structure">3.2.8.7.1. Graph Structure</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#node-types">3.2.8.7.1.1. Node Types</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#edge-data">3.2.8.7.1.2. Edge Data</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#creating-a-graph-using-graph-apis">3.2.8.7.2. Creating a Graph Using Graph APIs</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#creating-a-graph-using-stream-capture">3.2.8.7.3. Creating a Graph Using Stream Capture</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#cross-stream-dependencies-and-events">3.2.8.7.3.1. Cross-stream Dependencies and Events</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#prohibited-and-unhandled-operations">3.2.8.7.3.2. Prohibited and Unhandled Operations</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#invalidation">3.2.8.7.3.3. Invalidation</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cuda-user-objects">3.2.8.7.4. CUDA User Objects</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#updating-instantiated-graphs">3.2.8.7.5. Updating Instantiated Graphs</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#graph-update-limitations">3.2.8.7.5.1. Graph Update Limitations</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#whole-graph-update">3.2.8.7.5.2. Whole Graph Update</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#individual-node-update">3.2.8.7.5.3. Individual node update</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#individual-node-enable">3.2.8.7.5.4. Individual node enable</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#using-graph-apis">3.2.8.7.6. Using Graph APIs</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#device-graph-launch">3.2.8.7.7. Device Graph Launch</a><ul>
+<li class="toctree-l6">
+<a class="reference internal" href="index.html#device-graph-creation">3.2.8.7.7.1. Device Graph Creation</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="index.html#device-graph-requirements">3.2.8.7.7.1.1. Device Graph Requirements</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#device-graph-upload">3.2.8.7.7.1.2. Device Graph Upload</a></li>
+<li class="toctree-l7"><a class="reference internal" href="index.html#device-graph-update">3.2.8.7.7.1.3. Device Graph Update</a></li>
+</ul>
+</li>
+<li class="toctree-l6">
+<a class="reference internal" href="index.html#device-launch">3.2.8.7.7.2. Device Launch</a><ul>
+<li class="toctree-l7">
+<a class="reference internal" href="index.html#device-launch-modes">3.2.8.7.7.2.1. Device Launch Modes</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="index.html#fire-and-forget-launch">3.2.8.7.7.2.1.1. Fire and Forget Launch</a></li>
+<li class="toctree-l8"><a class="reference internal" href="index.html#graph-execution-environments">3.2.8.7.7.2.1.2. Graph Execution Environments</a></li>
+<li class="toctree-l8">
+<a class="reference internal" href="index.html#tail-launch">3.2.8.7.7.2.1.3. Tail Launch</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="index.html#tail-self-launch">3.2.8.7.7.2.1.3.1. Tail Self-launch</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="index.html#sibling-launch">3.2.8.7.7.2.1.4. Sibling Launch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#conditional-graph-nodes">3.2.8.7.8. Conditional Graph Nodes</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#conditional-handles">3.2.8.7.8.1. Conditional Handles</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#condtional-node-body-graph-requirements">3.2.8.7.8.2. Condtional Node Body Graph Requirements</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#conditional-if-nodes">3.2.8.7.8.3. Conditional IF Nodes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#conditional-while-nodes">3.2.8.7.8.4. Conditional WHILE Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#events">3.2.8.8. Events</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#creation-and-destruction-of-events">3.2.8.8.1. Creation and Destruction of Events</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#elapsed-time">3.2.8.8.2. Elapsed Time</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#synchronous-calls">3.2.8.9. Synchronous Calls</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#multi-device-system">3.2.9. Multi-Device System</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-enumeration">3.2.9.1. Device Enumeration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-selection">3.2.9.2. Device Selection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#stream-and-event-behavior">3.2.9.3. Stream and Event Behavior</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#peer-to-peer-memory-access">3.2.9.4. Peer-to-Peer Memory Access</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#iommu-on-linux">3.2.9.4.1. IOMMU on Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#peer-to-peer-memory-copy">3.2.9.5. Peer-to-Peer Memory Copy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unified-virtual-address-space">3.2.10. Unified Virtual Address Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#interprocess-communication">3.2.11. Interprocess Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#error-checking">3.2.12. Error Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#call-stack">3.2.13. Call Stack</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#texture-and-surface-memory">3.2.14. Texture and Surface Memory</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#texture-memory">3.2.14.1. Texture Memory</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#texture-object-api">3.2.14.1.1. Texture Object API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#bit-floating-point-textures">3.2.14.1.2. 16-Bit Floating-Point Textures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#layered-textures">3.2.14.1.3. Layered Textures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cubemap-textures">3.2.14.1.4. Cubemap Textures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cubemap-layered-textures">3.2.14.1.5. Cubemap Layered Textures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#texture-gather">3.2.14.1.6. Texture Gather</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#surface-memory">3.2.14.2. Surface Memory</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#surface-object-api">3.2.14.2.1. Surface Object API</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cubemap-surfaces">3.2.14.2.2. Cubemap Surfaces</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cubemap-layered-surfaces">3.2.14.2.3. Cubemap Layered Surfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cuda-arrays">3.2.14.3. CUDA Arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#read-write-coherency">3.2.14.4. Read/Write Coherency</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#graphics-interoperability">3.2.15. Graphics Interoperability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#opengl-interoperability">3.2.15.1. OpenGL Interoperability</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#direct3d-interoperability">3.2.15.2. Direct3D Interoperability</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#direct3d-9-version">3.2.15.2.1. Direct3D 9 Version</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#direct3d-10-version">3.2.15.2.2. Direct3D 10 Version</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#direct3d-11-version">3.2.15.2.3. Direct3D 11 Version</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#sli-interoperability">3.2.15.3. SLI Interoperability</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#external-resource-interoperability">3.2.16. External Resource Interoperability</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#vulkan-interoperability">3.2.16.1. Vulkan Interoperability</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matching-device-uuids">3.2.16.1.1. Matching device UUIDs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-memory-objects">3.2.16.1.2. Importing Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-buffers-onto-imported-memory-objects">3.2.16.1.3. Mapping Buffers onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-mipmapped-arrays-onto-imported-memory-objects">3.2.16.1.4. Mapping Mipmapped Arrays onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-synchronization-objects">3.2.16.1.5. Importing Synchronization Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#signaling-waiting-on-imported-synchronization-objects">3.2.16.1.6. Signaling/Waiting on Imported Synchronization Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#opengl-interoperability-ext-res-int">3.2.16.2. OpenGL Interoperability</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#direct3d-12-interoperability">3.2.16.3. Direct3D 12 Interoperability</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matching-device-luids">3.2.16.3.1. Matching Device LUIDs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-memory-objects-dir3d-12-int">3.2.16.3.2. Importing Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-buffers-onto-imported-memory-objects-dir3d-12-int">3.2.16.3.3. Mapping Buffers onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-mipmapped-arrays-onto-imported-memory-objects-dir3d-12-int">3.2.16.3.4. Mapping Mipmapped Arrays onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-synchronization-objects-dir3d-12-int">3.2.16.3.5. Importing Synchronization Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#signaling-waiting-on-imported-synchronization-objects-dir3d-12-int">3.2.16.3.6. Signaling/Waiting on Imported Synchronization Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#direct3d-11-interoperability">3.2.16.4. Direct3D 11 Interoperability</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#matching-device-luids-dir3d-11-int">3.2.16.4.1. Matching Device LUIDs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-memory-objects-dir3d-11-int">3.2.16.4.2. Importing Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-buffers-onto-imported-memory-objects-dir3d-11-int">3.2.16.4.3. Mapping Buffers onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-mipmapped-arrays-onto-imported-memory-objects-dir3d-11-int">3.2.16.4.4. Mapping Mipmapped Arrays onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-synchronization-objects-dir3d-11-int">3.2.16.4.5. Importing Synchronization Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#signaling-waiting-on-imported-synchronization-objects-dir3d-11-int">3.2.16.4.6. Signaling/Waiting on Imported Synchronization Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#nvidia-software-communication-interface-interoperability-nvsci">3.2.16.5. NVIDIA Software Communication Interface Interoperability (NVSCI)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-memory-objects-nvsci">3.2.16.5.1. Importing Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-buffers-onto-imported-memory-objects-nvsci">3.2.16.5.2. Mapping Buffers onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#mapping-mipmapped-arrays-onto-imported-memory-objects-nvsci">3.2.16.5.3. Mapping Mipmapped Arrays onto Imported Memory Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#importing-synchronization-objects-nvsci">3.2.16.5.4. Importing Synchronization Objects</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#signaling-waiting-on-imported-synchronization-objects-nvsci">3.2.16.5.5. Signaling/Waiting on Imported Synchronization Objects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#versioning-and-compatibility">3.3. Versioning and Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compute-modes">3.4. Compute Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mode-switches">3.5. Mode Switches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tesla-compute-cluster-mode-for-windows">3.6. Tesla Compute Cluster Mode for Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#hardware-implementation">4. Hardware Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simt-architecture">4.1. SIMT Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hardware-multithreading">4.2. Hardware Multithreading</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#performance-guidelines">5. Performance Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#overall-performance-optimization-strategies">5.1. Overall Performance Optimization Strategies</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#maximize-utilization">5.2. Maximize Utilization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#application-level">5.2.1. Application Level</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-level">5.2.2. Device Level</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#multiprocessor-level">5.2.3. Multiprocessor Level</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#occupancy-calculator">5.2.3.1. Occupancy Calculator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#maximize-memory-throughput">5.3. Maximize Memory Throughput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#data-transfer-between-host-and-device">5.3.1. Data Transfer between Host and Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-memory-accesses">5.3.2. Device Memory Accesses</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#maximize-instruction-throughput">5.4. Maximize Instruction Throughput</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#arithmetic-instructions">5.4.1. Arithmetic Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-flow-instructions">5.4.2. Control Flow Instructions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#synchronization-instruction">5.4.3. Synchronization Instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#minimize-memory-thrashing">5.5. Minimize Memory Thrashing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-enabled-gpus">6. CUDA-Enabled GPUs</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#c-language-extensions">7. C++ Language Extensions</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#function-execution-space-specifiers">7.1. Function Execution Space Specifiers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global">7.1.1. __global__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device">7.1.2. __device__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#host">7.1.3. __host__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#undefined-behavior">7.1.4. Undefined behavior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#noinline-and-forceinline">7.1.5. __noinline__ and __forceinline__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#inline-hint">7.1.6. __inline_hint__</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#variable-memory-space-specifiers">7.2. Variable Memory Space Specifiers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#device-variable-specifier">7.2.1. __device__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#constant">7.2.2. __constant__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared">7.2.3. __shared__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#grid-constant">7.2.4. __grid_constant__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#managed">7.2.5. __managed__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#restrict">7.2.6. __restrict__</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#built-in-vector-types">7.3. Built-in Vector Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#char-short-int-long-longlong-float-double">7.3.1. char, short, int, long, longlong, float, double</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dim3">7.3.2. dim3</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#built-in-variables">7.4. Built-in Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#griddim">7.4.1. gridDim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockidx">7.4.2. blockIdx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockdim">7.4.3. blockDim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#threadidx">7.4.4. threadIdx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warpsize">7.4.5. warpSize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-fence-functions">7.5. Memory Fence Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#synchronization-functions">7.6. Synchronization Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mathematical-functions">7.7. Mathematical Functions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#texture-functions">7.8. Texture Functions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#texture-object-api-appendix">7.8.1. Texture Object API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dfetch">7.8.1.1. tex1Dfetch()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1d">7.8.1.2. tex1D()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dlod">7.8.1.3. tex1DLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dgrad">7.8.1.4. tex1DGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2d">7.8.1.5. tex2D()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2d-for-sparse-cuda-arrays">7.8.1.6. tex2D() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dgather">7.8.1.7. tex2Dgather()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dgather-for-sparse-cuda-arrays">7.8.1.8. tex2Dgather() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dgrad">7.8.1.9. tex2DGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dgrad-for-sparse-cuda-arrays">7.8.1.10. tex2DGrad() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlod">7.8.1.11. tex2DLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlod-for-sparse-cuda-arrays">7.8.1.12. tex2DLod() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3d">7.8.1.13. tex3D()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3d-for-sparse-cuda-arrays">7.8.1.14. tex3D() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3dlod">7.8.1.15. tex3DLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3dlod-for-sparse-cuda-arrays">7.8.1.16. tex3DLod() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3dgrad">7.8.1.17. tex3DGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex3dgrad-for-sparse-cuda-arrays">7.8.1.18. tex3DGrad() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dlayered">7.8.1.19. tex1DLayered()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dlayeredlod">7.8.1.20. tex1DLayeredLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex1dlayeredgrad">7.8.1.21. tex1DLayeredGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayered">7.8.1.22. tex2DLayered()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayered-for-sparse-cuda-arrays">7.8.1.23. tex2DLayered() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayeredlod">7.8.1.24. tex2DLayeredLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayeredlod-for-sparse-cuda-arrays">7.8.1.25. tex2DLayeredLod() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayeredgrad">7.8.1.26. tex2DLayeredGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#tex2dlayeredgrad-for-sparse-cuda-arrays">7.8.1.27. tex2DLayeredGrad() for sparse CUDA arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemap">7.8.1.28. texCubemap()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemapgrad">7.8.1.29. texCubemapGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemaplod">7.8.1.30. texCubemapLod()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemaplayered">7.8.1.31. texCubemapLayered()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemaplayeredgrad">7.8.1.32. texCubemapLayeredGrad()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#texcubemaplayeredlod">7.8.1.33. texCubemapLayeredLod()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#surface-functions">7.9. Surface Functions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#surface-object-api-appendix">7.9.1. Surface Object API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf1dread">7.9.1.1. surf1Dread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf1dwrite">7.9.1.2. surf1Dwrite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf2dread">7.9.1.3. surf2Dread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf2dwrite">7.9.1.4. surf2Dwrite()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf3dread">7.9.1.5. surf3Dread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf3dwrite">7.9.1.6. surf3Dwrite()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf1dlayeredread">7.9.1.7. surf1DLayeredread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf1dlayeredwrite">7.9.1.8. surf1DLayeredwrite()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf2dlayeredread">7.9.1.9. surf2DLayeredread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surf2dlayeredwrite">7.9.1.10. surf2DLayeredwrite()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surfcubemapread">7.9.1.11. surfCubemapread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surfcubemapwrite">7.9.1.12. surfCubemapwrite()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surfcubemaplayeredread">7.9.1.13. surfCubemapLayeredread()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#surfcubemaplayeredwrite">7.9.1.14. surfCubemapLayeredwrite()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#read-only-data-cache-load-function">7.10. Read-Only Data Cache Load Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#load-functions-using-cache-hints">7.11. Load Functions Using Cache Hints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#store-functions-using-cache-hints">7.12. Store Functions Using Cache Hints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#time-function">7.13. Time Function</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#atomic-functions">7.14. Atomic Functions</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#arithmetic-functions">7.14.1. Arithmetic Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicadd">7.14.1.1. atomicAdd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicsub">7.14.1.2. atomicSub()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicexch">7.14.1.3. atomicExch()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicmin">7.14.1.4. atomicMin()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicmax">7.14.1.5. atomicMax()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicinc">7.14.1.6. atomicInc()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicdec">7.14.1.7. atomicDec()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomiccas">7.14.1.8. atomicCAS()</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#bitwise-functions">7.14.2. Bitwise Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicand">7.14.2.1. atomicAnd()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicor">7.14.2.2. atomicOr()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomicxor">7.14.2.3. atomicXor()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#address-space-predicate-functions">7.15. Address Space Predicate Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#isglobal">7.15.1. __isGlobal()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#isshared">7.15.2. __isShared()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#isconstant">7.15.3. __isConstant()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#isgridconstant">7.15.4. __isGridConstant()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#islocal">7.15.5. __isLocal()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#address-space-conversion-functions">7.16. Address Space Conversion Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-generic-to-global">7.16.1. __cvta_generic_to_global()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-generic-to-shared">7.16.2. __cvta_generic_to_shared()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-generic-to-constant">7.16.3. __cvta_generic_to_constant()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-generic-to-local">7.16.4. __cvta_generic_to_local()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-global-to-generic">7.16.5. __cvta_global_to_generic()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-shared-to-generic">7.16.6. __cvta_shared_to_generic()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-constant-to-generic">7.16.7. __cvta_constant_to_generic()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cvta-local-to-generic">7.16.8. __cvta_local_to_generic()</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#alloca-function">7.17. Alloca Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#synopsis">7.17.1. Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#description">7.17.2. Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#example">7.17.3. Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compiler-optimization-hint-functions">7.18. Compiler Optimization Hint Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#builtin-assume-aligned">7.18.1. __builtin_assume_aligned()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#builtin-assume">7.18.2. __builtin_assume()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#assume">7.18.3. __assume()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#builtin-expect">7.18.4. __builtin_expect()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#builtin-unreachable">7.18.5. __builtin_unreachable()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#restrictions">7.18.6. Restrictions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#warp-vote-functions">7.19. Warp Vote Functions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#warp-match-functions">7.20. Warp Match Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#synopsis-match">7.20.1. Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warp-description-match">7.20.2. Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#warp-reduce-functions">7.21. Warp Reduce Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warp-reduce-synopsis">7.21.1. Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warp-reduce-description">7.21.2. Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#warp-shuffle-functions">7.22. Warp Shuffle Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warp-shuffle-synopsis">7.22.1. Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#warp-shuffle-description">7.22.2. Description</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#examples">7.22.3. Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#broadcast-of-a-single-value-across-a-warp">7.22.3.1. Broadcast of a single value across a warp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#inclusive-plus-scan-across-sub-partitions-of-8-threads">7.22.3.2. Inclusive plus-scan across sub-partitions of 8 threads</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#reduction-across-a-warp">7.22.3.3. Reduction across a warp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#nanosleep-function">7.23. Nanosleep Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nanosleep-synopsis">7.23.1. Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nanosleep-description">7.23.2. Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nanosleep-example">7.23.3. Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#warp-matrix-functions">7.24. Warp Matrix Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wmma-description">7.24.1. Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#alternate-floating-point">7.24.2. Alternate Floating Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#double-precision">7.24.3. Double Precision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#sub-byte-operations">7.24.4. Sub-byte Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wmma-restrictions">7.24.5. Restrictions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#element-types-and-matrix-sizes">7.24.6. Element Types and Matrix Sizes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wmma-example">7.24.7. Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dpx">7.25. DPX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#dpx-example">7.25.1. Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#asynchronous-barrier">7.26. Asynchronous Barrier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#simple-synchronization-pattern">7.26.1. Simple Synchronization Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#temporal-splitting-and-five-stages-of-synchronization">7.26.2. Temporal Splitting and Five Stages of Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#bootstrap-initialization-expected-arrival-count-and-participation">7.26.3. Bootstrap Initialization, Expected Arrival Count, and Participation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#a-barrier-s-phase-arrival-countdown-completion-and-reset">7.26.4. A Barrier’s Phase: Arrival, Countdown, Completion, and Reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#spatial-partitioning-also-known-as-warp-specialization">7.26.5. Spatial Partitioning (also known as Warp Specialization)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#early-exit-dropping-out-of-participation">7.26.6. Early Exit (Dropping out of Participation)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#completion-function">7.26.7. Completion Function</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-barrier-primitives-interface">7.26.8. Memory Barrier Primitives Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-types">7.26.8.1. Data Types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memory-barrier-primitives-api">7.26.8.2. Memory Barrier Primitives API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#asynchronous-data-copies">7.27. Asynchronous Data Copies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#memcpy-async-api">7.27.1. <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code> API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#copy-and-compute-pattern-staging-data-through-shared-memory">7.27.2. Copy and Compute Pattern - Staging Data Through Shared Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#without-memcpy-async">7.27.3. Without <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#with-memcpy-async">7.27.4. With <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#asynchronous-data-copies-using-cuda-barrier">7.27.5. Asynchronous Data Copies using <code class="docutils literal notranslate"><span class="pre">cuda::barrier</span></code></a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#performance-guidance-for-memcpy-async">7.27.6. Performance Guidance for <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#alignment">7.27.6.1. Alignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#trivially-copyable">7.27.6.2. Trivially copyable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#warp-entanglement-commit">7.27.6.3. Warp Entanglement - Commit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#warp-entanglement-wait">7.27.6.4. Warp Entanglement - Wait</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#warp-entanglement-arrive-on">7.27.6.5. Warp Entanglement - Arrive-On</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#keep-commit-and-arrive-on-operations-converged">7.27.6.6. Keep Commit and Arrive-On Operations Converged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#asynchronous-data-copies-using-cuda-pipeline">7.28. Asynchronous Data Copies using <code class="docutils literal notranslate"><span class="pre">cuda::pipeline</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#single-stage-asynchronous-data-copies-using-cuda-pipeline">7.28.1. Single-Stage Asynchronous Data Copies using <code class="docutils literal notranslate"><span class="pre">cuda::pipeline</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#multi-stage-asynchronous-data-copies-using-cuda-pipeline">7.28.2. Multi-Stage Asynchronous Data Copies using <code class="docutils literal notranslate"><span class="pre">cuda::pipeline</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#pipeline-interface">7.28.3. Pipeline Interface</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#pipeline-primitives-interface">7.28.4. Pipeline Primitives Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memcpy-async-primitive">7.28.4.1. <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code> Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#commit-primitive">7.28.4.2. Commit Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#wait-primitive">7.28.4.3. Wait Primitive</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#arrive-on-barrier-primitive">7.28.4.4. Arrive On Barrier Primitive</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#asynchronous-data-copies-using-the-tensor-memory-accelerator-tma">7.29. Asynchronous Data Copies using the Tensor Memory Accelerator (TMA)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#using-tma-to-transfer-one-dimensional-arrays">7.29.1. Using TMA to transfer one-dimensional arrays</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#using-tma-to-transfer-multi-dimensional-arrays">7.29.2. Using TMA to transfer multi-dimensional arrays</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#multi-dimensional-tma-ptx-wrappers">7.29.2.1. Multi-dimensional TMA PTX wrappers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#profiler-counter-function">7.30. Profiler Counter Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#assertion">7.31. Assertion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trap-function">7.32. Trap function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#breakpoint-function">7.33. Breakpoint Function</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#formatted-output">7.34. Formatted Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#format-specifiers">7.34.1. Format Specifiers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#limitations">7.34.2. Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#associated-host-side-api">7.34.3. Associated Host-Side API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#format-specifier-examples">7.34.4. Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#dynamic-global-memory-allocation-and-operations">7.35. Dynamic Global Memory Allocation and Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#heap-memory-allocation">7.35.1. Heap Memory Allocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#interoperability-with-host-memory-api">7.35.2. Interoperability with Host Memory API</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#examples-per-thread">7.35.3. Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#per-thread-allocation">7.35.3.1. Per Thread Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#per-thread-block-allocation">7.35.3.2. Per Thread Block Allocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#allocation-persisting-between-kernel-launches">7.35.3.3. Allocation Persisting Between Kernel Launches</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#execution-configuration">7.36. Execution Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#launch-bounds">7.37. Launch Bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#maximum-number-of-registers-per-thread">7.38. Maximum Number of Registers per Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pragma-unroll">7.39. #pragma unroll</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simd-video-instructions">7.40. SIMD Video Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#diagnostic-pragmas">7.41. Diagnostic Pragmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cooperative-groups">8. Cooperative Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction-cg">8.1. Introduction</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#what-s-new-in-cooperative-groups">8.2. What’s New in Cooperative Groups</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-12-2">8.2.1. CUDA 12.2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-12-1">8.2.2. CUDA 12.1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-12-0">8.2.3. CUDA 12.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#programming-model-concept">8.3. Programming Model Concept</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#composition-example">8.3.1. Composition Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#group-types">8.4. Group Types</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#implicit-groups">8.4.1. Implicit Groups</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#thread-block-group">8.4.1.1. Thread Block Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cluster-group">8.4.1.2. Cluster Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#grid-group">8.4.1.3. Grid Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#multi-grid-group">8.4.1.4. Multi Grid Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#explicit-groups">8.4.2. Explicit Groups</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#thread-block-tile">8.4.2.1. Thread Block Tile</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#warp-synchronous-code-pattern">8.4.2.1.1. Warp-Synchronous Code Pattern</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#single-thread-group">8.4.2.1.2. Single thread group</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#coalesced-groups">8.4.2.2. Coalesced Groups</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#discovery-pattern">8.4.2.2.1. Discovery Pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#group-partitioning">8.5. Group Partitioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#tiled-partition">8.5.1. <code class="docutils literal notranslate"><span class="pre">tiled_partition</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#labeled-partition">8.5.2. <code class="docutils literal notranslate"><span class="pre">labeled_partition</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#binary-partition">8.5.3. <code class="docutils literal notranslate"><span class="pre">binary_partition</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#group-collectives">8.6. Group Collectives</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#synchronization">8.6.1. Synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#barrier-arrive-and-barrier-wait">8.6.1.1. <code class="docutils literal notranslate"><span class="pre">barrier_arrive</span></code> and <code class="docutils literal notranslate"><span class="pre">barrier_wait</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#sync">8.6.1.2. <code class="docutils literal notranslate"><span class="pre">sync</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#data-transfer">8.6.2. Data Transfer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memcpy-async">8.6.2.1. <code class="docutils literal notranslate"><span class="pre">memcpy_async</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#wait-and-wait-prior">8.6.2.2. <code class="docutils literal notranslate"><span class="pre">wait</span> <span class="pre">and</span> <span class="pre">wait_prior</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#data-manipulation">8.6.3. Data Manipulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#reduce">8.6.3.1. <code class="docutils literal notranslate"><span class="pre">reduce</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#reduce-operators">8.6.3.2. <code class="docutils literal notranslate"><span class="pre">Reduce</span> <span class="pre">Operators</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#inclusive-scan-and-exclusive-scan">8.6.3.3. <code class="docutils literal notranslate"><span class="pre">inclusive_scan</span></code> and <code class="docutils literal notranslate"><span class="pre">exclusive_scan</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#execution-control">8.6.4. Execution control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#invoke-one-and-invoke-one-broadcast">8.6.4.1. <code class="docutils literal notranslate"><span class="pre">invoke_one</span></code> and <code class="docutils literal notranslate"><span class="pre">invoke_one_broadcast</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#grid-synchronization">8.7. Grid Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#multi-device-synchronization">8.8. Multi-Device Synchronization</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#cuda-dynamic-parallelism">9. CUDA Dynamic Parallelism</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#introduction-cuda-dynamic-parallelism">9.1. Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#overview">9.1.1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#glossary">9.1.2. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#execution-environment-and-memory-model">9.2. Execution Environment and Memory Model</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#execution-environment">9.2.1. Execution Environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parent-and-child-grids">9.2.1.1. Parent and Child Grids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#scope-of-cuda-primitives">9.2.1.2. Scope of CUDA Primitives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#dynamic-parallelism-synchronization">9.2.1.3. Synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#streams-and-events">9.2.1.4. Streams and Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#ordering-and-concurrency">9.2.1.5. Ordering and Concurrency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-management">9.2.1.6. Device Management</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-model">9.2.2. Memory Model</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#coherence-and-consistency">9.2.2.1. Coherence and Consistency</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#global-memory">9.2.2.1.1. Global Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#zero-copy-memory">9.2.2.1.2. Zero Copy Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#constant-memory">9.2.2.1.3. Constant Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#shared-and-local-memory">9.2.2.1.4. Shared and Local Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#local-memory">9.2.2.1.5. Local Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#texture-memory-cdp">9.2.2.1.6. Texture Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#programming-interface-cdp">9.3. Programming Interface</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#cuda-c-reference">9.3.1. CUDA C++ Reference</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#device-side-kernel-launch">9.3.1.1. Device-Side Kernel Launch</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#launches-are-asynchronous">9.3.1.1.1. Launches are Asynchronous</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#launch-environment-configuration">9.3.1.1.2. Launch Environment Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#streams-cdp">9.3.1.2. Streams</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#the-implicit-null-stream">9.3.1.2.1. The Implicit (NULL) Stream</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#the-fire-and-forget-stream">9.3.1.2.2. The Fire-and-Forget Stream</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#the-tail-launch-stream">9.3.1.2.3. The Tail Launch Stream</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#events-cdp">9.3.1.3. Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#synchronization-programming-interface">9.3.1.4. Synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-management-programming">9.3.1.5. Device Management</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#memory-declarations">9.3.1.6. Memory Declarations</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#device-and-constant-memory">9.3.1.6.1. Device and Constant Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#textures-and-surfaces">9.3.1.6.2. Textures and Surfaces</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#shared-memory-variable-declarations">9.3.1.6.3. Shared Memory Variable Declarations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#symbol-addresses">9.3.1.6.4. Symbol Addresses</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#api-errors-and-launch-failures">9.3.1.7. API Errors and Launch Failures</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#launch-setup-apis">9.3.1.7.1. Launch Setup APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#api-reference">9.3.1.8. API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#device-side-launch-from-ptx">9.3.2. Device-side Launch from PTX</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#kernel-launch-apis">9.3.2.1. Kernel Launch APIs</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cudalaunchdevice">9.3.2.1.1. cudaLaunchDevice</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cudagetparameterbuffer">9.3.2.1.2. cudaGetParameterBuffer</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#parameter-buffer-layout">9.3.2.2. Parameter Buffer Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#toolkit-support-for-dynamic-parallelism">9.3.3. Toolkit Support for Dynamic Parallelism</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#including-device-runtime-api-in-cuda-code">9.3.3.1. Including Device Runtime API in CUDA Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#compiling-and-linking">9.3.3.2. Compiling and Linking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#programming-guidelines">9.4. Programming Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#basics">9.4.1. Basics</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#performance">9.4.2. Performance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#dynamic-parallelism-enabled-kernel-overhead">9.4.2.1. Dynamic-parallelism-enabled Kernel Overhead</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#implementation-restrictions-and-limitations">9.4.3. Implementation Restrictions and Limitations</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#runtime">9.4.3.1. Runtime</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#memory-footprint">9.4.3.1.1. Memory Footprint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#pending-kernel-launches">9.4.3.1.2. Pending Kernel Launches</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#configuration-options">9.4.3.1.3. Configuration Options</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#memory-allocation-and-lifetime">9.4.3.1.4. Memory Allocation and Lifetime</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#sm-id-and-warp-id">9.4.3.1.5. SM Id and Warp Id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#ecc-errors">9.4.3.1.6. ECC Errors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#cdp2-vs-cdp1">9.5. CDP2 vs CDP1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#differences-between-cdp1-and-cdp2">9.5.1. Differences Between CDP1 and CDP2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compatibility-and-interoperability">9.5.2. Compatibility and Interoperability</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#legacy-cuda-dynamic-parallelism-cdp1">9.6. Legacy CUDA Dynamic Parallelism (CDP1)</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#execution-environment-and-memory-model-cdp1">9.6.1. Execution Environment and Memory Model (CDP1)</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#execution-environment-cdp1">9.6.1.1. Execution Environment (CDP1)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parent-and-child-grids-cdp1">9.6.1.1.1. Parent and Child Grids (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#scope-of-cuda-primitives-cdp1">9.6.1.1.2. Scope of CUDA Primitives (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#synchronization-cdp1">9.6.1.1.3. Synchronization (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#streams-and-events-cdp1">9.6.1.1.4. Streams and Events (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#ordering-and-concurrency-cdp1">9.6.1.1.5. Ordering and Concurrency (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#device-management-cdp1">9.6.1.1.6. Device Management (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#memory-model-cdp1">9.6.1.2. Memory Model (CDP1)</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#coherence-and-consistency-cdp1">9.6.1.2.1. Coherence and Consistency (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#global-memory-cdp1">9.6.1.2.1.1. Global Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#zero-copy-memory-cdp1">9.6.1.2.1.2. Zero Copy Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#constant-memory-cdp1">9.6.1.2.1.3. Constant Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#shared-and-local-memory-cdp1">9.6.1.2.1.4. Shared and Local Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#local-memory-cdp1">9.6.1.2.1.5. Local Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#texture-memory-cdp1">9.6.1.2.1.6. Texture Memory (CDP1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#programming-interface-cdp1">9.6.2. Programming Interface (CDP1)</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#cuda-c-reference-cdp1">9.6.2.1. CUDA C++ Reference (CDP1)</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#device-side-kernel-launch-cdp1">9.6.2.1.1. Device-Side Kernel Launch (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#launches-are-asynchronous-cdp1">9.6.2.1.1.1. Launches are Asynchronous (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#launch-environment-configuration-cdp1">9.6.2.1.1.2. Launch Environment Configuration (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#streams-cdp1">9.6.2.1.2. Streams (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#the-implicit-null-stream-cdp1">9.6.2.1.2.1. The Implicit (NULL) Stream (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#events-cdp1">9.6.2.1.3. Events (CDP1)</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#synchronization-programming-interface-cdp1">9.6.2.1.4. Synchronization (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#block-wide-synchronization-cdp1">9.6.2.1.4.1. Block Wide Synchronization (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#device-management-programming-cdp1">9.6.2.1.5. Device Management (CDP1)</a></li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#memory-declarations-cdp1">9.6.2.1.6. Memory Declarations (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#device-and-constant-memory-cdp1">9.6.2.1.6.1. Device and Constant Memory (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#textures-and-surfaces-cdp1">9.6.2.1.6.2. Textures and Surfaces (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#shared-memory-variable-declarations-cdp1">9.6.2.1.6.3. Shared Memory Variable Declarations (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#symbol-addresses-cdp1">9.6.2.1.6.4. Symbol Addresses (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#api-errors-and-launch-failures-cdp1">9.6.2.1.7. API Errors and Launch Failures (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#launch-setup-apis-cdp1">9.6.2.1.7.1. Launch Setup APIs (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#api-reference-cdp1">9.6.2.1.8. API Reference (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#device-side-launch-from-ptx-cdp1">9.6.2.2. Device-side Launch from PTX (CDP1)</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#kernel-launch-apis-cdp1">9.6.2.2.1. Kernel Launch APIs (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#cudalaunchdevice-cdp1">9.6.2.2.1.1. cudaLaunchDevice (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#cudagetparameterbuffer-cdp1">9.6.2.2.1.2. cudaGetParameterBuffer (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#parameter-buffer-layout-cdp1">9.6.2.2.2. Parameter Buffer Layout (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#toolkit-support-for-dynamic-parallelism-cdp1">9.6.2.3. Toolkit Support for Dynamic Parallelism (CDP1)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#including-device-runtime-api-in-cuda-code-cdp1">9.6.2.3.1. Including Device Runtime API in CUDA Code (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#compiling-and-linking-cdp1">9.6.2.3.2. Compiling and Linking (CDP1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#programming-guidelines-cdp1">9.6.3. Programming Guidelines (CDP1)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#basics-cdp1">9.6.3.1. Basics (CDP1)</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#performance-cdp1">9.6.3.2. Performance (CDP1)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#synchronization-performance-cdp1">9.6.3.2.1. Synchronization (CDP1)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#dynamic-parallelism-enabled-kernel-overhead-cdp1">9.6.3.2.2. Dynamic-parallelism-enabled Kernel Overhead (CDP1)</a></li>
+</ul>
+</li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#implementation-restrictions-and-limitations-cdp1">9.6.3.3. Implementation Restrictions and Limitations (CDP1)</a><ul>
+<li class="toctree-l5">
+<a class="reference internal" href="index.html#runtime-cdp1">9.6.3.3.1. Runtime (CDP1)</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="index.html#memory-footprint-cdp1">9.6.3.3.1.1. Memory Footprint (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#nesting-and-synchronization-depth-cdp1">9.6.3.3.1.2. Nesting and Synchronization Depth (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#pending-kernel-launches-cdp1">9.6.3.3.1.3. Pending Kernel Launches (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#configuration-options-cdp1">9.6.3.3.1.4. Configuration Options (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#memory-allocation-and-lifetime-cdp1">9.6.3.3.1.5. Memory Allocation and Lifetime (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#sm-id-and-warp-id-cdp1">9.6.3.3.1.6. SM Id and Warp Id (CDP1)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="index.html#ecc-errors-cdp1">9.6.3.3.1.7. ECC Errors (CDP1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#virtual-memory-management">10. Virtual Memory Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction-virtual-memory-management">10.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#query-for-support">10.2. Query for Support</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#allocating-physical-memory">10.3. Allocating Physical Memory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shareable-memory-allocations">10.3.1. Shareable Memory Allocations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#memory-type">10.3.2. Memory Type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#compressible-memory">10.3.2.1. Compressible Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reserving-a-virtual-address-range">10.4. Reserving a Virtual Address Range</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#virtual-aliasing-support">10.5. Virtual Aliasing Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#mapping-memory">10.6. Mapping Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#controlling-access-rights">10.7. Controlling Access Rights</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#stream-ordered-memory-allocator">11. Stream Ordered Memory Allocator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#stream-ordered-memory-allocator-intro">11.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#stream-ordered-querying-memory-support">11.2. Query for Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#api-fundamentals-cudamallocasync-and-cudafreeasync">11.3. API Fundamentals (cudaMallocAsync and cudaFreeAsync)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#memory-pools-and-the-cudamempool-t">11.4. Memory Pools and the cudaMemPool_t</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#default-implicit-pools">11.5. Default/Implicit Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#explicit-pools">11.6. Explicit Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#physical-page-caching-behavior">11.7. Physical Page Caching Behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#resource-usage-statistics">11.8. Resource Usage Statistics</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#memory-reuse-policies">11.9. Memory Reuse Policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudamempoolreusefolloweventdependencies">11.9.1. cudaMemPoolReuseFollowEventDependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudamempoolreuseallowopportunistic">11.9.2. cudaMemPoolReuseAllowOpportunistic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudamempoolreuseallowinternaldependencies">11.9.3. cudaMemPoolReuseAllowInternalDependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#disabling-reuse-policies">11.9.4. Disabling Reuse Policies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#device-accessibility-for-multi-gpu-support">11.10. Device Accessibility for Multi-GPU Support</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#ipc-memory-pools">11.11. IPC Memory Pools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#creating-and-sharing-ipc-memory-pools">11.11.1. Creating and Sharing IPC Memory Pools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#set-access-in-the-importing-process">11.11.2. Set Access in the Importing Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#creating-and-sharing-allocations-from-an-exported-pool">11.11.3. Creating and Sharing Allocations from an Exported Pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ipc-export-pool-limitations">11.11.4. IPC Export Pool Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#ipc-import-pool-limitations">11.11.5. IPC Import Pool Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#synchronization-api-actions">11.12. Synchronization API Actions</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#addendums">11.13. Addendums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudamemcpyasync-current-context-device-sensitivity">11.13.1. cudaMemcpyAsync Current Context/Device Sensitivity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cupointergetattribute-query">11.13.2. cuPointerGetAttribute Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cugraphaddmemsetnode">11.13.3. cuGraphAddMemsetNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#pointer-attributes">11.13.4. Pointer Attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#graph-memory-nodes">12. Graph Memory Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#graph-memory-nodes-intro">12.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#support-and-compatibility">12.2. Support and Compatibility</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#api-fundamentals">12.3. API Fundamentals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#graph-node-apis">12.3.1. Graph Node APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#stream-capture">12.3.2. Stream Capture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#accessing-and-freeing-graph-memory-outside-of-the-allocating-graph">12.3.3. Accessing and Freeing Graph Memory Outside of the Allocating Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cudagraphinstantiateflagautofreeonlaunch">12.3.4. cudaGraphInstantiateFlagAutoFreeOnLaunch</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#optimized-memory-reuse">12.4. Optimized Memory Reuse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#address-reuse-within-a-graph">12.4.1. Address Reuse within a Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#physical-memory-management-and-sharing">12.4.2. Physical Memory Management and Sharing</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#performance-considerations">12.5. Performance Considerations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#first-launch-cudagraphupload">12.5.1. First Launch / cudaGraphUpload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#physical-memory-footprint">12.6. Physical Memory Footprint</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#peer-access">12.7. Peer Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#peer-access-with-graph-node-apis">12.7.1. Peer Access with Graph Node APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#peer-access-with-stream-capture">12.7.2. Peer Access with Stream Capture</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#mathematical-functions-appendix">13. Mathematical Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#standard-functions">13.1. Standard Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#intrinsic-functions">13.2. Intrinsic Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#c-language-support">14. C++ Language Support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#c-11-language-features">14.1. C++11 Language Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#c-14-language-features">14.2. C++14 Language Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#c-17-language-features">14.3. C++17 Language Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#c-20-language-features">14.4. C++20 Language Features</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#language-restrictions">14.5. Restrictions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#host-compiler-extensions">14.5.1. Host Compiler Extensions</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#preprocessor-symbols">14.5.2. Preprocessor Symbols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#cuda-arch">14.5.2.1. __CUDA_ARCH__</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#qualifiers">14.5.3. Qualifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#device-memory-space-specifiers">14.5.3.1. Device Memory Space Specifiers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#managed-memory-space-specifier">14.5.3.2. __managed__ Memory Space Specifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#volatile-qualifier">14.5.3.3. Volatile Qualifier</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#pointers">14.5.4. Pointers</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#operators">14.5.5. Operators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#assignment-operator">14.5.5.1. Assignment Operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#address-operator">14.5.5.2. Address Operator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#run-time-type-information-rtti">14.5.6. Run Time Type Information (RTTI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#exception-handling">14.5.7. Exception Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#standard-library">14.5.8. Standard Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#namespace-reservations">14.5.9. Namespace Reservations</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#functions">14.5.10. Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#external-linkage">14.5.10.1. External Linkage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#implicitly-declared-and-explicitly-defaulted-functions">14.5.10.2. Implicitly-declared and explicitly-defaulted functions</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#function-parameters">14.5.10.3. Function Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#global-function-argument-processing">14.5.10.3.1. <code class="docutils literal notranslate"><span class="pre">__global__</span></code> Function Argument Processing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#toolkit-and-driver-compatibility">14.5.10.3.2. Toolkit and Driver Compatibility</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#link-compatibility-across-toolkit-revisions">14.5.10.3.3. Link Compatibility across Toolkit Revisions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#static-variables-within-function">14.5.10.4. Static Variables within Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#function-pointers">14.5.10.5. Function Pointers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#function-recursion">14.5.10.6. Function Recursion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#friend-functions">14.5.10.7. Friend Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#operator-function">14.5.10.8. Operator Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#allocation-and-deallocation-functions">14.5.10.9. Allocation and Deallocation Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#classes">14.5.11. Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-members">14.5.11.1. Data Members</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#function-members">14.5.11.2. Function Members</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#virtual-functions">14.5.11.3. Virtual Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#virtual-base-classes">14.5.11.4. Virtual Base Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#anonymous-unions">14.5.11.5. Anonymous Unions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#windows-specific">14.5.11.6. Windows-Specific</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#templates">14.5.12. Templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#trigraphs-and-digraphs">14.5.13. Trigraphs and Digraphs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#const-qualified-variables">14.5.14. Const-qualified variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#long-double">14.5.15. Long Double</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#deprecation-annotation">14.5.16. Deprecation Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#noreturn-annotation">14.5.17. Noreturn Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#likely-unlikely-standard-attributes">14.5.18. [[likely]] / [[unlikely]] Standard Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#const-and-pure-gnu-attributes">14.5.19. const and pure GNU Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#nv-pure-attribute">14.5.20. __nv_pure__ Attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#intel-host-compiler-specific">14.5.21. Intel Host Compiler Specific</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#c-11-features">14.5.22. C++11 Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#lambda-expressions">14.5.22.1. Lambda Expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#std-initializer-list">14.5.22.2. std::initializer_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#rvalue-references">14.5.22.3. Rvalue references</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#constexpr-functions-and-function-templates">14.5.22.4. Constexpr functions and function templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#constexpr-variables">14.5.22.5. Constexpr variables</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#inline-namespaces">14.5.22.6. Inline namespaces</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#inline-unnamed-namespaces">14.5.22.6.1. Inline unnamed namespaces</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#thread-local">14.5.22.7. thread_local</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#global-functions-and-function-templates">14.5.22.8. __global__ functions and function templates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#managed-and-shared-variables">14.5.22.9. __managed__ and __shared__ variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#defaulted-functions">14.5.22.10. Defaulted functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#c-14-features">14.5.23. C++14 Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#functions-with-deduced-return-type">14.5.23.1. Functions with deduced return type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#variable-templates">14.5.23.2. Variable templates</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#c-17-features">14.5.24. C++17 Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#inline-variable">14.5.24.1. Inline Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#structured-binding">14.5.24.2. Structured Binding</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#c-20-features">14.5.25. C++20 Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#module-support">14.5.25.1. Module support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#coroutine-support">14.5.25.2. Coroutine support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#three-way-comparison-operator">14.5.25.3. Three-way comparison operator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#consteval-functions">14.5.25.4. Consteval functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#polymorphic-function-wrappers">14.6. Polymorphic Function Wrappers</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#extended-lambdas">14.7. Extended Lambdas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#extended-lambda-type-traits">14.7.1. Extended Lambda Type Traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#extended-lambda-restrictions">14.7.2. Extended Lambda Restrictions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#notes-on-host-device-lambdas">14.7.3. Notes on __host__ __device__ lambdas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#this-capture-by-value">14.7.4. *this Capture By Value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#additional-notes">14.7.5. Additional Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#code-samples">14.8. Code Samples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#data-aggregation-class">14.8.1. Data Aggregation Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#derived-class">14.8.2. Derived Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#class-template">14.8.3. Class Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#function-template">14.8.4. Function Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#functor-class">14.8.5. Functor Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#texture-fetching">15. Texture Fetching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#nearest-point-sampling">15.1. Nearest-Point Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#linear-filtering">15.2. Linear Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#table-lookup">15.3. Table Lookup</a></li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#compute-capabilities">16. Compute Capabilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#feature-availability">16.1. Feature Availability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#features-and-technical-specifications">16.2. Features and Technical Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#floating-point-standard">16.3. Floating-Point Standard</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compute-capability-5-x">16.4. Compute Capability 5.x</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#architecture">16.4.1. Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-memory-5-x">16.4.2. Global Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory-5-x">16.4.3. Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compute-capability-6-x">16.5. Compute Capability 6.x</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#architecture-6-x">16.5.1. Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-memory-6-x">16.5.2. Global Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory-6-x">16.5.3. Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compute-capability-7-x">16.6. Compute Capability 7.x</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#architecture-7-x">16.6.1. Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#independent-thread-scheduling">16.6.2. Independent Thread Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-memory-7-x">16.6.3. Global Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory-7-x">16.6.4. Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compute-capability-8-x">16.7. Compute Capability 8.x</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#architecture-8-x">16.7.1. Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-memory-8-x">16.7.2. Global Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory-8-x">16.7.3. Shared Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#compute-capability-9-0">16.8. Compute Capability 9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#architecture-9-0">16.8.1. Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#global-memory-9-0">16.8.2. Global Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#shared-memory-9-0">16.8.3. Shared Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#features-accelerating-specialized-computations">16.8.4. Features Accelerating Specialized Computations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#driver-api">17. Driver API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#context">17.1. Context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module">17.2. Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#kernel-execution">17.3. Kernel Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#interoperability-between-runtime-and-driver-apis">17.4. Interoperability between Runtime and Driver APIs</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#driver-entry-point-access">17.5. Driver Entry Point Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#introduction-driver-entry-point-access">17.5.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#driver-function-typedefs">17.5.2. Driver Function Typedefs</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#driver-function-retrieval">17.5.3. Driver Function Retrieval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#using-the-driver-api">17.5.3.1. Using the driver API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#using-the-runtime-api">17.5.3.2. Using the runtime API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#retrieve-per-thread-default-stream-versions">17.5.3.3. Retrieve per-thread default stream versions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#access-new-cuda-features">17.5.3.4. Access new CUDA features</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#potential-implications-with-cugetprocaddress">17.5.4. Potential Implications with cuGetProcAddress</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#implications-with-cugetprocaddress-vs-implicit-linking">17.5.4.1. Implications with cuGetProcAddress vs Implicit Linking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#compile-time-vs-runtime-version-usage-in-cugetprocaddress">17.5.4.2. Compile Time vs Runtime Version Usage in cuGetProcAddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#api-version-bumps-with-explicit-version-checks">17.5.4.3. API Version Bumps with Explicit Version Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#issues-with-runtime-api-usage">17.5.4.4. Issues with Runtime API Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#issues-with-runtime-api-and-dynamic-versioning">17.5.4.5. Issues with Runtime API and Dynamic Versioning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#issues-with-runtime-api-allowing-cuda-version">17.5.4.6. Issues with Runtime API allowing CUDA Version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#implications-to-api-abi">17.5.4.7. Implications to API/ABI</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#determining-cugetprocaddress-failure-reasons">17.5.5. Determining cuGetProcAddress Failure Reasons</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#cuda-environment-variables">18. CUDA Environment Variables</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#unified-memory-programming">19. Unified Memory Programming</a><ul>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#unified-memory-introduction">19.1. Unified Memory Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#system-requirements-for-unified-memory">19.1.1. System Requirements for Unified Memory</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#um-opt-in">19.1.2. Programming Model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#allocation-apis-for-system-allocated-memory">19.1.2.1. Allocation APIs for System-Allocated Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#allocation-api-for-cuda-managed-memory-cudamallocmanaged">19.1.2.2. Allocation API for CUDA Managed Memory: <code class="docutils literal notranslate"><span class="pre">cudaMallocManaged()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#global-scope-managed-variables-using-managed">19.1.2.3. Global-Scope Managed Variables Using <code class="docutils literal notranslate"><span class="pre">__managed__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#difference-between-unified-memory-and-mapped-memory">19.1.2.4. Difference between Unified Memory and Mapped Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#um-pointer-attributes">19.1.2.5. Pointer Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#runtime-detection-of-unified-memory-support-level">19.1.2.6. Runtime detection of Unified Memory Support Level</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#gpu-memory-oversubscription">19.1.2.7. GPU Memory Oversubscription</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#performance-hints">19.1.2.8. Performance Hints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-prefetching">19.1.2.8.1. Data Prefetching</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#data-usage-hints">19.1.2.8.2. Data Usage Hints</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#querying-data-usage-attributes-on-managed-memory">19.1.2.8.3. Querying Data Usage Attributes on Managed Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#unified-memory-on-devices-with-full-cuda-unified-memory-support">19.2. Unified memory on devices with full CUDA Unified Memory support</a><ul>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#system-allocated-memory-in-depth-examples">19.2.1. System-Allocated Memory: in-depth examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#file-backed-unified-memory">19.2.1.1. File-backed Unified Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#inter-process-communication-ipc-with-unified-memory">19.2.1.2. Inter-Process Communication (IPC) with Unified Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#performance-tuning">19.2.2. Performance Tuning</a><ul>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#memory-paging-and-page-sizes">19.2.2.1. Memory Paging and Page Sizes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#choosing-the-right-page-size">19.2.2.1.1. Choosing the right page size</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#cpu-and-gpu-page-tables-hardware-coherency-vs-software-coherency">19.2.2.1.2. CPU and GPU page tables: hardware coherency vs. software coherency</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#direct-unified-memory-access-from-host">19.2.2.2. Direct Unified Memory Access from host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#host-native-atomics">19.2.2.3. Host Native Atomics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#atomic-accesses-synchronization-primitives">19.2.2.4. Atomic accesses &amp; synchronization primitives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#memcpy-memset-behavior-with-unified-memory">19.2.2.5. Memcpy()/Memset() Behavior With Unified Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#unified-memory-on-devices-without-full-cuda-unified-memory-support">19.3. Unified memory on devices without full CUDA Unified Memory support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#unified-memory-on-devices-with-only-cuda-managed-memory-support">19.3.1. Unified memory on devices with only CUDA Managed Memory support</a></li>
+<li class="toctree-l3">
+<a class="reference internal" href="index.html#unified-memory-on-windows-or-devices-with-compute-capability-5-x">19.3.2. Unified memory on Windows or devices with compute capability 5.x</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="index.html#data-migration-and-coherency">19.3.2.1. Data Migration and Coherency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#um-legacy-oversubscription">19.3.2.2. GPU Memory Oversubscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="index.html#multi-gpu">19.3.2.3. Multi-GPU</a></li>
+<li class="toctree-l4">
+<a class="reference internal" href="index.html#coherency-and-concurrency">19.3.2.4. Coherency and Concurrency</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="index.html#gpu-exclusive-access-to-managed-memory">19.3.2.4.1. GPU Exclusive Access To Managed Memory</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#explicit-synchronization-and-logical-gpu-activity">19.3.2.4.2. Explicit Synchronization and Logical GPU Activity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#managing-data-visibility-and-concurrent-cpu-gpu-access-with-streams">19.3.2.4.3. Managing Data Visibility and Concurrent CPU + GPU Access with Streams</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#stream-association-examples">19.3.2.4.4. Stream Association Examples</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#stream-attach-with-multithreaded-host-programs">19.3.2.4.5. Stream Attach With Multithreaded Host Programs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#advanced-topic-modular-programs-and-data-access-constraints">19.3.2.4.6. Advanced Topic: Modular Programs and Data Access Constraints</a></li>
+<li class="toctree-l5"><a class="reference internal" href="index.html#memcpy-memset-behavior-with-stream-associated-unified-memory">19.3.2.4.7. Memcpy()/Memset() Behavior With Stream-associated Unified Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#lazy-loading">20. Lazy Loading</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#what-is-lazy-loading">20.1. What is Lazy Loading?</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#lazy-loading-version-support">20.2. Lazy Loading version support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#driver">20.2.1. Driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#toolkit">20.2.2. Toolkit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#compiler">20.2.3. Compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#triggering-loading-of-kernels-in-lazy-mode">20.3. Triggering loading of kernels in lazy mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-driver-api">20.3.1. CUDA Driver API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#cuda-runtime-api">20.3.2. CUDA Runtime API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#querying-whether-lazy-loading-is-turned-on">20.4. Querying whether Lazy Loading is turned on</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#possible-issues-when-adopting-lazy-loading">20.5. Possible issues when adopting lazy loading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#concurrent-execution">20.5.1. Concurrent execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#allocators">20.5.2. Allocators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#autotuning">20.5.3. Autotuning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">21. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">21.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">21.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">21.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2007-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>

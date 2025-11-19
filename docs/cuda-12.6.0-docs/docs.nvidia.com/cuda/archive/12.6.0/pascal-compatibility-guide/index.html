@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript"
+  data-document-language="true" charset="UTF-8" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5">
+</script>
+<script type="text/javascript">
+  function OptanonWrapper() {
+    var event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+  }
+</script>
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js" type="text/javascript">
+</script>
+
+  <meta charset="utf-8">
+<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/">
+<meta content="The guide to building CUDA applications for GPUs based on the NVIDIA Pascal Architecture." name="description">
+<meta content="CUDA Pascal, CUDA Pascal compatibility, CUDA Pascal cubin, CUDA Pascal PTX, CUDA Pascal nvcc" name="keywords">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pascal Compatibility Guide</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css">
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css">
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css">
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css">
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css">
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css">
+    <link rel="shortcut icon" href="../_static/favicon.ico">
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/geoip/geoip.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html">
+    <link rel="search" title="Search" href="search.html">
+    <link rel="prev" title="Contents" href="contents.html">
+ 
+<script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script>
+ 
+
+<link rel="stylesheet" href="../../../../common-libs/common.css">
+<script src="../../../../common-libs/common.js"></script>
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+            <a href="contents.html">
+            <img src="../_static/Logo_and_CUDA.png" class="logo" alt="Logo">
+          </a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current">
+<a class="current reference internal" href="index.html#">1. Pascal Compatibility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#about-this-document">1.1. About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#application-compatibility-on-pascal">1.2. Application Compatibility on Pascal</a></li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#verifying-pascal-compatibility-for-existing-applications">1.3. Verifying Pascal Compatibility for Existing Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#applications-using-cuda-toolkit-7-5-or-earlier">1.3.1. Applications Using CUDA Toolkit 7.5 or Earlier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#applications-using-cuda-toolkit-8-0">1.3.2. Applications Using CUDA Toolkit 8.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2">
+<a class="reference internal" href="index.html#building-applications-with-pascal-support">1.4. Building Applications with Pascal Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id1">1.4.1. Applications Using CUDA Toolkit 7.5 or Earlier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#id2">1.4.2. Applications Using CUDA Toolkit 8.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#revision-history">2. Revision History</a></li>
+<li class="toctree-l1">
+<a class="reference internal" href="index.html#notices">3. Notices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#notice">3.1. Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#opencl">3.2. OpenCL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#trademarks">3.3. Trademarks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="contents.html">Pascal Compatibility Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+  
+
+<li>
+<a href="../index.html" class="icon icon-home"></a> »</li>
+  
+<li>
+<span class="section-number">1. </span>Pascal Compatibility</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+
+  <span>v12.6 |</span>
+
+
+
+  <a href="../pdf/Pascal_Compatibility_Guide.pdf" class="reference external">PDF</a>
+
+
+
+  <span>|</span>
+
+
+
+  <a href="https://developer.nvidia.com/cuda-toolkit-archive" class="reference external">Archive</a>
+
+
+  <span> </span>
+</li>
+
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p class="rubric-h1 rubric">Pascal Compatibility Guide for CUDA Applications</p>
+<p>The guide to building CUDA applications for GPUs based on the NVIDIA Pascal Architecture.</p>
+<section id="pascal-compatibility">
+<h1>
+<span class="section-number">1. </span>Pascal Compatibility<a class="headerlink" href="index.html#pascal-compatibility" title="Permalink to this headline"></a>
+</h1>
+<section id="about-this-document">
+<h2>
+<span class="section-number">1.1. </span>About this Document<a class="headerlink" href="index.html#about-this-document" title="Permalink to this headline"></a>
+</h2>
+<p>This application note, Pascal Compatibility Guide for CUDA Applications, is intended to help developers ensure that their NVIDIA<sup>®</sup> CUDA<sup>®</sup> applications will run on GPUs based on the NVIDIA<sup>®</sup> Pascal Architecture. This document provides guidance to developers who are already familiar with programming in CUDA C++ and want to make sure that their software applications are compatible with Pascal.</p>
+</section>
+<section id="application-compatibility-on-pascal">
+<h2>
+<span class="section-number">1.2. </span>Application Compatibility on Pascal<a class="headerlink" href="index.html#application-compatibility-on-pascal" title="Permalink to this headline"></a>
+</h2>
+<p>The NVIDIA CUDA C++ compiler, <code class="docutils literal notranslate"><span class="pre">nvcc</span></code>, can be used to generate both architecture-specific <em>cubin</em> files and forward-compatible <em>PTX</em> versions of each kernel. Each cubin file targets a specific compute-capability version and is forward-compatible <em>only with GPU architectures of the same major version number</em>. For example, cubin files that target compute capability 3.0 are supported on all compute-capability 3.x (Kepler) devices but are <em>not</em> supported on compute-capability 5.x (Maxwell) or 6.x (Pascal) devices. For this reason, to ensure forward compatibility with GPU architectures introduced after the application has been released, it is recommended that all applications include PTX versions of their kernels.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CUDA Runtime applications containing both cubin and PTX code for a given architecture will automatically use the cubin by default, keeping the PTX path strictly for forward-compatibility purposes.</p>
+</div>
+<p>Applications that already include PTX versions of their kernels should work as-is on Pascal-based GPUs. Applications that only support specific GPU architectures via cubin files, however, will need to be updated to provide Pascal-compatible PTX or cubins.</p>
+</section>
+<section id="verifying-pascal-compatibility-for-existing-applications">
+<h2>
+<span class="section-number">1.3. </span>Verifying Pascal Compatibility for Existing Applications<a class="headerlink" href="index.html#verifying-pascal-compatibility-for-existing-applications" title="Permalink to this headline"></a>
+</h2>
+<p>The first step is to check that Pascal-compatible device code (at least PTX) is compiled in to the application. The following sections show how to accomplish this for applications built with different CUDA Toolkit versions.</p>
+<section id="applications-using-cuda-toolkit-7-5-or-earlier">
+<h3>
+<span class="section-number">1.3.1. </span>Applications Using CUDA Toolkit 7.5 or Earlier<a class="headerlink" href="index.html#applications-using-cuda-toolkit-7-5-or-earlier" title="Permalink to this headline"></a>
+</h3>
+<p>CUDA applications built using CUDA Toolkit versions 2.1 through 7.5 are compatible with Pascal as long as they are built to include PTX versions of their kernels. To test that PTX JIT is working for your application, you can do the following:</p>
+<ul class="simple">
+<li><p>Download and install the latest driver from <a class="reference external" href="https://www.nvidia.com/drivers">https://www.nvidia.com/drivers</a>.</p></li>
+<li><p>Set the environment variable <code class="docutils literal notranslate"><span class="pre">CUDA_FORCE_PTX_JIT=1</span></code>.</p></li>
+<li><p>Launch your application.</p></li>
+</ul>
+<p>When starting a CUDA application for the first time with the above environment flag, the CUDA driver will JIT-compile the PTX for each CUDA kernel that is used into native cubin code.</p>
+<p>If you set the environment variable above and then launch your program and it works properly, then you have successfully verified Pascal compatibility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to unset the CUDA_FORCE_PTX_JIT environment variable when you are done testing.</p>
+</div>
+</section>
+<section id="applications-using-cuda-toolkit-8-0">
+<h3>
+<span class="section-number">1.3.2. </span>Applications Using CUDA Toolkit 8.0<a class="headerlink" href="index.html#applications-using-cuda-toolkit-8-0" title="Permalink to this headline"></a>
+</h3>
+<p>CUDA applications built using CUDA Toolkit 8.0 are compatible with Pascal as long as they are built to include kernels in either Pascal-native cubin format (see <a class="reference external" href="index.html#building-applications-with-pascal-support">Building Applications with Pascal Support</a>) or PTX format (see <a class="reference external" href="index.html#verifying-pascal-compatibility-using-cuda-7-5">Applications Using CUDA Toolkit 7.5 or Earlier</a>) or both.</p>
+</section>
+</section>
+<section id="building-applications-with-pascal-support">
+<h2>
+<span class="section-number">1.4. </span>Building Applications with Pascal Support<a class="headerlink" href="index.html#building-applications-with-pascal-support" title="Permalink to this headline"></a>
+</h2>
+<p>When a CUDA application launches a kernel, the CUDA Runtime determines the compute capability of each GPU in the system and uses this information to automatically find the best matching cubin or PTX version of the kernel that is available. If a cubin file supporting the architecture of the target GPU is available, it is used; otherwise, the CUDA Runtime will load the PTX and JIT-compile that PTX to the GPU’s native cubin format before launching it. If neither is available, then the kernel launch will fail.</p>
+<p>The method used to build your application with either native cubin or at least PTX support for Pascal depend on the version of the CUDA Toolkit used.</p>
+<p>The main advantages of providing native cubins are as follows:</p>
+<ul class="simple">
+<li><p>It saves the end user the time it takes to JIT-compile kernels that are available only as PTX. All kernels compiled into the application must have native binaries at load time or else they will be built just-in-time from PTX, including kernels from all libraries linked to the application, even if those kernels are never launched by the application. Especially when using large libraries, this JIT compilation can take a significant amount of time. The CUDA driver will cache the cubins generated as a result of the PTX JIT, so this is mostly a one-time cost for a given user, but it is time best avoided whenever possible.</p></li>
+<li><p>PTX JIT-compiled kernels often cannot take advantage of architectural features of newer GPUs, meaning that native-compiled code may be faster or of greater accuracy.</p></li>
+</ul>
+<section id="id1">
+<h3>
+<span class="section-number">1.4.1. </span>Applications Using CUDA Toolkit 7.5 or Earlier<a class="headerlink" href="index.html#id1" title="Permalink to this headline"></a>
+</h3>
+<p>The compilers included in CUDA Toolkit 7.5 or earlier generate cubin files native to earlier NVIDIA architectures such as Kepler and Maxwell, but they <em>cannot</em> generate cubin files native to the Pascal architecture. To allow support for Pascal and future architectures when using version 7.5 or earlier of the CUDA Toolkit, the compiler must generate a PTX version of each kernel.</p>
+<p>Below are compiler settings that could be used to build <code class="docutils literal notranslate"><span class="pre">mykernel.cu</span></code> to run on Kepler or Maxwell devices natively and on Pascal devices via PTX JIT.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">compute_XX</span></code> refers to a PTX version and <code class="docutils literal notranslate"><span class="pre">sm_XX</span></code> refers to a cubin version. The <code class="docutils literal notranslate"><span class="pre">arch=</span></code> clause of the <code class="docutils literal notranslate"><span class="pre">-gencode=</span></code> command-line option to <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> specifies the front-end compilation target and must always be a PTX version. The <code class="docutils literal notranslate"><span class="pre">code=</span></code> clause specifies the back-end compilation target and can either be cubin or PTX or both. Only the back-end target version(s) specified by the <code class="docutils literal notranslate"><span class="pre">code=</span></code> clause will be retained in the resulting binary; at least one must be PTX to provide Pascal compatibility.</p>
+</div>
+<p><strong>Windows</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>nvcc.exe -ccbin "C:\vs2010\VC\bin"
+  -Xcompiler "/EHsc /W3 /nologo /O2 /Zi /MT"
+  -gencode=arch=compute_30,code=sm_30
+  -gencode=arch=compute_35,code=sm_35
+  -gencode=arch=compute_50,code=sm_50
+  -gencode=arch=compute_52,code=sm_52
+  -gencode=arch=compute_52,code=compute_52
+  --compile -o "Release\mykernel.cu.obj" "mykernel.cu"
+</pre></div>
+</div>
+<p><strong>Mac/Linux</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>/usr/local/cuda/bin/nvcc
+  -gencode=arch=compute_30,code=sm_30
+  -gencode=arch=compute_35,code=sm_35
+  -gencode=arch=compute_50,code=sm_50
+  -gencode=arch=compute_52,code=sm_52
+  -gencode=arch=compute_52,code=compute_52
+  -O2 -o mykernel.o -c mykernel.cu
+</pre></div>
+</div>
+<p>Alternatively, you may be familiar with the simplified <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> command-line option <code class="docutils literal notranslate"><span class="pre">-arch=sm_XX</span></code>, which is a shorthand equivalent to the following more explicit <code class="docutils literal notranslate"><span class="pre">-gencode=</span></code> command-line options used above. <code class="docutils literal notranslate"><span class="pre">-arch=sm_XX</span></code> expands to the following:</p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>-gencode=arch=compute_XX,code=sm_XX
+-gencode=arch=compute_XX,code=compute_XX
+</pre></div>
+</div>
+<p>However, while the <code class="docutils literal notranslate"><span class="pre">-arch=sm_XX</span></code> command-line option does result in inclusion of a PTX back-end target by default, it can only specify a single target cubin architecture at a time, and it is not possible to use multiple <code class="docutils literal notranslate"><span class="pre">-arch=</span></code> options on the same <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> command line, which is why the examples above use <code class="docutils literal notranslate"><span class="pre">-gencode=</span></code> explicitly.</p>
+</section>
+<section id="id2">
+<h3>
+<span class="section-number">1.4.2. </span>Applications Using CUDA Toolkit 8.0<a class="headerlink" href="index.html#id2" title="Permalink to this headline"></a>
+</h3>
+<p>With version 8.0 of the CUDA Toolkit, <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> can generate cubin files native to the Pascal architectures (compute capability 6.0 and 6.1). When using CUDA Toolkit 8.0, to ensure that <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> will generate cubin files for all recent GPU architectures as well as a PTX version for forward compatibility with future GPU architectures, specify the appropriate <code class="docutils literal notranslate"><span class="pre">-gencode=</span></code> parameters on the <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> command line as shown in the examples below.</p>
+<p><strong>Windows</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>nvcc.exe -ccbin "C:\vs2010\VC\bin"
+  -Xcompiler "/EHsc /W3 /nologo /O2 /Zi /MT"
+  -gencode=arch=compute_30,code=sm_30
+  -gencode=arch=compute_35,code=sm_35
+  -gencode=arch=compute_50,code=sm_50
+  -gencode=arch=compute_52,code=sm_52
+  -gencode=arch=compute_60,code=sm_60
+  -gencode=arch=compute_61,code=sm_61
+  -gencode=arch=compute_61,code=compute_61
+  --compile -o "Release\mykernel.cu.obj" "mykernel.cu"
+</pre></div>
+</div>
+<p><strong>Mac/Linux</strong></p>
+<div class="highlight-text notranslate">
+<div class="highlight"><pre><span></span>/usr/local/cuda/bin/nvcc
+  -gencode=arch=compute_30,code=sm_30
+  -gencode=arch=compute_35,code=sm_35
+  -gencode=arch=compute_50,code=sm_50
+  -gencode=arch=compute_52,code=sm_52
+  -gencode=arch=compute_60,code=sm_60
+  -gencode=arch=compute_61,code=sm_61
+  -gencode=arch=compute_61,code=compute_61
+  -O2 -o mykernel.o -c mykernel.cu
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">compute_XX</span></code> refers to a PTX version and <code class="docutils literal notranslate"><span class="pre">sm_XX</span></code> refers to a cubin version. The <code class="docutils literal notranslate"><span class="pre">arch=</span></code> clause of the <code class="docutils literal notranslate"><span class="pre">-gencode=</span></code> command-line option to <code class="docutils literal notranslate"><span class="pre">nvcc</span></code> specifies the front-end compilation target and must always be a PTX version. The <code class="docutils literal notranslate"><span class="pre">code=</span></code> clause specifies the back-end compilation target and can either be cubin or PTX or both. Only the back-end target version(s) specified by the <code class="docutils literal notranslate"><span class="pre">code=</span></code> clause will be retained in the resulting binary; at least one should be PTX to provide compatibility with future architectures.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="revision-history">
+<h1>
+<span class="section-number">2. </span>Revision History<a class="headerlink" href="index.html#revision-history" title="Permalink to this headline"></a>
+</h1>
+<p><strong>Version 1.0</strong></p>
+<ul class="simple">
+<li><p>Initial public release.</p></li>
+</ul>
+<p><strong>Version 1.1</strong></p>
+<ul class="simple">
+<li><p>Use CUDA C++ instead of CUDA C/C++</p></li>
+</ul>
+</section>
+<section id="notices">
+<h1>
+<span class="section-number">3. </span>Notices<a class="headerlink" href="index.html#notices" title="Permalink to this headline"></a>
+</h1>
+<section id="notice">
+<h2>
+<span class="section-number">3.1. </span>Notice<a class="headerlink" href="index.html#notice" title="Permalink to this headline"></a>
+</h2>
+<p>This document is provided for information purposes only and shall not be regarded as a warranty of a certain functionality, condition, or quality of a product. NVIDIA Corporation (“NVIDIA”) makes no representations or warranties, expressed or implied, as to the accuracy or completeness of the information contained in this document and assumes no responsibility for any errors contained herein. NVIDIA shall have no liability for the consequences or use of such information or for any infringement of patents or other rights of third parties that may result from its use. This document is not a commitment to develop, release, or deliver any Material (defined below), code, or functionality.</p>
+<p>NVIDIA reserves the right to make corrections, modifications, enhancements, improvements, and any other changes to this document, at any time without notice.</p>
+<p>Customer should obtain the latest relevant information before placing orders and should verify that such information is current and complete.</p>
+<p>NVIDIA products are sold subject to the NVIDIA standard terms and conditions of sale supplied at the time of order acknowledgement, unless otherwise agreed in an individual sales agreement signed by authorized representatives of NVIDIA and customer (“Terms of Sale”). NVIDIA hereby expressly objects to applying any customer general terms and conditions with regards to the purchase of the NVIDIA product referenced in this document. No contractual obligations are formed either directly or indirectly by this document.</p>
+<p>NVIDIA products are not designed, authorized, or warranted to be suitable for use in medical, military, aircraft, space, or life support equipment, nor in applications where failure or malfunction of the NVIDIA product can reasonably be expected to result in personal injury, death, or property or environmental damage. NVIDIA accepts no liability for inclusion and/or use of NVIDIA products in such equipment or applications and therefore such inclusion and/or use is at customer’s own risk.</p>
+<p>NVIDIA makes no representation or warranty that products based on this document will be suitable for any specified use. Testing of all parameters of each product is not necessarily performed by NVIDIA. It is customer’s sole responsibility to evaluate and determine the applicability of any information contained in this document, ensure the product is suitable and fit for the application planned by customer, and perform the necessary testing for the application in order to avoid a default of the application or the product. Weaknesses in customer’s product designs may affect the quality and reliability of the NVIDIA product and may result in additional or different conditions and/or requirements beyond those contained in this document. NVIDIA accepts no liability related to any default, damage, costs, or problem which may be based on or attributable to: (i) the use of the NVIDIA product in any manner that is contrary to this document or (ii) customer product designs.</p>
+<p>No license, either expressed or implied, is granted under any NVIDIA patent right, copyright, or other NVIDIA intellectual property right under this document. Information published by NVIDIA regarding third-party products or services does not constitute a license from NVIDIA to use such products or services or a warranty or endorsement thereof. Use of such information may require a license from a third party under the patents or other intellectual property rights of the third party, or a license from NVIDIA under the patents or other intellectual property rights of NVIDIA.</p>
+<p>Reproduction of information in this document is permissible only if approved in advance by NVIDIA in writing, reproduced without alteration and in full compliance with all applicable export laws and regulations, and accompanied by all associated conditions, limitations, and notices.</p>
+<p>THIS DOCUMENT AND ALL NVIDIA DESIGN SPECIFICATIONS, REFERENCE BOARDS, FILES, DRAWINGS, DIAGNOSTICS, LISTS, AND OTHER DOCUMENTS (TOGETHER AND SEPARATELY, “MATERIALS”) ARE BEING PROVIDED “AS IS.” NVIDIA MAKES NO WARRANTIES, EXPRESSED, IMPLIED, STATUTORY, OR OTHERWISE WITH RESPECT TO THE MATERIALS, AND EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF NONINFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT WILL NVIDIA BE LIABLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF ANY USE OF THIS DOCUMENT, EVEN IF NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. Notwithstanding any damages that customer might incur for any reason whatsoever, NVIDIA’s aggregate and cumulative liability towards customer for the products described herein shall be limited in accordance with the Terms of Sale for the product.</p>
+</section>
+<section id="opencl">
+<h2>
+<span class="section-number">3.2. </span>OpenCL<a class="headerlink" href="index.html#opencl" title="Permalink to this headline"></a>
+</h2>
+<p>OpenCL is a trademark of Apple Inc. used under license to the Khronos Group Inc.</p>
+</section>
+<section id="trademarks">
+<h2>
+<span class="section-number">3.3. </span>Trademarks<a class="headerlink" href="index.html#trademarks" title="Permalink to this headline"></a>
+</h2>
+<p>NVIDIA and the NVIDIA logo are trademarks or registered trademarks of NVIDIA Corporation in the U.S. and other countries. Other company and product names may be trademarks of the respective companies with which they are associated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light">
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark">
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright © 2016-2024, NVIDIA Corporation &amp; affiliates. All rights reserved.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Aug 1, 2024.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+<script type="text/javascript">if (typeof _satellite !== "undefined"){_satellite.pageBottom();}</script>
+ 
+
+
+<script type="text/javascript">_satellite.pageBottom();</script>
+</body>
+</html>
