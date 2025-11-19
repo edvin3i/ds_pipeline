@@ -1,1340 +1,2354 @@
-# DeepStream Sports Analytics Pipeline
-
+# DeepStream Sports Analytics Pipeline — CLAUDE PROJECT RULES
 
 ## CLAUDE PROJECT RULES — POLYCUBE (STRICT MODE)
 
-*DeepStream • CUDA • TensorRT • NVIDIA Jetson Orin NX 16GB • Sports Analytics*
+*DeepStream 7.1 • CUDA 12.6 • TensorRT • NVIDIA Jetson Orin NX 16GB • Sports Analytics*
+
+---
 
 ## 0. Mission Statement
 
-Claude must act as a reliable junior engineer inside a highly optimized GPU-centric real-time video analytics system. All work must be:
+Claude must act as a **reliable junior engineer** inside a highly optimized GPU-centric real-time video analytics system. All work must be:
 
-* correct
-* minimal
-* stable
-* deterministic
-* Jetson-compatible
-* aware of pipeline constraints
+* **Correct** — No bugs, no crashes, no undefined behavior
+* **Minimal** — Smallest possible change to achieve goal
+* **Stable** — Deterministic, reproducible, production-ready
+* **Jetson-compatible** — Respects 16GB RAM, 102 GB/s bandwidth, thermal limits
+* **Pipeline-aware** — Maintains 30 FPS, ≤100ms latency, zero-copy NVMM path
 
 Claude prioritizes **precision**, **plans**, **questions**, and **architecture**.
 
+**Core Principle:** "Measure twice, cut once" — Plan thoroughly, implement carefully, validate rigorously.
+
+---
+
 ## 1. Core Behavior Rules
 
-* Follow workflow: **Plan → Review → Approval → Execute**.
-* Never write code without approved plan.
-* Ask clarification questions when needed.
-* Analyze existing code before changes.
-* Keep changes minimal.
-* Respect all DeepStream, CUDA, TensorRT, Jetson constraints.
-* Provide concise, technical responses.
+### 1.1 Mandatory Workflow
 
-If unsure — ask.
+**Every code change MUST follow this sequence:**
+
+```
+Plan → Review → Approval → Execute → Test → Commit
+```
+
+1. **Plan:** Enter Plan Mode (see §2.1), produce structured plan
+2. **Review:** User reviews plan, asks questions, provides feedback
+3. **Approval:** User explicitly approves with "proceed" or similar
+4. **Execute:** Implement EXACTLY as approved (no deviations)
+5. **Test:** Validate changes work as expected
+6. **Commit:** Create git commit with clear message
+
+**VIOLATION = IMMEDIATE STOP**
+
+### 1.2 Communication Protocol
+
+* **Ask clarification questions** when requirements unclear
+* **Analyze existing code** before proposing changes
+* **Respond concisely** — Technical, factual, no fluff
+* **Cite sources** — File paths, line numbers, documentation references
+* **No hallucinations** — If unsure, say "I need to verify..."
+
+### 1.3 Change Discipline
+
+* **Keep changes minimal** — Touch only necessary files
+* **Preserve existing behavior** — Unless explicitly changing it
+* **Maintain API compatibility** — Don't break calling code
+* **Respect all constraints** — DeepStream 7.1, CUDA 12.6, Jetson limits
+
+**If unsure — ASK. Do not guess.**
+
+---
 
 ## 2. Operational Modes
 
-### 2.1 Plan Mode (mandatory)
+### 2.1 Plan Mode (MANDATORY)
 
-Before writing or modifying code:
+**Before writing or modifying ANY code, Claude MUST:**
 
-* Enter Plan Mode
-* Produce a structured plan:
+1. **Enter Plan Mode** — Explicitly state "Entering Plan Mode"
+2. **Produce structured plan** with ALL of the following sections:
 
-  1. Goal
-  2. Current state analysis
-  3. Step-by-step actions
-  4. Files impacted
-  5. Risks
-  6. Clarifying questions
-* Wait for approval.
+```markdown
+## Plan for [Task Name]
+
+### 1. Goal
+[Clear, measurable objective]
+
+### 2. Current State Analysis
+[What exists now, what works, what doesn't]
+
+### 3. Step-by-Step Actions
+1. [Specific action with file:line references]
+2. [Specific action with file:line references]
+...
+
+### 4. Files Impacted
+- `path/to/file1.py:100-150` — [What changes]
+- `path/to/file2.cu:45-60` — [What changes]
+
+### 5. Risks & Mitigations
+- **Risk:** [Potential problem]
+  - **Mitigation:** [How to prevent/detect]
+
+### 6. Validation Criteria
+[How to verify success — tests, metrics, outputs]
+
+### 7. Clarifying Questions
+[Any ambiguities needing user input]
+```
+
+3. **Wait for approval** — Do NOT proceed until user says "approved" or "proceed"
 
 ### 2.2 Thinking Levels
 
-* **think** — local tasks
-* **think hard** — multi-module tasks
-* **think harder** — performance/architecture tasks
-* **ultrathink** — only with explicit permission
+Claude has access to thinking modes for internal reasoning:
 
-## 3. DeepStream Pipeline Rules
+* **think** — Local tasks (single file, <100 lines)
+* **think hard** — Multi-module tasks (2-5 files, architecture changes)
+* **think harder** — Performance/optimization tasks (profiling, algorithm design)
+* **ultrathink** — ONLY with explicit user permission (complex architectural decisions)
 
-Correct pipeline order:
+**Use thinking to reason internally, but always explain conclusions to user.**
 
-```
-1. Camera → convert → streammux
-2. my_steach (stitch)
-3. my_tile_batcher (6×1024 tiles)
-4. nvinfer (YOLO FP16)
-5. MASR history (raw → processed → confirmed)
-6. virtual camera (my_virt_cam)
-7. 7s playback branch
-```
+---
 
-### 3.1 Memory Model
+## 3. DeepStream 7.1 Pipeline Rules
 
-* Always use NVMM
-* No CPU pixel copies
-* CPU only for metadata & light tasks
-* Respect 16GB unified RAM
+### 3.1 Pipeline Order (IMMUTABLE)
 
-### 3.2 Latency Budgets
-
-* Stitch: ≤10ms
-* Tile batcher: ≤1ms
-* Inference: ≤20ms
-* Virtual camera: ≤22ms
-* Entire pipeline: 30 FPS, ≤100ms latency
-
-### 3.3 Metadata Rules
-
-* Only small metadata
-* Use NvDsUserMeta / FrameMeta / BatchMeta
-* Maintain timestamp consistency
-
-### 3.4 Branch Synchronization
-
-Do not break:
-
-* Real-time analysis branch
-* 7-second playback branch
-
-## 4. CUDA / C++ Plugin Rules
-
-### 4.1 CUDA Requirements
-
-* Keep existing block/grid sizes unless justified
-* Coalesced memory access
-* Avoid warp divergence
-* No dynamic allocations
-* Maintain LUT caching (no per-frame regen)
-
-### 4.2 GStreamer Plugin Requirements
-
-* Respect memory ownership
-* Null-check everything
-* Maintain thread safety
-* Avoid creating new buffer pools
-
-## 5. Python Rules
-
-* Python 3.8+ only
-* Functions ≤60 lines
-* Files ≤400 lines
-* No circular imports
-* No heavy CPU ops in callbacks
-* No deep copies of big structures
-* No blocking I/O in hot paths
-
-## 6. YOLO / TensorRT Rules
-
-* Inference allowed: FP16
-* Never use FP32 on Jetson
-* Batch size = 6
-* Tile size = 1024×1024
-* ONNX exported on server, engine built on Jetson
-
-Forbidden:
-
-* PyTorch inference on Jetson
-* Tile geometry changes
-* NMS structure changes
-
-## 7. MASR Tracking Rules
-
-Maintain:
-
-* Triple-buffer system
-* Timestamp continuity
-* Interpolation consistency
-* Ballistics model
-* Fallback to players
-* Field mask filtering
-* Inter-tile NMS
-
-## 8. File Modification Protocol
-
-* Modify only approved files
-* Provide patches in diff format:
+**Correct pipeline topology:**
 
 ```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. Camera Sources (2× Sony IMX678)                        │
+│    ├─ nvarguscamerasrc (4K @ 30fps)                       │
+│    └─ nvvideoconvert → RGBA (NVMM)                        │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│ 2. nvstreammux (batch-size=2, NVMM)                       │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────┐
+│ 3. my_steach (panorama stitching, 5700×1900 RGBA)         │
+│    ├─ LUT-based warping (CUDA kernel)                     │
+│    └─ Color correction (2-phase async)                    │
+└─────────────────────┬───────────────────────────────────────┘
+                      │
+                      ▼
+                    [tee]
+                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+        ▼                           ▼
+┌───────────────────┐       ┌──────────────────┐
+│ 4. Analysis Branch│       │ Display Branch   │
+│   (Real-time)     │       │ (7s lag)         │
+└───────┬───────────┘       └────────┬─────────┘
+        │                            │
+        ▼                            ▼
+┌───────────────────┐       ┌──────────────────┐
+│ my_tile_batcher   │       │ Buffer Manager   │
+│ (6×1024×1024)     │       │ (7s @ 30fps)     │
+└───────┬───────────┘       └────────┬─────────┘
+        │                            │
+        ▼                            ▼
+┌───────────────────┐       ┌──────────────────┐
+│ nvinfer (YOLO)    │       │ appsrc           │
+│ FP16, batch=6     │       │                  │
+└───────┬───────────┘       └────────┬─────────┘
+        │                            │
+        ▼                            ▼
+┌───────────────────┐       ┌──────────────────┐
+│ Analysis Probe    │       │ my_virt_cam      │
+│ (metadata extract)│       │ (perspective)    │
+└───────┬───────────┘       └────────┬─────────┘
+        │                            │
+        └──────────┬─────────────────┘
+                   │
+                   ▼
+           ┌───────────────┐
+           │ Display Probe │
+           │ (overlays)    │
+           └───────┬───────┘
+                   │
+                   ▼
+            [output sinks]
+```
+
+**NEVER modify this topology without explicit architectural approval.**
+
+### 3.2 Memory Model (CRITICAL)
+
+**Golden Rule:** Data MUST stay in NVMM (GPU memory) throughout pipeline.
+
+✅ **CORRECT:**
+```python
+# All video data in NVMM from camera to display
+nvarguscamerasrc → nvvideoconvert (NVMM) → nvstreammux (NVMM) →
+my_steach (NVMM) → my_tile_batcher (NVMM) → nvinfer (NVMM) →
+my_virt_cam (NVMM) → nvdsosd (NVMM) → nveglglessink (NVMM)
+```
+
+❌ **INCORRECT:**
+```python
+# CPU copy kills bandwidth (65 GB/s wasted!)
+nvvideoconvert (NVMM) → capsfilter format=RGB (CPU) → appsink (CPU)
+# Now must copy back: appsrc (CPU) → nvvideoconvert (CPU→NVMM)
+```
+
+**Memory Budget (16GB unified):**
+- System/OS: ~2 GB
+- DeepStream SDK: ~1 GB
+- Video buffer pools: ~4 GB (NVMM)
+- TensorRT engine: ~2 GB
+- Frame buffer (7s): ~3 GB
+- **Headroom: ~4 GB** (safety margin)
+
+**Rules:**
+* Always use `nvbuf-memory-type=3` (NVMM)
+* No `cudaMemcpy()` for pixel data
+* CPU only for metadata (<1 KB) and light processing
+* Monitor RAM with `tegrastats` — never exceed 14 GB
+
+### 3.3 Latency Budgets (30 FPS = 33.3ms/frame)
+
+**Component latency limits:**
+
+| Component | Budget | Measured | Status |
+|-----------|--------|----------|--------|
+| Camera capture | 33.3ms | 33.3ms | ✅ |
+| Stitching (my_steach) | ≤10ms | ~10ms | ✅ |
+| Tile batching | ≤1ms | ~1ms | ✅ |
+| Inference (6 tiles) | ≤20ms | ~20ms | ✅ |
+| Virtual camera | ≤22ms | 20.9ms | ✅ |
+| Display overlay | ≤5ms | ~3ms | ✅ |
+| **Total pipeline** | **≤100ms** | **~90ms** | ✅ |
+
+**If you change ANY component, you MUST validate latency stays within budget.**
+
+### 3.4 Metadata Rules
+
+**DeepStream metadata hierarchy:**
+
+```
+GstBuffer
+  └─ NvDsBatchMeta (batch-level)
+      ├─ NvDsFrameMeta (per frame)
+      │   ├─ NvDsObjectMeta (per detection)
+      │   │   ├─ rect_params (bbox)
+      │   │   ├─ class_id, confidence
+      │   │   └─ NvDsUserMeta (custom object data)
+      │   ├─ NvDsDisplayMeta (for nvdsosd)
+      │   └─ NvDsUserMeta (custom frame data)
+      └─ NvDsUserMeta (custom batch data)
+```
+
+✅ **CORRECT: Safe metadata iteration**
+```python
+def probe_callback(pad, info, u_data):
+    gst_buffer = info.get_buffer()
+    if not gst_buffer:
+        return Gst.PadProbeReturn.OK
+
+    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+    if not batch_meta:
+        return Gst.PadProbeReturn.OK
+
+    try:
+        l_frame = batch_meta.frame_meta_list
+        while l_frame is not None:
+            try:
+                frame_meta = pyds.NvDsFrameMeta.cast(l_frame.data)
+            except StopIteration:
+                break
+
+            # Process frame_meta...
+
+            try:
+                l_frame = l_frame.next
+            except StopIteration:
+                break
+    except Exception as e:
+        logging.error(f"Metadata error: {e}")
+
+    # CRITICAL: Always return OK to continue pipeline
+    return Gst.PadProbeReturn.OK
+```
+
+❌ **INCORRECT: No StopIteration handling**
+```python
+def probe_bad(pad, info, u_data):
+    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+    l_frame = batch_meta.frame_meta_list
+    while l_frame:  # ❌ Will crash when list ends!
+        frame_meta = pyds.NvDsFrameMeta.cast(l_frame.data)  # ❌ No try/except
+        # ...
+        l_frame = l_frame.next  # ❌ CRASH on last iteration
+    return Gst.PadProbeReturn.OK
+```
+
+**Metadata Rules:**
+* **Always** wrap metadata iteration in `try/except StopIteration`
+* **Always** null-check buffers and batch_meta before access
+* **Always** return `Gst.PadProbeReturn.OK` from probes
+* Keep custom metadata small (<1 KB) — no large arrays
+* Maintain timestamp consistency across branches
+
+### 3.5 Display Overlay Limits (nvdsosd)
+
+**Jetson nvdsosd hard limit: 16 objects max**
+
+✅ **CORRECT: Prioritize and limit**
+```python
+def add_display_meta(frame_meta, detections):
+    # Sort: ball > players > staff > refs
+    detections_sorted = sorted(detections,
+                               key=lambda d: (d['class_id'], -d['confidence']))
+
+    display_meta = pyds.nvds_acquire_display_meta_from_pool(
+        frame_meta.base_meta.batch_meta)
+
+    # CRITICAL: Limit to 16 objects
+    max_objects = min(len(detections_sorted), 16)
+
+    for i in range(max_objects):
+        det = detections_sorted[i]
+        rect_params = display_meta.rect_params[display_meta.num_rects]
+        rect_params.left = det['x']
+        rect_params.top = det['y']
+        rect_params.width = det['w']
+        rect_params.height = det['h']
+        rect_params.border_width = 3 if det['class_id'] == 0 else 2
+        rect_params.border_color.set(1.0, 0.0, 0.0, 1.0)  # Red
+        display_meta.num_rects += 1
+
+    pyds.nvds_add_display_meta_to_frame(frame_meta, display_meta)
+```
+
+❌ **INCORRECT: Overflow**
+```python
+# ❌ Will crash or corrupt if > 16 objects!
+for i, det in enumerate(detections):  # Could be 50+ detections
+    rect_params = display_meta.rect_params[i]  # ❌ Array overflow!
+```
+
+### 3.6 Branch Synchronization
+
+**Two pipeline branches MUST remain synchronized:**
+
+1. **Analysis Branch (Real-time):**
+   - Processes frames immediately for ball tracking
+   - Updates history manager with detections
+   - Controls virtual camera in real-time
+
+2. **Display Branch (7-second lag):**
+   - Buffers frames for playback
+   - Retrieves ball position from 7s ago
+   - Renders overlays with historical data
+
+**NEVER:**
+* Break frame timestamp continuity
+* Introduce frame drops in either branch
+* Modify buffering duration without approval
+* Change synchronization logic
+
+---
+
+## 4. CUDA 12.6 Programming Rules
+
+### 4.1 Memory Access Patterns (CRITICAL)
+
+**Rule:** ALL global memory accesses MUST be coalesced.
+
+**Architecture:** Jetson Orin SM87 coalesces accesses into 32-byte segment transactions.
+
+✅ **CORRECT: Coalesced access**
+```cuda
+__global__ void process_rgba_good(uint8_t* input, uint8_t* output,
+                                   int width, int height)
+{
+    int x = blockIdx.x * blockDim.x + threadIdx.x;
+    int y = blockIdx.y * blockDim.y + threadIdx.y;
+    if (x >= width || y >= height) return;
+
+    int idx = (y * width + x) * 4;  // RGBA stride
+
+    // ✅ Coalesced 4-byte read (vectorized)
+    uchar4 pixel = *((uchar4*)&input[idx]);
+
+    // Process...
+    pixel.x = min(pixel.x + 10, 255);
+
+    // ✅ Coalesced 4-byte write
+    *((uchar4*)&output[idx]) = pixel;
+}
+```
+
+❌ **INCORRECT: Strided access**
+```cuda
+__global__ void process_rgba_bad(uint8_t* input, uint8_t* output,
+                                  int width, int height)
+{
+    int x = blockIdx.x * blockDim.x + threadIdx.x;
+    int y = blockIdx.y * blockDim.y + threadIdx.y;
+    if (x >= width || y >= height) return;
+
+    int idx = y * width + x;
+    // ❌ Scattered access (SoA layout for RGB)
+    output[idx] = input[idx];                              // R
+    output[idx + width*height] = input[idx + width*height];  // G - scattered!
+    output[idx + 2*width*height] = input[idx + 2*width*height];  // B - scattered!
+    // Result: 25% bandwidth efficiency (kills performance)
+}
+```
+
+**Key Points:**
+* Sequential threads access adjacent memory = optimal
+* Use `uchar4`, `float4` for vectorized loads/stores
+* Pitch/stride must be 64-byte aligned
+* Misaligned accesses increase transaction count (5× instead of 4×)
+
+### 4.2 Shared Memory Bank Conflicts
+
+**Architecture:** 32 banks, 4-byte width per bank per cycle
+
+**Rule:** Avoid multiple threads accessing same bank (except same address).
+
+✅ **CORRECT: Bank-conflict-free transpose**
+```cuda
+__global__ void transpose_no_conflict(float* output, float* input, int width)
+{
+    // ✅ Note: 33 columns to avoid bank conflicts!
+    __shared__ float tile[32][33];
+
+    int x = blockIdx.x * 32 + threadIdx.x;
+    int y = blockIdx.y * 32 + threadIdx.y;
+
+    // Load tile (coalesced)
+    tile[threadIdx.y][threadIdx.x] = input[y * width + x];
+    __syncthreads();
+
+    // Transpose (still no conflicts due to padding)
+    output[x * width + y] = tile[threadIdx.x][threadIdx.y];
+}
+```
+
+❌ **INCORRECT: Bank conflicts**
+```cuda
+__shared__ float tile[32][32];  // ❌ Will have conflicts on transpose!
+```
+
+**Debugging:** Use `nvcc --ptxas-options=-v` to see bank conflict warnings.
+
+### 4.3 Warp Divergence (CRITICAL)
+
+**Rule:** Avoid control flow divergence within warps (32 threads).
+
+**Why:** Divergent branches serialize execution (both paths run, results masked).
+
+✅ **CORRECT: Warp-aligned branching**
+```cuda
+__global__ void process_even_odd_good(int* data, int N)
+{
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    if (tid >= N) return;
+
+    // ✅ All threads in warp take same branch
+    int warp_id = tid / 32;
+    if (warp_id % 2 == 0) {
+        data[tid] = data[tid] * 2;  // Even warps
+    } else {
+        data[tid] = data[tid] + 1;  // Odd warps
+    }
+}
+```
+
+❌ **INCORRECT: Thread-level divergence**
+```cuda
+__global__ void process_even_odd_bad(int* data, int N)
+{
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    if (tid >= N) return;
+
+    // ❌ Each warp has 50% divergence (16 threads each way)
+    if (tid % 2 == 0) {
+        data[tid] = data[tid] * 2;  // Even threads
+    } else {
+        data[tid] = data[tid] + 1;  // Odd threads - DIVERGES!
+    }
+}
+```
+
+**Mitigation:**
+* Design algorithms to align branches with warp boundaries
+* Use predication (`condition ? a : b`) instead of if/else
+* Reorder data to group similar operations
+
+### 4.4 Dynamic Allocation Forbidden
+
+**Rule:** NO `malloc()`, `new`, or dynamic allocation inside kernels.
+
+**Reason:** Slow, non-deterministic, limited heap size, potential deadlocks.
+
+✅ **CORRECT: Pre-allocated shared memory**
+```cuda
+__global__ void process_with_shared(float* input, float* output, int N)
+{
+    // ✅ Compile-time allocation
+    __shared__ float scratch[1024];
+
+    int tid = threadIdx.x;
+    scratch[tid] = input[blockIdx.x * blockDim.x + tid];
+    __syncthreads();
+
+    output[blockIdx.x * blockDim.x + tid] = scratch[tid] * 2.0f;
+}
+
+// ✅ Dynamic shared memory (specified at kernel launch)
+__global__ void process_with_dynamic(float* input, float* output, int N)
+{
+    extern __shared__ float scratch[];  // Size at launch
+
+    int tid = threadIdx.x;
+    scratch[tid] = input[blockIdx.x * blockDim.x + tid];
+    __syncthreads();
+
+    output[blockIdx.x * blockDim.x + tid] = scratch[tid];
+}
+// Launch: kernel<<<blocks, threads, sharedMemSize>>>(...)
+```
+
+❌ **INCORRECT: Dynamic allocation**
+```cuda
+__global__ void process_bad(float* input, float* output, int N)
+{
+    // ❌ FORBIDDEN!
+    float* temp = (float*)malloc(1024 * sizeof(float));
+    // ...
+    free(temp);  // Even if freed, still bad!
+}
+```
+
+### 4.5 Occupancy Optimization
+
+**Goal:** Maximize active warps per SM to hide memory latency.
+
+**Jetson Orin:** 65,536 registers per SM
+
+✅ **CORRECT: Explicit occupancy control**
+```cuda
+// ✅ Limit to 256 threads/block, min 4 blocks per SM
+__global__ void
+__launch_bounds__(256, 4)
+my_kernel(float* data, int N)
+{
+    // Compiler optimizes register usage to achieve 4 blocks/SM
+}
+```
+
+**Tools:**
+* `nvcc --ptxas-options=-v` — Show register usage
+* CUDA Occupancy Calculator
+* `nvprof --metrics achieved_occupancy`
+
+**Target:** 50-75% occupancy (100% not always better)
+
+### 4.6 Streams and Async Operations
+
+**Rule:** Use non-default streams to overlap computation with transfers.
+
+✅ **CORRECT: Overlapped execution**
+```cuda
+cudaStream_t stream1, stream2;
+cudaStreamCreate(&stream1);
+cudaStreamCreate(&stream2);
+
+float *d_data1, *d_data2, *h_data1, *h_data2;
+cudaMalloc(&d_data1, size);
+cudaMalloc(&d_data2, size);
+cudaHostAlloc(&h_data1, size, cudaHostAllocDefault);  // ✅ Pinned!
+cudaHostAlloc(&h_data2, size, cudaHostAllocDefault);
+
+// Stream 1: Transfer + Compute
+cudaMemcpyAsync(d_data1, h_data1, size, cudaMemcpyHostToDevice, stream1);
+kernel<<<blocks, threads, 0, stream1>>>(d_data1);
+cudaMemcpyAsync(h_data1, d_data1, size, cudaMemcpyDeviceToHost, stream1);
+
+// Stream 2: Concurrent transfer + compute
+cudaMemcpyAsync(d_data2, h_data2, size, cudaMemcpyHostToDevice, stream2);
+kernel<<<blocks, threads, 0, stream2>>>(d_data2);
+cudaMemcpyAsync(h_data2, d_data2, size, cudaMemcpyDeviceToHost, stream2);
+
+cudaStreamSynchronize(stream1);
+cudaStreamSynchronize(stream2);
+```
+
+❌ **INCORRECT: Default stream serializes**
+```cuda
+// ❌ Default stream = everything serialized
+cudaMemcpy(d_data1, h_data1, size, cudaMemcpyHostToDevice);  // Blocks
+kernel<<<blocks, threads>>>(d_data1);  // Default stream
+cudaMemcpy(h_data1, d_data1, size, cudaMemcpyDeviceToHost);  // Blocks
+```
+
+### 4.7 Error Handling (MANDATORY)
+
+**Rule:** Check ALL CUDA API return values in production code.
+
+✅ **CORRECT: Comprehensive error checking**
+```cuda
+#define CUDA_CHECK(call)                                                      \
+do {                                                                          \
+    cudaError_t err = call;                                                   \
+    if (err != cudaSuccess) {                                                 \
+        fprintf(stderr, "CUDA error in %s:%d: %s (%s)\n",                    \
+                __FILE__, __LINE__,                                           \
+                cudaGetErrorString(err), cudaGetErrorName(err));              \
+        exit(EXIT_FAILURE);                                                   \
+    }                                                                         \
+} while(0)
+
+// Usage:
+CUDA_CHECK(cudaMalloc(&d_data, size));
+kernel<<<blocks, threads>>>(d_data);
+CUDA_CHECK(cudaGetLastError());  // ✅ Check kernel launch errors
+CUDA_CHECK(cudaDeviceSynchronize());  // ✅ Check kernel execution errors
+```
+
+❌ **INCORRECT: Ignoring errors**
+```cuda
+cudaMalloc(&d_data, size);  // ❌ Return value ignored!
+kernel<<<blocks, threads>>>(d_data);
+// ❌ No error checking = silent failures!
+```
+
+**Kernel Launch Errors:**
+* `cudaGetLastError()` returns most recent error
+* `cudaPeekAtLastError()` returns error without resetting
+* Always check after launch AND after synchronization
+
+### 4.8 LUT Caching (Project-Specific)
+
+**Rule:** Maintain existing LUT (Look-Up Table) caching for plugins.
+
+**Current LUT implementations:**
+* `my_steach`: 6× binary LUT files (~24 MB total)
+  - `lut_left_x.bin`, `lut_left_y.bin`
+  - `lut_right_x.bin`, `lut_right_y.bin`
+  - `weight_left.bin`, `weight_right.bin`
+* `my_virt_cam`: Ray cache (24.9 MB) + LUT cache (16.6 MB)
+
+**NEVER:**
+* Regenerate LUTs per-frame (kills performance)
+* Modify LUT structure without re-calibration
+* Delete LUT cache files
+
+**Validation:** If you modify warp logic, regenerate LUTs and commit to repo.
+
+---
+
+## 5. GStreamer Plugin Requirements
+
+### 5.1 Memory Ownership
+
+**Rule:** Respect GStreamer buffer lifecycle — never hold pointers after `gst_buffer_unmap()`.
+
+✅ **CORRECT: Proper buffer mapping**
+```cpp
+GstFlowReturn
+gst_my_plugin_chain(GstPad *pad, GstObject *parent, GstBuffer *buf)
+{
+    GstMapInfo in_map_info;
+
+    // ✅ Map buffer for read
+    if (!gst_buffer_map(buf, &in_map_info, GST_MAP_READ)) {
+        GST_ERROR("Failed to map input buffer");
+        return GST_FLOW_ERROR;
+    }
+
+    NvBufSurface *surf = (NvBufSurface *)in_map_info.data;
+
+    // ✅ Validate surface
+    if (!surf || surf->surfaceList[0].dataSize == 0) {
+        GST_WARNING("Empty surface");
+        gst_buffer_unmap(buf, &in_map_info);
+        return GST_FLOW_OK;
+    }
+
+    // Process CUDA kernel...
+    my_cuda_kernel<<<grid, block>>>(surf->surfaceList[0].dataPtr);
+
+    // ✅ CRITICAL: Unmap in reverse order
+    gst_buffer_unmap(buf, &in_map_info);
+
+    return GST_FLOW_OK;
+}
+```
+
+❌ **INCORRECT: Memory leak**
+```cpp
+GstFlowReturn bad_chain(GstPad *pad, GstObject *parent, GstBuffer *buf)
+{
+    GstMapInfo in_map_info;
+    gst_buffer_map(buf, &in_map_info, GST_MAP_READ);
+
+    NvBufSurface *surf = (NvBufSurface *)in_map_info.data;
+    // Process...
+
+    // ❌ Missing: gst_buffer_unmap() → Memory leak!
+    return GST_FLOW_OK;
+}
+```
+
+### 5.2 Null-Check Everything
+
+**Rule:** ALWAYS validate pointers before dereferencing.
+
+```cpp
+// ✅ Comprehensive null checking
+if (!pad || !parent || !buf) {
+    GST_ERROR("Null pointer in chain function");
+    return GST_FLOW_ERROR;
+}
+
+NvBufSurface *surf = (NvBufSurface *)in_map_info.data;
+if (!surf) {
+    GST_ERROR("Null surface pointer");
+    gst_buffer_unmap(buf, &in_map_info);
+    return GST_FLOW_ERROR;
+}
+
+if (surf->numFilled == 0 || !surf->surfaceList) {
+    GST_WARNING("No surfaces to process");
+    gst_buffer_unmap(buf, &in_map_info);
+    return GST_FLOW_OK;
+}
+```
+
+### 5.3 Thread Safety
+
+**Rule:** Use mutexes for shared state accessed from multiple callbacks.
+
+✅ **CORRECT: Thread-safe state**
+```cpp
+typedef struct {
+    GMutex lock;
+    gboolean processing;
+    GQueue *pending_buffers;
+} MyPluginState;
+
+// In callback:
+g_mutex_lock(&state->lock);
+if (state->processing) {
+    g_queue_push_tail(state->pending_buffers, gst_buffer_ref(buf));
+    g_mutex_unlock(&state->lock);
+    return GST_FLOW_OK;
+}
+state->processing = TRUE;
+g_mutex_unlock(&state->lock);
+
+// Process...
+
+g_mutex_lock(&state->lock);
+state->processing = FALSE;
+g_mutex_unlock(&state->lock);
+```
+
+### 5.4 Buffer Pool Management
+
+**Rule:** Do NOT create new buffer pools — reuse existing pools from upstream.
+
+✅ **CORRECT: Allocate from existing pool**
+```cpp
+GstBuffer *out_buf = NULL;
+GstFlowReturn ret = gst_buffer_pool_acquire_buffer(
+    plugin->pool, &out_buf, NULL);
+if (ret != GST_FLOW_OK) {
+    GST_ERROR("Failed to acquire buffer from pool");
+    return ret;
+}
+```
+
+**Increase pool size if needed:**
+```python
+# In Python pipeline builder
+my_plugin.set_property("num-extra-surfaces", 64)  # Increase pool size
+```
+
+---
+
+## 6. Python Code Rules
+
+### 6.1 Code Size Limits
+
+**Strict limits:**
+* **Functions:** ≤60 lines (including docstrings)
+* **Files:** ≤400 lines (excluding imports)
+* **Classes:** ≤200 lines
+
+**Rationale:** Force modular design, improve testability.
+
+**Enforcement:** If you exceed limits, refactor into multiple functions/files.
+
+### 6.2 Python Version
+
+**Requirement:** Python 3.8+ (system Python on Jetson)
+
+**Forbidden:**
+* Python 2.x syntax
+* Python 3.10+ features (not available on Jetson)
+* External package managers (pip installs require approval)
+
+### 6.3 Import Rules
+
+**Allowed:**
+```python
+# ✅ Standard library
+import os
+import sys
+import logging
+import threading
+from typing import Optional, List, Dict, Tuple
+from collections import deque
+from dataclasses import dataclass
+
+# ✅ DeepStream/GStreamer
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst, GLib
+import pyds
+
+# ✅ Numpy/OpenCV (pre-installed on Jetson)
+import numpy as np
+import cv2
+```
+
+**Forbidden:**
+```python
+# ❌ No circular imports
+from module_a import something  # If module_a imports current module
+
+# ❌ No relative imports (use absolute paths)
+from ..utils import helper  # Use: from new_week.utils import helper
+
+# ❌ No star imports
+from numpy import *  # Use: import numpy as np
+```
+
+### 6.4 Performance Rules
+
+**Rule:** No CPU-heavy operations in probe callbacks or hot paths.
+
+❌ **INCORRECT: Heavy CPU in callback**
+```python
+def probe_callback(pad, info, u_data):
+    # ❌ O(n²) NMS in hot path (called 30× per second!)
+    for i in range(len(detections)):
+        for j in range(i+1, len(detections)):
+            iou = compute_iou(detections[i], detections[j])  # Slow!
+            if iou > threshold:
+                # ...
+    return Gst.PadProbeReturn.OK
+```
+
+✅ **CORRECT: Lightweight callback**
+```python
+def probe_callback(pad, info, u_data):
+    # ✅ Quick metadata extraction only
+    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+    if not batch_meta:
+        return Gst.PadProbeReturn.OK
+
+    # Store for async processing
+    detection_queue.append(batch_meta)
+
+    return Gst.PadProbeReturn.OK
+
+# Heavy processing in separate thread
+def async_processor():
+    while True:
+        batch_meta = detection_queue.pop()
+        # Do expensive O(n²) operations here
+```
+
+**Forbidden in hot paths:**
+* Deep copies of large structures (use references)
+* Blocking I/O (file writes, network calls)
+* Pure Python NMS (use cv2.dnn.NMSBoxes)
+* Nested loops over detections
+* Heavy NumPy operations on large arrays
+
+### 6.5 Logging Rules
+
+**Use Python logging module, not print():**
+
+```python
+import logging
+
+# ✅ Proper logging
+logging.info("Pipeline started")
+logging.warning(f"Low FPS detected: {fps:.2f}")
+logging.error(f"Failed to map buffer: {error}")
+
+# ❌ No print statements
+print("Pipeline started")  # Goes to stdout, not logged
+```
+
+**Log levels:**
+* `DEBUG`: Verbose info (frame numbers, timestamps)
+* `INFO`: Normal operations (pipeline state changes)
+* `WARNING`: Non-fatal issues (buffer drops, low FPS)
+* `ERROR`: Fatal issues (CUDA errors, missing files)
+
+---
+
+## 7. YOLO / TensorRT Rules
+
+### 7.1 Inference Configuration
+
+**Fixed parameters (DO NOT CHANGE without approval):**
+
+* **Model:** YOLOv11n (nano) or YOLOv11s (small)
+* **Precision:** FP16 ONLY (network-mode=2)
+* **Batch size:** 6 (matching tile count)
+* **Input size:** 1024×1024 per tile
+* **Classes:** 5 (ball, player, staff, side_referee, main_referee)
+
+**Config file (config_infer.txt):**
+```ini
+[property]
+gpu-id=0
+net-scale-factor=0.0039215697906911373  # 1/255
+model-color-format=0  # RGB
+model-engine-file=../models/yolo11n_mixed_finetune_v9.engine
+labelfile-path=labels.txt
+batch-size=6
+network-mode=2  # ✅ 0=FP32, 1=INT8, 2=FP16
+num-detected-classes=5
+interval=0
+gie-unique-id=1
+output-blob-names=output0
+
+# ✅ CRITICAL: Define ALL classes (0 through 4)
+[class-attrs-0]  # ball
+pre-cluster-threshold=0.25
+nms-iou-threshold=0.45
+topk=100
+
+[class-attrs-1]  # player
+pre-cluster-threshold=0.40
+nms-iou-threshold=0.45
+topk=100
+
+[class-attrs-2]  # staff
+pre-cluster-threshold=0.40
+nms-iou-threshold=0.45
+topk=100
+
+[class-attrs-3]  # side_referee
+pre-cluster-threshold=0.40
+nms-iou-threshold=0.45
+topk=100
+
+[class-attrs-4]  # main_referee
+pre-cluster-threshold=0.40
+nms-iou-threshold=0.45
+topk=100
+```
+
+**NEVER:**
+* Use FP32 on Jetson (2× memory, 32× slower than FP16 Tensor Cores)
+* Change batch-size without modifying my_tile_batcher
+* Change tile size (1024×1024 is optimized for YOLO11)
+* Run PyTorch inference on Jetson (use TensorRT only)
+
+### 7.2 Model Export Pipeline
+
+**Workflow:**
+
+1. **On Server (dGPU):**
+   ```bash
+   # Train YOLO model
+   yolo train data=dataset.yaml model=yolo11n.pt epochs=100
+
+   # Export to ONNX
+   yolo export model=yolo11n.pt format=onnx dynamic=False
+   ```
+
+2. **On Jetson:**
+   ```bash
+   # Build TensorRT engine
+   /usr/src/tensorrt/bin/trtexec \
+       --onnx=yolo11n.onnx \
+       --saveEngine=yolo11n_fp16.engine \
+       --fp16 \
+       --workspace=4096  # 4GB workspace
+   ```
+
+3. **Validate:**
+   ```bash
+   # Check engine properties
+   /usr/src/tensorrt/bin/trtexec \
+       --loadEngine=yolo11n_fp16.engine \
+       --dumpProfile
+   ```
+
+**NEVER build engines on different Jetson models** (TensorRT engines are hardware-specific).
+
+---
+
+## 8. MASR Tracking System Rules
+
+### 8.1 Detection History Architecture
+
+**Three-tier storage system:**
+
+```
+BallDetectionHistory
+├─ Raw Future History (incoming detections)
+├─ Processed Future History (cleaned + interpolated)
+└─ Confirmed History (7s ago, displayed)
+
+PlayersHistory
+└─ Center-of-mass positions (fallback target)
+```
+
+**DO NOT:**
+* Modify history duration without testing RAM impact
+* Change interpolation algorithm without validation
+* Break timestamp continuity
+
+### 8.2 Tracking Rules
+
+**Ball tracking priority:**
+1. **Primary:** Ball detections from YOLO
+2. **Interpolation:** Fill gaps <10s with trajectory math
+3. **Fallback:** Player center-of-mass when ball lost >3s
+4. **FOV expansion:** Zoom out 2°/s when lost, up to 90°
+
+**Key parameters (do not change without approval):**
+* Lost threshold: 6 frames (0.2s)
+* Max gap for interpolation: 10 seconds
+* Smoothing factor: 0.3 (30% new position per frame)
+* Radius smoothing: α = 0.3
+
+### 8.3 Trajectory Interpolation
+
+**Use parabolic trajectory for ball in flight (gap > 1s):**
+
+```python
+# ✅ Parabolic interpolation for flying ball
+def interpolate_ball_flight(start, end, t):
+    """
+    Parabolic trajectory for ball physics.
+
+    Args:
+        start: (x, y, timestamp) at detection start
+        end: (x, y, timestamp) at detection end
+        t: timestamp to interpolate
+
+    Returns:
+        (x, y) at timestamp t
+    """
+    t_norm = (t - start[2]) / (end[2] - start[2])
+
+    # Linear X, parabolic Y
+    x = start[0] + (end[0] - start[0]) * t_norm
+    y = start[1] + (end[1] - start[1]) * t_norm + \
+        0.5 * GRAVITY * (t_norm * (1 - t_norm))  # Parabolic arc
+
+    return (x, y)
+```
+
+---
+
+## 9. File Modification Protocol
+
+### 9.1 Minimal Changes
+
+**Rule:** Modify ONLY files explicitly approved in plan.
+
+**Before editing:**
+1. Read entire file to understand context
+2. Identify exact lines to change
+3. Preserve surrounding code
+4. Maintain indentation style
+
+### 9.2 Patch Format
+
+**Always provide patches in diff format:**
+
+```diff
 File: new_week/core/history_manager.py
-Patch:
-+ added_line
-- removed_line
+
+Lines 145-150:
+
+-    def add_detection(self, timestamp, x, y, radius):
+-        """Add detection to raw history."""
+-        self.raw_history.append({'timestamp': timestamp, 'x': x, 'y': y, 'radius': radius})
++    def add_detection(self, timestamp, x, y, radius, confidence=0.0):
++        """Add detection to raw history with confidence score."""
++        self.raw_history.append({
++            'timestamp': timestamp,
++            'x': x,
++            'y': y,
++            'radius': radius,
++            'confidence': confidence
++        })
 ```
 
-## 9. Communication Rules
+### 9.3 Documentation Updates
 
-* Ask when unsure
-* Respond concisely, technically
-* No hallucinations
+**If you modify code, update related documentation:**
+
+* Function docstrings
+* Module-level comments
+* `README.md` or `PLUGIN.md` in component directory
+* `architecture.md` if changing system design
+* `decisions.md` if making architectural choice
+
+---
 
 ## 10. Strict Prohibitions
 
-Claude must NOT:
+**Claude must NEVER:**
 
-* Generate code before plan approval
-* Propose refactors without permission
-* Break NVMM zero-copy path
-* Add CPU-heavy logic in GPU hot paths
-* Change pipeline topology
-* Use unavailable libraries
-* Output pseudocode
+### 10.1 Code Generation Violations
 
-## 11. Jetson Constraints
+❌ **Generate code before plan approval**
+```
+User: "Add a feature to track player speed"
+Claude: "Here's the code..." ← WRONG! Must plan first.
+```
 
-* Unified RAM 16GB
-* GPU <70% load
-* Avoid large allocations
-* Avoid Python-heavy loops
-* Respect FP16 memory constraints
-* NVENC/NVDEC bandwidth limited
-* nvdsosd: max 16 boxes
+✅ **Correct:**
+```
+User: "Add a feature to track player speed"
+Claude: "Entering Plan Mode. Let me analyze the current tracking system..."
+```
+
+### 10.2 Architecture Violations
+
+❌ **Break NVMM zero-copy path**
+```python
+# ❌ FORBIDDEN: Copying to CPU
+nvvideoconvert (NVMM) → capsfilter format=RGB (CPU) → appsink
+```
+
+❌ **Add CPU-heavy logic in GPU hot paths**
+```python
+def probe_callback(...):
+    # ❌ FORBIDDEN: Heavy processing at 30 FPS
+    for detection in detections:
+        for frame in history:  # O(n²) in callback!
+            compute_distance(detection, frame)
+```
+
+❌ **Change pipeline topology without approval**
+```python
+# ❌ FORBIDDEN: Adding new branch
+main_tee. ! queue ! my_new_plugin ! ...  # Not in approved architecture!
+```
+
+### 10.3 Library Violations
+
+❌ **Use unavailable libraries**
+```python
+import torch  # ❌ PyTorch not used on Jetson (TensorRT only)
+import tensorflow  # ❌ Not installed
+from ultralytics import YOLO  # ❌ Use TensorRT engine, not Python API
+```
+
+### 10.4 Output Violations
+
+❌ **Output pseudocode**
+```
+User: "How do I add a new detection class?"
+Claude: "Here's the pseudocode:
+    1. Load model
+    2. Run inference
+    3. Parse output"
+← WRONG! Provide actual code or plan.
+```
+
+✅ **Correct:**
+```
+User: "How do I add a new detection class?"
+Claude: "To add a new detection class, you must:
+1. Update YOLO training data
+2. Modify config_infer.txt:30 (num-detected-classes=6)
+3. Add [class-attrs-5] section
+4. Update labels.txt
+5. Rebuild TensorRT engine
+Would you like me to create a detailed plan?"
+```
+
+### 10.5 Hallucination Violations
+
+❌ **Claim features exist when they don't**
+```
+User: "Does my_virt_cam support zoom limits?"
+Claude: "Yes, it has zoom-min and zoom-max properties." ← HALLUCINATION!
+```
+
+✅ **Correct:**
+```
+User: "Does my_virt_cam support zoom limits?"
+Claude: "Let me check the plugin code...
+[reads my_virt_cam/src/gstnvdsvirtualcam.cpp]
+The plugin has fov-min and fov-max properties (lines 156-160).
+FOV range is 55° to 68° (lines 402-408)."
+```
+
+### 10.6 Refactoring Violations
+
+❌ **Propose refactors without permission**
+```
+User: "Fix the NMS threshold"
+Claude: "I notice the code could be refactored to use OOP patterns..." ← WRONG!
+```
+
+✅ **Correct:**
+```
+User: "Fix the NMS threshold"
+Claude: "I'll update the threshold in config_infer.txt:49.
+Current: nms-iou-threshold=0.45
+Proposed: nms-iou-threshold=0.50
+Should I proceed?"
+```
+
+---
+
+## 11. Jetson Orin NX Constraints
+
+### 11.1 Hardware Limits
+
+**Fixed specifications:**
+
+| Resource | Limit | Monitor Command |
+|----------|-------|-----------------|
+| **Unified RAM** | 16 GB (shared CPU/GPU) | `tegrastats` |
+| **GPU Load** | Target <70% (max 99%) | `tegrastats` |
+| **Memory Bandwidth** | 102 GB/s (shared) | Profiling tools |
+| **Thermal** | 85°C throttle point | `tegrastats` |
+| **Power** | 10W/25W/40W modes | `jetson_clocks` |
+
+**Monitoring:**
+```bash
+# Real-time stats
+sudo tegrastats
+
+# Lock clocks for benchmarking
+sudo jetson_clocks
+
+# Check power mode
+sudo nvpmodel -q
+```
+
+### 11.2 Memory Constraints
+
+**RAM allocation (~16 GB total):**
+* System/OS: 2 GB
+* DeepStream SDK: 1 GB
+* Video buffers (NVMM): 4 GB
+* TensorRT engine: 2 GB
+* Frame buffer (7s): 3 GB
+* **Safety margin: 4 GB**
+
+**Rules:**
+* NEVER allocate >14 GB total
+* Avoid memory fragmentation (use fixed-size pools)
+* Monitor swap usage (should be 0)
+* Test with `stress-ng` before deployment
+
+### 11.3 GPU Load Optimization
+
+**Current pipeline GPU usage:**
+* Stitching: ~15%
+* Tile batching: ~5%
+* Inference: ~40%
+* Virtual camera: ~10%
+* **Total: ~70%** (healthy)
+
+**If GPU >90%:**
+1. Profile with `nsys` (Nsight Systems)
+2. Identify bottleneck (likely inference or memory bandwidth)
+3. Reduce batch size OR increase interval OR optimize kernels
+4. DO NOT add more GPU tasks
+
+### 11.4 FP16 vs FP32
+
+**Rule:** Use FP16 ONLY on Jetson.
+
+**Reasoning:**
+* Jetson Orin has 32 Tensor Cores optimized for FP16
+* FP32 inference is 32× slower than FP16 (no Tensor Core usage)
+* FP16 uses 50% less memory than FP32
+* TensorRT automatically uses FP16 ops when available
+
+**Validation:**
+```bash
+# Check TensorRT engine precision
+/usr/src/tensorrt/bin/trtexec \
+    --loadEngine=yolo11n_fp16.engine \
+    --dumpProfile | grep precision
+# Should show: "FP16"
+```
+
+### 11.5 nvdsosd Limitations
+
+**Jetson-specific constraint:** Maximum 16 objects rendered by nvdsosd.
+
+**Why:** Hardware limitation in Jetson's display overlay engine.
+
+**Workaround:** Prioritize objects by class and confidence.
+
+---
 
 ## 12. Improvement Proposal Protocol
 
-1. Problem (file + line)
-2. Cause
-3. Impact
-4. Solution
-5. Risks
-6. Patch
+**When proposing optimizations or improvements, use this format:**
 
-## 13. Documentation Using
-1. Search the documentation for every aspect in docs/ directory.
-2. Explore a documentation before coding, follow the documentation strictly.
-3. If you can not find some documentation in docs/ or in any projec dirertory - search on internet.
-4. Create the docs/DOCs_NOTES.md if you need note or memorize something in documentation.
+```markdown
+## Improvement Proposal: [Title]
 
-## 14. Conflict Resolution
+### 1. Problem
+File: `path/to/file.py:100-120`
+Current behavior: [What happens now]
+Issue: [Why it's suboptimal]
 
-If rules conflict: Architecture > Performance > Readability > Aesthetics If unsure — ask.
+### 2. Cause
+Root cause: [Technical reason for problem]
+Evidence: [Profiling data, logs, or measurements]
 
-## 15. Allowed Creative Behavior
+### 3. Impact
+- **Performance:** [How it affects FPS, latency, memory]
+- **Stability:** [Risk of crashes, errors]
+- **Maintenance:** [Code complexity, technical debt]
 
-Claude may propose optimizations or improvements, but must not implement them without approval.
+### 4. Proposed Solution
+Approach: [High-level strategy]
 
-
-
-## Project Overview
-
-This is a **real-time AI-powered sports analytics system** built on NVIDIA DeepStream SDK 7.1, designed to run on NVIDIA Jetson Orin NX 16GB platform. The system processes dual 4K camera feeds to create 360° panoramic video, performs object detection and tracking (ball, players, referees), and provides intelligent virtual camera control with automated playback capabilities.
-
-### Key Capabilities
-
-- **Dual 4K Camera Stitching**: Real-time panorama generation (5700×1900px) from two Sony IMX678 cameras
-- **AI-Powered Detection**: YOLOv11 multiclass object detection (ball, players, staff, referees)
-- **Virtual Camera Control**: GPU-accelerated perspective extraction with intelligent ball/player tracking
-- **Intelligent Buffering**: 7-second RAM buffer with timestamp synchronization for analysis and playback
-- **Multi-Output Support**: Panorama view, virtual camera, RTMP streaming, and video recording
-
----
-
-## Hardware Platform
-
-### NVIDIA Jetson Orin NX 16GB Specifications
-
-| Component | Specification |
-|-----------|---------------|
-| **GPU** | 1024 CUDA cores + 32 Tensor cores (Ampere architecture) @ 918 MHz |
-| **CPU** | 8× ARM Cortex-A78AE @ 2.0 GHz |
-| **Memory** | 16 GB LPDDR5 (unified CPU/GPU) @ 102 GB/s bandwidth |
-| **AI Performance** | ~100 TOPS (INT8) |
-| **DLA** | 2× NVDLA engines (~20 TOPS each) |
-| **Video Decode** | 2× 4K60 HEVC/H.264/AV1 |
-| **Video Encode** | 1× 4K60 HEVC/H.264 |
-
-**Architecture Notes** (from nvidia_jetson_orin_nx_16GB_super_arch.pdf):
-- Unified memory architecture: CPU and GPU share physical RAM (no separate VRAM)
-- I/O coherency supported (compute capability ≥7.2)
-- Memory bandwidth is shared resource - avoid unnecessary CPU↔GPU copies
-- Optimal for DeepStream: all video buffers stay in GPU memory (NVMM)
-
-### Camera System
-
-#### Sony IMX678-AAQR1 (AR) Sensor Module
-
-Based on camera_doc/IMX678C_Framos_Docs_documentation.pdf:
-
-| Specification | Value |
-|---------------|-------|
-| **Sensor** | Sony IMX678-AAQR1 (Starvis2 technology) |
-| **Resolution** | 3840×2160 (8MP / 4K) |
-| **Framerate** | 72.05 FPS @ 10-bit, 60.00 FPS @ 12-bit |
-| **Optical Format** | 1/1.8" |
-| **Pixel Size** | 2×2 µm |
-| **Shutter** | Rolling shutter (CMOS) |
-| **Interface** | MIPI CSI-2 (4-lane, 2.5 Gbps/lane) |
-| **Power** | Two rails: 3.8V + 1.8V (540mW max) |
-
-#### Lens Configuration (L100A)
-
-| Parameter | Value |
-|-----------|-------|
-| **Horizontal FOV** | 100° |
-| **Vertical FOV** | 55° |
-| **Diagonal FOV** | 114° |
-| **Aperture** | F/2.7 |
-| **Mount** | M12×0.5 |
-| **Optical Filter** | IR cut @ 660nm |
-| **Distortion** | -35.8% (F-Tan-Theta model) |
-| **Operating Temp** | -30°C to +85°C |
-
-**Dual Camera Setup**:
-- 2× cameras mounted at 85° angle
-- 15° downward tilt for field coverage
-- ~15% overlap zone for seamless stitching
-- Calibrated using 8×6 chessboard (25mm squares)
-
----
-
-## System Architecture
-
-### Data Flow Pipeline
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         INPUT SOURCES (Dual 4K Cameras)                     │
-│  Camera 0 (Left): 3840×2160 @ 30fps    Camera 1 (Right): 3840×2160 @ 30fps  │
-└──────────────┬──────────────────────────────────────┬───────────────────────┘
-               │                                      │
-               ▼                                      ▼
-        [nvarguscamerasrc]                   [nvarguscamerasrc]
-               │                                      │
-               ▼                                      ▼
-        [nvvideoconvert]                     [nvvideoconvert]
-         RGBA (NVMM)                          RGBA (NVMM)
-               │                                      │
-               └──────────────┬───────────────────────┘
-                              ▼
-                      [nvstreammux]
-                   batch-size=2, GPU memory
-                              │
-                              ▼
-                  ┌────────────────────────┐
-                  │    MY_STEACH PLUGIN    │
-                  │  Panorama Stitching    │
-                  │    5700×1900 RGBA      │
-                  └───────────┬────────────┘
-                              │
-                              ▼
-                         [queue]
-                     GPU buffer (NVMM)
-                              │
-                    ┌─────────┴─────────┐
-                    │                   │
-      ┌─────────────▼──────┐   ┌────────▼─────────────────┐
-      │  ANALYSIS BRANCH   │   │  DISPLAY BRANCH (7s lag) │
-      │    (Real-time)     │   │    (Buffered playback)   │
-      └─────────┬──────────┘   └───────────┬──────────────┘
-                │                          │
-                ▼                          ▼
-      [MY_TILE_BATCHER]              [RAM Buffer]
-     6×1024×1024 tiles          150-210 frames @ 30fps
-                │                          │
-                ▼                          ▼
-         [nvinfer]                   [appsrc]
-       YOLOv11n/s                   Playback
-      TensorRT FP16                  pipeline
-                │                          │
-                ▼                          │
-    [Tensor Processing]                    │
-    Post-NMS multiclass:                   │
-    - ball (class 0)                       │
-    - player (class 1)                     │
-    - staff (class 2)                      │
-    - side_referee (class 3)               │
-    - main_referee (class 4)               │
-                │                          │
-                ▼                          │
-    [BallDetectionHistory]                 │
-     + PlayersHistory                      │
-     Raw → Processed → Confirmed           │
-     (10s history, interpolation)          │
-                │                          │
-                └──────────┬───────────────┘
-                           │
-                           ▼
-              ┌─────────────────────────┐
-              │  MY_VIRT_CAM PLUGIN     │
-              │ (CUDA perspective       │
-              │  projection)            │
-              │                         │
-              │  Input: 5700×1900       │
-              │  Output: 1920×1080      │
-              │                         │
-              │  Controls:              │
-              │  - Yaw: -90° to +90°    │
-              │  - Pitch: -32° to +22°  │
-              │  - Roll: -28° to +28°   │
-              │  - FOV: 55° to 68°      │
-              │  - Auto-zoom on ball    │
-              │  - Fallback to players  │
-              └────────────┬────────────┘
-                           │
-                ┌──────────┴──────────┐
-                │                     │
-                ▼                     ▼
-          [nvdsosd]              [nvdsosd]
-        Panorama view         Virtual camera
-        (16 objects max)         + overlays
-                │                     │
-                ▼                     ▼
-         Output options:     Output options:
-         - Display           - Display
-         - RTMP stream       - RTMP stream
-         - Video file        - Video file
+Implementation:
+```diff
+File: path/to/file.py
+-    old_code()
++    new_code()
 ```
 
-### Memory Architecture
+Expected improvement: [Quantified benefit]
 
-**Unified Memory Model** (GPU-resident throughout pipeline):
+### 5. Risks & Mitigations
+- **Risk:** [Potential problem]
+  - **Mitigation:** [How to prevent/detect]
+  - **Rollback:** [How to undo if fails]
 
-1. **Camera Capture**: nvarguscamerasrc → NVMM buffer pool
-2. **Stitching**: my_steach → Pre-allocated 8-buffer pool (NVMM)
-3. **Tile Extraction**: my_tile_batcher → Fixed 4-buffer pool (6 surfaces each)
-4. **Inference**: nvinfer → TensorRT managed memory
-5. **Virtual Camera**: my_virt_cam → EGL-mapped CUDA memory with LUT cache
-6. **Display**: nveglglessink → Direct NVMM consumption
+### 6. Validation Plan
+1. [Test step 1]
+2. [Test step 2]
+3. [Success criteria]
 
-**No CPU copies** occur until:
-- Analysis results extraction (metadata only, ~few KB)
-- RAM buffering for playback (encoded H.264, ~1MB per frame)
-
----
-
-## Core Components
-
-### 1. MY_STEACH - Panorama Stitching Plugin
-
-**Location**: `~/ds_pipeline/my_steach/`
-
-**Function**: Stitches two 4K camera streams into seamless equirectangular panorama
-
-#### Technical Details
-
-- **Algorithm**: LUT-based warping with bilinear interpolation
-- **Input**: 2× 3840×2160 RGBA (MIPI CSI or files)
-- **Output**: 5700×1900 RGBA (configurable)
-- **LUT Maps**: 6× binary files (warp_maps/*.bin):
-  - lut_left_x.bin, lut_left_y.bin
-  - lut_right_x.bin, lut_right_y.bin
-  - weight_left.bin, weight_right.bin
-- **Color Correction**: Asynchronous 2-phase system
-  - Overlap zone analysis every 30 frames
-  - Smoothing factor: 0.1 (10% update rate)
-  - 6 coefficients: R/G/B gains per camera
-- **CUDA Kernel**: `panorama_lut_kernel`
-  - Block size: 32×8 threads (256 threads/block)
-  - Grid: ~179×238 blocks for 5700×1900 output
-  - Bandwidth: ~110 MB/frame (input + output)
-- **Performance**: Real-time 30 FPS on Jetson Orin NX
-
-#### Key Features
-
-- Weighted blending in overlap zones
-- Edge brightness boost (optional, disabled by default)
-- EGL texture caching for Jetson
-- Vertical/horizontal flip transformation
-- Dynamic panorama size configuration
-
-**See**: `my_steach/PLUGIN.md` for detailed documentation
-
----
-
-### 2. MY_VIRT_CAM - Virtual Camera Plugin
-
-**Location**: `~/ds_pipeline/my_virt_cam/`
-
-**Function**: Extracts perspective view from equirectangular panorama with intelligent tracking
-
-#### Technical Details
-
-- **Algorithm**: 3-stage equirectangular → perspective projection
-  1. Ray generation (camera intrinsics)
-  2. LUT generation (3D rotation + spherical mapping)
-  3. Image remapping (nearest-neighbor sampling)
-
-- **Input**: 6528×1632 RGBA panorama (equirectangular, 180°×54° coverage)
-- **Output**: 1920×1080 RGBA (fixed Full HD)
-
-- **CUDA Kernel**: `virtual_camera_kernel`
-  - Block size: 16×16 threads (256 threads/block)
-  - Grid: 8,160 blocks for 1920×1080
-  - Occupancy: ~80-90% GPU utilization
-  - Bandwidth: Only 1.7% of 120 GB/s capacity
-
-#### Control Parameters
-
-| Parameter         | Range        | Purpose                               |
-|-------------------|--------------|---------------------------------------|
-| **yaw**           | -90° to +90° | Horizontal pan                        |
-| **pitch**         | -32° to +22° | Vertical tilt                         |
-| **roll**          | -28° to +28° | Image rotation                        |
-| **fov**           | 55° to 68°   | Zoom level                            |
-| **smooth-factor** | 0.0 to 1.0   | Movement interpolation (default: 0.3) |
-
-#### Auto-Zoom Formula
-
-Based on detected ball size:
-```
-target_fov = BASE_FOV + (ball_radius - 20) × ZOOM_RATE
-BASE_FOV = 60°
-ZOOM_RATE = -0.15 (zoom in when ball is closer/larger)
+### 7. Approval Request
+Should I proceed with implementing this change?
 ```
 
-Spherical correction for wide angles:
+**Example:**
+
+```markdown
+## Improvement Proposal: Replace Python NMS with OpenCV Implementation
+
+### 1. Problem
+File: `new_week/utils/nms.py:15-45`
+Current: Pure Python NMS with nested loops
+Issue: O(n²) complexity causes CPU bottleneck at 50+ detections
+
+### 2. Cause
+Root cause: Python loops are slow, especially with 300+ detection pairs
+Evidence: CODEX report shows 12ms CPU time for NMS at 50 detections
+
+### 3. Impact
+- **Performance:** 12ms → 0.5ms (24× speedup)
+- **Stability:** Prevents frame drops when many detections
+- **Maintenance:** Uses battle-tested OpenCV implementation
+
+### 4. Proposed Solution
+Replace pure Python NMS with `cv2.dnn.NMSBoxes()`
+
+```diff
+File: new_week/utils/nms.py
+-def nms_python(boxes, confidences, iou_threshold=0.45):
+-    indices = []
+-    for i in range(len(boxes)):
+-        for j in range(i+1, len(boxes)):
+-            if compute_iou(boxes[i], boxes[j]) > iou_threshold:
+-                if confidences[i] > confidences[j]:
+-                    indices.append(i)
+-    return indices
++def nms_opencv(boxes, confidences, iou_threshold=0.45):
++    indices = cv2.dnn.NMSBoxes(boxes, confidences,
++                                score_threshold=0.0,
++                                nms_threshold=iou_threshold)
++    return indices.flatten() if len(indices) > 0 else []
 ```
-yaw_factor = cos(normalized_yaw × π/2)
-effective_fov = target_fov × yaw_factor
+
+Expected: 24× speedup based on benchmarks
+
+### 5. Risks & Mitigations
+- **Risk:** OpenCV NMS output format different from current
+  - **Mitigation:** Unit tests to validate output matches
+  - **Rollback:** Keep old function as `nms_python_legacy()`
+
+### 6. Validation Plan
+1. Run unit tests with 10, 50, 100 detections
+2. Compare outputs (should match within ±1 index)
+3. Benchmark with `timeit` (expect <1ms for 100 detections)
+
+### 7. Approval Request
+Should I proceed with implementing this change?
 ```
 
-#### LUT Caching System
-
-- **Ray Cache**: 24.9 MB (FOV-dependent, 0.1° dead zone)
-- **LUT Cache**: 16.6 MB (angle-dependent, 0.1° threshold)
-- **EGL Mapping Cache**: 4-8 entries, <1μs lookup
-- **Fixed Buffer Pool**: 8 round-robin pre-allocated buffers
-
-**Performance**: 47.90 FPS, 20.88ms latency
-
-**See**: `my_virt_cam/PLUGIN.md` for detailed documentation
-
 ---
 
-### 3. MY_TILE_BATCHER - Tile Batching Plugin
+## 13. Documentation Reading Protocol (MANDATORY)
 
-**Location**: `~/ds_pipeline/my_tile_batcher/`
+### 13.1 Before ANY Code Changes
 
-**Function**: Extracts 6× 1024×1024 tiles from panorama for efficient inference batching
+**Claude MUST perform the following in order:**
 
-#### Technical Details
+1. **Search `docs/` directory** for relevant documentation
+   - CUDA 12.6: `docs/cuda-12.6.0-docs/`
+   - DeepStream 7.1: `docs/ds_doc/7.1/`
+   - Hardware: `docs/hw_arch/nvidia_jetson_orin_nx_16GB_super_arch.pdf`
+   - Camera: `docs/camera_doc/IMX678C_Framos_Docs_documentation.pdf`
+   - Best practices: `docs/DOCS_NOTES.md`
 
-- **Tile Layout**: Horizontal array with 192px left offset
-  ```
-  Tile 0: X=192,   Y=434
-  Tile 1: X=1216,  Y=434
-  Tile 2: X=2240,  Y=434
-  Tile 3: X=3264,  Y=434
-  Tile 4: X=4288,  Y=434
-  Tile 5: X=5312,  Y=434
-  ```
+2. **Read component documentation**
+   - Stitching: `my_steach/PLUGIN.md`
+   - Virtual camera: `my_virt_cam/PLUGIN.md`
+   - Tile batching: `my_tile_batcher/PLUGIN.md`
+   - Calibration: `calibration/CALIBRATION.md`
+   - Inference: `new_week/INFERENCE.md`
+   - Refactoring guide: `new_week/README_REFACTORING.md`
 
-- **Vertical Offset (Y=434)**: Calculated from field_mask.png
-  - Field center: (top=438 + bottom=1454) / 2 = 946px
-  - Tile center offset: 946 - 512 = 434px
+3. **Check architecture documentation**
+   - System architecture: `architecture.md`
+   - Architectural decisions: `decisions.md`
+   - Project roadmap: `plan.md`
+   - Task tracking: `todo.md`
 
-- **CUDA Kernel**: `extract_tiles_kernel_multi`
-  - Launch config: (32, 32, 6) blocks × (32, 32, 1) threads
-  - 6,291,456 pixels processed per frame
-  - Constant memory for tile positions
-  - Coalesced 4-byte RGBA reads/writes
+4. **Consult analysis reports** (if relevant to change)
+   - CPU analysis: `docs/reports/CODEX_report.md`
+   - Code review: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
+   - Performance: `docs/reports/Performance_report.md`
 
-#### Batch Structure
+5. **If documentation not found locally:**
+   - Use WebFetch on official NVIDIA documentation
+   - Document findings in `docs/DOCS_NOTES.md`
+   - Cite sources in plan
 
-- **Output**: NvDsBatchMeta with 6× NvDsFrameMeta
-- **Memory Layout**: NVBUF_MEM_SURFACE_ARRAY (native GPU)
-- **User Metadata**: TileRegionInfo attached to each frame
-  ```c
-  struct TileRegionInfo {
-      uint tile_id;         // 0-5
-      uint panorama_x;      // Source X position
-      uint panorama_y;      // Source Y position
-      uint tile_width;      // 1024
-      uint tile_height;     // 1024
-  };
-  ```
+### 13.2 Documentation Hierarchy
 
-#### Performance Optimizations
+**When rules or information conflict, follow this priority order:**
 
-1. **Fixed Output Pool**: 4 pre-allocated buffers (no dynamic allocation)
-2. **EGL Cache**: Hash table for input buffer registration
-3. **CUDA Stream**: Asynchronous processing with event-based sync
-4. **Memory Access**: 64-byte aligned pitch for GPU efficiency
+1. **DeepStream SDK 7.1 official docs** (`docs/ds_doc/7.1/`)
+   - API usage, metadata structures, plugin development
 
-**Target**: ≥30 FPS on Jetson Orin NX
+2. **CUDA 12.6 official docs** (`docs/cuda-12.6.0-docs/`)
+   - Memory models, kernel optimization, Jetson constraints
 
-**See**: `my_tile_batcher/PLUGIN.md` for detailed documentation
+3. **NVIDIA Jetson Orin documentation** (`docs/hw_arch/`)
+   - Hardware specifications, thermal limits, power modes
 
----
+4. **CLAUDE.md project rules** (this file)
+   - Project-specific policies, workflow requirements
 
-### 4. Calibration Module
+5. **architecture.md system design**
+   - Component interactions, data flow, performance budgets
 
-**Location**: `~/ds_pipeline/calibration/`
+6. **decisions.md past decisions**
+   - Rationale for architectural choices
 
-**Function**: Stereo camera calibration for precise panorama stitching
+**Example conflict resolution:**
 
-#### Calibration Methods
+```
+Scenario: User asks to change memory allocation strategy
 
-1. **Individual Camera Calibration** (recalibrate_cleaned.py)
-   - Pattern: 8×6 chessboard (25mm squares)
-   - Algorithm: cv2.calibrateCamera()
-   - Results:
-     - Left camera: RMS = 0.180 px (49 images)
-     - Right camera: RMS = 0.198 px (63 images)
+Step 1: Read CUDA 12.6 docs on unified memory (priority 2)
+Step 2: Read Jetson Orin specs on RAM limits (priority 3)
+Step 3: Check CLAUDE.md memory rules (priority 4)
+Step 4: Check architecture.md for current allocation (priority 5)
+Step 5: Check decisions.md for past memory-related ADRs (priority 6)
 
-2. **Essential Matrix Method** (stereo_essential_matrix.py) **[PRIMARY]**
-   - For wide-angle stereo (85° camera separation)
-   - Algorithm: cv2.findEssentialMat() with RANSAC
-   - Input: 42 synchronized image pairs
-   - Results:
-     - Successful pairs: 38 (90.5%)
-     - RANSAC inliers: 54 points (3.0% - expected for wide-angle)
-     - Measured angle: 85.19° (target: 85°)
-     - Rotation: Yaw=-85.82°, Pitch=0.38°, Roll=-21.29°
+Conclusion: Propose change that satisfies ALL constraints,
+            citing specific doc sections
+```
 
-3. **Standard Stereo Calibration** (stereo_calibration.py)
-   - Algorithm: cv2.stereoCalibrate() with CALIB_FIX_INTRINSIC
-   - Limited to narrow baselines (<20°)
+### 13.3 Citing Documentation
 
-#### Output Files
+**Format:** `[Source](path/to/doc#section) — [Key point]`
 
-- **calibration_results_cleaned.json**: Individual camera parameters (K, D)
-- **stereo_essential_matrix_results.json**: Stereo parameters (R, T, E, F)
-- **calibration_result_standard.pkl**: Combined binary for stitching pipeline
+**Examples:**
+```
+✅ GOOD:
+"According to [CUDA Best Practices Guide](docs/cuda-12.6.0-docs/.../cuda-c-best-practices-guide/index.html#coalesced-access) —
+Sequential threads accessing adjacent memory locations achieve optimal bandwidth."
 
-#### Integration with Stitching
+✅ GOOD:
+"Per [DeepStream 7.1 FAQ](docs/ds_doc/7.1/text/DS_FAQ.html#batch-size) —
+nvstreammux batch-size should match source count or nvinfer batch-size."
 
-The stitcher (test_stiching.py) uses calibration data:
-1. Undistortion with cv2.undistort() and optimal camera matrix
-2. Feature detection (SIFT with 2,000 keypoints)
-3. Feature matching (FLANN with Lowe's ratio test 0.7)
-4. Homography computation (RANSAC threshold 5.0px)
-5. Cylindrical or planar projection
+❌ BAD:
+"CUDA recommends coalesced access." ← No citation!
+```
 
-**See**: `calibration/CALIBRATION.md` for detailed documentation
+### 13.4 Documentation Updates
 
----
+**When you modify code, you MUST update:**
 
-### 5. MASR Inference Pipeline (Refactored Modular Architecture)
+| Change Type | Documentation to Update |
+|-------------|-------------------------|
+| **Plugin modification** | Plugin's PLUGIN.md file |
+| **New feature** | architecture.md + component README |
+| **Bug fix** | Inline comments + git commit message |
+| **Performance change** | Performance_report.md (if benchmarked) |
+| **Architectural decision** | decisions.md (new ADR entry) |
+| **API change** | Function docstrings + README |
 
-**Location**: `~/ds_pipeline/new_week/`
-
-**Function**: Multi-class object detection and intelligent tracking with modular design
-
-#### Architecture Overview
-
-The pipeline has been **refactored into a modular architecture** with **76% code reduction** (from 3,015 to 712 lines), maintaining 100% API compatibility while improving maintainability and testability.
-
-**Main Entry Point**: `version_masr_multiclass.py` (712 lines)
-
-#### Modular Structure
-
-**core/** - Detection & History Management
-- `history_manager.py` (15KB) - Ball detection history with 3-tier buffering
-- `players_history.py` (1.8KB) - Player center-of-mass tracking
-- `detection_storage.py` (9.4KB) - Three-tier storage (raw, processed, confirmed)
-- `trajectory_filter.py` (12KB) - Outlier detection and blacklisting
-- `trajectory_interpolator.py` (10KB) - Smooth trajectory interpolation
-
-**pipeline/** - GStreamer Pipeline Building
-- `pipeline_builder.py` (16KB) - Analysis pipeline construction
-- `playback_builder.py` (15KB) - Playback/display pipeline construction
-- `config_builder.py` (3.7KB) - YOLO config generation
-- `buffer_manager.py` (18KB) - 7-second RAM buffer for frame/audio
-
-**processing/** - YOLO Analysis
-- `analysis_probe.py` (27KB) - Analysis probe callback and detection aggregation
-- `tensor_processor.py` (5.7KB) - YOLO tensor parsing and post-processing
-
-**rendering/** - Display & Virtual Camera
-- `display_probe.py` (20KB) - Panorama rendering with multi-class bboxes
-- `virtual_camera_probe.py` (17KB) - Virtual camera control and ball tracking
-
-**utils/** - General Utilities
-- `field_mask.py` (1.4KB) - Field mask validation
-- `csv_logger.py` (1.6KB) - Detection event logging
-- `nms.py` (2.3KB) - Non-maximum suppression
-
-#### Model Configuration
-
-- **Model**: YOLOv11n FP16
-- **Engine**: TensorRT (yolo11n_mixed_finetune_v9.engine - 8.1MB)
-- **Batch Size**: 6 (matching tile count)
-- **Input Size**: 1024×1024 per tile
-- **Network Mode**: FP16 (mode=2)
-- **Classes**: 5 multiclass detection
-  - Class 0: ball
-  - Class 1: player
-  - Class 2: staff
-  - Class 3: side_referee
-  - Class 4: main_referee
-
-#### Detection Thresholds
-
+**Docstring format:**
 ```python
-confidence_threshold = 0.25  # Pre-clustering
-nms_iou_threshold = 0.45     # Inter-class overlap
-topk = 100                   # Max detections per class
+def my_function(param1: int, param2: str) -> bool:
+    """
+    Brief one-line description.
+
+    Longer description explaining purpose, algorithm, and edge cases.
+
+    Args:
+        param1: Description of param1 (units, range, constraints)
+        param2: Description of param2
+
+    Returns:
+        Description of return value (type, meaning, possible values)
+
+    Raises:
+        ValueError: When param1 < 0
+        RuntimeError: When CUDA allocation fails
+
+    Example:
+        >>> result = my_function(42, "test")
+        >>> print(result)
+        True
+
+    References:
+        - [CUDA Best Practices](docs/cuda-12.6.0-docs/...)
+        - [DeepStream Metadata](docs/ds_doc/7.1/...)
+    """
 ```
 
-**Class-specific thresholds**:
-- Ball (class 0): 0.25
-- Players/Staff/Refs (classes 1-4): 0.40
-
-#### Post-Processing Pipeline
-
-1. **Tensor Extraction**: Extract output0 blob (21504×9 for 1024×1024 input)
-2. **Multiclass Parsing**:
-   ```python
-   bbox_data = tensor[:, :4]        # x, y, w, h
-   class_scores = tensor[:, 4:9]    # 5 class probabilities
-   class_ids = argmax(class_scores, axis=1)
-   confidences = max(class_scores, axis=1)
-   ```
-3. **Filtering**:
-   - Confidence > threshold
-   - Size: 8 ≤ w/h ≤ 120 pixels
-   - Edge exclusion: 20px border
-4. **Coordinate Transformation**: Tile-local → panorama-global
-5. **NMS**: IoU threshold 0.5 (inter-tile deduplication)
-6. **Field Mask Filtering**: Binary mask validation (field_mask.png)
-
-#### Detection History System
-
-**BallDetectionHistory** (10-second temporal buffer):
-
-- **Raw Future History**: Incoming detections from analysis branch
-- **Processed Future History**: Cleaned + interpolated trajectory
-- **Confirmed History**: Detections already displayed (7s ago)
-
-**Key Methods**:
-- `add_detection()`: Stores raw detection with duplicate filtering (≤2px threshold)
-- `get_detection_for_timestamp()`: Interpolates between points for smooth playback
-- `_interpolate_between_points()`: Parabolic trajectory for flight (gap > 1s)
-- `detect_and_remove_false_trajectories()`: Outlier removal with permanent blacklist
-- `interpolate_history_gaps()`: Fills missing frames (max 10s gap)
-
-**PlayersHistory** (center-of-mass fallback):
-- Stores player positions for each timestamp
-- EMA smoothing: α = 0.18 (smooth camera movement)
-- Fallback target when ball lost >3s
-
-#### Intelligent Camera Control
-
-**Ball Tracking**:
-- Speed-based auto-zoom: 300-1200 px/s → FOV adjustment
-- Smooth factor: 0.3 (30% new position per frame)
-- Radius smoothing: α = 0.3 for zoom stability
-
-**Ball Loss Recovery**:
-- Lost threshold: No detection for 6 frames (0.2s)
-- FOV expansion: 2°/second up to max 90°
-- Recovery: 6-frame confirmation before relock
-
-**Backward Interpolation**:
-- When ball reappears after long gap
-- Generates synthetic trajectory for smooth camera movement
-- 30 points/second linear interpolation
-
-**See**:
-- `new_week/INFERENCE.md` - Inference pipeline documentation
-- `new_week/README_REFACTORING.md` - Refactoring overview
-- `new_week/refactoring_reference.md` - Detailed delegation map
-- `new_week/pipeline/BUFFER_MANAGER_USAGE.md` - Buffer manager guide
-
 ---
 
-### 6. Buffer Manager
+## 14. Code Examples Library
 
-**Location**: `~/ds_pipeline/new_week/pipeline/buffer_manager.py`
+**This section contains curated examples for common patterns in this project.**
 
-**Function**: 7-second intelligent buffering system for analysis/playback synchronization
+**Usage:** Reference these examples when implementing similar functionality.
 
-#### Technical Details
+### 14.1 CUDA Kernel Examples
 
-- **Buffer Duration**: 7 seconds (configurable)
-- **Frame Storage**: 210 frames @ 30fps
-- **Memory**: ~3 GB (210 frames × ~15 MB H.264 encoded)
-- **Audio Support**: Synchronized audio buffering via PulseAudio
+#### Coalesced Memory Access
+```cuda
+// ✅ CORRECT: Vectorized RGBA processing
+__global__ void process_rgba(uint8_t* input, uint8_t* output,
+                              int width, int height)
+{
+    int x = blockIdx.x * blockDim.x + threadIdx.x;
+    int y = blockIdx.y * blockDim.y + threadIdx.y;
+    if (x >= width || y >= height) return;
 
-#### Key Features
+    int idx = (y * width + x) * 4;  // RGBA stride
+    uchar4 pixel = *((uchar4*)&input[idx]);  // Coalesced 4-byte read
 
-**Frame Buffering**:
-- Stores encoded H.264 frames with timestamps
-- Fixed-size circular buffer with automatic overflow handling
-- Deep copy management for frame data safety
+    // Process channels
+    pixel.x = min(pixel.x + 10, 255);  // R
+    pixel.y = min(pixel.y + 10, 255);  // G
+    pixel.z = min(pixel.z + 10, 255);  // B
+    // pixel.w unchanged (A)
 
-**Playback Synchronization**:
-- Timestamp-based frame retrieval
-- 7-second lag between analysis and display branches
-- Smooth playback with frame interpolation
+    *((uchar4*)&output[idx]) = pixel;  // Coalesced 4-byte write
+}
 
-**Audio Integration**:
-- PulseAudio source synchronization
-- Audio/video timestamp alignment
-- Optional audio muting in analysis branch
-
-**Performance Notes**:
-- Deep copies identified as CPU bottleneck (CODEX report)
-- O(n) timestamp scans flagged for optimization
-- Future optimization: Ring buffer with binary search
-
-**See**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md` for detailed API
-
----
-
-### 7. Soft Record Video Module
-
-**Location**: `~/ds_pipeline/soft_record_video/`
-
-**Function**: Synchronized dual 4K camera recording utilities
-
-#### Key Scripts
-
-- **`synced_dual_record.py`** (27KB) - Primary synchronized recording
-  - Hardware master/slave synchronization
-  - Sony IMX678/IMX477 camera support
-  - 4K @ 30fps recording
-  - Synchronized start/stop
-
-- **`fixed_exposure_recorder.py`** (20KB) - Fixed exposure recording
-  - Manual exposure control
-  - Consistent lighting conditions
-  - Calibration-ready output
-
-- **`check_frame_sync.py`** - Frame synchronization verification
-  - Validates timestamp alignment
-  - Detects frame drops
-  - Reports sync drift
-
-#### Features
-
-- **Hardware Synchronization**: Master camera triggers slave via GPIO
-- **Dual Output**: Simultaneous left/right camera recording
-- **MP4 Format**: H.264/HEVC encoding with nvenc
-- **Metadata**: Embedded timestamp and camera ID
-- **Recovery**: Auto-restart on camera failure
-
-**Shell Utilities**:
-- `fix_mp4.sh` - Repair corrupted MP4 files
-- `test_sync.sh` - Synchronization testing script
-
----
-
-### 8. Sliser Module
-
-**Location**: `~/ds_pipeline/sliser/`
-
-**Function**: Panorama and tile extraction for dataset creation
-
-#### Key Scripts
-
-- **`panorama_tiles_saver.py`** (16KB) - Main extraction utility
-  - Saves full panorama (5700×1900 JPEG)
-  - Extracts 6× 1024×1024 tiles
-  - Configurable frame interval
-  - Sequential numbering system
-
-**Output Structure**:
-```
-output/
-├── panorama_0000.jpg
-├── panorama_0001.jpg
-├── tile0_0000.jpg
-├── tile0_0001.jpg
-├── tile1_0000.jpg
-...
-├── tile5_0000.jpg
-└── tile5_0001.jpg
+// Launch:
+dim3 block(32, 8);  // 256 threads
+dim3 grid((width + 31) / 32, (height + 7) / 8);
+process_rgba<<<grid, block>>>(d_input, d_output, width, height);
 ```
 
-**Use Cases**:
-- Training dataset creation
-- Manual annotation preparation
-- Quality assurance review
-- Stitching validation
+#### Shared Memory Reduction
+```cuda
+// ✅ CORRECT: Bank-conflict-free reduction
+__global__ void sum_reduce(float* input, float* output, int N)
+{
+    __shared__ float sdata[256];
+
+    int tid = threadIdx.x;
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+
+    // Load data
+    sdata[tid] = (i < N) ? input[i] : 0.0f;
+    __syncthreads();
+
+    // Reduction in shared memory
+    for (int s = blockDim.x / 2; s > 0; s >>= 1) {
+        if (tid < s) {
+            sdata[tid] += sdata[tid + s];
+        }
+        __syncthreads();
+    }
+
+    // Write result
+    if (tid == 0) output[blockIdx.x] = sdata[0];
+}
+```
+
+#### Error Checking Macro
+```cuda
+// ✅ CORRECT: Comprehensive CUDA error checking
+#define CUDA_CHECK(call)                                                      \
+do {                                                                          \
+    cudaError_t err = call;                                                   \
+    if (err != cudaSuccess) {                                                 \
+        fprintf(stderr, "CUDA error in %s:%d: %s (%s)\n",                    \
+                __FILE__, __LINE__,                                           \
+                cudaGetErrorString(err), cudaGetErrorName(err));              \
+        exit(EXIT_FAILURE);                                                   \
+    }                                                                         \
+} while(0)
+
+// Usage in initialization:
+CUDA_CHECK(cudaMalloc(&d_data, size));
+CUDA_CHECK(cudaMemcpy(d_data, h_data, size, cudaMemcpyHostToDevice));
+
+// Usage after kernel launch:
+my_kernel<<<grid, block>>>(d_data);
+CUDA_CHECK(cudaGetLastError());  // Check launch errors
+CUDA_CHECK(cudaDeviceSynchronize());  // Check execution errors
+```
+
+### 14.2 DeepStream Metadata Examples
+
+#### Safe Metadata Iteration
+```python
+# ✅ CORRECT: Comprehensive StopIteration handling
+def analysis_probe(pad, info, u_data):
+    """
+    Probe callback for object detection metadata extraction.
+
+    Always return Gst.PadProbeReturn.OK to continue pipeline.
+    """
+    gst_buffer = info.get_buffer()
+    if not gst_buffer:
+        return Gst.PadProbeReturn.OK
+
+    batch_meta = pyds.gst_buffer_get_nvds_batch_meta(hash(gst_buffer))
+    if not batch_meta:
+        return Gst.PadProbeReturn.OK
+
+    try:
+        l_frame = batch_meta.frame_meta_list
+        while l_frame is not None:
+            try:
+                frame_meta = pyds.NvDsFrameMeta.cast(l_frame.data)
+            except StopIteration:
+                break
+
+            # Process objects in frame
+            try:
+                l_obj = frame_meta.obj_meta_list
+                while l_obj is not None:
+                    try:
+                        obj_meta = pyds.NvDsObjectMeta.cast(l_obj.data)
+                    except StopIteration:
+                        break
+
+                    # Extract detection data
+                    class_id = obj_meta.class_id
+                    confidence = obj_meta.confidence
+                    bbox = {
+                        'x': obj_meta.rect_params.left,
+                        'y': obj_meta.rect_params.top,
+                        'w': obj_meta.rect_params.width,
+                        'h': obj_meta.rect_params.height
+                    }
+
+                    # Process detection...
+
+                    try:
+                        l_obj = l_obj.next
+                    except StopIteration:
+                        break
+            except StopIteration:
+                pass
+
+            try:
+                l_frame = l_frame.next
+            except StopIteration:
+                break
+
+    except Exception as e:
+        logging.error(f"Probe error: {e}")
+
+    return Gst.PadProbeReturn.OK
+```
+
+#### User Metadata Attachment
+```python
+# ✅ CORRECT: Proper user metadata lifecycle
+def attach_custom_metadata(frame_meta, detection_data):
+    """
+    Attach custom detection data to frame metadata.
+
+    Args:
+        frame_meta: NvDsFrameMeta object
+        detection_data: Dictionary with custom data
+    """
+    # Acquire from pool
+    user_meta = pyds.nvds_acquire_user_meta_from_pool(
+        frame_meta.base_meta.batch_meta)
+
+    if not user_meta:
+        logging.warning("Failed to acquire user meta from pool")
+        return
+
+    # Set metadata type
+    user_meta.base_meta.meta_type = pyds.NvDsMetaType.NVDSINFER_TENSOR_OUTPUT_META
+
+    # Attach data
+    user_meta.user_meta_data = detection_data
+
+    # CRITICAL: Set copy and release functions
+    user_meta.base_meta.copy_func = pyds.my_copy_func
+    user_meta.base_meta.release_func = pyds.my_release_func
+
+    # Add to frame
+    pyds.nvds_add_user_meta_to_frame(frame_meta, user_meta)
+
+    logging.debug(f"Attached user metadata: {len(detection_data)} detections")
+```
+
+#### Display Metadata with Jetson Limits
+```python
+# ✅ CORRECT: Respect 16-object limit
+def add_display_overlays(frame_meta, detections):
+    """
+    Add bounding boxes to frame (max 16 on Jetson).
+
+    Args:
+        frame_meta: NvDsFrameMeta object
+        detections: List of detection dicts with keys:
+                    x, y, w, h, class_id, confidence
+    """
+    # Sort by priority: ball (0) > players (1) > others
+    detections_sorted = sorted(
+        detections,
+        key=lambda d: (d['class_id'], -d['confidence'])
+    )
+
+    # Acquire display metadata
+    display_meta = pyds.nvds_acquire_display_meta_from_pool(
+        frame_meta.base_meta.batch_meta)
+
+    # CRITICAL: Limit to 16 objects (Jetson hardware limit)
+    max_objects = min(len(detections_sorted), 16)
+
+    for i in range(max_objects):
+        det = detections_sorted[i]
+
+        # Add rectangle
+        rect_params = display_meta.rect_params[display_meta.num_rects]
+        rect_params.left = det['x']
+        rect_params.top = det['y']
+        rect_params.width = det['w']
+        rect_params.height = det['h']
+
+        # Style based on class
+        if det['class_id'] == 0:  # Ball
+            rect_params.border_width = 3
+            rect_params.border_color.set(1.0, 0.0, 0.0, 1.0)  # Red
+        else:  # Players, staff, refs
+            rect_params.border_width = 2
+            rect_params.border_color.set(0.0, 1.0, 0.0, 1.0)  # Green
+
+        display_meta.num_rects += 1
+
+    # Add metadata to frame
+    pyds.nvds_add_display_meta_to_frame(frame_meta, display_meta)
+
+    if len(detections) > 16:
+        logging.debug(f"Truncated {len(detections)} to 16 objects (Jetson limit)")
+```
+
+### 14.3 GStreamer Pipeline Examples
+
+#### NVMM Buffer Configuration
+```python
+# ✅ CORRECT: Configure pipeline for NVMM (GPU-resident buffers)
+def create_analysis_pipeline():
+    """
+    Create DeepStream analysis pipeline with NVMM buffers throughout.
+    """
+    pipeline = Gst.Pipeline()
+
+    # Source: nvstreammux with NVMM
+    streammux = Gst.ElementFactory.make("nvstreammux", "stream-muxer")
+    streammux.set_property("width", 1920)
+    streammux.set_property("height", 1080)
+    streammux.set_property("batch-size", 2)  # 2 cameras
+    streammux.set_property("batched-push-timeout", 4000000)
+    streammux.set_property("nvbuf-memory-type", 3)  # ✅ NVMM!
+
+    # Custom plugin with buffer pool
+    stitcher = Gst.ElementFactory.make("nvdsstitch", "stitcher")
+    stitcher.set_property("num-extra-surfaces", 64)  # ✅ Increase pool
+
+    # Inference with batch-size matching tile count
+    nvinfer = Gst.ElementFactory.make("nvinfer", "primary-inference")
+    nvinfer.set_property("config-file-path", "config_infer.txt")
+    nvinfer.set_property("batch-size", 6)  # 6 tiles from my_tile_batcher
+
+    # Overlay with NVMM
+    nvdsosd = Gst.ElementFactory.make("nvdsosd", "onscreen-display")
+    nvdsosd.set_property("process-mode", 0)  # CPU mode (metadata only)
+
+    # Sink: EGL for display (consumes NVMM directly)
+    sink = Gst.ElementFactory.make("nveglglessink", "video-sink")
+
+    # Add all elements
+    pipeline.add(streammux)
+    pipeline.add(stitcher)
+    pipeline.add(nvinfer)
+    pipeline.add(nvdsosd)
+    pipeline.add(sink)
+
+    # Link: streammux → stitcher → nvinfer → nvdsosd → sink
+    # All in NVMM memory (zero-copy)
+    streammux.link(stitcher)
+    stitcher.link(nvinfer)
+    nvinfer.link(nvdsosd)
+    nvdsosd.link(sink)
+
+    return pipeline
+```
+
+#### Probe Attachment
+```python
+# ✅ CORRECT: Attach probe to pad
+def attach_analysis_probe(pipeline, probe_callback, user_data):
+    """
+    Attach probe callback to nvinfer src pad.
+
+    Args:
+        pipeline: Gst.Pipeline object
+        probe_callback: Function with signature:
+                        (pad, info, u_data) -> Gst.PadProbeReturn
+        user_data: User data passed to callback
+    """
+    nvinfer = pipeline.get_by_name("primary-inference")
+    if not nvinfer:
+        raise RuntimeError("nvinfer element not found")
+
+    # Get src pad (output of nvinfer)
+    src_pad = nvinfer.get_static_pad("src")
+    if not src_pad:
+        raise RuntimeError("nvinfer src pad not found")
+
+    # Attach probe for BUFFER events
+    probe_id = src_pad.add_probe(
+        Gst.PadProbeType.BUFFER,
+        probe_callback,
+        user_data
+    )
+
+    logging.info(f"Attached analysis probe (ID: {probe_id})")
+
+    return probe_id
+```
+
+### 14.4 Testing Examples
+
+#### Unit Test Template
+```python
+# ✅ CORRECT: Unit test for detection history
+import unittest
+from new_week.core.history_manager import BallDetectionHistory
+
+class TestBallDetectionHistory(unittest.TestCase):
+    """Test suite for ball detection history management."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.history = BallDetectionHistory(duration=10.0)
+
+    def tearDown(self):
+        """Clean up after tests."""
+        self.history = None
+
+    def test_add_detection(self):
+        """Test adding single detection."""
+        self.history.add_detection(
+            timestamp=1.0,
+            x=100, y=200, radius=15
+        )
+
+        self.assertEqual(len(self.history.raw_history), 1)
+        self.assertEqual(self.history.raw_history[0]['x'], 100)
+
+    def test_interpolation(self):
+        """Test trajectory interpolation."""
+        # Add two detections 1 second apart
+        self.history.add_detection(1.0, 100, 200, 15)
+        self.history.add_detection(2.0, 200, 300, 15)
+
+        # Interpolate at t=1.5 (midpoint)
+        result = self.history.get_detection_for_timestamp(1.5)
+
+        self.assertIsNotNone(result)
+        self.assertAlmostEqual(result['x'], 150, delta=5)
+        self.assertAlmostEqual(result['y'], 250, delta=5)
+
+    def test_outlier_removal(self):
+        """Test outlier detection and blacklisting."""
+        # Add normal trajectory
+        for t in range(10):
+            self.history.add_detection(
+                float(t), 100 + t*10, 200, 15
+            )
+
+        # Add outlier
+        self.history.add_detection(5.5, 500, 500, 15)  # Far away
+
+        # Run outlier detection
+        self.history.detect_and_remove_false_trajectories()
+
+        # Outlier should be removed or blacklisted
+        result = self.history.get_detection_for_timestamp(5.5)
+        self.assertNotEqual(result['x'], 500)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+#### Performance Benchmark Template
+```python
+# ✅ CORRECT: Benchmark for NMS
+import time
+import numpy as np
+from new_week.utils.nms import nms_opencv
+
+def benchmark_nms(num_detections=100, num_runs=1000):
+    """
+    Benchmark NMS performance.
+
+    Args:
+        num_detections: Number of bounding boxes
+        num_runs: Number of iterations for averaging
+    """
+    # Generate random bounding boxes
+    boxes = []
+    confidences = []
+    for _ in range(num_detections):
+        x = np.random.randint(0, 5000)
+        y = np.random.randint(0, 1800)
+        w = np.random.randint(20, 100)
+        h = np.random.randint(20, 100)
+        boxes.append([x, y, w, h])
+        confidences.append(np.random.uniform(0.3, 1.0))
+
+    # Warm-up
+    for _ in range(10):
+        nms_opencv(boxes, confidences, iou_threshold=0.45)
+
+    # Benchmark
+    start = time.perf_counter()
+    for _ in range(num_runs):
+        indices = nms_opencv(boxes, confidences, iou_threshold=0.45)
+    end = time.perf_counter()
+
+    avg_time = (end - start) / num_runs * 1000  # Convert to ms
+
+    print(f"NMS Benchmark Results:")
+    print(f"  Detections: {num_detections}")
+    print(f"  Iterations: {num_runs}")
+    print(f"  Average time: {avg_time:.3f} ms")
+    print(f"  Throughput: {num_runs / (end - start):.1f} NMS/sec")
+    print(f"  Kept objects: {len(indices)}")
+
+if __name__ == '__main__':
+    benchmark_nms(num_detections=50, num_runs=1000)
+    benchmark_nms(num_detections=100, num_runs=1000)
+    benchmark_nms(num_detections=200, num_runs=500)
+```
 
 ---
 
-## Pipeline Modes
+## 15. Testing Protocol (MANDATORY)
 
-### 1. Panorama Mode
-- Full 5700×1900 view with bbox overlays
-- Max 16 objects rendered (nvdsosd limitation on Jetson)
-- Priority: ball (red, border=3) > players (green, border=2)
-- Tiles disabled to preserve render slots
+### 15.1 Testing Requirements
 
-### 2. Virtual Camera Mode
-- Intelligent ball/player tracking
-- 1920×1080 output
-- Auto-zoom based on ball size/speed
-- Fallback to center-of-mass when ball lost
+**Before marking ANY task as complete, Claude MUST:**
 
-### 3. Streaming Mode (RTMP)
-- H.264 encoding @ 6 Mbps
-- RTMP push to server (e.g., rtmp://live.twitch.tv/app/{stream_key})
-- Low-latency configuration
+1. **Unit tests** (if applicable)
+   - Test individual functions in isolation
+   - Cover edge cases (empty input, max values, errors)
+   - Achieve >80% code coverage for new code
 
-### 4. Recording Mode
-- H.264 @ 6-8 Mbps to MP4 file
-- 7-second buffered output (includes pre-event)
-- Synchronized audio via PulseAudio (if available)
+2. **Integration tests**
+   - Test component interactions
+   - Validate data flow through pipeline
+   - Check for memory leaks
 
----
+3. **Performance tests**
+   - Measure FPS (should be ≥30)
+   - Check GPU load (should be <70%)
+   - Monitor RAM usage (should be <14 GB)
+   - Validate latency (pipeline <100ms)
 
-## Performance Benchmarks
+4. **Validation tests**
+   - Visual inspection of output
+   - Compare before/after behavior
+   - Verify no regressions
 
-### Measured Performance (Jetson Orin NX)
+### 15.2 Testing Commands
 
-| Component | FPS | Latency | GPU Load | Memory |
-|-----------|-----|---------|----------|--------|
-| **Camera Capture** | 30 | - | - | 2× 66 MB |
-| **Stitching (my_steach)** | 30 | ~10 ms | ~15% | 43 MB out |
-| **Tile Batching** | 30 | ~1 ms | ~5% | 25 MB |
-| **Inference (YOLOv11n)** | 30 | ~20 ms | ~40% | Variable |
-| **Virtual Camera** | 47.9 | 20.9 ms | ~10% | 8 MB |
-| **Overall Pipeline** | 30 | ~100 ms | ~70% | ~10 GB |
-
-### Memory Breakdown (16 GB total)
-
-- **System/OS**: ~2 GB
-- **DeepStream SDK**: ~1 GB
-- **Video Buffers**: ~4 GB (NVMM pools + buffer)
-- **TensorRT Engine**: ~2 GB (model + workspace)
-- **LUT Caches**: ~0.3 GB (steach + virtcam)
-- **Frame Buffer (7s @ 30fps)**: ~3 GB (210 frames × ~15 MB)
-- **Available Headroom**: ~3 GB
-
-### Bottlenecks & Optimizations
-
-**Current Bottlenecks**:
-1. Inference on 6 tiles: ~20ms (can use DLA for offload)
-2. RAM buffer encoding: H.264 CPU encoder (consider nvenc)
-3. Memory bandwidth: Shared 102 GB/s (avoid unnecessary copies)
-
-**Optimizations Applied**:
-- All video data in NVMM (GPU-resident)
-- Fixed buffer pools (no allocation overhead)
-- LUT caching (ray/coordinate regeneration avoided)
-- EGL mapping cache (reduced registration calls)
-- Asynchronous CUDA streams (pipelined execution)
-
----
-
-## Build & Deployment
-
-### Dependencies
-
-| Package | Version | Purpose |
-|---------|---------|---------|
-| **JetPack** | 6.2+ | NVIDIA Jetson SDK |
-| **DeepStream** | 7.1 | Video analytics framework |
-| **CUDA** | 12.6 | GPU compute |
-| **GStreamer** | 1.0 | Media pipeline |
-| **TensorRT** | 10.5+ | AI inference |
-| **OpenCV** | 4.5+ | Calibration, image processing |
-| **Python** | 3.8+ | Pipeline orchestration |
-| **PyDS (pyds)** | 1.1.11+ | DeepStream Python bindings |
-
-### Building Custom Plugins
-
-**my_steach**:
+**Run pipeline with test inputs:**
 ```bash
-cd my_steach
-make clean && make
-make install  # Installs to ~/.local/share/gstreamer-1.0/plugins/
-```
-
-**my_virt_cam**:
-```bash
-cd my_virt_cam/src
-make clean && make
-export GST_PLUGIN_PATH=$GST_PLUGIN_PATH:$(pwd)
-```
-
-**my_tile_batcher**:
-```bash
-cd my_tile_batcher
-make clean && make
-export GST_PLUGIN_PATH=$GST_PLUGIN_PATH:$(pwd)/src
-```
-
-### Verify Plugin Registration
-
-```bash
-gst-inspect-1.0 nvdsstitch
-gst-inspect-1.0 nvvirtualcam
-gst-inspect-1.0 nvtilebatcher
-```
-
-### Running the Pipeline
-
-**File Sources** (testing):
-```bash
+# File sources (for regression testing)
 cd new_week
 python3 version_masr_multiclass.py \
     --source-type files \
-    --video1 left_camera.mp4 \
-    --video2 right_camera.mp4 \
+    --video1 ../test_data/left.mp4 \
+    --video2 ../test_data/right.mp4 \
     --display-mode virtualcam \
     --buffer-duration 7.0
-```
 
-**Live Cameras** (production):
-```bash
+# Live cameras (for production testing)
 python3 version_masr_multiclass.py \
     --source-type cameras \
     --video1 0 \
     --video2 1 \
     --display-mode virtualcam \
-    --enable-analysis \
-    --output-file output.mp4
+    --enable-analysis
 ```
 
-**RTMP Streaming**:
+**Monitor performance:**
 ```bash
-python3 version_masr_multiclass.py \
-    --source-type cameras \
-    --video1 0 \
-    --video2 1 \
-    --display-mode stream \
-    --stream-url rtmp://live.twitch.tv/app \
-    --stream-key YOUR_STREAM_KEY
+# Real-time GPU/CPU/RAM stats
+sudo tegrastats
+
+# Continuous monitoring (log to file)
+sudo tegrastats --interval 500 > stats.log
+
+# Check swap (should be 0)
+free -h
+
+# Profile with Nsight Systems (if needed)
+nsys profile -o pipeline_profile python3 version_masr_multiclass.py ...
 ```
 
----
+**Run unit tests:**
+```bash
+# Run all tests
+python3 -m pytest tests/
 
-## Known Limitations
+# Run specific test file
+python3 -m pytest tests/test_history_manager.py -v
 
-1. **nvdsosd Rendering**: Maximum 16 objects on Jetson (hardware limit)
-2. **Inference Latency**: 6-tile batch takes ~20ms (consider DLA offload)
-3. **Memory Bandwidth**: Shared 102 GB/s - careful with large panoramas
-4. **Calibration**: Essential matrix T vector normalized (unknown real baseline)
-5. **Camera Synchronization**: Software sync only (hardware sync recommended for production)
-
----
-
-## Project Structure
-
-```
-ds_pipeline/
-├── calibration/                  # Stereo calibration tools
-│   ├── stereo_essential_matrix.py      # PRIMARY: Wide-angle calibration
-│   ├── stereo_calibration.py           # Standard stereo calibration
-│   ├── recalibrate_cleaned.py          # Individual camera calibration
-│   ├── test_stiching.py                # Stitching integration test
-│   ├── calibration_result_standard.pkl # Binary calibration data
-│   └── CALIBRATION.md                  # Calibration documentation
-│
-├── my_steach/                    # Panorama stitching plugin
-│   ├── src/
-│   │   ├── gstnvdsstitch.cpp           # GStreamer plugin (1,427 lines)
-│   │   ├── cuda_stitch_kernel.cu       # CUDA stitching (765 lines)
-│   │   ├── gstnvdsstitch_allocator.cpp # Memory allocator (595 lines)
-│   │   └── *.h                         # Header files
-│   ├── Makefile                        # Build system
-│   ├── libnvdsstitch.so               # Compiled plugin
-│   ├── panorama_stream.py             # File-based test
-│   ├── panorama_cameras_realtime.py   # Live camera test
-│   └── PLUGIN.md                      # Plugin documentation
-│
-├── my_tile_batcher/              # Tile extraction plugin
-│   ├── src/
-│   │   ├── gstnvtilebatcher.cpp        # Plugin (1,733 lines)
-│   │   ├── cuda_tile_extractor.cu      # CUDA kernel (150 lines)
-│   │   ├── gstnvtilebatcher_allocator.cpp
-│   │   └── *.h
-│   ├── Makefile
-│   ├── libnvtilebatcher.so            # Compiled plugin
-│   ├── test_tilebatcher.py            # Standalone test
-│   ├── test_complete_pipeline.py      # Full pipeline test
-│   └── PLUGIN.md
-│
-├── my_virt_cam/                  # Virtual camera plugin
-│   ├── src/
-│   │   ├── gstnvdsvirtualcam.cpp       # Plugin (2,100+ lines)
-│   │   ├── cuda_virtual_cam_kernel.cu  # CUDA kernel (350 lines)
-│   │   ├── gstnvdsvirtualcam_allocator.cpp
-│   │   ├── nvds_ball_meta.h            # Ball metadata
-│   │   └── *.h
-│   ├── Makefile
-│   ├── libnvdsvirtualcam.so           # Compiled plugin
-│   ├── test_virtual_camera_sliders.py # Interactive GUI test
-│   ├── test_virtual_camera_keyboard.py
-│   ├── calculate_safe_boundaries.py
-│   └── PLUGIN.md
-│
-├── new_week/                     # Main inference pipeline (REFACTORED)
-│   ├── version_masr_multiclass.py      # Main entry (712 lines)
-│   ├── version_masr_multiclass_REFACTORED.py  # Modular version
-│   ├── version_masr_multiclass_ORIGINAL_BACKUP.py  # Original (3,015 lines)
-│   │
-│   ├── core/                           # Detection & History
-│   │   ├── history_manager.py
-│   │   ├── players_history.py
-│   │   ├── detection_storage.py
-│   │   ├── trajectory_filter.py
-│   │   └── trajectory_interpolator.py
-│   │
-│   ├── pipeline/                       # GStreamer Builders
-│   │   ├── pipeline_builder.py
-│   │   ├── playback_builder.py
-│   │   ├── config_builder.py
-│   │   ├── buffer_manager.py
-│   │   └── BUFFER_MANAGER_USAGE.md
-│   │
-│   ├── processing/                     # YOLO Analysis
-│   │   ├── analysis_probe.py
-│   │   └── tensor_processor.py
-│   │
-│   ├── rendering/                      # Display & Camera
-│   │   ├── display_probe.py
-│   │   └── virtual_camera_probe.py
-│   │
-│   ├── utils/                          # Utilities
-│   │   ├── field_mask.py
-│   │   ├── csv_logger.py
-│   │   └── nms.py
-│   │
-│   ├── config_infer.txt                # YOLO config
-│   ├── labels.txt                      # Class labels
-│   ├── auto_restart.sh                 # Auto-restart script
-│   ├── INFERENCE.md                    # Pipeline docs
-│   ├── README_REFACTORING.md           # Refactoring guide
-│   └── refactoring_reference.md        # Detailed delegation map
-│
-├── models/                       # AI Models
-│   └── yolo11n_mixed_finetune_v9.engine  # YOLOv11n FP16 (8.5MB)
-│
-├── soft_record_video/            # Dual camera recording
-│   ├── synced_dual_record.py           # Hardware-synced recording
-│   ├── synced_dual_record_robust.py
-│   ├── fixed_exposure_recorder.py
-│   ├── dual_record.py
-│   ├── check_frame_sync.py
-│   ├── fix_mp4.sh                      # MP4 repair utility
-│   └── test_sync.sh
-│
-├── sliser/                       # Panorama tile saver
-│   ├── panorama_tiles_saver.py         # Dataset creation
-│   └── test_gstreamer_import.py
-│
-│
-│
-├── docs/                         # Documentation and reports
-│   ├── reports/                        # Analysis reports
-│   │    ├── CODEX_report.md            # CPU performance analysis
-│   │    ├── COMPILED_CODEX_REPORT.md   # Compiled CPU analysis
-│   │    ├── DEEPSTREAM_CODE_REVIEW.md  # Code review findings
-│   │    └── Performance_report.md      # Performance benchmarks
-│   ├── ds_doc/                         # DeepStream documentation
-│   ├── 7.1/                            # HTML reference
-│   ├── camera_doc/                     # Camera specifications
-│   │    └── IMX678C_Framos_Docs_documentation.pdf
-    └── hw_arch/                        # Platform harware specifications and documentation
-         ├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
-         └── nvidia_jetson_orin_nx_16GB_super_arch.txt
-
-│
-├── CLAUDE.md                     # This file (main documentation)
-├── architecture.md               # System architecture documentation
-├── decisions.md                  # Architectural Decision Records (ADRs)
-├── plan.md                       # Master project plan and roadmap
-├── todo.md                       # Current tasks and backlog
-├── nvidia_jetson_orin_nx_16GB_super_arch.pdf
-└── nvidia_jetson_orin_nx_16GB_super_arch.txt
+# Run with coverage
+python3 -m pytest --cov=new_week --cov-report=html tests/
 ```
 
----
+### 15.3 Test Report Format
 
+**After testing, provide report in this format:**
 
-## Code Review & Performance Reports
+```markdown
+## Test Report: [Feature Name]
 
-The codebase has undergone comprehensive analysis and review, documented in the following reports:
+### Test Environment
+- **Platform:** NVIDIA Jetson Orin NX 16GB
+- **JetPack:** 6.2
+- **DeepStream:** 7.1
+- **Test date:** 2025-11-19
+- **Test duration:** 30 minutes
 
-### docs/reports/CODEX_report.md - CPU Performance Analysis
+### Tests Performed
 
-**Key Findings**: 6 high-CPU load paths identified
+#### 1. Unit Tests
+- **File:** `tests/test_history_manager.py`
+- **Status:** ✅ PASSED (15/15 tests)
+- **Coverage:** 87% (lines 45-50 not covered - error handling)
 
-1. **BufferManager Deep Copies** (buffer_manager.py:116)
-   - Issue: Deep copying ~15MB frames on every buffer add
-   - Impact: Significant CPU overhead in frame buffering
-   - Recommendation: Use shallow copies or zero-copy techniques
+#### 2. Integration Tests
+- **Pipeline:** Full dual-camera → stitching → inference → display
+- **Status:** ✅ PASSED
+- **Observations:** No frame drops, smooth playback
 
-2. **Playback O(n) Scans** (buffer_manager.py:156)
-   - Issue: Linear timestamp search through buffer
-   - Impact: Performance degrades with buffer size
-   - Recommendation: Binary search or ring buffer with indexing
+#### 3. Performance Tests
+| Metric | Target | Measured | Status |
+|--------|--------|----------|--------|
+| FPS | ≥30 | 30.2 | ✅ |
+| GPU Load | <70% | 68% | ✅ |
+| RAM Usage | <14 GB | 12.8 GB | ✅ |
+| Latency | <100ms | 95ms | ✅ |
 
-3. **Heavy Python Post-Processing** (analysis_probe.py, display_probe.py)
-   - Issue: Extensive Python processing in critical path
-   - Impact: CPU bottleneck in detection pipeline
-   - Recommendation: Move to C++ or use Numba JIT compilation
+#### 4. Validation Tests
+- **Ball tracking:** Smooth, no jitter
+- **Player detection:** All 22 players detected
+- **Display overlay:** Max 16 objects (as expected)
+- **Memory leaks:** None detected (valgrind clean)
 
-4. **Field Mask Validation** (field_mask.py)
-   - Issue: Per-detection mask lookup
-   - Impact: O(n) overhead for n detections
-   - Recommendation: GPU-accelerated mask checking
+### Issues Found
+- **Minor:** Occasional warning "Buffer pool exhausted" (solved by increasing num-extra-surfaces)
+- **None blocking:** All issues resolved during testing
 
-5. **NMS Implementation** (nms.py)
-   - Issue: Pure Python NMS with nested loops
-   - Impact: O(n²) complexity for overlapping detections
-   - Recommendation: Use DeepStream native NMS or GPU implementation
+### Regression Check
+- **Before change:** 30.1 FPS, 67% GPU
+- **After change:** 30.2 FPS, 68% GPU
+- **Verdict:** ✅ No performance regression
 
-6. **CSV Logging** (csv_logger.py)
-   - Issue: Synchronous file I/O in probe callbacks
-   - Impact: Frame drops under high detection load
-   - Recommendation: Async logging or buffered writes
+### Conclusion
+✅ Feature ready for production deployment.
+```
 
-**See**: `docs/reports/CODEX_report.md` for full analysis
+### 15.4 Test Failure Protocol
 
----
+**If tests fail:**
 
-### docs/reports/DEEPSTREAM_CODE_REVIEW.md - DeepStream 7.1 Compliance
+1. **STOP immediately** — Do not proceed to next task
+2. **Document failure:**
+   - What test failed
+   - Expected vs actual behavior
+   - Error messages and stack traces
+3. **Analyze root cause:**
+   - Read code carefully
+   - Add debug logging
+   - Use profiling tools if needed
+4. **Fix and re-test:**
+   - Make minimal fix
+   - Run all tests again
+   - Ensure no new issues introduced
+5. **Report to user:**
+   - Explain what broke and why
+   - Describe fix applied
+   - Show test results
 
-**Critical Issues** (15 findings):
-- Memory leak potential in probe callbacks
-- Missing null checks in metadata iteration
-- Improper GStreamer state management
-- Unsafe buffer pool handling
-
-**Important Issues** (8 findings):
-- Suboptimal batch processing
-- Missing error recovery paths
-- Inconsistent metadata handling
-- Thread safety concerns
-
-**Recommendations** (12 items):
-- Migrate to DeepStream 7.1 best practices
-- Implement proper error handling
-- Add comprehensive logging
-- Use native DeepStream analytics
-
-**See**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md` for detailed findings
-
----
-
-### docs/reports/Performance_report.md - Comprehensive Benchmarks
-
-**System-Level Metrics**:
-- Overall pipeline: 30 FPS @ 70% GPU load
-- End-to-end latency: ~100ms (camera to display)
-- Memory usage: ~10 GB / 16 GB
-- Available headroom: ~3 GB
-
-**Component Breakdown**:
-- Stitching: 30 FPS, 10ms latency, 15% GPU
-- Tile batching: 30 FPS, 1ms latency, 5% GPU
-- Inference: 30 FPS, 20ms latency, 40% GPU
-- Virtual camera: 47.9 FPS, 20.9ms latency, 10% GPU
-
-**Optimization Opportunities**:
-1. DLA offload for YOLO inference (reduce GPU load)
-2. H.264 hardware encoding for buffer (reduce CPU load)
-3. LUT compression for memory savings
-4. Multi-stream batching for throughput
-
-**See**: `docs/reports/Performance_report.md` for full benchmarks
+**NEVER:**
+* Mark task complete if tests fail
+* Skip tests because "it should work"
+* Commit code that doesn't pass tests
 
 ---
 
-## References
+## 16. Conflict Resolution
 
-### Official Documentation
+**If rules conflict, follow this priority order:**
 
-1. **NVIDIA DeepStream SDK 7.1**: https://docs.nvidia.com/metropolis/deepstream/7.1/index.html
-2. **YOLOv11 Documentation**: https://docs.ultralytics.com/models/yolo11/
-3. **GStreamer 1.0 Reference**: https://gstreamer.freedesktop.org/documentation/
+1. **Architecture constraints** > Performance requirements > Readability > Aesthetics
+2. **Safety (no crashes)** > Performance > Features
+3. **Correctness** > Speed of implementation
+4. **Minimal changes** > Perfect refactoring
 
-### Hardware Specifications
+**Examples:**
 
-4. **Jetson Orin NX Datasheet PDF**: nvidia_jetson_orin_nx_16GB_super_arch.pdf
-4.5 **Jetson Orin NX Datasheet TXT**: nvidia_jetson_orin_nx_16GB_super_arch.txt
-5. **Sony IMX678 Camera**: docs/camera_doc/IMX678C_Framos_Docs_documentation.pdf
+**Conflict:** Performance optimization requires architecture change
+```
+Resolution: Architecture > Performance
+Action: Propose optimization, explain tradeoffs, get approval before changing architecture
+```
 
-### Project Documentation
+**Conflict:** Code readability vs. performance
+```
+Resolution: Performance > Readability (for hot paths only)
+Action: Add extensive comments to explain optimized code
+```
 
-6. **Main Documentation**: `CLAUDE.md` (this file)
-7. **System Architecture**: `architecture.md`
-8. **Architectural Decisions**: `decisions.md`
-9. **Master Plan & Roadmap**: `plan.md`
-10. **Current Tasks & Backlog**: `todo.md`
-11. **Stitching Plugin**: `my_steach/PLUGIN.md`
-12. **Virtual Camera Plugin**: `my_virt_cam/PLUGIN.md`
-13. **Tile Batcher Plugin**: `my_tile_batcher/PLUGIN.md`
-14. **Calibration Guide**: `calibration/CALIBRATION.md`
-15. **Inference Pipeline**: `new_week/INFERENCE.md`
-16. **Refactoring Guide**: `new_week/README_REFACTORING.md`
-17. **Refactoring Reference**: `new_week/refactoring_reference.md`
-18. **Buffer Manager**: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
+**Conflict:** New feature vs. minimal changes
+```
+Resolution: Minimal changes > New features
+Action: Implement feature with smallest possible change, avoid refactoring existing code
+```
 
-### Analysis Reports
-
-19. **CPU Performance Analysis**: `docs/reports/CODEX_report.md`
-20. **Code Review Findings**: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
-21. **Performance Benchmarks**: `docs/reports/Performance_report.md`
+**If unsure — ASK USER.**
 
 ---
 
-## Development & Testing
+## 17. Allowed Creative Behavior
 
-### Test Suite
+**Claude MAY propose optimizations or improvements, but:**
 
-The project includes **50+ test scripts** across all modules:
+1. **Always ask first** — Never implement without approval
+2. **Provide evidence** — Show profiling data, benchmarks, citations
+3. **Explain tradeoffs** — Risks, benefits, alternatives
+4. **Respect "no"** — If user declines, do not re-propose without new information
 
-**Plugin Testing**:
-- `my_steach/panorama_stream.py` - File-based stitching
-- `my_steach/panorama_cameras_realtime.py` - Live camera stitching
-- `my_virt_cam/test_virtual_camera_sliders.py` - Interactive GUI testing
-- `my_tile_batcher/test_complete_pipeline.py` - Full pipeline validation
+**Example:**
 
-**Performance Testing**:
-- `my_steach/test_fps.py` - FPS measurement
-- `my_tile_batcher/test_performance.py` - Benchmarking
-- `my_virt_cam/test_ball_positions.py` - Tracking validation
+```
+Claude: "While implementing the NMS fix, I noticed the field mask validation
+        could be GPU-accelerated, reducing CPU load by ~15%.
+        This would require modifying field_mask.py (~50 lines).
+        Should I include this in the current task or propose it separately?"
 
-**Calibration Testing**:
-- `calibration/check_calibration_quality.py` - Quality assessment
-- `calibration/test_calibration_visual.py` - Visual validation
-- `calibration/test_undistortion.py` - Undistortion verification
+User: "Propose separately after we validate the NMS fix."
 
-**Recording Testing**:
-- `soft_record_video/check_frame_sync.py` - Sync verification
-- `soft_record_video/test_sync.sh` - Synchronization testing
+Claude: "Understood. I'll focus on NMS only and propose field mask optimization
+        after testing."
+```
 
-### Shell Utilities
-
-**Automation**:
-- `new_week/auto_restart.sh` - Automatic restart on failure
-- `new_week/rest_cameras.sh` - Camera reset utility
-
-**Maintenance**:
-- `soft_record_video/fix_mp4.sh` - MP4 file repair
-- `new_week/test_stitch_ringbuffer.sh` - Ring buffer testing
+**NEVER:**
+* Implement "while we're at it" features
+* Refactor code not related to current task
+* Add "nice to have" changes without asking
 
 ---
 
-## Contact & Contribution
+## 18. Git Commit Protocol
 
-This project is a production sports analytics system. For technical questions or contributions, refer to individual documentation files:
+### 18.1 Commit Message Format
 
-**Core Documentation**:
-- Main: `CLAUDE.md` (this file)
-- Architecture: `architecture.md`
-- Decisions: `decisions.md`
-- Plan: `plan.md`
-- TODO: `todo.md`
-- DeepStream 7.1: 'docs/ds_doc/7.1/'
-- Hardware: 'docs/hw_arch'
-- Cameras: 'docs/camera_doc'
+**Structure:**
+```
+<type>(<scope>): <subject>
 
-**Component Documentation**:
-- Stitching: `my_steach/PLUGIN.md`
-- Virtual Camera: `my_virt_cam/PLUGIN.md`
-- Tile Batching: `my_tile_batcher/PLUGIN.md`
-- Calibration: `calibration/CALIBRATION.md`
-- Inference: `new_week/INFERENCE.md`
-- Refactoring: `new_week/README_REFACTORING.md`
-- Buffer Manager: `new_week/pipeline/BUFFER_MANAGER_USAGE.md`
+<body>
 
-**Analysis Reports**:
-- CPU Analysis: `docs/reports/CODEX_report.md`
-- Code Review: `docs/reports/DEEPSTREAM_CODE_REVIEW.md`
-- Performance: `docs/reports/Performance_report.md`
+<footer>
+```
+
+**Types:**
+* `feat`: New feature
+* `fix`: Bug fix
+* `perf`: Performance improvement
+* `refactor`: Code restructuring (no behavior change)
+* `docs`: Documentation only
+* `test`: Adding/updating tests
+* `chore`: Build, config, dependencies
+
+**Example:**
+```
+fix(nms): Replace Python NMS with OpenCV implementation
+
+- Replaced pure Python nested loops with cv2.dnn.NMSBoxes()
+- Performance improvement: 12ms → 0.5ms (24× speedup)
+- Validated output matches previous implementation (±1 index)
+- Added unit tests for 10, 50, 100 detection scenarios
+
+Closes #42
+```
+
+### 18.2 Commit Checklist
+
+**Before committing, verify:**
+- [ ] Code compiles/runs without errors
+- [ ] All tests pass
+- [ ] No debug print() statements left
+- [ ] Documentation updated
+- [ ] No temporary files added (*.tmp, *.log)
+- [ ] Commit message follows format
 
 ---
 
-**Last Updated**: 2025-11-17
-**Platform**: NVIDIA Jetson Orin NX 16GB
-**DeepStream**: 7.1
-**CUDA**: 12.6
-**Architecture**: Refactored modular design (76% code reduction)
+## 19. Session Management
+
+### 19.1 Session Start
+
+**At start of each session, Claude should:**
+
+1. **Acknowledge context** — Confirm understanding of project
+2. **Check current state** — Read recent commits, check todo.md
+3. **Ask for task** — "What would you like me to work on today?"
+
+### 19.2 Session End
+
+**Before ending session, Claude should:**
+
+1. **Summarize work** — What was accomplished
+2. **Update documentation** — Commit changes to todo.md, decisions.md
+3. **Push to git** — Ensure all changes are backed up
+4. **Note pending tasks** — What remains to be done
+
+---
+
+## 20. Emergency Procedures
+
+### 20.1 Pipeline Crash
+
+**If pipeline crashes during testing:**
+
+1. **Capture logs** — Save GStreamer debug output
+2. **Check GPU state** — Run `nvidia-smi` to check for hung processes
+3. **Analyze core dump** — If available: `gdb python3 core`
+4. **Identify root cause** — Null pointer? Memory leak? CUDA error?
+5. **Report to user** with findings
+
+### 20.2 Memory Exhaustion
+
+**If RAM >15 GB or swap >0:**
+
+1. **STOP pipeline immediately**
+2. **Analyze memory allocation:**
+   ```bash
+   sudo tegrastats
+   free -h
+   ps aux --sort=-%mem | head
+   ```
+3. **Identify leak source** — Check recent changes
+4. **Fix and re-test**
+
+### 20.3 GPU Hang
+
+**If GPU stops responding:**
+
+1. **Soft reset:** Restart pipeline
+2. **Hard reset:** `sudo systemctl restart nvargus-daemon`
+3. **Last resort:** Reboot Jetson
+4. **Analyze cause** — Check CUDA errors, thermal throttling
+
+---
+
+## 21. Final Reminders
+
+**Claude, remember:**
+
+* **Plan before code** — Always.
+* **Ask when unsure** — Never guess.
+* **Test thoroughly** — No shortcuts.
+* **Document changes** — Future you will thank you.
+* **Respect constraints** — They exist for good reasons.
+* **Be precise** — Lives may depend on this system someday.
+
+**User, remember:**
+
+* Claude is a **junior engineer** — Needs clear instructions and approval
+* Claude will **ask lots of questions** — This is good!
+* Claude will **say "I don't know"** — Better than guessing
+* Claude will **be pedantic** — Prevents subtle bugs
+
+**Together, we build reliable systems. 🚀**
+
+---
+
+**Last Updated:** 2025-11-19
+**Version:** 2.0 (Enhanced with code examples and testing protocol)
+**Platform:** NVIDIA Jetson Orin NX 16GB
+**DeepStream:** 7.1
+**CUDA:** 12.6
+
+**For technical details, see:**
+* System architecture: `architecture.md`
+* Architectural decisions: `decisions.md`
+* Project roadmap: `plan.md`
+* Task tracking: `todo.md`
+* Best practices: `docs/DOCS_NOTES.md`
