@@ -8,8 +8,12 @@
 #include <cfloat>  // Для FLT_MAX
 
 // ============================================================================
-// КОНСТАНТНАЯ ПАМЯТЬ ДЛЯ ЦВЕТОКОРРЕКЦИИ
+// КОНСТАНТНАЯ ПАМЯТЬ ДЛЯ ЦВЕТОКОРРЕКЦИИ (Phase 1.5)
 // ============================================================================
+// New async color correction with gamma (8 factors)
+__constant__ ColorCorrectionFactors g_color_factors;
+
+// Old color correction (deprecated, kept for compatibility)
 __constant__ float g_color_gains[6];
 
 // ============================================================================
@@ -377,6 +381,454 @@ extern "C" cudaError_t update_color_correction_simple(
 }
 
 // ============================================================================
+// ASYNC COLOR CORRECTION (HARDWARE-SYNC-AWARE) - Phase 1.4
+// ============================================================================
+
+/**
+ * Analyze color differences in overlap region for hardware-synchronized cameras.
+ *
+ * HARDWARE SYNC INSIGHT:
+ * Cameras are frame-locked via XVS/XHS signals with ±1 pixel precision.
+ * Overlap region contains IDENTICAL scene content at same moment.
+ * Color differences are PURELY sensor response curves + lens characteristics.
+ * No temporal alignment needed - focus on RGB gains + gamma correction.
+ *
+ * ALGORITHM:
+ * 1. Each thread processes one pixel in overlap region
+ * 2. Apply spatial weight to compensate vignetting: w = (1 - |x - center|/width)^falloff
+ * 3. Extract RGB from both cameras at same panorama coordinate (using LUTs)
+ * 4. Accumulate weighted sums in shared memory (tree reduction)
+ * 5. Write 9 values to global buffer for CPU post-processing
+ *
+ * OUTPUT BUFFER (9 floats):
+ * [0-2]: sum_L_R, sum_L_G, sum_L_B  - Left camera weighted RGB sums
+ * [3]:   sum_L_luma                  - Left camera weighted luma sum
+ * [4-6]: sum_R_R, sum_R_G, sum_R_B  - Right camera weighted RGB sums
+ * [7]:   sum_R_luma                  - Right camera weighted luma sum
+ * [8]:   total_weight                - Sum of spatial weights (for normalization)
+ *
+ * GAMMA CORRECTION FORMULA (ISP-aware):
+ * Input is already gamma-encoded (ISP applies gamma 2.4).
+ * Use simple power function in gamma space:
+ *   L_corrected = L_original^(gamma_factor)
+ * Conservative range: [0.8, 1.2] (±20% brightness adjustment)
+ *
+ * LAUNCH CONFIG: <<<(32, 16), (32, 32)>>> = 524,288 threads
+ * Shared memory: 9 floats * 1024 threads = 36 KB per block
+ */
+__global__ void analyze_color_correction_kernel(
+    const unsigned char* __restrict__ left_ptr,
+    const unsigned char* __restrict__ right_ptr,
+    int left_pitch,
+    int right_pitch,
+    int pano_width,
+    int pano_height,
+    const float* __restrict__ lut_left_x,
+    const float* __restrict__ lut_left_y,
+    const float* __restrict__ lut_right_x,
+    const float* __restrict__ lut_right_y,
+    const float* __restrict__ weight_left,
+    const float* __restrict__ weight_right,
+    float overlap_center_x,      // Overlap center (normalized, typically 0.5)
+    float overlap_width,         // Overlap width (normalized, e.g., 10/360 for 10 degrees)
+    float spatial_falloff,       // Vignetting compensation exponent (default 2.0)
+    float* __restrict__ output_buffer  // Device buffer for 9 floats
+)
+{
+    // Shared memory for block-level reduction (9 values per thread)
+    __shared__ float shared_sums[9][32][32];  // [value_idx][y][x] - 36 KB
+
+    int tx = threadIdx.x;
+    int ty = threadIdx.y;
+    int x = blockIdx.x * blockDim.x + tx;
+    int y = blockIdx.y * blockDim.y + ty;
+
+    // Initialize shared memory to zero
+    for (int i = 0; i < 9; i++) {
+        shared_sums[i][ty][tx] = 0.0f;
+    }
+    __syncthreads();
+
+    // Process pixel if in bounds
+    if (x < pano_width && y < pano_height) {
+        int lut_idx = y * pano_width + x;
+
+        // Read weights to determine if pixel is in overlap
+        float w_left = weight_left[lut_idx];
+        float w_right = weight_right[lut_idx];
+
+        // Overlap threshold: both weights must be significant
+        const float overlap_threshold = 0.1f;
+
+        if (w_left > overlap_threshold && w_right > overlap_threshold) {
+            // Compute spatial weight for vignetting compensation
+            // Pixels near center of overlap get higher weight
+            float norm_x = (float)x / pano_width;
+            float dist_from_center = fabsf(norm_x - overlap_center_x);
+
+            // Only analyze pixels within overlap_width
+            if (dist_from_center < overlap_width * 0.5f) {
+                // Spatial weight: higher near center, falls off towards edges
+                float spatial_weight = 1.0f - (dist_from_center / (overlap_width * 0.5f));
+                spatial_weight = powf(spatial_weight, spatial_falloff);
+
+                // Read LUT coordinates
+                float left_u = lut_left_x[lut_idx];
+                float left_v = lut_left_y[lut_idx];
+                float right_u = lut_right_x[lut_idx];
+                float right_v = lut_right_y[lut_idx];
+
+                // Validate coordinates
+                if (left_u >= 0 && left_u < 3840 && left_v >= 0 && left_v < 2160 &&
+                    right_u >= 0 && right_u < 3840 && right_v >= 0 && right_v < 2160) {
+
+                    // Sample both cameras
+                    uchar4 pixel_left = bilinear_sample(left_ptr, left_u, left_v,
+                                                        3840, 2160, left_pitch);
+                    uchar4 pixel_right = bilinear_sample(right_ptr, right_u, right_v,
+                                                         3840, 2160, right_pitch);
+
+                    // Compute luma (Rec. 709 coefficients)
+                    float luma_left = 0.2126f * pixel_left.x +
+                                      0.7152f * pixel_left.y +
+                                      0.0722f * pixel_left.z;
+                    float luma_right = 0.2126f * pixel_right.x +
+                                       0.7152f * pixel_right.y +
+                                       0.0722f * pixel_right.z;
+
+                    // Accumulate weighted sums in shared memory
+                    shared_sums[0][ty][tx] += pixel_left.x * spatial_weight;    // L_R
+                    shared_sums[1][ty][tx] += pixel_left.y * spatial_weight;    // L_G
+                    shared_sums[2][ty][tx] += pixel_left.z * spatial_weight;    // L_B
+                    shared_sums[3][ty][tx] += luma_left * spatial_weight;       // L_luma
+
+                    shared_sums[4][ty][tx] += pixel_right.x * spatial_weight;   // R_R
+                    shared_sums[5][ty][tx] += pixel_right.y * spatial_weight;   // R_G
+                    shared_sums[6][ty][tx] += pixel_right.z * spatial_weight;   // R_B
+                    shared_sums[7][ty][tx] += luma_right * spatial_weight;      // R_luma
+
+                    shared_sums[8][ty][tx] += spatial_weight;                   // total_weight
+                }
+            }
+        }
+    }
+    __syncthreads();
+
+    // Tree reduction in shared memory (32x32 = 1024 threads → 1 value per block)
+    // Reduce within block to minimize global atomics
+
+    // Step 1: Reduce across x dimension (32 → 1)
+    for (int stride = 16; stride > 0; stride >>= 1) {
+        if (tx < stride) {
+            for (int i = 0; i < 9; i++) {
+                shared_sums[i][ty][tx] += shared_sums[i][ty][tx + stride];
+            }
+        }
+        __syncthreads();
+    }
+
+    // Step 2: Reduce across y dimension (32 → 1)
+    if (tx == 0) {
+        for (int stride = 16; stride > 0; stride >>= 1) {
+            if (ty < stride) {
+                for (int i = 0; i < 9; i++) {
+                    shared_sums[i][ty][0] += shared_sums[i][ty + stride][0];
+                }
+            }
+            __syncthreads();
+        }
+
+        // Final thread (0,0) writes block result to global memory
+        if (ty == 0) {
+            for (int i = 0; i < 9; i++) {
+                atomicAdd(&output_buffer[i], shared_sums[i][0][0]);
+            }
+        }
+    }
+}
+
+/**
+ * Launch wrapper for async color analysis kernel.
+ *
+ * CRITICAL: This function is NON-BLOCKING. It launches kernel on provided stream
+ * and returns immediately. Caller must check completion with cudaEventQuery().
+ */
+extern "C" cudaError_t analyze_color_correction_async(
+    const unsigned char* left_ptr,
+    const unsigned char* right_ptr,
+    int left_pitch,
+    int right_pitch,
+    int pano_width,
+    int pano_height,
+    const float* lut_left_x,
+    const float* lut_left_y,
+    const float* lut_right_x,
+    const float* lut_right_y,
+    const float* weight_left,
+    const float* weight_right,
+    float overlap_center_x,
+    float overlap_width,
+    float spatial_falloff,
+    float* output_buffer,
+    cudaStream_t stream
+)
+{
+    // Validate inputs
+    if (!left_ptr || !right_ptr || !output_buffer) {
+        return cudaErrorInvalidValue;
+    }
+
+    // Zero output buffer before analysis
+    cudaMemsetAsync(output_buffer, 0, 9 * sizeof(float), stream);
+
+    // Launch configuration: 32x32 threads per block
+    dim3 block(32, 32);  // 1024 threads/block
+    dim3 grid((pano_width + 31) / 32, (pano_height + 31) / 32);
+
+    // Shared memory: 9 values × 32×32 threads = 9216 floats = 36 KB
+    // Jetson Orin has 128 KB shared memory per SM, so this is safe
+
+    analyze_color_correction_kernel<<<grid, block, 0, stream>>>(
+        left_ptr, right_ptr,
+        left_pitch, right_pitch,
+        pano_width, pano_height,
+        lut_left_x, lut_left_y,
+        lut_right_x, lut_right_y,
+        weight_left, weight_right,
+        overlap_center_x, overlap_width, spatial_falloff,
+        output_buffer
+    );
+
+    // Return launch error (does NOT synchronize)
+    return cudaGetLastError();
+}
+
+/**
+ * Finalize color correction factors on CPU after GPU analysis completes.
+ *
+ * INPUT: accumulated_sums[9] from GPU:
+ *   [0-2]: sum_L_R, sum_L_G, sum_L_B
+ *   [3]:   sum_L_luma
+ *   [4-6]: sum_R_R, sum_R_G, sum_R_B
+ *   [7]:   sum_R_luma
+ *   [8]:   total_weight
+ *
+ * OUTPUT: ColorCorrectionFactors (8 values):
+ *   left_r, left_g, left_b, left_gamma
+ *   right_r, right_g, right_b, right_gamma
+ *
+ * ALGORITHM:
+ * 1. Validate sufficient samples (total_weight > MIN_SAMPLES)
+ * 2. Compute weighted means: mean_L = sum_L / total_weight
+ * 3. Compute RGB gain ratios to balance colors
+ * 4. Compute gamma correction from luma ratios (if enabled)
+ * 5. Clamp to safe ranges defined in config
+ */
+extern "C" void finalize_color_correction_factors(
+    const float* accumulated_sums,
+    ColorCorrectionFactors* output,
+    bool enable_gamma
+)
+{
+    // Extract values from GPU results
+    float sum_L_R = accumulated_sums[0];
+    float sum_L_G = accumulated_sums[1];
+    float sum_L_B = accumulated_sums[2];
+    float sum_L_luma = accumulated_sums[3];
+
+    float sum_R_R = accumulated_sums[4];
+    float sum_R_G = accumulated_sums[5];
+    float sum_R_B = accumulated_sums[6];
+    float sum_R_luma = accumulated_sums[7];
+
+    float total_weight = accumulated_sums[8];
+
+    // Validate sufficient samples
+    const float min_samples = NvdsStitchConfig::ColorCorrectionConfig::OVERLAP_MIN_SAMPLES;
+    if (total_weight < min_samples) {
+        // Insufficient data - return identity correction (no change)
+        output->left_r = 1.0f;
+        output->left_g = 1.0f;
+        output->left_b = 1.0f;
+        output->left_gamma = 1.0f;
+        output->right_r = 1.0f;
+        output->right_g = 1.0f;
+        output->right_b = 1.0f;
+        output->right_gamma = 1.0f;
+
+        printf("WARNING: Insufficient samples for color correction (%.0f < %.0f), using identity\n",
+               total_weight, min_samples);
+        return;
+    }
+
+    // Compute weighted means
+    float mean_L_R = sum_L_R / total_weight;
+    float mean_L_G = sum_L_G / total_weight;
+    float mean_L_B = sum_L_B / total_weight;
+    float mean_L_luma = sum_L_luma / total_weight;
+
+    float mean_R_R = sum_R_R / total_weight;
+    float mean_R_G = sum_R_G / total_weight;
+    float mean_R_B = sum_R_B / total_weight;
+    float mean_R_luma = sum_R_luma / total_weight;
+
+    // Compute target (average of both cameras)
+    float target_R = (mean_L_R + mean_R_R) * 0.5f;
+    float target_G = (mean_L_G + mean_R_G) * 0.5f;
+    float target_B = (mean_L_B + mean_R_B) * 0.5f;
+
+    // Compute RGB gain factors to reach target
+    // gain_left = target / mean_left (multiply left values by this to reach target)
+    const float eps = 1e-6f;  // Prevent division by zero
+
+    float gain_L_R = target_R / (mean_L_R + eps);
+    float gain_L_G = target_G / (mean_L_G + eps);
+    float gain_L_B = target_B / (mean_L_B + eps);
+
+    float gain_R_R = target_R / (mean_R_R + eps);
+    float gain_R_G = target_G / (mean_R_G + eps);
+    float gain_R_B = target_B / (mean_R_B + eps);
+
+    // Clamp RGB gains to safe ranges (prevent extreme corrections)
+    const float gain_min = NvdsStitchConfig::ColorCorrectionConfig::GAIN_MIN;
+    const float gain_max = NvdsStitchConfig::ColorCorrectionConfig::GAIN_MAX;
+
+    output->left_r = fmaxf(gain_min, fminf(gain_max, gain_L_R));
+    output->left_g = fmaxf(gain_min, fminf(gain_max, gain_L_G));
+    output->left_b = fmaxf(gain_min, fminf(gain_max, gain_L_B));
+
+    output->right_r = fmaxf(gain_min, fminf(gain_max, gain_R_R));
+    output->right_g = fmaxf(gain_min, fminf(gain_max, gain_R_G));
+    output->right_b = fmaxf(gain_min, fminf(gain_max, gain_R_B));
+
+    // Compute gamma correction from luma ratios (if enabled)
+    if (enable_gamma) {
+        // Gamma factor: gamma_left = log(target_luma / mean_left_luma) / log(mean_left_luma / 255)
+        // Simplified: Use ratio of lumas to estimate gamma adjustment
+        // If left is darker than right, gamma_left > 1.0 (brighten)
+
+        float target_luma = (mean_L_luma + mean_R_luma) * 0.5f;
+
+        // Simple gamma estimation: ratio of target to current luma
+        // This is approximate but works well for small adjustments
+        float gamma_L = target_luma / (mean_L_luma + eps);
+        float gamma_R = target_luma / (mean_R_luma + eps);
+
+        // Clamp gamma to conservative range (ISP already applies gamma 2.4)
+        const float gamma_min = NvdsStitchConfig::ColorCorrectionConfig::GAMMA_MIN;
+        const float gamma_max = NvdsStitchConfig::ColorCorrectionConfig::GAMMA_MAX;
+
+        output->left_gamma = fmaxf(gamma_min, fminf(gamma_max, gamma_L));
+        output->right_gamma = fmaxf(gamma_min, fminf(gamma_max, gamma_R));
+    } else {
+        // Gamma correction disabled - use identity (1.0 = no change)
+        output->left_gamma = 1.0f;
+        output->right_gamma = 1.0f;
+    }
+
+    // Debug output
+    printf("Color correction factors computed (%.0f samples):\n", total_weight);
+    printf("  Left:  R=%.3f G=%.3f B=%.3f γ=%.3f\n",
+           output->left_r, output->left_g, output->left_b, output->left_gamma);
+    printf("  Right: R=%.3f G=%.3f B=%.3f γ=%.3f\n",
+           output->right_r, output->right_g, output->right_b, output->right_gamma);
+}
+
+/**
+ * Update color correction factors in device constant memory.
+ *
+ * This function uploads the computed correction factors to GPU constant memory,
+ * making them available to all subsequent kernel launches without per-kernel args.
+ *
+ * PERFORMANCE: Constant memory is cached and broadcast to all threads in a warp,
+ * making it ideal for read-only data accessed by all threads.
+ */
+extern "C" cudaError_t update_color_correction_factors(
+    const ColorCorrectionFactors* factors
+)
+{
+    if (!factors) {
+        return cudaErrorInvalidValue;
+    }
+
+    cudaError_t err = cudaMemcpyToSymbol(
+        g_color_factors,
+        factors,
+        sizeof(ColorCorrectionFactors)
+    );
+
+    if (err != cudaSuccess) {
+        printf("ERROR: Failed to update color correction factors: %s\n",
+               cudaGetErrorString(err));
+        return err;
+    }
+
+    return cudaSuccess;
+}
+
+/**
+ * Apply color correction with gamma adjustment to a pixel.
+ *
+ * ALGORITHM:
+ * 1. Apply RGB gains to balance color channels
+ * 2. Apply gamma correction for brightness (simple power function)
+ * 3. Clamp to valid range [0, 255]
+ *
+ * GAMMA FORMULA (ISP-aware):
+ * Input is already gamma-encoded (ISP gamma 2.4).
+ * Correction: pixel_out = pixel_in^gamma_factor
+ * - gamma < 1.0: Darken (compress highlights)
+ * - gamma > 1.0: Brighten (lift shadows)
+ * - gamma = 1.0: No change
+ *
+ * @param pixel Input pixel (RGBA, but we only modify RGB)
+ * @param is_left True for left camera factors, false for right
+ * @return Corrected pixel
+ */
+__device__ inline uchar4 apply_color_correction_gamma(
+    uchar4 pixel,
+    bool is_left
+)
+{
+    // Select factors based on camera
+    float gain_r = is_left ? g_color_factors.left_r : g_color_factors.right_r;
+    float gain_g = is_left ? g_color_factors.left_g : g_color_factors.right_g;
+    float gain_b = is_left ? g_color_factors.left_b : g_color_factors.right_b;
+    float gamma = is_left ? g_color_factors.left_gamma : g_color_factors.right_gamma;
+
+    // Step 1: Apply RGB gains
+    float r = (float)pixel.x * gain_r;
+    float g = (float)pixel.y * gain_g;
+    float b = (float)pixel.z * gain_b;
+
+    // Step 2: Apply gamma correction (if not identity)
+    if (gamma != 1.0f) {
+        // Normalize to [0, 1] for gamma operation
+        r = r / 255.0f;
+        g = g / 255.0f;
+        b = b / 255.0f;
+
+        // Apply gamma: out = in^gamma
+        r = powf(r, gamma);
+        g = powf(g, gamma);
+        b = powf(b, gamma);
+
+        // Denormalize back to [0, 255]
+        r = r * 255.0f;
+        g = g * 255.0f;
+        b = b * 255.0f;
+    }
+
+    // Step 3: Clamp to valid range and convert back to uchar4
+    return make_uchar4(
+        (unsigned char)fminf(255.0f, fmaxf(0.0f, r)),
+        (unsigned char)fminf(255.0f, fmaxf(0.0f, g)),
+        (unsigned char)fminf(255.0f, fmaxf(0.0f, b)),
+        pixel.w  // Alpha unchanged
+    );
+}
+
+// ============================================================================
 // ОСНОВНОЕ ЯДРО ПАНОРАМНОЙ СКЛЕЙКИ (С ИСПРАВЛЕНИЯМИ)
 // ============================================================================
 __global__ void panorama_lut_kernel(
@@ -425,16 +877,12 @@ __global__ void panorama_lut_kernel(
     if (w_left > 0.001f && left_u >= 0 && left_u < input_width && 
         left_v >= 0 && left_v < input_height) {
         
-        pixel_left = bilinear_sample(input_left, left_u, left_v, 
+        pixel_left = bilinear_sample(input_left, left_u, left_v,
                                      input_width, input_height, input_pitch);
-        // Применяем цветокоррекцию
-        pixel_left = make_uchar4(
-            min(255, (int)((float)pixel_left.x * g_color_gains[0])),
-            min(255, (int)((float)pixel_left.y * g_color_gains[1])),
-            min(255, (int)((float)pixel_left.z * g_color_gains[2])),
-            pixel_left.w
-        );
-        
+
+        // Apply NEW color correction with gamma (Phase 1.5)
+        pixel_left = apply_color_correction_gamma(pixel_left, true);
+
         // Устанавливаем эффективный вес ТОЛЬКО если пиксель был получен
         wL_eff = w_left;
     }
@@ -445,14 +893,10 @@ __global__ void panorama_lut_kernel(
         
         pixel_right = bilinear_sample(input_right, right_u, right_v,
                                       input_width, input_height, input_pitch);
-        // Применяем цветокоррекцию
-        pixel_right = make_uchar4(
-            min(255, (int)((float)pixel_right.x * g_color_gains[3])),
-            min(255, (int)((float)pixel_right.y * g_color_gains[4])),
-            min(255, (int)((float)pixel_right.z * g_color_gains[5])),
-            pixel_right.w
-        );
-        
+
+        // Apply NEW color correction with gamma (Phase 1.5)
+        pixel_right = apply_color_correction_gamma(pixel_right, false);
+
         // Устанавливаем эффективный вес ТОЛЬКО если пиксель был получен
         wR_eff = w_right;
     }
