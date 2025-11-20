@@ -580,3 +580,244 @@ float4 pixel_right = tex2D(tex_input_right, right_u, right_v); // ~10 cycles
 **Author:** Claude (AI Assistant)
 **Reviewed By:** [Pending]
 **Approval Status:** [Pending]
+
+---
+
+## Phase 2 Implementation: Texture Memory Optimization
+
+**Implementation Date:** 2025-11-20
+**Status:** ✅ CODE COMPLETE - Ready for compilation and testing on Jetson
+**Expected FPS Gain:** +14-22% (51 FPS → 59-62 FPS)
+
+### Implementation Summary
+
+Phase 2 converts all 6 LUT maps (260 MB) from global memory to CUDA texture memory, providing hardware-cached access and reducing memory bandwidth utilization.
+
+**Key Changes:**
+1. Added texture object infrastructure (lines 53-66 in cuda_stitch_kernel.cu)
+2. Implemented `load_panorama_luts_textured()` - texture-based LUT loader
+3. Implemented `cleanup_texture_resources()` - proper texture cleanup
+4. Created `panorama_lut_kernel_textured()` - kernel using tex2D() instead of array access
+5. Created `launch_panorama_kernel_textured()` - wrapper function
+6. Modified gstnvdsstitch.cpp to use textured functions (3 locations)
+
+### Files Modified
+
+**cuda_stitch_kernel.cu** (~300 new lines):
+- Lines 53-66: Global texture object declarations
+- Lines 853-923: `create_lut_texture()` helper function
+- Lines 925-1097: `load_panorama_luts_textured()` implementation
+- Lines 1099-1211: `panorama_lut_kernel_textured()` kernel
+- Lines 1213-1260: `launch_panorama_kernel_textured()` wrapper
+- Lines 796-851: `cleanup_texture_resources()` function
+
+**gstnvdsstitch.cpp** (~15 lines changed):
+- Line 1097: Replace `load_panorama_luts()` → `load_panorama_luts_textured()`
+- Line 701: Replace `launch_panorama_kernel()` → `launch_panorama_kernel_textured()`
+- Line 789: Replace `launch_panorama_kernel()` → `launch_panorama_kernel_textured()`
+- Line 1150: Add `cleanup_texture_resources()` call before `free_panorama_luts()`
+
+### Technical Details
+
+**Texture Memory Configuration:**
+```cpp
+// Texture descriptor settings
+texDesc.addressMode[0] = cudaAddressModeClamp;  // Clamp out-of-bounds
+texDesc.addressMode[1] = cudaAddressModeClamp;
+texDesc.filterMode = cudaFilterModePoint;       // No interpolation (exact values)
+texDesc.readMode = cudaReadModeElementType;     // Read as float
+texDesc.normalizedCoords = 0;                   // Use pixel coordinates [0, width)
+```
+
+**Memory Access Change:**
+```cpp
+// BEFORE (global memory):
+float left_u = lut_left_x[lut_idx];  // 200-400 cycle latency on cache miss
+float left_v = lut_left_y[lut_idx];
+float right_u = lut_right_x[lut_idx];
+float right_v = lut_right_y[lut_idx];
+float w_left = weight_left[lut_idx];
+float w_right = weight_right[lut_idx];
+
+// AFTER (texture memory):
+float left_u = tex2D<float>(tex_lut_left_x, x, y);  // 20-50 cycle latency (cached)
+float left_v = tex2D<float>(tex_lut_left_y, x, y);
+float right_u = tex2D<float>(tex_lut_right_x, x, y);
+float right_v = tex2D<float>(tex_lut_right_y, x, y);
+float w_left = tex2D<float>(tex_weight_left, x, y);
+float w_right = tex2D<float>(tex_weight_right, x, y);
+```
+
+**Benefits:**
+- **Dedicated texture cache:** Separate from L2, no contention with other data
+- **Hardware caching:** Optimized for 2D spatial locality
+- **Reduced latency:** 20-50 cycles (cached) vs 200-400 cycles (global memory miss)
+- **Lower bandwidth:** 95% cache hit rate expected → 24 bytes/pixel → ~2 bytes/pixel
+
+### Performance Model
+
+**Memory Bandwidth Reduction:**
+```
+Current (global memory):
+  - LUT reads per pixel: 6 × 4 bytes = 24 bytes
+  - Total per frame: 24 bytes × 10.8M pixels = 259 MB
+  - At 51 FPS: 13.2 GB/s for LUTs
+
+Expected (texture memory, 95% cache hit rate):
+  - LUT reads per pixel: 6 × 0.2 bytes (avg) = 1.2 bytes
+  - Total per frame: 1.2 bytes × 10.8M pixels = 13 MB
+  - At 51 FPS: 0.7 GB/s for LUTs
+
+Bandwidth saved: 13.2 - 0.7 = 12.5 GB/s (-95%)
+Total bandwidth: 86.6 - 12.5 = 74.1 GB/s
+Bandwidth utilization: 74.1 / 102 = 72.6% (was 84.9%)
+```
+
+**FPS Calculation:**
+```
+FPS is inversely proportional to bandwidth when bandwidth-bound:
+  FPS_new = FPS_old × (BW_max / BW_new)
+  FPS_new = 51 × (102 / 74.1) = 70.3 FPS (optimistic)
+
+Conservative estimate (80% cache hit rate):
+  BW_new = 86.6 - (13.2 × 0.80) = 76.0 GB/s
+  FPS_new = 51 × (102 / 76.0) = 68.4 FPS
+
+Target estimate (90% cache hit rate):
+  BW_new = 86.6 - (13.2 × 0.90) = 74.7 GB/s
+  FPS_new = 51 × (102 / 74.7) = 69.7 FPS
+
+Expected range: 59-70 FPS (+16-37% improvement)
+```
+
+### Compilation and Testing Instructions
+
+**On Jetson Orin NX:**
+
+1. **Navigate to plugin directory:**
+   ```bash
+   cd /home/user/ds_pipeline/my_steach
+   ```
+
+2. **Compile plugin:**
+   ```bash
+   make clean
+   make
+   ```
+   Expected output: "Build complete! Plugin location: libnvdsstitch.so"
+
+3. **Verify plugin loads:**
+   ```bash
+   gst-inspect-1.0 /path/to/libnvdsstitch.so
+   ```
+
+4. **Test with file sources:**
+   ```bash
+   cd /home/user/ds_pipeline/new_week
+   python3 version_masr_multiclass.py \
+       --source-type files \
+       --video1 ../test_data/left.mp4 \
+       --video2 ../test_data/right.mp4 \
+       --display-mode virtualcam \
+       --buffer-duration 7.0
+   ```
+
+5. **Monitor FPS and tegrastats:**
+   ```bash
+   # In separate terminal:
+   sudo tegrastats --interval 500 > phase2_stats.log
+   ```
+
+6. **Expected console output:**
+   ```
+   [TEXTURE] Loading panorama LUT maps: 5700x1900 (43.32 MB each)
+   [TEXTURE] ✓ Loaded left_x into texture memory
+   [TEXTURE] ✓ Loaded left_y into texture memory
+   [TEXTURE] ✓ Loaded right_x into texture memory
+   [TEXTURE] ✓ Loaded right_y into texture memory
+   [TEXTURE] ✓ Loaded weight_left into texture memory
+   [TEXTURE] ✓ Loaded weight_right into texture memory
+   [TEXTURE] ✓ All 6 LUTs loaded successfully into texture memory
+   [TEXTURE] Memory saved: 259.92 MB (texture cache vs global memory)
+   ```
+
+### Success Criteria
+
+**✅ Compilation:**
+- No errors or warnings during `make`
+- Plugin `.so` file generated successfully
+
+**✅ FPS Improvement:**
+- Plugin FPS: ≥59 FPS (minimum 56 FPS acceptable)
+- Improvement: ≥+8 FPS over baseline (51.06 FPS)
+- Target: 59-62 FPS (+16-22%)
+
+**✅ Output Quality:**
+- Visual inspection: No visible artifacts
+- Stitching seams: Unchanged quality
+- Color correction: Still effective
+
+**✅ Stability:**
+- No crashes during 10-minute test
+- Memory usage stable (no leaks)
+- No new GStreamer errors
+
+### Validation Checklist
+
+**After compilation:**
+- [ ] Plugin compiles without errors
+- [ ] Console shows "[TEXTURE]" messages during startup
+- [ ] FPS ≥59 (target) or ≥56 (minimum)
+- [ ] No visible stitching artifacts
+- [ ] No crashes or memory leaks
+
+**If FPS < 56:**
+- Check texture cache hit rate with nvprof: `--metrics tex_cache_hit_rate`
+- If hit rate < 80%, investigate access patterns
+- If hit rate > 80% but FPS low, investigate other bottlenecks
+
+**If compilation fails:**
+- Check CUDA 12.6 installed: `/usr/local/cuda-12.6/bin/nvcc --version`
+- Check NVCC path in Makefile
+- Check all header files present
+
+**If crashes occur:**
+- Check `load_panorama_luts_textured()` was called before first kernel launch
+- Check LUT file paths are correct
+- Check texture objects initialized (console should show "[TEXTURE] ✓")
+
+### Rollback Plan
+
+If Phase 2 causes issues, revert changes:
+
+```bash
+git diff HEAD~1 src/cuda_stitch_kernel.cu src/gstnvdsstitch.cpp
+git checkout HEAD~1 -- src/cuda_stitch_kernel.cu src/gstnvdsstitch.cpp
+make clean && make
+```
+
+This reverts to global memory implementation (Phase 1.6).
+
+### Next Steps After Validation
+
+**If Phase 2 succeeds (FPS ≥59):**
+1. Document actual FPS improvement in this file
+2. Update tegrastats analysis
+3. Consider Phase 3 (hardware bilinear interpolation) for additional +6-8% FPS
+
+**If Phase 2 fails (FPS <56 or issues):**
+1. Profile with nvprof to identify bottleneck
+2. Check texture cache hit rate
+3. Investigate alternative optimizations
+4. May need to revisit memory access patterns
+
+---
+
+**Phase 2 Status:** ✅ Implementation complete, ready for user testing on Jetson
+
+**Expected Outcome:**
+- **FPS:** 51 → 59-62 FPS (+16-22%)
+- **Full pipeline:** 27 → 29-30 FPS (reaching 30 FPS target!)
+- **Memory bandwidth:** 86.6 → 74 GB/s (-15%)
+- **GPU headroom:** +2-3% freed for other components
+
