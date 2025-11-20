@@ -59,7 +59,7 @@ class HistoryManager:
         )
         self.interpolator = TrajectoryInterpolator(
             fps=30,
-            max_gap=10.0
+            max_gap=3.0
         )
         self.camera_trajectory = CameraTrajectoryHistory(
             history_duration=history_duration,
@@ -324,7 +324,8 @@ class HistoryManager:
             interpolated = self.interpolator.interpolate_history_gaps(
                 future_only,
                 fps=30,
-                max_gap=10.0  # Support long flights
+                max_gap=3.0  # Only interpolate gaps <= 3s (ball flights)
+                             # Gaps > 3s are filled by camera_trajectory with player COM
             )
 
             self.storage.set_processed_history(interpolated)
