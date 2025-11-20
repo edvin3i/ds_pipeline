@@ -1100,8 +1100,7 @@ extern "C" cudaError_t load_panorama_luts_textured(
  * Textured panorama stitching kernel (Phase 2 optimization)
  *
  * Identical to panorama_lut_kernel but uses texture memory for LUT access.
- * LUTs are accessed via global texture objects (tex_lut_left_x, etc.)
- * which provide hardware caching and reduced memory bandwidth.
+ * Texture objects are passed as parameters (CUDA requirement).
  *
  * Performance improvement: ~15-20% FPS gain from reduced global memory traffic.
  */
@@ -1109,6 +1108,12 @@ __global__ void panorama_lut_kernel_textured(
     const unsigned char* __restrict__ input_left,
     const unsigned char* __restrict__ input_right,
     unsigned char* __restrict__ output,
+    cudaTextureObject_t tex_lut_left_x,
+    cudaTextureObject_t tex_lut_left_y,
+    cudaTextureObject_t tex_lut_right_x,
+    cudaTextureObject_t tex_lut_right_y,
+    cudaTextureObject_t tex_weight_left,
+    cudaTextureObject_t tex_weight_right,
     int input_width,
     int input_height,
     int input_pitch,
@@ -1119,15 +1124,15 @@ __global__ void panorama_lut_kernel_textured(
 {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
-    
+
     if (x >= output_width || y >= output_height) return;
-    
+
     // Read coordinates from TEXTURE MEMORY (hardware-cached)
     float left_u = tex2D<float>(tex_lut_left_x, x, y);
     float left_v = tex2D<float>(tex_lut_left_y, x, y);
     float right_u = tex2D<float>(tex_lut_right_x, x, y);
     float right_v = tex2D<float>(tex_lut_right_y, x, y);
-    
+
     // Read weights from TEXTURE MEMORY
     float w_left = tex2D<float>(tex_weight_left, x, y);
     float w_right = tex2D<float>(tex_weight_right, x, y);
@@ -1244,7 +1249,7 @@ extern "C" cudaError_t launch_panorama_kernel_textured(
     }
 
     // Check that textures are initialized
-    if (!tex_lut_left_x || !tex_lut_left_y || !tex_lut_right_x || 
+    if (!tex_lut_left_x || !tex_lut_left_y || !tex_lut_right_x ||
         !tex_lut_right_y || !tex_weight_left || !tex_weight_right) {
         printf("ERROR: Texture objects not initialized! Call load_panorama_luts_textured() first.\n");
         return cudaErrorNotReady;
@@ -1255,11 +1260,17 @@ extern "C" cudaError_t launch_panorama_kernel_textured(
     dim3 grid((config->output_width + 31) / 32,
               (config->output_height + 7) / 8);
 
-    // Launch textured kernel (no LUT parameters!)
+    // Launch textured kernel - pass texture objects as parameters
     panorama_lut_kernel_textured<<<grid, block, 0, stream>>>(
         input_left,
         input_right,
         output,
+        tex_lut_left_x,      // Pass texture objects
+        tex_lut_left_y,
+        tex_lut_right_x,
+        tex_lut_right_y,
+        tex_weight_left,
+        tex_weight_right,
         config->input_width,
         config->input_height,
         config->input_pitch,
