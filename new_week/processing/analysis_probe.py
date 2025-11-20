@@ -104,7 +104,8 @@ class AnalysisProbeHandler:
                  panorama_width: int,
                  panorama_height: int,
                  confidence_threshold: float = 0.35,
-                 analysis_skip_interval: int = 5):
+                 analysis_skip_interval: int = 5,
+                 history_manager=None):
         """
         Initialize the analysis probe handler.
 
@@ -119,6 +120,7 @@ class AnalysisProbeHandler:
             panorama_height: Height of panorama for coordinate validation
             confidence_threshold: Minimum confidence for ball detection
             analysis_skip_interval: Frame skip interval for analysis
+            history_manager: HistoryManager instance for timer-based trajectory updates
         """
         # Core dependencies
         self.history = ball_history
@@ -128,6 +130,7 @@ class AnalysisProbeHandler:
         self.roi_configs = roi_configs
         self.panorama_width = panorama_width
         self.panorama_height = panorama_height
+        self.history_manager = history_manager
 
         # Configuration
         self.confidence_threshold = confidence_threshold
@@ -532,6 +535,18 @@ class AnalysisProbeHandler:
             logger.error(f"analysis_probe error: {e}")
             import traceback
             traceback.print_exc()
+
+        # ===== CRITICAL: Update camera trajectory on every YOLO detection (every ~0.5s) =====
+        # This is independent of whether ball was detected!
+        # Ensures trajectory updates for:
+        # 1. Initial ball detection (no ball at startup)
+        # 2. Ball lost 7+ seconds (history cleared, only player COM available)
+        # 3. Regular updates with interpolated ball positions
+        if self.history_manager:
+            try:
+                self.history_manager.update_camera_trajectory_on_timer()
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to update camera trajectory on timer: {e}")
 
         return Gst.PadProbeReturn.OK
 

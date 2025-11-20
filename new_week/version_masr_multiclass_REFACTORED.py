@@ -373,7 +373,8 @@ class PanoramaWithVirtualCamera:
             roi_configs=self.roi_configs,
             all_detections_history=self.all_detections_history,
             panorama_width=self.panorama_width,
-            panorama_height=self.panorama_height
+            panorama_height=self.panorama_height,
+            history_manager=self.history  # Pass HistoryManager for timer-based trajectory updates
         )
 
         # Connect frame skip probe - get element by name

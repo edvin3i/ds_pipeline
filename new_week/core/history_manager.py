@@ -103,6 +103,43 @@ class HistoryManager:
         # Trigger processing
         self._process_future_history()
 
+    def update_camera_trajectory_on_timer(self):
+        """
+        Update camera trajectory on a timer, independent of ball detection.
+
+        This method MUST be called every 0.5 seconds from the YOLO processing
+        probe (regardless of whether ball was detected).
+
+        This ensures:
+        1. Camera trajectory is populated even when ball is initially missing
+        2. Camera trajectory is updated when ball is lost for 7+ seconds
+        3. Gaps are filled with player center-of-mass at regular intervals
+
+        Call this from: AnalysisProbeHandler.handle_analysis_probe() after YOLO processing
+        """
+        # Get current ball history (may be empty if no ball detected)
+        with self.storage.history_lock:
+            # Get the current future-only history (ball detections that haven't been confirmed yet)
+            future_only = self.storage.raw_future_history.copy()
+
+            if self.players_history:
+                # Populate camera trajectory from ball history (even if empty)
+                # This handles cases where:
+                # - No ball detected initially (future_only is empty)
+                # - Ball lost for 7+ seconds (future_only is empty after cleanup)
+                # In both cases, fill_gaps_in_trajectory will use player COM
+                self.camera_trajectory.populate_camera_trajectory_from_ball_history(
+                    future_only,
+                    self.players_history,
+                    fps=30
+                )
+
+                # Fill gaps in the trajectory (handles both ball and player fallback)
+                self.camera_trajectory.fill_gaps_in_trajectory(
+                    self.players_history,
+                    current_display_ts=self.storage.current_display_timestamp
+                )
+
     def update_display_timestamp(self, timestamp):
         """
         Update the current display timestamp.
