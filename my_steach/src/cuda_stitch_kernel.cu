@@ -624,7 +624,7 @@ extern "C" cudaError_t analyze_color_correction_async(
  * 4. Compute gamma correction from luma ratios (if enabled)
  * 5. Clamp to safe ranges defined in config
  */
-extern "C" void finalize_color_correction_factors(
+extern "C" int finalize_color_correction_factors(
     const float* accumulated_sums,
     ColorCorrectionFactors* output,
     bool enable_gamma
@@ -658,7 +658,7 @@ extern "C" void finalize_color_correction_factors(
 
         printf("WARNING: Insufficient samples for color correction (%.0f < %.0f), using identity\n",
                total_weight, min_samples);
-        return;
+        return -1;  // Error code: insufficient samples
     }
 
     // Compute weighted means
@@ -688,6 +688,27 @@ extern "C" void finalize_color_correction_factors(
     float gain_R_R = target_R / (mean_R_R + eps);
     float gain_R_G = target_G / (mean_R_G + eps);
     float gain_R_B = target_B / (mean_R_B + eps);
+
+    // Validate for NaN/Inf before clamping (indicates invalid sensor data or math errors)
+    if (!isfinite(gain_L_R) || !isfinite(gain_L_G) || !isfinite(gain_L_B) ||
+        !isfinite(gain_R_R) || !isfinite(gain_R_G) || !isfinite(gain_R_B)) {
+        fprintf(stderr, "ERROR: Color correction factors contain NaN/Inf - invalid data\n");
+        fprintf(stderr, "  Left gains:  R=%.3f G=%.3f B=%.3f\n", gain_L_R, gain_L_G, gain_L_B);
+        fprintf(stderr, "  Right gains: R=%.3f G=%.3f B=%.3f\n", gain_R_R, gain_R_G, gain_R_B);
+        fprintf(stderr, "  Accumulated sums: L[%.1f,%.1f,%.1f] R[%.1f,%.1f,%.1f] weight=%.0f\n",
+                sum_L_R, sum_L_G, sum_L_B, sum_R_R, sum_R_G, sum_R_B, total_weight);
+
+        // Return identity factors
+        output->left_r = 1.0f;
+        output->left_g = 1.0f;
+        output->left_b = 1.0f;
+        output->left_gamma = 1.0f;
+        output->right_r = 1.0f;
+        output->right_g = 1.0f;
+        output->right_b = 1.0f;
+        output->right_gamma = 1.0f;
+        return -2;  // Error code: invalid data (NaN/Inf)
+    }
 
     // Clamp RGB gains to safe ranges (prevent extreme corrections)
     const float gain_min = NvdsStitchConfig::ColorCorrectionConfig::GAIN_MIN;
@@ -732,6 +753,8 @@ extern "C" void finalize_color_correction_factors(
            output->left_r, output->left_g, output->left_b, output->left_gamma);
     printf("  Right: R=%.3f G=%.3f B=%.3f γ=%.3f\n",
            output->right_r, output->right_g, output->right_b, output->right_gamma);
+
+    return 0;  // Success
 }
 
 /**

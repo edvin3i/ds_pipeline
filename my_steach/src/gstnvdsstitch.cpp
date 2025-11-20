@@ -688,7 +688,15 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
 
     // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6) ==========
     // Hardware-sync-aware color correction with gamma adjustment
-    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+    if (stitch->enable_color_correction &&
+        !stitch->color_correction_permanently_disabled &&
+        stitch->color_update_interval > 0) {
+
+        // Check for 3 consecutive failures → permanent disable
+        if (stitch->color_correction_consecutive_failures >= 3) {
+            stitch->color_correction_permanently_disabled = TRUE;
+            GST_ERROR_OBJECT(stitch, "Color correction PERMANENTLY DISABLED after 3 consecutive failures");
+        }
 
         // Step 1: Check if previous analysis completed (non-blocking)
         if (stitch->color_analysis_pending) {
@@ -708,13 +716,27 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                 );
 
                 if (copy_err == cudaSuccess) {
-                    // Finalize factors on CPU
+                    // Finalize factors on CPU (returns: 0=success, -1=insufficient samples, -2=invalid data)
                     ColorCorrectionFactors new_factors;
-                    finalize_color_correction_factors(
+                    int finalize_result = finalize_color_correction_factors(
                         h_accumulated_sums,
                         &new_factors,
                         stitch->enable_gamma
                     );
+
+                    if (finalize_result != 0) {
+                        // Finalization failed - log and skip update
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+
+                        const char* reason = (finalize_result == -1) ? "insufficient samples" : "invalid data (NaN/Inf)";
+                        LOG_WARNING(stitch, "Color correction finalization failed (failure %u/3): %s",
+                                    stitch->color_correction_consecutive_failures, reason);
+
+                        // Clear pending flag and skip smoothing/update (keep current factors)
+                        stitch->color_analysis_pending = FALSE;
+                    } else {
+                        // Finalization succeeded - proceed with smoothing
 
                     // Apply temporal smoothing to prevent flicker
                     // formula: smooth = α * new + (1 - α) * old
@@ -740,7 +762,8 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                     // Update device constant memory with smoothed factors
                     cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
                     if (update_err == cudaSuccess) {
-                        // Success! Update current factors
+                        // Success! Reset failure counter and update current factors
+                        stitch->color_correction_consecutive_failures = 0;
                         stitch->current_factors = stitch->pending_factors;
                         LOG_INFO(stitch, "Color correction updated (frame %u): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
                                  stitch->frame_count,
@@ -749,11 +772,20 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                                  stitch->current_factors.right_r, stitch->current_factors.right_g,
                                  stitch->current_factors.right_b, stitch->current_factors.right_gamma);
                     } else {
-                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
-                                    cudaGetErrorString(update_err));
+                        // Update failed - increment failure counter
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                        LOG_ERROR(stitch, "Failed to update color correction factors (failure %u/3): %s",
+                                  stitch->color_correction_consecutive_failures,
+                                  cudaGetErrorString(update_err));
                     }
+                    }  // End finalize_result == 0 block
                 } else {
-                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                    // Copy failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to copy color analysis results (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(copy_err));
                 }
 
@@ -761,8 +793,11 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                 stitch->color_analysis_pending = FALSE;
 
             } else if (query_err != cudaErrorNotReady) {
-                // Error occurred (not just "not ready")
-                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                // Error occurred (not just "not ready") - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_WARNING(stitch, "Error checking color analysis completion (failure %u/3): %s",
+                            stitch->color_correction_consecutive_failures,
                             cudaGetErrorString(query_err));
                 stitch->color_analysis_pending = FALSE;
             }
@@ -807,12 +842,20 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                     stitch->last_color_frame = stitch->frame_count;
                     LOG_DEBUG(stitch, "Color analysis launched (frame %u)", stitch->frame_count);
                 } else {
-                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                    // Event record failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to record color analysis event (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(event_err));
                 }
             } else {
-                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
-                            cudaGetErrorString(launch_err));
+                // Launch failed - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_ERROR(stitch, "Failed to launch color analysis (failure %u/3): %s",
+                          stitch->color_correction_consecutive_failures,
+                          cudaGetErrorString(launch_err));
             }
         }
     }
@@ -893,7 +936,15 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
 
     // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6 - EGL path) ==========
     // Hardware-sync-aware color correction with gamma adjustment
-    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+    if (stitch->enable_color_correction &&
+        !stitch->color_correction_permanently_disabled &&
+        stitch->color_update_interval > 0) {
+
+        // Check for 3 consecutive failures → permanent disable
+        if (stitch->color_correction_consecutive_failures >= 3) {
+            stitch->color_correction_permanently_disabled = TRUE;
+            GST_ERROR_OBJECT(stitch, "Color correction PERMANENTLY DISABLED after 3 consecutive failures");
+        }
 
         // Step 1: Check if previous analysis completed (non-blocking)
         if (stitch->color_analysis_pending) {
@@ -913,13 +964,27 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                 );
 
                 if (copy_err == cudaSuccess) {
-                    // Finalize factors on CPU
+                    // Finalize factors on CPU (returns: 0=success, -1=insufficient samples, -2=invalid data)
                     ColorCorrectionFactors new_factors;
-                    finalize_color_correction_factors(
+                    int finalize_result = finalize_color_correction_factors(
                         h_accumulated_sums,
                         &new_factors,
                         stitch->enable_gamma
                     );
+
+                    if (finalize_result != 0) {
+                        // Finalization failed - log and skip update
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+
+                        const char* reason = (finalize_result == -1) ? "insufficient samples" : "invalid data (NaN/Inf)";
+                        LOG_WARNING(stitch, "Color correction finalization failed (failure %u/3): %s",
+                                    stitch->color_correction_consecutive_failures, reason);
+
+                        // Clear pending flag and skip smoothing/update (keep current factors)
+                        stitch->color_analysis_pending = FALSE;
+                    } else {
+                        // Finalization succeeded - proceed with smoothing
 
                     // Apply temporal smoothing to prevent flicker
                     // formula: smooth = α * new + (1 - α) * old
@@ -945,7 +1010,8 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                     // Update device constant memory with smoothed factors
                     cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
                     if (update_err == cudaSuccess) {
-                        // Success! Update current factors
+                        // Success! Reset failure counter and update current factors
+                        stitch->color_correction_consecutive_failures = 0;
                         stitch->current_factors = stitch->pending_factors;
                         LOG_INFO(stitch, "Color correction updated (frame %lu): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
                                  stitch->current_frame_number,
@@ -954,11 +1020,20 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                                  stitch->current_factors.right_r, stitch->current_factors.right_g,
                                  stitch->current_factors.right_b, stitch->current_factors.right_gamma);
                     } else {
-                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
-                                    cudaGetErrorString(update_err));
+                        // Update failed - increment failure counter
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                        LOG_ERROR(stitch, "Failed to update color correction factors (failure %u/3): %s",
+                                  stitch->color_correction_consecutive_failures,
+                                  cudaGetErrorString(update_err));
                     }
+                    }  // End finalize_result == 0 block
                 } else {
-                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                    // Copy failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to copy color analysis results (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(copy_err));
                 }
 
@@ -966,8 +1041,11 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                 stitch->color_analysis_pending = FALSE;
 
             } else if (query_err != cudaErrorNotReady) {
-                // Error occurred (not just "not ready")
-                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                // Error occurred (not just "not ready") - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_WARNING(stitch, "Error checking color analysis completion (failure %u/3): %s",
+                            stitch->color_correction_consecutive_failures,
                             cudaGetErrorString(query_err));
                 stitch->color_analysis_pending = FALSE;
             }
@@ -1016,12 +1094,20 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                     stitch->last_color_frame = stitch->current_frame_number;
                     LOG_DEBUG(stitch, "Color analysis launched (EGL frame %lu)", stitch->current_frame_number);
                 } else {
-                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                    // Event record failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to record color analysis event (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(event_err));
                 }
             } else {
-                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
-                            cudaGetErrorString(launch_err));
+                // Launch failed - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_ERROR(stitch, "Failed to launch color analysis (failure %u/3): %s",
+                          stitch->color_correction_consecutive_failures,
+                          cudaGetErrorString(launch_err));
             }
         }
     }
@@ -1803,6 +1889,11 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->color_smoothing_factor = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR;
     stitch->spatial_falloff = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF;
     stitch->enable_gamma = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ENABLE_GAMMA;
+
+    // Initialize error handling & recovery state
+    stitch->color_correction_consecutive_failures = 0;
+    stitch->color_correction_permanently_disabled = FALSE;
+    stitch->last_color_failure_time = 0;
 
     gst_base_transform_set_passthrough(GST_BASE_TRANSFORM(stitch), FALSE);
     gst_base_transform_set_in_place(GST_BASE_TRANSFORM(stitch), FALSE);

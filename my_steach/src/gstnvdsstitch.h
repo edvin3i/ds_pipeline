@@ -81,6 +81,12 @@ struct _GstNvdsStitch {
     float spatial_falloff;                     // Vignetting compensation exponent (property)
     gboolean enable_gamma;                     // Enable gamma correction (property)
 
+    // ========== ERROR HANDLING & RECOVERY ==========
+    // Failure tracking for graceful degradation and automatic recovery
+    guint color_correction_consecutive_failures;   // Count of consecutive failures (0-3+)
+    gboolean color_correction_permanently_disabled; // TRUE if disabled after 3+ failures
+    GstClockTime last_color_failure_time;          // Timestamp of last failure (for recovery logic)
+
 
     // Управление буферами
     GstBuffer *current_input;

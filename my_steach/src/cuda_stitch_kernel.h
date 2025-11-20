@@ -105,7 +105,8 @@ cudaError_t analyze_color_correction_async(
 );
 
 // Finalize color correction factors (CPU-side post-processing)
-void finalize_color_correction_factors(
+// Returns: 0 on success, -1 on insufficient samples, -2 on invalid data (NaN/Inf)
+int finalize_color_correction_factors(
     const float* accumulated_sums,  // Input: 9 values from GPU
     ColorCorrectionFactors* output, // Output: 8 correction factors
     bool enable_gamma
@@ -115,6 +116,20 @@ void finalize_color_correction_factors(
 cudaError_t update_color_correction_factors(
     const ColorCorrectionFactors* factors
 );
+
+// ========== ERROR HANDLING ==========
+// Comprehensive CUDA error checking with custom error actions
+// Usage: CUDA_CHECK_RETURN(cudaMalloc(...), return GST_FLOW_ERROR);
+#define CUDA_CHECK_RETURN(call, error_action)                                \
+do {                                                                          \
+    cudaError_t err = call;                                                   \
+    if (err != cudaSuccess) {                                                 \
+        fprintf(stderr, "[CUDA ERROR] %s:%d: %s (%s)\n",                     \
+                __FILE__, __LINE__,                                           \
+                cudaGetErrorString(err), cudaGetErrorName(err));              \
+        error_action;                                                         \
+    }                                                                         \
+} while(0)
 
 #ifdef __cplusplus
 }
