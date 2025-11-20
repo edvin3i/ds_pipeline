@@ -54,6 +54,9 @@ class CameraTrajectoryHistory:
         5. Сглаживает outliers (> outlier_threshold px)
         6. Интерполирует для smooth 30fps движения
 
+        ✅ BUFFERING APPROACH: Builds in temporary dict, validates, then atomically swaps
+        This prevents moments where trajectory is empty or invalid.
+
         Args:
             ball_history_dict: Очищенная история мяча {timestamp → detection}
             players_history: PlayersHistory для fallback player COM
@@ -62,7 +65,9 @@ class CameraTrajectoryHistory:
         Returns:
             None (обновляет self.camera_trajectory)
         """
-        self.camera_trajectory.clear()
+        # ✅ CRITICAL: Use temporary trajectory buffer instead of clearing main trajectory
+        # This prevents moments where camera has no trajectory data
+        new_trajectory = {}
 
         if not ball_history_dict:
             # Мяч потерян на 7+ сек (история очищена) или при старте
@@ -96,7 +101,7 @@ class CameraTrajectoryHistory:
                     try:
                         player_com = players_history.get_player_com_for_timestamp(current_ts)
                         if player_com:
-                            self.camera_trajectory[float(current_ts)] = {
+                            new_trajectory[float(current_ts)] = {
                                 'x': float(player_com[0]),
                                 'y': float(player_com[1]),
                                 'timestamp': float(current_ts),
@@ -112,6 +117,9 @@ class CameraTrajectoryHistory:
                 if points_added > 0:
                     logger.info(f"  ✅ Filled trajectory with {points_added} player COM points (no ball detected)")
 
+            # ✅ ATOMIC SWAP: Only update main trajectory if new_trajectory has data
+            if new_trajectory:
+                self.camera_trajectory = new_trajectory
             return
 
         # ===== ЭТАП 1: Заполнение из мяча + обнаружение разрывов =====
@@ -127,8 +135,8 @@ class CameraTrajectoryHistory:
             is_interpolated = detection[10] if len(detection) > 10 else False
             source_type = 'interpolated_ball' if is_interpolated else 'ball'
 
-            # Добавляем точку мяча
-            self.camera_trajectory[float(ts)] = {
+            # Добавляем точку мяча в новую траекторию
+            new_trajectory[float(ts)] = {
                 'x': float(detection[6]),
                 'y': float(detection[7]),
                 'timestamp': float(ts),
@@ -170,7 +178,7 @@ class CameraTrajectoryHistory:
                             player_com = players_history.get_player_com_for_timestamp(current_ts)
 
                             if player_com:
-                                self.camera_trajectory[float(current_ts)] = {
+                                new_trajectory[float(current_ts)] = {
                                     'x': float(player_com[0]),
                                     'y': float(player_com[1]),
                                     'timestamp': float(current_ts),
@@ -193,7 +201,7 @@ class CameraTrajectoryHistory:
                         blend_x = (1 - alpha) * player_com[0] + alpha * next_x
                         blend_y = (1 - alpha) * player_com[1] + alpha * next_y
 
-                        self.camera_trajectory[float(transition_ts)] = {
+                        new_trajectory[float(transition_ts)] = {
                             'x': blend_x,
                             'y': blend_y,
                             'timestamp': float(transition_ts),
@@ -203,6 +211,13 @@ class CameraTrajectoryHistory:
                         logger.info(f"  ➕ Blend[transition] at ts={transition_ts:.2f}: ({blend_x:.0f}, {blend_y:.0f})")
 
                     logger.info(f"  📊 Filled gap with {points_added} player COM points + 1 blend point")
+
+        # ✅ ATOMIC SWAP: Replace main trajectory with newly built one (if it has data)
+        # This ensures trajectory is never empty - old data stays until new data is ready
+        if new_trajectory:
+            self.camera_trajectory = new_trajectory
+        else:
+            logger.warning("⚠️  New trajectory is empty - keeping previous trajectory")
 
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
@@ -298,8 +313,15 @@ class CameraTrajectoryHistory:
         """
         Внутренняя функция: интерполирует разрывы для smooth 30fps движения.
 
-        Добавляет синтетические точки ТОЛЬКО между ball-to-ball или ball-to-blend точками.
-        НЕ интерполирует через player COM точки (которые используются для заполнения разрывов).
+        Добавляет синтетические точки между ВСЕМИ последовательными точками траектории,
+        включая PLAYER_COM точки (для smooth sliding через зоны заполнения разрывов).
+
+        Интерполирует между всеми типами:
+        - ball to ball
+        - ball to player (во время потери мяча)
+        - player to player (smooth player fallback motion)
+        - player to blend (переход при восстановлении)
+        - blend to ball (восстановление мяча)
 
         Args:
             fps: Частота кадров для интерполяции
@@ -320,26 +342,12 @@ class CameraTrajectoryHistory:
             p1 = self.camera_trajectory[ts1]
             p2 = self.camera_trajectory[ts2]
 
-            # ✅ CRITICAL FIX: Do NOT interpolate across gap-filled sections
-            # Skip interpolation if either point is a gap-fill point (player, player_only)
+            # ✅ UNIVERSAL INTERPOLATION: Interpolate between ALL consecutive points
+            # This includes player COM points for smooth motion during ball loss periods
             source1 = p1.get('source_type', 'ball')
             source2 = p2.get('source_type', 'ball')
 
-            # Allow interpolation ONLY between:
-            # - ball to ball
-            # - ball to blend (blend is transitional)
-            # - blend to ball
-            # But SKIP if either is 'player' or 'player_only' (these are fallback fills)
-            should_interpolate = not (
-                source1 in ['player', 'player_only'] or
-                source2 in ['player', 'player_only']
-            )
-
-            if not should_interpolate:
-                logger.debug(f"⏭️  Skipping interpolation between {source1} (ts={ts1:.2f}) and {source2} (ts={ts2:.2f})")
-                continue
-
-            # Интерполируем между ts1 и ts2
+            # Интерполируем между ts1 и ts2 (все точки)
             gap = ts2 - ts1
             num_frames = max(1, int(gap * fps))
 
@@ -365,7 +373,7 @@ class CameraTrajectoryHistory:
 
         self.camera_trajectory = interpolated
 
-        logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps (skipped player COM fill zones)")
+        logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across all gaps (including player COM fallback zones)")
 
     def fill_gaps_in_trajectory(self, players_history, current_display_ts=None):
         """
