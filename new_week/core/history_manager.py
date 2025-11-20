@@ -342,7 +342,7 @@ class HistoryManager:
             # 4. Интерполирует для smooth 30fps движения
             if self.players_history:
                 self.camera_trajectory.populate_camera_trajectory_from_ball_history(
-                    self.storage.processed_future_history,  # Очищенная от выбросов история мяча
+                    future_only,  # ✅ ВАЖНО: Очищенная от выбросов, но ДО интерполяции!
                     self.players_history,
                     fps=30
                 )
