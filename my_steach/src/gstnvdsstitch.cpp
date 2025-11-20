@@ -106,7 +106,14 @@ enum {
     PROP_GPU_ID,
     PROP_USE_EGL,
     PROP_PANORAMA_WIDTH,
-    PROP_PANORAMA_HEIGHT
+    PROP_PANORAMA_HEIGHT,
+    // Color correction properties (async)
+    PROP_ENABLE_COLOR_CORRECTION,
+    PROP_OVERLAP_SIZE,
+    PROP_ANALYZE_INTERVAL,
+    PROP_SMOOTHING_FACTOR,
+    PROP_SPATIAL_FALLOFF,
+    PROP_ENABLE_GAMMA
 };
 
 /* ============================================================================
@@ -679,22 +686,140 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
     stitch->kernel_config.output_height = output_params->height;
     stitch->kernel_config.output_pitch = output_params->planeParams.pitch[0];
 
-    // Цветокоррекция БЕЗ синхронизации - асинхронно
-    if (stitch->current_frame_number % 30 == 0) {
-        update_color_correction_simple(
-            (const unsigned char*)left_params->dataPtr,
-            (const unsigned char*)right_params->dataPtr,
-            stitch->weight_left_gpu,
-            stitch->weight_right_gpu,
-            output_params->width,
-            output_params->height,
-            output_params->planeParams.pitch[0],
-            stitch->cuda_stream
-        );
-        // НЕ ЖДЁМ результат цветокоррекции!
-        LOG_DEBUG(stitch, "Color correction update launched at frame %lu", 
-                  stitch->current_frame_number);
+    // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6) ==========
+    // Hardware-sync-aware color correction with gamma adjustment
+    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+
+        // Step 1: Check if previous analysis completed (non-blocking)
+        if (stitch->color_analysis_pending) {
+            cudaError_t query_err = cudaEventQuery(stitch->color_analysis_event);
+
+            if (query_err == cudaSuccess) {
+                // Analysis completed! Process results
+                LOG_DEBUG(stitch, "Color analysis completed, processing results...");
+
+                // Copy results from device to host (9 floats)
+                float h_accumulated_sums[9];
+                cudaError_t copy_err = cudaMemcpy(
+                    h_accumulated_sums,
+                    stitch->d_color_analysis_buffer,
+                    9 * sizeof(float),
+                    cudaMemcpyDeviceToHost
+                );
+
+                if (copy_err == cudaSuccess) {
+                    // Finalize factors on CPU
+                    ColorCorrectionFactors new_factors;
+                    finalize_color_correction_factors(
+                        h_accumulated_sums,
+                        &new_factors,
+                        stitch->enable_gamma
+                    );
+
+                    // Apply temporal smoothing to prevent flicker
+                    // formula: smooth = α * new + (1 - α) * old
+                    float alpha = stitch->color_smoothing_factor;
+                    stitch->pending_factors.left_r = alpha * new_factors.left_r +
+                                                     (1.0f - alpha) * stitch->current_factors.left_r;
+                    stitch->pending_factors.left_g = alpha * new_factors.left_g +
+                                                     (1.0f - alpha) * stitch->current_factors.left_g;
+                    stitch->pending_factors.left_b = alpha * new_factors.left_b +
+                                                     (1.0f - alpha) * stitch->current_factors.left_b;
+                    stitch->pending_factors.left_gamma = alpha * new_factors.left_gamma +
+                                                         (1.0f - alpha) * stitch->current_factors.left_gamma;
+
+                    stitch->pending_factors.right_r = alpha * new_factors.right_r +
+                                                      (1.0f - alpha) * stitch->current_factors.right_r;
+                    stitch->pending_factors.right_g = alpha * new_factors.right_g +
+                                                      (1.0f - alpha) * stitch->current_factors.right_g;
+                    stitch->pending_factors.right_b = alpha * new_factors.right_b +
+                                                      (1.0f - alpha) * stitch->current_factors.right_b;
+                    stitch->pending_factors.right_gamma = alpha * new_factors.right_gamma +
+                                                          (1.0f - alpha) * stitch->current_factors.right_gamma;
+
+                    // Update device constant memory with smoothed factors
+                    cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
+                    if (update_err == cudaSuccess) {
+                        // Success! Update current factors
+                        stitch->current_factors = stitch->pending_factors;
+                        LOG_INFO(stitch, "Color correction updated (frame %u): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
+                                 stitch->frame_count,
+                                 stitch->current_factors.left_r, stitch->current_factors.left_g,
+                                 stitch->current_factors.left_b, stitch->current_factors.left_gamma,
+                                 stitch->current_factors.right_r, stitch->current_factors.right_g,
+                                 stitch->current_factors.right_b, stitch->current_factors.right_gamma);
+                    } else {
+                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
+                                    cudaGetErrorString(update_err));
+                    }
+                } else {
+                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                                cudaGetErrorString(copy_err));
+                }
+
+                // Clear pending flag
+                stitch->color_analysis_pending = FALSE;
+
+            } else if (query_err != cudaErrorNotReady) {
+                // Error occurred (not just "not ready")
+                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                            cudaGetErrorString(query_err));
+                stitch->color_analysis_pending = FALSE;
+            }
+            // If cudaErrorNotReady: analysis still running, check next frame
+        }
+
+        // Step 2: Trigger new analysis if interval elapsed and no analysis pending
+        if (!stitch->color_analysis_pending &&
+            (stitch->frame_count - stitch->last_color_frame) >= stitch->color_update_interval) {
+
+            // Calculate overlap parameters from property
+            float overlap_center_x = 0.5f;  // Center of panorama (50%)
+            float overlap_width = stitch->overlap_size / 360.0f;  // Convert degrees to normalized [0,1]
+
+            // Launch async analysis on low-priority stream
+            cudaError_t launch_err = analyze_color_correction_async(
+                (const unsigned char*)left_params->dataPtr,
+                (const unsigned char*)right_params->dataPtr,
+                left_params->planeParams.pitch[0],
+                right_params->planeParams.pitch[0],
+                output_params->width,
+                output_params->height,
+                stitch->warp_left_x_gpu,
+                stitch->warp_left_y_gpu,
+                stitch->warp_right_x_gpu,
+                stitch->warp_right_y_gpu,
+                stitch->weight_left_gpu,
+                stitch->weight_right_gpu,
+                overlap_center_x,
+                overlap_width,
+                stitch->spatial_falloff,
+                stitch->d_color_analysis_buffer,
+                stitch->color_analysis_stream
+            );
+
+            if (launch_err == cudaSuccess) {
+                // Record event to track completion
+                cudaError_t event_err = cudaEventRecord(stitch->color_analysis_event,
+                                                        stitch->color_analysis_stream);
+                if (event_err == cudaSuccess) {
+                    stitch->color_analysis_pending = TRUE;
+                    stitch->last_color_frame = stitch->frame_count;
+                    LOG_DEBUG(stitch, "Color analysis launched (frame %u)", stitch->frame_count);
+                } else {
+                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                                cudaGetErrorString(event_err));
+                }
+            } else {
+                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
+                            cudaGetErrorString(launch_err));
+            }
+        }
     }
+    // ========== END ASYNC COLOR CORRECTION ==========
+
+    // Increment frame counter for color correction tracking
+    stitch->frame_count++;
 
     // Запускаем kernel (с VIC оптимизацией для буферов)
     err = launch_panorama_kernel(
@@ -765,22 +890,140 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
     stitch->kernel_config.output_width = output_surface->surfaceList[0].width;
     stitch->kernel_config.output_height = output_surface->surfaceList[0].height;
     stitch->kernel_config.output_pitch = output_surface->surfaceList[0].planeParams.pitch[0];
-    
-    // Цветокоррекция БЕЗ синхронизации
-    if (stitch->current_frame_number % 30 == 0) {
-        update_color_correction_simple(
-            (const unsigned char*)frames[0].frame.pPitch[0],
-            (const unsigned char*)frames[1].frame.pPitch[0],
-            stitch->weight_left_gpu,
-            stitch->weight_right_gpu,
-            output_surface->surfaceList[0].width,
-            output_surface->surfaceList[0].height,
-            output_surface->surfaceList[0].planeParams.pitch[0],
-            stitch->cuda_stream
-        );
-        // НЕ ЖДЁМ результат!
-        LOG_DEBUG(stitch, "EGL: Color correction update launched at frame %lu", 
-                  stitch->current_frame_number);
+
+    // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6 - EGL path) ==========
+    // Hardware-sync-aware color correction with gamma adjustment
+    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+
+        // Step 1: Check if previous analysis completed (non-blocking)
+        if (stitch->color_analysis_pending) {
+            cudaError_t query_err = cudaEventQuery(stitch->color_analysis_event);
+
+            if (query_err == cudaSuccess) {
+                // Analysis completed! Process results
+                LOG_DEBUG(stitch, "Color analysis completed, processing results...");
+
+                // Copy results from device to host (9 floats)
+                float h_accumulated_sums[9];
+                cudaError_t copy_err = cudaMemcpy(
+                    h_accumulated_sums,
+                    stitch->d_color_analysis_buffer,
+                    9 * sizeof(float),
+                    cudaMemcpyDeviceToHost
+                );
+
+                if (copy_err == cudaSuccess) {
+                    // Finalize factors on CPU
+                    ColorCorrectionFactors new_factors;
+                    finalize_color_correction_factors(
+                        h_accumulated_sums,
+                        &new_factors,
+                        stitch->enable_gamma
+                    );
+
+                    // Apply temporal smoothing to prevent flicker
+                    // formula: smooth = α * new + (1 - α) * old
+                    float alpha = stitch->color_smoothing_factor;
+                    stitch->pending_factors.left_r = alpha * new_factors.left_r +
+                                                     (1.0f - alpha) * stitch->current_factors.left_r;
+                    stitch->pending_factors.left_g = alpha * new_factors.left_g +
+                                                     (1.0f - alpha) * stitch->current_factors.left_g;
+                    stitch->pending_factors.left_b = alpha * new_factors.left_b +
+                                                     (1.0f - alpha) * stitch->current_factors.left_b;
+                    stitch->pending_factors.left_gamma = alpha * new_factors.left_gamma +
+                                                         (1.0f - alpha) * stitch->current_factors.left_gamma;
+
+                    stitch->pending_factors.right_r = alpha * new_factors.right_r +
+                                                      (1.0f - alpha) * stitch->current_factors.right_r;
+                    stitch->pending_factors.right_g = alpha * new_factors.right_g +
+                                                      (1.0f - alpha) * stitch->current_factors.right_g;
+                    stitch->pending_factors.right_b = alpha * new_factors.right_b +
+                                                      (1.0f - alpha) * stitch->current_factors.right_b;
+                    stitch->pending_factors.right_gamma = alpha * new_factors.right_gamma +
+                                                          (1.0f - alpha) * stitch->current_factors.right_gamma;
+
+                    // Update device constant memory with smoothed factors
+                    cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
+                    if (update_err == cudaSuccess) {
+                        // Success! Update current factors
+                        stitch->current_factors = stitch->pending_factors;
+                        LOG_INFO(stitch, "Color correction updated (frame %lu): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
+                                 stitch->current_frame_number,
+                                 stitch->current_factors.left_r, stitch->current_factors.left_g,
+                                 stitch->current_factors.left_b, stitch->current_factors.left_gamma,
+                                 stitch->current_factors.right_r, stitch->current_factors.right_g,
+                                 stitch->current_factors.right_b, stitch->current_factors.right_gamma);
+                    } else {
+                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
+                                    cudaGetErrorString(update_err));
+                    }
+                } else {
+                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                                cudaGetErrorString(copy_err));
+                }
+
+                // Clear pending flag
+                stitch->color_analysis_pending = FALSE;
+
+            } else if (query_err != cudaErrorNotReady) {
+                // Error occurred (not just "not ready")
+                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                            cudaGetErrorString(query_err));
+                stitch->color_analysis_pending = FALSE;
+            }
+            // If cudaErrorNotReady: analysis still running, check next frame
+        }
+
+        // Step 2: Trigger new analysis if interval elapsed and no analysis pending
+        if (!stitch->color_analysis_pending &&
+            (stitch->current_frame_number - stitch->last_color_frame) >= stitch->color_update_interval) {
+
+            // Calculate overlap parameters from property
+            float overlap_center_x = 0.5f;  // Center of panorama (50%)
+            float overlap_width = stitch->overlap_size / 360.0f;  // Convert degrees to normalized [0,1]
+
+            // Get pitch values for EGL frames
+            guint left_pitch = stitch->intermediate_left_surf->surfaceList[0].planeParams.pitch[0];
+            guint right_pitch = stitch->intermediate_right_surf->surfaceList[0].planeParams.pitch[0];
+
+            // Launch async analysis on low-priority stream (EGL pointers)
+            cudaError_t launch_err = analyze_color_correction_async(
+                (const unsigned char*)frames[0].frame.pPitch[0],  // EGL left frame
+                (const unsigned char*)frames[1].frame.pPitch[0],  // EGL right frame
+                left_pitch,
+                right_pitch,
+                output_surface->surfaceList[0].width,
+                output_surface->surfaceList[0].height,
+                stitch->warp_left_x_gpu,
+                stitch->warp_left_y_gpu,
+                stitch->warp_right_x_gpu,
+                stitch->warp_right_y_gpu,
+                stitch->weight_left_gpu,
+                stitch->weight_right_gpu,
+                overlap_center_x,
+                overlap_width,
+                stitch->spatial_falloff,
+                stitch->d_color_analysis_buffer,
+                stitch->color_analysis_stream
+            );
+
+            if (launch_err == cudaSuccess) {
+                // Record event to track completion
+                cudaError_t event_err = cudaEventRecord(stitch->color_analysis_event,
+                                                        stitch->color_analysis_stream);
+                if (event_err == cudaSuccess) {
+                    stitch->color_analysis_pending = TRUE;
+                    stitch->last_color_frame = stitch->current_frame_number;
+                    LOG_DEBUG(stitch, "Color analysis launched (EGL frame %lu)", stitch->current_frame_number);
+                } else {
+                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                                cudaGetErrorString(event_err));
+                }
+            } else {
+                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
+                            cudaGetErrorString(launch_err));
+            }
+        }
     }
 
     // Запускаем kernel (с VIC оптимизацией для буферов)
@@ -833,13 +1076,7 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(btrans);
     GstFlowReturn flow_ret = GST_FLOW_OK;
-    
-    // Статическое событие для синхронизации кадров
-    static cudaEvent_t frame_complete_event = nullptr;
-    if (!frame_complete_event) {
-        cudaEventCreateWithFlags(&frame_complete_event, cudaEventDisableTiming);
-    }
-    
+
     stitch->current_input = inbuf;
     
     if (!stitch->pool_configured) {
@@ -951,15 +1188,15 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
     }
     
     // ВАЖНО: Синхронизация через событие ТОЛЬКО для основного kernel
-    if (stitch->cuda_stream) {
+    if (stitch->cuda_stream && stitch->frame_complete_event) {
         // Записываем событие после завершения основного kernel
-        cudaError_t err = cudaEventRecord(frame_complete_event, stitch->cuda_stream);
+        cudaError_t err = cudaEventRecord(stitch->frame_complete_event, stitch->cuda_stream);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to record CUDA event: %s", cudaGetErrorString(err));
         }
-        
+
         // Ждём ТОЛЬКО завершения этого конкретного kernel
-        err = cudaEventSynchronize(frame_complete_event);
+        err = cudaEventSynchronize(stitch->frame_complete_event);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to synchronize CUDA event: %s", cudaGetErrorString(err));
         }
@@ -1076,11 +1313,55 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         return FALSE;
     }
 
-    if (init_color_correction() != cudaSuccess) {
-        LOG_ERROR(stitch, "Failed to initialize color correction");
+    if (cudaEventCreateWithFlags(&stitch->frame_complete_event,
+                                 cudaEventDisableTiming) != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create CUDA event for frame synchronization");
         return FALSE;
     }
-    
+
+    // Create low-priority CUDA stream for async color analysis
+    int leastPriority, greatestPriority;
+    cudaDeviceGetStreamPriorityRange(&leastPriority, &greatestPriority);
+    cudaError_t err = cudaStreamCreateWithPriority(&stitch->color_analysis_stream,
+                                                    cudaStreamNonBlocking,
+                                                    leastPriority);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create color analysis stream: %s", cudaGetErrorString(err));
+        return FALSE;
+    }
+
+    // Create event for async analysis completion
+    err = cudaEventCreateWithFlags(&stitch->color_analysis_event, cudaEventDisableTiming);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to create color analysis event: %s", cudaGetErrorString(err));
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+
+    // Allocate device buffer for reduction results (9 floats)
+    err = cudaMalloc(&stitch->d_color_analysis_buffer, 9 * sizeof(float));
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to allocate color analysis buffer: %s", cudaGetErrorString(err));
+        cudaEventDestroy(stitch->color_analysis_event);
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+
+    LOG_INFO(stitch, "Async color correction initialized (interval: %u frames, smoothing: %.3f)",
+             stitch->color_update_interval, stitch->color_smoothing_factor);
+
+    // CRITICAL: Initialize g_color_factors device constant memory to identity
+    // Without this, apply_color_correction_gamma() will read garbage values!
+    err = update_color_correction_factors(&stitch->current_factors);
+    if (err != cudaSuccess) {
+        LOG_ERROR(stitch, "Failed to initialize color correction factors: %s", cudaGetErrorString(err));
+        cudaFree(stitch->d_color_analysis_buffer);
+        cudaEventDestroy(stitch->color_analysis_event);
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        return FALSE;
+    }
+    LOG_INFO(stitch, "Color correction factors initialized to identity (1.0, 1.0, 1.0, 1.0)");
+
     // Загружаем LUT карты и веса для панорамы
     std::string left_x_path = NvdsStitchConfig::getWarpLeftXPath();
     std::string left_y_path = NvdsStitchConfig::getWarpLeftYPath();
@@ -1093,7 +1374,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
              NvdsStitchConfig::WARP_MAPS_DIR,
              stitch->output_width, stitch->output_height);
 
-    cudaError_t err = load_panorama_luts(
+    cudaError_t lut_err = load_panorama_luts(
         left_x_path.c_str(),
         left_y_path.c_str(),
         right_x_path.c_str(),
@@ -1110,7 +1391,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         stitch->output_height   // Используем динамический размер из property!
     );
 
-    stitch->warp_maps_loaded = (err == cudaSuccess);
+    stitch->warp_maps_loaded = (lut_err == cudaSuccess);
     if (stitch->warp_maps_loaded) {
         LOG_INFO(stitch, "Panorama LUT maps loaded successfully");
         stitch->kernel_config.warp_width = stitch->output_width;   // Динамический размер!
@@ -1163,7 +1444,30 @@ static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
         cudaStreamDestroy(stitch->cuda_stream);
         stitch->cuda_stream = NULL;
     }
-    
+
+    if (stitch->frame_complete_event) {
+        cudaEventDestroy(stitch->frame_complete_event);
+        stitch->frame_complete_event = NULL;
+    }
+
+    // Cleanup color analysis resources
+    if (stitch->d_color_analysis_buffer) {
+        cudaFree(stitch->d_color_analysis_buffer);
+        stitch->d_color_analysis_buffer = NULL;
+    }
+
+    if (stitch->color_analysis_event) {
+        cudaEventDestroy(stitch->color_analysis_event);
+        stitch->color_analysis_event = NULL;
+    }
+
+    if (stitch->color_analysis_stream) {
+        cudaStreamDestroy(stitch->color_analysis_stream);
+        stitch->color_analysis_stream = NULL;
+    }
+
+    LOG_INFO(stitch, "Async color correction cleaned up");
+
     if (stitch->intermediate_pool) {
         gst_buffer_pool_set_active(stitch->intermediate_pool, FALSE);
         stitch->intermediate_left = NULL;
@@ -1234,6 +1538,30 @@ static void gst_nvds_stitch_set_property(GObject *object, guint prop_id,
             stitch->kernel_config.output_height = stitch->output_height;
             stitch->kernel_config.warp_height = stitch->output_height;
             break;
+        case PROP_ENABLE_COLOR_CORRECTION:
+            stitch->enable_color_correction = g_value_get_boolean(value);
+            LOG_INFO(stitch, "Color correction %s", stitch->enable_color_correction ? "enabled" : "disabled");
+            break;
+        case PROP_OVERLAP_SIZE:
+            stitch->overlap_size = g_value_get_float(value);
+            LOG_INFO(stitch, "Overlap size set to %.1f degrees", stitch->overlap_size);
+            break;
+        case PROP_ANALYZE_INTERVAL:
+            stitch->color_update_interval = g_value_get_uint(value);
+            LOG_INFO(stitch, "Analyze interval set to %u frames", stitch->color_update_interval);
+            break;
+        case PROP_SMOOTHING_FACTOR:
+            stitch->color_smoothing_factor = g_value_get_float(value);
+            LOG_INFO(stitch, "Smoothing factor set to %.3f", stitch->color_smoothing_factor);
+            break;
+        case PROP_SPATIAL_FALLOFF:
+            stitch->spatial_falloff = g_value_get_float(value);
+            LOG_INFO(stitch, "Spatial falloff set to %.2f", stitch->spatial_falloff);
+            break;
+        case PROP_ENABLE_GAMMA:
+            stitch->enable_gamma = g_value_get_boolean(value);
+            LOG_INFO(stitch, "Gamma correction %s", stitch->enable_gamma ? "enabled" : "disabled");
+            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
@@ -1263,6 +1591,24 @@ static void gst_nvds_stitch_get_property(GObject *object, guint prop_id,
             break;
         case PROP_PANORAMA_HEIGHT:
             g_value_set_uint(value, stitch->output_height);
+            break;
+        case PROP_ENABLE_COLOR_CORRECTION:
+            g_value_set_boolean(value, stitch->enable_color_correction);
+            break;
+        case PROP_OVERLAP_SIZE:
+            g_value_set_float(value, stitch->overlap_size);
+            break;
+        case PROP_ANALYZE_INTERVAL:
+            g_value_set_uint(value, stitch->color_update_interval);
+            break;
+        case PROP_SMOOTHING_FACTOR:
+            g_value_set_float(value, stitch->color_smoothing_factor);
+            break;
+        case PROP_SPATIAL_FALLOFF:
+            g_value_set_float(value, stitch->spatial_falloff);
+            break;
+        case PROP_ENABLE_GAMMA:
+            g_value_set_boolean(value, stitch->enable_gamma);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -1338,6 +1684,41 @@ static void gst_nvds_stitch_class_init(GstNvdsStitchClass *klass)
                          0,  // НЕТ дефолта - ОБЯЗАТЕЛЬНО передавать через properties!
                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
 
+    // Color correction properties (async, hardware-sync-aware)
+    g_object_class_install_property(gobject_class, PROP_ENABLE_COLOR_CORRECTION,
+        g_param_spec_boolean("enable-color-correction", "Enable Color Correction",
+                            "Enable asynchronous color correction in overlap region", TRUE,
+                            (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_OVERLAP_SIZE,
+        g_param_spec_float("overlap-size", "Overlap Size",
+                          "Overlap region size for color analysis (degrees)", 5.0f, 15.0f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_OVERLAP_SIZE,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_ANALYZE_INTERVAL,
+        g_param_spec_uint("analyze-interval", "Analyze Interval",
+                         "Color analysis interval in frames (0=disable)", 0, 120,
+                         NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ANALYZE_INTERVAL,
+                         (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_SMOOTHING_FACTOR,
+        g_param_spec_float("smoothing-factor", "Smoothing Factor",
+                          "Temporal smoothing for color transitions (0.05-0.5)", 0.05f, 0.5f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_SPATIAL_FALLOFF,
+        g_param_spec_float("spatial-falloff", "Spatial Falloff",
+                          "Vignetting compensation exponent (1.0-3.0)", 1.0f, 3.0f,
+                          NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF,
+                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
+    g_object_class_install_property(gobject_class, PROP_ENABLE_GAMMA,
+        g_param_spec_boolean("enable-gamma", "Enable Gamma Correction",
+                            "Enable gamma/brightness correction in addition to RGB gains", TRUE,
+                            (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
     gstbasetransform_class->submit_input_buffer = GST_DEBUG_FUNCPTR(gst_nvds_stitch_submit_input_buffer);
     gstbasetransform_class->generate_output = GST_DEBUG_FUNCPTR(gst_nvds_stitch_generate_output);
     gstbasetransform_class->start = GST_DEBUG_FUNCPTR(gst_nvds_stitch_start);
@@ -1377,6 +1758,7 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->weight_right_gpu = NULL;
     stitch->warp_maps_loaded = FALSE;
     stitch->cuda_stream = NULL;
+    stitch->frame_complete_event = NULL;
 
     // Инициализация входных параметров (константы)
     stitch->kernel_config.input_width = NvdsStitchConfig::INPUT_WIDTH;
@@ -1400,7 +1782,28 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     
     stitch->cached_indices.left_index = -1;
     stitch->cached_indices.right_index = -1;
-    
+
+    // Initialize color correction members
+    stitch->color_analysis_stream = NULL;
+    stitch->color_analysis_event = NULL;
+    stitch->d_color_analysis_buffer = NULL;
+
+    // Initialize factors to identity (no correction)
+    stitch->current_factors = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+    stitch->pending_factors = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
+
+    stitch->frame_count = 0;
+    stitch->last_color_frame = 0;
+    stitch->color_analysis_pending = FALSE;
+
+    // Initialize properties to defaults
+    stitch->enable_color_correction = TRUE;
+    stitch->overlap_size = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_OVERLAP_SIZE;
+    stitch->color_update_interval = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ANALYZE_INTERVAL;
+    stitch->color_smoothing_factor = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR;
+    stitch->spatial_falloff = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF;
+    stitch->enable_gamma = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ENABLE_GAMMA;
+
     gst_base_transform_set_passthrough(GST_BASE_TRANSFORM(stitch), FALSE);
     gst_base_transform_set_in_place(GST_BASE_TRANSFORM(stitch), FALSE);
 }

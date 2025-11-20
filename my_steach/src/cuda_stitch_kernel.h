@@ -3,6 +3,7 @@
 #define __CUDA_STITCH_KERNEL_H__
 
 #include <cuda_runtime.h>
+#include "nvdsstitch_config.h"
 
 typedef struct {
     int input_width;
@@ -80,26 +81,40 @@ cudaError_t update_color_correction_simple(
 );
 cudaError_t init_color_correction(void);
 
-// ============================================================================
-// ОПТИМИЗИРОВАННАЯ ВЕРСИЯ С TEXTURE MEMORY
-// ============================================================================
-// Запуск оптимизированного kernel с texture memory
-cudaError_t launch_panorama_kernel_textured(
-    const unsigned char* input_left,
-    const unsigned char* input_right,
-    unsigned char* output,
+// ========== ASYNC COLOR CORRECTION (Hardware-Sync-Aware) ==========
+
+// Analyze color differences in overlap region (async, non-blocking)
+cudaError_t analyze_color_correction_async(
+    const unsigned char* left_ptr,
+    const unsigned char* right_ptr,
+    int left_pitch,
+    int right_pitch,
+    int pano_width,
+    int pano_height,
     const float* lut_left_x,
     const float* lut_left_y,
     const float* lut_right_x,
     const float* lut_right_y,
     const float* weight_left,
     const float* weight_right,
-    const StitchKernelConfig* config,
+    float overlap_center_x,
+    float overlap_width,
+    float spatial_falloff,
+    float* output_buffer,      // Device buffer for 9 floats (reduction results)
     cudaStream_t stream
 );
 
-// Очистка texture resources
-void cleanup_texture_resources(void);
+// Finalize color correction factors (CPU-side post-processing)
+void finalize_color_correction_factors(
+    const float* accumulated_sums,  // Input: 9 values from GPU
+    ColorCorrectionFactors* output, // Output: 8 correction factors
+    bool enable_gamma
+);
+
+// Update color correction factors in device constant memory
+cudaError_t update_color_correction_factors(
+    const ColorCorrectionFactors* factors
+);
 
 #ifdef __cplusplus
 }

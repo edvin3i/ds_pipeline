@@ -12,6 +12,7 @@
 #endif
 
 #include "cuda_stitch_kernel.h"
+#include "nvdsstitch_config.h"
 
 G_BEGIN_DECLS
 
@@ -61,16 +62,24 @@ struct _GstNvdsStitch {
     guint crop_sides;
 
 
-    // ДОБАВИТЬ для двухфазной цветокоррекции:
-    cudaStream_t color_analysis_stream;    // Низкоприоритетный стрим для анализа
-    cudaEvent_t color_analysis_event;      // Событие готовности анализа
-    guint last_color_frame;                // Когда последний раз запускали анализ
-    gboolean color_analysis_pending;       // Ждём ли результаты анализа
-    
-    // Параметры из конфига (добавить в nvdsstitch_config.h):
-    guint color_update_interval;           // = 30 кадров по умолчанию
-    float color_smoothing_factor;          // = 0.1f (10% обновления)
-    gboolean enable_edge_boost;            // = FALSE по умолчанию
+    // ========== COLOR CORRECTION (ASYNC) ==========
+    // Hardware-sync-aware color correction for overlap region
+    cudaStream_t color_analysis_stream;        // Low-priority stream for async analysis
+    cudaEvent_t color_analysis_event;          // Event for analysis completion
+    float* d_color_analysis_buffer;            // Device buffer for reduction results (9 floats)
+    ColorCorrectionFactors current_factors;    // Currently applied factors
+    ColorCorrectionFactors pending_factors;    // Factors from latest analysis (not yet applied)
+    guint frame_count;                         // Total frames processed
+    guint last_color_frame;                    // Frame number when last analysis was triggered
+    gboolean color_analysis_pending;           // TRUE if analysis in flight
+
+    // Color correction properties (configurable)
+    gboolean enable_color_correction;          // Master enable (property)
+    float overlap_size;                        // Overlap region size in degrees (property)
+    guint color_update_interval;               // Analysis interval in frames (property)
+    float color_smoothing_factor;              // Temporal smoothing α (property)
+    float spatial_falloff;                     // Vignetting compensation exponent (property)
+    gboolean enable_gamma;                     // Enable gamma correction (property)
 
 
     // Управление буферами
@@ -90,7 +99,10 @@ struct _GstNvdsStitch {
     
     // CUDA stream
     cudaStream_t cuda_stream;
-    
+
+    // CUDA event for frame synchronization (non-static to avoid leak)
+    cudaEvent_t frame_complete_event;
+
     // Конфигурация kernel
     StitchKernelConfig kernel_config;
 

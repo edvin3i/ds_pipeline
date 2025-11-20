@@ -36,7 +36,31 @@ namespace NvdsStitchConfig {
     constexpr int DEFAULT_CROP_BOTTOM = 0;
     constexpr int DEFAULT_CROP_SIDES = 0;
     constexpr int OVERLAP = 0;  // В панораме overlap через веса
-    
+
+    // ========== COLOR CORRECTION (ASYNC) ==========
+    // Hardware-sync-aware color correction for overlap region
+    // Based on ISP config: Gamma 2.4, AE target 120, AWB soft clamp
+    namespace ColorCorrectionConfig {
+        // Analysis parameters (configurable via properties)
+        constexpr float DEFAULT_OVERLAP_SIZE = 10.0f;        // Degrees (5-15 range)
+        constexpr unsigned int DEFAULT_ANALYZE_INTERVAL = 30;  // Frames (0-120 range, 0=disable)
+        constexpr float DEFAULT_SMOOTHING_FACTOR = 0.15f;    // 15% update per frame
+        constexpr float DEFAULT_SPATIAL_FALLOFF = 2.0f;      // Vignetting compensation exponent
+        constexpr bool DEFAULT_ENABLE_GAMMA = true;          // Enable gamma correction
+
+        // Overlap analysis region (calculated from panorama width)
+        constexpr float OVERLAP_CENTER_X = 0.50f;            // Center of panorama (50%)
+        constexpr float OVERLAP_MIN_SAMPLES = 10000.0f;      // Minimum valid pixels for analysis
+
+        // Gamma correction limits (based on ISP gamma 2.4, conservative range)
+        constexpr float GAMMA_MIN = 0.8f;   // Darken by max 20% (underexposed camera)
+        constexpr float GAMMA_MAX = 1.2f;   // Brighten by max 20% (overexposed camera)
+
+        // RGB gain limits (AWB/CCM correction)
+        constexpr float GAIN_MIN = 0.5f;    // Minimum color gain
+        constexpr float GAIN_MAX = 2.0f;    // Maximum color gain
+    }
+
     // ========== CUDA ПАРАМЕТРЫ ==========
     constexpr int GPU_ID = 0;
     constexpr int BLOCK_SIZE_X = 32;
@@ -88,5 +112,19 @@ namespace NvdsStitchConfig {
 
     // УДАЛЕНО: getOutputPitch() - теперь pitch вычисляется динамически!
 }
+
+// ========== COLOR CORRECTION FACTORS STRUCTURE ==========
+// Used by both C++ (host) and CUDA (device) code
+// 8 correction factors: RGB gains + gamma for left and right cameras
+typedef struct {
+    float left_r;      // Red gain for left camera (1.0 = no correction)
+    float left_g;      // Green gain for left camera
+    float left_b;      // Blue gain for left camera
+    float left_gamma;  // Gamma correction for left camera (1.0 = no correction)
+    float right_r;     // Red gain for right camera
+    float right_g;     // Green gain for right camera
+    float right_b;     // Blue gain for right camera
+    float right_gamma; // Gamma correction for right camera
+} ColorCorrectionFactors;
 
 #endif // __NVDSSTITCH_CONFIG_H__

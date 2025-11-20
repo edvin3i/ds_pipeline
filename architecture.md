@@ -63,6 +63,80 @@ Real-time AI sports analytics system running on NVIDIA Jetson Orin NX 16GB, proc
 - **AI Performance**: ~100 TOPS (INT8), optimized for TensorRT inference
 - **I/O Coherency**: Compute capability ≥7.2, zero-copy NVMM buffers
 
+### Camera System
+
+#### Sony IMX678-AAQR1 Specifications
+
+**Sensor**: STARVIS 2 (8.3 MP, 1/1.8", 2.0 µm pixel pitch)
+**Resolution**: 3840×2160 @ 30 FPS (4K UHD)
+**Interface**: MIPI CSI-2 (4-lane)
+**Lens**: Framos L100A (100° HFOV, 55° VFOV, 114° diagonal)
+**Distortion**: -35.8% (F-Tan-Theta model)
+**Aperture**: F/2.7
+**Mount**: M12
+
+**Camera Modules**: FSM-IMX678 (Framos Sensor Module)
+**Adapter Board**: FPA-A/P22-V2A (converts to Jetson MIPI CSI-2)
+
+#### Hardware Synchronization (Master-Slave)
+
+The dual camera system uses **hardware frame synchronization** via XVS (Vertical Sync) and XHS (Horizontal Sync) signals for precise time alignment.
+
+**Physical Connection**:
+```
+┌─────────────────────────┐        ┌─────────────────────────┐
+│  Camera 0 (Master)      │        │  Camera 1 (Slave)       │
+│  FSM-IMX678             │        │  FSM-IMX678             │
+│  ┌────────────────────┐ │        │ ┌────────────────────┐  │
+│  │ FPA-A/P22-V2A      │ │        │ │ FPA-A/P22-V2A      │  │
+│  │ J4: XVS/XHS out    │◄┼────────┼►│ J4: XVS/XHS in     │  │
+│  └────────────────────┘ │        │ └────────────────────┘  │
+│         │               │        │         │               │
+│         │ MIPI CSI-2    │        │         │ MIPI CSI-2    │
+└─────────┼───────────────┘        └─────────┼───────────────┘
+          │                                  │
+          └──────────┬───────────────────────┘
+                     │
+            ┌────────▼─────────┐
+            │  Jetson Orin NX  │
+            │  CSI-2 ports     │
+            └──────────────────┘
+
+Cable: FMA-CBL-MPB125-150/5 (0.15m, 1.25mm pitch, 5-pin)
+```
+
+**Synchronization Configuration**:
+
+| Camera | Operating Mode | Sync Function | Description |
+|--------|---------------|---------------|-------------|
+| Camera 0 (Left) | **Master** | Internal Sync | Generates frame timing signals |
+| Camera 1 (Right) | **Slave** | External Sync | Locks to Master's XVS/XHS signals |
+
+**V4L2 Control Settings**:
+```bash
+# Camera 0 (Master) - video0
+v4l2-ctl -d /dev/video0 -c sensor_mode=0              # Master mode
+v4l2-ctl -d /dev/video0 -c synchronizing_function=0   # Internal sync
+
+# Camera 1 (Slave) - video1
+v4l2-ctl -d /dev/video1 -c sensor_mode=1              # Slave mode
+v4l2-ctl -d /dev/video1 -c synchronizing_function=1   # External sync (locked to Master)
+```
+
+**Synchronization Guarantees**:
+- **Frame alignment**: ±1 pixel row across sensors (sub-line precision)
+- **Exposure sync**: Both sensors expose simultaneously (global shutter behavior)
+- **Readout sync**: Frame data available within same ISP processing window
+- **Color consistency**: Timing-independent color differences are sensor/lens-specific only
+
+**Implications for Pipeline**:
+1. **Panorama Stitching** (`my_steach`): Overlap regions contain identical scene content (no motion artifacts from timing skew)
+2. **Color Correction**: Color differences in overlap are purely due to sensor response curves and lens characteristics, not temporal misalignment
+3. **Object Detection**: Ball and player positions are time-coherent across both camera views
+4. **Latency**: Both streams enter pipeline synchronously (no inter-camera delay compensation needed)
+
+**Reference**: Framos FSM-IMX678 Setup Guide, Section "Hardware Synchronization: Jetson Orin Nano/NX"
+
 ---
 
 ## Software Architecture
