@@ -12,7 +12,6 @@ Builds camera trajectory from:
 
 import math
 import logging
-import numpy
 from typing import Dict, Optional, List, Tuple
 
 logger = logging.getLogger("panorama-virtualcam")
@@ -310,29 +309,12 @@ class CameraTrajectoryHistory:
         gaps_found = 0
 
         # ===== СЛУЧАЙ 1: ПУСТАЯ траектория (начало или полная очистка) =====
-        if not times and current_display_ts is not None:
-            logger.info(f"⚠️ EMPTY TRAJECTORY at ts={current_display_ts:.2f} - filling from t=0 with player COM")
-
-            # Заполняем от начала (t≈0) до текущего времени с шагом 0.5s
-            frame_step = 15  # 0.5s при 30fps
-            start_ts = max(0, current_display_ts - 5.0)  # Начинаем с 5 сек назад (или с 0)
-
-            for current_ts in numpy.arange(start_ts, current_display_ts, 1.0 / frame_step):
-                player_com = players_history.get_player_com_for_timestamp(current_ts)
-                if player_com:
-                    self.camera_trajectory[float(current_ts)] = {
-                        'x': float(player_com[0]),
-                        'y': float(player_com[1]),
-                        'timestamp': float(current_ts),
-                        'source_type': 'player_init',  # Маркируем как инициальное заполнение
-                        'confidence': 0.25
-                    }
-
-            logger.info(f"✓ Filled empty trajectory with {len(self.camera_trajectory)} player COM points")
-            gaps_found += 1
+        # Не заполняем пустую траекторию - это нормально на старте
+        # Сначала нужны детекции мяча, потом заполняем разрывы МЕЖДУ ними
+        # Попытка заполнить пустую траекторию приводила к ошибкам если нет данных игроков
 
         # ===== СЛУЧАЙ 2: Пропуски МЕЖДУ соседними точками =====
-        elif len(times) >= 2:
+        if len(times) >= 2:
             for i in range(len(times) - 1):
                 ts = times[i]
                 ts_next = times[i + 1]
@@ -361,35 +343,48 @@ class CameraTrajectoryHistory:
                         if current_ts >= ts_next - 0.2:
                             break
 
-                        player_com = players_history.get_player_com_for_timestamp(current_ts)
+                        try:
+                            player_com = players_history.get_player_com_for_timestamp(current_ts)
 
-                        if player_com:
-                            self.camera_trajectory[float(current_ts)] = {
-                                'x': float(player_com[0]),
-                                'y': float(player_com[1]),
-                                'timestamp': float(current_ts),
-                                'source_type': 'player',
-                                'confidence': 0.35
-                            }
-                            points_added += 1
+                            if player_com:
+                                self.camera_trajectory[float(current_ts)] = {
+                                    'x': float(player_com[0]),
+                                    'y': float(player_com[1]),
+                                    'timestamp': float(current_ts),
+                                    'source_type': 'player',
+                                    'confidence': 0.35
+                                }
+                                points_added += 1
+                        except (ValueError, RuntimeError) as e:
+                            # Если players_history не имеет данных или ошибка
+                            logger.debug(f"  ⚠️ Could not get player COM at ts={current_ts:.2f}: {e}")
+                            continue
 
                     # Добавляем blend точку перед восстановлением мяча
                     transition_ts = ts + gap * 0.85
-                    player_com = players_history.get_player_com_for_timestamp(transition_ts)
+                    try:
+                        player_com = players_history.get_player_com_for_timestamp(transition_ts)
 
-                    if player_com:
-                        alpha = 0.5
-                        blend_x = (1 - alpha) * player_com[0] + alpha * next_x
-                        blend_y = (1 - alpha) * player_com[1] + alpha * next_y
+                        if player_com:
+                            alpha = 0.5
+                            blend_x = (1 - alpha) * player_com[0] + alpha * next_x
+                            blend_y = (1 - alpha) * player_com[1] + alpha * next_y
 
-                        self.camera_trajectory[float(transition_ts)] = {
-                            'x': blend_x,
-                            'y': blend_y,
-                            'timestamp': float(transition_ts),
-                            'source_type': 'blend',
-                            'confidence': 0.4
-                        }
-                        logger.info(f"  ✅ Added {points_added} player COM + 1 blend point to fill gap")
+                            self.camera_trajectory[float(transition_ts)] = {
+                                'x': blend_x,
+                                'y': blend_y,
+                                'timestamp': float(transition_ts),
+                                'source_type': 'blend',
+                                'confidence': 0.4
+                            }
+                            if points_added > 0:
+                                logger.info(f"  ✅ Added {points_added} player COM + 1 blend point to fill gap")
+                            else:
+                                logger.info(f"  ℹ️ Added 1 blend point only (no player COM available for gap)")
+                    except (ValueError, RuntimeError) as e:
+                        logger.debug(f"  ⚠️ Could not get player COM at transition ts={transition_ts:.2f}: {e}")
+                        if points_added > 0:
+                            logger.info(f"  ℹ️ Added {points_added} player COM points (no blend point)")
 
         # Логирование итогов
         if gaps_found > 0:
