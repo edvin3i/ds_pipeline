@@ -242,36 +242,39 @@ class DisplayProbeHandler:
             # ========== PANORAMA MODE: add interpolated ball points ==========
             # In panorama mode show ALL points including interpolation
             # In camera mode - only real detections (resource saving)
-            if self.display_mode == 'panorama' and det:
+            if self.display_mode == 'panorama':
                 # If found ball detection from history, add it to all_detections
                 if all_detections is None:
                     all_detections = {'ball': [], 'player': [], 'staff': [], 'referee': []}
 
-                # Form detection in format for rendering
-                ball_det = {
-                    'x': det[6] if len(det) > 6 else det[0],  # global X
-                    'y': det[7] if len(det) > 7 else det[1],  # global Y
-                    'width': det[8] if len(det) > 8 else det[2],
-                    'height': det[9] if len(det) > 9 else det[3],
-                    'confidence': det[4] if len(det) > 4 else 0.5,
-                    'is_interpolated': True  # Marker for visual distinction
-                }
+                # ===== Ball detection (REQUIRES ball to be present) =====
+                if det:
+                    # Form detection in format for rendering
+                    ball_det = {
+                        'x': det[6] if len(det) > 6 else det[0],  # global X
+                        'y': det[7] if len(det) > 7 else det[1],  # global Y
+                        'width': det[8] if len(det) > 8 else det[2],
+                        'height': det[9] if len(det) > 9 else det[3],
+                        'confidence': det[4] if len(det) > 4 else 0.5,
+                        'is_interpolated': True  # Marker for visual distinction
+                    }
 
-                # Check if we don't already have same detection (to avoid duplicates)
-                existing_balls = all_detections.get('ball', [])
-                is_duplicate = False
-                for existing in existing_balls:
-                    if abs(existing['x'] - ball_det['x']) < 5 and abs(existing['y'] - ball_det['y']) < 5:
-                        is_duplicate = True
-                        break
+                    # Check if we don't already have same detection (to avoid duplicates)
+                    existing_balls = all_detections.get('ball', [])
+                    is_duplicate = False
+                    for existing in existing_balls:
+                        if abs(existing['x'] - ball_det['x']) < 5 and abs(existing['y'] - ball_det['y']) < 5:
+                            is_duplicate = True
+                            break
 
-                if not is_duplicate:
-                    all_detections['ball'].append(ball_det)
+                    if not is_duplicate:
+                        all_detections['ball'].append(ball_det)
 
-                # ===== PANORAMA MODE: Add camera trajectory box =====
+                # ===== PANORAMA MODE: Add camera trajectory box (INDEPENDENT from ball) =====
                 # Get camera trajectory point for this timestamp
                 # Camera trajectory is filled from interpolated ball history in analysis thread,
                 # so timestamps should match (use larger max_delta for safety)
+                # ✅ KEY FIX: This ALWAYS runs in panorama mode, even when ball is lost!
                 camera_point = self.history.camera_trajectory.get_point_for_timestamp(pts_sec, max_delta=0.5)
 
                 if camera_point:
