@@ -151,55 +151,81 @@ class CameraTrajectoryHistory:
 
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
-        # ===== ЭТАП 2: Сглаживание outliers =====
-        # self._smooth_trajectory_internal()
+        # ===== ЭТАП 2: Фильтрование временных движений (разворотов) =====
+        self._filter_temporary_movements()
 
         # ===== ЭТАП 3: Финальная интерполяция для 30fps =====
-        # self._interpolate_gaps_internal(fps)
+        self._interpolate_gaps_internal(fps)
 
-    def _smooth_trajectory_internal(self):
+    def _filter_temporary_movements(self):
         """
-        Внутренняя функция: сглаживает outliers в траектории.
+        Фильтрует временные движения (развороты) в траектории.
 
-        Удаляет точки с резкими скачками > outlier_threshold px.
+        Удаляет MIDDLE points в последовательности, где движения REVERSAL друг друга.
+        Например: мяч движется 300px вправо, потом 300px влево - удаляем middle point.
+
+        Алгоритм:
+        1. Для каждой тройки consecutive ball-points (prev, curr, next)
+        2. Вычисляем movement vectors: prev→curr и curr→next
+        3. Если vectors OPPOSITE (angle > 120°) - это reversal
+        4. Удаляем MIDDLE point (curr)
         """
         if len(self.camera_trajectory) < 3:
             return
 
         times = sorted(self.camera_trajectory.keys())
-        outliers_removed = 0
 
-        for i in range(1, len(times) - 1):
-            prev_t, curr_t, next_t = times[i - 1], times[i], times[i + 1]
+        points_to_remove = set()
 
-            prev_point = self.camera_trajectory[prev_t]
-            curr_point = self.camera_trajectory[curr_t]
-            next_point = self.camera_trajectory[next_t]
+        # Проходим по последовательностям ONLY из ball-source точек
+        # (interpolated точки добавятся позже, не нужно их анализировать сейчас)
+        ball_times = [t for t in times
+                      if self.camera_trajectory[t].get('source_type') == 'ball']
 
-            # Считаем расстояния
-            dist_to_prev = math.sqrt((curr_point['x'] - prev_point['x']) ** 2 +
-                                     (curr_point['y'] - prev_point['y']) ** 2)
-            dist_to_next = math.sqrt((curr_point['x'] - next_point['x']) ** 2 +
-                                     (curr_point['y'] - next_point['y']) ** 2)
-            dist_prev_next = math.sqrt((next_point['x'] - prev_point['x']) ** 2 +
-                                       (next_point['y'] - prev_point['y']) ** 2)
+        if len(ball_times) < 3:
+            return  # Need at least 3 points to detect reversals
 
-            # Если большой скачок → smoothing
-            if dist_to_prev > self.outlier_threshold and dist_to_next > self.outlier_threshold:
-                if dist_prev_next < max(dist_to_prev, dist_to_next) * 0.7:
-                    smoothed_x = (prev_point['x'] + next_point['x']) / 2
-                    smoothed_y = (prev_point['y'] + next_point['y']) / 2
+        for i in range(1, len(ball_times) - 1):
+            prev_point = self.camera_trajectory[ball_times[i - 1]]
+            curr_point = self.camera_trajectory[ball_times[i]]
+            next_point = self.camera_trajectory[ball_times[i + 1]]
 
-                    curr_point['x'] = smoothed_x
-                    curr_point['y'] = smoothed_y
+            # Вычисляем vectors движений
+            vec1_x = curr_point['x'] - prev_point['x']
+            vec1_y = curr_point['y'] - prev_point['y']
 
-                    logger.warning(f"🔧 SMOOTHED outlier at {curr_t:.2f}: "
-                                 f"jump={dist_to_prev:.0f}px→{dist_to_next:.0f}px, "
-                                 f"direct={dist_prev_next:.0f}px")
-                    outliers_removed += 1
+            vec2_x = next_point['x'] - curr_point['x']
+            vec2_y = next_point['y'] - curr_point['y']
 
-        if outliers_removed > 0:
-            logger.info(f"🔧 CAMERA_TRAJ: Removed {outliers_removed} outliers via smoothing")
+            # Вычисляем dot product и lengths
+            dot_product = vec1_x * vec2_x + vec1_y * vec2_y
+            len1 = math.sqrt(vec1_x ** 2 + vec1_y ** 2)
+            len2 = math.sqrt(vec2_x ** 2 + vec2_y ** 2)
+
+            # Если один из vectors очень мал, пропускаем
+            if len1 < 10 or len2 < 10:
+                continue
+
+            # Вычисляем косинус угла между vectors
+            cos_angle = dot_product / (len1 * len2) if len1 > 0 and len2 > 0 else 1.0
+
+            # Если cos_angle < -0.5 (angle > 120°) - это reversal
+            # cos(120°) = -0.5, так что отрицательное значение означает vectors противоположные
+            if cos_angle < -0.5:
+                logger.info(f"🔄 FILTERED reversal at {ball_times[i]:.2f}: "
+                           f"angle={math.degrees(math.acos(max(-1, min(1, cos_angle)))):.0f}°, "
+                           f"prev→curr: ({vec1_x:.0f}, {vec1_y:.0f}), "
+                           f"curr→next: ({vec2_x:.0f}, {vec2_y:.0f})")
+
+                # Удаляем MIDDLE point
+                points_to_remove.add(ball_times[i])
+
+        # Удаляем помеченные точки
+        for ts in points_to_remove:
+            del self.camera_trajectory[ts]
+
+        if points_to_remove:
+            logger.info(f"🔧 CAMERA_TRAJ: Filtered {len(points_to_remove)} reversal points from trajectory")
 
     def _interpolate_gaps_internal(self, fps=30):
         """
