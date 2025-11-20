@@ -105,40 +105,55 @@ class HistoryManager:
 
     def update_camera_trajectory_on_timer(self):
         """
-        Update camera trajectory on a timer, independent of ball detection.
+        Update camera trajectory on a timer (called every 0.5 seconds from YOLO probe).
 
-        This method MUST be called every 0.5 seconds from the YOLO processing
-        probe (regardless of whether ball was detected).
+        This is the SINGLE system for updating camera trajectory.
+        Works with cleaned ball history OR falls back to player center-of-mass.
 
-        This ensures:
-        1. Camera trajectory is populated even when ball is initially missing
-        2. Camera trajectory is updated when ball is lost for 7+ seconds
-        3. Gaps are filled with player center-of-mass at regular intervals
+        Workflow:
+        1. Get processed (cleaned) ball history
+        2. If has ball points → populate with ball + fill gaps > 3s with player COM
+        3. If empty → populate ONLY with player COM
+        4. Fill remaining gaps in trajectory
 
-        Call this from: AnalysisProbeHandler.handle_analysis_probe() after YOLO processing
+        Call from: AnalysisProbeHandler.handle_analysis_probe() after YOLO processing
         """
-        # Get current ball history (may be empty if no ball detected)
-        with self.storage.history_lock:
-            # Get the current future-only history (ball detections that haven't been confirmed yet)
-            future_only = self.storage.raw_future_history.copy()
+        if not self.players_history:
+            return
 
-            if self.players_history:
-                # Populate camera trajectory from ball history (even if empty)
-                # This handles cases where:
-                # - No ball detected initially (future_only is empty)
-                # - Ball lost for 7+ seconds (future_only is empty after cleanup)
-                # In both cases, fill_gaps_in_trajectory will use player COM
+        with self.storage.history_lock:
+            # ✅ CRITICAL: Use PROCESSED history (cleaned from outliers)
+            # NOT raw_future_history
+            processed = self.storage.processed_future_history.copy()
+
+            if processed:
+                # CASE 1: Processed ball history exists
+                # ├─→ Populate with ball points
+                # ├─→ Detect gaps > 3s → fill with player COM
+                # └─→ Interpolate for smooth 30fps
+                logger.info(f"📍 TIMER_UPDATE: Processing {len(processed)} cleaned ball points")
+
                 self.camera_trajectory.populate_camera_trajectory_from_ball_history(
-                    future_only,
+                    processed,
+                    self.players_history,
+                    fps=30
+                )
+            else:
+                # CASE 2: Ball history is empty (no ball detected OR lost 7+ seconds)
+                # └─→ Populate ONLY with player center-of-mass
+                logger.warning(f"🚨 TIMER_UPDATE: Empty ball history - filling ONLY with player COM")
+
+                self.camera_trajectory.populate_camera_trajectory_from_ball_history(
+                    {},  # Empty dict → triggers player-only fallback
                     self.players_history,
                     fps=30
                 )
 
-                # Fill gaps in the trajectory (handles both ball and player fallback)
-                self.camera_trajectory.fill_gaps_in_trajectory(
-                    self.players_history,
-                    current_display_ts=self.storage.current_display_timestamp
-                )
+            # Fill remaining gaps in trajectory (handles piecewise gaps)
+            self.camera_trajectory.fill_gaps_in_trajectory(
+                self.players_history,
+                current_display_ts=self.storage.current_display_timestamp
+            )
 
     def update_display_timestamp(self, timestamp):
         """
@@ -371,40 +386,9 @@ class HistoryManager:
             self.processed_future_history = self.storage.processed_future_history
             self.interpolated_history = self.storage.interpolated_history
 
-            # CAMERA TRAJECTORY: Одна монолитная функция для полной обработки
-            # Делает всё в одном проходе:
-            # 1. Заполняет из истории мяча
-            # 2. Обнаруживает разрывы > 3s и заполняет player COM
-            # 3. Сглаживает outliers
-            # 4. Интерполирует для smooth 30fps движения
-            if self.players_history:
-                self.camera_trajectory.populate_camera_trajectory_from_ball_history(
-                    future_only,  # ✅ ВАЖНО: Очищенная от выбросов, но ДО интерполяции!
-                    self.players_history,
-                    fps=30
-                )
-
-                # ===== ЭТАП 1.5: Заполнить пропуски МЕЖДУ вызовами populate() =====
-                # Пропуски между последовательными детекциями мяча (например, 6.5-7s)
-                # обнаруживаются В СУЩЕСТВУЮЩЕЙ траектории
-                # Также заполняются пустые траектории (начало или полная потеря)
-                self.camera_trajectory.fill_gaps_in_trajectory(
-                    self.players_history,
-                    current_display_ts=self.storage.current_display_timestamp
-                )
-
-                # Log trajectory stats every 30 frames
-                if self.frame_counter % 30 == 0:
-                    stats = self.camera_trajectory.get_stats()
-                    logger.info(f"📹 CAMERA_TRAJ: {stats['total_points']} points, "
-                              f"sources={stats['sources']}")
-
-                # Print trajectory summary every 60 frames (2 seconds at 30fps)  AFTER stabilization
-                if self.frame_counter % 60 == 0 and self.frame_counter > 300:
-                    self.camera_trajectory.print_full_trajectory(
-                        label=f"TRAJ_DUMP @ frame {self.frame_counter}",
-                        max_points=10  # Only show first 5 + last 5 points to reduce spam
-                    )
+            # ✅ NOTE: Camera trajectory updates moved to update_camera_trajectory_on_timer()
+            # This ensures single unified system called every 0.5s from YOLO probe
+            # _process_future_history() focuses ONLY on ball detection history processing
 
     def clean_detection_history(self, history, preserve_recent_seconds=0.5,
                                outlier_threshold=2.5, window_size=3):
