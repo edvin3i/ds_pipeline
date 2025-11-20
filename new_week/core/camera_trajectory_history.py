@@ -62,14 +62,57 @@ class CameraTrajectoryHistory:
         Returns:
             None (обновляет self.camera_trajectory)
         """
-        if not ball_history_dict:
-            # Мяч потерян на 7+ сек (история очищена)
-            # Будет заполнено в fill_gaps_in_trajectory() с использованием player COM
-            logger.warning("🚨 CAMERA_TRAJ: Empty ball history - will use player fallback")
-            self.camera_trajectory.clear()
-            return
-
         self.camera_trajectory.clear()
+
+        if not ball_history_dict:
+            # Мяч потерян на 7+ сек (история очищена) или при старте
+            logger.warning("🚨 CAMERA_TRAJ: Empty ball history - using PLAYER CENTER-OF-MASS fallback")
+
+            # Заполняем траекторию исключительно player COM
+            if not players_history:
+                logger.warning("  ⚠️ No players_history available - cannot fill trajectory")
+                return
+
+            # Заполняем последние 3 сек центром масс игроков
+            # (это будет видно в отображении 7 сек назад)
+            import time
+            current_time = time.time()
+            lookback_seconds = 3.0
+
+            # Используем последние известные timestamps из players_history
+            player_times = sorted(players_history.detections.keys()) if hasattr(players_history, 'detections') else []
+
+            if player_times:
+                # Используем временной диапазон из доступных данных игроков
+                start_ts = player_times[0]
+                end_ts = player_times[-1]
+
+                # Заполняем в диапазоне доступных данных
+                frame_step = 15  # 0.5s интервал
+                current_ts = start_ts
+                points_added = 0
+
+                while current_ts <= end_ts:
+                    try:
+                        player_com = players_history.get_player_com_for_timestamp(current_ts)
+                        if player_com:
+                            self.camera_trajectory[float(current_ts)] = {
+                                'x': float(player_com[0]),
+                                'y': float(player_com[1]),
+                                'timestamp': float(current_ts),
+                                'source_type': 'player_only',  # Нет мяча, только игроки
+                                'confidence': 0.25  # Низкая уверенность
+                            }
+                            points_added += 1
+                    except (ValueError, RuntimeError, IndexError) as e:
+                        logger.debug(f"  ⚠️ Could not get player COM at ts={current_ts:.2f}: {e}")
+
+                    current_ts += (frame_step / fps)
+
+                if points_added > 0:
+                    logger.info(f"  ✅ Filled trajectory with {points_added} player COM points (no ball detected)")
+
+            return
 
         # ===== ЭТАП 1: Заполнение из мяча + обнаружение разрывов =====
         sorted_timestamps = sorted(ball_history_dict.keys())
