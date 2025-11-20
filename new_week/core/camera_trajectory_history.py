@@ -47,11 +47,12 @@ class CameraTrajectoryHistory:
         Одна монолитная функция для построения полной траектории камеры.
 
         Делает всё в одном проходе:
-        1. Заполняет из истории мяча
-        2. Обнаруживает разрывы > max_gap
-        3. Заполняет разрывы player COM
-        4. Сглаживает outliers (> outlier_threshold px)
-        5. Интерполирует для smooth 30fps движения
+        1. Заполняет из истории мяча (если есть)
+        2. Если нет мяча → использует центр масс игроков
+        3. Обнаруживает разрывы > max_gap
+        4. Заполняет разрывы player COM
+        5. Сглаживает outliers (> outlier_threshold px)
+        6. Интерполирует для smooth 30fps движения
 
         Args:
             ball_history_dict: Очищенная история мяча {timestamp → detection}
@@ -62,7 +63,10 @@ class CameraTrajectoryHistory:
             None (обновляет self.camera_trajectory)
         """
         if not ball_history_dict:
-            logger.warning("🚨 CAMERA_TRAJ: Empty ball history")
+            # Мяч потерян на 7+ сек (история очищена)
+            # Будет заполнено в fill_gaps_in_trajectory() с использованием player COM
+            logger.warning("🚨 CAMERA_TRAJ: Empty ball history - will use player fallback")
+            self.camera_trajectory.clear()
             return
 
         self.camera_trajectory.clear()
@@ -309,12 +313,45 @@ class CameraTrajectoryHistory:
         gaps_found = 0
 
         # ===== СЛУЧАЙ 1: ПУСТАЯ траектория (начало или полная очистка) =====
-        # Не заполняем пустую траекторию - это нормально на старте
-        # Сначала нужны детекции мяча, потом заполняем разрывы МЕЖДУ ними
-        # Попытка заполнить пустую траекторию приводила к ошибкам если нет данных игроков
+        # Траектория пуста = мяч потерян на 7+ секунд и история очищена
+        # Заполняем исключительно центром масс игроков (последние 3 секунды)
+        if not times and current_display_ts is not None:
+            logger.info(f"🎯 EMPTY TRAJECTORY at ts={current_display_ts:.2f} - filling with PLAYER CENTER-OF-MASS")
+
+            # Заполняем последние 3 секунды перед текущим временем
+            lookback_seconds = 3.0
+            start_ts = current_display_ts - lookback_seconds
+            frame_step = 15  # Каждый 15-й кадр = 0.5s интервал
+            num_frames = int(lookback_seconds * 30)  # 3s * 30fps = 90 кадров
+            points_added = 0
+
+            for frame_idx in range(0, num_frames, frame_step):
+                fill_ts = start_ts + (frame_idx / 30.0)
+
+                try:
+                    player_com = players_history.get_player_com_for_timestamp(fill_ts)
+
+                    if player_com:
+                        self.camera_trajectory[float(fill_ts)] = {
+                            'x': float(player_com[0]),
+                            'y': float(player_com[1]),
+                            'timestamp': float(fill_ts),
+                            'source_type': 'player_init',  # Инициализация пустой траектории
+                            'confidence': 0.30  # Низкая уверенность (нет мяча)
+                        }
+                        points_added += 1
+                except (ValueError, RuntimeError, IndexError) as e:
+                    logger.debug(f"  ⚠️ Could not get player COM at ts={fill_ts:.2f}: {e}")
+                    continue
+
+            if points_added > 0:
+                logger.info(f"  ✅ Filled empty trajectory with {points_added} player COM points (fallback mode)")
+                gaps_found += 1
+            else:
+                logger.warning(f"  ⚠️ Could not fill empty trajectory - no player COM data available")
 
         # ===== СЛУЧАЙ 2: Пропуски МЕЖДУ соседними точками =====
-        if len(times) >= 2:
+        elif len(times) >= 2:
             for i in range(len(times) - 1):
                 ts = times[i]
                 ts_next = times[i + 1]
