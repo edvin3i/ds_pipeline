@@ -141,10 +141,13 @@ class CameraTrajectoryHistory:
                 ts_next = sorted_timestamps[i + 1]
                 gap = ts_next - ts
 
-                # Если разрыв > max_gap → заполняем player COM
-                if gap > self.max_gap:
+                # Если разрыв >= max_gap → заполняем player COM
+                if gap >= self.max_gap:
+                    logger.warning(f"🔴 БОЛЬШОЙ РАЗРЫВ: {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}")
                     logger.info(f"🔄 CAMERA_TRAJ: Gap {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}, "
                                f"filling with player positions")
+                    logger.info(f"  📌 players_history type: {type(players_history)}")
+                    logger.info(f"  📌 players_history has detections: {hasattr(players_history, 'detections')}")
 
                     next_detection = ball_history_dict[ts_next]
                     next_x = float(next_detection[6])
@@ -163,18 +166,23 @@ class CameraTrajectoryHistory:
                         if current_ts >= ts_next - 0.2:
                             break
 
-                        player_com = players_history.get_player_com_for_timestamp(current_ts)
+                        try:
+                            player_com = players_history.get_player_com_for_timestamp(current_ts)
 
-                        if player_com:
-                            self.camera_trajectory[float(current_ts)] = {
-                                'x': float(player_com[0]),
-                                'y': float(player_com[1]),
-                                'timestamp': float(current_ts),
-                                'source_type': 'player',
-                                'confidence': 0.35
-                            }
-                            points_added += 1
-                            logger.info(f"  ➕ Player COM[{points_added}] at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
+                            if player_com:
+                                self.camera_trajectory[float(current_ts)] = {
+                                    'x': float(player_com[0]),
+                                    'y': float(player_com[1]),
+                                    'timestamp': float(current_ts),
+                                    'source_type': 'player',
+                                    'confidence': 0.35
+                                }
+                                points_added += 1
+                                logger.info(f"  ➕ Player COM[{points_added}] at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
+                            else:
+                                logger.debug(f"  ⚠️ No player COM available at ts={current_ts:.2f}")
+                        except Exception as e:
+                            logger.warning(f"  ❌ Error getting player COM at ts={current_ts:.2f}: {e}")
 
                     # ===== Добавляем плавный переход (blend) перед восстановлением мяча =====
                     transition_ts = ts + gap * 0.85  # 85% пути в разрыв
