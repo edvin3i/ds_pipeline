@@ -209,6 +209,9 @@ class CameraTrajectoryHistory:
         # ===== ВЫВОД ПЕРЕД ИНТЕРПОЛЯЦИЕЙ =====
         self._dump_trajectory_before_interpolation()
 
+        # ===== ЗАПИСЬ ЛОГА В ФАЙЛ ДЛЯ АНАЛИЗА БОЛЬШИХ РАЗРЫВОВ =====
+        self._save_trajectory_debug_log()
+
         # ===== ЭТАП 2: Фильтрование временных движений (разворотов) =====
         # self._filter_temporary_movements()  # DISABLED FOR NOW
 
@@ -292,7 +295,8 @@ class CameraTrajectoryHistory:
         """
         Внутренняя функция: интерполирует разрывы для smooth 30fps движения.
 
-        Добавляет синтетические точки между ключевыми кадрами.
+        Добавляет синтетические точки ТОЛЬКО между ball-to-ball или ball-to-blend точками.
+        НЕ интерполирует через player COM точки (которые используются для заполнения разрывов).
 
         Args:
             fps: Частота кадров для интерполяции
@@ -310,12 +314,31 @@ class CameraTrajectoryHistory:
             # Добавляем текущую точку
             interpolated[ts1] = self.camera_trajectory[ts1]
 
+            p1 = self.camera_trajectory[ts1]
+            p2 = self.camera_trajectory[ts2]
+
+            # ✅ CRITICAL FIX: Do NOT interpolate across gap-filled sections
+            # Skip interpolation if either point is a gap-fill point (player, player_only)
+            source1 = p1.get('source_type', 'ball')
+            source2 = p2.get('source_type', 'ball')
+
+            # Allow interpolation ONLY between:
+            # - ball to ball
+            # - ball to blend (blend is transitional)
+            # - blend to ball
+            # But SKIP if either is 'player' or 'player_only' (these are fallback fills)
+            should_interpolate = not (
+                source1 in ['player', 'player_only'] or
+                source2 in ['player', 'player_only']
+            )
+
+            if not should_interpolate:
+                logger.debug(f"⏭️  Skipping interpolation between {source1} (ts={ts1:.2f}) and {source2} (ts={ts2:.2f})")
+                continue
+
             # Интерполируем между ts1 и ts2
             gap = ts2 - ts1
             num_frames = max(1, int(gap * fps))
-
-            p1 = self.camera_trajectory[ts1]
-            p2 = self.camera_trajectory[ts2]
 
             for j in range(1, num_frames + 1):
                 t_interp = ts1 + (j / (num_frames + 1)) * gap
@@ -339,7 +362,7 @@ class CameraTrajectoryHistory:
 
         self.camera_trajectory = interpolated
 
-        logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps")
+        logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps (skipped player COM fill zones)")
 
     def fill_gaps_in_trajectory(self, players_history, current_display_ts=None):
         """
@@ -480,6 +503,95 @@ class CameraTrajectoryHistory:
                        f"total trajectory points: {len(self.camera_trajectory)}")
         else:
             logger.info(f"✓ fill_gaps_in_trajectory: No gaps > {self.max_gap}s found")
+
+    def _save_trajectory_debug_log(self):
+        """
+        Сохраняет детальный лог траектории в файл для анализа больших разрывов.
+
+        Это помогает анализировать проблемы с большими разрывами (5-12 сек)
+        до интерполяции.
+        """
+        if not self.camera_trajectory:
+            return
+
+        import os
+        log_file = "/tmp/camera_trajectory_debug.log"
+
+        times = sorted(self.camera_trajectory.keys())
+
+        with open(log_file, "a") as f:
+            f.write(f"\n{'='*120}\n")
+            f.write(f"📊 TRAJECTORY DEBUG LOG: {len(self.camera_trajectory)} points\n")
+            f.write(f"Time span: [{times[0]:.2f}, {times[-1]:.2f}]s\n")
+            f.write(f"{'='*120}\n")
+
+            # Статистика по source_type
+            source_counts = {}
+            for ts in times:
+                source = self.camera_trajectory[ts].get('source_type', 'unknown')
+                source_counts[source] = source_counts.get(source, 0) + 1
+
+            f.write(f"Source breakdown: {source_counts}\n")
+            f.write(f"{'='*120}\n")
+
+            # Заголовок таблицы
+            f.write(f"{'Time':<10} {'X':<10} {'Y':<10} {'Type':<20} {'Conf':<8} {'Distance':<10} {'Gap to next':<12}\n")
+            f.write(f"{'-'*120}\n")
+
+            prev_x, prev_y = None, None
+
+            for i, ts in enumerate(times):
+                point = self.camera_trajectory[ts]
+                x = point.get('x', 0)
+                y = point.get('y', 0)
+                source = point.get('source_type', 'unknown')
+                conf = point.get('confidence', 0)
+
+                # Расстояние от предыдущей точки
+                if prev_x is not None and prev_y is not None:
+                    distance = ((x - prev_x)**2 + (y - prev_y)**2)**0.5
+                    dist_str = f"{distance:6.1f}px"
+                else:
+                    dist_str = "-"
+
+                # Разрыв до следующей точки
+                if i + 1 < len(times):
+                    gap = times[i + 1] - ts
+                    gap_str = f"{gap:6.2f}s"
+                else:
+                    gap_str = "-"
+
+                source_name = {
+                    'ball': 'BALL',
+                    'player': 'PLAYER_COM',
+                    'player_only': 'PLAYER_ONLY',
+                    'player_init': 'PLAYER_INIT',
+                    'blend': 'BLEND',
+                    'interpolated': 'INTERP',
+                    'interpolated_ball': 'INTERP_BALL'
+                }.get(source, f"UNK_{source}")
+
+                f.write(f"{ts:7.2f}s  {x:7.0f}  {y:7.0f}  {source_name:<20} {conf:6.2f}  {dist_str:<10} {gap_str:<12}\n")
+
+                prev_x, prev_y = x, y
+
+            f.write(f"{'-'*120}\n")
+
+            # Анализ больших разрывов
+            f.write("\n🔴 LARGE GAPS ANALYSIS (> 3.0s):\n")
+            for i, ts in enumerate(times):
+                if i + 1 < len(times):
+                    gap = times[i + 1] - ts
+                    if gap > 3.0:
+                        curr = self.camera_trajectory[ts]
+                        next = self.camera_trajectory[times[i + 1]]
+                        f.write(f"  GAP {gap:.2f}s @ ts={ts:.2f}\n")
+                        f.write(f"    FROM: {curr.get('source_type')} ({curr['x']:.0f}, {curr['y']:.0f})\n")
+                        f.write(f"    TO:   {next.get('source_type')} ({next['x']:.0f}, {next['y']:.0f})\n")
+
+            f.write(f"{'='*120}\n\n")
+
+        logger.info(f"💾 Trajectory debug log saved to {log_file}")
 
     def _dump_trajectory_before_interpolation(self):
         """
