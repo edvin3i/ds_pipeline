@@ -42,6 +42,20 @@ class PlayersHistory:
 
         return (sum(xs) / len(xs), sum(ys) / len(ys))
 
+    def get_player_com_for_timestamp(self, ts):
+        """
+        Получить центр масс игроков для временной метки.
+
+        Это главная функция для заполнения разрывов камеры-траектории.
+
+        Args:
+            ts: Временная метка (float)
+
+        Returns:
+            (x, y) кортеж или None если нет данных игроков
+        """
+        return self.calculate_center_of_mass(ts)
+
     def _cleanup_old(self, current_ts):
         """Удаляет старые данные."""
         cutoff = current_ts - self.history_duration

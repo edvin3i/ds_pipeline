@@ -42,18 +42,24 @@ class CameraTrajectoryHistory:
         self.max_gap = float(max_gap)
         self.outlier_threshold = float(outlier_threshold)
 
-    def populate_from_ball_and_players(self, ball_history_dict, players_history):
+    def populate_camera_trajectory_from_ball_history(self, ball_history_dict, players_history, fps=30):
         """
-        Fill camera trajectory from ball history and player positions.
+        Одна монолитная функция для построения полной траектории камеры.
+
+        Делает всё в одном проходе:
+        1. Заполняет из истории мяча
+        2. Обнаруживает разрывы > max_gap
+        3. Заполняет разрывы player COM
+        4. Сглаживает outliers (> outlier_threshold px)
+        5. Интерполирует для smooth 30fps движения
 
         Args:
-            ball_history_dict: Dictionary of timestamp → detection (from processed_future_history)
-            players_history: PlayersHistory instance for fallback to center-of-mass
+            ball_history_dict: Очищенная история мяча {timestamp → detection}
+            players_history: PlayersHistory для fallback player COM
+            fps: Частота кадров для финальной интерполяции (по умолчанию 30)
 
-        Algorithm:
-        1. Load all ball detections (original YOLO or interpolated)
-        2. For gaps > max_gap: substitute with player center-of-mass
-        3. Interpolate transitions from ball to player positions
+        Returns:
+            None (обновляет self.camera_trajectory)
         """
         if not ball_history_dict:
             logger.warning("🚨 CAMERA_TRAJ: Empty ball history")
@@ -61,7 +67,7 @@ class CameraTrajectoryHistory:
 
         self.camera_trajectory.clear()
 
-        # Single-pass algorithm: iterate through ball history and fill gaps immediately
+        # ===== ЭТАП 1: Заполнение из мяча + обнаружение разрывов =====
         sorted_timestamps = sorted(ball_history_dict.keys())
         if not sorted_timestamps:
             return
@@ -74,7 +80,7 @@ class CameraTrajectoryHistory:
             is_interpolated = detection[10] if len(detection) > 10 else False
             source_type = 'interpolated_ball' if is_interpolated else 'ball'
 
-            # Add current ball point
+            # Добавляем точку мяча
             self.camera_trajectory[float(ts)] = {
                 'x': float(detection[6]),
                 'y': float(detection[7]),
@@ -83,12 +89,12 @@ class CameraTrajectoryHistory:
                 'confidence': float(detection[4]) if len(detection) > 4 else 0.5
             }
 
-            # Check gap to next ball point
+            # Проверяем разрыв до следующей точки
             if i + 1 < len(sorted_timestamps):
                 ts_next = sorted_timestamps[i + 1]
                 gap = ts_next - ts
 
-                # If gap > max_gap, fill with player COM positions
+                # Если разрыв > max_gap → заполняем player COM
                 if gap > self.max_gap:
                     logger.info(f"🔄 CAMERA_TRAJ: Gap {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}, "
                                f"filling with player positions")
@@ -97,16 +103,13 @@ class CameraTrajectoryHistory:
                     next_x = float(next_detection[6])
                     next_y = float(next_detection[7])
 
-                    # Fill gap with player COM every 2 seconds
-                    # Continue until within 2 seconds of next ball position
+                    # Заполняем разрыв player COM каждые 2 секунды
                     current_ts = ts
                     fill_step = 2.0
 
                     while current_ts + fill_step < ts_next - 2.0:
                         current_ts += fill_step
-
-                        # Get player center of mass
-                        player_com = players_history.calculate_center_of_mass(current_ts)
+                        player_com = players_history.get_player_com_for_timestamp(current_ts)
 
                         if player_com:
                             self.camera_trajectory[float(current_ts)] = {
@@ -118,10 +121,10 @@ class CameraTrajectoryHistory:
                             }
                             logger.info(f"  ➕ Player COM at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
 
-                    # Add smooth transition blend point (50% player, 50% next ball)
+                    # Добавляем плавный переход (50% игрок, 50% мяч)
                     if current_ts < ts_next - 0.1:
                         transition_ts = current_ts + (ts_next - current_ts) * 0.5
-                        player_com = players_history.calculate_center_of_mass(transition_ts)
+                        player_com = players_history.get_player_com_for_timestamp(transition_ts)
 
                         if player_com:
                             alpha = 0.5
@@ -139,21 +142,18 @@ class CameraTrajectoryHistory:
 
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
-    def smooth_trajectory(self, window_size=5, threshold_px=None):
+        # ===== ЭТАП 2: Сглаживание outliers =====
+        self._smooth_trajectory_internal()
+
+        # ===== ЭТАП 3: Финальная интерполяция для 30fps =====
+        self._interpolate_gaps_internal(fps)
+
+    def _smooth_trajectory_internal(self):
         """
-        Smooth trajectory to remove outliers (e.g., detection jumps).
+        Внутренняя функция: сглаживает outliers в траектории.
 
-        Args:
-            window_size: Window size for median filtering
-            threshold_px: Distance threshold for outlier detection (uses outlier_threshold if None)
-
-        Algorithm:
-        - For each point: if distance to neighbors > threshold AND detour > 1.5x
-        - Replace with median of neighbors
+        Удаляет точки с резкими скачками > outlier_threshold px.
         """
-        if threshold_px is None:
-            threshold_px = self.outlier_threshold
-
         if len(self.camera_trajectory) < 3:
             return
 
@@ -167,7 +167,7 @@ class CameraTrajectoryHistory:
             curr_point = self.camera_trajectory[curr_t]
             next_point = self.camera_trajectory[next_t]
 
-            # Calculate distances
+            # Считаем расстояния
             dist_to_prev = math.sqrt((curr_point['x'] - prev_point['x']) ** 2 +
                                      (curr_point['y'] - prev_point['y']) ** 2)
             dist_to_next = math.sqrt((curr_point['x'] - next_point['x']) ** 2 +
@@ -175,10 +175,9 @@ class CameraTrajectoryHistory:
             dist_prev_next = math.sqrt((next_point['x'] - prev_point['x']) ** 2 +
                                        (next_point['y'] - prev_point['y']) ** 2)
 
-            # Check for outlier: large detour (jump and return)
-            if dist_to_prev > threshold_px and dist_to_next > threshold_px:
+            # Если большой скачок → smoothing
+            if dist_to_prev > self.outlier_threshold and dist_to_next > self.outlier_threshold:
                 if dist_prev_next < max(dist_to_prev, dist_to_next) * 0.7:
-                    # This is an outlier - replace with median
                     smoothed_x = (prev_point['x'] + next_point['x']) / 2
                     smoothed_y = (prev_point['y'] + next_point['y']) / 2
 
@@ -193,14 +192,14 @@ class CameraTrajectoryHistory:
         if outliers_removed > 0:
             logger.info(f"🔧 CAMERA_TRAJ: Removed {outliers_removed} outliers via smoothing")
 
-    def interpolate_gaps(self, fps=30):
+    def _interpolate_gaps_internal(self, fps=30):
         """
-        Interpolate between trajectory points for smooth camera motion.
+        Внутренняя функция: интерполирует разрывы для smooth 30fps движения.
+
+        Добавляет синтетические точки между ключевыми кадрами.
 
         Args:
-            fps: Frames per second for interpolation density
-
-        Adds linear interpolated points between existing keyframes.
+            fps: Частота кадров для интерполяции
         """
         if len(self.camera_trajectory) < 2:
             return
@@ -212,10 +211,10 @@ class CameraTrajectoryHistory:
         for i in range(len(times) - 1):
             ts1, ts2 = times[i], times[i + 1]
 
-            # Add current point
+            # Добавляем текущую точку
             interpolated[ts1] = self.camera_trajectory[ts1]
 
-            # Interpolate between ts1 and ts2
+            # Интерполируем между ts1 и ts2
             gap = ts2 - ts1
             num_frames = max(1, int(gap * fps))
 
@@ -226,7 +225,7 @@ class CameraTrajectoryHistory:
                 t_interp = ts1 + (j / (num_frames + 1)) * gap
                 alpha = j / (num_frames + 1)
 
-                # Linear interpolation
+                # Линейная интерполяция
                 x = (1 - alpha) * p1['x'] + alpha * p2['x']
                 y = (1 - alpha) * p1['y'] + alpha * p2['y']
 
@@ -239,12 +238,36 @@ class CameraTrajectoryHistory:
                 }
                 added_count += 1
 
-        # Add last point
+        # Добавляем последнюю точку
         interpolated[times[-1]] = self.camera_trajectory[times[-1]]
 
         self.camera_trajectory = interpolated
 
         logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps")
+
+    def populate_from_ball_and_players(self, ball_history_dict, players_history):
+        """
+        [DEPRECATED] Используй populate_camera_trajectory_from_ball_history() вместо этого.
+
+        Это старая функция, оставлена для обратной совместимости.
+        """
+        self.populate_camera_trajectory_from_ball_history(ball_history_dict, players_history)
+
+    def smooth_trajectory(self, window_size=5, threshold_px=None):
+        """
+        [DEPRECATED] Используй populate_camera_trajectory_from_ball_history() вместо этого.
+
+        Эта функция теперь вызывается внутри populate_camera_trajectory_from_ball_history().
+        """
+        logger.warning("⚠️ smooth_trajectory() is deprecated. Use populate_camera_trajectory_from_ball_history()")
+
+    def interpolate_gaps(self, fps=30):
+        """
+        [DEPRECATED] Используй populate_camera_trajectory_from_ball_history() вместо этого.
+
+        Эта функция теперь вызывается внутри populate_camera_trajectory_from_ball_history().
+        """
+        logger.warning("⚠️ interpolate_gaps() is deprecated. Use populate_camera_trajectory_from_ball_history()")
 
     def get_point_for_timestamp(self, timestamp, max_delta=0.1):
         """

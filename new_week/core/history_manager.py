@@ -334,24 +334,18 @@ class HistoryManager:
             self.processed_future_history = self.storage.processed_future_history
             self.interpolated_history = self.storage.interpolated_history
 
-            # CAMERA TRAJECTORY: Populate IMMEDIATELY from ball history
-            # This ensures we detect the ORIGINAL gaps > 3s BEFORE they get interpolated
-            # Then we fill those gaps with player COM, and finally interpolate the rest
+            # CAMERA TRAJECTORY: Одна монолитная функция для полной обработки
+            # Делает всё в одном проходе:
+            # 1. Заполняет из истории мяча
+            # 2. Обнаруживает разрывы > 3s и заполняет player COM
+            # 3. Сглаживает outliers
+            # 4. Интерполирует для smooth 30fps движения
             if self.players_history:
-                # Step 1: Populate from processed_future_history (with original gaps!)
-                # This will use all ball points AND detect gaps > 3s to fill with player positions
-                # After gap filling, we'll interpolate the remaining small gaps
-                self.camera_trajectory.populate_from_ball_and_players(
-                    self.storage.processed_future_history,  # Use RAW history (with gaps!)
-                    self.players_history
+                self.camera_trajectory.populate_camera_trajectory_from_ball_history(
+                    self.storage.processed_future_history,  # Очищенная от выбросов история мяча
+                    self.players_history,
+                    fps=30
                 )
-                # Step 2: Smooth to remove sharp jumps
-                self.camera_trajectory.smooth_trajectory(
-                    window_size=5,
-                    threshold_px=300
-                )
-                # Step 3: Interpolate remaining gaps for smooth motion
-                self.camera_trajectory.interpolate_gaps(fps=30)
 
                 # Log trajectory stats every 30 frames
                 if self.frame_counter % 30 == 0:
