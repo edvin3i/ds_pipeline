@@ -353,6 +353,13 @@ class HistoryManager:
                     logger.info(f"📹 CAMERA_TRAJ: {stats['total_points']} points, "
                               f"sources={stats['sources']}")
 
+                # Print trajectory summary every 60 frames (2 seconds at 30fps)  AFTER stabilization
+                if self.frame_counter % 60 == 0 and self.frame_counter > 300:
+                    self.camera_trajectory.print_full_trajectory(
+                        label=f"TRAJ_DUMP @ frame {self.frame_counter}",
+                        max_points=10  # Only show first 5 + last 5 points to reduce spam
+                    )
+
     def clean_detection_history(self, history, preserve_recent_seconds=0.5,
                                outlier_threshold=2.5, window_size=3):
         """

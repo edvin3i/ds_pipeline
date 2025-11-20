@@ -152,10 +152,13 @@ class CameraTrajectoryHistory:
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
         # ===== ЭТАП 2: Фильтрование временных движений (разворотов) =====
-        self._filter_temporary_movements()
+        # self._filter_temporary_movements()  # DISABLED FOR NOW
 
         # ===== ЭТАП 3: Финальная интерполяция для 30fps =====
         self._interpolate_gaps_internal(fps)
+
+        # ===== ЭТАП 4: Масштабирование мяча по скорости =====
+        self._apply_speed_scaling()
 
     def _filter_temporary_movements(self):
         """
@@ -280,6 +283,95 @@ class CameraTrajectoryHistory:
 
         logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps")
 
+    def _get_ball_scale(self, distance_px):
+        """
+        Линейное увеличение размера мяча в зависимости от расстояния между кадрами.
+
+        Args:
+            distance_px: расстояние между двумя соседними точками (в пиксelях)
+
+        Returns:
+            float: масштаб мяча (от 1.0 до 2.5)
+
+        Логика:
+        - distance_px < 50: scale = 1.0 (не реагируем на медленное движение)
+        - 50 <= distance_px <= 500: scale плавно растёт от 1.0 к 2.5
+        - distance_px > 500: scale = 2.5 (максимум, clamped)
+        """
+        min_distance = 50
+        max_distance = 500
+        min_scale = 1.0
+        max_scale = 2.5
+
+        if distance_px < min_distance:
+            return 1.0
+
+        if distance_px >= max_distance:
+            return 2.5
+
+        # Линейная интерполяция в диапазоне [50, 500]
+        t = (distance_px - min_distance) / (max_distance - min_distance)  # t ∈ [0, 1]
+        scale = min_scale + t * (max_scale - min_scale)
+
+        return scale
+
+    def _apply_speed_scaling(self):
+        """
+        После интерполяции добавляем ball_scale к каждой точке.
+
+        ball_scale определяет размер мяча на основе скорости движения.
+        Сразу применяем коэффициент к 'radius' или 'width' мяча в point dict.
+        """
+        times = sorted(self.camera_trajectory.keys())
+
+        if len(times) < 2:
+            # Если мало точек, просто установим scale = 1.0 для всех
+            for point in self.camera_trajectory.values():
+                point['ball_scale'] = 1.0
+            return
+
+        # Проходим по каждой точке, начиная со второй
+        distances = []
+        for i in range(1, len(times)):
+            curr_time = times[i]
+            prev_time = times[i - 1]
+
+            curr_point = self.camera_trajectory[curr_time]
+            prev_point = self.camera_trajectory[prev_time]
+
+            # Считаем расстояние между соседними точками (в пиксельях)
+            dx = curr_point['x'] - prev_point['x']
+            dy = curr_point['y'] - prev_point['y']
+            distance = math.sqrt(dx ** 2 + dy ** 2)
+            distances.append(distance)
+
+            # Получаем scale на основе расстояния
+            scale = self._get_ball_scale(distance)
+
+            # Добавляем в точку
+            curr_point['ball_scale'] = scale
+
+        # Для первой точки используем значение от второй
+        if len(times) > 1:
+            self.camera_trajectory[times[0]]['ball_scale'] = \
+                self.camera_trajectory[times[1]]['ball_scale']
+        else:
+            self.camera_trajectory[times[0]]['ball_scale'] = 1.0
+
+        # Логирование статистики
+        scales = [p.get('ball_scale', 1.0) for p in self.camera_trajectory.values()]
+        if scales:
+            min_scale = min(scales)
+            max_scale = max(scales)
+            avg_scale = sum(scales) / len(scales)
+            msg = f"📊 SPEED_SCALING: scale range [{min_scale:.2f}, {max_scale:.2f}], average={avg_scale:.2f}, points={len(self.camera_trajectory)}"
+            if distances:
+                min_dist = min(distances)
+                max_dist = max(distances)
+                avg_dist = sum(distances) / len(distances)
+                msg += f" | distance range [{min_dist:.2f}, {max_dist:.2f}], avg={avg_dist:.2f}"
+            logger.info(msg)
+
     def populate_from_ball_and_players(self, ball_history_dict, players_history):
         """
         [DEPRECATED] Используй populate_camera_trajectory_from_ball_history() вместо этого.
@@ -348,6 +440,53 @@ class CameraTrajectoryHistory:
                 segment.append(self.camera_trajectory[ts].copy())
 
         return segment
+
+    def print_full_trajectory(self, label="TRAJECTORY", max_points=50):
+        """
+        Выводит полную траекторию для анализа (первые N и последние N точек).
+
+        Args:
+            label: префикс для вывода
+            max_points: максимум точек для вывода (первые N и последние N)
+        """
+        if not self.camera_trajectory:
+            logger.info(f"📭 {label}: Empty trajectory")
+            return
+
+        times = sorted(self.camera_trajectory.keys())
+        sources_count = {}
+
+        # Count sources
+        for ts in times:
+            source = self.camera_trajectory[ts].get('source_type', 'unknown')
+            sources_count[source] = sources_count.get(source, 0) + 1
+
+        # First, log summary
+        summary = f"\n{'='*100}\n📊 {label}: {len(self.camera_trajectory)} points total, time span [{times[0]:.2f}, {times[-1]:.2f}]s, sources={sources_count}\n"
+        logger.info(summary)
+        print(summary)
+
+        # Then log first N and last N points
+        display_times = list(times[:max_points//2]) + list(times[-(max_points//2):])
+
+        header = f"📍 First {max_points//2} + Last {max_points//2} points:\n"
+        logger.info(header)
+        print(header)
+
+        for i, ts in enumerate(display_times):
+            if i == max_points//2 and len(times) > max_points:
+                omitted_msg = f"  ... ({len(times) - max_points} points omitted) ...\n"
+                logger.info(omitted_msg)
+                print(omitted_msg)
+
+            point = self.camera_trajectory[ts]
+            source = point.get('source_type', 'unknown')
+            scale = point.get('ball_scale', 'N/A')
+            scale_str = f"{scale:.2f}" if isinstance(scale, float) else str(scale)
+
+            line = f"  t={ts:7.2f}: ({point['x']:7.0f}, {point['y']:7.0f}) [{source:15s}] scale={scale_str:5s} conf={point.get('confidence', 0.0):.2f}\n"
+            logger.info(line)
+            print(line, end='')
 
     def get_stats(self):
         """Get statistics about the trajectory."""
