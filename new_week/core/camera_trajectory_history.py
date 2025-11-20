@@ -12,6 +12,7 @@ Builds camera trajectory from:
 
 import math
 import logging
+import numpy
 from typing import Dict, Optional, List, Tuple
 
 logger = logging.getLogger("panorama-virtualcam")
@@ -286,86 +287,114 @@ class CameraTrajectoryHistory:
 
         logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps")
 
-    def fill_gaps_in_trajectory(self, players_history):
+    def fill_gaps_in_trajectory(self, players_history, current_display_ts=None):
         """
         Заполняет пропуски В СУЩЕСТВУЮЩЕЙ траектории player COM.
 
         Эта функция вызывается ПОСЛЕ populate_camera_trajectory_from_ball_history(),
         чтобы заполнить пропуски МЕЖДУ последовательными вызовами populate().
 
-        Проверяет каждую пару соседних точек в camera_trajectory и если gap > max_gap,
-        заполняет его player COM точками.
+        Обрабатывает три случая:
+        1. Пропуски МЕЖДУ соседними точками траектории (gap > max_gap)
+        2. ПУСТАЯ траектория (начало работы) → заполняет от 0 до текущего времени
+        3. Долгая потеря мяча (история очищена) → заполняет от последней известной точки
 
         Args:
             players_history: PlayersHistory object для получения COM позиций
+            current_display_ts: Текущее время отображения (для случая пустой истории)
         """
-        if not self.camera_trajectory or len(self.camera_trajectory) < 2:
+        if not players_history:
             return
 
-        times = sorted(self.camera_trajectory.keys())
+        times = sorted(self.camera_trajectory.keys()) if self.camera_trajectory else []
         gaps_found = 0
 
-        # Проверяем каждую пару соседних точек
-        for i in range(len(times) - 1):
-            ts = times[i]
-            ts_next = times[i + 1]
-            gap = ts_next - ts
+        # ===== СЛУЧАЙ 1: ПУСТАЯ траектория (начало или полная очистка) =====
+        if not times and current_display_ts is not None:
+            logger.info(f"⚠️ EMPTY TRAJECTORY at ts={current_display_ts:.2f} - filling from t=0 with player COM")
 
-            # Если gap > max_gap → заполняем player COM
-            if gap > self.max_gap:
-                gaps_found += 1
-                logger.info(f"🔴 FILL GAP: {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}")
+            # Заполняем от начала (t≈0) до текущего времени с шагом 0.5s
+            frame_step = 15  # 0.5s при 30fps
+            start_ts = max(0, current_display_ts - 5.0)  # Начинаем с 5 сек назад (или с 0)
 
-                # Получаем позиции для заполнения
-                current_point = self.camera_trajectory[ts]
-                next_point = self.camera_trajectory[ts_next]
-                next_x = next_point['x']
-                next_y = next_point['y']
+            for current_ts in numpy.arange(start_ts, current_display_ts, 1.0 / frame_step):
+                player_com = players_history.get_player_com_for_timestamp(current_ts)
+                if player_com:
+                    self.camera_trajectory[float(current_ts)] = {
+                        'x': float(player_com[0]),
+                        'y': float(player_com[1]),
+                        'timestamp': float(current_ts),
+                        'source_type': 'player_init',  # Маркируем как инициальное заполнение
+                        'confidence': 0.25
+                    }
 
-                # Заполняем разрыв player COM с шагом 0.5s (15 кадров)
-                frame_step = 15
-                num_frames = int(gap * 30)
-                points_added = 0
+            logger.info(f"✓ Filled empty trajectory with {len(self.camera_trajectory)} player COM points")
+            gaps_found += 1
 
-                for frame_idx in range(frame_step, num_frames, frame_step):
-                    current_ts = ts + (frame_idx / 30.0)
+        # ===== СЛУЧАЙ 2: Пропуски МЕЖДУ соседними точками =====
+        elif len(times) >= 2:
+            for i in range(len(times) - 1):
+                ts = times[i]
+                ts_next = times[i + 1]
+                gap = ts_next - ts
 
-                    # Не добавляем точку слишком близко к концу
-                    if current_ts >= ts_next - 0.2:
-                        break
+                # Если gap > max_gap → заполняем player COM
+                if gap > self.max_gap:
+                    gaps_found += 1
+                    logger.info(f"🔴 FILL GAP: {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}")
 
-                    player_com = players_history.get_player_com_for_timestamp(current_ts)
+                    # Получаем позиции для заполнения
+                    current_point = self.camera_trajectory[ts]
+                    next_point = self.camera_trajectory[ts_next]
+                    next_x = next_point['x']
+                    next_y = next_point['y']
+
+                    # Заполняем разрыв player COM с шагом 0.5s (15 кадров)
+                    frame_step = 15
+                    num_frames = int(gap * 30)
+                    points_added = 0
+
+                    for frame_idx in range(frame_step, num_frames, frame_step):
+                        current_ts = ts + (frame_idx / 30.0)
+
+                        # Не добавляем точку слишком близко к концу
+                        if current_ts >= ts_next - 0.2:
+                            break
+
+                        player_com = players_history.get_player_com_for_timestamp(current_ts)
+
+                        if player_com:
+                            self.camera_trajectory[float(current_ts)] = {
+                                'x': float(player_com[0]),
+                                'y': float(player_com[1]),
+                                'timestamp': float(current_ts),
+                                'source_type': 'player',
+                                'confidence': 0.35
+                            }
+                            points_added += 1
+
+                    # Добавляем blend точку перед восстановлением мяча
+                    transition_ts = ts + gap * 0.85
+                    player_com = players_history.get_player_com_for_timestamp(transition_ts)
 
                     if player_com:
-                        self.camera_trajectory[float(current_ts)] = {
-                            'x': float(player_com[0]),
-                            'y': float(player_com[1]),
-                            'timestamp': float(current_ts),
-                            'source_type': 'player',
-                            'confidence': 0.35
+                        alpha = 0.5
+                        blend_x = (1 - alpha) * player_com[0] + alpha * next_x
+                        blend_y = (1 - alpha) * player_com[1] + alpha * next_y
+
+                        self.camera_trajectory[float(transition_ts)] = {
+                            'x': blend_x,
+                            'y': blend_y,
+                            'timestamp': float(transition_ts),
+                            'source_type': 'blend',
+                            'confidence': 0.4
                         }
-                        points_added += 1
+                        logger.info(f"  ✅ Added {points_added} player COM + 1 blend point to fill gap")
 
-                # Добавляем blend точку перед восстановлением мяча
-                transition_ts = ts + gap * 0.85
-                player_com = players_history.get_player_com_for_timestamp(transition_ts)
-
-                if player_com:
-                    alpha = 0.5
-                    blend_x = (1 - alpha) * player_com[0] + alpha * next_x
-                    blend_y = (1 - alpha) * player_com[1] + alpha * next_y
-
-                    self.camera_trajectory[float(transition_ts)] = {
-                        'x': blend_x,
-                        'y': blend_y,
-                        'timestamp': float(transition_ts),
-                        'source_type': 'blend',
-                        'confidence': 0.4
-                    }
-                    logger.info(f"  ✅ Added {points_added} player COM + 1 blend point to fill gap")
-
+        # Логирование итогов
         if gaps_found > 0:
-            logger.info(f"📊 fill_gaps_in_trajectory: Found and filled {gaps_found} gaps")
+            logger.info(f"📊 fill_gaps_in_trajectory: Found and filled {gaps_found} gaps, "
+                       f"total trajectory points: {len(self.camera_trajectory)}")
         else:
             logger.info(f"✓ fill_gaps_in_trajectory: No gaps > {self.max_gap}s found")
 
