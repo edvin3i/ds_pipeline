@@ -151,6 +151,9 @@ class CameraTrajectoryHistory:
 
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
+        # ===== ВЫВОД ПЕРЕД ИНТЕРПОЛЯЦИЕЙ =====
+        self._dump_trajectory_before_interpolation()
+
         # ===== ЭТАП 2: Фильтрование временных движений (разворотов) =====
         # self._filter_temporary_movements()  # DISABLED FOR NOW
 
@@ -282,6 +285,151 @@ class CameraTrajectoryHistory:
         self.camera_trajectory = interpolated
 
         logger.info(f"📍 CAMERA_TRAJ: Interpolated {added_count} points across gaps")
+
+    def fill_gaps_in_trajectory(self, players_history):
+        """
+        Заполняет пропуски В СУЩЕСТВУЮЩЕЙ траектории player COM.
+
+        Эта функция вызывается ПОСЛЕ populate_camera_trajectory_from_ball_history(),
+        чтобы заполнить пропуски МЕЖДУ последовательными вызовами populate().
+
+        Проверяет каждую пару соседних точек в camera_trajectory и если gap > max_gap,
+        заполняет его player COM точками.
+
+        Args:
+            players_history: PlayersHistory object для получения COM позиций
+        """
+        if not self.camera_trajectory or len(self.camera_trajectory) < 2:
+            return
+
+        times = sorted(self.camera_trajectory.keys())
+        gaps_found = 0
+
+        # Проверяем каждую пару соседних точек
+        for i in range(len(times) - 1):
+            ts = times[i]
+            ts_next = times[i + 1]
+            gap = ts_next - ts
+
+            # Если gap > max_gap → заполняем player COM
+            if gap > self.max_gap:
+                gaps_found += 1
+                logger.info(f"🔴 FILL GAP: {gap:.2f}s > {self.max_gap}s at ts={ts:.2f}→{ts_next:.2f}")
+
+                # Получаем позиции для заполнения
+                current_point = self.camera_trajectory[ts]
+                next_point = self.camera_trajectory[ts_next]
+                next_x = next_point['x']
+                next_y = next_point['y']
+
+                # Заполняем разрыв player COM с шагом 0.5s (15 кадров)
+                frame_step = 15
+                num_frames = int(gap * 30)
+                points_added = 0
+
+                for frame_idx in range(frame_step, num_frames, frame_step):
+                    current_ts = ts + (frame_idx / 30.0)
+
+                    # Не добавляем точку слишком близко к концу
+                    if current_ts >= ts_next - 0.2:
+                        break
+
+                    player_com = players_history.get_player_com_for_timestamp(current_ts)
+
+                    if player_com:
+                        self.camera_trajectory[float(current_ts)] = {
+                            'x': float(player_com[0]),
+                            'y': float(player_com[1]),
+                            'timestamp': float(current_ts),
+                            'source_type': 'player',
+                            'confidence': 0.35
+                        }
+                        points_added += 1
+
+                # Добавляем blend точку перед восстановлением мяча
+                transition_ts = ts + gap * 0.85
+                player_com = players_history.get_player_com_for_timestamp(transition_ts)
+
+                if player_com:
+                    alpha = 0.5
+                    blend_x = (1 - alpha) * player_com[0] + alpha * next_x
+                    blend_y = (1 - alpha) * player_com[1] + alpha * next_y
+
+                    self.camera_trajectory[float(transition_ts)] = {
+                        'x': blend_x,
+                        'y': blend_y,
+                        'timestamp': float(transition_ts),
+                        'source_type': 'blend',
+                        'confidence': 0.4
+                    }
+                    logger.info(f"  ✅ Added {points_added} player COM + 1 blend point to fill gap")
+
+        if gaps_found > 0:
+            logger.info(f"📊 fill_gaps_in_trajectory: Found and filled {gaps_found} gaps")
+        else:
+            logger.info(f"✓ fill_gaps_in_trajectory: No gaps > {self.max_gap}s found")
+
+    def _dump_trajectory_before_interpolation(self):
+        """
+        Выводит всю траектории ДО интерполяции.
+
+        Показывает:
+        - Какие точки исходные от мяча (source_type='ball')
+        - Какие точки добавлены для заполнения gaps (source_type='player')
+        - Какие точки переходные (source_type='blend')
+
+        Это помогает понять структуру заполнения пропусков.
+        """
+        if not self.camera_trajectory:
+            print("❌ TRAJECTORY EMPTY BEFORE INTERPOLATION")
+            return
+
+        times = sorted(self.camera_trajectory.keys())
+        print(f"\n{'='*100}")
+        print(f"📊 TRAJECTORY BEFORE INTERPOLATION: {len(self.camera_trajectory)} points")
+        print(f"{'='*100}")
+
+        # Группируем по source_type для статистики
+        source_counts = {}
+        for ts in times:
+            source = self.camera_trajectory[ts].get('source_type', 'unknown')
+            source_counts[source] = source_counts.get(source, 0) + 1
+
+        print(f"Source breakdown: {source_counts}")
+        print(f"{'='*100}")
+        print(f"{'Время':<10} {'X':<8} {'Y':<8} {'Тип':<20} {'Confidence':<12} {'Расстояние':<12}")
+        print(f"{'-'*100}")
+
+        prev_x, prev_y = None, None
+
+        for ts in times:
+            point = self.camera_trajectory[ts]
+            x = point.get('x', 0)
+            y = point.get('y', 0)
+            source = point.get('source_type', 'unknown')
+            conf = point.get('confidence', 0)
+
+            # Вычисляем расстояние от предыдущей точки
+            if prev_x is not None and prev_y is not None:
+                distance = ((x - prev_x)**2 + (y - prev_y)**2)**0.5
+                dist_str = f"{distance:6.1f}px"
+            else:
+                dist_str = "-"
+
+            # Форматируем вывод
+            source_name = {
+                'ball': '🔴 BALL',
+                'player': '🔵 PLAYER_COM',
+                'blend': '🟡 BLEND',
+                'interpolated': '⚪ INTERP',
+                'interpolated_ball': '⚪ INTERP_BALL'
+            }.get(source, f"? {source}")
+
+            print(f"{ts:7.2f}s  {x:7.0f} {y:7.0f} {source_name:<20} {conf:6.2f}    {dist_str}")
+
+            prev_x, prev_y = x, y
+
+        print(f"{'='*100}\n")
 
     def _get_ball_scale(self, distance_px):
         """

@@ -347,6 +347,11 @@ class HistoryManager:
                     fps=30
                 )
 
+                # ===== ЭТАП 1.5: Заполнить пропуски МЕЖДУ вызовами populate() =====
+                # Пропуски между последовательными детекциями мяча (например, 6.5-7s)
+                # обнаруживаются В СУЩЕСТВУЮЩЕЙ траектории
+                self.camera_trajectory.fill_gaps_in_trajectory(self.players_history)
+
                 # Log trajectory stats every 30 frames
                 if self.frame_counter % 30 == 0:
                     stats = self.camera_trajectory.get_stats()
