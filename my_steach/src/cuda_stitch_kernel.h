@@ -43,6 +43,24 @@ cudaError_t load_panorama_luts(
     int lut_height
 );
 
+// PHASE 2: Загрузка LUT карт в texture memory для оптимизации
+cudaError_t load_panorama_luts_textured(
+    const char* left_x_path,
+    const char* left_y_path,
+    const char* right_x_path,
+    const char* right_y_path,
+    const char* weight_left_path,
+    const char* weight_right_path,
+    float** lut_left_x_gpu,
+    float** lut_left_y_gpu,
+    float** lut_right_x_gpu,
+    float** lut_right_y_gpu,
+    float** weight_left_gpu,
+    float** weight_right_gpu,
+    int lut_width,
+    int lut_height
+);
+
 // Запуск панорамного kernel
 cudaError_t launch_panorama_kernel(
     const unsigned char* input_left,
