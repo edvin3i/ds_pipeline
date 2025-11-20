@@ -103,12 +103,19 @@ class CameraTrajectoryHistory:
                     next_x = float(next_detection[6])
                     next_y = float(next_detection[7])
 
-                    # Заполняем разрыв player COM каждые 2 секунды
-                    current_ts = ts
-                    fill_step = 2.0
+                    # ===== Заполняем разрыв player COM с шагом для 30fps =====
+                    # Для 4с разрыва: 4 * 30 = 120 интерполяций, но показываем каждый 15-й кадр = 8 точек
+                    frame_step = 15  # Показываем каждый 15-й кадр (0.5с при 30fps)
+                    num_frames = int(gap * 30)  # Всего кадров в разрыве
+                    points_added = 0
 
-                    while current_ts + fill_step < ts_next - 2.0:
-                        current_ts += fill_step
+                    for frame_idx in range(frame_step, num_frames, frame_step):
+                        current_ts = ts + (frame_idx / 30.0)
+
+                        # Не добавляем точку слишком близко к концу (оставляем место для переходной точки)
+                        if current_ts >= ts_next - 0.2:
+                            break
+
                         player_com = players_history.get_player_com_for_timestamp(current_ts)
 
                         if player_com:
@@ -119,34 +126,36 @@ class CameraTrajectoryHistory:
                                 'source_type': 'player',
                                 'confidence': 0.35
                             }
-                            logger.info(f"  ➕ Player COM at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
+                            points_added += 1
+                            logger.info(f"  ➕ Player COM[{points_added}] at ts={current_ts:.2f}: ({player_com[0]:.0f}, {player_com[1]:.0f})")
 
-                    # Добавляем плавный переход (50% игрок, 50% мяч)
-                    if current_ts < ts_next - 0.1:
-                        transition_ts = current_ts + (ts_next - current_ts) * 0.5
-                        player_com = players_history.get_player_com_for_timestamp(transition_ts)
+                    # ===== Добавляем плавный переход (blend) перед восстановлением мяча =====
+                    transition_ts = ts + gap * 0.85  # 85% пути в разрыв
+                    player_com = players_history.get_player_com_for_timestamp(transition_ts)
 
-                        if player_com:
-                            alpha = 0.5
-                            blend_x = (1 - alpha) * player_com[0] + alpha * next_x
-                            blend_y = (1 - alpha) * player_com[1] + alpha * next_y
+                    if player_com:
+                        alpha = 0.5  # 50% игрок, 50% мяч
+                        blend_x = (1 - alpha) * player_com[0] + alpha * next_x
+                        blend_y = (1 - alpha) * player_com[1] + alpha * next_y
 
-                            self.camera_trajectory[float(transition_ts)] = {
-                                'x': blend_x,
-                                'y': blend_y,
-                                'timestamp': float(transition_ts),
-                                'source_type': 'player',
-                                'confidence': 0.3
-                            }
-                            logger.info(f"  ➕ Blend at ts={transition_ts:.2f}: ({blend_x:.0f}, {blend_y:.0f})")
+                        self.camera_trajectory[float(transition_ts)] = {
+                            'x': blend_x,
+                            'y': blend_y,
+                            'timestamp': float(transition_ts),
+                            'source_type': 'blend',
+                            'confidence': 0.4
+                        }
+                        logger.info(f"  ➕ Blend[transition] at ts={transition_ts:.2f}: ({blend_x:.0f}, {blend_y:.0f})")
+
+                    logger.info(f"  📊 Filled gap with {points_added} player COM points + 1 blend point")
 
         logger.info(f"📍 CAMERA_TRAJ: Loaded {len(self.camera_trajectory)} points (ball + player fills)")
 
         # ===== ЭТАП 2: Сглаживание outliers =====
-        self._smooth_trajectory_internal()
+        # self._smooth_trajectory_internal()
 
         # ===== ЭТАП 3: Финальная интерполяция для 30fps =====
-        self._interpolate_gaps_internal(fps)
+        # self._interpolate_gaps_internal(fps)
 
     def _smooth_trajectory_internal(self):
         """
