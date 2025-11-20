@@ -218,6 +218,9 @@ class CameraTrajectoryHistory:
         # ===== ЭТАП 3: Финальная интерполяция для 30fps =====
         self._interpolate_gaps_internal(fps)
 
+        # ===== ЗАПИСЬ ЛОГА ПОСЛЕ ИНТЕРПОЛЯЦИИ ДЛЯ ПРОВЕРКИ =====
+        self._save_trajectory_after_interpolation_log()
+
         # ===== ЭТАП 4: Масштабирование мяча по скорости =====
         self._apply_speed_scaling()
 
@@ -592,6 +595,123 @@ class CameraTrajectoryHistory:
             f.write(f"{'='*120}\n\n")
 
         logger.info(f"💾 Trajectory debug log saved to {log_file}")
+
+    def _save_trajectory_after_interpolation_log(self):
+        """
+        Сохраняет лог траектории ПОСЛЕ интерполяции для проверки корректности.
+
+        Это помогает проверить, что:
+        1. Интерполяция добавила INTERP точки между BALL точками
+        2. PLAYER_COM и BLEND точки остались без интерполяции
+        3. Нет артефактов (spurious points) в заполненных разрывах
+        """
+        if not self.camera_trajectory:
+            return
+
+        import os
+        log_file = "/tmp/camera_trajectory_after_interpolation.log"
+
+        times = sorted(self.camera_trajectory.keys())
+
+        with open(log_file, "a") as f:
+            f.write(f"\n{'='*120}\n")
+            f.write(f"📊 TRAJECTORY AFTER INTERPOLATION: {len(self.camera_trajectory)} points\n")
+            f.write(f"Time span: [{times[0]:.2f}, {times[-1]:.2f}]s\n")
+            f.write(f"{'='*120}\n")
+
+            # Статистика по source_type
+            source_counts = {}
+            for ts in times:
+                source = self.camera_trajectory[ts].get('source_type', 'unknown')
+                source_counts[source] = source_counts.get(source, 0) + 1
+
+            f.write(f"Source breakdown: {source_counts}\n")
+            f.write(f"{'='*120}\n")
+
+            # Заголовок таблицы
+            f.write(f"{'Time':<10} {'X':<10} {'Y':<10} {'Type':<20} {'Conf':<8} {'Distance':<10} {'Gap to next':<12}\n")
+            f.write(f"{'-'*120}\n")
+
+            prev_x, prev_y = None, None
+
+            for i, ts in enumerate(times):
+                point = self.camera_trajectory[ts]
+                x = point.get('x', 0)
+                y = point.get('y', 0)
+                source = point.get('source_type', 'unknown')
+                conf = point.get('confidence', 0)
+
+                # Расстояние от предыдущей точки
+                if prev_x is not None and prev_y is not None:
+                    distance = ((x - prev_x)**2 + (y - prev_y)**2)**0.5
+                    dist_str = f"{distance:6.1f}px"
+                else:
+                    dist_str = "-"
+
+                # Разрыв до следующей точки
+                if i + 1 < len(times):
+                    gap = times[i + 1] - ts
+                    gap_str = f"{gap:6.2f}s"
+                else:
+                    gap_str = "-"
+
+                source_name = {
+                    'ball': 'BALL',
+                    'player': 'PLAYER_COM',
+                    'player_only': 'PLAYER_ONLY',
+                    'player_init': 'PLAYER_INIT',
+                    'blend': 'BLEND',
+                    'interpolated': 'INTERP',
+                    'interpolated_ball': 'INTERP_BALL'
+                }.get(source, f"UNK_{source}")
+
+                f.write(f"{ts:7.2f}s  {x:7.0f}  {y:7.0f}  {source_name:<20} {conf:6.2f}  {dist_str:<10} {gap_str:<12}\n")
+
+                prev_x, prev_y = x, y
+
+            f.write(f"{'-'*120}\n")
+
+            # Анализ interpolated vs original points
+            f.write("\n📊 INTERPOLATION ANALYSIS:\n")
+            interp_count = sum(1 for ts in times if self.camera_trajectory[ts].get('source_type') == 'interpolated')
+            interp_ball_count = sum(1 for ts in times if self.camera_trajectory[ts].get('source_type') == 'interpolated_ball')
+            ball_count = sum(1 for ts in times if self.camera_trajectory[ts].get('source_type') == 'ball')
+            player_count = sum(1 for ts in times if self.camera_trajectory[ts].get('source_type') in ['player', 'player_only'])
+
+            f.write(f"  BALL points (original): {ball_count}\n")
+            f.write(f"  INTERP points (added): {interp_count}\n")
+            f.write(f"  INTERP_BALL points (added): {interp_ball_count}\n")
+            f.write(f"  PLAYER/PLAYER_ONLY fills: {player_count}\n")
+
+            # Анализ разрывов между BALL точками (должны быть заполнены INTERP)
+            f.write("\n🔍 GAP FILL CHECK (BALL → BALL transitions):\n")
+            ball_times = [t for t in times if self.camera_trajectory[t].get('source_type') == 'ball']
+
+            for i in range(len(ball_times) - 1):
+                curr_ball_time = ball_times[i]
+                next_ball_time = ball_times[i + 1]
+                gap_size = next_ball_time - curr_ball_time
+
+                # Count points between these two BALL points
+                points_between = sum(1 for t in times
+                                    if curr_ball_time < t < next_ball_time)
+
+                f.write(f"  BALL({curr_ball_time:.2f}s) → BALL({next_ball_time:.2f}s) : gap={gap_size:.2f}s, filled with {points_between} points\n")
+
+                if gap_size > 1.0 and points_between == 0:
+                    f.write(f"    ⚠️  WARNING: Large gap not filled with interpolated points!\n")
+                elif gap_size > 1.0 and points_between > 0:
+                    # Check what types of points fill this gap
+                    types_in_gap = {}
+                    for t in times:
+                        if curr_ball_time < t < next_ball_time:
+                            source = self.camera_trajectory[t].get('source_type', 'unknown')
+                            types_in_gap[source] = types_in_gap.get(source, 0) + 1
+                    f.write(f"    ✅ Filled by: {types_in_gap}\n")
+
+            f.write(f"{'='*120}\n\n")
+
+        logger.info(f"💾 Trajectory after interpolation log saved to {log_file}")
 
     def _dump_trajectory_before_interpolation(self):
         """
