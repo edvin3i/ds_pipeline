@@ -252,6 +252,11 @@ static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
         return FALSE;
     }
     stitch->intermediate_left_surf = (NvBufSurface *)map_info.data;
+    if (!stitch->intermediate_left_surf) {
+        LOG_ERROR(stitch, "Null surface pointer after mapping left intermediate buffer");
+        gst_buffer_unmap(stitch->intermediate_left, &map_info);
+        return FALSE;
+    }
     gst_buffer_unmap(stitch->intermediate_left, &map_info);
     
     if (!gst_buffer_map(stitch->intermediate_right, &map_info, GST_MAP_READWRITE)) {
@@ -259,6 +264,11 @@ static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
         return FALSE;
     }
     stitch->intermediate_right_surf = (NvBufSurface *)map_info.data;
+    if (!stitch->intermediate_right_surf) {
+        LOG_ERROR(stitch, "Null surface pointer after mapping right intermediate buffer");
+        gst_buffer_unmap(stitch->intermediate_right, &map_info);
+        return FALSE;
+    }
     gst_buffer_unmap(stitch->intermediate_right, &map_info);
     
 #ifdef __aarch64__
@@ -323,6 +333,11 @@ static gboolean setup_fixed_output_pool(GstNvdsStitch *stitch)
         }
         
         stitch->output_pool_fixed.surfaces[i] = (NvBufSurface *)map_info.data;
+        if (!stitch->output_pool_fixed.surfaces[i]) {
+            LOG_ERROR(stitch, "Null surface pointer after mapping output buffer %d", i);
+            gst_buffer_unmap(stitch->output_pool_fixed.buffers[i], &map_info);
+            return FALSE;
+        }
         gst_buffer_unmap(stitch->output_pool_fixed.buffers[i], &map_info);
         
 #ifdef __aarch64__
