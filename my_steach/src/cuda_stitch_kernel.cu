@@ -331,26 +331,26 @@ extern "C" cudaError_t update_color_correction_advanced(
                cudaGetErrorString(err));
         return err;
     }
-    
-    // Асинхронное копирование
-    cudaMemcpyAsync(ctx->h_sum_left, ctx->d_sum_left, 3 * sizeof(float), 
+
+    // Async copy results to pinned host memory
+    cudaMemcpyAsync(ctx->h_sum_left, ctx->d_sum_left, 3 * sizeof(float),
                     cudaMemcpyDeviceToHost, stream);
-    cudaMemcpyAsync(ctx->h_sum_right, ctx->d_sum_right, 3 * sizeof(float), 
+    cudaMemcpyAsync(ctx->h_sum_right, ctx->d_sum_right, 3 * sizeof(float),
                     cudaMemcpyDeviceToHost, stream);
-    cudaMemcpyAsync(ctx->h_count_left, ctx->d_count_left, sizeof(int), 
+    cudaMemcpyAsync(ctx->h_count_left, ctx->d_count_left, sizeof(int),
                     cudaMemcpyDeviceToHost, stream);
-    cudaMemcpyAsync(ctx->h_count_right, ctx->d_count_right, sizeof(int), 
+    cudaMemcpyAsync(ctx->h_count_right, ctx->d_count_right, sizeof(int),
                     cudaMemcpyDeviceToHost, stream);
-    
-    // ВАЖНО: НЕ делаем cudaStreamSynchronize здесь!
-    // Просто возвращаем успех
-    
+
+    // IMPORTANT: Do NOT call cudaStreamSynchronize here!
+    // Return immediately to allow async execution on low-priority stream
+
     return cudaSuccess;
 }
 
 
 // ============================================================================
-// СОВМЕСТИМОСТЬ: СТАРАЯ ПРОСТАЯ ВЕРСИЯ (deprecated)
+// BACKWARD COMPATIBILITY: LEGACY SIMPLE VERSION (deprecated)
 // ============================================================================
 extern "C" cudaError_t init_color_correction() {
     float initial_gains[6] = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
@@ -365,7 +365,7 @@ extern "C" cudaError_t init_color_correction() {
     return err;
 }
 
-// Заглушка для старой функции
+// Stub for legacy function (backward compatibility)
 extern "C" cudaError_t update_color_correction_simple(
     const unsigned char* left_frame,
     const unsigned char* right_frame,
@@ -376,7 +376,7 @@ extern "C" cudaError_t update_color_correction_simple(
     int pitch,
     cudaStream_t stream)
 {
-    // Просто возвращаем успех для совместимости
+    // Return success for backward compatibility (no-op)
     return cudaSuccess;
 }
 
@@ -852,7 +852,7 @@ __device__ inline uchar4 apply_color_correction_gamma(
 }
 
 // ============================================================================
-// ОСНОВНОЕ ЯДРО ПАНОРАМНОЙ СКЛЕЙКИ (С ИСПРАВЛЕНИЯМИ)
+// MAIN PANORAMA STITCHING KERNEL (WITH FIXES)
 // ============================================================================
 __global__ void panorama_lut_kernel(
     const unsigned char* __restrict__ input_left,
@@ -878,75 +878,75 @@ __global__ void panorama_lut_kernel(
     if (x >= output_width || y >= output_height) return;
     
     int lut_idx = y * output_width + x;
-    
-    // Читаем координаты из LUT
+
+    // Read coordinates from LUT
     float left_u = lut_left_x[lut_idx];
     float left_v = lut_left_y[lut_idx];
     float right_u = lut_right_x[lut_idx];
     float right_v = lut_right_y[lut_idx];
-    
-    // Читаем веса
+
+    // Read blending weights
     float w_left = weight_left[lut_idx];
     float w_right = weight_right[lut_idx];
-    
+
     uchar4 pixel_left = make_uchar4(0,0,0,0);
     uchar4 pixel_right = make_uchar4(0,0,0,0);
-    
-    // ВАЖНОЕ ИСПРАВЛЕНИЕ: Эффективные веса
-    float wL_eff = 0.0f;  // Эффективный вес левой камеры
-    float wR_eff = 0.0f;  // Эффективный вес правой камеры
-    
-    // Сэмплируем левую камеру ТОЛЬКО если координаты валидны
-    if (w_left > 0.001f && left_u >= 0 && left_u < input_width && 
+
+    // IMPORTANT FIX: Effective weights (only set if pixel successfully sampled)
+    float wL_eff = 0.0f;  // Effective weight for left camera
+    float wR_eff = 0.0f;  // Effective weight for right camera
+
+    // Sample left camera ONLY if coordinates are valid
+    if (w_left > 0.001f && left_u >= 0 && left_u < input_width &&
         left_v >= 0 && left_v < input_height) {
-        
+
         pixel_left = bilinear_sample(input_left, left_u, left_v,
                                      input_width, input_height, input_pitch);
 
         // Apply NEW color correction with gamma (Phase 1.5)
         pixel_left = apply_color_correction_gamma(pixel_left, true);
 
-        // Устанавливаем эффективный вес ТОЛЬКО если пиксель был получен
+        // Set effective weight ONLY if pixel was successfully sampled
         wL_eff = w_left;
     }
-    
-    // Сэмплируем правую камеру ТОЛЬКО если координаты валидны
-    if (w_right > 0.001f && right_u >= 0 && right_u < input_width && 
+
+    // Sample right camera ONLY if coordinates are valid
+    if (w_right > 0.001f && right_u >= 0 && right_u < input_width &&
         right_v >= 0 && right_v < input_height) {
-        
+
         pixel_right = bilinear_sample(input_right, right_u, right_v,
                                       input_width, input_height, input_pitch);
 
         // Apply NEW color correction with gamma (Phase 1.5)
         pixel_right = apply_color_correction_gamma(pixel_right, false);
 
-        // Устанавливаем эффективный вес ТОЛЬКО если пиксель был получен
+        // Set effective weight ONLY if pixel was successfully sampled
         wR_eff = w_right;
     }
-    
-    // ИСПРАВЛЕНО: Используем ЭФФЕКТИВНЫЕ веса для смешивания
+
+    // FIXED: Use EFFECTIVE weights for blending
     float4 result;
     const float eps = 1e-6f;
-    float total_weight = wL_eff + wR_eff + eps;  // Теперь используем wL_eff и wR_eff!
-    
-    // Смешиваем с эффективными весами
+    float total_weight = wL_eff + wR_eff + eps;  // Now using wL_eff and wR_eff!
+
+    // Blend using effective weights
     result.x = ((float)pixel_left.x * wL_eff + (float)pixel_right.x * wR_eff) / total_weight;
     result.y = ((float)pixel_left.y * wL_eff + (float)pixel_right.y * wR_eff) / total_weight;
     result.z = ((float)pixel_left.z * wL_eff + (float)pixel_right.z * wR_eff) / total_weight;
-    
-    // Опциональное усиление яркости по краям (ОТКЛЮЧЕНО по умолчанию)
+
+    // Optional edge brightness boost (DISABLED by default)
     if (enable_edge_boost) {
         float dist_x = fabsf(x - output_width * 0.5f) / (output_width * 0.5f);
         if (dist_x > 0.8f) {
             float brightness_boost = 1.0f + (dist_x - 0.8f) * 1.75f;
-            brightness_boost = fminf(1.35f, brightness_boost);  // Ограничиваем до 1.35x
+            brightness_boost = fminf(1.35f, brightness_boost);  // Cap at 1.35x
             result.x = fminf(255.0f, result.x * brightness_boost);
             result.y = fminf(255.0f, result.y * brightness_boost);
             result.z = fminf(255.0f, result.z * brightness_boost);
         }
     }
-    
-    // Записываем результат (с переворотом как у вас было)
+
+    // Write result (with flip as originally implemented)
     // Cast to size_t before arithmetic to prevent integer overflow
     size_t out_idx = ((size_t)output_height - 1 - (size_t)y) * output_pitch +
                      ((size_t)output_width - 1 - (size_t)x) * 4;
@@ -960,7 +960,7 @@ __global__ void panorama_lut_kernel(
 }
 
 // ============================================================================
-// БЕЗОПАСНАЯ ЗАГРУЗКА LUT С ВАЛИДАЦИЕЙ
+// SAFE LUT LOADING WITH VALIDATION
 // ============================================================================
 extern "C" cudaError_t load_panorama_luts(
     const char* left_x_path,
@@ -979,10 +979,10 @@ extern "C" cudaError_t load_panorama_luts(
     int lut_height)
 {
     size_t expected_size = lut_width * lut_height * sizeof(float);
-    printf("Loading panorama LUT maps: %dx%d (%.2f MB each)\n", 
+    printf("Loading panorama LUT maps: %dx%d (%.2f MB each)\n",
            lut_width, lut_height, expected_size / (1024.0f * 1024.0f));
-    
-    // Структура для отслеживания выделенной памяти
+
+    // Structure for tracking allocated GPU memory
     struct GPUBuffer {
         float** ptr;
         bool allocated;
@@ -1009,8 +1009,8 @@ extern "C" cudaError_t load_panorama_luts(
     };
     
     cudaError_t err = cudaSuccess;
-    
-    // Функция очистки при ошибке
+
+    // Cleanup function for error handling
     auto cleanup = [&buffers]() {
         for (int i = 0; i < 6; i++) {
             if (buffers[i].allocated && *(buffers[i].ptr)) {
@@ -1019,8 +1019,8 @@ extern "C" cudaError_t load_panorama_luts(
             }
         }
     };
-    
-    // Выделяем память на GPU с проверкой
+
+    // Allocate GPU memory with validation
     for (int i = 0; i < 6; i++) {
         err = cudaMalloc(buffers[i].ptr, expected_size);
         if (err != cudaSuccess) {
@@ -1031,11 +1031,11 @@ extern "C" cudaError_t load_panorama_luts(
         }
         buffers[i].allocated = true;
     }
-    
-    // Временный буфер для загрузки и валидации
+
+    // Temporary buffer for loading and validation
     std::vector<float> temp_buffer(lut_width * lut_height);
-    
-    // Загружаем и проверяем каждый файл
+
+    // Load and validate each file
     for (int file_idx = 0; file_idx < 6; file_idx++) {
         std::ifstream file(paths[file_idx], std::ios::binary | std::ios::ate);
         
@@ -1044,8 +1044,8 @@ extern "C" cudaError_t load_panorama_luts(
             cleanup();
             return cudaErrorInvalidValue;
         }
-        
-        // Проверяем размер файла
+
+        // Validate file size
         size_t file_size = file.tellg();
         if (file_size != expected_size) {
             printf("ERROR: Invalid file size for %s: expected %zu, got %zu\n", 
@@ -1054,8 +1054,8 @@ extern "C" cudaError_t load_panorama_luts(
             cleanup();
             return cudaErrorInvalidValue;
         }
-        
-        // Читаем данные
+
+        // Read data
         file.seekg(0);
         file.read(reinterpret_cast<char*>(temp_buffer.data()), expected_size);
         
@@ -1066,37 +1066,37 @@ extern "C" cudaError_t load_panorama_luts(
             return cudaErrorInvalidValue;
         }
         file.close();
-        
-        // Валидация данных
-        bool is_coordinate = (file_idx < 4);  // x,y координаты
-        bool is_weight = (file_idx >= 4);     // веса
-        
+
+        // Data validation
+        bool is_coordinate = (file_idx < 4);  // x,y coordinates
+        bool is_weight = (file_idx >= 4);     // blending weights
+
         float min_val = FLT_MAX, max_val = -FLT_MAX;
         int invalid_count = 0;
         int nan_count = 0;
-        
+
         for (size_t i = 0; i < temp_buffer.size(); i++) {
             float val = temp_buffer[i];
-            
-            // Проверка на NaN и Inf
+
+            // Check for NaN and Inf
             if (!std::isfinite(val)) {
                 nan_count++;
-                temp_buffer[i] = 0.0f;  // Заменяем на безопасное значение
+                temp_buffer[i] = 0.0f;  // Replace with safe value
                 continue;
             }
-            
+
             min_val = fminf(min_val, val);
             max_val = fmaxf(max_val, val);
-            
-            // Валидация диапазонов
+
+            // Validate ranges
             if (is_coordinate) {
-                // Координаты должны быть в разумных пределах
+                // Coordinates should be within reasonable bounds
                 if (val < -1000.0f || val > 10000.0f) {
                     invalid_count++;
                     temp_buffer[i] = fmaxf(-1000.0f, fminf(10000.0f, val));
                 }
             } else if (is_weight) {
-                // Веса должны быть в [0, 1]
+                // Weights must be in [0, 1]
                 if (val < 0.0f || val > 1.0f) {
                     invalid_count++;
                     temp_buffer[i] = fmaxf(0.0f, fminf(1.0f, val));
@@ -1112,10 +1112,10 @@ extern "C" cudaError_t load_panorama_luts(
                    invalid_count, names[file_idx]);
         }
         
-        printf("  ✓ Loaded %s: range [%.3f, %.3f]\n", 
+        printf("  ✓ Loaded %s: range [%.3f, %.3f]\n",
                names[file_idx], min_val, max_val);
-        
-        // Копируем на GPU
+
+        // Copy to GPU
         err = cudaMemcpy(*(buffers[file_idx].ptr), temp_buffer.data(), 
                         expected_size, cudaMemcpyHostToDevice);
         
@@ -1132,9 +1132,9 @@ extern "C" cudaError_t load_panorama_luts(
 }
 
 // ============================================================================
-// ЗАПУСК ОСНОВНОГО KERNEL
+// KERNEL LAUNCH FUNCTIONS
 // ============================================================================
-// Новая версия с параметром edge_boost
+// New version with edge_boost parameter
 extern "C" cudaError_t launch_panorama_kernel_fixed(
     const unsigned char* input_left,
     const unsigned char* input_right,
@@ -1176,7 +1176,7 @@ extern "C" cudaError_t launch_panorama_kernel_fixed(
     return cudaGetLastError();
 }
 
-// Старая версия для совместимости
+// Legacy version for backward compatibility
 extern "C" cudaError_t launch_panorama_kernel(
     const unsigned char* input_left,
     const unsigned char* input_right,
@@ -1190,7 +1190,7 @@ extern "C" cudaError_t launch_panorama_kernel(
     const StitchKernelConfig* config,
     cudaStream_t stream)
 {
-    // Вызываем с отключенным edge boost по умолчанию
+    // Call with edge boost disabled by default
     return launch_panorama_kernel_fixed(
         input_left, input_right, output,
         lut_left_x, lut_left_y,
@@ -1200,7 +1200,7 @@ extern "C" cudaError_t launch_panorama_kernel(
 }
 
 // ============================================================================
-// ОСВОБОЖДЕНИЕ ПАМЯТИ
+// MEMORY CLEANUP
 // ============================================================================
 extern "C" void free_panorama_luts(
     float* lut_left_x,

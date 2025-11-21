@@ -1,4 +1,4 @@
-// cuda_stitch_kernel.h - Заголовочный файл только для панорамного режима
+// cuda_stitch_kernel.h - Header file for panorama stitching CUDA kernels
 #ifndef __CUDA_STITCH_KERNEL_H__
 #define __CUDA_STITCH_KERNEL_H__
 
@@ -12,21 +12,21 @@ typedef struct {
     int output_width;
     int output_height;
     int output_pitch;
-    int warp_width;   // Размер LUT
-    int warp_height;  // Размер LUT
-    int overlap;      // Не используется в панораме
-    int crop_top;     // Не используется в панораме
-    int crop_bottom;  // Не используется в панораме
-    int crop_sides;   // Не используется в панораме
-    int full_height;  // Не используется в панораме
-    int full_width;   // Не используется в панораме
+    int warp_width;   // LUT dimensions
+    int warp_height;  // LUT dimensions
+    int overlap;      // Not used in panorama mode
+    int crop_top;     // Not used in panorama mode
+    int crop_bottom;  // Not used in panorama mode
+    int crop_sides;   // Not used in panorama mode
+    int full_height;  // Not used in panorama mode
+    int full_width;   // Not used in panorama mode
 } StitchKernelConfig;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Загрузка LUT карт и весов для панорамы
+// Load LUT maps and blending weights for panorama stitching
 cudaError_t load_panorama_luts(
     const char* left_x_path,
     const char* left_y_path,
@@ -44,7 +44,7 @@ cudaError_t load_panorama_luts(
     int lut_height
 );
 
-// Запуск панорамного kernel
+// Launch panorama stitching kernel
 cudaError_t launch_panorama_kernel(
     const unsigned char* input_left,
     const unsigned char* input_right,
@@ -59,7 +59,7 @@ cudaError_t launch_panorama_kernel(
     cudaStream_t stream
 );
 
-// Освобождение памяти
+// Free GPU memory for LUT maps
 void free_panorama_luts(
     float* lut_left_x,
     float* lut_left_y,

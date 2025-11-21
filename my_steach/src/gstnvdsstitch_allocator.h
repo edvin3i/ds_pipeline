@@ -14,51 +14,51 @@
 G_BEGIN_DECLS
 
 #define GST_TYPE_NVDSSTITCH_ALLOCATOR (gst_nvdsstitch_allocator_get_type())
-G_DECLARE_FINAL_TYPE(GstNvdsStitchAllocator, gst_nvdsstitch_allocator, 
+G_DECLARE_FINAL_TYPE(GstNvdsStitchAllocator, gst_nvdsstitch_allocator,
                      GST, NVDSSTITCH_ALLOCATOR, GstAllocator)
 
-/* Структура памяти для stitch плагина с полной поддержкой EGL */
+/* Memory structure for stitch plugin with full EGL support */
 typedef struct {
     NvBufSurface *surf;
-    
-    /* Флаги состояния EGL */
+
+    /* EGL state flags */
     gboolean egl_mapped;
     gboolean cuda_registered;
-    
+
 #ifdef __aarch64__
-    /* Для SURFACE_ARRAY: CUDA ресурсы для EGL interop */
+    /* For SURFACE_ARRAY: CUDA resources for EGL interop */
     std::vector<CUgraphicsResource> cuda_resources;
     std::vector<CUeglFrame> egl_frames;
 #endif
-    
-    /* Указатели на память кадров */
+
+    /* Frame memory pointers */
     std::vector<void *> frame_memory_ptrs;
-    
-    /* Reference counting для безопасного управления */
+
+    /* Reference counting for safe memory management */
     gint ref_count;
     GMutex lock;
 } GstNvdsStitchMemory;
 
 struct _GstNvdsStitchAllocator {
     GstAllocator parent;
-    
+
     guint width;
     guint height;
     guint gpu_id;
-    
-    /* Настройки EGL */
+
+    /* EGL settings */
     gboolean use_egl;
-    
-    /* Статистика для отладки */
+
+    /* Statistics for debugging */
     guint total_allocated;
     guint total_freed;
 };
 
-/* API функции */
+/* API functions */
 GstAllocator *gst_nvdsstitch_allocator_new(guint width, guint height, guint gpu_id);
 GstNvdsStitchMemory *gst_nvdsstitch_buffer_get_memory(GstBuffer *buffer);
 
-/* EGL управление */
+/* EGL management */
 gboolean gst_nvdsstitch_memory_map_egl(GstNvdsStitchMemory *mem);
 void gst_nvdsstitch_memory_unmap_egl(GstNvdsStitchMemory *mem);
 gboolean gst_nvdsstitch_memory_register_cuda(GstNvdsStitchMemory *mem);

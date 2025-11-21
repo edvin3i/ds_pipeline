@@ -1,4 +1,4 @@
-// nvdsstitch_config.h - Конфигурация только для ПАНОРАМНОГО режима
+// nvdsstitch_config.h - Configuration for PANORAMA mode stitching
 #ifndef __NVDSSTITCH_CONFIG_H__
 #define __NVDSSTITCH_CONFIG_H__
 
@@ -7,35 +7,35 @@
 #endif
 
 namespace NvdsStitchConfig {
-    
-    // ========== ПАРАМЕТРЫ ВХОДА ==========
+
+    // ========== INPUT PARAMETERS ==========
     constexpr int INPUT_WIDTH = 3840;
     constexpr int INPUT_HEIGHT = 2160;
     constexpr int INPUT_FORMAT = 19; // NVBUF_COLOR_FORMAT_RGBA
     constexpr int LEFT_SOURCE_ID = 0;
     constexpr int RIGHT_SOURCE_ID = 1;
-    
-    // ========== ПАРАМЕТРЫ ПАНОРАМЫ ==========
-    // УДАЛЕНО: OUTPUT_WIDTH, OUTPUT_HEIGHT - теперь передаются через properties!
+
+    // ========== PANORAMA PARAMETERS ==========
+    // REMOVED: OUTPUT_WIDTH, OUTPUT_HEIGHT - now passed via properties!
     constexpr int OUTPUT_FORMAT = 19;    // NVBUF_COLOR_FORMAT_RGBA
 
-    // ========== LUT КАРТЫ ==========
-    // УДАЛЕНО: WARP_WIDTH, WARP_HEIGHT - теперь берутся из stitch->output_width/height!
+    // ========== LUT MAPS ==========
+    // REMOVED: WARP_WIDTH, WARP_HEIGHT - now taken from stitch->output_width/height!
     constexpr const char* WARP_MAPS_DIR = "warp_maps";
 
-    // Файлы LUT и весов (6528x1800 - TRUE SPHERICAL from pano_cuda_debug_stages.py!)
+    // LUT and weight files (e.g. 5700x1900 - TRUE SPHERICAL from pano_cuda_debug_stages.py!)
     constexpr const char* WARP_LEFT_X_FILE = "lut_left_x.bin";
     constexpr const char* WARP_LEFT_Y_FILE = "lut_left_y.bin";
     constexpr const char* WARP_RIGHT_X_FILE = "lut_right_x.bin";
     constexpr const char* WARP_RIGHT_Y_FILE = "lut_right_y.bin";
     constexpr const char* WEIGHT_LEFT_FILE = "weight_left.bin";
     constexpr const char* WEIGHT_RIGHT_FILE = "weight_right.bin";
-    
-    // Обрезка не нужна в панорамном режиме
+
+    // Cropping not needed in panorama mode
     constexpr int DEFAULT_CROP_TOP = 0;
     constexpr int DEFAULT_CROP_BOTTOM = 0;
     constexpr int DEFAULT_CROP_SIDES = 0;
-    constexpr int OVERLAP = 0;  // В панораме overlap через веса
+    constexpr int OVERLAP = 0;  // In panorama mode, overlap is handled via weights
 
     // ========== COLOR CORRECTION (ASYNC) ==========
     // Hardware-sync-aware color correction for overlap region
@@ -61,7 +61,7 @@ namespace NvdsStitchConfig {
         constexpr float GAIN_MAX = 2.0f;    // Maximum color gain
     }
 
-    // ========== CUDA ПАРАМЕТРЫ ==========
+    // ========== CUDA PARAMETERS ==========
     constexpr int GPU_ID = 0;
     constexpr int BLOCK_SIZE_X = 32;
     constexpr int BLOCK_SIZE_Y = 8;
@@ -110,7 +110,7 @@ namespace NvdsStitchConfig {
         return calculatePitch(INPUT_WIDTH);
     }
 
-    // УДАЛЕНО: getOutputPitch() - теперь pitch вычисляется динамически!
+    // REMOVED: getOutputPitch() - pitch now calculated dynamically!
 }
 
 // ========== COLOR CORRECTION FACTORS STRUCTURE ==========

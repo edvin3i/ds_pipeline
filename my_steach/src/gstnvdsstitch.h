@@ -1,4 +1,4 @@
-// gstnvdsstitch.h - Заголовочный файл только для панорамного режима
+// gstnvdsstitch.h - Header file for panorama mode stitching plugin
 #ifndef __GST_NVDS_STITCH_H__
 #define __GST_NVDS_STITCH_H__
 
@@ -37,7 +37,7 @@ typedef struct {
 struct _GstNvdsStitch {
     GstBaseTransform element;
 
-    // Промежуточные буферы
+    // Intermediate buffers for left/right camera frames
     GstBufferPool *intermediate_pool;
     GstBuffer *intermediate_left;
     GstBuffer *intermediate_right;
@@ -47,15 +47,15 @@ struct _GstNvdsStitch {
     // Source IDs
     guint left_source_id;
     guint right_source_id;
-    
-    // Размеры выхода (всегда 4096x2048 для панорамы)
+
+    // Output dimensions (set dynamically via properties, e.g. 5700x1900)
     guint output_width;
     guint output_height;
-    
+
     // GPU
     guint gpu_id;
-    
-    // Не используется в панораме, но оставляем для совместимости
+
+    // Not used in panorama mode, kept for backward compatibility
     guint overlap;
     guint crop_top;
     guint crop_bottom;
@@ -88,13 +88,13 @@ struct _GstNvdsStitch {
     GstClockTime last_color_failure_time;          // Timestamp of last failure (for recovery logic)
 
 
-    // Управление буферами
+    // Buffer management
     GstBuffer *current_input;
     GstBufferPool *output_pool;
     gboolean pool_configured;
 
-    // LUT maps и веса в GPU памяти
-    float *warp_left_x_gpu;   // Используем старые имена
+    // LUT maps and blending weights in GPU memory
+    float *warp_left_x_gpu;   // Using legacy names for compatibility
     float *warp_left_y_gpu;
     float *warp_right_x_gpu;
     float *warp_right_y_gpu;
@@ -109,10 +109,10 @@ struct _GstNvdsStitch {
     // CUDA event for frame synchronization (non-static to avoid leak)
     cudaEvent_t frame_complete_event;
 
-    // Конфигурация kernel
+    // Kernel configuration
     StitchKernelConfig kernel_config;
 
-    // EGL управление
+    // EGL resource management
     gboolean use_egl;
     GHashTable *egl_resource_cache;
     GMutex egl_lock;
@@ -120,12 +120,12 @@ struct _GstNvdsStitch {
     guint egl_register_count;
     guint egl_cache_hits;
 
-    // Состояние
+    // Pipeline state
     GstFlowReturn last_flow_ret;
     guint64 current_frame_number;
     FrameIndices cached_indices;
 
-    // Фиксированный пул выходных буферов
+    // Fixed output buffer pool
     struct {
         GstBuffer* buffers[FIXED_OUTPUT_POOL_SIZE];
         NvBufSurface* surfaces[FIXED_OUTPUT_POOL_SIZE];
