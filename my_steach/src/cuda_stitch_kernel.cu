@@ -911,7 +911,19 @@ __device__ inline uchar4 apply_color_correction_gamma(
 // ============================================================================
 // MAIN PANORAMA STITCHING KERNEL (WITH FIXES)
 // ============================================================================
-__global__ void panorama_lut_kernel(
+
+/**
+ * @brief Main panorama stitching kernel with explicit occupancy control
+ *
+ * Launch bounds: 256 threads/block, minimum 4 blocks per SM
+ * This guarantees consistent occupancy regardless of compiler register allocation.
+ *
+ * Jetson Orin NX: 2 SMs × 4 blocks = 8 concurrent blocks minimum
+ * Register budget: 65536 / 4 = 16384 registers per block
+ */
+__global__ void
+__launch_bounds__(256, 4)  // 256 threads/block, min 4 blocks/SM
+panorama_lut_kernel(
     const unsigned char* __restrict__ input_left,
     const unsigned char* __restrict__ input_right,
     unsigned char* __restrict__ output,
