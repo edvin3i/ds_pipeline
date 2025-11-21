@@ -9,6 +9,8 @@ CXXFLAGS = -fPIC -Wall -Wextra -O3 -std=c++14
 NVCCFLAGS = -m64 -Xcompiler -fPIC -Xcompiler -fvisibility=hidden
 NVCCFLAGS += -gencode arch=compute_87,code=sm_87
 NVCCFLAGS += -O3 -use_fast_math --expt-relaxed-constexpr
+# Register usage validation for occupancy control (CLAUDE.md §4.5)
+NVCCFLAGS += --ptxas-options=-v
 
 # Пути к заголовочным файлам
 INCLUDES = -I. \
