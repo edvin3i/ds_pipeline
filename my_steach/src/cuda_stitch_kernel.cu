@@ -492,7 +492,8 @@ __global__ void analyze_color_correction_kernel(
 )
 {
     // Shared memory for block-level reduction (9 values per thread)
-    __shared__ float shared_sums[9][32][32];  // [value_idx][y][x] - 36 KB
+    // Padded to [33] to eliminate bank conflicts (sequential threads access different banks)
+    __shared__ float shared_sums[9][32][33];  // [value_idx][y][x] - 37.1 KB
 
     int tx = threadIdx.x;
     int ty = threadIdx.y;
