@@ -1,7 +1,8 @@
 /**
- * gstnvdsstitch.cpp - Плагин для панорамной склейки 360°
- * 
- * Использует LUT карты и веса для создания эквиректангулярной проекции
+ * gstnvdsstitch.cpp - 360° Panorama Stitching Plugin
+ *
+ * Uses LUT (Look-Up Table) maps and blending weights to create equirectangular
+ * projection from dual fisheye camera inputs with 2-phase async color correction.
  */
 
 #include "gstnvdsstitch.h"
@@ -24,22 +25,29 @@
 GST_DEBUG_CATEGORY_STATIC(gst_nvds_stitch_debug);
 #define GST_CAT_DEFAULT gst_nvds_stitch_debug
 
-// Макросы для логирования
+// ============================================================================
+// LOGGING MACROS
+// ============================================================================
 #define LOG_ERROR(obj, fmt, ...) GST_ERROR_OBJECT(obj, "❌ " fmt, ##__VA_ARGS__)
 #define LOG_WARNING(obj, fmt, ...) GST_WARNING_OBJECT(obj, "⚠️ " fmt, ##__VA_ARGS__)
 #define LOG_INFO(obj, fmt, ...) GST_INFO_OBJECT(obj, "ℹ️ " fmt, ##__VA_ARGS__)
 #define LOG_DEBUG(obj, fmt, ...) GST_DEBUG_OBJECT(obj, "🔍 " fmt, ##__VA_ARGS__)
 
-// Параметры очистки кэша
+// ============================================================================
+// EGL RESOURCE CACHE PARAMETERS
+// ============================================================================
+// Cache cleanup runs every 150 frames to prevent unbounded growth
 #define CACHE_CLEANUP_INTERVAL 150
+// Cached entries expire after 300 frames of inactivity
 #define CACHE_ENTRY_TTL 300
+// Maximum cache size (entries) to prevent memory exhaustion
 #define CACHE_MAX_SIZE 50
 
 // ============================================================================
-// ОБРАБОТКА ОШИБОК И УСТОЙЧИВОСТЬ
+// ERROR HANDLING & RESILIENCE
 // ============================================================================
 
-// Макрос для проверки NULL указателей
+// NULL pointer check with FALSE return (for gboolean functions)
 #define CHECK_NULL_RET(ptr, obj, msg) \
     do { \
         if (!(ptr)) { \
@@ -56,7 +64,8 @@ GST_DEBUG_CATEGORY_STATIC(gst_nvds_stitch_debug);
         } \
     } while(0)
 
-// Функция очистки CUDA состояния при ошибке
+// Reset CUDA state on error recovery
+// Synchronizes pending operations and clears error flags
 static void reset_cuda_state(GstNvdsStitch *stitch) {
     if (!stitch) return;
 
@@ -64,7 +73,7 @@ static void reset_cuda_state(GstNvdsStitch *stitch) {
         cudaStreamSynchronize(stitch->cuda_stream);
     }
 
-    // Очистить последнюю ошибку CUDA
+    // Clear last CUDA error (consume error flag)
     cudaGetLastError();
 
     LOG_DEBUG(stitch, "CUDA state reset");
@@ -129,8 +138,8 @@ extern "C" {
     cudaError_t update_color_correction_simple(
         const unsigned char* left_frame,
         const unsigned char* right_frame,
-        const float* weight_left,    // Добавить
-        const float* weight_right,   // Добавить
+        const float* weight_left,    // Blending weight map for left camera
+        const float* weight_right,   // Blending weight map for right camera
         int width,
         int height,
         int pitch,
@@ -165,7 +174,8 @@ static void egl_cache_entry_free(gpointer entry)
 }
 
 /* ============================================================================
- * Промежуточные буферы для панорамы
+ * INTERMEDIATE BUFFER POOL SETUP
+ * Pre-allocates NVMM buffers for left/right camera frames before stitching
  * ============================================================================ */
 
 static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
@@ -252,6 +262,11 @@ static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
         return FALSE;
     }
     stitch->intermediate_left_surf = (NvBufSurface *)map_info.data;
+    if (!stitch->intermediate_left_surf) {
+        LOG_ERROR(stitch, "Null surface pointer after mapping left intermediate buffer");
+        gst_buffer_unmap(stitch->intermediate_left, &map_info);
+        return FALSE;
+    }
     gst_buffer_unmap(stitch->intermediate_left, &map_info);
     
     if (!gst_buffer_map(stitch->intermediate_right, &map_info, GST_MAP_READWRITE)) {
@@ -259,6 +274,11 @@ static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
         return FALSE;
     }
     stitch->intermediate_right_surf = (NvBufSurface *)map_info.data;
+    if (!stitch->intermediate_right_surf) {
+        LOG_ERROR(stitch, "Null surface pointer after mapping right intermediate buffer");
+        gst_buffer_unmap(stitch->intermediate_right, &map_info);
+        return FALSE;
+    }
     gst_buffer_unmap(stitch->intermediate_right, &map_info);
     
 #ifdef __aarch64__
@@ -323,6 +343,11 @@ static gboolean setup_fixed_output_pool(GstNvdsStitch *stitch)
         }
         
         stitch->output_pool_fixed.surfaces[i] = (NvBufSurface *)map_info.data;
+        if (!stitch->output_pool_fixed.surfaces[i]) {
+            LOG_ERROR(stitch, "Null surface pointer after mapping output buffer %d", i);
+            gst_buffer_unmap(stitch->output_pool_fixed.buffers[i], &map_info);
+            return FALSE;
+        }
         gst_buffer_unmap(stitch->output_pool_fixed.buffers[i], &map_info);
         
 #ifdef __aarch64__
@@ -607,7 +632,8 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
     transform_params.transform_flag = NVBUFSURF_TRANSFORM_FILTER;
     transform_params.transform_filter = NvBufSurfTransformInter_Default;
 
-    // Используем VIC для копирования буферов, освобождая GPU для stitching (+18% FPS)
+    // Use VIC (Video Image Compositor) hardware engine for buffer copying,
+    // freeing GPU SM cores for stitching kernels (+18% FPS improvement)
     transform_config_params.compute_mode = NvBufSurfTransformCompute_VIC;
     transform_config_params.gpu_id = stitch->gpu_id;
     
@@ -617,7 +643,7 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
         return FALSE;
     }
     
-    // Копируем левый кадр
+    // Copy left camera frame to intermediate buffer via VIC
     NvBufSurface temp_left_surface;
     memcpy(&temp_left_surface, input_surface, sizeof(NvBufSurface));
     temp_left_surface.surfaceList = &input_surface->surfaceList[indices->left_index];
@@ -643,7 +669,7 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
         return FALSE;
     }
     
-    // Копируем правый кадр
+    // Copy right camera frame to intermediate buffer via VIC
     NvBufSurface temp_right_surface;
     memcpy(&temp_right_surface, input_surface, sizeof(NvBufSurface));
     temp_right_surface.surfaceList = &input_surface->surfaceList[indices->right_index];
@@ -661,7 +687,10 @@ static gboolean copy_to_intermediate_buffers(GstNvdsStitch *stitch,
     return TRUE;
 }
 
-// Замените функцию panorama_stitch_frames на эту (начиная со строки ~565):
+// ============================================================================
+// PANORAMA STITCHING FUNCTION
+// Core stitching logic with 2-phase async color correction
+// ============================================================================
 
 static gboolean panorama_stitch_frames(GstNvdsStitch *stitch, 
                                        NvBufSurface *output_surface)
@@ -688,7 +717,15 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
 
     // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6) ==========
     // Hardware-sync-aware color correction with gamma adjustment
-    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+    if (stitch->enable_color_correction &&
+        !stitch->color_correction_permanently_disabled &&
+        stitch->color_update_interval > 0) {
+
+        // Check for 3 consecutive failures → permanent disable
+        if (stitch->color_correction_consecutive_failures >= 3) {
+            stitch->color_correction_permanently_disabled = TRUE;
+            GST_ERROR_OBJECT(stitch, "Color correction PERMANENTLY DISABLED after 3 consecutive failures");
+        }
 
         // Step 1: Check if previous analysis completed (non-blocking)
         if (stitch->color_analysis_pending) {
@@ -708,13 +745,27 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                 );
 
                 if (copy_err == cudaSuccess) {
-                    // Finalize factors on CPU
+                    // Finalize factors on CPU (returns: 0=success, -1=insufficient samples, -2=invalid data)
                     ColorCorrectionFactors new_factors;
-                    finalize_color_correction_factors(
+                    int finalize_result = finalize_color_correction_factors(
                         h_accumulated_sums,
                         &new_factors,
                         stitch->enable_gamma
                     );
+
+                    if (finalize_result != 0) {
+                        // Finalization failed - log and skip update
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+
+                        const char* reason = (finalize_result == -1) ? "insufficient samples" : "invalid data (NaN/Inf)";
+                        LOG_WARNING(stitch, "Color correction finalization failed (failure %u/3): %s",
+                                    stitch->color_correction_consecutive_failures, reason);
+
+                        // Clear pending flag and skip smoothing/update (keep current factors)
+                        stitch->color_analysis_pending = FALSE;
+                    } else {
+                        // Finalization succeeded - proceed with smoothing
 
                     // Apply temporal smoothing to prevent flicker
                     // formula: smooth = α * new + (1 - α) * old
@@ -740,7 +791,8 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                     // Update device constant memory with smoothed factors
                     cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
                     if (update_err == cudaSuccess) {
-                        // Success! Update current factors
+                        // Success! Reset failure counter and update current factors
+                        stitch->color_correction_consecutive_failures = 0;
                         stitch->current_factors = stitch->pending_factors;
                         LOG_INFO(stitch, "Color correction updated (frame %u): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
                                  stitch->frame_count,
@@ -749,11 +801,20 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                                  stitch->current_factors.right_r, stitch->current_factors.right_g,
                                  stitch->current_factors.right_b, stitch->current_factors.right_gamma);
                     } else {
-                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
-                                    cudaGetErrorString(update_err));
+                        // Update failed - increment failure counter
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                        LOG_ERROR(stitch, "Failed to update color correction factors (failure %u/3): %s",
+                                  stitch->color_correction_consecutive_failures,
+                                  cudaGetErrorString(update_err));
                     }
+                    }  // End finalize_result == 0 block
                 } else {
-                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                    // Copy failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to copy color analysis results (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(copy_err));
                 }
 
@@ -761,8 +822,11 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                 stitch->color_analysis_pending = FALSE;
 
             } else if (query_err != cudaErrorNotReady) {
-                // Error occurred (not just "not ready")
-                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                // Error occurred (not just "not ready") - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_WARNING(stitch, "Error checking color analysis completion (failure %u/3): %s",
+                            stitch->color_correction_consecutive_failures,
                             cudaGetErrorString(query_err));
                 stitch->color_analysis_pending = FALSE;
             }
@@ -807,12 +871,20 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
                     stitch->last_color_frame = stitch->frame_count;
                     LOG_DEBUG(stitch, "Color analysis launched (frame %u)", stitch->frame_count);
                 } else {
-                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                    // Event record failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to record color analysis event (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(event_err));
                 }
             } else {
-                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
-                            cudaGetErrorString(launch_err));
+                // Launch failed - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_ERROR(stitch, "Failed to launch color analysis (failure %u/3): %s",
+                          stitch->color_correction_consecutive_failures,
+                          cudaGetErrorString(launch_err));
             }
         }
     }
@@ -821,7 +893,7 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
     // Increment frame counter for color correction tracking
     stitch->frame_count++;
 
-    // Запускаем kernel (с VIC оптимизацией для буферов)
+    // Launch panorama stitching kernel (buffers pre-copied via VIC)
     err = launch_panorama_kernel(
         (const unsigned char*)left_params->dataPtr,
         (const unsigned char*)right_params->dataPtr,
@@ -838,11 +910,12 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
     
     if (err != cudaSuccess) {
         LOG_ERROR(stitch, "Panorama kernel failed: %s", cudaGetErrorString(err));
-        reset_cuda_state(stitch);  // ✅ Очистка CUDA состояния
+        reset_cuda_state(stitch);  // Reset CUDA error state
         return FALSE;
     }
 
-    // НЕ синхронизируем здесь - сделаем это позже через событие
+    // Do NOT synchronize here - will synchronize later via CUDA event
+    // This allows async execution to continue while stitching runs
     return TRUE;
 }
 
@@ -893,7 +966,15 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
 
     // ========== ASYNC COLOR CORRECTION PIPELINE (Phase 1.6 - EGL path) ==========
     // Hardware-sync-aware color correction with gamma adjustment
-    if (stitch->enable_color_correction && stitch->color_update_interval > 0) {
+    if (stitch->enable_color_correction &&
+        !stitch->color_correction_permanently_disabled &&
+        stitch->color_update_interval > 0) {
+
+        // Check for 3 consecutive failures → permanent disable
+        if (stitch->color_correction_consecutive_failures >= 3) {
+            stitch->color_correction_permanently_disabled = TRUE;
+            GST_ERROR_OBJECT(stitch, "Color correction PERMANENTLY DISABLED after 3 consecutive failures");
+        }
 
         // Step 1: Check if previous analysis completed (non-blocking)
         if (stitch->color_analysis_pending) {
@@ -913,13 +994,27 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                 );
 
                 if (copy_err == cudaSuccess) {
-                    // Finalize factors on CPU
+                    // Finalize factors on CPU (returns: 0=success, -1=insufficient samples, -2=invalid data)
                     ColorCorrectionFactors new_factors;
-                    finalize_color_correction_factors(
+                    int finalize_result = finalize_color_correction_factors(
                         h_accumulated_sums,
                         &new_factors,
                         stitch->enable_gamma
                     );
+
+                    if (finalize_result != 0) {
+                        // Finalization failed - log and skip update
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+
+                        const char* reason = (finalize_result == -1) ? "insufficient samples" : "invalid data (NaN/Inf)";
+                        LOG_WARNING(stitch, "Color correction finalization failed (failure %u/3): %s",
+                                    stitch->color_correction_consecutive_failures, reason);
+
+                        // Clear pending flag and skip smoothing/update (keep current factors)
+                        stitch->color_analysis_pending = FALSE;
+                    } else {
+                        // Finalization succeeded - proceed with smoothing
 
                     // Apply temporal smoothing to prevent flicker
                     // formula: smooth = α * new + (1 - α) * old
@@ -945,7 +1040,8 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                     // Update device constant memory with smoothed factors
                     cudaError_t update_err = update_color_correction_factors(&stitch->pending_factors);
                     if (update_err == cudaSuccess) {
-                        // Success! Update current factors
+                        // Success! Reset failure counter and update current factors
+                        stitch->color_correction_consecutive_failures = 0;
                         stitch->current_factors = stitch->pending_factors;
                         LOG_INFO(stitch, "Color correction updated (frame %lu): L[%.2f,%.2f,%.2f,γ%.2f] R[%.2f,%.2f,%.2f,γ%.2f]",
                                  stitch->current_frame_number,
@@ -954,11 +1050,20 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                                  stitch->current_factors.right_r, stitch->current_factors.right_g,
                                  stitch->current_factors.right_b, stitch->current_factors.right_gamma);
                     } else {
-                        LOG_WARNING(stitch, "Failed to update color correction factors: %s",
-                                    cudaGetErrorString(update_err));
+                        // Update failed - increment failure counter
+                        stitch->color_correction_consecutive_failures++;
+                        stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                        LOG_ERROR(stitch, "Failed to update color correction factors (failure %u/3): %s",
+                                  stitch->color_correction_consecutive_failures,
+                                  cudaGetErrorString(update_err));
                     }
+                    }  // End finalize_result == 0 block
                 } else {
-                    LOG_WARNING(stitch, "Failed to copy color analysis results: %s",
+                    // Copy failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to copy color analysis results (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(copy_err));
                 }
 
@@ -966,8 +1071,11 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                 stitch->color_analysis_pending = FALSE;
 
             } else if (query_err != cudaErrorNotReady) {
-                // Error occurred (not just "not ready")
-                LOG_WARNING(stitch, "Error checking color analysis completion: %s",
+                // Error occurred (not just "not ready") - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_WARNING(stitch, "Error checking color analysis completion (failure %u/3): %s",
+                            stitch->color_correction_consecutive_failures,
                             cudaGetErrorString(query_err));
                 stitch->color_analysis_pending = FALSE;
             }
@@ -1016,17 +1124,25 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
                     stitch->last_color_frame = stitch->current_frame_number;
                     LOG_DEBUG(stitch, "Color analysis launched (EGL frame %lu)", stitch->current_frame_number);
                 } else {
-                    LOG_WARNING(stitch, "Failed to record color analysis event: %s",
+                    // Event record failed - increment failure counter
+                    stitch->color_correction_consecutive_failures++;
+                    stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                    LOG_WARNING(stitch, "Failed to record color analysis event (failure %u/3): %s",
+                                stitch->color_correction_consecutive_failures,
                                 cudaGetErrorString(event_err));
                 }
             } else {
-                LOG_WARNING(stitch, "Failed to launch color analysis: %s",
-                            cudaGetErrorString(launch_err));
+                // Launch failed - increment failure counter
+                stitch->color_correction_consecutive_failures++;
+                stitch->last_color_failure_time = gst_clock_get_time(GST_ELEMENT_CLOCK(stitch));
+                LOG_ERROR(stitch, "Failed to launch color analysis (failure %u/3): %s",
+                          stitch->color_correction_consecutive_failures,
+                          cudaGetErrorString(launch_err));
             }
         }
     }
 
-    // Запускаем kernel (с VIC оптимизацией для буферов)
+    // Launch panorama stitching kernel (buffers pre-copied via VIC)
     err = launch_panorama_kernel(
         (const unsigned char*)frames[0].frame.pPitch[0],
         (const unsigned char*)frames[1].frame.pPitch[0],
@@ -1050,10 +1166,11 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
         }
     } else {
         LOG_ERROR(stitch, "Panorama kernel failed: %s", cudaGetErrorString(err));
-        reset_cuda_state(stitch);  // ✅ Очистка CUDA состояния
+        reset_cuda_state(stitch);  // Reset CUDA error state
     }
 
-    // НЕ синхронизируем здесь - сделаем это через событие
+    // Do NOT synchronize here - will synchronize via CUDA event
+    // This allows async execution to continue while stitching runs
     return success;
 }
 #else
@@ -1070,6 +1187,32 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
  * Main Processing Function
  * ============================================================================ */
 
+/**
+ * @brief Main buffer processing function - stitches panorama from dual camera batch
+ *
+ * GStreamer BaseTransform submit callback that processes batched input (2 camera frames)
+ * and produces stitched panorama output. Handles buffer pool setup, frame separation,
+ * CUDA stitching, and color correction.
+ *
+ * Processing flow:
+ * 1. Setup buffer pools (first frame only)
+ * 2. Separate left/right frames from nvstreammux batch
+ * 3. Map NVMM surfaces for GPU access
+ * 4. Launch CUDA stitching kernel
+ * 5. Apply async color correction (if enabled)
+ * 6. Return stitched output buffer
+ *
+ * @param[in] btrans GstBaseTransform instance
+ * @param[in] discont Discontinuity flag (unused)
+ * @param[in] inbuf Input buffer with batched frames (batch-size=2)
+ *
+ * @return GstFlowReturn status
+ * @retval GST_FLOW_OK Processing succeeded
+ * @retval GST_FLOW_ERROR Fatal error (logged via LOG_ERROR)
+ *
+ * @note Called at 30 FPS (every 33.3ms)
+ * @note Target latency: <10ms for stitching operation
+ */
 static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btrans, 
                                                       gboolean discont G_GNUC_UNUSED, 
                                                       GstBuffer *inbuf)
@@ -1144,7 +1287,7 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
     GstBuffer *pool_buf = stitch->output_pool_fixed.buffers[buf_idx];
     NvBufSurface *output_surface = stitch->output_pool_fixed.surfaces[buf_idx];
 
-    // ✅ Проверка NULL для критических указателей
+    // Validate critical pointers (null-pointer protection)
     if (!pool_buf || !output_surface) {
         LOG_ERROR(stitch, "NULL in output pool: pool_buf=%p, output_surface=%p",
                   pool_buf, output_surface);
@@ -1187,15 +1330,16 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
         return GST_FLOW_OK;
     }
     
-    // ВАЖНО: Синхронизация через событие ТОЛЬКО для основного kernel
+    // IMPORTANT: Event-based synchronization ONLY for main stitching kernel
+    // Async color correction runs independently on low-priority stream
     if (stitch->cuda_stream && stitch->frame_complete_event) {
-        // Записываем событие после завершения основного kernel
+        // Record event after main stitching kernel completes
         cudaError_t err = cudaEventRecord(stitch->frame_complete_event, stitch->cuda_stream);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to record CUDA event: %s", cudaGetErrorString(err));
         }
 
-        // Ждём ТОЛЬКО завершения этого конкретного kernel
+        // Wait ONLY for this specific kernel (not color correction on analysis stream)
         err = cudaEventSynchronize(stitch->frame_complete_event);
         if (err != cudaSuccess) {
             LOG_WARNING(stitch, "Failed to synchronize CUDA event: %s", cudaGetErrorString(err));
@@ -1232,8 +1376,8 @@ static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btran
             frame_meta->num_surfaces_per_frame = 1;
         }
     }
-    
-    // Отправляем буфер в pipeline
+
+    // Push completed buffer downstream to pipeline
     flow_ret = gst_pad_push(GST_BASE_TRANSFORM_SRC_PAD(btrans), output_buf);
     
     gst_buffer_unref(inbuf);
@@ -1290,16 +1434,39 @@ static GstCaps* gst_nvds_stitch_transform_caps(GstBaseTransform *trans,
  * Lifecycle Methods
  * ============================================================================ */
 
+/**
+ * @brief Plugin start callback - initializes CUDA resources and loads LUTs
+ *
+ * GStreamer BaseTransform start callback that initializes all GPU resources,
+ * loads panorama LUT maps from disk, and prepares color correction subsystem.
+ *
+ * Initialization steps:
+ * 1. Validate panorama dimensions (must be set via properties)
+ * 2. Set CUDA device and create streams/events
+ * 3. Load 6 LUT maps from warp_maps/ directory (~24 MB)
+ * 4. Initialize color correction (if enabled)
+ * 5. Setup EGL resource cache (Jetson only)
+ * 6. Configure kernel parameters
+ *
+ * @param[in] trans GstBaseTransform instance
+ *
+ * @return Success status
+ * @retval TRUE Initialization succeeded, ready to process frames
+ * @retval FALSE Initialization failed (errors logged, pipeline won't start)
+ *
+ * @note Called once when pipeline transitions to READY state
+ * @note Failure here prevents pipeline from starting
+ */
 static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(trans);
     
     LOG_INFO(stitch, "Starting nvdsstitch plugin - PANORAMA MODE");
 
-    // ВАЛИДАЦИЯ: проверяем что размеры панорамы установлены через properties
+    // VALIDATION: Ensure panorama dimensions are set via properties
     if (stitch->output_width == 0 || stitch->output_height == 0) {
-        LOG_ERROR(stitch, "❌ ОШИБКА: panorama-width и panorama-height ОБЯЗАТЕЛЬНЫ!");
-        LOG_ERROR(stitch, "   Добавьте в pipeline: panorama-width=6528 panorama-height=1800");
+        LOG_ERROR(stitch, "❌ ERROR: panorama-width and panorama-height are REQUIRED!");
+        LOG_ERROR(stitch, "   Add to pipeline: panorama-width=6528 panorama-height=1800");
         return FALSE;
     }
 
@@ -1362,7 +1529,7 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
     }
     LOG_INFO(stitch, "Color correction factors initialized to identity (1.0, 1.0, 1.0, 1.0)");
 
-    // Загружаем LUT карты и веса для панорамы
+    // Load LUT (Look-Up Table) maps and blending weights for panorama stitching
     std::string left_x_path = NvdsStitchConfig::getWarpLeftXPath();
     std::string left_y_path = NvdsStitchConfig::getWarpLeftYPath();
     std::string right_x_path = NvdsStitchConfig::getWarpRightXPath();
@@ -1387,15 +1554,15 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
         &stitch->warp_right_y_gpu,
         &stitch->weight_left_gpu,
         &stitch->weight_right_gpu,
-        stitch->output_width,   // Используем динамический размер из property!
-        stitch->output_height   // Используем динамический размер из property!
+        stitch->output_width,   // Use dynamic size from property!
+        stitch->output_height   // Use dynamic size from property!
     );
 
     stitch->warp_maps_loaded = (lut_err == cudaSuccess);
     if (stitch->warp_maps_loaded) {
         LOG_INFO(stitch, "Panorama LUT maps loaded successfully");
-        stitch->kernel_config.warp_width = stitch->output_width;   // Динамический размер!
-        stitch->kernel_config.warp_height = stitch->output_height; // Динамический размер!
+        stitch->kernel_config.warp_width = stitch->output_width;   // Dynamic size from properties!
+        stitch->kernel_config.warp_height = stitch->output_height; // Dynamic size from properties!
     } else {
         LOG_ERROR(stitch, "Failed to load panorama LUT maps");
         return FALSE;
@@ -1412,6 +1579,27 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
     return TRUE;
 }
 
+/**
+ * @brief Plugin stop callback - releases CUDA resources and cleans up
+ *
+ * GStreamer BaseTransform stop callback that synchronizes GPU operations,
+ * releases all CUDA resources, and cleans up allocated memory.
+ *
+ * Cleanup steps:
+ * 1. Synchronize CUDA stream (wait for pending operations)
+ * 2. Free panorama LUT maps (~24 MB GPU memory)
+ * 3. Clear EGL resource cache
+ * 4. Release fixed output buffer pool
+ * 5. Free color correction resources
+ * 6. Destroy CUDA streams and events
+ *
+ * @param[in] trans GstBaseTransform instance
+ *
+ * @return Success status (always TRUE)
+ *
+ * @note Called when pipeline transitions to NULL state
+ * @note Ensures no GPU memory leaks
+ */
 static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(trans);
@@ -1622,7 +1810,7 @@ static void gst_nvds_stitch_finalize(GObject *object)
 
     LOG_INFO(stitch, "Finalizing nvdsstitch");
 
-    // Очистка texture resources
+    // Cleanup texture resources (EGL cache cleaned in stop)
 
     G_OBJECT_CLASS(gst_nvds_stitch_parent_class)->finalize(object);
 }
@@ -1675,13 +1863,13 @@ static void gst_nvds_stitch_class_init(GstNvdsStitchClass *klass)
     g_object_class_install_property(gobject_class, PROP_PANORAMA_WIDTH,
         g_param_spec_uint("panorama-width", "Panorama Width",
                          "Output panorama width (REQUIRED!)", 0, 10000,
-                         0,  // НЕТ дефолта - ОБЯЗАТЕЛЬНО передавать через properties!
+                         0,  // NO default - MUST be set via properties!
                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
 
     g_object_class_install_property(gobject_class, PROP_PANORAMA_HEIGHT,
         g_param_spec_uint("panorama-height", "Panorama Height",
                          "Output panorama height (REQUIRED!)", 0, 10000,
-                         0,  // НЕТ дефолта - ОБЯЗАТЕЛЬНО передавать через properties!
+                         0,  // NO default - MUST be set via properties!
                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
 
     // Color correction properties (async, hardware-sync-aware)
@@ -1730,11 +1918,11 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
 {
     stitch->left_source_id = NvdsStitchConfig::LEFT_SOURCE_ID;
     stitch->right_source_id = NvdsStitchConfig::RIGHT_SOURCE_ID;
-    stitch->output_width = 0;   // НЕТ дефолта - ОБЯЗАТЕЛЬНО через properties!
-    stitch->output_height = 0;  // НЕТ дефолта - ОБЯЗАТЕЛЬНО через properties!
+    stitch->output_width = 0;   // NO default - MUST be set via properties!
+    stitch->output_height = 0;  // NO default - MUST be set via properties!
     stitch->gpu_id = NvdsStitchConfig::GPU_ID;
-    
-    // Для панорамы не нужны crop параметры
+
+    // Crop parameters not needed for panorama mode
     stitch->crop_top = 0;
     stitch->crop_bottom = 0;
     stitch->crop_sides = 0;
@@ -1760,12 +1948,12 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->cuda_stream = NULL;
     stitch->frame_complete_event = NULL;
 
-    // Инициализация входных параметров (константы)
+    // Initialize input parameters (constants from config)
     stitch->kernel_config.input_width = NvdsStitchConfig::INPUT_WIDTH;
     stitch->kernel_config.input_height = NvdsStitchConfig::INPUT_HEIGHT;
     stitch->kernel_config.input_pitch = NvdsStitchConfig::getInputPitch();
 
-    // Выходные параметры устанавливаются через properties в set_property()!
+    // Output parameters set via properties in set_property()!
 
     stitch->last_flow_ret = GST_FLOW_OK;
     
@@ -1803,6 +1991,11 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->color_smoothing_factor = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SMOOTHING_FACTOR;
     stitch->spatial_falloff = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_SPATIAL_FALLOFF;
     stitch->enable_gamma = NvdsStitchConfig::ColorCorrectionConfig::DEFAULT_ENABLE_GAMMA;
+
+    // Initialize error handling & recovery state
+    stitch->color_correction_consecutive_failures = 0;
+    stitch->color_correction_permanently_disabled = FALSE;
+    stitch->last_color_failure_time = 0;
 
     gst_base_transform_set_passthrough(GST_BASE_TRANSFORM(stitch), FALSE);
     gst_base_transform_set_in_place(GST_BASE_TRANSFORM(stitch), FALSE);

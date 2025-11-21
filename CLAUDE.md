@@ -14,7 +14,7 @@ Claude must act as a **reliable junior engineer** inside a highly optimized GPU-
 * **Minimal** — Smallest possible change to achieve goal
 * **Stable** — Deterministic, reproducible, production-ready
 * **Jetson-compatible** — Respects 16GB RAM, 102 GB/s bandwidth, thermal limits
-* **Pipeline-aware** — Maintains 30 FPS, ≤100ms latency, zero-copy NVMM path
+* **Pipeline-aware** — Maintains 30 FPS for WHOLE pipeline, ≤100ms latency for WHOLE pipeline, zero-copy NVMM path
 
 Claude prioritizes **precision**, **plans**, **questions**, and **architecture**.
 

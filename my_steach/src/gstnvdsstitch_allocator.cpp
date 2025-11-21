@@ -29,13 +29,23 @@ G_DEFINE_TYPE(GstNvdsStitchAllocator, gst_nvdsstitch_allocator, GST_TYPE_ALLOCAT
  * ============================================================================ */
 
 /**
- * gst_nvdsstitch_memory_map_egl:
- * @mem: Указатель на GstNvdsStitchMemory
- * 
- * Выполняет EGL mapping для NvBufSurface. На Jetson это необходимо
- * для доступа к памяти через CUDA.
- * 
- * Returns: TRUE при успехе, FALSE при ошибке
+ * @brief Map NVMM surface to EGL images for GPU access
+ *
+ * Performs EGL mapping for NvBufSurface. On Jetson platforms, this is
+ * required for CUDA access to surface memory.
+ *
+ * @param[in,out] mem Pointer to GstNvdsStitchMemory structure
+ *
+ * @return Success status
+ * @retval TRUE EGL mapping succeeded or already mapped (idempotent)
+ * @retval FALSE Mapping failed (errors logged via GST_ERROR)
+ *
+ * @note Function is idempotent - safe to call multiple times
+ * @note Only functional on aarch64 (Jetson) with SURFACE_ARRAY mem type
+ * @note Increments ref_count to track mapping state
+ *
+ * @see gst_nvdsstitch_memory_unmap_egl
+ * @see gst_nvdsstitch_memory_register_cuda
  */
 gboolean gst_nvdsstitch_memory_map_egl(GstNvdsStitchMemory *mem)
 {
@@ -87,11 +97,18 @@ gboolean gst_nvdsstitch_memory_map_egl(GstNvdsStitchMemory *mem)
 }
 
 /**
- * gst_nvdsstitch_memory_unmap_egl:
- * @mem: Указатель на GstNvdsStitchMemory
- * 
- * Освобождает EGL mapping. Вызывается только при уничтожении памяти
- * и только если reference count = 0.
+ * @brief Unmap EGL images from NVMM surface
+ *
+ * Destroys EGL images and releases EGL resources. Only performs unmapping
+ * when reference count reaches 1 or below to prevent premature release.
+ *
+ * @param[in,out] mem Pointer to GstNvdsStitchMemory structure
+ *
+ * @note Safe to call even if not mapped (no-op)
+ * @note Automatically checks ref_count before unmapping
+ * @note Should be called before memory destruction
+ *
+ * @see gst_nvdsstitch_memory_map_egl
  */
 void gst_nvdsstitch_memory_unmap_egl(GstNvdsStitchMemory *mem)
 {
@@ -117,13 +134,24 @@ void gst_nvdsstitch_memory_unmap_egl(GstNvdsStitchMemory *mem)
 }
 
 /**
- * gst_nvdsstitch_memory_register_cuda:
- * @mem: Указатель на GstNvdsStitchMemory
- * 
- * Регистрирует EGL images в CUDA для получения доступа к памяти.
- * Требует предварительного вызова gst_nvdsstitch_memory_map_egl.
- * 
- * Returns: TRUE при успехе, FALSE при ошибке
+ * @brief Register CUDA graphics resources for EGL surface access
+ *
+ * Registers EGL images as CUDA graphics resources, enabling CUDA kernels
+ * to directly access surface memory. Requires prior EGL mapping.
+ *
+ * @param[in,out] mem Pointer to GstNvdsStitchMemory structure
+ *
+ * @return Success status
+ * @retval TRUE CUDA registration succeeded or already registered (idempotent)
+ * @retval FALSE Registration failed (errors logged via GST_ERROR)
+ *
+ * @note Function is idempotent - safe to call multiple times
+ * @note Requires prior call to gst_nvdsstitch_memory_map_egl()
+ * @note Only functional on aarch64 (Jetson) platforms
+ * @note Populates cuda_resources, egl_frames, and frame_memory_ptrs vectors
+ *
+ * @see gst_nvdsstitch_memory_map_egl
+ * @see gst_nvdsstitch_memory_unregister_cuda
  */
 gboolean gst_nvdsstitch_memory_register_cuda(GstNvdsStitchMemory *mem)
 {
@@ -217,10 +245,19 @@ gboolean gst_nvdsstitch_memory_register_cuda(GstNvdsStitchMemory *mem)
 }
 
 /**
- * gst_nvdsstitch_memory_unregister_cuda:
- * @mem: Указатель на GstNvdsStitchMemory
- * 
- * Освобождает CUDA регистрацию для EGL images.
+ * @brief Unregister CUDA graphics resources for EGL images
+ *
+ * Releases CUDA registration for EGL images and clears resource vectors.
+ * Called before EGL unmapping or memory destruction.
+ *
+ * @param[in,out] mem Pointer to GstNvdsStitchMemory structure
+ *
+ * @note Safe to call even if not registered (no-op)
+ * @note Must be called before gst_nvdsstitch_memory_unmap_egl()
+ * @note Clears cuda_resources and egl_frames vectors
+ * @note Clears frame_memory_ptrs vector
+ *
+ * @see gst_nvdsstitch_memory_register_cuda
  */
 void gst_nvdsstitch_memory_unregister_cuda(GstNvdsStitchMemory *mem)
 {
