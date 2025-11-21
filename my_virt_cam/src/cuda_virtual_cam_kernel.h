@@ -3,7 +3,32 @@
 #define __CUDA_VIRTUAL_CAM_KERNEL_H__
 
 #include <cuda_runtime.h>
+#include <cstdio>
 
+// ============================================================================
+// CUDA ERROR CHECKING MACRO
+// ============================================================================
+// Standardized error checking for CUDA API calls (CLAUDE.md §4.7)
+// Provides detailed error information with file and line number.
+//
+// Usage:
+//   CUDA_CHECK(cudaMalloc(&ptr, size));
+//   CUDA_CHECK(cudaGetLastError());
+//   CUDA_CHECK(cudaDeviceSynchronize());
+//
+// On error: Prints detailed message and returns cudaError_t
+// This allows calling code to handle errors appropriately.
+// ============================================================================
+#define CUDA_CHECK(call)                                                      \
+do {                                                                          \
+    cudaError_t err = call;                                                   \
+    if (err != cudaSuccess) {                                                 \
+        fprintf(stderr, "CUDA error in %s:%d: %s (%s)\n",                    \
+                __FILE__, __LINE__,                                           \
+                cudaGetErrorString(err), cudaGetErrorName(err));              \
+        return err;                                                           \
+    }                                                                         \
+} while(0)
 
 #ifdef __cplusplus
 extern "C" {

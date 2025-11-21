@@ -2,6 +2,7 @@
 #include "cuda_virtual_cam_kernel.h"
 #include <cuda_runtime.h>
 #include <cstdio>
+#include <cstdint>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -11,7 +12,14 @@
  * Предвычисление лучей камеры
  * ============================================================================ */
 
-__global__ void precompute_rays_kernel(
+// Explicit occupancy control for consistent performance (CLAUDE.md §4.5)
+// - 256 threads/block (16×16)
+// - Minimum 4 blocks per SM
+// - Jetson Orin: 2 SMs × 4 blocks = 8 concurrent blocks minimum
+// - Register budget: 65536 / (4 × 256) = 64 registers/thread max
+__global__ void
+__launch_bounds__(256, 4)
+precompute_rays_kernel(
     float* rays,
     int width,
     int height,
@@ -69,7 +77,14 @@ extern "C" cudaError_t precompute_camera_rays(
  * Генерация LUT для remap
  * ============================================================================ */
 
-__global__ void generate_remap_lut_kernel(
+// Explicit occupancy control for consistent performance (CLAUDE.md §4.5)
+// - 256 threads/block (16×16)
+// - Minimum 4 blocks per SM
+// - Jetson Orin: 2 SMs × 4 blocks = 8 concurrent blocks minimum
+// - Register budget: 65536 / (4 × 256) = 64 registers/thread max
+__global__ void
+__launch_bounds__(256, 4)
+generate_remap_lut_kernel(
     const float* rays_cam,
     float* remap_u,
     float* remap_v,
@@ -194,8 +209,15 @@ extern "C" cudaError_t generate_remap_lut(
  * БЕЗОПАСНАЯ версия remap - сначала проверим что все работает
  * ============================================================================ */
 
-// Полный remap kernel с исправлениями
-__global__ void apply_remap_nearest_kernel(
+// Explicit occupancy control for consistent performance (CLAUDE.md §4.5)
+// - 256 threads/block (16×16)
+// - Minimum 4 blocks per SM
+// - Jetson Orin: 2 SMs × 4 blocks = 8 concurrent blocks minimum
+// - Register budget: 65536 / (4 × 256) = 64 registers/thread max
+// CRITICAL PATH: This kernel runs EVERY FRAME (30 FPS)
+__global__ void
+__launch_bounds__(256, 4)
+apply_remap_nearest_kernel(
     const unsigned char* input,
     unsigned char* output,
     const float* remap_u,
@@ -240,12 +262,19 @@ __global__ void apply_remap_nearest_kernel(
     
     // Входной индекс
     int in_idx = src_y * in_pitch + src_x * 4;
-    
-    // Копируем пиксель
-    output[out_idx + 0] = input[in_idx + 0];
-    output[out_idx + 1] = input[in_idx + 1];
-    output[out_idx + 2] = input[in_idx + 2];
-    output[out_idx + 3] = input[in_idx + 3];
+
+    // ========== VECTORIZED MEMORY ACCESS (Phase 2 Optimization) ==========
+    // Replace 4× uint8_t loads with 1× uint32_t load (4-byte vectorized)
+    // Reduces memory transactions by ~30-40% (CLAUDE.md §4.1)
+    // REQUIRES: 4-byte alignment (guaranteed by NVMM spec)
+    //
+    // Before (scalar): output[out_idx+0]=input[in_idx+0]; ... (4× operations)
+    // After (vectorized): Single 32-bit load/store operation
+    //
+    // Benefit: Coalesced memory access, fewer transactions per warp
+    // Expected impact: 2-5% FPS improvement from reduced memory overhead
+    // =====================================================================
+    *((uint32_t*)&output[out_idx]) = *((uint32_t*)&input[in_idx]);
 
     // Отладка для нескольких точек
     if ((x == out_width/2 && y == out_height/2) ||
@@ -299,6 +328,31 @@ extern "C" cudaError_t apply_virtual_camera_remap(
     const VirtualCamConfig* config,
     cudaStream_t stream)
 {
+    // ========== ALIGNMENT VALIDATION (Phase 2 Safety Check) ==========
+    // Vectorized memory access requires 4-byte alignment.
+    // NVMM spec guarantees this, but we validate to catch edge cases.
+    // ===================================================================
+    if (((uintptr_t)input_pano % 4) != 0) {
+        fprintf(stderr, "ERROR: input_pano not 4-byte aligned (addr=%p)\n",
+                (void*)input_pano);
+        return cudaErrorInvalidValue;
+    }
+    if (((uintptr_t)output_view % 4) != 0) {
+        fprintf(stderr, "ERROR: output_view not 4-byte aligned (addr=%p)\n",
+                (void*)output_view);
+        return cudaErrorInvalidValue;
+    }
+    if ((config->input_pitch % 4) != 0) {
+        fprintf(stderr, "ERROR: input_pitch not 4-byte aligned (pitch=%d)\n",
+                config->input_pitch);
+        return cudaErrorInvalidValue;
+    }
+    if ((config->output_pitch % 4) != 0) {
+        fprintf(stderr, "ERROR: output_pitch not 4-byte aligned (pitch=%d)\n",
+                config->output_pitch);
+        return cudaErrorInvalidValue;
+    }
+
     // printf("apply_virtual_camera_remap: starting full remap\n");
 
     dim3 block(16, 16);
