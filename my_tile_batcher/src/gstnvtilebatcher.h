@@ -22,6 +22,7 @@ typedef struct _GstNvTileBatcherClass GstNvTileBatcherClass;
 #define TILE_HEIGHT 1024
 // УДАЛЕНО: PANORAMA_WIDTH, PANORAMA_HEIGHT - теперь передаются через properties!
 #define FIXED_OUTPUT_POOL_SIZE 4
+#define MAX_EGL_CACHE_SIZE 32  // Maximum EGL cache entries before LRU eviction
 
 /* Позиции тайлов */
 typedef struct {
@@ -70,9 +71,11 @@ static gpointer tile_region_info_copy(gpointer data, gpointer user_data)
 static void tile_region_info_free(gpointer data, gpointer user_data)
 {
     (void)user_data;
-    (void)data;
-    // НЕ освобождаем data здесь - DeepStream освобождает метаданные автоматически!
-    // Вызов g_free(data) приведёт к double free
+    // Free the allocated TileRegionInfo structure
+    // This is required because the data is allocated with g_new0()/g_malloc0()
+    if (data) {
+        g_free(data);
+    }
 }
 
 struct _GstNvTileBatcher {

@@ -94,6 +94,44 @@ egl_cache_entry_free(gpointer data)
     g_free(entry);
 }
 
+/* Helper structure for finding LRU cache entry */
+typedef struct {
+    gpointer lru_key;
+    guint64 lru_frame;
+    gboolean found;
+} LRUFindData;
+
+/* GHashTable foreach callback to find least recently used entry */
+static void
+find_lru_entry(gpointer key, gpointer value, gpointer user_data)
+{
+    EGLResourceCacheEntry *entry = (EGLResourceCacheEntry*)value;
+    LRUFindData *lru_data = (LRUFindData*)user_data;
+
+    if (!lru_data->found || entry->last_access_frame < lru_data->lru_frame) {
+        lru_data->lru_key = key;
+        lru_data->lru_frame = entry->last_access_frame;
+        lru_data->found = TRUE;
+    }
+}
+
+/* Evict least recently used entry from EGL cache */
+static void
+evict_lru_cache_entry(GstNvTileBatcher *batcher)
+{
+    LRUFindData lru_data = {NULL, 0, FALSE};
+
+    // Find the least recently used entry
+    g_hash_table_foreach(batcher->egl_cache, find_lru_entry, &lru_data);
+
+    if (lru_data.found) {
+        GST_DEBUG_OBJECT(batcher, "Evicting LRU EGL cache entry %p (last access: frame %lu)",
+                        lru_data.lru_key, (unsigned long)lru_data.lru_frame);
+
+        // Remove from hash table (will call egl_cache_entry_free automatically)
+        g_hash_table_remove(batcher->egl_cache, lru_data.lru_key);
+    }
+}
 
 
 static gboolean
@@ -141,8 +179,16 @@ get_or_register_egl_resource(GstNvTileBatcher *batcher,
     
     // Добавляем в кеш
     g_mutex_lock(&batcher->egl_cache_mutex);
-    
+
     if (!cache_entry) {
+        // Check if cache is at capacity and needs eviction
+        guint cache_size = g_hash_table_size(batcher->egl_cache);
+        if (cache_size >= MAX_EGL_CACHE_SIZE) {
+            GST_DEBUG_OBJECT(batcher, "EGL cache at capacity (%u entries), evicting LRU",
+                           cache_size);
+            evict_lru_cache_entry(batcher);
+        }
+
         cache_entry = g_new0(EGLResourceCacheEntry, 1);
         g_hash_table_insert(batcher->egl_cache, egl_image, cache_entry);
     }
