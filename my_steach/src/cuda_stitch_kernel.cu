@@ -202,6 +202,30 @@ __global__ void analyze_overlap_zone_kernel(
 // ============================================================================
 // ADVANCED COLOR CORRECTION INITIALIZATION
 // ============================================================================
+
+/**
+ * @brief Initialize advanced color correction context (persistent buffers)
+ *
+ * Allocates persistent GPU and pinned host memory for color correction analysis.
+ * This is an advanced version with optimized memory management for continuous use.
+ *
+ * Allocated resources:
+ * - GPU buffers: d_sum_left/right (3 floats), d_count_left/right (1 int)
+ * - Pinned host memory: h_sum_left/right (3 floats), h_count_left/right (1 int)
+ * - Total: ~64 bytes GPU + ~64 bytes pinned host
+ *
+ * @param[out] ctx_out Pointer to receive allocated context (caller must free with free_color_correction)
+ *
+ * @return cudaSuccess on success, CUDA error code on failure
+ * @retval cudaSuccess Context allocated and initialized
+ * @retval cudaErrorMemoryAllocation Failed to allocate GPU or pinned memory
+ *
+ * @note This is an internal function, use async color correction API instead
+ * @note Caller must call free_color_correction() to release resources
+ *
+ * @see free_color_correction
+ * @see update_color_correction_advanced
+ */
 extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** ctx_out) {
     // Allocate context
     ColorCorrectionContext* ctx = new ColorCorrectionContext();
@@ -281,6 +305,38 @@ error:
 // ============================================================================
 // COLOR CORRECTION UPDATE (OPTIMIZED VERSION)
 // ============================================================================
+
+/**
+ * @brief Update color correction using advanced analysis (internal function)
+ *
+ * Analyzes overlap zone between cameras and updates correction gains with
+ * temporal smoothing. This is an optimized version with persistent buffers
+ * to minimize memory allocation overhead.
+ *
+ * @param[in] left_frame Left camera frame (GPU memory, RGBA)
+ * @param[in] right_frame Right camera frame (GPU memory, RGBA)
+ * @param[in] lut_left_x Left camera X coordinate LUT
+ * @param[in] lut_left_y Left camera Y coordinate LUT
+ * @param[in] lut_right_x Right camera X coordinate LUT
+ * @param[in] lut_right_y Right camera Y coordinate LUT
+ * @param[in] weight_left Left camera blending weights
+ * @param[in] weight_right Right camera blending weights
+ * @param[in] input_width Input frame width
+ * @param[in] input_height Input frame height
+ * @param[in] input_pitch Input frame pitch/stride
+ * @param[in] output_width Panorama width
+ * @param[in] output_height Panorama height
+ * @param[in] stream CUDA stream for execution
+ * @param[in,out] ctx Color correction context (persistent buffers)
+ * @param[in] smoothing_factor Temporal smoothing (0.0-1.0, e.g., 0.15 for 15% update)
+ *
+ * @return cudaSuccess on success, CUDA error code on failure
+ * @retval cudaErrorInvalidValue ctx is NULL
+ *
+ * @note Internal function - use async color correction API instead
+ * @see init_color_correction_advanced
+ * @see analyze_color_correction_async
+ */
 extern "C" cudaError_t update_color_correction_advanced(
     const unsigned char* left_frame,
     const unsigned char* right_frame,
@@ -1134,7 +1190,37 @@ extern "C" cudaError_t load_panorama_luts(
 // ============================================================================
 // KERNEL LAUNCH FUNCTIONS
 // ============================================================================
-// New version with edge_boost parameter
+
+/**
+ * @brief Launch panorama stitching kernel with edge boost option (internal)
+ *
+ * Extended version of launch_panorama_kernel with optional edge brightness boost
+ * for vignetting compensation. This is the internal implementation called by both
+ * the public API and legacy wrapper.
+ *
+ * @param[in] input_left Left camera frame (GPU memory, RGBA)
+ * @param[in] input_right Right camera frame (GPU memory, RGBA)
+ * @param[out] output Stitched panorama output (GPU memory, RGBA)
+ * @param[in] lut_left_x Left camera X coordinate LUT
+ * @param[in] lut_left_y Left camera Y coordinate LUT
+ * @param[in] lut_right_x Right camera X coordinate LUT
+ * @param[in] lut_right_y Right camera Y coordinate LUT
+ * @param[in] weight_left Left camera blending weights
+ * @param[in] weight_right Right camera blending weights
+ * @param[in] config Kernel configuration (dimensions, pitch)
+ * @param[in] stream CUDA stream for async execution
+ * @param[in] enable_edge_boost Enable edge brightness boost (typically false)
+ *
+ * @return cudaSuccess on kernel launch success, error code on failure
+ * @retval cudaSuccess Kernel launched successfully
+ * @retval cudaErrorInvalidValue NULL pointer in required parameters
+ * @retval cudaErrorLaunchFailure Kernel launch failed
+ *
+ * @note Internal function - use launch_panorama_kernel() for public API
+ * @note ASYNC function - does not wait for kernel completion
+ *
+ * @see launch_panorama_kernel
+ */
 extern "C" cudaError_t launch_panorama_kernel_fixed(
     const unsigned char* input_left,
     const unsigned char* input_right,
@@ -1202,6 +1288,25 @@ extern "C" cudaError_t launch_panorama_kernel(
 // ============================================================================
 // MEMORY CLEANUP
 // ============================================================================
+
+/**
+ * @brief Free GPU memory allocated for panorama LUT maps
+ *
+ * Releases all 6 LUT arrays allocated by load_panorama_luts().
+ * Safe to call with NULL pointers (no-op for unallocated maps).
+ *
+ * @param[in] lut_left_x Left camera X coordinate LUT (may be NULL)
+ * @param[in] lut_left_y Left camera Y coordinate LUT (may be NULL)
+ * @param[in] lut_right_x Right camera X coordinate LUT (may be NULL)
+ * @param[in] lut_right_y Right camera Y coordinate LUT (may be NULL)
+ * @param[in] weight_left Left camera blending weights (may be NULL)
+ * @param[in] weight_right Right camera blending weights (may be NULL)
+ *
+ * @note Always call before plugin destruction to prevent memory leaks
+ * @note Function is synchronous (waits for GPU operations)
+ *
+ * @see load_panorama_luts
+ */
 extern "C" void free_panorama_luts(
     float* lut_left_x,
     float* lut_left_y,
@@ -1218,6 +1323,19 @@ extern "C" void free_panorama_luts(
     if (weight_right) cudaFree(weight_right);
 }
 
+/**
+ * @brief Free color correction context and all associated resources
+ *
+ * Releases GPU buffers, pinned host memory, and context structure allocated by
+ * init_color_correction_advanced(). Safe to call with NULL context.
+ *
+ * @param[in] ctx Color correction context to free (may be NULL)
+ *
+ * @note Always call to prevent memory leaks when using advanced color correction
+ * @note Function is synchronous (waits for GPU operations)
+ *
+ * @see init_color_correction_advanced
+ */
 extern "C" void free_color_correction(ColorCorrectionContext* ctx) {
     if (ctx) {
         if (ctx->d_sum_left) cudaFree(ctx->d_sum_left);

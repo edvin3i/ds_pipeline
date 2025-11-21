@@ -1187,6 +1187,32 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
  * Main Processing Function
  * ============================================================================ */
 
+/**
+ * @brief Main buffer processing function - stitches panorama from dual camera batch
+ *
+ * GStreamer BaseTransform submit callback that processes batched input (2 camera frames)
+ * and produces stitched panorama output. Handles buffer pool setup, frame separation,
+ * CUDA stitching, and color correction.
+ *
+ * Processing flow:
+ * 1. Setup buffer pools (first frame only)
+ * 2. Separate left/right frames from nvstreammux batch
+ * 3. Map NVMM surfaces for GPU access
+ * 4. Launch CUDA stitching kernel
+ * 5. Apply async color correction (if enabled)
+ * 6. Return stitched output buffer
+ *
+ * @param[in] btrans GstBaseTransform instance
+ * @param[in] discont Discontinuity flag (unused)
+ * @param[in] inbuf Input buffer with batched frames (batch-size=2)
+ *
+ * @return GstFlowReturn status
+ * @retval GST_FLOW_OK Processing succeeded
+ * @retval GST_FLOW_ERROR Fatal error (logged via LOG_ERROR)
+ *
+ * @note Called at 30 FPS (every 33.3ms)
+ * @note Target latency: <10ms for stitching operation
+ */
 static GstFlowReturn gst_nvds_stitch_submit_input_buffer(GstBaseTransform *btrans, 
                                                       gboolean discont G_GNUC_UNUSED, 
                                                       GstBuffer *inbuf)
@@ -1408,6 +1434,29 @@ static GstCaps* gst_nvds_stitch_transform_caps(GstBaseTransform *trans,
  * Lifecycle Methods
  * ============================================================================ */
 
+/**
+ * @brief Plugin start callback - initializes CUDA resources and loads LUTs
+ *
+ * GStreamer BaseTransform start callback that initializes all GPU resources,
+ * loads panorama LUT maps from disk, and prepares color correction subsystem.
+ *
+ * Initialization steps:
+ * 1. Validate panorama dimensions (must be set via properties)
+ * 2. Set CUDA device and create streams/events
+ * 3. Load 6 LUT maps from warp_maps/ directory (~24 MB)
+ * 4. Initialize color correction (if enabled)
+ * 5. Setup EGL resource cache (Jetson only)
+ * 6. Configure kernel parameters
+ *
+ * @param[in] trans GstBaseTransform instance
+ *
+ * @return Success status
+ * @retval TRUE Initialization succeeded, ready to process frames
+ * @retval FALSE Initialization failed (errors logged, pipeline won't start)
+ *
+ * @note Called once when pipeline transitions to READY state
+ * @note Failure here prevents pipeline from starting
+ */
 static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(trans);
@@ -1530,6 +1579,27 @@ static gboolean gst_nvds_stitch_start(GstBaseTransform *trans)
     return TRUE;
 }
 
+/**
+ * @brief Plugin stop callback - releases CUDA resources and cleans up
+ *
+ * GStreamer BaseTransform stop callback that synchronizes GPU operations,
+ * releases all CUDA resources, and cleans up allocated memory.
+ *
+ * Cleanup steps:
+ * 1. Synchronize CUDA stream (wait for pending operations)
+ * 2. Free panorama LUT maps (~24 MB GPU memory)
+ * 3. Clear EGL resource cache
+ * 4. Release fixed output buffer pool
+ * 5. Free color correction resources
+ * 6. Destroy CUDA streams and events
+ *
+ * @param[in] trans GstBaseTransform instance
+ *
+ * @return Success status (always TRUE)
+ *
+ * @note Called when pipeline transitions to NULL state
+ * @note Ensures no GPU memory leaks
+ */
 static gboolean gst_nvds_stitch_stop(GstBaseTransform *trans)
 {
     GstNvdsStitch *stitch = GST_NVDS_STITCH(trans);
