@@ -16,11 +16,11 @@ namespace NvdsStitchConfig {
     constexpr int RIGHT_SOURCE_ID = 1;
 
     // ========== PANORAMA PARAMETERS ==========
-    // REMOVED: OUTPUT_WIDTH, OUTPUT_HEIGHT - now passed via properties!
+    // Output dimensions (width, height) configured via properties
     constexpr int OUTPUT_FORMAT = 19;    // NVBUF_COLOR_FORMAT_RGBA
 
     // ========== LUT MAPS ==========
-    // REMOVED: WARP_WIDTH, WARP_HEIGHT - now taken from stitch->output_width/height!
+    // LUT dimensions match output dimensions (from properties)
     constexpr const char* WARP_MAPS_DIR = "warp_maps";
 
     // LUT and weight files (e.g. 5700x1900 - TRUE SPHERICAL from pano_cuda_debug_stages.py!)
@@ -31,11 +31,11 @@ namespace NvdsStitchConfig {
     constexpr const char* WEIGHT_LEFT_FILE = "weight_left.bin";
     constexpr const char* WEIGHT_RIGHT_FILE = "weight_right.bin";
 
-    // Cropping not needed in panorama mode
+    // Cropping parameters (zero for full panorama output)
     constexpr int DEFAULT_CROP_TOP = 0;
     constexpr int DEFAULT_CROP_BOTTOM = 0;
     constexpr int DEFAULT_CROP_SIDES = 0;
-    constexpr int OVERLAP = 0;  // In panorama mode, overlap is handled via weights
+    constexpr int OVERLAP = 0;  // Overlap blending handled via weight maps
 
     // ========== COLOR CORRECTION (ASYNC) ==========
     // Hardware-sync-aware color correction for overlap region
@@ -109,8 +109,6 @@ namespace NvdsStitchConfig {
     inline int getInputPitch() {
         return calculatePitch(INPUT_WIDTH);
     }
-
-    // REMOVED: getOutputPitch() - pitch now calculated dynamically!
 }
 
 // ========== COLOR CORRECTION FACTORS STRUCTURE ==========

@@ -55,7 +55,7 @@ struct _GstNvdsStitch {
     // GPU
     guint gpu_id;
 
-    // Not used in panorama mode, kept for backward compatibility
+    // Legacy parameters (reserved for compatibility)
     guint overlap;
     guint crop_top;
     guint crop_bottom;
@@ -94,7 +94,7 @@ struct _GstNvdsStitch {
     gboolean pool_configured;
 
     // LUT maps and blending weights in GPU memory
-    float *warp_left_x_gpu;   // Using legacy names for compatibility
+    float *warp_left_x_gpu;
     float *warp_left_y_gpu;
     float *warp_right_x_gpu;
     float *warp_right_y_gpu;

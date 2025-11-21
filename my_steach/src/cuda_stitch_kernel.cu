@@ -10,10 +10,10 @@
 // ============================================================================
 // CONSTANT MEMORY FOR COLOR CORRECTION (Phase 1.5)
 // ============================================================================
-// New async color correction with gamma (8 factors)
+// Async color correction with gamma (8 factors)
 __constant__ ColorCorrectionFactors g_color_factors;
 
-// Old color correction (deprecated, kept for compatibility)
+// Legacy color correction (6 gains, no gamma)
 __constant__ float g_color_gains[6];
 
 // ============================================================================
@@ -927,7 +927,7 @@ __global__ void panorama_lut_kernel(
     // FIXED: Use EFFECTIVE weights for blending
     float4 result;
     const float eps = 1e-6f;
-    float total_weight = wL_eff + wR_eff + eps;  // Now using wL_eff and wR_eff!
+    float total_weight = wL_eff + wR_eff + eps;  // Effective weights prevent invalid pixel contribution
 
     // Blend using effective weights
     result.x = ((float)pixel_left.x * wL_eff + (float)pixel_right.x * wR_eff) / total_weight;

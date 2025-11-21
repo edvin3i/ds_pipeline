@@ -14,12 +14,12 @@ typedef struct {
     int output_pitch;
     int warp_width;   // LUT dimensions
     int warp_height;  // LUT dimensions
-    int overlap;      // Not used in panorama mode
-    int crop_top;     // Not used in panorama mode
-    int crop_bottom;  // Not used in panorama mode
-    int crop_sides;   // Not used in panorama mode
-    int full_height;  // Not used in panorama mode
-    int full_width;   // Not used in panorama mode
+    int overlap;      // Reserved
+    int crop_top;     // Reserved
+    int crop_bottom;  // Reserved
+    int crop_sides;   // Reserved
+    int full_height;  // Reserved
+    int full_width;   // Reserved
 } StitchKernelConfig;
 
 #ifdef __cplusplus
