@@ -1,14 +1,14 @@
-// cuda_stitch_kernel.cu - Исправленная версия CUDA kernel для панорамной склейки
+// cuda_stitch_kernel.cu - CUDA Kernels for Panorama Stitching with Color Correction
 #include "cuda_stitch_kernel.h"
 #include "nvdsstitch_config.h"
 #include <cstdio>
 #include <fstream>
 #include <vector>
 #include <cmath>
-#include <cfloat>  // Для FLT_MAX
+#include <cfloat>  // For FLT_MAX
 
 // ============================================================================
-// КОНСТАНТНАЯ ПАМЯТЬ ДЛЯ ЦВЕТОКОРРЕКЦИИ (Phase 1.5)
+// CONSTANT MEMORY FOR COLOR CORRECTION (Phase 1.5)
 // ============================================================================
 // New async color correction with gamma (8 factors)
 __constant__ ColorCorrectionFactors g_color_factors;
@@ -34,16 +34,16 @@ extern "C" cudaError_t launch_panorama_kernel_fixed(
     bool enable_edge_boost);
 
 // ============================================================================
-// СТРУКТУРА ДЛЯ КОНТЕКСТА ЦВЕТОКОРРЕКЦИИ
+// COLOR CORRECTION CONTEXT STRUCTURE
 // ============================================================================
 struct ColorCorrectionContext {
-    float* d_sum_left;      // RGB суммы левой камеры
-    float* d_sum_right;     // RGB суммы правой камеры  
-    int* d_count_left;      // Счётчик пикселей левой
-    int* d_count_right;     // Счётчик пикселей правой
-    float prev_gains[6];    // Предыдущие значения для сглаживания
+    float* d_sum_left;      // RGB sums for left camera
+    float* d_sum_right;     // RGB sums for right camera
+    int* d_count_left;      // Pixel counter for left camera
+    int* d_count_right;     // Pixel counter for right camera
+    float prev_gains[6];    // Previous values for temporal smoothing
     bool initialized;
-    // Pinned memory для асинхронного копирования
+    // Pinned memory for async copy operations
     float* h_sum_left;
     float* h_sum_right;
     int* h_count_left;
@@ -51,7 +51,7 @@ struct ColorCorrectionContext {
 };
 
 // ============================================================================
-// БИЛИНЕЙНАЯ ИНТЕРПОЛЯЦИЯ
+// BILINEAR INTERPOLATION
 // ============================================================================
 __device__ inline uchar4 bilinear_sample(
     const unsigned char* image,
@@ -95,7 +95,7 @@ __device__ inline uchar4 bilinear_sample(
 }
 
 // ============================================================================
-// ОПТИМИЗИРОВАННОЕ ЯДРО АНАЛИЗА ЗОНЫ ПЕРЕКРЫТИЯ С SHARED MEMORY
+// OPTIMIZED OVERLAP ZONE ANALYSIS KERNEL WITH SHARED MEMORY
 // ============================================================================
 __global__ void analyze_overlap_zone_kernel(
     const unsigned char* input_left,
@@ -116,16 +116,16 @@ __global__ void analyze_overlap_zone_kernel(
     int output_width,
     int output_height)
 {
-    // Shared memory для редукции внутри блока
+    // Shared memory for block-level reduction
     extern __shared__ float shared_data[];
     float* block_sum_left = shared_data;  // 3 floats
     float* block_sum_right = &shared_data[3];  // 3 floats
     int* block_count_left = (int*)&shared_data[6];  // 1 int
     int* block_count_right = (int*)&shared_data[7];  // 1 int
-    
+
     int tid = threadIdx.y * blockDim.x + threadIdx.x;
-    
-    // Инициализация shared memory
+
+    // Initialize shared memory
     if (tid == 0) {
         block_sum_left[0] = block_sum_left[1] = block_sum_left[2] = 0.0f;
         block_sum_right[0] = block_sum_right[1] = block_sum_right[2] = 0.0f;
@@ -142,30 +142,30 @@ __global__ void analyze_overlap_zone_kernel(
         
         float w_l = weight_left[lut_idx];
         float w_r = weight_right[lut_idx];
-        
-        // Анализируем только зону перекрытия (где оба веса значимы)
+
+        // Analyze only overlap zone (where both weights are significant)
         const float overlap_threshold = 0.1f;
-        
+
         if (w_l > overlap_threshold && w_r > overlap_threshold) {
-            // Получаем координаты из LUT
+            // Get coordinates from LUT
             float left_u = lut_left_x[lut_idx];
             float left_v = lut_left_y[lut_idx];
             float right_u = lut_right_x[lut_idx];
             float right_v = lut_right_y[lut_idx];
-            
-            // Проверяем валидность координат
-            if (left_u >= 0 && left_u < input_width && 
+
+            // Validate coordinate bounds
+            if (left_u >= 0 && left_u < input_width &&
                 left_v >= 0 && left_v < input_height &&
-                right_u >= 0 && right_u < input_width && 
+                right_u >= 0 && right_u < input_width &&
                 right_v >= 0 && right_v < input_height) {
-                
-                // Сэмплируем пиксели
+
+                // Sample pixels via bilinear interpolation
                 uchar4 pixel_l = bilinear_sample(input_left, left_u, left_v,
                                                 input_width, input_height, input_pitch);
                 uchar4 pixel_r = bilinear_sample(input_right, right_u, right_v,
                                                 input_width, input_height, input_pitch);
-                
-                // Атомарное добавление в shared memory
+
+                // Atomic add to shared memory
                 atomicAdd(&block_sum_left[0], (float)pixel_l.x);
                 atomicAdd(&block_sum_left[1], (float)pixel_l.y);
                 atomicAdd(&block_sum_left[2], (float)pixel_l.z);
@@ -180,8 +180,8 @@ __global__ void analyze_overlap_zone_kernel(
     }
     
     __syncthreads();
-    
-    // Финальная редукция: только первый поток блока пишет в глобальную память
+
+    // Final reduction: only first thread in block writes to global memory
     if (tid == 0) {
         if (*block_count_left > 0) {
             atomicAdd(&rgb_sum_left[0], block_sum_left[0]);
@@ -200,13 +200,13 @@ __global__ void analyze_overlap_zone_kernel(
 }
 
 // ============================================================================
-// ИНИЦИАЛИЗАЦИЯ УЛУЧШЕННОЙ ЦВЕТОКОРРЕКЦИИ
+// ADVANCED COLOR CORRECTION INITIALIZATION
 // ============================================================================
 extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** ctx_out) {
-    // Выделяем контекст
+    // Allocate context
     ColorCorrectionContext* ctx = new ColorCorrectionContext();
-    
-    // Инициализируем поля
+
+    // Initialize fields
     ctx->d_sum_left = nullptr;
     ctx->d_sum_right = nullptr;
     ctx->d_count_left = nullptr;
@@ -215,8 +215,8 @@ extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** c
     ctx->h_sum_right = nullptr;
     ctx->h_count_left = nullptr;
     ctx->h_count_right = nullptr;
-    
-    // Выделяем постоянные буферы на GPU (один раз!)
+
+    // Allocate persistent GPU buffers (once!)
     cudaError_t err;
     err = cudaMalloc(&ctx->d_sum_left, 3 * sizeof(float));
     if (err != cudaSuccess) goto error;
@@ -229,8 +229,8 @@ extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** c
     
     err = cudaMalloc(&ctx->d_count_right, sizeof(int));
     if (err != cudaSuccess) goto error;
-    
-    // Выделяем pinned memory для быстрого асинхронного копирования
+
+    // Allocate pinned memory for fast async copying
     err = cudaHostAlloc(&ctx->h_sum_left, 3 * sizeof(float), cudaHostAllocDefault);
     if (err != cudaSuccess) goto error;
     
@@ -242,14 +242,14 @@ extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** c
     
     err = cudaHostAlloc(&ctx->h_count_right, sizeof(int), cudaHostAllocDefault);
     if (err != cudaSuccess) goto error;
-    
-    // Инициализация предыдущих gains
+
+    // Initialize previous gains for temporal smoothing
     for (int i = 0; i < 6; i++) {
         ctx->prev_gains[i] = 1.0f;
     }
     ctx->initialized = false;
-    
-    // Инициализация constant memory - объявляем ДО goto
+
+    // Initialize constant memory - declared before goto
     {
         float initial_gains[6] = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
         err = cudaMemcpyToSymbol(g_color_gains, initial_gains, 6 * sizeof(float));
@@ -261,7 +261,7 @@ extern "C" cudaError_t init_color_correction_advanced(ColorCorrectionContext** c
     return cudaSuccess;
 
 error:
-    // Очистка при ошибке
+    // Cleanup on error
     if (ctx) {
         if (ctx->d_sum_left) cudaFree(ctx->d_sum_left);
         if (ctx->d_sum_right) cudaFree(ctx->d_sum_right);
@@ -279,7 +279,7 @@ error:
 
 
 // ============================================================================
-// ОБНОВЛЕНИЕ ЦВЕТОКОРРЕКЦИИ (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ)
+// COLOR CORRECTION UPDATE (OPTIMIZED VERSION)
 // ============================================================================
 extern "C" cudaError_t update_color_correction_advanced(
     const unsigned char* left_frame,
@@ -300,14 +300,14 @@ extern "C" cudaError_t update_color_correction_advanced(
     float smoothing_factor)
 {
     if (!ctx) return cudaErrorInvalidValue;
-    
-    // Очистка буферов
+
+    // Clear buffers asynchronously
     cudaMemsetAsync(ctx->d_sum_left, 0, 3 * sizeof(float), stream);
     cudaMemsetAsync(ctx->d_sum_right, 0, 3 * sizeof(float), stream);
     cudaMemsetAsync(ctx->d_count_left, 0, sizeof(int), stream);
     cudaMemsetAsync(ctx->d_count_right, 0, sizeof(int), stream);
-    
-    // Запуск анализа
+
+    // Launch analysis kernel
     dim3 block(16, 16);
     dim3 grid((output_width + block.x - 1) / block.x,
               (output_height + block.y - 1) / block.y);
@@ -323,8 +323,8 @@ extern "C" cudaError_t update_color_correction_advanced(
         ctx->d_count_left, ctx->d_count_right,
         input_width, input_height, input_pitch,
         output_width, output_height);
-    
-    // Проверка ошибки
+
+    // Check for kernel launch errors
     cudaError_t err = cudaGetLastError();
     if (err != cudaSuccess) {
         printf("ERROR: analyze_overlap_zone_kernel failed: %s\n", 
