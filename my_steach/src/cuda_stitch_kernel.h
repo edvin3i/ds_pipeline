@@ -26,6 +26,61 @@
 #include <cuda_runtime.h>
 #include "nvdsstitch_config.h"
 
+// ============================================================================
+// CUDA ERROR CHECKING MACRO
+// ============================================================================
+
+/**
+ * @brief CUDA error checking macro with file:line reporting
+ *
+ * Automatically checks CUDA API return values and logs detailed error
+ * information (file, line, error string, error name) on failure.
+ * Returns cudaError_t on failure, allowing calling function to handle error.
+ *
+ * This macro provides consistent error reporting across all CUDA operations
+ * in the panorama stitching plugin, following CLAUDE.md §4.7 standards.
+ *
+ * @param call CUDA API function call to check (e.g., cudaMalloc(...))
+ *
+ * @note Returns cudaError_t on failure (function must return cudaError_t)
+ * @note For GStreamer plugin code, use LOG_ERROR instead for consistency
+ * @note Prefer this macro for pure CUDA functions in .cu implementation files
+ *
+ * Usage example:
+ * @code
+ * extern "C" cudaError_t init_cuda_resources() {
+ *     float* d_data = nullptr;
+ *     CUDA_CHECK(cudaMalloc(&d_data, size));
+ *
+ *     my_kernel<<<grid, block>>>(d_data);
+ *     CUDA_CHECK(cudaGetLastError());       // Check kernel launch errors
+ *     CUDA_CHECK(cudaDeviceSynchronize());  // Check kernel execution errors
+ *
+ *     CUDA_CHECK(cudaFree(d_data));
+ *     return cudaSuccess;
+ * }
+ * @endcode
+ *
+ * @see CLAUDE.md §4.7 - Error Handling (MANDATORY)
+ * @see docs/reports/my_steach_code_review.md §12.3
+ */
+#ifndef CUDA_CHECK
+#define CUDA_CHECK(call)                                                      \
+do {                                                                          \
+    cudaError_t err = call;                                                   \
+    if (err != cudaSuccess) {                                                 \
+        fprintf(stderr, "CUDA error in %s:%d: %s (%s)\n",                    \
+                __FILE__, __LINE__,                                           \
+                cudaGetErrorString(err), cudaGetErrorName(err));              \
+        return err;                                                           \
+    }                                                                         \
+} while(0)
+#endif
+
+// ============================================================================
+// CONFIGURATION STRUCTURES
+// ============================================================================
+
 /**
  * @brief Configuration structure for panorama stitching CUDA kernels
  *
