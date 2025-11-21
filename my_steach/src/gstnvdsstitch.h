@@ -134,6 +134,14 @@ struct _GstNvdsStitch {
     guint output_height;  /**< Output panorama height in pixels (property, e.g., 1900) */
     /** @} */
 
+    /**
+     * @name Output Format
+     * @brief Color format for panorama output
+     * @{
+     */
+    GstVideoFormat output_format;  /**< Output color format (RGBA or NV12, property) */
+    /** @} */
+
     guint gpu_id;  /**< CUDA device ID (property, default: 0) */
 
     /**

@@ -10,6 +10,7 @@
 #include <nvbufsurface.h>
 #include <nvbufsurftransform.h>
 #include <cuda_runtime_api.h>
+#include <gst/video/video.h>
 #include <gstnvdsbufferpool.h>
 #include "gstnvdsstitch_allocator.h"
 #include <gstnvdsmeta.h>
@@ -116,6 +117,7 @@ enum {
     PROP_USE_EGL,
     PROP_PANORAMA_WIDTH,
     PROP_PANORAMA_HEIGHT,
+    PROP_OUTPUT_FORMAT,
     // Color correction properties (async)
     PROP_ENABLE_COLOR_CORRECTION,
     PROP_OVERLAP_SIZE,
@@ -1726,6 +1728,11 @@ static void gst_nvds_stitch_set_property(GObject *object, guint prop_id,
             stitch->kernel_config.output_height = stitch->output_height;
             stitch->kernel_config.warp_height = stitch->output_height;
             break;
+        case PROP_OUTPUT_FORMAT:
+            stitch->output_format = (GstVideoFormat)g_value_get_enum(value);
+            LOG_INFO(stitch, "Output format set to %s",
+                     gst_video_format_to_string(stitch->output_format));
+            break;
         case PROP_ENABLE_COLOR_CORRECTION:
             stitch->enable_color_correction = g_value_get_boolean(value);
             LOG_INFO(stitch, "Color correction %s", stitch->enable_color_correction ? "enabled" : "disabled");
@@ -1779,6 +1786,9 @@ static void gst_nvds_stitch_get_property(GObject *object, guint prop_id,
             break;
         case PROP_PANORAMA_HEIGHT:
             g_value_set_uint(value, stitch->output_height);
+            break;
+        case PROP_OUTPUT_FORMAT:
+            g_value_set_enum(value, stitch->output_format);
             break;
         case PROP_ENABLE_COLOR_CORRECTION:
             g_value_set_boolean(value, stitch->enable_color_correction);
@@ -1872,6 +1882,12 @@ static void gst_nvds_stitch_class_init(GstNvdsStitchClass *klass)
                          0,  // NO default - MUST be set via properties!
                          (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
 
+    g_object_class_install_property(gobject_class, PROP_OUTPUT_FORMAT,
+        g_param_spec_enum("output-format", "Output Format",
+                         "Output color format (RGBA or NV12)",
+                         GST_TYPE_VIDEO_FORMAT, GST_VIDEO_FORMAT_RGBA,
+                         (GParamFlags)(G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS)));
+
     // Color correction properties (async, hardware-sync-aware)
     g_object_class_install_property(gobject_class, PROP_ENABLE_COLOR_CORRECTION,
         g_param_spec_boolean("enable-color-correction", "Enable Color Correction",
@@ -1920,6 +1936,7 @@ static void gst_nvds_stitch_init(GstNvdsStitch *stitch)
     stitch->right_source_id = NvdsStitchConfig::RIGHT_SOURCE_ID;
     stitch->output_width = 0;   // NO default - MUST be set via properties!
     stitch->output_height = 0;  // NO default - MUST be set via properties!
+    stitch->output_format = GST_VIDEO_FORMAT_RGBA;  // Default: RGBA (backward compatible)
     stitch->gpu_id = NvdsStitchConfig::GPU_ID;
 
     // Crop parameters not needed for panorama mode
