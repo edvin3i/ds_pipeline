@@ -625,7 +625,7 @@ def main():
                        help="Правое видео (путь к файлу или ID камеры)")
 
     parser.add_argument('--config', default=None, help="Путь к конфигу nvinfer")
-    parser.add_argument('--buffer', type=float, default=7.0, help="Длительность буфера (сек)")
+    parser.add_argument('--buffer', type=float, default=5.0, help="Длительность буфера (сек)")
 
     parser.add_argument('--mode', choices=['panorama', 'virtualcam', 'stream', 'record'],
                        default='virtualcam',
