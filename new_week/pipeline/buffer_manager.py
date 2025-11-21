@@ -144,11 +144,12 @@ class BufferManager:
             timestamp = float(buffer.pts) / float(Gst.SECOND) if buffer.pts != Gst.CLOCK_TIME_NONE else time.time()
 
             with self.buffer_lock:
-                buffer_copy = buffer.copy_deep() if hasattr(buffer, 'copy_deep') else buffer.copy()
+                # Store buffer reference (not copy) - GStreamer manages lifecycle via reference counting
+                # This eliminates ~6.5GB of duplicated frame data
                 caps_copy = sample.get_caps()
                 self.frame_buffer.append({
                     'timestamp': timestamp,
-                    'buffer': buffer_copy,
+                    'buffer': buffer,  # Reference only (no deep copy)
                     'caps': caps_copy if self.frames_received == 0 else None
                 })
                 self.frames_received += 1
@@ -187,7 +188,8 @@ class BufferManager:
             timestamp = float(buffer.pts) / float(Gst.SECOND) if buffer.pts != Gst.CLOCK_TIME_NONE else time.time()
 
             with self.buffer_lock:
-                buffer_copy = buffer.copy_deep() if hasattr(buffer, 'copy_deep') else buffer.copy()
+                # Store buffer reference (not copy) - GStreamer manages lifecycle via reference counting
+                # Audio buffers are small (~1KB each) but same principle applies
 
                 # Сохраняем caps только для первого буфера
                 caps_copy = sample.get_caps() if not self.audio_caps else None
@@ -196,7 +198,7 @@ class BufferManager:
 
                 self.audio_buffer.append({
                     'timestamp': timestamp,
-                    'buffer': buffer_copy,
+                    'buffer': buffer,  # Reference only (no deep copy)
                     'caps': caps_copy
                 })
 
