@@ -1029,6 +1029,165 @@ panorama_lut_kernel(
 }
 
 // ============================================================================
+// NV12 OUTPUT KERNEL (RGBA INPUT → NV12 OUTPUT)
+// ============================================================================
+
+/**
+ * @brief Panorama stitching kernel with NV12 output format
+ *
+ * Similar to panorama_lut_kernel but outputs NV12 (YUV 4:2:0) instead of RGBA.
+ * Converts blended RGB to YUV using BT.601 coefficients.
+ *
+ * Memory layout:
+ * - Y plane: width × height bytes (full resolution)
+ * - UV plane: width × height / 2 bytes (half resolution, U,V interleaved)
+ *
+ * 4:2:0 subsampling: UV written only for even x AND even y pixels.
+ *
+ * Performance: Expected faster than RGBA due to lower memory bandwidth
+ * (15.49 MB vs 41.31 MB for 5700×1900 output).
+ *
+ * Launch bounds: 256 threads/block, min 4 blocks/SM
+ * Register budget: 65536 / 4 = 16384 registers per block
+ */
+__global__ void
+__launch_bounds__(256, 4)  // 256 threads/block, min 4 blocks/SM
+panorama_lut_kernel_nv12(
+    const unsigned char* __restrict__ input_left,
+    const unsigned char* __restrict__ input_right,
+    unsigned char* __restrict__ output_y,
+    unsigned char* __restrict__ output_uv,
+    const float* __restrict__ lut_left_x,
+    const float* __restrict__ lut_left_y,
+    const float* __restrict__ lut_right_x,
+    const float* __restrict__ lut_right_y,
+    const float* __restrict__ weight_left,
+    const float* __restrict__ weight_right,
+    int input_width,
+    int input_height,
+    int input_pitch,
+    int output_width,
+    int output_height,
+    int output_pitch_y,
+    int output_pitch_uv,
+    bool enable_edge_boost)
+{
+    int x = blockIdx.x * blockDim.x + threadIdx.x;
+    int y = blockIdx.y * blockDim.y + threadIdx.y;
+
+    if (x >= output_width || y >= output_height) return;
+
+    int lut_idx = y * output_width + x;
+
+    // Read coordinates from LUT
+    float left_u = lut_left_x[lut_idx];
+    float left_v = lut_left_y[lut_idx];
+    float right_u = lut_right_x[lut_idx];
+    float right_v = lut_right_y[lut_idx];
+
+    // Read blending weights
+    float w_left = weight_left[lut_idx];
+    float w_right = weight_right[lut_idx];
+
+    uchar4 pixel_left = make_uchar4(0,0,0,0);
+    uchar4 pixel_right = make_uchar4(0,0,0,0);
+
+    // Effective weights (only set if pixel successfully sampled)
+    float wL_eff = 0.0f;
+    float wR_eff = 0.0f;
+
+    // Sample left camera ONLY if coordinates are valid
+    if (w_left > 0.001f && left_u >= 0 && left_u < input_width &&
+        left_v >= 0 && left_v < input_height) {
+
+        pixel_left = bilinear_sample(input_left, left_u, left_v,
+                                     input_width, input_height, input_pitch);
+
+        // Apply color correction with gamma
+        pixel_left = apply_color_correction_gamma(pixel_left, true);
+
+        wL_eff = w_left;
+    }
+
+    // Sample right camera ONLY if coordinates are valid
+    if (w_right > 0.001f && right_u >= 0 && right_u < input_width &&
+        right_v >= 0 && right_v < input_height) {
+
+        pixel_right = bilinear_sample(input_right, right_u, right_v,
+                                      input_width, input_height, input_pitch);
+
+        // Apply color correction with gamma
+        pixel_right = apply_color_correction_gamma(pixel_right, false);
+
+        wR_eff = w_right;
+    }
+
+    // Blend using effective weights
+    float4 result_rgb;
+    const float eps = 1e-6f;
+    float total_weight = wL_eff + wR_eff + eps;
+
+    result_rgb.x = ((float)pixel_left.x * wL_eff + (float)pixel_right.x * wR_eff) / total_weight;
+    result_rgb.y = ((float)pixel_left.y * wL_eff + (float)pixel_right.y * wR_eff) / total_weight;
+    result_rgb.z = ((float)pixel_left.z * wL_eff + (float)pixel_right.z * wR_eff) / total_weight;
+
+    // Optional edge brightness boost
+    if (enable_edge_boost) {
+        float dist_x = fabsf(x - output_width * 0.5f) / (output_width * 0.5f);
+        if (dist_x > 0.8f) {
+            float brightness_boost = 1.0f + (dist_x - 0.8f) * 1.75f;
+            brightness_boost = fminf(1.35f, brightness_boost);
+            result_rgb.x = fminf(255.0f, result_rgb.x * brightness_boost);
+            result_rgb.y = fminf(255.0f, result_rgb.y * brightness_boost);
+            result_rgb.z = fminf(255.0f, result_rgb.z * brightness_boost);
+        }
+    }
+
+    // Convert RGB → YUV (BT.601 coefficients)
+    // RGB values are in [0, 255] range, normalize to [0, 1] for conversion
+    float r = result_rgb.x / 255.0f;
+    float g = result_rgb.y / 255.0f;
+    float b = result_rgb.z / 255.0f;
+
+    // BT.601 conversion:
+    // Y =  0.299*R + 0.587*G + 0.114*B
+    // U = -0.14713*R - 0.28886*G + 0.436*B + 0.5
+    // V =  0.615*R - 0.51499*G - 0.10001*B + 0.5
+    float y_val = 0.299f * r + 0.587f * g + 0.114f * b;
+    float u_val = -0.14713f * r - 0.28886f * g + 0.436f * b + 0.5f;
+    float v_val = 0.615f * r - 0.51499f * g - 0.10001f * b + 0.5f;
+
+    // Clamp to valid range [0, 1]
+    y_val = fmaxf(0.0f, fminf(1.0f, y_val));
+    u_val = fmaxf(0.0f, fminf(1.0f, u_val));
+    v_val = fmaxf(0.0f, fminf(1.0f, v_val));
+
+    // Convert to uint8 [0, 255]
+    unsigned char y_byte = __float2uint_rn(y_val * 255.0f);
+    unsigned char u_byte = __float2uint_rn(u_val * 255.0f);
+    unsigned char v_byte = __float2uint_rn(v_val * 255.0f);
+
+    // Write Y plane (every pixel, with flip)
+    // Flip: (output_height - 1 - y), (output_width - 1 - x)
+    size_t y_out_y = (size_t)output_height - 1 - (size_t)y;
+    size_t y_out_x = (size_t)output_width - 1 - (size_t)x;
+    size_t y_idx = y_out_y * output_pitch_y + y_out_x;
+    output_y[y_idx] = y_byte;
+
+    // Write UV plane (4:2:0 subsampling - only even x AND even y)
+    if ((y & 1) == 0 && (x & 1) == 0) {
+        // For UV plane, also apply flip
+        size_t uv_out_y = (size_t)output_height - 1 - (size_t)y;
+        size_t uv_out_x = (size_t)output_width - 1 - (size_t)x;
+
+        // UV plane indices (half resolution)
+        size_t uv_idx = (uv_out_y / 2) * output_pitch_uv + (uv_out_x / 2) * 2;
+        output_uv[uv_idx] = u_byte;      // U
+        output_uv[uv_idx + 1] = v_byte;  // V
+    }
+}
+
+// ============================================================================
 // SAFE LUT LOADING WITH VALIDATION
 // ============================================================================
 extern "C" cudaError_t load_panorama_luts(
@@ -1296,6 +1455,91 @@ extern "C" cudaError_t launch_panorama_kernel(
         lut_right_x, lut_right_y,
         weight_left, weight_right,
         config, stream, false);
+}
+
+/**
+ * @brief Launch panorama stitching kernel with NV12 output format
+ *
+ * Public API for NV12 panorama stitching. Converts RGBA input to NV12 output
+ * using BT.601 color space conversion with 4:2:0 chroma subsampling.
+ *
+ * @param[in] input_left Left camera frame (GPU memory, RGBA)
+ * @param[in] input_right Right camera frame (GPU memory, RGBA)
+ * @param[out] output_y NV12 Y plane (luma, full resolution, GPU memory)
+ * @param[out] output_uv NV12 UV plane (chroma, half res, interleaved, GPU memory)
+ * @param[in] lut_left_x Left camera X coordinate LUT
+ * @param[in] lut_left_y Left camera Y coordinate LUT
+ * @param[in] lut_right_x Right camera X coordinate LUT
+ * @param[in] lut_right_y Right camera Y coordinate LUT
+ * @param[in] weight_left Left camera blending weights
+ * @param[in] weight_right Right camera blending weights
+ * @param[in] config Kernel configuration (dimensions, pitch)
+ * @param[in] stream CUDA stream for async execution
+ * @param[in] output_pitch_y Y plane pitch/stride in bytes
+ * @param[in] output_pitch_uv UV plane pitch/stride in bytes
+ *
+ * @return cudaSuccess on kernel launch success, error code on failure
+ * @retval cudaSuccess Kernel launched successfully
+ * @retval cudaErrorInvalidValue NULL pointer in required parameters
+ * @retval cudaErrorLaunchFailure Kernel launch failed
+ *
+ * @note ASYNC function - does not wait for kernel completion
+ * @note Synchronize stream before using output buffers
+ *
+ * @see launch_panorama_kernel (RGBA version)
+ * @see panorama_lut_kernel_nv12
+ */
+extern "C" cudaError_t launch_panorama_kernel_nv12(
+    const unsigned char* input_left,
+    const unsigned char* input_right,
+    unsigned char* output_y,
+    unsigned char* output_uv,
+    const float* lut_left_x,
+    const float* lut_left_y,
+    const float* lut_right_x,
+    const float* lut_right_y,
+    const float* weight_left,
+    const float* weight_right,
+    const StitchKernelConfig* config,
+    cudaStream_t stream,
+    int output_pitch_y,
+    int output_pitch_uv)
+{
+    // Validate input parameters
+    if (!input_left || !input_right || !output_y || !output_uv || !config) {
+        return cudaErrorInvalidValue;
+    }
+
+    if (!lut_left_x || !lut_left_y || !lut_right_x || !lut_right_y ||
+        !weight_left || !weight_right) {
+        return cudaErrorInvalidValue;
+    }
+
+    // Configure grid and block dimensions
+    dim3 block(NvdsStitchConfig::BLOCK_SIZE_X, NvdsStitchConfig::BLOCK_SIZE_Y);
+    dim3 grid(
+        (config->output_width + block.x - 1) / block.x,
+        (config->output_height + block.y - 1) / block.y
+    );
+
+    // Launch NV12 kernel with edge boost disabled by default
+    panorama_lut_kernel_nv12<<<grid, block, 0, stream>>>(
+        input_left, input_right,
+        output_y, output_uv,
+        lut_left_x, lut_left_y,
+        lut_right_x, lut_right_y,
+        weight_left, weight_right,
+        config->input_width,
+        config->input_height,
+        config->input_pitch,
+        config->output_width,
+        config->output_height,
+        output_pitch_y,
+        output_pitch_uv,
+        false  // edge_boost disabled by default
+    );
+
+    return cudaGetLastError();
 }
 
 // ============================================================================

@@ -219,6 +219,84 @@ cudaError_t launch_panorama_kernel(
 );
 
 /**
+ * @brief Launch panorama stitching kernel with NV12 output format
+ *
+ * Performs GPU-accelerated panorama stitching with NV12 (YUV 4:2:0) output.
+ * Converts RGB input to YUV color space using BT.601 coefficients and writes
+ * separate Y plane (full resolution) and UV plane (half resolution, interleaved).
+ *
+ * Algorithm:
+ * 1. For each output pixel, read source coordinates from LUT
+ * 2. Sample input frames with bilinear interpolation (RGBA)
+ * 3. Apply color correction (gamma + RGB gains) per camera
+ * 4. Blend cameras using pre-computed weights
+ * 5. Convert blended RGB → YUV (BT.601)
+ * 6. Write Y plane at full resolution with flip
+ * 7. Write UV plane at half resolution (4:2:0 subsampling) with flip
+ *
+ * NV12 format layout:
+ * - Y plane: width × height bytes (luma, full resolution)
+ * - UV plane: (width × height) / 2 bytes (chroma, U,V interleaved)
+ * - Total: 1.5 bytes per pixel (62.5% reduction vs RGBA)
+ *
+ * RGB → YUV conversion (BT.601):
+ * - Y =  0.299*R + 0.587*G + 0.114*B
+ * - U = -0.147*R - 0.289*G + 0.436*B + 128
+ * - V =  0.615*R - 0.515*G - 0.100*B + 128
+ *
+ * Performance: Expected ~8-9ms for 5700×1900 output @ 30 FPS (Jetson Orin NX)
+ * (Faster than RGBA due to lower memory bandwidth: 15.49MB vs 41.31MB)
+ *
+ * @param[in] input_left Left camera frame (RGBA, GPU memory, NVMM)
+ * @param[in] input_right Right camera frame (RGBA, GPU memory, NVMM)
+ * @param[out] output_y NV12 Y plane output (luma, full resolution, GPU memory)
+ * @param[out] output_uv NV12 UV plane output (chroma, half res, interleaved U,V, GPU memory)
+ * @param[in] lut_left_x Left camera X coordinate LUT (GPU memory)
+ * @param[in] lut_left_y Left camera Y coordinate LUT (GPU memory)
+ * @param[in] lut_right_x Right camera X coordinate LUT (GPU memory)
+ * @param[in] lut_right_y Right camera Y coordinate LUT (GPU memory)
+ * @param[in] weight_left Left camera blending weights (GPU memory)
+ * @param[in] weight_right Right camera blending weights (GPU memory)
+ * @param[in] config Kernel configuration (dimensions, pitch)
+ * @param[in] stream CUDA stream for async execution (use 0 for default stream)
+ * @param[in] output_pitch_y Y plane pitch/stride in bytes (typically width, 32-byte aligned)
+ * @param[in] output_pitch_uv UV plane pitch/stride in bytes (typically width, 32-byte aligned)
+ *
+ * @return cudaSuccess on kernel launch success, CUDA error code on failure
+ * @retval cudaSuccess Kernel launched successfully (does NOT guarantee completion)
+ * @retval cudaErrorInvalidConfiguration Invalid grid/block dimensions
+ * @retval cudaErrorLaunchFailure Kernel launch failed
+ * @retval cudaErrorInvalidValue NULL pointer in input/output
+ *
+ * @note Function is ASYNC - does not wait for kernel completion
+ * @note Call cudaStreamSynchronize(stream) or cudaDeviceSynchronize() to wait
+ * @note All pointers must be valid GPU memory addresses
+ * @note output_y and output_uv must be separate non-overlapping buffers
+ * @warning Input/output buffers must not overlap
+ * @warning UV plane must have sufficient space: (width × height) / 2 bytes
+ *
+ * @see launch_panorama_kernel (RGBA version)
+ * @see StitchKernelConfig
+ * @see load_panorama_luts
+ */
+cudaError_t launch_panorama_kernel_nv12(
+    const unsigned char* input_left,
+    const unsigned char* input_right,
+    unsigned char* output_y,
+    unsigned char* output_uv,
+    const float* lut_left_x,
+    const float* lut_left_y,
+    const float* lut_right_x,
+    const float* lut_right_y,
+    const float* weight_left,
+    const float* weight_right,
+    const StitchKernelConfig* config,
+    cudaStream_t stream,
+    int output_pitch_y,
+    int output_pitch_uv
+);
+
+/**
  * @brief Free GPU memory allocated for LUT maps
  *
  * Releases all GPU memory allocated by load_panorama_luts().
