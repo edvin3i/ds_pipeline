@@ -66,13 +66,26 @@ cudaError_t generate_remap_lut(
     cudaStream_t stream
 );
 
-// Применение remap с билинейной интерполяцией
+// Применение remap с билинейной интерполяцией (RGBA input)
 cudaError_t apply_virtual_camera_remap(
     const unsigned char* input_pano,
     unsigned char* output_view,
     const float* remap_u,
     const float* remap_v,
     const VirtualCamConfig* config,
+    cudaStream_t stream
+);
+
+// Применение remap с билинейной интерполяцией (NV12 input)
+cudaError_t apply_virtual_camera_remap_nv12(
+    const unsigned char* input_pano_y,
+    const unsigned char* input_pano_uv,
+    unsigned char* output_view,
+    const float* remap_u,
+    const float* remap_v,
+    const VirtualCamConfig* config,
+    int pitch_y,
+    int pitch_uv,
     cudaStream_t stream
 );
 

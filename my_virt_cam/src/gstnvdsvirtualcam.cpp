@@ -65,7 +65,7 @@ gst_nvds_virtual_cam_get_property(GObject *object, guint prop_id,
 static GstStaticPadTemplate sink_template =
     GST_STATIC_PAD_TEMPLATE("sink", GST_PAD_SINK, GST_PAD_ALWAYS,
                             GST_STATIC_CAPS("video/x-raw(memory:NVMM), "
-                                          "format=RGBA, "
+                                          "format={ RGBA, NV12 }, "
                                           "width=(int)[1,10000], "     // Динамическая ширина
                                           "height=(int)[1,3000], "     // Динамическая высота
                                           "framerate=(fraction)[0/1,MAX]"));
@@ -728,7 +728,22 @@ gst_nvds_virtual_cam_submit_input_buffer(GstBaseTransform *btrans,
         gst_buffer_unref(inbuf);
         return GST_FLOW_ERROR;
     }
-    
+
+    // Detect and validate input format
+    NvBufSurfaceColorFormat input_format = in_surface->surfaceList[0].colorFormat;
+    if (input_format != NVBUF_COLOR_FORMAT_RGBA &&
+        input_format != NVBUF_COLOR_FORMAT_NV12) {
+        LOG_ERROR(vcam, "Unsupported input format: %d (expected RGBA=%d or NV12=%d)",
+                  input_format, NVBUF_COLOR_FORMAT_RGBA, NVBUF_COLOR_FORMAT_NV12);
+        gst_buffer_unmap(inbuf, &in_map);
+        gst_buffer_unref(outbuf);
+        gst_buffer_unref(inbuf);
+        return GST_FLOW_ERROR;
+    }
+
+    LOG_DEBUG(vcam, "Input format: %s",
+              input_format == NVBUF_COLOR_FORMAT_NV12 ? "NV12" : "RGBA");
+
     // Получение CUDA указателей
     unsigned char *input_ptr = nullptr;
     unsigned char *output_ptr = nullptr;
@@ -859,17 +874,46 @@ gst_nvds_virtual_cam_submit_input_buffer(GstBaseTransform *btrans,
     
     // Начало измерения производительности
     auto start_time = std::chrono::high_resolution_clock::now();
-    
-    // Вызов CUDA kernel
-    cuda_err = apply_virtual_camera_remap(
-        input_ptr,
-        output_ptr,
-        vcam->remap_u_gpu,
-        vcam->remap_v_gpu,
-        &vcam->kernel_config,
-        vcam->cuda_stream
-    );
-    
+
+    // Вызов CUDA kernel - формат зависит от входного формата
+    if (input_format == NVBUF_COLOR_FORMAT_NV12) {
+        // NV12 input: separate Y and UV planes
+        unsigned char* input_y_ptr = input_ptr;
+        unsigned char* input_uv_ptr = input_y_ptr +
+            (in_surface->surfaceList[0].planeParams.pitch[0] *
+             in_surface->surfaceList[0].planeParams.height[0]);
+
+        int pitch_y = in_surface->surfaceList[0].planeParams.pitch[0];
+        int pitch_uv = in_surface->surfaceList[0].planeParams.pitch[1];
+
+        LOG_DEBUG(vcam, "Calling NV12 remap kernel (pitch_y=%d, pitch_uv=%d)",
+                  pitch_y, pitch_uv);
+
+        cuda_err = apply_virtual_camera_remap_nv12(
+            input_y_ptr,
+            input_uv_ptr,
+            output_ptr,
+            vcam->remap_u_gpu,
+            vcam->remap_v_gpu,
+            &vcam->kernel_config,
+            pitch_y,
+            pitch_uv,
+            vcam->cuda_stream
+        );
+    } else {
+        // RGBA input: single plane
+        LOG_DEBUG(vcam, "Calling RGBA remap kernel");
+
+        cuda_err = apply_virtual_camera_remap(
+            input_ptr,
+            output_ptr,
+            vcam->remap_u_gpu,
+            vcam->remap_v_gpu,
+            &vcam->kernel_config,
+            vcam->cuda_stream
+        );
+    }
+
     if (cuda_err != cudaSuccess) {
         LOG_ERROR(vcam, "CUDA processing failed: %s", cudaGetErrorString(cuda_err));
         gst_buffer_unmap(inbuf, &in_map);
