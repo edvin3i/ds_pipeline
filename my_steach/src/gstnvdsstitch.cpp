@@ -104,7 +104,7 @@ static GstStaticPadTemplate sink_template =
 
 static GstStaticPadTemplate src_template =
     GST_STATIC_PAD_TEMPLATE("src", GST_PAD_SRC, GST_PAD_ALWAYS,
-                            GST_STATIC_CAPS("video/x-raw(memory:NVMM), format=RGBA"));
+                            GST_STATIC_CAPS("video/x-raw(memory:NVMM), format={ RGBA, NV12 }"));
 
 G_DEFINE_TYPE(GstNvdsStitch, gst_nvds_stitch, GST_TYPE_BASE_TRANSFORM);
 
@@ -1486,18 +1486,24 @@ static GstCaps* gst_nvds_stitch_transform_caps(GstBaseTransform *trans,
     GstStructure *structure = gst_caps_get_structure(other_caps, 0);
 
     if (direction == GST_PAD_SINK) {
+        // Downstream is asking about src caps - set output dimensions and format
+        const gchar *format_str = gst_video_format_to_string(stitch->output_format);
         gst_structure_set(structure,
                          "width", G_TYPE_INT, stitch->output_width,
                          "height", G_TYPE_INT, stitch->output_height,
+                         "format", G_TYPE_STRING, format_str,
                          NULL);
+
+        LOG_DEBUG(stitch, "transform_caps (SINK→SRC): advertising %s %dx%d",
+                  format_str, stitch->output_width, stitch->output_height);
     }
-    
+
     if (filter) {
         GstCaps *intersect = gst_caps_intersect(other_caps, filter);
         gst_caps_unref(other_caps);
         other_caps = intersect;
     }
-    
+
     return other_caps;
 }
 
