@@ -897,20 +897,53 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
     // Increment frame counter for color correction tracking
     stitch->frame_count++;
 
-    // Launch panorama stitching kernel (buffers pre-copied via VIC)
-    err = launch_panorama_kernel(
-        (const unsigned char*)left_params->dataPtr,
-        (const unsigned char*)right_params->dataPtr,
-        (unsigned char*)output_params->dataPtr,
-        stitch->warp_left_x_gpu,
-        stitch->warp_left_y_gpu,
-        stitch->warp_right_x_gpu,
-        stitch->warp_right_y_gpu,
-        stitch->weight_left_gpu,
-        stitch->weight_right_gpu,
-        &stitch->kernel_config,
-        stitch->cuda_stream
-    );
+    // Launch panorama stitching kernel (dispatch based on output format)
+    if (stitch->output_format == GST_VIDEO_FORMAT_NV12) {
+        // NV12 output path - extract Y and UV plane pointers
+        unsigned char* output_y_ptr = (unsigned char*)output_params->dataPtr;
+
+        // UV plane starts after Y plane
+        unsigned char* output_uv_ptr = output_y_ptr +
+            (output_params->planeParams.pitch[0] * output_params->planeParams.height[0]);
+
+        int pitch_y = output_params->planeParams.pitch[0];
+        int pitch_uv = output_params->planeParams.pitch[1];
+
+        LOG_DEBUG(stitch, "Launching NV12 kernel: Y=%p UV=%p pitch_y=%d pitch_uv=%d",
+                  output_y_ptr, output_uv_ptr, pitch_y, pitch_uv);
+
+        err = launch_panorama_kernel_nv12(
+            (const unsigned char*)left_params->dataPtr,
+            (const unsigned char*)right_params->dataPtr,
+            output_y_ptr,
+            output_uv_ptr,
+            stitch->warp_left_x_gpu,
+            stitch->warp_left_y_gpu,
+            stitch->warp_right_x_gpu,
+            stitch->warp_right_y_gpu,
+            stitch->weight_left_gpu,
+            stitch->weight_right_gpu,
+            &stitch->kernel_config,
+            stitch->cuda_stream,
+            pitch_y,
+            pitch_uv
+        );
+    } else {
+        // RGBA output path (original)
+        err = launch_panorama_kernel(
+            (const unsigned char*)left_params->dataPtr,
+            (const unsigned char*)right_params->dataPtr,
+            (unsigned char*)output_params->dataPtr,
+            stitch->warp_left_x_gpu,
+            stitch->warp_left_y_gpu,
+            stitch->warp_right_x_gpu,
+            stitch->warp_right_y_gpu,
+            stitch->weight_left_gpu,
+            stitch->weight_right_gpu,
+            &stitch->kernel_config,
+            stitch->cuda_stream
+        );
+    }
     
     if (err != cudaSuccess) {
         LOG_ERROR(stitch, "Panorama kernel failed: %s", cudaGetErrorString(err));
@@ -1146,20 +1179,54 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
         }
     }
 
-    // Launch panorama stitching kernel (buffers pre-copied via VIC)
-    err = launch_panorama_kernel(
-        (const unsigned char*)frames[0].frame.pPitch[0],
-        (const unsigned char*)frames[1].frame.pPitch[0],
-        (unsigned char*)frames[2].frame.pPitch[0],
-        stitch->warp_left_x_gpu,
-        stitch->warp_left_y_gpu,
-        stitch->warp_right_x_gpu,
-        stitch->warp_right_y_gpu,
-        stitch->weight_left_gpu,
-        stitch->weight_right_gpu,
-        &stitch->kernel_config,
-        stitch->cuda_stream
-    );
+    // Launch panorama stitching kernel (buffers pre-copied via VIC, dispatch based on format)
+    if (stitch->output_format == GST_VIDEO_FORMAT_NV12) {
+        // NV12 output path - extract Y and UV plane pointers from EGL frame
+        unsigned char* output_y_ptr = (unsigned char*)frames[2].frame.pPitch[0];
+
+        // UV plane starts after Y plane
+        unsigned char* output_uv_ptr = output_y_ptr +
+            (output_surface->surfaceList[0].planeParams.pitch[0] *
+             output_surface->surfaceList[0].planeParams.height[0]);
+
+        int pitch_y = output_surface->surfaceList[0].planeParams.pitch[0];
+        int pitch_uv = output_surface->surfaceList[0].planeParams.pitch[1];
+
+        LOG_DEBUG(stitch, "Launching NV12 kernel (EGL): Y=%p UV=%p pitch_y=%d pitch_uv=%d",
+                  output_y_ptr, output_uv_ptr, pitch_y, pitch_uv);
+
+        err = launch_panorama_kernel_nv12(
+            (const unsigned char*)frames[0].frame.pPitch[0],
+            (const unsigned char*)frames[1].frame.pPitch[0],
+            output_y_ptr,
+            output_uv_ptr,
+            stitch->warp_left_x_gpu,
+            stitch->warp_left_y_gpu,
+            stitch->warp_right_x_gpu,
+            stitch->warp_right_y_gpu,
+            stitch->weight_left_gpu,
+            stitch->weight_right_gpu,
+            &stitch->kernel_config,
+            stitch->cuda_stream,
+            pitch_y,
+            pitch_uv
+        );
+    } else {
+        // RGBA output path (original)
+        err = launch_panorama_kernel(
+            (const unsigned char*)frames[0].frame.pPitch[0],
+            (const unsigned char*)frames[1].frame.pPitch[0],
+            (unsigned char*)frames[2].frame.pPitch[0],
+            stitch->warp_left_x_gpu,
+            stitch->warp_left_y_gpu,
+            stitch->warp_right_x_gpu,
+            stitch->warp_right_y_gpu,
+            stitch->weight_left_gpu,
+            stitch->weight_right_gpu,
+            &stitch->kernel_config,
+            stitch->cuda_stream
+        );
+    }
     
     if (err == cudaSuccess) {
         success = TRUE;
