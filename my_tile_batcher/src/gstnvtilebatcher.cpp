@@ -19,6 +19,11 @@ extern "C" {
                           int src_width, int src_height,
                           int src_pitch, int tile_pitch,
                           cudaStream_t stream);
+    int cuda_extract_tiles_nv12(void* src_y_gpu, void* src_uv_gpu,
+                               int src_width, int src_height,
+                               int src_pitch_y, int src_pitch_uv,
+                               int tile_pitch,
+                               cudaStream_t stream);
 }
 
 /* Properties */
@@ -36,7 +41,7 @@ static GstStaticPadTemplate sink_template = GST_STATIC_PAD_TEMPLATE(
     "sink",
     GST_PAD_SINK,
     GST_PAD_ALWAYS,
-    GST_STATIC_CAPS_ANY  // Временно принимаем всё
+    GST_STATIC_CAPS("video/x-raw(memory:NVMM), format={ RGBA, NV12 }")
 );
 
 static GstStaticPadTemplate src_template = GST_STATIC_PAD_TEMPLATE(
@@ -537,16 +542,20 @@ gst_nvtilebatcher_submit_input_buffer(GstBaseTransform *btrans,
         return GST_FLOW_ERROR;
     }
 
-    // Проверяем формат (должен быть RGBA)
-    if (input_surface->surfaceList[0].colorFormat != NVBUF_COLOR_FORMAT_RGBA) {
+    // Validate format (accept RGBA or NV12)
+    NvBufSurfaceColorFormat input_format = input_surface->surfaceList[0].colorFormat;
+    if (input_format != NVBUF_COLOR_FORMAT_RGBA &&
+        input_format != NVBUF_COLOR_FORMAT_NV12) {
         GST_ERROR_OBJECT(batcher,
-            "Invalid input buffer color format: %d (expected RGBA=%d)",
-            input_surface->surfaceList[0].colorFormat,
-            NVBUF_COLOR_FORMAT_RGBA);
+            "Unsupported input format: %d (expected RGBA=%d or NV12=%d)",
+            input_format, NVBUF_COLOR_FORMAT_RGBA, NVBUF_COLOR_FORMAT_NV12);
         gst_buffer_unmap(inbuf, &in_map);
         gst_buffer_unref(inbuf);
         return GST_FLOW_ERROR;
     }
+
+    GST_DEBUG_OBJECT(batcher, "Input format: %s",
+                     input_format == NVBUF_COLOR_FORMAT_NV12 ? "NV12" : "RGBA");
 
     // Получаем CUDA указатель через EGL
     void* src_ptr = NULL;
@@ -624,19 +633,53 @@ gst_nvtilebatcher_submit_input_buffer(GstBaseTransform *btrans,
         return GST_FLOW_ERROR;
     }
     
-    // Запускаем CUDA kernel для извлечения тайлов
-    GST_DEBUG_OBJECT(batcher, "Extracting %d tiles from panorama %dx%d",
-                     TILES_PER_BATCH,
-                     input_surface->surfaceList[0].width,
-                     input_surface->surfaceList[0].height);
-    int result = cuda_extract_tiles(
-        src_ptr,
-        input_surface->surfaceList[0].width,
-        input_surface->surfaceList[0].height,
-        input_surface->surfaceList[0].planeParams.pitch[0],
-        output_surface->surfaceList[0].planeParams.pitch[0],
-        batcher->cuda_stream
-    );
+    // Dispatch CUDA kernel based on input format
+    int result = -1;
+    if (input_format == NVBUF_COLOR_FORMAT_NV12) {
+        // NV12 input: Extract Y and UV plane pointers
+        unsigned char* src_y_ptr = (unsigned char*)src_ptr;
+
+        // UV plane offset: Y_size = pitch[0] × height
+        unsigned char* src_uv_ptr = src_y_ptr +
+            (input_surface->surfaceList[0].planeParams.pitch[0] *
+             input_surface->surfaceList[0].planeParams.height[0]);
+
+        int pitch_y = input_surface->surfaceList[0].planeParams.pitch[0];
+        int pitch_uv = input_surface->surfaceList[0].planeParams.pitch[1];
+
+        GST_DEBUG_OBJECT(batcher,
+            "Extracting %d tiles from NV12 panorama %dx%d (Y=%p UV=%p pitch_y=%d pitch_uv=%d)",
+            TILES_PER_BATCH,
+            input_surface->surfaceList[0].width,
+            input_surface->surfaceList[0].height,
+            src_y_ptr, src_uv_ptr, pitch_y, pitch_uv);
+
+        result = cuda_extract_tiles_nv12(
+            src_y_ptr,
+            src_uv_ptr,
+            input_surface->surfaceList[0].width,
+            input_surface->surfaceList[0].height,
+            pitch_y,
+            pitch_uv,
+            output_surface->surfaceList[0].planeParams.pitch[0],
+            batcher->cuda_stream
+        );
+    } else {
+        // RGBA input: Original kernel (backward compatible)
+        GST_DEBUG_OBJECT(batcher, "Extracting %d tiles from RGBA panorama %dx%d",
+                         TILES_PER_BATCH,
+                         input_surface->surfaceList[0].width,
+                         input_surface->surfaceList[0].height);
+
+        result = cuda_extract_tiles(
+            src_ptr,
+            input_surface->surfaceList[0].width,
+            input_surface->surfaceList[0].height,
+            input_surface->surfaceList[0].planeParams.pitch[0],
+            output_surface->surfaceList[0].planeParams.pitch[0],
+            batcher->cuda_stream
+        );
+    }
     
     gst_buffer_unmap(inbuf, &in_map);
     
