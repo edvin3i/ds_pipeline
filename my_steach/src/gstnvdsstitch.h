@@ -35,6 +35,7 @@
 
 #include <gst/gst.h>
 #include <gst/base/gstbasetransform.h>
+#include <gst/video/video.h>
 #include <cuda_runtime_api.h>
 #include <nvbufsurface.h>
 
