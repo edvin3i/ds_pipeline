@@ -298,20 +298,31 @@ void gst_nvdsstitch_memory_unregister_cuda(GstNvdsStitchMemory *mem)
  * Создает новую структуру GstNvdsStitchMemory с NvBufSurface
  */
 static GstNvdsStitchMemory *
-create_stitch_memory(guint width, guint height, guint gpu_id)
+create_stitch_memory(guint width, guint height, guint gpu_id, GstVideoFormat format)
 {
     GstNvdsStitchMemory *stitch_mem = g_new0(GstNvdsStitchMemory, 1);
     NvBufSurfaceCreateParams create_params;
-    
+
     memset(&create_params, 0, sizeof(create_params));
-    
+
     // Настройка параметров для создания surface
     create_params.gpuId = gpu_id;
     create_params.width = width;
     create_params.height = height;
     create_params.size = 0;  // Автоматический расчет
     create_params.isContiguous = 1;
-    create_params.colorFormat = NVBUF_COLOR_FORMAT_RGBA;
+
+    // Set color format based on requested format
+    if (format == GST_VIDEO_FORMAT_NV12) {
+        create_params.colorFormat = NVBUF_COLOR_FORMAT_NV12;
+        GST_DEBUG("Creating NV12 buffer (%ux%u = %.2f MB)",
+                  width, height, (width * height * 1.5f) / (1024.0f * 1024.0f));
+    } else {
+        create_params.colorFormat = NVBUF_COLOR_FORMAT_RGBA;
+        GST_DEBUG("Creating RGBA buffer (%ux%u = %.2f MB)",
+                  width, height, (width * height * 4.0f) / (1024.0f * 1024.0f));
+    }
+
     create_params.layout = NVBUF_LAYOUT_PITCH;
     
 #ifdef __aarch64__
@@ -421,16 +432,18 @@ gst_nvdsstitch_allocator_alloc(GstAllocator *allocator, gsize size,
 {
     GstNvdsStitchAllocator *stitch_allocator = GST_NVDSSTITCH_ALLOCATOR(allocator);
     GstNvdsStitchMem *mem = g_new0(GstNvdsStitchMem, 1);
-    
-    GST_DEBUG("Allocating buffer: %ux%u on GPU %u",
+
+    GST_DEBUG("Allocating buffer: %ux%u (%s) on GPU %u",
               stitch_allocator->width, stitch_allocator->height,
+              gst_video_format_to_string(stitch_allocator->output_format),
               stitch_allocator->gpu_id);
-    
-    // Создаем stitch memory
+
+    // Создаем stitch memory with format
     mem->stitch_mem = create_stitch_memory(
         stitch_allocator->width,
         stitch_allocator->height,
-        stitch_allocator->gpu_id
+        stitch_allocator->gpu_id,
+        stitch_allocator->output_format
     );
     
     if (!mem->stitch_mem) {
@@ -561,29 +574,34 @@ gst_nvdsstitch_allocator_init(GstNvdsStitchAllocator *allocator)
 /**
  * gst_nvdsstitch_allocator_new:
  * @width: Ширина буфера
- * @height: Высота буфера  
+ * @height: Высота буфера
  * @gpu_id: ID GPU устройства
- * 
+ * @output_format: Формат цвета (RGBA или NV12)
+ *
  * Создает новый allocator для nvdsstitch плагина
- * 
+ *
  * Returns: (transfer full): Новый GstAllocator
  */
 GstAllocator *
-gst_nvdsstitch_allocator_new(guint width, guint height, guint gpu_id)
+gst_nvdsstitch_allocator_new(guint width, guint height, guint gpu_id, GstVideoFormat output_format)
 {
     GstNvdsStitchAllocator *allocator;
-    
+
     g_return_val_if_fail(width > 0, NULL);
     g_return_val_if_fail(height > 0, NULL);
-    
+
     allocator = (GstNvdsStitchAllocator *)
         g_object_new(GST_TYPE_NVDSSTITCH_ALLOCATOR, NULL);
-    
+
     allocator->width = width;
     allocator->height = height;
     allocator->gpu_id = gpu_id;
-    
-    GST_INFO("Created allocator for %ux%u on GPU %u", width, height, gpu_id);
+    allocator->output_format = output_format;
+
+    GST_INFO("Created allocator for %ux%u (%s) on GPU %u",
+             width, height,
+             gst_video_format_to_string(output_format),
+             gpu_id);
     
     // Проверяем доступность GPU
     int device_count = 0;

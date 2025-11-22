@@ -24,6 +24,7 @@
 
 #include <gst/gst.h>
 #include <gst/gstallocator.h>
+#include <gst/video/video.h>
 #include <nvbufsurface.h>
 #include <vector>
 #include <memory>
@@ -100,6 +101,8 @@ struct _GstNvdsStitchAllocator {
     guint height;  /**< Buffer height in pixels */
     guint gpu_id;  /**< CUDA device ID */
 
+    GstVideoFormat output_format;  /**< Output color format (RGBA or NV12) */
+
     gboolean use_egl;  /**< Enable EGL mapping (TRUE for Jetson aarch64) */
 
     /**
@@ -118,26 +121,28 @@ struct _GstNvdsStitchAllocator {
  * @brief Create new nvdsstitch allocator
  *
  * Allocates and initializes a custom GStreamer allocator for NVMM buffers
- * with specified dimensions and GPU device.
+ * with specified dimensions, GPU device, and color format.
  *
  * @param[in] width Output panorama width in pixels (e.g., 5700)
  * @param[in] height Output panorama height in pixels (e.g., 1900)
  * @param[in] gpu_id CUDA device ID (typically 0)
+ * @param[in] output_format Color format (GST_VIDEO_FORMAT_RGBA or GST_VIDEO_FORMAT_NV12)
  *
  * @return GstAllocator* Allocator instance (caller must unref when done)
  * @retval NULL Allocation failed
  *
  * @note Caller must call gst_object_unref() to destroy allocator
  * @note Allocator automatically detects aarch64 and enables EGL support
+ * @note Format affects buffer size: RGBA=4 bytes/pixel, NV12=1.5 bytes/pixel
  *
  * Example usage:
  * @code
- * GstAllocator *allocator = gst_nvdsstitch_allocator_new(5700, 1900, 0);
+ * GstAllocator *allocator = gst_nvdsstitch_allocator_new(5700, 1900, 0, GST_VIDEO_FORMAT_RGBA);
  * // ... use allocator ...
  * gst_object_unref(allocator);
  * @endcode
  */
-GstAllocator *gst_nvdsstitch_allocator_new(guint width, guint height, guint gpu_id);
+GstAllocator *gst_nvdsstitch_allocator_new(guint width, guint height, guint gpu_id, GstVideoFormat output_format);
 
 /**
  * @brief Get GstNvdsStitchMemory from GstBuffer

@@ -193,7 +193,8 @@ static gboolean setup_intermediate_buffer_pool(GstNvdsStitch *stitch)
     GstAllocator *allocator = gst_nvdsstitch_allocator_new(
         NvdsStitchConfig::INPUT_WIDTH,
         NvdsStitchConfig::INPUT_HEIGHT,
-        stitch->gpu_id
+        stitch->gpu_id,
+        GST_VIDEO_FORMAT_RGBA  // Intermediate buffers always RGBA (from nvstreammux)
     );
     
     if (!allocator) {
@@ -550,7 +551,8 @@ static gboolean setup_output_buffer_pool(GstNvdsStitch *stitch)
     GstAllocator *allocator = gst_nvdsstitch_allocator_new(
         stitch->output_width,
         stitch->output_height,
-        stitch->gpu_id
+        stitch->gpu_id,
+        stitch->output_format  // Use configured output format (RGBA or NV12)
     );
     
     if (!allocator) {
