@@ -1174,14 +1174,11 @@ panorama_lut_kernel_nv12(
     size_t y_idx = y_out_y * output_pitch_y + y_out_x;
     output_y[y_idx] = y_byte;
 
-    // Write UV plane (4:2:0 subsampling - only even x AND even y)
-    if ((y & 1) == 0 && (x & 1) == 0) {
-        // For UV plane, also apply flip
-        size_t uv_out_y = (size_t)output_height - 1 - (size_t)y;
-        size_t uv_out_x = (size_t)output_width - 1 - (size_t)x;
-
-        // UV plane indices (half resolution)
-        size_t uv_idx = (uv_out_y / 2) * output_pitch_uv + (uv_out_x / 2) * 2;
+    // Write UV plane (4:2:0 subsampling - check FLIPPED coordinates for even alignment)
+    // CRITICAL FIX: Check flipped coords for 4:2:0 alignment, not original coords
+    if ((y_out_y & 1) == 0 && (y_out_x & 1) == 0) {
+        // UV plane indices (half resolution, coordinates already flipped above)
+        size_t uv_idx = (y_out_y / 2) * output_pitch_uv + (y_out_x / 2) * 2;
         output_uv[uv_idx] = u_byte;      // U
         output_uv[uv_idx + 1] = v_byte;  // V
     }
