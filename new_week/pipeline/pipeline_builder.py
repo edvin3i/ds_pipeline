@@ -325,19 +325,40 @@ class PipelineBuilder:
         """
         tiles_tee = self.pipeline.get_by_name("tiles_tee")
         if not tiles_tee:
-            logger.error("tiles_tee не найден")
+            logger.error("❌ CRITICAL: tiles_tee element not found in pipeline!")
+            logger.error("   This means the analysis branch was not created.")
+            logger.error(f"   enable_analysis={self.enable_analysis}")
+            logger.error("   Check pipeline string construction at lines 273-279.")
             return
 
         # Identity для пропуска кадров
         frame_filter = Gst.ElementFactory.make("identity", "frame-filter")
+        if not frame_filter:
+            logger.error("❌ Failed to create frame-filter (identity) element!")
+            return
         frame_filter.set_property("sync", False)
         self.pipeline.add(frame_filter)
 
         tee_src = tiles_tee.request_pad_simple("src_%u")
+        if not tee_src:
+            logger.error("❌ Failed to request src pad from tiles_tee!")
+            return
         filter_sink = frame_filter.get_static_pad("sink")
-        tee_src.link(filter_sink)
+        if not filter_sink:
+            logger.error("❌ Failed to get sink pad from frame-filter!")
+            return
+
+        link_result = tee_src.link(filter_sink)
+        if link_result != Gst.PadLinkReturn.OK:
+            logger.error(f"❌ Failed to link tiles_tee → frame-filter: {link_result}")
+            return
+        logger.info("✅ Linked: tiles_tee → frame-filter")
 
         filter_src = frame_filter.get_static_pad("src")
+        if not filter_src:
+            logger.error("❌ Failed to get src pad from frame-filter!")
+            return
+
         if frame_skip_probe_callback:
             filter_src.add_probe(Gst.PadProbeType.BUFFER, frame_skip_probe_callback, 0)
             logger.info(f"Добавлен frame_skip_probe (каждый {self.analysis_skip_interval}-й кадр)")
@@ -358,13 +379,16 @@ class PipelineBuilder:
         tilebatcher.set_property("panorama-width", self.panorama_width)
         tilebatcher.set_property("panorama-height", self.panorama_height)
         tilebatcher.set_property("tile-offset-y", TILE_OFFSET_Y)  # Вертикальный offset из field_mask.png
-        # 6 тайлов БЕЗ ПРОПУСКОВ, вырезаются на основе field_mask.png
-        # Y позиция: не симметричное центрирование, а рассчитанное из маски поля!
+        logger.info(f"✅ nvtilebatcher properties set: {self.panorama_width}×{self.panorama_height}, offset_y={TILE_OFFSET_Y}")
 
         self.pipeline.add(tilebatcher)
 
         # Связываем: frame_filter → tilebatcher
-        frame_filter.link(tilebatcher)
+        if not frame_filter.link(tilebatcher):
+            logger.error("❌ Failed to link frame-filter → tilebatcher!")
+            logger.error("   Check caps compatibility (NV12 vs RGBA)")
+            return
+        logger.info("✅ Linked: frame-filter → tilebatcher")
 
         logger.info(f"✅ nvtilebatcher создан ({TILES_COUNT} тайлов БЕЗ пропусков из центра)")
         logger.info(f"   Координаты тайлов (отступ по бокам {TILE_OFFSET_X}px, вертикальный {TILE_OFFSET_Y}px):")
@@ -376,13 +400,20 @@ class PipelineBuilder:
         # ============================================================
 
         pgie = Gst.ElementFactory.make("nvinfer", "primary-infer")
+        if not pgie:
+            logger.error("❌ Failed to create nvinfer element!")
+            return
         pgie.set_property("config-file-path", self.config_path)
         pgie.set_property("batch-size", 6)  # ВАЖНО: должно соответствовать TILES_PER_BATCH
         pgie.set_property("gpu-id", 0)
         self.pipeline.add(pgie)
 
         # Связываем: tilebatcher → nvinfer
-        tilebatcher.link(pgie)
+        if not tilebatcher.link(pgie):
+            logger.error("❌ Failed to link tilebatcher → nvinfer!")
+            logger.error("   Check batch-size compatibility (expecting 6)")
+            return
+        logger.info("✅ Linked: tilebatcher → nvinfer")
 
         logger.info("✅ nvinfer подключен после nvtilebatcher")
 

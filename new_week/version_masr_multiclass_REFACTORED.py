@@ -344,7 +344,9 @@ class PanoramaWithVirtualCamera:
             panorama_height=self.panorama_height,
             panorama_format=self.panorama_format,
             buffer_duration=self.buffer_duration,
-            framerate=self.framerate
+            framerate=self.framerate,
+            enable_analysis=True,  # FIXED: Explicitly enable analysis branch for NV12 testing
+            analysis_skip_interval=self.analysis_skip_interval  # FIXED: Pass user's --skip-interval value
         )
 
         # Build pipeline - use correct method name
