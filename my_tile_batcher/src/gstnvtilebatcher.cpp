@@ -636,13 +636,13 @@ gst_nvtilebatcher_submit_input_buffer(GstBaseTransform *btrans,
     // Dispatch CUDA kernel based on input format
     int result = -1;
     if (input_format == NVBUF_COLOR_FORMAT_NV12) {
-        // NV12 input: Extract Y and UV plane pointers
-        unsigned char* src_y_ptr = (unsigned char*)src_ptr;
-
-        // UV plane offset: Y_size = pitch[0] × height
-        unsigned char* src_uv_ptr = src_y_ptr +
-            (input_surface->surfaceList[0].planeParams.pitch[0] *
-             input_surface->surfaceList[0].planeParams.height[0]);
+        // NV12 input: Extract Y and UV plane pointers using offset[] API
+        // CRITICAL: Use planeParams.offset[] instead of manual calculation (same fix as nvdsstitch)
+        unsigned char* base_ptr = (unsigned char*)src_ptr;
+        unsigned char* src_y_ptr = base_ptr +
+            input_surface->surfaceList[0].planeParams.offset[0];
+        unsigned char* src_uv_ptr = base_ptr +
+            input_surface->surfaceList[0].planeParams.offset[1];
 
         int pitch_y = input_surface->surfaceList[0].planeParams.pitch[0];
         int pitch_uv = input_surface->surfaceList[0].planeParams.pitch[1];
