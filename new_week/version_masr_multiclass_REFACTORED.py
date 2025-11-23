@@ -145,6 +145,7 @@ class PanoramaWithVirtualCamera:
                 video2: str = "right1.mp4",
                 config_path: str = None,
                 buffer_duration: float = 5.0,
+                panorama_format: str = "NV12",
                 enable_display: bool = True,
                 display_mode: str = "panorama",  # "panorama", "virtualcam", "stream", "record"
                 enable_analysis: bool = True,
@@ -161,6 +162,7 @@ class PanoramaWithVirtualCamera:
         self.video1 = video1
         self.video2 = video2
         self.buffer_duration = float(buffer_duration)
+        self.panorama_format = panorama_format.upper()  # Normalize to uppercase
         self.enable_display = enable_display
         self.display_mode = display_mode
         self.enable_analysis = enable_analysis
@@ -340,6 +342,7 @@ class PanoramaWithVirtualCamera:
             config_path=self.config_path,
             panorama_width=self.panorama_width,
             panorama_height=self.panorama_height,
+            panorama_format=self.panorama_format,
             buffer_duration=self.buffer_duration,
             framerate=self.framerate
         )
@@ -626,6 +629,9 @@ def main():
 
     parser.add_argument('--config', default=None, help="Путь к конфигу nvinfer")
     parser.add_argument('--buffer', type=float, default=5.0, help="Длительность буфера (сек)")
+    parser.add_argument('--panorama-format', choices=['NV12', 'RGBA'], default='NV12',
+                       help='Формат панорамы: NV12 (экономия памяти 62.5%%) или RGBA (совместимость). '
+                            'NV12 рекомендуется для снижения использования RAM на ~4 GB')
 
     parser.add_argument('--mode', choices=['panorama', 'virtualcam', 'stream', 'record'],
                        default='virtualcam',
@@ -703,6 +709,7 @@ def main():
         video2=args.video2,
         config_path=args.config,
         buffer_duration=args.buffer,
+        panorama_format=args.panorama_format,
         enable_display=not args.disable_display,
         display_mode=args.mode,
         enable_analysis=not args.disable_analysis,

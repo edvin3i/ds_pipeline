@@ -53,7 +53,8 @@ class PipelineBuilder:
                  enable_analysis=True,
                  analysis_skip_interval=5,
                  panorama_width=PANORAMA_WIDTH,
-                 panorama_height=PANORAMA_HEIGHT):
+                 panorama_height=PANORAMA_HEIGHT,
+                 panorama_format="NV12"):
         """
         Initialize PipelineBuilder.
 
@@ -69,6 +70,8 @@ class PipelineBuilder:
             analysis_skip_interval: Skip frames for analysis (default: 5)
             panorama_width: Width of stitched panorama (default: 5700)
             panorama_height: Height of stitched panorama (default: 1900)
+            panorama_format: Output format for nvdsstitch: "NV12" or "RGBA" (default: "NV12")
+                            NV12 saves ~26 MB/frame (62.5% memory reduction vs RGBA)
         """
         self.source_type = source_type
         self.video1 = video1
@@ -81,6 +84,7 @@ class PipelineBuilder:
         self.analysis_skip_interval = max(1, int(analysis_skip_interval))
         self.panorama_width = panorama_width
         self.panorama_height = panorama_height
+        self.panorama_format = panorama_format.upper()  # Normalize to uppercase
 
         # Audio device detection
         self.audio_device = None
@@ -202,6 +206,7 @@ class PipelineBuilder:
                 """
 
             # Общая часть pipeline
+            # NV12 format saves ~26 MB/frame vs RGBA (15.49 MB vs 41.31 MB @ 5700×1900)
             common_str = f"""
                 nvdsstitch
                     left-source-id=0
@@ -209,10 +214,21 @@ class PipelineBuilder:
                     gpu-id=0
                     use-egl=true
                     panorama-width={self.panorama_width}
-                    panorama-height={self.panorama_height} !
+                    panorama-height={self.panorama_height}
+                    output-format={self.panorama_format} !
 
                 tee name=main_tee
             """
+
+            logger.info(f"📐 Panorama format: {self.panorama_format} "
+                       f"({self.panorama_width}×{self.panorama_height})")
+            if self.panorama_format == "NV12":
+                memory_per_frame = (self.panorama_width * self.panorama_height * 1.5) / (1024 * 1024)
+                logger.info(f"💾 Memory savings: NV12 uses ~{memory_per_frame:.1f} MB/frame "
+                           f"vs ~{memory_per_frame * 2.67:.1f} MB for RGBA (62.5% reduction)")
+            else:
+                memory_per_frame = (self.panorama_width * self.panorama_height * 4) / (1024 * 1024)
+                logger.info(f"💾 Memory usage: RGBA uses ~{memory_per_frame:.1f} MB/frame")
 
             # Базовый pipeline
             pipeline_str = sources_str + mux_config + common_str
