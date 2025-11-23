@@ -2,19 +2,38 @@
 
 ## Issue Summary
 
-**Root Cause**: The nvtilebatcher plugin was never rebuilt after Phase 3 NV12 changes (commit c891fbf). The source code correctly advertises both RGBA and NV12 formats in the pad template, but the old compiled plugin binary only accepts RGBA.
+**TWO CRITICAL BUGS FIXED:**
 
-**Evidence**: Caps negotiation debug shows:
+### Bug 1: Plugin Not Rebuilt (FIXED - Nov 21)
+The nvtilebatcher plugin was compiled on Nov 21, but Phase 3 NV12 changes were committed on Nov 22 (commit c891fbf). The old binary only accepted RGBA.
+
+### Bug 2: transform_caps Hardcoded to RGBA (FIXED - Nov 23, commit b7fce6d)
+Even after rebuilding, caps negotiation failed with:
 ```
-tilebatcher:sink caps: video/x-raw(memory:NVMM), format=(string)RGBA
+link between frame-filter:src and tilebatcher:sink failed: no common format
 ```
 
-But source code has (gstnvtilebatcher.cpp:44):
+**Root Cause**: The `gst_nvtilebatcher_transform_caps()` function was hardcoded to return RGBA-only caps, overriding the static pad template that advertised both formats.
+
+**Code Before (WRONG)**:
 ```cpp
-GST_STATIC_CAPS("video/x-raw(memory:NVMM), format={ RGBA, NV12 }")
+if (direction == GST_PAD_SINK) {
+    result = gst_caps_new_simple("video/x-raw",
+        "format", G_TYPE_STRING, "RGBA",  // ❌ Hardcoded!
+        ...);
+}
 ```
 
-**Impact**: Ball detection doesn't work in NV12 mode because nvtilebatcher rejects NV12 buffers from nvdsstitch, causing zero buffers to reach the inference pipeline.
+**Code After (FIXED)**:
+```cpp
+if (direction == GST_PAD_SINK) {
+    result = gst_caps_from_string(
+        "video/x-raw(memory:NVMM), format=(string){ RGBA, NV12 }, "  // ✅ Both formats
+        "width=(int)[ 1, 2147483647 ], height=(int)[ 1, 2147483647 ]");
+}
+```
+
+**Impact**: Zero buffers reached nvtilebatcher → no inference → no ball detection → virtualcam didn't follow ball.
 
 ---
 
