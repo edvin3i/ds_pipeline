@@ -878,15 +878,18 @@ gst_nvds_virtual_cam_submit_input_buffer(GstBaseTransform *btrans,
     // Вызов CUDA kernel - формат зависит от входного формата
     if (input_format == NVBUF_COLOR_FORMAT_NV12) {
         // NV12 input: separate Y and UV planes
-        unsigned char* input_y_ptr = input_ptr;
-        unsigned char* input_uv_ptr = input_y_ptr +
-            (in_surface->surfaceList[0].planeParams.pitch[0] *
-             in_surface->surfaceList[0].planeParams.height[0]);
+        // Use planeParams.offset[] for correct plane addressing
+        unsigned char* input_y_ptr = input_ptr +
+            in_surface->surfaceList[0].planeParams.offset[0];
+        unsigned char* input_uv_ptr = input_ptr +
+            in_surface->surfaceList[0].planeParams.offset[1];
 
         int pitch_y = in_surface->surfaceList[0].planeParams.pitch[0];
         int pitch_uv = in_surface->surfaceList[0].planeParams.pitch[1];
 
-        LOG_DEBUG(vcam, "Calling NV12 remap kernel (pitch_y=%d, pitch_uv=%d)",
+        LOG_DEBUG(vcam, "NV12 remap: Y offset=%u, UV offset=%u, pitch_y=%d, pitch_uv=%d",
+                  in_surface->surfaceList[0].planeParams.offset[0],
+                  in_surface->surfaceList[0].planeParams.offset[1],
                   pitch_y, pitch_uv);
 
         cuda_err = apply_virtual_camera_remap_nv12(
