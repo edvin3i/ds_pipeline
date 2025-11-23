@@ -899,12 +899,12 @@ static gboolean panorama_stitch_frames(GstNvdsStitch *stitch,
 
     // Launch panorama stitching kernel (dispatch based on output format)
     if (stitch->output_format == GST_VIDEO_FORMAT_NV12) {
-        // NV12 output path - extract Y and UV plane pointers
-        unsigned char* output_y_ptr = (unsigned char*)output_params->dataPtr;
-
-        // UV plane starts after Y plane
-        unsigned char* output_uv_ptr = output_y_ptr +
-            (output_params->planeParams.pitch[0] * output_params->planeParams.height[0]);
+        // NV12 output path - extract Y and UV plane pointers using offset[] API
+        // CRITICAL: Use planeParams.offset[] instead of manual calculation (same fix as nvdsvirtualcam)
+        unsigned char* output_y_ptr = (unsigned char*)output_params->dataPtr +
+            output_params->planeParams.offset[0];
+        unsigned char* output_uv_ptr = (unsigned char*)output_params->dataPtr +
+            output_params->planeParams.offset[1];
 
         int pitch_y = output_params->planeParams.pitch[0];
         int pitch_uv = output_params->planeParams.pitch[1];
@@ -1181,13 +1181,13 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
 
     // Launch panorama stitching kernel (buffers pre-copied via VIC, dispatch based on format)
     if (stitch->output_format == GST_VIDEO_FORMAT_NV12) {
-        // NV12 output path - extract Y and UV plane pointers from EGL frame
-        unsigned char* output_y_ptr = (unsigned char*)frames[2].frame.pPitch[0];
-
-        // UV plane starts after Y plane
-        unsigned char* output_uv_ptr = output_y_ptr +
-            (output_surface->surfaceList[0].planeParams.pitch[0] *
-             output_surface->surfaceList[0].planeParams.height[0]);
+        // NV12 output path - extract Y and UV plane pointers from EGL frame using offset[] API
+        // CRITICAL: Use planeParams.offset[] instead of manual calculation (same fix as nvdsvirtualcam)
+        unsigned char* base_ptr = (unsigned char*)output_surface->surfaceList[0].dataPtr;
+        unsigned char* output_y_ptr = base_ptr +
+            output_surface->surfaceList[0].planeParams.offset[0];
+        unsigned char* output_uv_ptr = base_ptr +
+            output_surface->surfaceList[0].planeParams.offset[1];
 
         int pitch_y = output_surface->surfaceList[0].planeParams.pitch[0];
         int pitch_uv = output_surface->surfaceList[0].planeParams.pitch[1];
