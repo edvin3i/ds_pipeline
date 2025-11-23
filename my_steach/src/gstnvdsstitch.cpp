@@ -1181,13 +1181,15 @@ static gboolean panorama_stitch_frames_egl(GstNvdsStitch *stitch,
 
     // Launch panorama stitching kernel (buffers pre-copied via VIC, dispatch based on format)
     if (stitch->output_format == GST_VIDEO_FORMAT_NV12) {
-        // NV12 output path - extract Y and UV plane pointers from EGL frame using offset[] API
-        // CRITICAL: Use planeParams.offset[] instead of manual calculation (same fix as nvdsvirtualcam)
-        unsigned char* base_ptr = (unsigned char*)output_surface->surfaceList[0].dataPtr;
-        unsigned char* output_y_ptr = base_ptr +
-            output_surface->surfaceList[0].planeParams.offset[0];
-        unsigned char* output_uv_ptr = base_ptr +
-            output_surface->surfaceList[0].planeParams.offset[1];
+        // NV12 output path - extract Y and UV plane pointers from EGL frame
+        // CRITICAL: For EGL frames, pPitch[0] already points to Y plane (not buffer base)
+        // Calculate UV offset relative to Y, not from buffer base
+        unsigned char* output_y_ptr = (unsigned char*)frames[2].frame.pPitch[0];
+
+        // UV offset relative to Y plane (offset[1] - offset[0])
+        size_t uv_offset = output_surface->surfaceList[0].planeParams.offset[1] -
+                          output_surface->surfaceList[0].planeParams.offset[0];
+        unsigned char* output_uv_ptr = output_y_ptr + uv_offset;
 
         int pitch_y = output_surface->surfaceList[0].planeParams.pitch[0];
         int pitch_uv = output_surface->surfaceList[0].planeParams.pitch[1];
