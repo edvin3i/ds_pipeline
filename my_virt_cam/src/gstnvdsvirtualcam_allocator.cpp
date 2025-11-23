@@ -459,14 +459,16 @@ static gpointer
 gst_nvdsvirtualcam_allocator_map(GstMemory *mem, gsize maxsize, GstMapFlags flags)
 {
     GstNvdsVirtualCamMem *vcam_mem = (GstNvdsVirtualCamMem *)mem;
-    
+
+    (void)maxsize;  // Unused (required by GStreamer callback signature)
+
     GST_DEBUG("Mapping memory %p (flags: %d)", mem, flags);
-    
+
     if (!vcam_mem->virtualcam_mem || !vcam_mem->virtualcam_mem->surf) {
         GST_ERROR("Invalid memory structure");
         return NULL;
     }
-    
+
     // Возвращаем указатель на NvBufSurface
     return vcam_mem->virtualcam_mem->surf;
 }

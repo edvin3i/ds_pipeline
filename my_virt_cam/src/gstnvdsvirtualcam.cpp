@@ -249,7 +249,6 @@ static void smooth_camera_tracking(GstNvdsVirtualCam *vcam)
     static gfloat last_yaw_for_roll = 0.0f;
     if (fabs(vcam->yaw - last_yaw_for_roll) > 0.01f) {
         const gfloat ROLL_MAX = NvdsVirtualCamConfig::ROLL_MAX;
-        const gfloat YAW_MAX = NvdsVirtualCamConfig::YAW_MAX;  // 90°
         gfloat normalized_pos = vcam->yaw / 110;
         vcam->roll = normalized_pos * ROLL_MAX;
         last_yaw_for_roll = vcam->yaw;
@@ -651,26 +650,8 @@ gst_nvds_virtual_cam_submit_input_buffer(GstBaseTransform *btrans,
 
     // Создаём snapshot параметров камеры для потокобезопасности
     // Это защищает от race condition если параметры меняются через set_property
-    g_mutex_lock(&vcam->properties_mutex);
-    gfloat current_yaw = vcam->yaw;
-    gfloat current_pitch = vcam->pitch;
-    gfloat current_roll = vcam->roll;
-    gfloat current_fov = vcam->fov;
-    g_mutex_unlock(&vcam->properties_mutex);
-
-    // if (vcam->auto_follow && vcam->tracking_active) {
+    // Update camera from ball tracking
     update_camera_from_ball(vcam);
-    // }
-    // if (!vcam->auto_follow) {
-
-    // ОТЛАДКА: проверим target_pitch до и после save/restore
-    // static int restore_log_counter = 0;
-    // if (restore_log_counter++ % 30 == 0) {
-    //     g_print("🔄 BEFORE save/restore: target_pitch=%.1f°, current_pitch=%.1f°\n",
-    //             vcam->target_pitch, current_pitch);
-    // }
-
-    // УДАЛЕНО: бесполезный код save/restore который ничего не делал
     // Он был нужен только если apply_edge_safe_limits вызывался между сохранением и восстановлением
     // Но apply_edge_safe_limits удалён - все лимиты теперь только в конфиге!
 
@@ -997,7 +978,7 @@ gst_nvds_virtual_cam_generate_output(GstBaseTransform *btrans, GstBuffer **outbu
  * Caps negotiation
  * ============================================================================ */
 
-static GstCaps* 
+static GstCaps*
 gst_nvds_virtual_cam_transform_caps(GstBaseTransform *trans,
                                     GstPadDirection direction,
                                     GstCaps *caps,
@@ -1005,7 +986,9 @@ gst_nvds_virtual_cam_transform_caps(GstBaseTransform *trans,
 {
     GstNvdsVirtualCam *vcam = GST_NVDS_VIRTUAL_CAM(trans);
     GstCaps *othercaps = NULL;
-    
+
+    (void)caps;  // Unused parameter (required by GStreamer callback signature)
+
     if (direction == GST_PAD_SINK) {
         // Sink->Src: всегда выдаем 1920x1080
         othercaps = gst_caps_new_simple("video/x-raw",
@@ -1035,12 +1018,16 @@ gst_nvds_virtual_cam_transform_caps(GstBaseTransform *trans,
     return othercaps;
 }
 
-static GstCaps* 
+static GstCaps*
 gst_nvds_virtual_cam_fixate_caps(GstBaseTransform *trans,
                                  GstPadDirection direction,
                                  GstCaps *caps,
                                  GstCaps *othercaps)
 {
+    (void)trans;      // Unused (required by GStreamer callback signature)
+    (void)direction;  // Unused (required by GStreamer callback signature)
+    (void)caps;       // Unused (required by GStreamer callback signature)
+
     // Уже всё фиксировано, просто передаем дальше
     return gst_caps_fixate(othercaps);
 }
