@@ -215,7 +215,7 @@ class PipelineBuilder:
                     use-egl=true
                     panorama-width={self.panorama_width}
                     panorama-height={self.panorama_height}
-                    output-format={self.panorama_format} !
+                    output-format={self.panorama_format.lower()} !
 
                 tee name=main_tee
             """
