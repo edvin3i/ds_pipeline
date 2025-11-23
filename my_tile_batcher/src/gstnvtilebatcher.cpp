@@ -890,13 +890,13 @@ gst_nvtilebatcher_transform_caps(GstBaseTransform *trans,
     GstCaps *result;
 
     if (direction == GST_PAD_SINK) {
-        result = gst_caps_new_simple("video/x-raw",
-            "format", G_TYPE_STRING, "RGBA",
-            "width", G_TYPE_INT, TILE_WIDTH,
-            "height", G_TYPE_INT, TILE_HEIGHT,
-            NULL);
-        gst_caps_set_features(result, 0,
-            gst_caps_features_from_string("memory:NVMM"));
+        // Accept both RGBA and NV12 input formats (NV12 → RGBA conversion in CUDA kernel)
+        result = gst_caps_from_string(
+            "video/x-raw(memory:NVMM), format=(string){ RGBA, NV12 }, "
+            "width=(int)[ 1, 2147483647 ], height=(int)[ 1, 2147483647 ]");
+
+        // Note: We don't constrain width/height on input (panorama can be any size),
+        // only on output (tiles are fixed 1024×1024)
     } else {
         // Используем динамические размеры из properties
         // Если properties ещё не установлены (caps negotiation до set_property),
